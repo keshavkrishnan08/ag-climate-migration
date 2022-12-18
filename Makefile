@@ -88,3 +88,13 @@ rev-insurance:
 
 rev-migration:
 	@echo "[migration] shift-share IV + prime-age + wild-cluster + share-balance + depop MC"
+	$(REV_PYTHON) $(REV_SRC)/migration_farmdependent.py
+	$(REV_PYTHON) $(REV_SRC)/migration_iv_bartik.py
+	$(REV_PYTHON) $(REV_SRC)/migration_primeage_panel.py
+	$(REV_PYTHON) $(REV_SRC)/migration_wildbootstrap.py
+	$(REV_PYTHON) $(REV_SRC)/migration_share_balance.py
+	$(REV_PYTHON) $(REV_SRC)/migration_fiscal_chain.py
+	$(REV_PYTHON) $(REV_SRC)/migration_depop_montecarlo.py
+
+rev-yield:
+	@echo "[yield] spectrum model + target-vs-feature decomposition"
