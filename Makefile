@@ -8,3 +8,13 @@ all: ingest features model switching project stranded cascade insurance frontier
 
 env:
 	conda env create -f environment.yml
+
+ingest:
+	$(PYTHON) $(SRC)/01_ingest.py
+
+features:
+	$(PYTHON) $(SRC)/02_features.py
+
+model:
+	$(PYTHON) $(SRC)/03_yield_model.py
+
