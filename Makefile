@@ -48,3 +48,13 @@ test:
 clean:
 	rm -rf data/processed/* projections/*
 
+# ============================================================
+# REVISION PIPELINE
+# Reproduces every number cited in the revised manuscript.
+# See REPRODUCE.md for the full headline-number -> script map.
+# ============================================================
+
+.PHONY: reproduce headline verify revision-paper revision-clean rev-help \
+        rev-stranded rev-insurance rev-migration rev-yield rev-framework rev-substantive
+
+REV_PYTHON = /opt/anaconda3/bin/python3
