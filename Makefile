@@ -18,3 +18,13 @@ features:
 model:
 	$(PYTHON) $(SRC)/03_yield_model.py
 
+switching:
+	$(PYTHON) $(SRC)/04_switching.py
+
+project:
+	$(PYTHON) $(SRC)/05_project.py
+
+stranded:
+	$(PYTHON) $(SRC)/06_stranded.py
+
+cascade:
