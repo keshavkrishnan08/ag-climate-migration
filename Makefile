@@ -58,3 +58,13 @@ clean:
         rev-stranded rev-insurance rev-migration rev-yield rev-framework rev-substantive
 
 REV_PYTHON = /opt/anaconda3/bin/python3
+REV_SRC    = src/revision
+REV_RES    = results/revision
+
+rev-help:
+	@echo "Revision targets:"
+	@echo "  make reproduce       - run every revision-headline + robustness script"
+	@echo "  make headline        - consolidate cited numbers -> HEADLINE_NUMBERS.json"
+	@echo "  make verify          - run headline; show cited vs recomputed"
+	@echo "  make revision-paper  - recompile main + SI + response + tracked-changes"
+	@echo "  make revision-clean  - remove regenerated revision JSONs and paper artifacts"
