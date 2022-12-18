@@ -78,3 +78,13 @@ rev-stranded:
 	$(REV_PYTHON) $(REV_SRC)/hedonic_strengthened.py
 	$(REV_PYTHON) $(REV_SRC)/dcf_ci_fixed.py
 	$(REV_PYTHON) $(REV_SRC)/dollar_robustness.py
+
+rev-insurance:
+	@echo "[insurance] rolling-APH + TAY/YE + RP put + coverage + SCO"
+	$(REV_PYTHON) $(REV_SRC)/insurance_rolling_aph.py
+	$(REV_PYTHON) $(REV_SRC)/insurance_rp_and_tay.py
+	$(REV_PYTHON) $(REV_SRC)/insurance_coverage_endogeneity.py
+	$(REV_PYTHON) $(REV_SRC)/insurance_sco.py
+
+rev-migration:
+	@echo "[migration] shift-share IV + prime-age + wild-cluster + share-balance + depop MC"
