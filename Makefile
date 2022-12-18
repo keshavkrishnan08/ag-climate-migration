@@ -68,3 +68,13 @@ rev-help:
 	@echo "  make verify          - run headline; show cited vs recomputed"
 	@echo "  make revision-paper  - recompile main + SI + response + tracked-changes"
 	@echo "  make revision-clean  - remove regenerated revision JSONs and paper artifacts"
+
+reproduce: rev-stranded rev-insurance rev-migration rev-yield rev-framework rev-substantive
+
+rev-stranded:
+	@echo "[stranded] DCF + alternate-use floor + hedonic + CI + ML/process"
+	$(REV_PYTHON) $(REV_SRC)/stranded_revision.py
+	$(REV_PYTHON) $(REV_SRC)/stranded_floor_sensitivity.py
+	$(REV_PYTHON) $(REV_SRC)/hedonic_strengthened.py
+	$(REV_PYTHON) $(REV_SRC)/dcf_ci_fixed.py
+	$(REV_PYTHON) $(REV_SRC)/dollar_robustness.py
