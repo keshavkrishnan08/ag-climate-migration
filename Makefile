@@ -28,3 +28,13 @@ stranded:
 	$(PYTHON) $(SRC)/06_stranded.py
 
 cascade:
+	$(PYTHON) $(SRC)/07_cascade.py
+
+insurance:
+	$(PYTHON) $(SRC)/08_insurance.py
+
+frontier:
+	$(PYTHON) $(SRC)/09_frontier.py
+
+figures:
+	$(PYTHON) $(SRC)/10_figures.py
