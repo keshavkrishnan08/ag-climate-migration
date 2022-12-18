@@ -38,3 +38,13 @@ frontier:
 
 figures:
 	$(PYTHON) $(SRC)/10_figures.py
+
+paper:
+	cd paper && latexmk -pdf main.tex
+
+test:
+	pytest tests/ --cov=src --cov-fail-under=85
+
+clean:
+	rm -rf data/processed/* projections/*
+
