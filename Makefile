@@ -98,3 +98,13 @@ rev-migration:
 
 rev-yield:
 	@echo "[yield] spectrum model + target-vs-feature decomposition"
+	$(REV_PYTHON) $(REV_SRC)/yield_v7_spectrum.py
+	$(REV_PYTHON) $(REV_SRC)/yield_audit_target_decomp.py
+
+rev-framework:
+	@echo "[framework] common-cause test + chain-test (old)"
+	$(REV_PYTHON) $(REV_SRC)/framework_cohesion.py
+	$(REV_PYTHON) $(REV_SRC)/framework_common_driver.py
+
+rev-substantive:
+	@echo "[substantive] E1-E9 + tier-1 (E10-E30) + tier-2 (E31-E45) experiment battery"
