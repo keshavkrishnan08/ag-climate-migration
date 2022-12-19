@@ -128,3 +128,7 @@ revision-paper:
 	    echo "  built $$doc.pdf"; \
 	  done
 
+revision-clean:
+	rm -f results/revision/*.json
+	rm -f paper/revision/*.aux paper/revision/*.log paper/revision/*.bbl paper/revision/*.blg paper/revision/*.out paper/revision/*.toc paper/revision/*.fls paper/revision/*.fdb_latexmk
+	@echo "Cleaned revision JSONs and LaTeX artifacts. Raw data and parquets preserved."
