@@ -108,3 +108,13 @@ rev-framework:
 
 rev-substantive:
 	@echo "[substantive] E1-E9 + tier-1 (E10-E30) + tier-2 (E31-E45) experiment battery"
+	$(REV_PYTHON) $(REV_SRC)/substantive_experiments.py
+	$(REV_PYTHON) $(REV_SRC)/tier1_experiments.py
+	$(REV_PYTHON) $(REV_SRC)/tier2_experiments.py
+
+headline:
+	@echo "[headline] consolidating every cited number"
+	$(REV_PYTHON) $(REV_SRC)/headline_numbers.py
+
+verify: headline
+	@echo ""
