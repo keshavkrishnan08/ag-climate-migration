@@ -20,3 +20,14 @@ conda env create -f environment.yml
 conda activate agmigration
 
 # Original pipeline (figures + initial manuscript)
+make all
+
+# Revision headline numbers (Communications Sustainability resubmission)
+make reproduce
+make headline    # → results/revision/HEADLINE_NUMBERS.json
+make verify
+```
+
+See [REPRODUCE.md](REPRODUCE.md) for the full map from every cited number to its source script.
+
+## Repository layout
