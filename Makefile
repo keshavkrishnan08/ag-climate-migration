@@ -118,3 +118,13 @@ headline:
 
 verify: headline
 	@echo ""
+	@$(REV_PYTHON) -c "import json; d=json.load(open('$(REV_RES)/HEADLINE_NUMBERS.json')); [print(f'  {k:<42} cited={v.get(\"value\"):<10}  recomputed={v.get(\"value_recomputed\")}') for k,v in d.items() if isinstance(v,dict) and 'value_recomputed' in v]"
+
+revision-paper:
+	@echo "[paper] recompiling main + SI + response + tracked-changes"
+	cd paper/revision && \
+	  for doc in main supplementary_information response_to_reviewers cover_letter_revision; do \
+	    for i in 1 2 3; do pdflatex -interaction=nonstopmode $$doc.tex >/dev/null 2>&1; bibtex $$doc >/dev/null 2>&1; done; \
+	    echo "  built $$doc.pdf"; \
+	  done
+
