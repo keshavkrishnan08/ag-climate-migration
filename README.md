@@ -31,3 +31,14 @@ make verify
 See [REPRODUCE.md](REPRODUCE.md) for the full map from every cited number to its source script.
 
 ## Repository layout
+
+| Path | Purpose |
+|------|---------|
+| `src/` | Original end-to-end pipeline (`01_ingest.py` … `10_figures.py`) |
+| `src/revision/` | Reviewer-response analyses (cited in revised manuscript) |
+| `src/` | Analysis pipeline and revision scripts |
+| `tests/` | Unit and integration tests |
+| `data/published_dataset/` | Dataset README and datasheet (CSVs on Zenodo) |
+| `REPRODUCE.md` | Step-by-step reproduction guide |
+
+Manuscript sources and PDFs are kept outside this repository.
