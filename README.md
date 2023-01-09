@@ -42,3 +42,14 @@ See [REPRODUCE.md](REPRODUCE.md) for the full map from every cited number to its
 | `REPRODUCE.md` | Step-by-step reproduction guide |
 
 Manuscript sources and PDFs are kept outside this repository.
+| `data/published_dataset/` | Dataset documentation (CSVs on Zenodo at acceptance) |
+| `tests/` | Unit tests (`pytest`, ≥85% coverage target) |
+
+Raw inputs (~12 GB) are **not** tracked in git; see `data/raw/README.md` for download instructions.
+
+## Citation
+
+```bibtex
+@article{krishnan2026agmigration,
+  author  = {Krishnan, Keshav},
+  title   = {The Economic Cost of Agricultural Climate Migration in the United States},
