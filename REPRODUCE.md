@@ -8,3 +8,13 @@ This document maps every number cited in the revised manuscript to its source sc
 # 1. Set up environment (Python 3.11 + numpy 1.26.4, lightgbm, scipy, pandas)
 pip install --break-system-packages numpy==1.26.4 pandas scipy lightgbm scikit-learn
 
+# 2. Reproduce every headline number used in the paper
+make reproduce
+
+# 3. Consolidate into a single auditable file
+make headline   # writes results/revision/HEADLINE_NUMBERS.json
+```
+
+The `HEADLINE_NUMBERS.json` is the single source-of-truth file: 35 cited values, 20 auto-verified against per-script JSONs (the rest are computed-then-rounded for the manuscript).
+
+## Headline numbers → source scripts
