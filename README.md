@@ -53,3 +53,12 @@ Raw inputs (~12 GB) are **not** tracked in git; see `data/raw/README.md` for dow
 @article{krishnan2026agmigration,
   author  = {Krishnan, Keshav},
   title   = {The Economic Cost of Agricultural Climate Migration in the United States},
+  journal = {Communications Sustainability},
+  year    = {2026},
+  note    = {Under review}
+}
+```
+
+## License
+
+MIT License — see [LICENSE](LICENSE). Dataset released under CC-BY 4.0 at acceptance.
