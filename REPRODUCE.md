@@ -88,3 +88,13 @@ All seven experiments in one script: `src/revision/substantive_experiments.py` â
 ## Dependencies (raw data)
 
 Raw inputs (publicly available, **not tracked in git**, see `.gitignore`):
+
+| Source | Path | Provider |
+|---|---|---|
+| USDA NASS county yields | `data/raw/nass/nass_county_yields.parquet` | USDA NASS QuickStats |
+| PRISM climate | `data/raw/prism/county_climate_*.parquet` | Oregon State PRISM |
+| RMA Summary of Business | `data/raw/rma/rma_sob_all_years.parquet` | USDA RMA SOB |
+| ACS demographics + migration | `data/raw/census/acs_*.parquet` | Census ACS |
+| CMIP6 SSP2-4.5 / SSP3-7.0 projections | `data/projections/*.parquet` | Pangeo Cloud |
+| ERS Atlas county typologies | `data/raw/other/ers_atlas/*.csv` | USDA ERS |
+| Census PEP prime-age population | `data/raw/census/cc-est*.csv` | Census PEP |
