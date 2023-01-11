@@ -28,3 +28,13 @@ The `HEADLINE_NUMBERS.json` is the single source-of-truth file: 35 cited values,
 | Soil-controlled hedonic $80B | `src/revision/hedonic_strengthened.py` | `hedonic_strengthened.json` |
 | Propagated CI [$37, $77]B | `src/revision/dcf_ci_fixed.py` | `dcf_ci_fixed.json` |
 | Floor sensitivity ($1k/$2k) → $68B/$52B | `src/revision/stranded_floor_sensitivity.py` | `stranded_floor_sensitivity.json` |
+| ML vs process ($59B vs $13B, ρ=0.66) | `src/revision/dollar_robustness.py` | `dollar_robustness.json` |
+| All-channel upper bound $168/$183B (DCF-scaling) | `src/revision/hedonic_strengthened.py` | `hedonic_strengthened.json` |
+
+### Insurance ($6.6B gross → $3.7B residual; $1.6B transfer)
+
+| Number | Script | Output |
+|---|---|---|
+| Decomposition $6.6 → −2.0 → −0.9 → $3.7B | `src/revision/insurance_rolling_aph.py` | `insurance_decomposition.json` |
+| RP residual $2.6B (dominant product) | `src/revision/insurance_rp_and_tay.py` | `insurance_rp_tay.json` |
+| Acreage-weighted coverage 0.74 | `src/revision/insurance_coverage_endogeneity.py` | `insurance_coverage_endogeneity.json` |
