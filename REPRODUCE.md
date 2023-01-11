@@ -38,3 +38,13 @@ The `HEADLINE_NUMBERS.json` is the single source-of-truth file: 35 cited values,
 | Decomposition $6.6 → −2.0 → −0.9 → $3.7B | `src/revision/insurance_rolling_aph.py` | `insurance_decomposition.json` |
 | RP residual $2.6B (dominant product) | `src/revision/insurance_rp_and_tay.py` | `insurance_rp_tay.json` |
 | Acreage-weighted coverage 0.74 | `src/revision/insurance_coverage_endogeneity.py` | `insurance_coverage_endogeneity.json` |
+| TAY participation sensitivity | `src/revision/insurance_rp_and_tay.py` | `insurance_rp_tay.json` |
+| SCO contribution +$0.01B | `src/revision/insurance_sco.py` | `insurance_sco.json` |
+| Process-based falsification $0.83B | `src/revision/substantive_experiments.py` (E1) | `substantive_experiments.json` |
+| Climate-σ sensitivity $3.92B | `src/revision/substantive_experiments.py` (E2) | `substantive_experiments.json` |
+
+### Migration / rural decline (β=0.024 3-yr; 0.049 5-yr; depopulation $18B)
+
+| Number | Script | Output |
+|---|---|---|
+| Leave-one-out shift-share panel | `src/revision/migration_iv_bartik.py` | `migration_iv_bartik.json` |
