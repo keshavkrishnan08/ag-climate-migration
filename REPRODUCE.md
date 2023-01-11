@@ -78,3 +78,13 @@ The `HEADLINE_NUMBERS.json` is the single source-of-truth file: 35 cited values,
 | Number | Script | Output |
 |---|---|---|
 | Forward warming predicts 3/4 channels | `src/revision/framework_common_driver.py` | `framework_common_driver.json` |
+| 35% common-factor share | `src/revision/framework_common_driver.py` | `framework_common_driver.json` |
+| Old chain-test (stranded ↛ decline, p=0.50) | `src/revision/framework_cohesion.py` | `framework_cohesion.json` |
+
+### Substantive robustness experiments (SI §Substantive)
+
+All seven experiments in one script: `src/revision/substantive_experiments.py` → `substantive_experiments.json`.
+
+## Dependencies (raw data)
+
+Raw inputs (publicly available, **not tracked in git**, see `.gitignore`):
