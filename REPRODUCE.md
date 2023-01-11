@@ -68,3 +68,13 @@ The `HEADLINE_NUMBERS.json` is the single source-of-truth file: 35 cited values,
 ### Yield model (R²=0.41 anomaly; 0.68 levels; 0.75 spatial)
 
 | Number | Script | Output |
+|---|---|---|
+| Spectrum on %-deviation R²=0.41 | `src/revision/yield_v7_spectrum.py` | `yield_v7_metrics.json` |
+| z-anomaly apples-to-apples (features +0.05; target shift +0.29) | `src/revision/yield_audit_target_decomp.py` | `audit_yield_target_decomp.json` |
+| SSURGO pull | `src/revision/pull_ssurgo.py` | (SSURGO parquet) |
+
+### Common-cause / framework
+
+| Number | Script | Output |
+|---|---|---|
+| Forward warming predicts 3/4 channels | `src/revision/framework_common_driver.py` | `framework_common_driver.json` |
