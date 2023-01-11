@@ -58,3 +58,13 @@ The `HEADLINE_NUMBERS.json` is the single source-of-truth file: 35 cited values,
 | National welfare floor (frictional, $4.3B) | `src/revision/substantive_experiments.py` (E6) | `substantive_experiments.json` |
 | Fiscal chain (long-difference revenue→land value) | `src/revision/migration_fiscal_chain.py` | `migration_fiscal_chain.json` → `revenue_to_landvalue_longdiff` |
 
+### Northern opportunity ($8.1B net; $37B gross; 514 counties)
+
+| Number | Script | Output |
+|---|---|---|
+| Net farm income $8.1B / gross $37B | `src/revision/recompute_opportunity.py` | (per-county CSV) |
+| Per-state breakdown | `src/revision/recompute_opportunity.py` | |
+
+### Yield model (R²=0.41 anomaly; 0.68 levels; 0.75 spatial)
+
+| Number | Script | Output |
