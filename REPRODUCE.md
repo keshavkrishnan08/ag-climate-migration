@@ -48,3 +48,13 @@ The `HEADLINE_NUMBERS.json` is the single source-of-truth file: 35 cited values,
 | Number | Script | Output |
 |---|---|---|
 | Leave-one-out shift-share panel | `src/revision/migration_iv_bartik.py` | `migration_iv_bartik.json` |
+| Prime-age FE (3-yr, β=0.024, p=0.005, F=78, 429 cty) | `src/revision/migration_primeage_panel.py` | `migration_primeage_panel.json` |
+| 5-yr horizon + county-clustered p=0.001; wild-cluster bootstrap p=0.0005 | `src/revision/migration_wildbootstrap.py` | `migration_wildbootstrap.json` |
+| Two-way p=0.11; non-overlap β=0.059, p=0.012 | `src/revision/migration_iv_bartik.py` | `migration_inference_robust.json` |
+| Total-pop tercile (β=0.053, p=0.004, F=94, 750 cty) | `src/revision/migration_iv_bartik.py` | `migration_high_tercile_2sls.json` |
+| Goldsmith-Pinkham / Borusyak-Hull-Jaravel balance | `src/revision/migration_share_balance.py` | `migration_share_balance.json` |
+| Non-farm effect-size dominance (63×) | `src/revision/substantive_experiments.py` (E3–E4) | `substantive_experiments.json` |
+| Depopulation Monte Carlo ($18B central, $22B median, [$11, $38]B) | `src/revision/migration_depop_montecarlo.py` | `migration_depop_montecarlo.json` |
+| National welfare floor (frictional, $4.3B) | `src/revision/substantive_experiments.py` (E6) | `substantive_experiments.json` |
+| Fiscal chain (long-difference revenue→land value) | `src/revision/migration_fiscal_chain.py` | `migration_fiscal_chain.json` → `revenue_to_landvalue_longdiff` |
+
