@@ -98,3 +98,13 @@ Raw inputs (publicly available, **not tracked in git**, see `.gitignore`):
 | CMIP6 SSP2-4.5 / SSP3-7.0 projections | `data/projections/*.parquet` | Pangeo Cloud |
 | ERS Atlas county typologies | `data/raw/other/ers_atlas/*.csv` | USDA ERS |
 | Census PEP prime-age population | `data/raw/census/cc-est*.csv` | Census PEP |
+| SSURGO available water | pulled live | USDA Soil Data Access API |
+
+For full data download instructions, see `data/raw/README.md` (one-time setup ~3 hours; raw data ~12 GB). After Zenodo deposit at acceptance, a single tarball will package all inputs with a DOI.
+
+## Conventions
+
+- **2023 USD** throughout (CPI-deflated via `data/raw/other/cpi_annual.csv`, CPI_2023 = 304.7)
+- **Seed = 42** for every script that draws randomness
+- **FIPS** are 5-digit zero-padded strings; aggregates 998/999 filtered
+- **Temporal split** for ML: train ≤ 2009, validate 2010–2016, test 2017–2023 (2-yr gap, never shuffled)
