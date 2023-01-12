@@ -108,3 +108,7 @@ For full data download instructions, see `data/raw/README.md` (one-time setup ~3
 - **Seed = 42** for every script that draws randomness
 - **FIPS** are 5-digit zero-padded strings; aggregates 998/999 filtered
 - **Temporal split** for ML: train ≤ 2009, validate 2010–2016, test 2017–2023 (2-yr gap, never shuffled)
+
+## Active vs superseded scripts
+
+`src/revision/README.md` labels each script as **headline** (cited in the paper), **robustness** (cited as a check), or **superseded** (kept for transparency; not used). The Makefile only runs the active set.
