@@ -1,0 +1,10 @@
+# config.yaml — Single source of truth
+crops:
+  primary: [corn, soybeans, wheat_winter, wheat_spring, cotton, sorghum, barley, oats]
+  switching_pairs:  # Which switches to model explicitly
+    - [corn, soybeans]
+    - [corn, sorghum]
+    - [cotton, soybeans]
+    - [wheat_winter, wheat_spring]
+
+geography:
