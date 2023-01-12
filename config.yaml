@@ -18,3 +18,13 @@ temporal:
   projection_end: 2050
   baseline_climate: [1981, 2010]
 
+climate_scenarios:
+  - SSP245    # moderate (primary scenario for paper, mapped from RCP 4.5)
+  # SSP126 and SSP585 not yet downloaded — run with SSP245 only
+
+yield_model:
+  algorithm: lightgbm
+  n_estimators: 1000
+  learning_rate: 0.03
+  max_depth: 6
+  num_leaves: 63
