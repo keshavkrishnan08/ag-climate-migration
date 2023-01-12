@@ -38,3 +38,13 @@ yield_model:
 
 stranded_assets:
   discount_rate: 0.04
+  projection_horizon: 30  # years
+  baseline_period: [1990, 2005]
+
+community_cascade:
+  yield_shock_threshold: -0.15    # 15% yield decline triggers cascade
+  income_elasticity_migration: -0.17  # From Feng et al. literature
+  school_enrollment_elasticity: -0.25
+  hospital_threshold_population: 15000
+
+insurance:
