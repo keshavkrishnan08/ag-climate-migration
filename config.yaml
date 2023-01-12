@@ -8,3 +8,13 @@ crops:
     - [wheat_winter, wheat_spring]
 
 geography:
+  fips_exclude: ['02', '15', '72']  # AK, HI, PR
+  n_counties: 3108
+
+temporal:
+  train_end: 2005
+  val_end: 2012
+  test_end: 2023
+  projection_end: 2050
+  baseline_climate: [1981, 2010]
+
