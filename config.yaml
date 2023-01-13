@@ -68,3 +68,13 @@ cmip6_models:
   - NorESM2-MM
 
 gdd_thresholds:
+  corn: {base: 10, upper: 30}
+  soybeans: {base: 10, upper: 30}
+  wheat_winter: {base: 0, upper: 26}
+  wheat_spring: {base: 0, upper: 26}
+  cotton: {base: 15, upper: 37}
+  sorghum: {base: 10, upper: 30}
+  barley: {base: 0, upper: 26}
+  oats: {base: 0, upper: 26}
+
+yield_model_gates:
