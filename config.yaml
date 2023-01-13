@@ -48,3 +48,13 @@ community_cascade:
   hospital_threshold_population: 15000
 
 insurance:
+  lookback_years: 10    # RMA uses 10-year APH
+  subsidy_rate_avg: 0.62   # Federal subsidy as % of premium
+
+deflation:
+  base_year: 2023
+  cpi_series: 'CPIAUCSL'  # FRED series
+
+cmip6_models:
+  - ACCESS-CM2
+  - CESM2
