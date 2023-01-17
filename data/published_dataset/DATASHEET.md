@@ -20,3 +20,14 @@ Following Gebru et al. (2021) "Datasheets for Datasets"
 - **Source data:** USDA NASS, NOAA nClimDiv, CMIP6 (Pangeo Cloud), USDA RMA, Census ACS, BLS CPI-U
 - **Processing:** Deduplication, CPI deflation to 2023 USD, FIPS standardization
 - **Models:** LightGBM ensemble yield model (Spearman ρ=0.45, R²=0.21), Ricardian hedonic (R²=0.73), IV/2SLS (F=1,184)
+- **Climate downscaling:** Delta method from ~1° GCM grid to county centroids
+
+## Uses
+- Agricultural land valuation under climate change
+- Insurance premium reform analysis
+- Rural community resilience planning
+- Infrastructure investment targeting
+- Climate adaptation policy design
+
+## Limitations
+- US only (CONUS). Not applicable to other countries without adaptation.
