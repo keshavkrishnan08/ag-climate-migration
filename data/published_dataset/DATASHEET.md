@@ -31,3 +31,12 @@ Following Gebru et al. (2021) "Datasheets for Datasets"
 
 ## Limitations
 - US only (CONUS). Not applicable to other countries without adaptation.
+- 8 major field crops. Specialty crops and livestock excluded.
+- SSP5-8.5 not available (SSP3-7.0 is the higher-emissions scenario).
+- County-level aggregation. Within-county heterogeneity not captured.
+- Projections assume current crop technology trends continue linearly.
+
+## Distribution
+- **License:** CC-BY 4.0
+- **Format:** CSV (maximum accessibility)
+- **Repository:** [URL]
