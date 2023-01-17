@@ -18,3 +18,12 @@ dependencies:
   - xarray=2024.2
   - rasterio=1.3
   - pyproj=3.6
+  - requests=2.31
+  - tqdm=4.66
+  - pytest=8.0
+  - pytest-cov
+  - pyyaml=6.0
+  - loguru=0.7
+  - pip:
+    - censusdata==1.15
+    - fredapi==0.5
