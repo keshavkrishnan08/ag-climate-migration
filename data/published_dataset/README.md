@@ -28,3 +28,13 @@ Projected yields for 8 crops × 2,902 counties × 26 years × 2 scenarios (SSP2-
 | `climate_impact_bu_acre` | Climate-only impact = projected − baseline (bu/acre) |
 | `yield_p10` | 10th percentile across GCM ensemble (bu/acre) |
 | `yield_p90` | 90th percentile across GCM ensemble (bu/acre) |
+| `acres_harvested` | Harvested acreage (acres, NASS 2018–2022 average) |
+
+---
+
+### 2. `county_climate_projections.csv`
+Downscaled climate projections at county resolution. Delta-method from 10 CMIP6 GCMs (SSP2-4.5) and 9 GCMs (SSP3-7.0).
+
+| Column | Description |
+|--------|-------------|
+| `fips` | 5-digit county FIPS code |
