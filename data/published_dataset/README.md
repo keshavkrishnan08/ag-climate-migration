@@ -48,3 +48,13 @@ Downscaled climate projections at county resolution. Delta-method from 10 CMIP6 
 | `delta_precip_mm` | Change in growing-season precipitation vs baseline (mm/month) |
 | `tmax_july_p10` | 10th percentile July Tmax across GCM ensemble (°F) |
 | `tmax_july_p90` | 90th percentile July Tmax across GCM ensemble (°F) |
+| `n_gcms` | Number of GCMs contributing to ensemble |
+
+---
+
+### 3. `county_stranded_assets.csv`
+Stranded farmland value per county under three independent valuation methods. One row per county.
+
+| Column | Description |
+|--------|-------------|
+| `fips` | 5-digit county FIPS code |
