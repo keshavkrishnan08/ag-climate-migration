@@ -38,3 +38,13 @@ Downscaled climate projections at county resolution. Delta-method from 10 CMIP6 
 | Column | Description |
 |--------|-------------|
 | `fips` | 5-digit county FIPS code |
+| `county_name` | County name |
+| `state` | State postal abbreviation |
+| `year` | Projection year |
+| `scenario` | Climate scenario (SSP245 or SSP370) |
+| `tmax_july_projected_F` | Projected July maximum temperature (°F) |
+| `delta_tmax_july_F` | Change in July Tmax vs 1990–2020 baseline (°F) |
+| `precip_growing_projected_mm` | Projected growing-season precipitation (mm/month) |
+| `delta_precip_mm` | Change in growing-season precipitation vs baseline (mm/month) |
+| `tmax_july_p10` | 10th percentile July Tmax across GCM ensemble (°F) |
+| `tmax_july_p90` | 90th percentile July Tmax across GCM ensemble (°F) |
