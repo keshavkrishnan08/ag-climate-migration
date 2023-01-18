@@ -18,3 +18,13 @@ Projected yields for 8 crops × 2,902 counties × 26 years × 2 scenarios (SSP2-
 | Column | Description |
 |--------|-------------|
 | `fips` | 5-digit county FIPS code |
+| `county_name` | County name (Census Gazetteer 2023) |
+| `state` | State postal abbreviation |
+| `year` | Projection year (2025–2050) |
+| `crop` | Crop type (corn, soybeans, wheat, cotton, sorghum, barley, oats, hay) |
+| `scenario` | Climate scenario (SSP245 or SSP370) |
+| `yield_projected_bu_acre` | Projected yield including climate and technology trend (bu/acre) |
+| `yield_baseline_bu_acre` | Baseline yield (technology trend, no climate change) (bu/acre) |
+| `climate_impact_bu_acre` | Climate-only impact = projected − baseline (bu/acre) |
+| `yield_p10` | 10th percentile across GCM ensemble (bu/acre) |
+| `yield_p90` | 90th percentile across GCM ensemble (bu/acre) |
