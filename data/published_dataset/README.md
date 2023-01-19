@@ -68,3 +68,13 @@ Stranded farmland value per county under three independent valuation methods. On
 | `land_value_per_acre_usd` | Current farmland value per acre (2023 USD, NASS) |
 | `total_farm_acres` | Total harvested farmland acres |
 
+---
+
+### 4. `county_decline_indicators.csv`
+Six rural decline indicators tracked for 1,824 agricultural counties, 2005–2023. Plus tipping-year estimates from two independent migration elasticity methods.
+
+| Column | Description |
+|--------|-------------|
+| `fips` | 5-digit county FIPS code |
+| `county_name` | County name |
+| `state` | State postal abbreviation |
