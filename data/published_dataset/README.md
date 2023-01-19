@@ -58,3 +58,13 @@ Stranded farmland value per county under three independent valuation methods. On
 | Column | Description |
 |--------|-------------|
 | `fips` | 5-digit county FIPS code |
+| `county_name` | County name |
+| `state` | State postal abbreviation |
+| `stranded_dcf_conservative_usd` | Stranded value, DCF method, SSP2-4.5, 4% discount (2023 USD) |
+| `stranded_dcf_central_usd` | Stranded value, DCF method, SSP3-7.0, 4% discount (2023 USD) |
+| `stranded_hedonic_usd` | Stranded value, hedonic method, 2050 horizon, SSP2-4.5 (2023 USD) |
+| `stranded_per_acre_usd` | Stranded value per acre, DCF conservative (2023 USD/acre) |
+| `stranded_fraction` | Stranded value as fraction of total land value |
+| `land_value_per_acre_usd` | Current farmland value per acre (2023 USD, NASS) |
+| `total_farm_acres` | Total harvested farmland acres |
+
