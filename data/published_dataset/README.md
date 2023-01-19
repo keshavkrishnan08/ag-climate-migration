@@ -78,3 +78,13 @@ Six rural decline indicators tracked for 1,824 agricultural counties, 2005–202
 | `fips` | 5-digit county FIPS code |
 | `county_name` | County name |
 | `state` | State postal abbreviation |
+| `n_decline_indicators` | Count of active decline signals (0–6) |
+| `yield_decline` | Statistically significant negative yield trend (0/1) |
+| `pop_decline` | Statistically significant population decline (0/1) |
+| `income_decline` | Statistically significant income decline (0/1) |
+| `outmigration` | Above-median outmigration rate (0/1) |
+| `school_decline` | Statistically significant school enrollment decline (0/1) |
+| `hospital_closure` | County experienced rural hospital closure 2010–2023 (0/1) |
+| `tipping_year_own_iv` | Projected year of economic tipping point, own IV method (SSP2-4.5) |
+| `tipping_year_feng` | Projected year of economic tipping point, Feng et al. (2010) method (SSP2-4.5) |
+
