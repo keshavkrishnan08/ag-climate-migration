@@ -88,3 +88,13 @@ Six rural decline indicators tracked for 1,824 agricultural counties, 2005–202
 | `tipping_year_own_iv` | Projected year of economic tipping point, own IV method (SSP2-4.5) |
 | `tipping_year_feng` | Projected year of economic tipping point, Feng et al. (2010) method (SSP2-4.5) |
 
+---
+
+### 5. `county_insurance_mispricing.csv`
+Per-county insurance mispricing under forward-looking vs backward-looking (APH) actuarial frameworks. One row per county-crop.
+
+| Column | Description |
+|--------|-------------|
+| `fips` | 5-digit county FIPS code |
+| `county_name` | County name |
+| `state` | State postal abbreviation |
