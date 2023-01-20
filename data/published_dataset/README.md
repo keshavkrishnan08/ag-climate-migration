@@ -98,3 +98,13 @@ Per-county insurance mispricing under forward-looking vs backward-looking (APH) 
 | `fips` | 5-digit county FIPS code |
 | `county_name` | County name |
 | `state` | State postal abbreviation |
+| `crop` | Crop type |
+| `mispricing_per_acre_usd` | Mispricing per insured acre (2023 USD/acre; negative = over-priced) |
+| `direction` | "underpriced" or "overpriced" relative to climate-forward actuarial value |
+| `insured_acres` | Acres under Federal crop insurance (RMA Summary of Business) |
+| `annual_flow_usd` | Annual cross-subsidy flow = mispricing × insured acres (2023 USD/yr) |
+
+---
+
+### 6. `county_opportunity_frontier.csv`
+Northern counties with projected agricultural opportunity and infrastructure capacity constraints (SSP2-4.5, 514 counties).
