@@ -108,3 +108,13 @@ Per-county insurance mispricing under forward-looking vs backward-looking (APH) 
 
 ### 6. `county_opportunity_frontier.csv`
 Northern counties with projected agricultural opportunity and infrastructure capacity constraints (SSP2-4.5, 514 counties).
+
+| Column | Description |
+|--------|-------------|
+| `fips` | 5-digit county FIPS code |
+| `county_name` | County name |
+| `state` | State postal abbreviation |
+| `annual_opportunity_usd` | Total annual income opportunity (2023 USD/yr) |
+| `yield_gain_usd` | Income gain from climate-driven yield improvements (2023 USD/yr) |
+| `expansion_usd` | Income gain from expanded acreage (2023 USD/yr) |
+| `infrastructure_gap_usd` | Estimated infrastructure investment needed to capture opportunity (2023 USD) |
