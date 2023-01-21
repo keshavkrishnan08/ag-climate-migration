@@ -118,3 +118,13 @@ Northern counties with projected agricultural opportunity and infrastructure cap
 | `yield_gain_usd` | Income gain from climate-driven yield improvements (2023 USD/yr) |
 | `expansion_usd` | Income gain from expanded acreage (2023 USD/yr) |
 | `infrastructure_gap_usd` | Estimated infrastructure investment needed to capture opportunity (2023 USD) |
+| `infrastructure_capacity_ratio` | Current infrastructure capacity as fraction of projected production demand |
+
+---
+
+## Citation
+
+```
+Krishnan, K. (2026). The economic cost of agricultural climate migration
+in the United States. Nature Climate Change.
+```
