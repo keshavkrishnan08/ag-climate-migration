@@ -128,3 +128,13 @@ Northern counties with projected agricultural opportunity and infrastructure cap
 Krishnan, K. (2026). The economic cost of agricultural climate migration
 in the United States. Nature Climate Change.
 ```
+
+---
+
+## License
+
+[CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+---
+
+## Units
