@@ -138,3 +138,13 @@ in the United States. Nature Climate Change.
 ---
 
 ## Units
+
+- All monetary values in 2023 USD (deflated via BLS CPI-U, CPI₂₀₂₃ = 304.7)
+- Temperatures in °F in climate projection files
+- Temperatures in °C internally in yield model features (not in these CSVs)
+- Yields in bushels per acre (bu/acre)
+- Precipitation in mm/month
+
+---
+
+## Data Sources
