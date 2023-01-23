@@ -158,3 +158,8 @@ in the United States. Nature Climate Change.
 | County demographics | Census ACS 5-year (api.census.gov) |
 | County FIPS names | Census Gazetteer 2023 |
 
+---
+
+## Methods Summary
+
+Yield projections combine a LightGBM ensemble model (10 GCMs × 8 crops) with historical technology trends detrended by z-score normalization. The climate delta-method applies county-level GCM anomalies to the 1990–2020 PRISM baseline. Stranded asset values use discounted cash flow (DCF) at a 4% real discount rate over a 30-year horizon, cross-validated against hedonic farmland pricing and cap-rate methods. Migration tipping points use a 2SLS instrumental-variables specification (weather-driven income shocks, F-statistic > 10) following Feng et al. (2010). Full methods in the accompanying paper and supplementary information.
