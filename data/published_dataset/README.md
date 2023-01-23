@@ -148,3 +148,13 @@ in the United States. Nature Climate Change.
 ---
 
 ## Data Sources
+
+| Dataset | Source |
+|---------|--------|
+| County yields, acreage, land values | USDA NASS QuickStats (quickstats.nass.usda.gov) |
+| Historical climate | NOAA nClimDiv / PRISM (ncei.noaa.gov) |
+| Climate projections | CMIP6 via Pangeo Cloud (pangeo.io), delta-method downscaling |
+| Federal crop insurance | USDA RMA Summary of Business (rma.usda.gov) |
+| County demographics | Census ACS 5-year (api.census.gov) |
+| County FIPS names | Census Gazetteer 2023 |
+
