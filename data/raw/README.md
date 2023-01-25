@@ -18,3 +18,13 @@ Raw inputs are **not** tracked in git (see `.gitignore`). Download once (~12 GB;
 
 ## Processed intermediates
 
+Running `make ingest features` writes:
+
+- `data/processed/feature_matrix.parquet`
+- `data/processed/county_panel.parquet`
+
+These are regenerated locally and also gitignored.
+
+## Zenodo archive
+
+At acceptance, a single tarball with all inputs and the published county CSVs will receive a DOI (see `data/published_dataset/README.md`).
