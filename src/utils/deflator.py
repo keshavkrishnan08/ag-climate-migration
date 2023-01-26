@@ -28,3 +28,13 @@ def fetch_cpi_series(fred_api_key: str, series_id: str = 'CPIAUCSL') -> pd.Serie
     return cpi
 
 
+def build_annual_cpi(cpi_monthly: pd.Series) -> pd.Series:
+    """Convert monthly CPI to annual averages.
+
+    Args:
+        cpi_monthly: Monthly CPI-U series with datetime index.
+
+    Returns:
+        Annual average CPI indexed by year (int).
+    """
+    annual = cpi_monthly.groupby(cpi_monthly.index.year).mean()
