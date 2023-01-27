@@ -88,3 +88,13 @@ def load_or_fetch_cpi(cache_path: str = None, fred_api_key: str = None) -> pd.Se
 
     Returns:
         Annual average CPI series indexed by year.
+    """
+    import os
+    if cache_path and os.path.exists(cache_path):
+        logger.info(f"Loading cached CPI from {cache_path}")
+        df = pd.read_csv(cache_path, index_col=0)
+        return df.squeeze()
+
+    if fred_api_key is None:
+        raise ValueError("Either cache_path must exist or fred_api_key must be provided")
+
