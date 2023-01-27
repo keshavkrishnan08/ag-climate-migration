@@ -48,3 +48,13 @@ def deflate_to_2023(
     cpi_annual: pd.Series,
     base_year: int = 2023
 ) -> np.ndarray:
+    """Deflate nominal dollar values to base-year (2023) USD.
+
+    Args:
+        values: Array of nominal dollar amounts.
+        years: Array of corresponding years (same length as values).
+        cpi_annual: Annual average CPI series indexed by year.
+        base_year: Target year for constant dollars.
+
+    Returns:
+        Array of deflated values in base_year USD.
