@@ -38,3 +38,13 @@ def build_annual_cpi(cpi_monthly: pd.Series) -> pd.Series:
         Annual average CPI indexed by year (int).
     """
     annual = cpi_monthly.groupby(cpi_monthly.index.year).mean()
+    annual.index.name = 'year'
+    return annual
+
+
+def deflate_to_2023(
+    values: np.ndarray,
+    years: np.ndarray,
+    cpi_annual: pd.Series,
+    base_year: int = 2023
+) -> np.ndarray:
