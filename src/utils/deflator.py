@@ -68,3 +68,13 @@ def deflate_to_2023(
     base_cpi = cpi_annual[base_year]
     values = np.asarray(values, dtype=np.float64)
     years = np.asarray(years, dtype=int)
+
+    deflators = np.array([cpi_annual.get(y, np.nan) for y in years])
+    missing = np.isnan(deflators)
+    if missing.any():
+        n_miss = missing.sum()
+        logger.warning(f"{n_miss} observations have years outside CPI range; returning NaN for those")
+
+    deflated = values * (base_cpi / deflators)
+    return deflated
+
