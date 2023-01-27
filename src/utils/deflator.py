@@ -58,3 +58,13 @@ def deflate_to_2023(
 
     Returns:
         Array of deflated values in base_year USD.
+
+    Raises:
+        ValueError: If base_year not found in CPI series.
+    """
+    if base_year not in cpi_annual.index:
+        raise ValueError(f"Base year {base_year} not in CPI series (range: {cpi_annual.index.min()}-{cpi_annual.index.max()})")
+
+    base_cpi = cpi_annual[base_year]
+    values = np.asarray(values, dtype=np.float64)
+    years = np.asarray(years, dtype=int)
