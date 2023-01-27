@@ -78,3 +78,13 @@ def deflate_to_2023(
     deflated = values * (base_cpi / deflators)
     return deflated
 
+
+def load_or_fetch_cpi(cache_path: str = None, fred_api_key: str = None) -> pd.Series:
+    """Load CPI from cache or fetch from FRED.
+
+    Args:
+        cache_path: Path to cached CSV of annual CPI. If None, fetches live.
+        fred_api_key: FRED API key (required if cache_path doesn't exist).
+
+    Returns:
+        Annual average CPI series indexed by year.
