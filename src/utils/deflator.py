@@ -98,3 +98,12 @@ def load_or_fetch_cpi(cache_path: str = None, fred_api_key: str = None) -> pd.Se
     if fred_api_key is None:
         raise ValueError("Either cache_path must exist or fred_api_key must be provided")
 
+    monthly = fetch_cpi_series(fred_api_key)
+    annual = build_annual_cpi(monthly)
+
+    if cache_path:
+        os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+        annual.to_csv(cache_path)
+        logger.info(f"Cached annual CPI to {cache_path}")
+
+    return annual
