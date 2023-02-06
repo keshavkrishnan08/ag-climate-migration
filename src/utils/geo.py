@@ -18,3 +18,13 @@ def load_county_fips(path: str = None) -> pd.DataFrame:
     """Load complete county FIPS table.
 
     Args:
+        path: Path to county FIPS CSV. If None, builds from Census data.
+
+    Returns:
+        DataFrame with columns: fips (str, 5-digit), state_fips (str, 2-digit),
+        county_fips (str, 3-digit), state_name, county_name.
+    """
+    if path is not None:
+        df = pd.read_csv(path, dtype=str)
+        df['fips'] = df['fips'].str.zfill(5)
+        logger.info(f"Loaded {len(df)} county FIPS codes from {path}")
