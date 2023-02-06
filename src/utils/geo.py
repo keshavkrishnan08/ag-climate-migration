@@ -28,3 +28,13 @@ def load_county_fips(path: str = None) -> pd.DataFrame:
         df = pd.read_csv(path, dtype=str)
         df['fips'] = df['fips'].str.zfill(5)
         logger.info(f"Loaded {len(df)} county FIPS codes from {path}")
+        return df
+
+    try:
+        import censusdata
+        counties = censusdata.geographies(
+            censusdata.censusgeo([('state', '*'), ('county', '*')]),
+            'acs5', 2022
+        )
+        records = []
+        for geo, name in counties.items():
