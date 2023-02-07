@@ -58,3 +58,13 @@ def load_county_fips(path: str = None) -> pd.DataFrame:
 def get_state_from_fips(fips: str) -> str:
     """Extract 2-digit state FIPS from 5-digit county FIPS.
 
+    Args:
+        fips: 5-digit county FIPS code as string.
+
+    Returns:
+        2-digit state FIPS code.
+    """
+    return str(fips).zfill(5)[:2]
+
+
+def filter_conus_counties(df: pd.DataFrame, fips_col: str = 'fips') -> pd.DataFrame:
