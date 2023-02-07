@@ -48,3 +48,13 @@ def load_county_fips(path: str = None) -> pd.DataFrame:
                 'name': name
             })
         df = pd.DataFrame(records)
+        logger.info(f"Built {len(df)} county FIPS codes from Census API")
+        return df
+    except Exception as e:
+        logger.warning(f"Could not fetch from Census API: {e}")
+        raise
+
+
+def get_state_from_fips(fips: str) -> str:
+    """Extract 2-digit state FIPS from 5-digit county FIPS.
+
