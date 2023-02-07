@@ -38,3 +38,13 @@ def load_county_fips(path: str = None) -> pd.DataFrame:
         )
         records = []
         for geo, name in counties.items():
+            state_fips = geo.params()[0][1]
+            county_fips = geo.params()[1][1]
+            fips = state_fips + county_fips
+            records.append({
+                'fips': fips,
+                'state_fips': state_fips,
+                'county_fips': county_fips,
+                'name': name
+            })
+        df = pd.DataFrame(records)
