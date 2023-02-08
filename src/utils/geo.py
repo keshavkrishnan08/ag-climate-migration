@@ -98,3 +98,13 @@ def validate_fips_coverage(
         df: DataFrame to validate.
         fips_col: Column containing FIPS codes.
         expected_n: Expected number of unique counties.
+
+    Returns:
+        Dict with 'n_counties', 'missing_fraction', 'passed' keys.
+    """
+    unique_fips = df[fips_col].astype(str).str.zfill(5).nunique()
+    missing_frac = 1.0 - (unique_fips / expected_n)
+
+    result = {
+        'n_counties': unique_fips,
+        'expected': expected_n,
