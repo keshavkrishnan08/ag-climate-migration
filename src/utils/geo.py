@@ -78,3 +78,13 @@ def filter_conus_counties(df: pd.DataFrame, fips_col: str = 'fips') -> pd.DataFr
         Filtered DataFrame with only CONUS counties.
     """
     df = df.copy()
+    df[fips_col] = df[fips_col].astype(str).str.zfill(5)
+    state_fips = df[fips_col].str[:2]
+    mask = ~state_fips.isin(EXCLUDED_STATE_FIPS)
+    n_excluded = (~mask).sum()
+    if n_excluded > 0:
+        logger.info(f"Excluded {n_excluded} non-CONUS records (AK/HI/PR)")
+    return df[mask].reset_index(drop=True)
+
+
+def validate_fips_coverage(
