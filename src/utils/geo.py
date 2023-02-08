@@ -108,3 +108,13 @@ def validate_fips_coverage(
     result = {
         'n_counties': unique_fips,
         'expected': expected_n,
+        'missing_fraction': missing_frac,
+        'passed': unique_fips >= expected_n * 0.95  # allow 5% missing
+    }
+
+    if result['passed']:
+        logger.info(f"FIPS coverage check PASSED: {unique_fips}/{expected_n} counties")
+    else:
+        logger.warning(f"FIPS coverage check FAILED: {unique_fips}/{expected_n} counties ({missing_frac:.1%} missing)")
+
+    return result
