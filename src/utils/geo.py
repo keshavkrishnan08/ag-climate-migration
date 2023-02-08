@@ -88,3 +88,13 @@ def filter_conus_counties(df: pd.DataFrame, fips_col: str = 'fips') -> pd.DataFr
 
 
 def validate_fips_coverage(
+    df: pd.DataFrame,
+    fips_col: str = 'fips',
+    expected_n: int = 3108
+) -> dict:
+    """Check that we have the expected number of CONUS counties.
+
+    Args:
+        df: DataFrame to validate.
+        fips_col: Column containing FIPS codes.
+        expected_n: Expected number of unique counties.
