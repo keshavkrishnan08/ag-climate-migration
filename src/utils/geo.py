@@ -68,3 +68,13 @@ def get_state_from_fips(fips: str) -> str:
 
 
 def filter_conus_counties(df: pd.DataFrame, fips_col: str = 'fips') -> pd.DataFrame:
+    """Filter DataFrame to only CONUS counties (exclude AK, HI, PR).
+
+    Args:
+        df: DataFrame containing county FIPS codes.
+        fips_col: Name of the column containing 5-digit FIPS codes.
+
+    Returns:
+        Filtered DataFrame with only CONUS counties.
+    """
+    df = df.copy()
