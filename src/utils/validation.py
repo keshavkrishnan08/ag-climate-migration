@@ -42,3 +42,14 @@ def temporal_rolling_cv(
         ).astype(int).tolist()
 
     for fold_idx, val_start in enumerate(val_starts):
+        val_end = val_start + val_window - 1
+        train_mask = (years >= train_start) & (years < val_start)
+        val_mask = (years >= val_start) & (years <= val_end)
+
+        train_idx = np.where(train_mask)[0]
+        val_idx = np.where(val_mask)[0]
+
+        if len(train_idx) == 0 or len(val_idx) == 0:
+            logger.warning(f"Fold {fold_idx + 1}: empty split (train={train_mask.sum()}, val={val_mask.sum()})")
+            continue
+
