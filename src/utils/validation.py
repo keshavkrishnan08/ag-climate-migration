@@ -31,3 +31,14 @@ def temporal_rolling_cv(
 
     Yields:
         Tuples of (train_indices, val_indices) for each fold.
+    """
+    years = np.asarray(years)
+    val_starts = [1986, 1991, 1996, 2001, 2006]
+
+    if n_folds != 5:
+        max_val_year = years.max() - val_window
+        val_starts = np.linspace(
+            train_start + 30, max_val_year, n_folds
+        ).astype(int).tolist()
+
+    for fold_idx, val_start in enumerate(val_starts):
