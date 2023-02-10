@@ -97,3 +97,14 @@ def check_no_future_leakage(
             f"Val/test leakage: val max year ({val_max}) >= test min year ({test_min})"
 
     logger.info("Temporal leakage check PASSED")
+    return True
+
+
+def compute_performance_metrics(
+    y_true: np.ndarray,
+    y_pred: np.ndarray,
+    crop_name: str = ""
+) -> dict:
+    """Compute regression performance metrics.
+
+    Args:
