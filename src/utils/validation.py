@@ -86,3 +86,14 @@ def check_no_future_leakage(
     """
     train_max = np.max(train_years)
     val_min = np.min(val_years)
+    val_max = np.max(val_years)
+
+    assert train_max < val_min, \
+        f"Train/val leakage: train max year ({train_max}) >= val min year ({val_min})"
+
+    if test_years is not None:
+        test_min = np.min(test_years)
+        assert val_max < test_min, \
+            f"Val/test leakage: val max year ({val_max}) >= test min year ({test_min})"
+
+    logger.info("Temporal leakage check PASSED")
