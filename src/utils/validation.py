@@ -64,3 +64,14 @@ def temporal_rolling_cv(
             f"Temporal leakage detected in fold {fold_idx + 1}!"
 
         yield train_idx, val_idx
+
+
+def check_no_future_leakage(
+    train_years: np.ndarray,
+    val_years: np.ndarray,
+    test_years: np.ndarray = None
+) -> bool:
+    """Verify strict temporal ordering between train/val/test sets.
+
+    Args:
+        train_years: Years in training set.
