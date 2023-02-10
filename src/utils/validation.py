@@ -75,3 +75,14 @@ def check_no_future_leakage(
 
     Args:
         train_years: Years in training set.
+        val_years: Years in validation set.
+        test_years: Years in test set (optional).
+
+    Returns:
+        True if no leakage detected.
+
+    Raises:
+        AssertionError: If temporal ordering is violated.
+    """
+    train_max = np.max(train_years)
+    val_min = np.min(val_years)
