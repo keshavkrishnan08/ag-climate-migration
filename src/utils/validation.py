@@ -53,3 +53,14 @@ def temporal_rolling_cv(
             logger.warning(f"Fold {fold_idx + 1}: empty split (train={train_mask.sum()}, val={val_mask.sum()})")
             continue
 
+        logger.info(
+            f"Fold {fold_idx + 1}/{n_folds}: "
+            f"train {train_start}-{val_start - 1} (n={len(train_idx)}), "
+            f"val {val_start}-{val_end} (n={len(val_idx)})"
+        )
+
+        # Verify no future leakage
+        assert years[train_idx].max() < years[val_idx].min(), \
+            f"Temporal leakage detected in fold {fold_idx + 1}!"
+
+        yield train_idx, val_idx
