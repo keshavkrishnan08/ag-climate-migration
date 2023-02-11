@@ -119,3 +119,14 @@ def compute_performance_metrics(
 
     y_true = np.asarray(y_true)
     y_pred = np.asarray(y_pred)
+
+    mask = ~(np.isnan(y_true) | np.isnan(y_pred))
+    y_true = y_true[mask]
+    y_pred = y_pred[mask]
+
+    residuals = y_true - y_pred
+    rmse = np.sqrt(np.mean(residuals ** 2))
+    mae = np.mean(np.abs(residuals))
+
+    ss_res = np.sum(residuals ** 2)
+    ss_tot = np.sum((y_true - np.mean(y_true)) ** 2)
