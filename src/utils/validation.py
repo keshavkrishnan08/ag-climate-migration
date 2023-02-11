@@ -108,3 +108,14 @@ def compute_performance_metrics(
     """Compute regression performance metrics.
 
     Args:
+        y_true: Observed values.
+        y_pred: Predicted values.
+        crop_name: Optional crop name for logging.
+
+    Returns:
+        Dict with rmse, mae, r2, spearman_rank keys.
+    """
+    from scipy import stats
+
+    y_true = np.asarray(y_true)
+    y_pred = np.asarray(y_pred)
