@@ -130,3 +130,14 @@ def compute_performance_metrics(
 
     ss_res = np.sum(residuals ** 2)
     ss_tot = np.sum((y_true - np.mean(y_true)) ** 2)
+    r2 = 1 - ss_res / ss_tot if ss_tot > 0 else 0.0
+
+    spearman_corr, spearman_p = stats.spearmanr(y_true, y_pred)
+
+    metrics = {
+        'rmse': rmse,
+        'mae': mae,
+        'r2': r2,
+        'spearman_rank': spearman_corr,
+        'spearman_p': spearman_p,
+        'n_obs': len(y_true)
