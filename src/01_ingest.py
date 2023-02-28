@@ -58,3 +58,13 @@ def ingest_nass_yields(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd
     Raises:
         requests.HTTPError: If API request fails.
     """
+    output_dir.mkdir(parents=True, exist_ok=True)
+    base_url = 'https://quickstats.nass.usda.gov/api/api_GET/'
+
+    nass_crop_names = {
+        'corn': 'CORN',
+        'soybeans': 'SOYBEANS',
+        'wheat_winter': 'WHEAT, WINTER',
+        'wheat_spring': 'WHEAT, SPRING, (EXCL DURUM)',
+        'cotton': 'COTTON, UPLAND',
+        'sorghum': 'SORGHUM, GRAIN',
