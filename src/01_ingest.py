@@ -28,3 +28,13 @@ import pandas as pd
 import requests
 from tqdm import tqdm
 from loguru import logger
+import yaml
+
+# Project paths
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+DATA_RAW = PROJECT_ROOT / 'data' / 'raw'
+DATA_PROCESSED = PROJECT_ROOT / 'data' / 'processed'
+
+with open(PROJECT_ROOT / 'config.yaml') as f:
+    CONFIG = yaml.safe_load(f)
+
