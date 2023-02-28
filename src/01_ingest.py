@@ -38,3 +38,13 @@ DATA_PROCESSED = PROJECT_ROOT / 'data' / 'processed'
 with open(PROJECT_ROOT / 'config.yaml') as f:
     CONFIG = yaml.safe_load(f)
 
+CROPS = CONFIG['crops']['primary']
+FIPS_EXCLUDE = CONFIG['geography']['fips_exclude']
+
+
+# ---------------------------------------------------------------------------
+# 1. USDA NASS County Yields
+# ---------------------------------------------------------------------------
+def ingest_nass_yields(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd.DataFrame:
+    """Download county-level crop yields from USDA NASS Quick Stats API.
+
