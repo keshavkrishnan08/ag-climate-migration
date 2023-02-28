@@ -141,3 +141,12 @@ def compute_performance_metrics(
         'spearman_rank': spearman_corr,
         'spearman_p': spearman_p,
         'n_obs': len(y_true)
+    }
+
+    prefix = f"[{crop_name}] " if crop_name else ""
+    logger.info(
+        f"{prefix}RMSE={rmse:.2f}, MAE={mae:.2f}, R²={r2:.3f}, "
+        f"Spearman ρ={spearman_corr:.3f} (n={len(y_true)})"
+    )
+
+    return metrics
