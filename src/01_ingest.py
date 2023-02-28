@@ -48,3 +48,13 @@ FIPS_EXCLUDE = CONFIG['geography']['fips_exclude']
 def ingest_nass_yields(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd.DataFrame:
     """Download county-level crop yields from USDA NASS Quick Stats API.
 
+    Args:
+        api_key: NASS API key (request at https://quickstats.nass.usda.gov/api).
+        output_dir: Directory to save raw CSV files.
+
+    Returns:
+        DataFrame with columns: fips, year, crop, yield_bu_acre, acres_harvested, production.
+
+    Raises:
+        requests.HTTPError: If API request fails.
+    """
