@@ -118,3 +118,13 @@ def ingest_nass_yields(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd
             'statisticcat_desc': 'AREA HARVESTED',
             'unit_desc': 'ACRES',
             'agg_level_desc': 'COUNTY',
+            'year__GE': 1950,
+            'year__LE': 2023,
+            'format': 'JSON',
+        }
+
+        resp = requests.get(base_url, params=params, timeout=120)
+        resp.raise_for_status()
+        data = resp.json().get('data', [])
+
+        if data:
