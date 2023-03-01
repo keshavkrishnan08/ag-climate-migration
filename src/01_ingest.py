@@ -98,3 +98,13 @@ def ingest_nass_yields(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd
             continue
 
         df = pd.DataFrame(data)
+        df = df[['state_fips_code', 'county_code', 'year', 'Value']].copy()
+        df['fips'] = df['state_fips_code'].astype(str).str.zfill(2) + df['county_code'].astype(str).str.zfill(3)
+        df['year'] = df['year'].astype(int)
+        df['yield_bu_acre'] = pd.to_numeric(df['Value'].str.replace(',', ''), errors='coerce')
+        df['crop'] = crop_key
+        df = df[['fips', 'year', 'crop', 'yield_bu_acre']].dropna(subset=['yield_bu_acre'])
+
+        all_dfs.append(df)
+        logger.info(f"  {crop_key}: {len(df)} county-year observations")
+        time.sleep(1)  # Rate limit
