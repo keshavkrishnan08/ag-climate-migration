@@ -78,3 +78,13 @@ def ingest_nass_yields(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd
 
         params = {
             'key': api_key,
+            'commodity_desc': nass_name.split(',')[0].strip(),
+            'statisticcat_desc': 'YIELD',
+            'unit_desc': 'BU / ACRE',
+            'agg_level_desc': 'COUNTY',
+            'year__GE': 1950,
+            'year__LE': 2023,
+            'format': 'JSON',
+        }
+        if ',' in nass_name:
+            params['short_desc'] = f"{nass_name} - YIELD, MEASURED IN BU / ACRE"
