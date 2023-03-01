@@ -88,3 +88,13 @@ def ingest_nass_yields(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd
         }
         if ',' in nass_name:
             params['short_desc'] = f"{nass_name} - YIELD, MEASURED IN BU / ACRE"
+
+        resp = requests.get(base_url, params=params, timeout=120)
+        resp.raise_for_status()
+        data = resp.json().get('data', [])
+
+        if not data:
+            logger.warning(f"No data returned for {crop_key}")
+            continue
+
+        df = pd.DataFrame(data)
