@@ -128,3 +128,13 @@ def ingest_nass_yields(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd
         data = resp.json().get('data', [])
 
         if data:
+            df_acres = pd.DataFrame(data)
+            df_acres = df_acres[['state_fips_code', 'county_code', 'year', 'Value']].copy()
+            df_acres['fips'] = df_acres['state_fips_code'].astype(str).str.zfill(2) + df_acres['county_code'].astype(str).str.zfill(3)
+            df_acres['year'] = df_acres['year'].astype(int)
+            df_acres['acres_harvested'] = pd.to_numeric(df_acres['Value'].str.replace(',', ''), errors='coerce')
+            df_acres['crop'] = crop_key
+            df_acres = df_acres[['fips', 'year', 'crop', 'acres_harvested']].dropna()
+
+            # Merge acres into yield data
+            for i, df_yield in enumerate(all_dfs):
