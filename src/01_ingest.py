@@ -108,3 +108,13 @@ def ingest_nass_yields(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd
         all_dfs.append(df)
         logger.info(f"  {crop_key}: {len(df)} county-year observations")
         time.sleep(1)  # Rate limit
+
+    # Also fetch acres harvested and production
+    for crop_key, nass_name in nass_crop_names.items():
+        logger.info(f"Fetching NASS acres for {crop_key}")
+        params = {
+            'key': api_key,
+            'commodity_desc': nass_name.split(',')[0].strip(),
+            'statisticcat_desc': 'AREA HARVESTED',
+            'unit_desc': 'ACRES',
+            'agg_level_desc': 'COUNTY',
