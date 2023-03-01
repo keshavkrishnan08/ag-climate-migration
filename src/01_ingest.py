@@ -68,3 +68,13 @@ def ingest_nass_yields(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd
         'wheat_spring': 'WHEAT, SPRING, (EXCL DURUM)',
         'cotton': 'COTTON, UPLAND',
         'sorghum': 'SORGHUM, GRAIN',
+        'barley': 'BARLEY',
+        'oats': 'OATS',
+    }
+
+    all_dfs = []
+    for crop_key, nass_name in nass_crop_names.items():
+        logger.info(f"Fetching NASS yields for {crop_key} ({nass_name})")
+
+        params = {
+            'key': api_key,
