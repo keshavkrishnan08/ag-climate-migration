@@ -138,3 +138,13 @@ def ingest_nass_yields(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd
 
             # Merge acres into yield data
             for i, df_yield in enumerate(all_dfs):
+                if df_yield['crop'].iloc[0] == crop_key:
+                    all_dfs[i] = df_yield.merge(df_acres, on=['fips', 'year', 'crop'], how='left')
+                    break
+
+        time.sleep(1)
+
+    result = pd.concat(all_dfs, ignore_index=True)
+
+    # Filter to CONUS
+    state_fips = result['fips'].str[:2]
