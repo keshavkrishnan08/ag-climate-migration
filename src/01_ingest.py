@@ -148,3 +148,13 @@ def ingest_nass_yields(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd
 
     # Filter to CONUS
     state_fips = result['fips'].str[:2]
+    result = result[~state_fips.isin(FIPS_EXCLUDE)].reset_index(drop=True)
+
+    output_path = output_dir / 'nass_county_yields.parquet'
+    result.to_parquet(output_path, index=False)
+    logger.info(f"Saved NASS yields: {len(result)} rows, {result['crop'].nunique()} crops, "
+                f"{result['fips'].nunique()} counties → {output_path}")
+    return result
+
+
+# ---------------------------------------------------------------------------
