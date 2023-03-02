@@ -158,3 +158,13 @@ def ingest_nass_yields(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd
 
 
 # ---------------------------------------------------------------------------
+# 2. PRISM Climate Data
+# ---------------------------------------------------------------------------
+def ingest_prism_climate(output_dir: Path = DATA_RAW / 'prism') -> pd.DataFrame:
+    """Download county-aggregated PRISM climate data.
+
+    Uses PRISM 4km grid data aggregated to county level.
+    Variables: Tmax, Tmin, Tmean, Precipitation (monthly + growing season).
+
+    Args:
+        output_dir: Directory to save raw data.
