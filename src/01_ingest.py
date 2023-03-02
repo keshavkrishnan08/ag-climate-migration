@@ -168,3 +168,13 @@ def ingest_prism_climate(output_dir: Path = DATA_RAW / 'prism') -> pd.DataFrame:
 
     Args:
         output_dir: Directory to save raw data.
+
+    Returns:
+        DataFrame with county-year climate variables.
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+    logger.info("Fetching PRISM climate data (county-aggregated)")
+
+    # PRISM data is typically downloaded as rasters and aggregated
+    # For county-level, we use pre-aggregated data or aggregate from 4km grid
+    base_url = 'https://prism.oregonstate.edu/fetchData.php'
