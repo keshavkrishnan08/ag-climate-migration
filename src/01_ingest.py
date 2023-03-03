@@ -198,3 +198,13 @@ def ingest_prism_climate(output_dir: Path = DATA_RAW / 'prism') -> pd.DataFrame:
         'fips', 'year', 'month',
         'tmax_mean', 'tmin_mean', 'tmean_mean',
         'precip_total', 'precip_variance'
+    ])
+
+    output_path = output_dir / 'prism_county_climate.parquet'
+    result.to_parquet(output_path, index=False)
+    return result
+
+
+# ---------------------------------------------------------------------------
+# 3. CMIP6 Climate Projections
+# ---------------------------------------------------------------------------
