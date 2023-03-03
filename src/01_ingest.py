@@ -218,3 +218,13 @@ def ingest_cmip6_projections(output_dir: Path = DATA_RAW / 'cmip6') -> dict:
         Dict mapping (model, scenario) to file paths.
 
     Raises:
+        RuntimeError: If fewer than 5 GCMs available per scenario.
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    models = CONFIG['cmip6_models']
+    scenarios = ['ssp126', 'ssp245', 'ssp585']  # SSPs map to RCPs
+    scenario_map = {'ssp126': 'RCP26', 'ssp245': 'RCP45', 'ssp585': 'RCP85'}
+
+    logger.info(f"Fetching CMIP6 projections: {len(models)} models × {len(scenarios)} scenarios")
+
