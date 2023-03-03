@@ -208,3 +208,13 @@ def ingest_prism_climate(output_dir: Path = DATA_RAW / 'prism') -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 # 3. CMIP6 Climate Projections
 # ---------------------------------------------------------------------------
+def ingest_cmip6_projections(output_dir: Path = DATA_RAW / 'cmip6') -> dict:
+    """Download CMIP6 GCM projections for three RCP scenarios.
+
+    Args:
+        output_dir: Directory to save NetCDF files.
+
+    Returns:
+        Dict mapping (model, scenario) to file paths.
+
+    Raises:
