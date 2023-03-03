@@ -178,3 +178,13 @@ def ingest_prism_climate(output_dir: Path = DATA_RAW / 'prism') -> pd.DataFrame:
     # PRISM data is typically downloaded as rasters and aggregated
     # For county-level, we use pre-aggregated data or aggregate from 4km grid
     base_url = 'https://prism.oregonstate.edu/fetchData.php'
+
+    variables = ['tmax', 'tmin', 'tmean', 'ppt']
+    years = range(1895, 2024)
+
+    all_records = []
+    for var in variables:
+        for year in tqdm(years, desc=f"PRISM {var}"):
+            # In production, this would download actual PRISM BIL files
+            # and aggregate to county using rasterio + county shapefiles.
+            # Here we define the data structure.
