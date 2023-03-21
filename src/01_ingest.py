@@ -288,3 +288,13 @@ def ingest_rma_insurance(output_dir: Path = DATA_RAW / 'rma') -> pd.DataFrame:
                         if name.endswith('.csv') or name.endswith('.txt'):
                             df = pd.read_csv(zf.open(name), dtype=str, low_memory=False)
                             all_dfs.append(df)
+                            break
+        except Exception as e:
+            logger.warning(f"RMA {year}: {e}")
+            continue
+
+    if all_dfs:
+        result = pd.concat(all_dfs, ignore_index=True)
+        output_path = output_dir / 'rma_sob_all_years.parquet'
+        result.to_parquet(output_path, index=False)
+        logger.info(f"Saved RMA data: {len(result)} rows → {output_path}")
