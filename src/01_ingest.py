@@ -278,3 +278,13 @@ def ingest_rma_insurance(output_dir: Path = DATA_RAW / 'rma') -> pd.DataFrame:
             resp = requests.get(url, timeout=60)
             if resp.status_code == 200:
                 zip_path = output_dir / f"sobcov_{year}.zip"
+                with open(zip_path, 'wb') as f:
+                    f.write(resp.content)
+
+                # Extract and parse
+                import zipfile
+                with zipfile.ZipFile(zip_path) as zf:
+                    for name in zf.namelist():
+                        if name.endswith('.csv') or name.endswith('.txt'):
+                            df = pd.read_csv(zf.open(name), dtype=str, low_memory=False)
+                            all_dfs.append(df)
