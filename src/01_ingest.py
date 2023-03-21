@@ -238,3 +238,13 @@ def ingest_cmip6_projections(output_dir: Path = DATA_RAW / 'cmip6') -> dict:
             logger.debug(f"  Target: {output_file}")
 
     # Validate ensemble size
+    for ssp in scenarios:
+        rcp = scenario_map[ssp]
+        n_models = sum(1 for k in file_map if k[1] == rcp)
+        if n_models < 5:
+            raise RuntimeError(
+                f"CMIP6 ensemble too small for {rcp}: {n_models} models (need ≥5)"
+            )
+
+    logger.info(f"CMIP6 targets prepared: {len(file_map)} model-scenario combinations")
+    return file_map
