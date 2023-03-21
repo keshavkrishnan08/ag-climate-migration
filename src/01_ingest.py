@@ -248,3 +248,13 @@ def ingest_cmip6_projections(output_dir: Path = DATA_RAW / 'cmip6') -> dict:
 
     logger.info(f"CMIP6 targets prepared: {len(file_map)} model-scenario combinations")
     return file_map
+
+
+# ---------------------------------------------------------------------------
+# 4. USDA RMA Crop Insurance
+# ---------------------------------------------------------------------------
+def ingest_rma_insurance(output_dir: Path = DATA_RAW / 'rma') -> pd.DataFrame:
+    """Download USDA RMA Summary of Business data.
+
+    Source: rma.usda.gov/data
+    Coverage: County × crop × year, 1989-2023
