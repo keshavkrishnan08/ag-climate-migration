@@ -228,3 +228,13 @@ def ingest_cmip6_projections(output_dir: Path = DATA_RAW / 'cmip6') -> dict:
 
     logger.info(f"Fetching CMIP6 projections: {len(models)} models × {len(scenarios)} scenarios")
 
+    file_map = {}
+    for model in models:
+        for ssp in scenarios:
+            # ESGF API download would go here
+            # Using xarray + netcdf4 to read CMIP6 data
+            output_file = output_dir / f"{model}_{ssp}_tas_2015-2100.nc"
+            file_map[(model, scenario_map[ssp])] = str(output_file)
+            logger.debug(f"  Target: {output_file}")
+
+    # Validate ensemble size
