@@ -258,3 +258,13 @@ def ingest_rma_insurance(output_dir: Path = DATA_RAW / 'rma') -> pd.DataFrame:
 
     Source: rma.usda.gov/data
     Coverage: County × crop × year, 1989-2023
+    Variables: Premium, indemnity, liability, loss ratio
+
+    Args:
+        output_dir: Directory to save CSV files.
+
+    Returns:
+        DataFrame with insurance metrics by county-crop-year.
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+
