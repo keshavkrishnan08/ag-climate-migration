@@ -268,3 +268,13 @@ def ingest_rma_insurance(output_dir: Path = DATA_RAW / 'rma') -> pd.DataFrame:
     """
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    base_url = 'https://pubfs-rma.fpac.usda.gov/pub/References/SOB'
+    years = range(1989, 2024)
+
+    all_dfs = []
+    for year in tqdm(years, desc="RMA Summary of Business"):
+        url = f"{base_url}/{year}/sobcov_{year}.zip"
+        try:
+            resp = requests.get(url, timeout=60)
+            if resp.status_code == 200:
+                zip_path = output_dir / f"sobcov_{year}.zip"
