@@ -308,3 +308,13 @@ def ingest_rma_insurance(output_dir: Path = DATA_RAW / 'rma') -> pd.DataFrame:
 # 5. USDA Census of Agriculture
 # ---------------------------------------------------------------------------
 def ingest_census_of_agriculture(
+    api_key: str,
+    output_dir: Path = DATA_RAW / 'census'
+) -> pd.DataFrame:
+    """Download Census of Agriculture data for census years.
+
+    Census years: 2002, 2007, 2012, 2017, 2022
+    Variables: Farm size, debt, assets, operator age, land value
+
+    Args:
+        api_key: NASS API key.
