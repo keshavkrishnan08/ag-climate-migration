@@ -318,3 +318,13 @@ def ingest_census_of_agriculture(
 
     Args:
         api_key: NASS API key.
+        output_dir: Directory to save data.
+
+    Returns:
+        DataFrame with county-level farm structure variables.
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    census_years = [2002, 2007, 2012, 2017, 2022]
+    base_url = 'https://quickstats.nass.usda.gov/api/api_GET/'
+
