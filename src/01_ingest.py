@@ -298,3 +298,13 @@ def ingest_rma_insurance(output_dir: Path = DATA_RAW / 'rma') -> pd.DataFrame:
         output_path = output_dir / 'rma_sob_all_years.parquet'
         result.to_parquet(output_path, index=False)
         logger.info(f"Saved RMA data: {len(result)} rows → {output_path}")
+        return result
+
+    logger.warning("No RMA data downloaded — check network and URLs")
+    return pd.DataFrame()
+
+
+# ---------------------------------------------------------------------------
+# 5. USDA Census of Agriculture
+# ---------------------------------------------------------------------------
+def ingest_census_of_agriculture(
