@@ -398,3 +398,13 @@ def ingest_nass_land_values(api_key: str, output_dir: Path = DATA_RAW / 'nass') 
 
     all_dfs = []
     for short_desc_part, stat_cat, unit in stats:
+        params = {
+            'key': api_key,
+            'commodity_desc': 'AG LAND',
+            'statisticcat_desc': stat_cat,
+            'unit_desc': unit,
+            'agg_level_desc': 'STATE',
+            'year__GE': 1970,
+            'year__LE': 2023,
+            'format': 'JSON',
+        }
