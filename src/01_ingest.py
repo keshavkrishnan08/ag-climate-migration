@@ -388,3 +388,13 @@ def ingest_nass_land_values(api_key: str, output_dir: Path = DATA_RAW / 'nass') 
     Returns:
         DataFrame with land values by state/county-year.
     """
+    output_dir.mkdir(parents=True, exist_ok=True)
+    base_url = 'https://quickstats.nass.usda.gov/api/api_GET/'
+
+    stats = [
+        ('RENT, CASH, CROPLAND', 'RENT', 'DOLLARS / ACRE'),
+        ('LAND & BUILDINGS, FARM REAL ESTATE', 'ASSET VALUE', 'DOLLARS / ACRE'),
+    ]
+
+    all_dfs = []
+    for short_desc_part, stat_cat, unit in stats:
