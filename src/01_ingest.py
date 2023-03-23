@@ -368,3 +368,13 @@ def ingest_census_of_agriculture(
         output_path = output_dir / 'census_of_agriculture.parquet'
         result.to_parquet(output_path, index=False)
         logger.info(f"Saved Census of Ag: {len(result)} rows → {output_path}")
+        return result
+
+    return pd.DataFrame()
+
+
+# ---------------------------------------------------------------------------
+# 6. USDA NASS Farmland Values
+# ---------------------------------------------------------------------------
+def ingest_nass_land_values(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd.DataFrame:
+    """Download farmland values from NASS Quick Stats.
