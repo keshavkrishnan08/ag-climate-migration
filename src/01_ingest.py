@@ -378,3 +378,13 @@ def ingest_census_of_agriculture(
 # ---------------------------------------------------------------------------
 def ingest_nass_land_values(api_key: str, output_dir: Path = DATA_RAW / 'nass') -> pd.DataFrame:
     """Download farmland values from NASS Quick Stats.
+
+    Variables: Land value $/acre, Cash rent $/acre (state/county level)
+
+    Args:
+        api_key: NASS API key.
+        output_dir: Directory to save data.
+
+    Returns:
+        DataFrame with land values by state/county-year.
+    """
