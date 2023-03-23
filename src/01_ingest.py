@@ -328,3 +328,13 @@ def ingest_census_of_agriculture(
     census_years = [2002, 2007, 2012, 2017, 2022]
     base_url = 'https://quickstats.nass.usda.gov/api/api_GET/'
 
+    variables = [
+        ('FARM OPERATIONS', 'OPERATIONS', 'NUMBER OF OPERATIONS'),
+        ('AG LAND', 'AREA', 'ACRES'),
+        ('AG LAND', 'ASSET VALUE', 'MEASURED IN $'),
+        ('FARM OPERATIONS', 'DEBT, LONG TERM', 'MEASURED IN $'),
+        ('OPERATORS', 'AGE, AVG', 'YEARS'),
+    ]
+
+    all_dfs = []
+    for year in census_years:
