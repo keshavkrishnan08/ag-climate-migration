@@ -348,3 +348,13 @@ def ingest_census_of_agriculture(
                 'unit_desc': unit,
                 'agg_level_desc': 'COUNTY',
                 'format': 'JSON',
+            }
+
+            try:
+                resp = requests.get(base_url, params=params, timeout=120)
+                resp.raise_for_status()
+                data = resp.json().get('data', [])
+                if data:
+                    df = pd.DataFrame(data)
+                    df['census_year'] = year
+                    all_dfs.append(df)
