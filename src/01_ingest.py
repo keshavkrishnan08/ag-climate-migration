@@ -358,3 +358,13 @@ def ingest_census_of_agriculture(
                     df = pd.DataFrame(data)
                     df['census_year'] = year
                     all_dfs.append(df)
+            except Exception as e:
+                logger.warning(f"Census {year} {commodity}/{stat_cat}: {e}")
+
+            time.sleep(0.5)
+
+    if all_dfs:
+        result = pd.concat(all_dfs, ignore_index=True)
+        output_path = output_dir / 'census_of_agriculture.parquet'
+        result.to_parquet(output_path, index=False)
+        logger.info(f"Saved Census of Ag: {len(result)} rows → {output_path}")
