@@ -338,3 +338,13 @@ def ingest_census_of_agriculture(
 
     all_dfs = []
     for year in census_years:
+        for commodity, stat_cat, unit in variables:
+            params = {
+                'key': api_key,
+                'source_desc': 'CENSUS',
+                'year': year,
+                'commodity_desc': commodity,
+                'statisticcat_desc': stat_cat,
+                'unit_desc': unit,
+                'agg_level_desc': 'COUNTY',
+                'format': 'JSON',
