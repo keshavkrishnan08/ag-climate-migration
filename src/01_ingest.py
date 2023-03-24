@@ -418,3 +418,13 @@ def ingest_nass_land_values(api_key: str, output_dir: Path = DATA_RAW / 'nass') 
         except Exception as e:
             logger.warning(f"NASS land values ({stat_cat}): {e}")
 
+        time.sleep(1)
+
+    if all_dfs:
+        result = pd.concat(all_dfs, ignore_index=True)
+        output_path = output_dir / 'nass_land_values.parquet'
+        result.to_parquet(output_path, index=False)
+        logger.info(f"Saved land values: {len(result)} rows → {output_path}")
+        return result
+
+    return pd.DataFrame()
