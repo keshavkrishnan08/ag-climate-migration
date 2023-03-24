@@ -428,3 +428,13 @@ def ingest_nass_land_values(api_key: str, output_dir: Path = DATA_RAW / 'nass') 
         return result
 
     return pd.DataFrame()
+
+
+# ---------------------------------------------------------------------------
+# 7. Census ACS Rural Population
+# ---------------------------------------------------------------------------
+def ingest_acs_population(output_dir: Path = DATA_RAW / 'census') -> pd.DataFrame:
+    """Download Census ACS county population and demographics.
+
+    Variables: Population, age structure, income, poverty rate
+    Coverage: Annual 2005-2023
