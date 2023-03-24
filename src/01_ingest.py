@@ -408,3 +408,13 @@ def ingest_nass_land_values(api_key: str, output_dir: Path = DATA_RAW / 'nass') 
             'year__LE': 2023,
             'format': 'JSON',
         }
+
+        try:
+            resp = requests.get(base_url, params=params, timeout=120)
+            resp.raise_for_status()
+            data = resp.json().get('data', [])
+            if data:
+                all_dfs.append(pd.DataFrame(data))
+        except Exception as e:
+            logger.warning(f"NASS land values ({stat_cat}): {e}")
+
