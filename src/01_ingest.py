@@ -448,3 +448,13 @@ def ingest_acs_population(output_dir: Path = DATA_RAW / 'census') -> pd.DataFram
     output_dir.mkdir(parents=True, exist_ok=True)
 
     try:
+        import censusdata
+    except ImportError:
+        logger.error("censusdata package required: pip install censusdata")
+        return pd.DataFrame()
+
+    variables = {
+        'B01003_001E': 'total_population',
+        'B19013_001E': 'median_household_income',
+        'B17001_002E': 'poverty_count',
+        'B07001_001E': 'geographic_mobility_total',
