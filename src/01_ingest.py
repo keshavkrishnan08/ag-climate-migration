@@ -438,3 +438,13 @@ def ingest_acs_population(output_dir: Path = DATA_RAW / 'census') -> pd.DataFram
 
     Variables: Population, age structure, income, poverty rate
     Coverage: Annual 2005-2023
+
+    Args:
+        output_dir: Directory to save data.
+
+    Returns:
+        DataFrame with county-year demographics.
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    try:
