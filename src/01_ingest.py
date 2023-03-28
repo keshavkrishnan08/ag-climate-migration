@@ -498,3 +498,13 @@ def ingest_acs_population(output_dir: Path = DATA_RAW / 'census') -> pd.DataFram
 
 
 # ---------------------------------------------------------------------------
+# 8. BLS CPI Deflator
+# ---------------------------------------------------------------------------
+def ingest_cpi(fred_api_key: str, output_dir: Path = DATA_RAW / 'other') -> pd.Series:
+    """Download CPI-U series from FRED for deflation to 2023 USD.
+
+    Args:
+        fred_api_key: FRED API key.
+        output_dir: Directory to cache CPI data.
+
+    Returns:
