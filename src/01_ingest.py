@@ -458,3 +458,13 @@ def ingest_acs_population(output_dir: Path = DATA_RAW / 'census') -> pd.DataFram
         'B19013_001E': 'median_household_income',
         'B17001_002E': 'poverty_count',
         'B07001_001E': 'geographic_mobility_total',
+        'B07001_065E': 'moved_from_different_county',
+        'B25077_001E': 'median_home_value',
+    }
+
+    all_dfs = []
+    for year in tqdm(range(2005, 2024), desc="ACS population"):
+        try:
+            data = censusdata.download(
+                'acs5', year,
+                censusdata.censusgeo([('state', '*'), ('county', '*')]),
