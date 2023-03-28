@@ -468,3 +468,13 @@ def ingest_acs_population(output_dir: Path = DATA_RAW / 'census') -> pd.DataFram
             data = censusdata.download(
                 'acs5', year,
                 censusdata.censusgeo([('state', '*'), ('county', '*')]),
+                list(variables.keys())
+            )
+            data = data.rename(columns=variables)
+            data['year'] = year
+
+            # Extract FIPS from index
+            fips_codes = []
+            for idx in data.index:
+                params = idx.params()
+                state = params[0][1]
