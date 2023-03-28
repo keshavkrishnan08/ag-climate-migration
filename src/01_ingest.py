@@ -518,3 +518,13 @@ def ingest_cpi(fred_api_key: str, output_dir: Path = DATA_RAW / 'other') -> pd.S
     return load_or_fetch_cpi(cache_path=cache_path, fred_api_key=fred_api_key)
 
 
+# ---------------------------------------------------------------------------
+# 9. Rural Hospital Closures
+# ---------------------------------------------------------------------------
+def ingest_hospital_closures(output_dir: Path = DATA_RAW / 'other') -> pd.DataFrame:
+    """Download rural hospital closure and operational status data.
+
+    Source: ruralhospitals.chqpr.org
+    Coverage: County level, 2005-2023
+
+    Args:
