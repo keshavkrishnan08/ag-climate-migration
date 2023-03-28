@@ -528,3 +528,13 @@ def ingest_hospital_closures(output_dir: Path = DATA_RAW / 'other') -> pd.DataFr
     Coverage: County level, 2005-2023
 
     Args:
+        output_dir: Directory to save data.
+
+    Returns:
+        DataFrame with hospital operational status by county.
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # This data is typically downloaded as CSV from rural health organizations
+    # UNC Sheps Center maintains the most comprehensive dataset
+    logger.info("Hospital closure data requires manual download from UNC Sheps Center")
