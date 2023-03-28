@@ -478,3 +478,13 @@ def ingest_acs_population(output_dir: Path = DATA_RAW / 'census') -> pd.DataFram
             for idx in data.index:
                 params = idx.params()
                 state = params[0][1]
+                county = params[1][1]
+                fips_codes.append(f"{state}{county}")
+            data['fips'] = fips_codes
+            data = data.reset_index(drop=True)
+
+            all_dfs.append(data)
+        except Exception as e:
+            logger.warning(f"ACS {year}: {e}")
+
+    if all_dfs:
