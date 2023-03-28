@@ -508,3 +508,13 @@ def ingest_cpi(fred_api_key: str, output_dir: Path = DATA_RAW / 'other') -> pd.S
         output_dir: Directory to cache CPI data.
 
     Returns:
+        Annual average CPI series.
+    """
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from utils.deflator import load_or_fetch_cpi
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    cache_path = str(output_dir / 'cpi_annual.csv')
+    return load_or_fetch_cpi(cache_path=cache_path, fred_api_key=fred_api_key)
+
+
