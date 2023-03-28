@@ -488,3 +488,13 @@ def ingest_acs_population(output_dir: Path = DATA_RAW / 'census') -> pd.DataFram
             logger.warning(f"ACS {year}: {e}")
 
     if all_dfs:
+        result = pd.concat(all_dfs, ignore_index=True)
+        output_path = output_dir / 'acs_county_demographics.parquet'
+        result.to_parquet(output_path, index=False)
+        logger.info(f"Saved ACS data: {len(result)} rows → {output_path}")
+        return result
+
+    return pd.DataFrame()
+
+
+# ---------------------------------------------------------------------------
