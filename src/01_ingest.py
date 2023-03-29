@@ -548,3 +548,13 @@ def ingest_hospital_closures(output_dir: Path = DATA_RAW / 'other') -> pd.DataFr
     output_path = output_dir / 'rural_hospital_closures.parquet'
     result.to_parquet(output_path, index=False)
     return result
+
+
+# ---------------------------------------------------------------------------
+# 10. NCES School Enrollment
+# ---------------------------------------------------------------------------
+def ingest_school_enrollment(output_dir: Path = DATA_RAW / 'other') -> pd.DataFrame:
+    """Download K-12 school enrollment by district.
+
+    Source: NCES Common Core of Data (CCD)
+    Coverage: District annual, 1986-2023
