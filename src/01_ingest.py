@@ -578,3 +578,13 @@ def ingest_school_enrollment(output_dir: Path = DATA_RAW / 'other') -> pd.DataFr
     output_path = output_dir / 'nces_enrollment.parquet'
     result.to_parquet(output_path, index=False)
     return result
+
+
+# ---------------------------------------------------------------------------
+# 11. USDA GIPSA Grain Elevators
+# ---------------------------------------------------------------------------
+def ingest_grain_elevators(output_dir: Path = DATA_RAW / 'other') -> pd.DataFrame:
+    """Download GIPSA grain elevator locations and capacity.
+
+    Source: usda.gov/gipsa
+    Variables: Location, storage capacity
