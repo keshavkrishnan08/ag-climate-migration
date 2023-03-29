@@ -538,3 +538,13 @@ def ingest_hospital_closures(output_dir: Path = DATA_RAW / 'other') -> pd.DataFr
     # This data is typically downloaded as CSV from rural health organizations
     # UNC Sheps Center maintains the most comprehensive dataset
     logger.info("Hospital closure data requires manual download from UNC Sheps Center")
+    logger.info("See: https://www.shepscenter.unc.edu/programs-projects/rural-health/rural-hospital-closures/")
+
+    result = pd.DataFrame(columns=[
+        'fips', 'hospital_name', 'status', 'closure_year',
+        'beds', 'services', 'critical_access'
+    ])
+
+    output_path = output_dir / 'rural_hospital_closures.parquet'
+    result.to_parquet(output_path, index=False)
+    return result
