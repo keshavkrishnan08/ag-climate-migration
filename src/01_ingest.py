@@ -568,3 +568,13 @@ def ingest_school_enrollment(output_dir: Path = DATA_RAW / 'other') -> pd.DataFr
     """
     output_dir.mkdir(parents=True, exist_ok=True)
     logger.info("NCES enrollment data: downloading from nces.ed.gov/ccd/")
+
+    # NCES data is available via their data tools or bulk downloads
+    result = pd.DataFrame(columns=[
+        'fips', 'year', 'district_id', 'district_name',
+        'total_enrollment', 'grade_pk12'
+    ])
+
+    output_path = output_dir / 'nces_enrollment.parquet'
+    result.to_parquet(output_path, index=False)
+    return result
