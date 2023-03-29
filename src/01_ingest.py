@@ -558,3 +558,13 @@ def ingest_school_enrollment(output_dir: Path = DATA_RAW / 'other') -> pd.DataFr
 
     Source: NCES Common Core of Data (CCD)
     Coverage: District annual, 1986-2023
+    Must aggregate district → county using FIPS mapping.
+
+    Args:
+        output_dir: Directory to save data.
+
+    Returns:
+        DataFrame with enrollment by county-year.
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+    logger.info("NCES enrollment data: downloading from nces.ed.gov/ccd/")
