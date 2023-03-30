@@ -608,3 +608,13 @@ def ingest_grain_elevators(output_dir: Path = DATA_RAW / 'other') -> pd.DataFram
     return result
 
 
+# ---------------------------------------------------------------------------
+# 12. Cropland Data Layer (CDL)
+# ---------------------------------------------------------------------------
+def ingest_cdl(output_dir: Path = DATA_RAW / 'cdl', years: range = range(1997, 2024)) -> dict:
+    """Download USDA NASS Cropland Data Layer rasters.
+
+    Source: nassgeodata.gmu.edu
+    Resolution: 30m pixel, all US
+    Coverage: 1997-2023
+
