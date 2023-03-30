@@ -628,3 +628,13 @@ def ingest_cdl(output_dir: Path = DATA_RAW / 'cdl', years: range = range(1997, 2
     output_dir.mkdir(parents=True, exist_ok=True)
     base_url = 'https://nassgeodata.gmu.edu/CropScape/GetCDLData'
 
+    file_map = {}
+    for year in tqdm(years, desc="CDL rasters"):
+        output_file = output_dir / f"cdl_{year}.tif"
+        if output_file.exists():
+            file_map[year] = str(output_file)
+            continue
+
+        # CDL download requires CropScape API or FTP
+        # Full CONUS rasters are ~2GB each
+        logger.debug(f"CDL {year}: target → {output_file}")
