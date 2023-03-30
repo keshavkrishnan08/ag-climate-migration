@@ -638,3 +638,13 @@ def ingest_cdl(output_dir: Path = DATA_RAW / 'cdl', years: range = range(1997, 2
         # CDL download requires CropScape API or FTP
         # Full CONUS rasters are ~2GB each
         logger.debug(f"CDL {year}: target → {output_file}")
+        file_map[year] = str(output_file)
+
+    logger.info(f"CDL targets prepared: {len(file_map)} years")
+    return file_map
+
+
+# ---------------------------------------------------------------------------
+# Data Quality Validation (PRD Section 3.2)
+# ---------------------------------------------------------------------------
+def validate_data_quality(nass_yields: pd.DataFrame) -> dict:
