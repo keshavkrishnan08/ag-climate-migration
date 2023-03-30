@@ -588,3 +588,13 @@ def ingest_grain_elevators(output_dir: Path = DATA_RAW / 'other') -> pd.DataFram
 
     Source: usda.gov/gipsa
     Variables: Location, storage capacity
+
+    Args:
+        output_dir: Directory to save data.
+
+    Returns:
+        DataFrame with elevator locations and capacity.
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    result = pd.DataFrame(columns=[
