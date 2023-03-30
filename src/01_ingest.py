@@ -618,3 +618,13 @@ def ingest_cdl(output_dir: Path = DATA_RAW / 'cdl', years: range = range(1997, 2
     Resolution: 30m pixel, all US
     Coverage: 1997-2023
 
+    Args:
+        output_dir: Directory to save raster files.
+        years: Range of years to download.
+
+    Returns:
+        Dict mapping year to file path.
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+    base_url = 'https://nassgeodata.gmu.edu/CropScape/GetCDLData'
+
