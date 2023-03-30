@@ -598,3 +598,13 @@ def ingest_grain_elevators(output_dir: Path = DATA_RAW / 'other') -> pd.DataFram
     output_dir.mkdir(parents=True, exist_ok=True)
 
     result = pd.DataFrame(columns=[
+        'facility_id', 'name', 'fips', 'state', 'latitude', 'longitude',
+        'storage_capacity_bushels', 'facility_type'
+    ])
+
+    output_path = output_dir / 'gipsa_grain_elevators.parquet'
+    result.to_parquet(output_path, index=False)
+    logger.info("GIPSA elevator data placeholder created")
+    return result
+
+
