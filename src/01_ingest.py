@@ -678,3 +678,13 @@ def validate_data_quality(nass_yields: pd.DataFrame) -> dict:
         'expected': 3108,
         'passed': n_counties >= 2500
     }
+
+    # Check 3: Year range
+    checks['year_range'] = {
+        'min_year': int(nass_yields['year'].min()),
+        'max_year': int(nass_yields['year'].max()),
+        'passed': nass_yields['year'].min() <= 1955 and nass_yields['year'].max() >= 2022
+    }
+
+    for name, result in checks.items():
+        status = "✓" if result['passed'] else "✗"
