@@ -648,3 +648,13 @@ def ingest_cdl(output_dir: Path = DATA_RAW / 'cdl', years: range = range(1997, 2
 # Data Quality Validation (PRD Section 3.2)
 # ---------------------------------------------------------------------------
 def validate_data_quality(nass_yields: pd.DataFrame) -> dict:
+    """Run all data quality checks from PRD Section 3.2.
+
+    Args:
+        nass_yields: Downloaded NASS yield data.
+
+    Returns:
+        Dict of check results with 'passed' boolean for each.
+
+    Raises:
+        ValueError: If critical checks fail.
