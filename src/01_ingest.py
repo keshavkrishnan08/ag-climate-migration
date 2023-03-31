@@ -658,3 +658,13 @@ def validate_data_quality(nass_yields: pd.DataFrame) -> dict:
 
     Raises:
         ValueError: If critical checks fail.
+    """
+    checks = {}
+
+    # Check 1: County yield coverage ≥ 75%
+    county_crop_years = nass_yields.groupby(['fips', 'crop'])['year'].count()
+    total_years = nass_yields['year'].max() - nass_yields['year'].min() + 1
+    coverage = county_crop_years / total_years
+    checks['yield_coverage'] = {
+        'threshold': 0.75,
+        'median_coverage': coverage.median(),
