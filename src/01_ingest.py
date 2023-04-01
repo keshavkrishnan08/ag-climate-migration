@@ -688,3 +688,13 @@ def validate_data_quality(nass_yields: pd.DataFrame) -> dict:
 
     for name, result in checks.items():
         status = "✓" if result['passed'] else "✗"
+        logger.info(f"Data quality [{status}] {name}: {result}")
+
+    return checks
+
+
+# ---------------------------------------------------------------------------
+# Master ingestion pipeline
+# ---------------------------------------------------------------------------
+def run_ingestion(
+    nass_api_key: str = None,
