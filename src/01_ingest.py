@@ -708,3 +708,13 @@ def run_ingestion(
 
     Returns:
         Dict of dataset names to file paths.
+    """
+    logger.info("=" * 60)
+    logger.info("PHASE 1: DATA INGESTION")
+    logger.info("=" * 60)
+
+    datasets = {}
+
+    # Load API keys from environment if not provided
+    if nass_api_key is None:
+        nass_api_key = os.environ.get('NASS_API_KEY', '')
