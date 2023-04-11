@@ -718,3 +718,13 @@ def run_ingestion(
     # Load API keys from environment if not provided
     if nass_api_key is None:
         nass_api_key = os.environ.get('NASS_API_KEY', '')
+    if fred_api_key is None:
+        fred_api_key = os.environ.get('FRED_API_KEY', '')
+
+    if nass_api_key:
+        nass = ingest_nass_yields(nass_api_key)
+        datasets['nass_yields'] = nass
+        validate_data_quality(nass)
+
+        ingest_nass_land_values(nass_api_key)
+        ingest_census_of_agriculture(nass_api_key)
