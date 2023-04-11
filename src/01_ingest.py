@@ -698,3 +698,13 @@ def validate_data_quality(nass_yields: pd.DataFrame) -> dict:
 # ---------------------------------------------------------------------------
 def run_ingestion(
     nass_api_key: str = None,
+    fred_api_key: str = None
+) -> dict:
+    """Run complete data ingestion pipeline.
+
+    Args:
+        nass_api_key: USDA NASS API key.
+        fred_api_key: FRED API key.
+
+    Returns:
+        Dict of dataset names to file paths.
