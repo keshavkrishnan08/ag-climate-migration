@@ -738,3 +738,13 @@ def run_ingestion(
     ingest_grain_elevators()
     ingest_cdl()
 
+    if fred_api_key:
+        ingest_cpi(fred_api_key)
+
+    logger.info("=" * 60)
+    logger.info("PHASE 1 COMPLETE")
+    logger.info("=" * 60)
+    return datasets
+
+
+if __name__ == '__main__':
