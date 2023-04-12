@@ -728,3 +728,13 @@ def run_ingestion(
 
         ingest_nass_land_values(nass_api_key)
         ingest_census_of_agriculture(nass_api_key)
+
+    ingest_prism_climate()
+    ingest_cmip6_projections()
+    ingest_rma_insurance()
+    ingest_acs_population()
+    ingest_hospital_closures()
+    ingest_school_enrollment()
+    ingest_grain_elevators()
+    ingest_cdl()
+
