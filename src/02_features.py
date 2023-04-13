@@ -38,3 +38,13 @@ def compute_gdd_from_monthly(
     tmin_f: float,
     base_c: float,
     upper_c: float,
+    days_in_month: int = 30
+) -> float:
+    """Approximate monthly GDD from monthly avg tmax/tmin (given in °F).
+
+    Args:
+        tmax_f: Monthly average max temperature in °F.
+        tmin_f: Monthly average min temperature in °F.
+        base_c: Crop base temperature in °C.
+        upper_c: Crop upper threshold in °C.
+        days_in_month: Days in the month.
