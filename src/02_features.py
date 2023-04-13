@@ -28,3 +28,13 @@ with open(PROJECT_ROOT / 'config.yaml') as f:
     CONFIG = yaml.safe_load(f)
 
 F_TO_C = lambda f: (f - 32) * 5 / 9
+
+
+# ---------------------------------------------------------------------------
+# Core derived variables
+# ---------------------------------------------------------------------------
+def compute_gdd_from_monthly(
+    tmax_f: float,
+    tmin_f: float,
+    base_c: float,
+    upper_c: float,
