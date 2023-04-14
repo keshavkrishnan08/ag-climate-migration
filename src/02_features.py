@@ -48,3 +48,13 @@ def compute_gdd_from_monthly(
         base_c: Crop base temperature in °C.
         upper_c: Crop upper threshold in °C.
         days_in_month: Days in the month.
+
+    Returns:
+        Approximate GDD for that month.
+    """
+    if np.isnan(tmax_f) or np.isnan(tmin_f):
+        return np.nan
+    tmax_c = F_TO_C(tmax_f)
+    tmin_c = F_TO_C(tmin_f)
+    tavg = (tmax_c + tmin_c) / 2.0
+    effective = min(tavg, upper_c)
