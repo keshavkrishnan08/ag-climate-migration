@@ -68,3 +68,13 @@ def compute_yield_anomaly(yields_series: pd.Series) -> pd.Series:
     Fits linear + quadratic trend. Returns z-score residuals.
 
     Args:
+        yields_series: County-crop yields indexed by year.
+
+    Returns:
+        Detrended yield anomaly series (z-score).
+    """
+    s = yields_series.dropna()
+    if len(s) < 10:
+        return pd.Series(np.nan, index=yields_series.index)
+
+    years = s.index.values.astype(float)
