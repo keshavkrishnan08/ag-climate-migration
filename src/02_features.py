@@ -58,3 +58,13 @@ def compute_gdd_from_monthly(
     tmin_c = F_TO_C(tmin_f)
     tavg = (tmax_c + tmin_c) / 2.0
     effective = min(tavg, upper_c)
+    daily_gdd = max(0.0, effective - base_c)
+    return daily_gdd * days_in_month
+
+
+def compute_yield_anomaly(yields_series: pd.Series) -> pd.Series:
+    """Remove technology trend from yield to isolate climate signal.
+
+    Fits linear + quadratic trend. Returns z-score residuals.
+
+    Args:
