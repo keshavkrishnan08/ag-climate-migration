@@ -88,3 +88,13 @@ def compute_yield_anomaly(yields_series: pd.Series) -> pd.Series:
     residuals = values - trend
 
     std = residuals.std()
+    anomaly = residuals / std if std > 0 else residuals
+    return pd.Series(anomaly, index=s.index)
+
+
+# ---------------------------------------------------------------------------
+# Load real data files
+# ---------------------------------------------------------------------------
+def load_nass_yields() -> pd.DataFrame:
+    """Load NASS county yields, filter to 1950+ with valid yields.
+
