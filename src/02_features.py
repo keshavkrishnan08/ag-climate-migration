@@ -78,3 +78,13 @@ def compute_yield_anomaly(yields_series: pd.Series) -> pd.Series:
         return pd.Series(np.nan, index=yields_series.index)
 
     years = s.index.values.astype(float)
+    values = s.values.astype(float)
+
+    import warnings
+    with warnings.catch_warnings():
+        warnings.simplefilter('ignore', np.RankWarning)
+        coeffs = np.polyfit(years, values, deg=2)
+    trend = np.polyval(coeffs, years)
+    residuals = values - trend
+
+    std = residuals.std()
