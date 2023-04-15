@@ -98,3 +98,13 @@ def compute_yield_anomaly(yields_series: pd.Series) -> pd.Series:
 def load_nass_yields() -> pd.DataFrame:
     """Load NASS county yields, filter to 1950+ with valid yields.
 
+    Deduplicates to one record per county-crop-year (NASS bulk has
+    multiple records per group for different practices/coverage types).
+
+    Returns:
+        DataFrame: fips, year, crop, yield_bu_acre, acres_harvested.
+    """
+    path = DATA_RAW / 'nass' / 'nass_county_yields.parquet'
+    df = pd.read_parquet(path)
+    df = df[df['year'] >= 1950].copy()
+    df = df.dropna(subset=['yield_bu_acre'])
