@@ -108,3 +108,13 @@ def load_nass_yields() -> pd.DataFrame:
     df = pd.read_parquet(path)
     df = df[df['year'] >= 1950].copy()
     df = df.dropna(subset=['yield_bu_acre'])
+    df['fips'] = df['fips'].astype(str).str.zfill(5)
+    # Remove "other counties" aggregates
+    df = df[~df['fips'].str.endswith(('998', '999'))]
+
+    # Deduplicate: one record per county-crop-year
+    n_before = len(df)
+    df = df.groupby(['fips', 'year', 'crop']).agg({
+        'yield_bu_acre': 'first',
+        'acres_harvested': 'first',
+    }).reset_index()
