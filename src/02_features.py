@@ -118,3 +118,13 @@ def load_nass_yields() -> pd.DataFrame:
         'yield_bu_acre': 'first',
         'acres_harvested': 'first',
     }).reset_index()
+
+    logger.info(f"NASS yields: {len(df):,} rows (deduped from {n_before:,}), "
+                f"{df['fips'].nunique()} counties, {df['year'].min()}-{df['year'].max()}")
+    return df
+
+
+def load_climate() -> pd.DataFrame:
+    """Load NOAA nClimDiv county climate data (already parsed to parquet).
+
+    Data is in °F. Growing season aggregates already computed.
