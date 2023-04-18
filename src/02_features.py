@@ -188,3 +188,13 @@ def load_ers_atlas() -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 # Feature builders (vectorized for real data scale)
 # ---------------------------------------------------------------------------
+def build_climate_features(climate_annual: pd.DataFrame, climate_monthly: pd.DataFrame) -> pd.DataFrame:
+    """Build all climate feature blocks from real nClimDiv data.
+
+    Produces per county-year:
+        - Current season: tmax_july_c, tmin_growing_c, precip_growing, pdsi, cdd
+        - GDD: corn_gdd, soy_gdd, wheat_gdd, cotton_gdd (from monthly data)
+        - Trends: 10-year slopes for tmax, precip
+        - Anomalies: z-scores vs 1981-2010 baseline
+
+    Args:
