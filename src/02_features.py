@@ -198,3 +198,13 @@ def build_climate_features(climate_annual: pd.DataFrame, climate_monthly: pd.Dat
         - Anomalies: z-scores vs 1981-2010 baseline
 
     Args:
+        climate_annual: Annual growing-season aggregates.
+        climate_monthly: Monthly data for GDD computation.
+
+    Returns:
+        DataFrame with climate features per county-year.
+    """
+    logger.info("Building climate features...")
+
+    # --- Current season features (convert °F to °C) ---
+    cf = climate_annual[['fips', 'year']].copy()
