@@ -148,3 +148,13 @@ def load_monthly_climate() -> pd.DataFrame:
     """
     path = DATA_RAW / 'prism' / 'county_climate_monthly.parquet'
     df = pd.read_parquet(path)
+    df['fips'] = df['fips'].astype(str).str.zfill(5)
+    return df
+
+
+def load_acs_demographics() -> pd.DataFrame:
+    """Load Census ACS county demographics.
+
+    Returns:
+        DataFrame: fips, year, total_population, median_household_income, etc.
+    """
