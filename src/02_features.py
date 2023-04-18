@@ -178,3 +178,13 @@ def load_ers_atlas() -> pd.DataFrame:
     path = DATA_RAW / 'other' / 'ers_atlas' / 'People.csv'
     if not path.exists():
         return pd.DataFrame()
+    # ERS is in long format: FIPS, State, County, Attribute, Value
+    df = pd.read_csv(path, dtype=str, low_memory=False, encoding='latin-1')
+    if 'FIPS' in df.columns:
+        df['fips'] = df['FIPS'].str.zfill(5)
+    return df
+
+
+# ---------------------------------------------------------------------------
+# Feature builders (vectorized for real data scale)
+# ---------------------------------------------------------------------------
