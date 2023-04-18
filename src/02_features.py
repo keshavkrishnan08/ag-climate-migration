@@ -158,3 +158,13 @@ def load_acs_demographics() -> pd.DataFrame:
     Returns:
         DataFrame: fips, year, total_population, median_household_income, etc.
     """
+    path = DATA_RAW / 'census' / 'acs_county_demographics.parquet'
+    if not path.exists():
+        return pd.DataFrame()
+    df = pd.read_parquet(path)
+    df['fips'] = df['fips'].astype(str).str.zfill(5)
+    for col in ['total_population', 'median_household_income', 'poverty_count', 'median_home_value']:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors='coerce')
+    return df
+
