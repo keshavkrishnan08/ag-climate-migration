@@ -138,3 +138,13 @@ def load_climate() -> pd.DataFrame:
     df['fips'] = df['fips'].astype(str).str.zfill(5)
     logger.info(f"Climate: {len(df):,} county-years, {df['fips'].nunique()} counties")
     return df
+
+
+def load_monthly_climate() -> pd.DataFrame:
+    """Load full monthly climate for GDD computation and trend analysis.
+
+    Returns:
+        DataFrame with monthly tmax/tmin/precip/pdsi columns per county-year.
+    """
+    path = DATA_RAW / 'prism' / 'county_climate_monthly.parquet'
+    df = pd.read_parquet(path)
