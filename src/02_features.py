@@ -128,3 +128,13 @@ def load_climate() -> pd.DataFrame:
     """Load NOAA nClimDiv county climate data (already parsed to parquet).
 
     Data is in °F. Growing season aggregates already computed.
+
+    Returns:
+        DataFrame: fips, year, tmax_growing_avg, tmin_growing_avg,
+        precip_growing_total, tmax_july, pdsi_growing_avg, cdd_annual.
+    """
+    path = DATA_RAW / 'prism' / 'county_climate_annual.parquet'
+    df = pd.read_parquet(path)
+    df['fips'] = df['fips'].astype(str).str.zfill(5)
+    logger.info(f"Climate: {len(df):,} county-years, {df['fips'].nunique()} counties")
+    return df
