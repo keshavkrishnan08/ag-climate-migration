@@ -168,3 +168,13 @@ def load_acs_demographics() -> pd.DataFrame:
             df[col] = pd.to_numeric(df[col], errors='coerce')
     return df
 
+
+def load_ers_atlas() -> pd.DataFrame:
+    """Load ERS Atlas county classifications.
+
+    Returns:
+        DataFrame with county typology codes and economic indicators.
+    """
+    path = DATA_RAW / 'other' / 'ers_atlas' / 'People.csv'
+    if not path.exists():
+        return pd.DataFrame()
