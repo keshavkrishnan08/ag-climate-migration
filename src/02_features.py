@@ -228,3 +228,13 @@ def build_climate_features(climate_annual: pd.DataFrame, climate_monthly: pd.Dat
         total_gdd = np.zeros(len(climate_monthly))
         for m in growing_months:
             tmax_c = F_TO_C(climate_monthly[f'tmax_m{m:02d}'].values)
+            tmin_c = F_TO_C(climate_monthly[f'tmin_m{m:02d}'].values)
+            tavg = (tmax_c + tmin_c) / 2.0
+            effective = np.minimum(tavg, upper_c)
+            daily_gdd = np.maximum(0.0, effective - base_c)
+            total_gdd += daily_gdd * days_per_month[m]
+
+        gdd_df = climate_monthly[['fips', 'year']].copy()
+        gdd_df[f'gdd_{crop_key}'] = total_gdd
+        cf = cf.merge(gdd_df, on=['fips', 'year'], how='left')
+
