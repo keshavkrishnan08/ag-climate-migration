@@ -208,3 +208,13 @@ def build_climate_features(climate_annual: pd.DataFrame, climate_monthly: pd.Dat
 
     # --- Current season features (convert °F to °C) ---
     cf = climate_annual[['fips', 'year']].copy()
+    cf['tmax_july_c'] = F_TO_C(climate_annual['tmax_july'])
+    cf['tmax_growing_c'] = F_TO_C(climate_annual['tmax_growing_avg'])
+    cf['tmin_growing_c'] = F_TO_C(climate_annual['tmin_growing_avg'])
+    cf['precip_growing'] = climate_annual['precip_growing_total']
+    cf['pdsi_growing'] = climate_annual['pdsi_growing_avg']
+    cf['cdd_annual'] = climate_annual['cdd_annual']
+
+    # --- GDD from monthly data (vectorized) ---
+    logger.info("  Computing crop-specific GDD from monthly temps (vectorized)...")
+    gdd_thresholds = CONFIG['gdd_thresholds']
