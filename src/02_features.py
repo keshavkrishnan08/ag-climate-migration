@@ -248,3 +248,13 @@ def build_climate_features(climate_annual: pd.DataFrame, climate_monthly: pd.Dat
         for fips, group in cf.groupby('fips'):
             group = group.sort_values('year')
             vals = group[var].values
+            yrs = group['year'].values.astype(float)
+            s = np.full(len(vals), np.nan)
+            for i in range(10, len(vals)):
+                window_y = yrs[i - 10:i]
+                window_v = vals[i - 10:i]
+                mask = ~np.isnan(window_v)
+                if mask.sum() >= 5:
+                    sl, _, _, _, _ = stats.linregress(window_y[mask], window_v[mask])
+                    s[i] = sl
+            slopes.extend(s)
