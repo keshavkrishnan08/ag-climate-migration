@@ -218,3 +218,13 @@ def build_climate_features(climate_annual: pd.DataFrame, climate_monthly: pd.Dat
     # --- GDD from monthly data (vectorized) ---
     logger.info("  Computing crop-specific GDD from monthly temps (vectorized)...")
     gdd_thresholds = CONFIG['gdd_thresholds']
+    days_per_month = {4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30}
+    growing_months = list(range(4, 10))
+
+    for crop_key, thresholds in gdd_thresholds.items():
+        base_c = thresholds['base']
+        upper_c = thresholds['upper']
+
+        total_gdd = np.zeros(len(climate_monthly))
+        for m in growing_months:
+            tmax_c = F_TO_C(climate_monthly[f'tmax_m{m:02d}'].values)
