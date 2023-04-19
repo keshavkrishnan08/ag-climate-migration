@@ -238,3 +238,13 @@ def build_climate_features(climate_annual: pd.DataFrame, climate_monthly: pd.Dat
         gdd_df[f'gdd_{crop_key}'] = total_gdd
         cf = cf.merge(gdd_df, on=['fips', 'year'], how='left')
 
+    # --- 10-year trends (vectorized with groupby + rolling) ---
+    logger.info("  Computing 10-year climate trends...")
+    cf = cf.sort_values(['fips', 'year'])
+
+    for var in ['tmax_july_c', 'precip_growing', 'cdd_annual']:
+        slope_col = f'{var}_trend10'
+        slopes = []
+        for fips, group in cf.groupby('fips'):
+            group = group.sort_values('year')
+            vals = group[var].values
