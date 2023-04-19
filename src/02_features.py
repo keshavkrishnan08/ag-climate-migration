@@ -258,3 +258,13 @@ def build_climate_features(climate_annual: pd.DataFrame, climate_monthly: pd.Dat
                     sl, _, _, _, _ = stats.linregress(window_y[mask], window_v[mask])
                     s[i] = sl
             slopes.extend(s)
+        cf[slope_col] = slopes
+
+    # --- Anomalies vs 1981-2010 baseline ---
+    logger.info("  Computing climate anomalies vs 1981-2010 baseline...")
+    baseline = cf[(cf['year'] >= 1981) & (cf['year'] <= 2010)]
+
+    for var in ['tmax_july_c', 'precip_growing', 'pdsi_growing']:
+        anom_col = f'{var}_anomaly'
+        bl_stats = baseline.groupby('fips')[var].agg(['mean', 'std']).rename(
+            columns={'mean': f'{var}_bl_mean', 'std': f'{var}_bl_std'}
