@@ -268,3 +268,13 @@ def build_climate_features(climate_annual: pd.DataFrame, climate_monthly: pd.Dat
         anom_col = f'{var}_anomaly'
         bl_stats = baseline.groupby('fips')[var].agg(['mean', 'std']).rename(
             columns={'mean': f'{var}_bl_mean', 'std': f'{var}_bl_std'}
+        )
+        cf = cf.merge(bl_stats, left_on='fips', right_index=True, how='left')
+        cf[anom_col] = (cf[var] - cf[f'{var}_bl_mean']) / cf[f'{var}_bl_std'].replace(0, np.nan)
+        cf = cf.drop(columns=[f'{var}_bl_mean', f'{var}_bl_std'])
+
+    # Count extreme heat months (tmax > 95°F = 35°C) — vectorized
+    heat_count = np.zeros(len(climate_monthly))
+    for m in growing_months:
+        tmax_col = f'tmax_m{m:02d}'
+        heat_count += (climate_monthly[tmax_col].values > 95).astype(int)
