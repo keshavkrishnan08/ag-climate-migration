@@ -318,3 +318,13 @@ def build_technology_features(yields_df: pd.DataFrame) -> pd.DataFrame:
         df_out = group[['fips', 'year', 'crop']].copy()
         df_out['yield_trend_slope_15yr'] = slopes
         df_out['yield_trend_intercept'] = intercepts
+        results.append(df_out)
+
+    result = pd.concat(results, ignore_index=True)
+    logger.info(f"  Tech features: {len(result):,} county-crop-years")
+    return result
+
+
+def build_switching_proxy(yields_df: pd.DataFrame) -> pd.DataFrame:
+    """Build crop switching proxy from NASS acreage share changes.
+
