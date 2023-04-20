@@ -328,3 +328,13 @@ def build_technology_features(yields_df: pd.DataFrame) -> pd.DataFrame:
 def build_switching_proxy(yields_df: pd.DataFrame) -> pd.DataFrame:
     """Build crop switching proxy from NASS acreage share changes.
 
+    Without CDL, we approximate switching as change in acreage shares
+    at county level between consecutive years.
+
+    Args:
+        yields_df: NASS yields with acres_harvested.
+
+    Returns:
+        DataFrame with switching proxy features per county-year.
+    """
+    logger.info("Building switching proxy from NASS acreage shares...")
