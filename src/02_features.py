@@ -298,3 +298,13 @@ def build_technology_features(yields_df: pd.DataFrame) -> pd.DataFrame:
         DataFrame with yield_trend_slope_15yr per county-crop-year.
     """
     logger.info("Building technology trend features...")
+
+    results = []
+    for (fips, crop), group in yields_df.groupby(['fips', 'crop']):
+        group = group.sort_values('year')
+        yrs = group['year'].values.astype(float)
+        yld = group['yield_bu_acre'].values.astype(float)
+
+        slopes = np.full(len(yrs), np.nan)
+        intercepts = np.full(len(yrs), np.nan)
+
