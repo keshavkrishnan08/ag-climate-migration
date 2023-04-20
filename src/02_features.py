@@ -278,3 +278,13 @@ def build_climate_features(climate_annual: pd.DataFrame, climate_monthly: pd.Dat
     for m in growing_months:
         tmax_col = f'tmax_m{m:02d}'
         heat_count += (climate_monthly[tmax_col].values > 95).astype(int)
+    heat_df = climate_monthly[['fips', 'year']].copy()
+    heat_df['extreme_heat_months'] = heat_count
+    cf = cf.merge(heat_df, on=['fips', 'year'], how='left')
+
+    logger.info(f"  Climate features: {cf.shape[1] - 2} variables for {len(cf):,} county-years")
+    return cf
+
+
+def build_technology_features(yields_df: pd.DataFrame) -> pd.DataFrame:
+    """Build technology trend features using vectorized rolling regression.
