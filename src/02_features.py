@@ -308,3 +308,13 @@ def build_technology_features(yields_df: pd.DataFrame) -> pd.DataFrame:
         slopes = np.full(len(yrs), np.nan)
         intercepts = np.full(len(yrs), np.nan)
 
+        for i in range(len(yrs)):
+            mask = (yrs >= yrs[i] - 15) & (yrs <= yrs[i]) & ~np.isnan(yld)
+            if mask.sum() >= 5:
+                sl, ic, _, _, _ = stats.linregress(yrs[mask], yld[mask])
+                slopes[i] = sl
+                intercepts[i] = ic
+
+        df_out = group[['fips', 'year', 'crop']].copy()
+        df_out['yield_trend_slope_15yr'] = slopes
+        df_out['yield_trend_intercept'] = intercepts
