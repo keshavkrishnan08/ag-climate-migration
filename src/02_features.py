@@ -288,3 +288,13 @@ def build_climate_features(climate_annual: pd.DataFrame, climate_monthly: pd.Dat
 
 def build_technology_features(yields_df: pd.DataFrame) -> pd.DataFrame:
     """Build technology trend features using vectorized rolling regression.
+
+    For each county-crop, computes 15-year rolling yield trend slope.
+
+    Args:
+        yields_df: NASS yields with fips, year, crop, yield_bu_acre.
+
+    Returns:
+        DataFrame with yield_trend_slope_15yr per county-crop-year.
+    """
+    logger.info("Building technology trend features...")
