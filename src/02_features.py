@@ -368,3 +368,13 @@ def build_switching_proxy(yields_df: pd.DataFrame) -> pd.DataFrame:
             record = {
                 'fips': fips,
                 'year': year,
+                'switching_rate_proxy': annual_switching.get(year, np.nan),
+                'switching_rate_5yr': rolling_5yr.get(year, np.nan),
+            }
+            results.append(record)
+
+    result = pd.DataFrame(results)
+    logger.info(f"  Switching proxy: {len(result):,} county-years")
+    return result
+
+
