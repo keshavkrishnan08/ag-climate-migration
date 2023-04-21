@@ -358,3 +358,13 @@ def build_switching_proxy(yields_df: pd.DataFrame) -> pd.DataFrame:
 
         # Year-over-year absolute change in shares
         share_change = pivot.diff().abs()
+        annual_switching = share_change.sum(axis=1) / 2  # divide by 2 since changes sum to ~0
+
+        # 5-year rolling switching rate
+        rolling_5yr = annual_switching.rolling(5, min_periods=3).mean()
+
+        # Switching velocity (acceleration)
+        for year in pivot.index:
+            record = {
+                'fips': fips,
+                'year': year,
