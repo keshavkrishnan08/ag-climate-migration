@@ -338,3 +338,13 @@ def build_switching_proxy(yields_df: pd.DataFrame) -> pd.DataFrame:
         DataFrame with switching proxy features per county-year.
     """
     logger.info("Building switching proxy from NASS acreage shares...")
+
+    if 'acres_harvested' not in yields_df.columns or yields_df['acres_harvested'].isna().all():
+        logger.warning("No acreage data — skipping switching proxy")
+        return pd.DataFrame()
+
+    # Compute county-level acreage shares
+    county_year_total = yields_df.groupby(['fips', 'year'])['acres_harvested'].sum().reset_index()
+    county_year_total.columns = ['fips', 'year', 'total_acres']
+
+    merged = yields_df.merge(county_year_total, on=['fips', 'year'])
