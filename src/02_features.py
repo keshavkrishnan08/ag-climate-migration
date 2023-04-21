@@ -348,3 +348,13 @@ def build_switching_proxy(yields_df: pd.DataFrame) -> pd.DataFrame:
     county_year_total.columns = ['fips', 'year', 'total_acres']
 
     merged = yields_df.merge(county_year_total, on=['fips', 'year'])
+    merged['acreage_share'] = merged['acres_harvested'] / merged['total_acres'].replace(0, np.nan)
+
+    # For each county-year, compute total share change (proxy for switching)
+    results = []
+    for fips, county_data in merged.groupby('fips'):
+        pivot = county_data.pivot_table(index='year', columns='crop', values='acreage_share', aggfunc='first')
+        pivot = pivot.sort_index()
+
+        # Year-over-year absolute change in shares
+        share_change = pivot.diff().abs()
