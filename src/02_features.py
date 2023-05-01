@@ -378,3 +378,13 @@ def build_switching_proxy(yields_df: pd.DataFrame) -> pd.DataFrame:
     return result
 
 
+def build_demographic_features(acs: pd.DataFrame) -> pd.DataFrame:
+    """Build demographic features from ACS data.
+
+    Args:
+        acs: ACS demographics with population, income, etc.
+
+    Returns:
+        DataFrame with county-year demographic features.
+    """
+    if acs.empty:
