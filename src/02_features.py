@@ -398,3 +398,13 @@ def build_demographic_features(acs: pd.DataFrame) -> pd.DataFrame:
     if 'median_household_income' in acs.columns:
         df['log_median_income'] = np.log1p(acs['median_household_income'].fillna(0))
     if 'poverty_count' in acs.columns and 'total_population' in acs.columns:
+        df['poverty_rate'] = acs['poverty_count'] / acs['total_population'].replace(0, np.nan)
+
+    logger.info(f"  Demographic features: {df.shape[1] - 2} variables")
+    return df
+
+
+# ---------------------------------------------------------------------------
+# Master pipeline
+# ---------------------------------------------------------------------------
+def build_feature_matrix() -> pd.DataFrame:
