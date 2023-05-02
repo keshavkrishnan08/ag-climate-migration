@@ -468,3 +468,13 @@ def build_feature_matrix() -> pd.DataFrame:
     panel.to_parquet(output_path, index=False)
 
     n_features = len([c for c in panel.columns if c not in ('fips', 'year', 'crop', 'yield_bu_acre', 'yield_anomaly', 'acres_harvested')])
+    logger.info(f"\nFeature matrix complete:")
+    logger.info(f"  Rows: {len(panel):,}")
+    logger.info(f"  Features: {n_features}")
+    logger.info(f"  Counties: {panel['fips'].nunique()}")
+    logger.info(f"  Crops: {sorted(panel['crop'].unique())}")
+    logger.info(f"  Years: {panel['year'].min()}-{panel['year'].max()}")
+    logger.info(f"  Saved: {output_path}")
+
+    logger.info("=" * 60)
+    logger.info("PHASE 2 COMPLETE")
