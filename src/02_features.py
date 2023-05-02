@@ -458,3 +458,13 @@ def build_feature_matrix() -> pd.DataFrame:
     demo = build_demographic_features(acs)
     if not demo.empty:
         panel = panel.merge(demo, on=['fips', 'year'], how='left')
+
+    # --- Drop rows with no target ---
+    panel = panel.dropna(subset=['yield_anomaly'])
+
+    # --- Save ---
+    DATA_PROCESSED.mkdir(parents=True, exist_ok=True)
+    output_path = DATA_PROCESSED / 'feature_matrix.parquet'
+    panel.to_parquet(output_path, index=False)
+
+    n_features = len([c for c in panel.columns if c not in ('fips', 'year', 'crop', 'yield_bu_acre', 'yield_anomaly', 'acres_harvested')])
