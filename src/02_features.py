@@ -418,3 +418,13 @@ def build_feature_matrix() -> pd.DataFrame:
     logger.info("=" * 60)
 
     # --- Load data ---
+    yields_df = load_nass_yields()
+    climate_annual = load_climate()
+    climate_monthly = load_monthly_climate()
+    acs = load_acs_demographics()
+
+    # --- Start with yield panel ---
+    panel = yields_df[['fips', 'year', 'crop', 'yield_bu_acre', 'acres_harvested']].copy()
+    panel = panel.dropna(subset=['yield_bu_acre'])
+    logger.info(f"Base panel: {len(panel):,} rows")
+
