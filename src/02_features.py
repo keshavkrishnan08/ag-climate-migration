@@ -428,3 +428,13 @@ def build_feature_matrix() -> pd.DataFrame:
     panel = panel.dropna(subset=['yield_bu_acre'])
     logger.info(f"Base panel: {len(panel):,} rows")
 
+    # --- Detrended yield anomaly (target variable) ---
+    logger.info("Computing detrended yield anomalies...")
+    anomalies = []
+    for (fips, crop), group in panel.groupby(['fips', 'crop']):
+        series = group.set_index('year')['yield_bu_acre']
+        anom = compute_yield_anomaly(series)
+        for year, val in anom.items():
+            anomalies.append({'fips': fips, 'crop': crop, 'year': int(year), 'yield_anomaly': val})
+
+    anomaly_df = pd.DataFrame(anomalies)
