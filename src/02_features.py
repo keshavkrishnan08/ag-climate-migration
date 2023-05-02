@@ -448,3 +448,13 @@ def build_feature_matrix() -> pd.DataFrame:
     # --- Climate features ---
     climate_feats = build_climate_features(climate_annual, climate_monthly)
     panel = panel.merge(climate_feats, on=['fips', 'year'], how='left')
+
+    # --- Switching proxy ---
+    switching = build_switching_proxy(yields_df)
+    if not switching.empty:
+        panel = panel.merge(switching, on=['fips', 'year'], how='left')
+
+    # --- Demographics ---
+    demo = build_demographic_features(acs)
+    if not demo.empty:
+        panel = panel.merge(demo, on=['fips', 'year'], how='left')
