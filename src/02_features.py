@@ -388,3 +388,13 @@ def build_demographic_features(acs: pd.DataFrame) -> pd.DataFrame:
         DataFrame with county-year demographic features.
     """
     if acs.empty:
+        return pd.DataFrame()
+
+    logger.info("Building demographic features from ACS...")
+    df = acs[['fips', 'year']].copy()
+
+    if 'total_population' in acs.columns:
+        df['log_population'] = np.log1p(acs['total_population'].fillna(0))
+    if 'median_household_income' in acs.columns:
+        df['log_median_income'] = np.log1p(acs['median_household_income'].fillna(0))
+    if 'poverty_count' in acs.columns and 'total_population' in acs.columns:
