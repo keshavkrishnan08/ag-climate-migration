@@ -438,3 +438,13 @@ def build_feature_matrix() -> pd.DataFrame:
             anomalies.append({'fips': fips, 'crop': crop, 'year': int(year), 'yield_anomaly': val})
 
     anomaly_df = pd.DataFrame(anomalies)
+    panel = panel.merge(anomaly_df, on=['fips', 'year', 'crop'], how='left')
+    logger.info(f"  Anomalies computed: {panel['yield_anomaly'].notna().sum():,} non-null")
+
+    # --- Technology trend features ---
+    tech = build_technology_features(yields_df)
+    panel = panel.merge(tech, on=['fips', 'year', 'crop'], how='left')
+
+    # --- Climate features ---
+    climate_feats = build_climate_features(climate_annual, climate_monthly)
+    panel = panel.merge(climate_feats, on=['fips', 'year'], how='left')
