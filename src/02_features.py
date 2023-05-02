@@ -408,3 +408,13 @@ def build_demographic_features(acs: pd.DataFrame) -> pd.DataFrame:
 # Master pipeline
 # ---------------------------------------------------------------------------
 def build_feature_matrix() -> pd.DataFrame:
+    """Build complete feature matrix from real downloaded data.
+
+    Returns:
+        Complete panel dataset ready for LightGBM modeling.
+    """
+    logger.info("=" * 60)
+    logger.info("PHASE 2: FEATURE ENGINEERING")
+    logger.info("=" * 60)
+
+    # --- Load data ---
