@@ -478,3 +478,9 @@ def build_feature_matrix() -> pd.DataFrame:
 
     logger.info("=" * 60)
     logger.info("PHASE 2 COMPLETE")
+    logger.info("=" * 60)
+    return panel
+
+
+if __name__ == '__main__':
+    build_feature_matrix()
