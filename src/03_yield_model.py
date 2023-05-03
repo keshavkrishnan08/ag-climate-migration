@@ -8,3 +8,13 @@ Architecture (PRD Section 5.1):
     - Outcome: detrended yield anomaly (z-score)
     - After prediction: re-add projected technology trend
     - Final projected yield = tech_component + climate_component
+
+Cross-Validation:
+    STRICT TEMPORAL ROLLING CV — never shuffle
+    Fold 1: train 1950-1985, val 1986-1990
+    Fold 2: train 1950-1990, val 1991-1995
+    Fold 3: train 1950-1995, val 1996-2000
+    Fold 4: train 1950-2000, val 2001-2005
+    Fold 5: train 1950-2005, val 2006-2010
+    Final test: train 1950-2012, test 2013-2023
+
