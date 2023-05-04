@@ -68,3 +68,13 @@ def get_lgb_params() -> dict:
         'max_depth': CONFIG['yield_model']['max_depth'],
         'num_leaves': CONFIG['yield_model']['num_leaves'],
         'min_child_samples': 20,
+        'subsample': 0.8,
+        'colsample_bytree': 0.8,
+        'reg_alpha': 0.1,
+        'reg_lambda': 1.0,
+        'random_state': RANDOM_SEED,
+        'verbose': -1,
+    }
+
+
+def get_feature_columns(df: pd.DataFrame) -> list:
