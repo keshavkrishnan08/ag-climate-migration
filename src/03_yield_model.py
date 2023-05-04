@@ -58,3 +58,13 @@ def get_lgb_params() -> dict:
     """Get LightGBM parameters from config.
 
     Returns:
+        Dict of LightGBM hyperparameters.
+    """
+    return {
+        'objective': 'regression',
+        'metric': 'rmse',
+        'n_estimators': CONFIG['yield_model']['n_estimators'],
+        'learning_rate': CONFIG['yield_model']['learning_rate'],
+        'max_depth': CONFIG['yield_model']['max_depth'],
+        'num_leaves': CONFIG['yield_model']['num_leaves'],
+        'min_child_samples': 20,
