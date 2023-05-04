@@ -48,3 +48,13 @@ from utils.validation import temporal_rolling_cv, check_no_future_leakage, compu
 DATA_PROCESSED = PROJECT_ROOT / 'data' / 'processed'
 RESULTS_DIR = PROJECT_ROOT / 'results'
 
+with open(PROJECT_ROOT / 'config.yaml') as f:
+    CONFIG = yaml.safe_load(f)
+
+RANDOM_SEED = CONFIG['yield_model']['random_seed']
+
+
+def get_lgb_params() -> dict:
+    """Get LightGBM parameters from config.
+
+    Returns:
