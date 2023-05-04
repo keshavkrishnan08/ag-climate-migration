@@ -78,3 +78,13 @@ def get_lgb_params() -> dict:
 
 
 def get_feature_columns(df: pd.DataFrame) -> list:
+    """Extract feature column names from the panel.
+
+    Args:
+        df: Feature matrix DataFrame.
+
+    Returns:
+        List of feature column names (excludes target and identifiers).
+    """
+    exclude = {
+        'fips', 'year', 'crop', 'yield_bu_acre', 'yield_anomaly',
