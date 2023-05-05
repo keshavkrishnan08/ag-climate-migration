@@ -128,3 +128,13 @@ def train_yield_model(
 ) -> Tuple[lgb.LGBMRegressor, dict]:
     """Train the yield trend model with temporal cross-validation.
 
+    Args:
+        panel: Complete feature matrix.
+        target_col: Target variable name.
+
+    Returns:
+        Tuple of (trained model, performance metrics dict).
+    """
+    logger.info("=" * 60)
+    logger.info("TRAINING YIELD TREND MODEL")
+    logger.info("=" * 60)
