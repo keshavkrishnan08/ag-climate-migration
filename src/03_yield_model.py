@@ -138,3 +138,13 @@ def train_yield_model(
     logger.info("=" * 60)
     logger.info("TRAINING YIELD TREND MODEL")
     logger.info("=" * 60)
+
+    X, y, years = prepare_data(panel, target_col)
+    params = get_lgb_params()
+
+    # ---- Temporal cross-validation ----
+    cv_results = []
+    for fold_idx, (train_idx, val_idx) in enumerate(
+        temporal_rolling_cv(years.values, n_folds=5)
+    ):
+        X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
