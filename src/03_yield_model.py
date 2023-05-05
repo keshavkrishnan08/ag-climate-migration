@@ -108,3 +108,13 @@ def prepare_data(
     """
     feature_cols = get_feature_columns(panel)
     logger.info(f"Using {len(feature_cols)} features: {feature_cols[:10]}...")
+
+    X = panel[feature_cols].copy()
+    y = panel[target_col].copy()
+    years = panel['year'].copy()
+
+    # Handle crop as categorical
+    if 'crop' in panel.columns:
+        crop_dummies = pd.get_dummies(panel['crop'], prefix='crop')
+        X = pd.concat([X, crop_dummies], axis=1)
+
