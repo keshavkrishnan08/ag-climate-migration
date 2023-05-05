@@ -148,3 +148,13 @@ def train_yield_model(
         temporal_rolling_cv(years.values, n_folds=5)
     ):
         X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
+        y_train, y_val = y.iloc[train_idx], y.iloc[val_idx]
+
+        model = lgb.LGBMRegressor(**params)
+        model.fit(
+            X_train, y_train,
+            eval_set=[(X_val, y_val)],
+            callbacks=[lgb.log_evaluation(period=0)],
+        )
+
+        y_pred = model.predict(X_val)
