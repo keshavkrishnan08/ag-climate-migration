@@ -98,3 +98,13 @@ def prepare_data(
     target_col: str = 'yield_anomaly'
 ) -> Tuple[pd.DataFrame, pd.Series, pd.Series]:
     """Prepare feature matrix and target for modeling.
+
+    Args:
+        panel: Complete feature matrix.
+        target_col: Name of target column.
+
+    Returns:
+        Tuple of (X features, y target, years array).
+    """
+    feature_cols = get_feature_columns(panel)
+    logger.info(f"Using {len(feature_cols)} features: {feature_cols[:10]}...")
