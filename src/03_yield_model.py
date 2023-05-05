@@ -118,3 +118,13 @@ def prepare_data(
         crop_dummies = pd.get_dummies(panel['crop'], prefix='crop')
         X = pd.concat([X, crop_dummies], axis=1)
 
+    logger.info(f"Data shape: X={X.shape}, y={y.shape}")
+    return X, y, years
+
+
+def train_yield_model(
+    panel: pd.DataFrame,
+    target_col: str = 'yield_anomaly'
+) -> Tuple[lgb.LGBMRegressor, dict]:
+    """Train the yield trend model with temporal cross-validation.
+
