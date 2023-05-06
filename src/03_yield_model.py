@@ -158,3 +158,13 @@ def train_yield_model(
         )
 
         y_pred = model.predict(X_val)
+        metrics = compute_performance_metrics(y_val.values, y_pred, crop_name=f"Fold {fold_idx+1}")
+        cv_results.append(metrics)
+
+    # Aggregate CV results
+    avg_rmse = np.mean([r['rmse'] for r in cv_results])
+    avg_r2 = np.mean([r['r2'] for r in cv_results])
+    logger.info(f"CV Average — RMSE: {avg_rmse:.3f}, R²: {avg_r2:.3f}")
+
+    # ---- Final model: train on all data through 2012, test on 2013-2023 ----
+    train_mask = years <= CONFIG['temporal']['val_end']
