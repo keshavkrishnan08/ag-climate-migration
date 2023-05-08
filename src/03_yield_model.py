@@ -178,3 +178,13 @@ def train_yield_model(
 
     X_train, X_test = X[train_mask], X[test_mask]
     y_train, y_test = y[train_mask], y[test_mask]
+
+    logger.info(f"Final split: train n={len(X_train)} (≤{CONFIG['temporal']['val_end']}), "
+                f"test n={len(X_test)} (2013-{CONFIG['temporal']['test_end']})")
+
+    final_model = lgb.LGBMRegressor(**params)
+    final_model.fit(
+        X_train, y_train,
+        eval_set=[(X_test, y_test)],
+        callbacks=[lgb.log_evaluation(period=0)],
+    )
