@@ -168,3 +168,13 @@ def train_yield_model(
 
     # ---- Final model: train on all data through 2012, test on 2013-2023 ----
     train_mask = years <= CONFIG['temporal']['val_end']
+    test_mask = (years > CONFIG['temporal']['val_end']) & (years <= CONFIG['temporal']['test_end'])
+
+    # Verify no leakage
+    check_no_future_leakage(
+        years[train_mask].values,
+        years[test_mask].values
+    )
+
+    X_train, X_test = X[train_mask], X[test_mask]
+    y_train, y_test = y[train_mask], y[test_mask]
