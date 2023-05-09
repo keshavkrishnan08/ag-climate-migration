@@ -188,3 +188,13 @@ def train_yield_model(
         eval_set=[(X_test, y_test)],
         callbacks=[lgb.log_evaluation(period=0)],
     )
+
+    # Test performance
+    y_pred_test = final_model.predict(X_test)
+    test_metrics = compute_performance_metrics(y_test.values, y_pred_test, crop_name="FINAL TEST")
+
+    # Per-crop metrics
+    if 'crop' in panel.columns:
+        crop_metrics = {}
+        test_panel = panel[test_mask].copy()
+        test_panel['y_pred'] = y_pred_test
