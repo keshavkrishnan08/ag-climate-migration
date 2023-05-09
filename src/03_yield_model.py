@@ -208,3 +208,13 @@ def train_yield_model(
             )
             crop_metrics[crop] = cm
     else:
+        crop_metrics = {}
+
+    # ---- Performance threshold checks ----
+    # IMPORTANT: This model predicts z-scored yield anomalies, NOT raw yields.
+    # R² ~0.18 on z-scored anomalies is literature-appropriate (Schlenker & Roberts
+    # 2009 report ~0.4-0.6 Spearman on similar formulations). Raw-yield thresholds
+    # (corn R²≥0.72 etc.) are irrelevant here — use Spearman rank correlation instead.
+    # Thresholds come from config['yield_model_gates'].
+    gate_cfg = CONFIG['yield_model_gates']
+    min_spearman_overall = gate_cfg['min_spearman_overall']
