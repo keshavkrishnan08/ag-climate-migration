@@ -218,3 +218,13 @@ def train_yield_model(
     # Thresholds come from config['yield_model_gates'].
     gate_cfg = CONFIG['yield_model_gates']
     min_spearman_overall = gate_cfg['min_spearman_overall']
+    min_spearman_per_crop = gate_cfg['min_spearman_per_crop']
+    min_r2_anomaly = gate_cfg['min_r2_anomaly']
+    exclude_from_gate = set(gate_cfg.get('exclude_from_gate', []))
+
+    logger.info("=" * 40)
+    logger.info("PERFORMANCE THRESHOLD CHECKS (anomaly model — z-scored target)")
+    logger.info(f"  Thresholds: Spearman≥{min_spearman_overall} overall, "
+                f"≥{min_spearman_per_crop} per crop, R²≥{min_r2_anomaly} on anomalies")
+    logger.info(f"  Excluded from gate: {exclude_from_gate} (non-climate drivers dominate)")
+    thresholds_passed = True
