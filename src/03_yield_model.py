@@ -228,3 +228,13 @@ def train_yield_model(
                 f"≥{min_spearman_per_crop} per crop, R²≥{min_r2_anomaly} on anomalies")
     logger.info(f"  Excluded from gate: {exclude_from_gate} (non-climate drivers dominate)")
     thresholds_passed = True
+
+    # Overall Spearman check
+    overall_spearman = test_metrics.get('spearman', float('nan'))
+    spearman_ok = overall_spearman >= min_spearman_overall
+    logger.info(f"  Overall Spearman ≥ {min_spearman_overall}: "
+                f"{'PASS' if spearman_ok else 'FAIL'} ({overall_spearman:.3f})")
+    thresholds_passed &= spearman_ok
+
+    # Overall anomaly R² check
+    r2_ok = test_metrics['r2'] >= min_r2_anomaly
