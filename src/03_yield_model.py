@@ -198,3 +198,13 @@ def train_yield_model(
         crop_metrics = {}
         test_panel = panel[test_mask].copy()
         test_panel['y_pred'] = y_pred_test
+
+        for crop in test_panel['crop'].unique():
+            crop_mask = test_panel['crop'] == crop
+            cm = compute_performance_metrics(
+                y_test[crop_mask.values].values,
+                y_pred_test[crop_mask.values],
+                crop_name=crop
+            )
+            crop_metrics[crop] = cm
+    else:
