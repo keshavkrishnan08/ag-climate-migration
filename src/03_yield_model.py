@@ -278,3 +278,13 @@ def run_shap_analysis(
     Args:
         model: Trained LightGBM model.
         X: Feature matrix.
+        panel: Full panel for crop/region labels.
+
+    Returns:
+        Dict with SHAP values, feature importance, and threshold analysis.
+    """
+    logger.info("Running SHAP analysis...")
+    explainer = shap.TreeExplainer(model)
+    shap_values = explainer.shap_values(X)
+
+    # Feature importance (mean absolute SHAP)
