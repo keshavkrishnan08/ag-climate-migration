@@ -248,3 +248,13 @@ def train_yield_model(
             logger.info(f"  [{crop}] SKIPPED (excluded from gate — non-climate drivers dominate)")
             continue
         crop_spearman = cm.get('spearman', float('nan'))
+        crop_ok = crop_spearman >= min_spearman_per_crop
+        logger.info(f"  [{crop}] Spearman ≥ {min_spearman_per_crop}: "
+                    f"{'PASS' if crop_ok else 'FAIL'} ({crop_spearman:.3f})")
+        thresholds_passed &= crop_ok
+
+    all_metrics = {
+        'cv_results': cv_results,
+        'test_metrics': test_metrics,
+        'crop_metrics': crop_metrics,
+        'thresholds_passed': thresholds_passed,
