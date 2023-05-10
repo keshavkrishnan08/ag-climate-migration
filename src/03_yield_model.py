@@ -258,3 +258,13 @@ def train_yield_model(
         'test_metrics': test_metrics,
         'crop_metrics': crop_metrics,
         'thresholds_passed': thresholds_passed,
+    }
+
+    return final_model, all_metrics
+
+
+def run_shap_analysis(
+    model: lgb.LGBMRegressor,
+    X: pd.DataFrame,
+    panel: pd.DataFrame = None
+) -> dict:
