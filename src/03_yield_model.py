@@ -288,3 +288,13 @@ def run_shap_analysis(
     shap_values = explainer.shap_values(X)
 
     # Feature importance (mean absolute SHAP)
+    feature_importance = pd.DataFrame({
+        'feature': X.columns,
+        'importance': np.abs(shap_values).mean(axis=0)
+    }).sort_values('importance', ascending=False)
+
+    logger.info("Top 10 features by SHAP importance:")
+    for _, row in feature_importance.head(10).iterrows():
+        logger.info(f"  {row['feature']}: {row['importance']:.4f}")
+
+    results = {
