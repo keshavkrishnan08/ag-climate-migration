@@ -268,3 +268,13 @@ def run_shap_analysis(
     X: pd.DataFrame,
     panel: pd.DataFrame = None
 ) -> dict:
+    """Run SHAP analysis to interpret feature importance.
+
+    Critical outputs (from PRD):
+    1. Which climate variables matter most by crop and region
+    2. Non-linear thresholds (e.g., corn yield cliff at avg July Tmax > 32°C)
+    3. County-specific sensitivity
+
+    Args:
+        model: Trained LightGBM model.
+        X: Feature matrix.
