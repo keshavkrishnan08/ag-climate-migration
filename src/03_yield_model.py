@@ -298,3 +298,13 @@ def run_shap_analysis(
         logger.info(f"  {row['feature']}: {row['importance']:.4f}")
 
     results = {
+        'shap_values': shap_values,
+        'feature_importance': feature_importance,
+        'expected_value': explainer.expected_value,
+    }
+
+    return results
+
+
+def run_out_of_region_test(
+    panel: pd.DataFrame,
