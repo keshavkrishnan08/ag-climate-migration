@@ -328,3 +328,13 @@ def run_out_of_region_test(
     train_mask = panel['state_fips'].isin(corn_belt_states)
     test_mask = ~train_mask
 
+    X, y, years = prepare_data(panel, target_col)
+
+    params = get_lgb_params()
+    model = lgb.LGBMRegressor(**params)
+    model.fit(X[train_mask], y[train_mask])
+
+    y_pred = model.predict(X[test_mask])
+    metrics = compute_performance_metrics(y[test_mask].values, y_pred, crop_name="OUT-OF-REGION")
+
+    oor_ok = metrics['r2'] > 0.55
