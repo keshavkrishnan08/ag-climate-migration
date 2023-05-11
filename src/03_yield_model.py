@@ -318,3 +318,13 @@ def run_out_of_region_test(
 
     Returns:
         Dict with out-of-region metrics.
+    """
+    # Corn Belt states: IA, IL, IN, OH, MN, WI, NE, MO, SD, ND, KS
+    corn_belt_states = {'19', '17', '18', '39', '27', '55', '31', '29', '46', '38', '20'}
+
+    panel = panel.copy()
+    panel['state_fips'] = panel['fips'].astype(str).str.zfill(5).str[:2]
+
+    train_mask = panel['state_fips'].isin(corn_belt_states)
+    test_mask = ~train_mask
+
