@@ -308,3 +308,13 @@ def run_shap_analysis(
 
 def run_out_of_region_test(
     panel: pd.DataFrame,
+    target_col: str = 'yield_anomaly'
+) -> dict:
+    """Train on corn belt, test on non-corn-belt. R² > 0.55 required.
+
+    Args:
+        panel: Complete feature matrix with FIPS codes.
+        target_col: Target variable name.
+
+    Returns:
+        Dict with out-of-region metrics.
