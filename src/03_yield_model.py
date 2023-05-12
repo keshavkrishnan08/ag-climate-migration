@@ -338,3 +338,13 @@ def run_out_of_region_test(
     metrics = compute_performance_metrics(y[test_mask].values, y_pred, crop_name="OUT-OF-REGION")
 
     oor_ok = metrics['r2'] > 0.55
+    logger.info(f"Out-of-region R² > 0.55: {'PASS' if oor_ok else 'FAIL'} ({metrics['r2']:.3f})")
+
+    return metrics
+
+
+def save_model_artifacts(
+    model: lgb.LGBMRegressor,
+    metrics: dict,
+    shap_results: dict = None,
+    output_dir: Path = None
