@@ -348,3 +348,13 @@ def save_model_artifacts(
     metrics: dict,
     shap_results: dict = None,
     output_dir: Path = None
+) -> Path:
+    """Save model, metrics, and SHAP results.
+
+    Args:
+        model: Trained model.
+        metrics: Performance metrics dict.
+        shap_results: SHAP analysis results.
+        output_dir: Output directory (creates timestamped subdir if None).
+
+    Returns:
