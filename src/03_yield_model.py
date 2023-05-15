@@ -358,3 +358,13 @@ def save_model_artifacts(
         output_dir: Output directory (creates timestamped subdir if None).
 
     Returns:
+        Path to output directory.
+    """
+    if output_dir is None:
+        from datetime import datetime
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        output_dir = RESULTS_DIR / timestamp
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Save model
+    model_path = output_dir / 'yield_model.pkl'
