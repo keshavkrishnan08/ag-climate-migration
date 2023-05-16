@@ -368,3 +368,13 @@ def save_model_artifacts(
 
     # Save model
     model_path = output_dir / 'yield_model.pkl'
+    with open(model_path, 'wb') as f:
+        pickle.dump(model, f)
+    logger.info(f"Saved model → {model_path}")
+
+    # Save metrics
+    metrics_clean = {}
+    for k, v in metrics.items():
+        if isinstance(v, dict):
+            metrics_clean[k] = {
+                kk: (float(vv) if isinstance(vv, (np.floating, np.integer)) else vv)
