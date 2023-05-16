@@ -378,3 +378,13 @@ def save_model_artifacts(
         if isinstance(v, dict):
             metrics_clean[k] = {
                 kk: (float(vv) if isinstance(vv, (np.floating, np.integer)) else vv)
+                for kk, vv in v.items()
+            }
+        elif isinstance(v, list):
+            metrics_clean[k] = [
+                {kk: float(vv) if isinstance(vv, (np.floating, np.integer)) else vv for kk, vv in item.items()}
+                if isinstance(item, dict) else item
+                for item in v
+            ]
+        else:
+            metrics_clean[k] = v
