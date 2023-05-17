@@ -418,3 +418,13 @@ def run_yield_model() -> Tuple[lgb.LGBMRegressor, dict]:
     # Load feature matrix
     panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
     if not panel_path.exists():
+        logger.error(f"Feature matrix not found at {panel_path} — run Phase 2 first")
+        return None, {}
+
+    panel = pd.read_parquet(panel_path)
+    logger.info(f"Loaded feature matrix: {panel.shape}")
+
+    # Train model
+    model, metrics = train_yield_model(panel)
+
+    # SHAP analysis
