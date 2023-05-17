@@ -438,3 +438,12 @@ def run_yield_model() -> Tuple[lgb.LGBMRegressor, dict]:
     # Save everything
     save_model_artifacts(model, metrics, shap_results)
 
+    logger.info("=" * 60)
+    logger.info("PHASE 3A COMPLETE")
+    logger.info("=" * 60)
+
+    return model, metrics
+
+
+if __name__ == '__main__':
+    run_yield_model()
