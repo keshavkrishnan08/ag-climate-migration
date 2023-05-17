@@ -408,3 +408,13 @@ def save_model_artifacts(
 def run_yield_model() -> Tuple[lgb.LGBMRegressor, dict]:
     """Execute full yield model pipeline.
 
+    Returns:
+        Tuple of (model, metrics).
+    """
+    logger.info("=" * 60)
+    logger.info("PHASE 3A: YIELD TREND MODEL")
+    logger.info("=" * 60)
+
+    # Load feature matrix
+    panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
+    if not panel_path.exists():
