@@ -428,3 +428,13 @@ def run_yield_model() -> Tuple[lgb.LGBMRegressor, dict]:
     model, metrics = train_yield_model(panel)
 
     # SHAP analysis
+    X, y, years = prepare_data(panel)
+    shap_results = run_shap_analysis(model, X, panel)
+
+    # Out-of-region test
+    oor_metrics = run_out_of_region_test(panel)
+    metrics['out_of_region'] = oor_metrics
+
+    # Save everything
+    save_model_artifacts(model, metrics, shap_results)
+
