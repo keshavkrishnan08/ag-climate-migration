@@ -388,3 +388,13 @@ def save_model_artifacts(
             ]
         else:
             metrics_clean[k] = v
+
+    metrics_path = output_dir / 'yield_model_metrics.json'
+    with open(metrics_path, 'w') as f:
+        json.dump(metrics_clean, f, indent=2, default=str)
+
+    # Save SHAP feature importance
+    if shap_results and 'feature_importance' in shap_results:
+        fi_path = output_dir / 'feature_importance.csv'
+        shap_results['feature_importance'].to_csv(fi_path, index=False)
+
