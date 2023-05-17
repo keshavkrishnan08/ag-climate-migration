@@ -398,3 +398,13 @@ def save_model_artifacts(
         fi_path = output_dir / 'feature_importance.csv'
         shap_results['feature_importance'].to_csv(fi_path, index=False)
 
+    logger.info(f"All artifacts saved → {output_dir}")
+    return output_dir
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+def run_yield_model() -> Tuple[lgb.LGBMRegressor, dict]:
+    """Execute full yield model pipeline.
+
