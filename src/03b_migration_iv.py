@@ -28,3 +28,13 @@ Uses manual 2SLS via numpy/scipy (statsmodels has scipy compat issue).
 Author: Keshav Krishnan
 Date:   2026-03-17
 """
+import sys
+import json
+import warnings
+from pathlib import Path
+from datetime import datetime
+
+import numpy as np
+import pandas as pd
+from scipy import stats
+
