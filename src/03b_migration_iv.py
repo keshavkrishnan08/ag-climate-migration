@@ -58,3 +58,13 @@ CORN_BELT_STATE_FIPS = [
     "46",  # South Dakota
     "38",  # North Dakota
     "20",  # Kansas
+]
+
+POP_CAP = 50_000  # rural threshold
+
+# Commodity prices in 2023 USD (5-year average, $/bushel except cotton $/lb)
+COMMODITY_PRICES = {
+    "corn": 5.50,
+    "soybeans": 12.80,
+    "wheat_winter": 7.20,
+    "wheat_spring": 8.10,
