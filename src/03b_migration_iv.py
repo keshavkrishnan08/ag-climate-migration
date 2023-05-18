@@ -18,3 +18,13 @@ Outcome: Net outmigration rate from population change.
     Y_it = -(pop_t - pop_{t-1}) / pop_{t-1}
     Positive = population loss = net outmigration.
 
+Sample: Rural Corn Belt counties (pop < 50,000), 2010-2023 (ACS range).
+FE:     County + year (absorbed via two-way demeaning).
+SE:     Cluster-robust at county level.
+Gate:   First-stage F > 10.
+
+Uses manual 2SLS via numpy/scipy (statsmodels has scipy compat issue).
+
+Author: Keshav Krishnan
+Date:   2026-03-17
+"""
