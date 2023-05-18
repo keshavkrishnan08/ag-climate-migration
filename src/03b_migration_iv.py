@@ -68,3 +68,13 @@ COMMODITY_PRICES = {
     "soybeans": 12.80,
     "wheat_winter": 7.20,
     "wheat_spring": 8.10,
+    "cotton": 0.78,      # $/lb
+    "sorghum": 5.30,
+    "barley": 6.10,
+    "oats": 3.80,
+}
+
+CPI_2023 = 304.703  # from data/raw/other/cpi_annual.csv
+
+RANDOM_SEED = 42
+
