@@ -78,3 +78,13 @@ CPI_2023 = 304.703  # from data/raw/other/cpi_annual.csv
 
 RANDOM_SEED = 42
 
+# Min yield thresholds to filter silage/cover crop records
+MIN_YIELD = {
+    "corn": 50,
+    "soybeans": 10,
+    "wheat_winter": 10,
+    "wheat_spring": 10,
+    "sorghum": 15,
+    "barley": 10,
+    "oats": 10,
+    "cotton": 100,  # lbs/acre
