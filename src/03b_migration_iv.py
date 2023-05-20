@@ -88,3 +88,13 @@ MIN_YIELD = {
     "barley": 10,
     "oats": 10,
     "cotton": 100,  # lbs/acre
+}
+
+
+def ols_fit(y, X):
+    """Fit OLS via numpy least squares.
+
+    Args:
+        y: Response vector (n,).
+        X: Design matrix (n, k). Should include constant if desired.
+
