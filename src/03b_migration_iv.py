@@ -98,3 +98,13 @@ def ols_fit(y, X):
         y: Response vector (n,).
         X: Design matrix (n, k). Should include constant if desired.
 
+    Returns:
+        Dict with coefficients, residuals, fitted values, and diagnostics.
+    """
+    y = np.asarray(y, dtype=np.float64)
+    X = np.asarray(X, dtype=np.float64)
+    n, k = X.shape
+
+    beta, _, rank, sv = np.linalg.lstsq(X, y, rcond=None)
+
+    fitted = X @ beta
