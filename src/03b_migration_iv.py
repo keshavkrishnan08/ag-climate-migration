@@ -138,3 +138,13 @@ def load_and_clean_yields():
         pd.DataFrame with [fips, year, crop, yield_bu_acre, acres_harvested,
         production, state_fips].
     """
+    yields = pd.read_parquet(
+        PROJECT_ROOT / "data/raw/nass/nass_county_yields.parquet",
+        columns=["fips", "year", "crop", "yield_bu_acre", "acres_harvested", "production"],
+    )
+    yields["state_fips"] = yields["fips"].str[:2]
+    yields = yields[yields["state_fips"].isin(CORN_BELT_STATE_FIPS)].copy()
+
+    # Filter to crops we have prices for
+    yields = yields[yields["crop"].isin(COMMODITY_PRICES.keys())].copy()
+
