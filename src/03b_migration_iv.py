@@ -148,3 +148,13 @@ def load_and_clean_yields():
     # Filter to crops we have prices for
     yields = yields[yields["crop"].isin(COMMODITY_PRICES.keys())].copy()
 
+    # Remove silage/cover crop records using min yield thresholds
+    mask = pd.Series(False, index=yields.index)
+    for crop, min_y in MIN_YIELD.items():
+        crop_mask = (yields["crop"] == crop) & (yields["yield_bu_acre"] >= min_y)
+        mask = mask | crop_mask
+    yields = yields[mask].copy()
+
+    # Deduplicate: take the record with max production per fips/year/crop
+    yields = (
+        yields.sort_values("production", ascending=False)
