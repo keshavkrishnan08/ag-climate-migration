@@ -108,3 +108,13 @@ def ols_fit(y, X):
     beta, _, rank, sv = np.linalg.lstsq(X, y, rcond=None)
 
     fitted = X @ beta
+    resid = y - fitted
+    ss_res = resid @ resid
+    ss_tot = np.sum((y - y.mean()) ** 2)
+    r_squared = 1 - ss_res / ss_tot if ss_tot > 0 else 0.0
+
+    sigma2 = ss_res / (n - k)
+    var_beta = sigma2 * np.linalg.inv(X.T @ X)
+    se = np.sqrt(np.diag(var_beta))
+    t_stats = beta / se
+
