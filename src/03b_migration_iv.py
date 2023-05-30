@@ -128,3 +128,13 @@ def ols_fit(y, X):
         "sigma2": sigma2,
         "n": n,
         "k": k,
+    }
+
+
+def load_and_clean_yields():
+    """Load NASS yields, deduplicate, and filter to Corn Belt.
+
+    Returns:
+        pd.DataFrame with [fips, year, crop, yield_bu_acre, acres_harvested,
+        production, state_fips].
+    """
