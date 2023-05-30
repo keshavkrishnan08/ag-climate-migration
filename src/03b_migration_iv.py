@@ -158,3 +158,13 @@ def load_and_clean_yields():
     # Deduplicate: take the record with max production per fips/year/crop
     yields = (
         yields.sort_values("production", ascending=False)
+        .groupby(["fips", "year", "crop"])
+        .first()
+        .reset_index()
+    )
+
+    return yields
+
+
+def detrend_yields(yields):
+    """Remove quadratic time trend from yields within each county-crop.
