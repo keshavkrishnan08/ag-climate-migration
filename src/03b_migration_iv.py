@@ -218,3 +218,13 @@ def build_iv_panel(yields, cpi):
     deflator = CPI_2023 / yields["cpi"]
 
     yields["price"] = yields["crop"].map(COMMODITY_PRICES)
+
+    # Revenue per crop-county-year (actual)
+    yields["revenue_2023usd"] = (
+        yields["yield_bu_acre"] * yields["acres_harvested"] * yields["price"] * deflator
+    )
+
+    # Fixed acreage weights for the instrument: county-crop mean acres
+    # This prevents endogenous crop switching from contaminating Z
+    mean_acres = (
+        yields.groupby(["fips", "crop"])["acres_harvested"]
