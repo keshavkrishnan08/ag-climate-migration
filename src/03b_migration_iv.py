@@ -188,3 +188,13 @@ def detrend_yields(yields):
         try:
             coeffs = np.polyfit(t, grp["yield_bu_acre"].values, 2)
             grp["yield_trend"] = np.polyval(coeffs, t)
+            grp["yield_detrended"] = grp["yield_bu_acre"] - grp["yield_trend"]
+        except (np.linalg.LinAlgError, ValueError):
+            continue
+        results.append(grp)
+
+    return pd.concat(results, ignore_index=True)
+
+
+def build_iv_panel(yields, cpi):
+    """Construct the county-year panel with treatment and instrument.
