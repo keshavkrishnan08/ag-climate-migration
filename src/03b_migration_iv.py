@@ -178,3 +178,13 @@ def detrend_yields(yields):
 
     Returns:
         DataFrame with added columns: yield_trend, yield_detrended.
+    """
+    results = []
+    for (fips, crop), grp in yields.groupby(["fips", "crop"]):
+        if len(grp) < 5:
+            continue
+        grp = grp.sort_values("year").copy()
+        t = grp["year"].values - grp["year"].values[0]
+        try:
+            coeffs = np.polyfit(t, grp["yield_bu_acre"].values, 2)
+            grp["yield_trend"] = np.polyval(coeffs, t)
