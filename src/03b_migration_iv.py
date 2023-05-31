@@ -248,3 +248,13 @@ def build_iv_panel(yields, cpi):
             total_acres=("acres_harvested", "sum"),
             n_crops=("crop", "count"),
         )
+        .reset_index()
+    )
+
+    # Baseline income: county mean across all years
+    baseline = county_year.groupby("fips")["farm_income_proxy"].mean().rename("baseline_income")
+    county_year = county_year.merge(baseline, on="fips", how="left")
+
+    # Treatment: fractional deviation from county mean
+    county_year["farm_income_deviation"] = (
+        (county_year["farm_income_proxy"] - county_year["baseline_income"])
