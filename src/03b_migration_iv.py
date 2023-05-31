@@ -168,3 +168,13 @@ def load_and_clean_yields():
 
 def detrend_yields(yields):
     """Remove quadratic time trend from yields within each county-crop.
+
+    Detrending isolates the weather-driven component. The residual
+    (yield minus trend) captures weather shocks -- exactly what we need
+    for the instrument.
+
+    Args:
+        yields: DataFrame with [fips, year, crop, yield_bu_acre].
+
+    Returns:
+        DataFrame with added columns: yield_trend, yield_detrended.
