@@ -228,3 +228,13 @@ def build_iv_panel(yields, cpi):
     # This prevents endogenous crop switching from contaminating Z
     mean_acres = (
         yields.groupby(["fips", "crop"])["acres_harvested"]
+        .mean()
+        .rename("acres_mean")
+    )
+    yields = yields.merge(mean_acres, on=["fips", "crop"], how="left")
+
+    # Weather component of revenue (instrument numerator)
+    # Uses detrended yield (weather only) and FIXED acreage
+    yields["weather_revenue_2023usd"] = (
+        yields["yield_detrended"] * yields["acres_mean"] * yields["price"] * deflator
+    )
