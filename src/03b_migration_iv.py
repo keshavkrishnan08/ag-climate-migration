@@ -208,3 +208,13 @@ def build_iv_panel(yields, cpi):
         contaminating the instrument.
 
     Args:
+        yields: DataFrame with detrended yields.
+        cpi: DataFrame with [year, cpi].
+
+    Returns:
+        DataFrame at county-year level with farm_income_deviation, weather_income_shock.
+    """
+    yields = yields.merge(cpi[["year", "cpi"]], on="year", how="left")
+    deflator = CPI_2023 / yields["cpi"]
+
+    yields["price"] = yields["crop"].map(COMMODITY_PRICES)
