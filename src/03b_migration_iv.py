@@ -198,3 +198,13 @@ def detrend_yields(yields):
 
 def build_iv_panel(yields, cpi):
     """Construct the county-year panel with treatment and instrument.
+
+    Treatment (D): Farm income deviation from county mean, in fractional units.
+        D_it = (income_it - income_i_bar) / income_i_bar
+
+    Instrument (Z): Weather-driven income shock, using FIXED acreage weights.
+        Z_it = sum_c[ yield_detrended_ict * acres_ic_bar * price_c ] / baseline_income_i
+        Using fixed (mean) acreage prevents endogenous crop switching from
+        contaminating the instrument.
+
+    Args:
