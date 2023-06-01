@@ -318,3 +318,13 @@ def load_migration_outcome():
     mig = mig.rename(columns={
         "moved_diff_county_same_state": "true_same_house",     # B07001_002E
         "moved_diff_state": "true_diff_county_same_state",     # B07001_049E
+        "moved_from_abroad": "true_diff_state",                # B07001_065E
+    })
+
+    # Primary outcome (Spec A): net outmigration from population change
+    demo = demo.sort_values(["fips", "year"]).copy()
+    demo["pop_change_rate"] = demo.groupby("fips")["total_population"].pct_change()
+    demo["outmigration_rate"] = -demo["pop_change_rate"]
+
+    panel = mig.merge(demo, on=["fips", "year"], how="inner")
+
