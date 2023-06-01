@@ -268,3 +268,13 @@ def build_iv_panel(yields, cpi):
 
     # Quality filters
     county_year = county_year[county_year["baseline_income"] > 1_000_000].copy()
+    county_counts = county_year.groupby("fips").size()
+    good_counties = county_counts[county_counts >= 10].index
+    county_year = county_year[county_year["fips"].isin(good_counties)].copy()
+
+    return county_year
+
+
+def load_migration_outcome():
+    """Load ACS demographics and compute migration outcome variables.
+
