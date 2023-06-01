@@ -288,3 +288,13 @@ def load_migration_outcome():
 
         Spec A: net_outmigration_rate = -(pop_t - pop_{t-1}) / pop_{t-1}
             Positive = population loss. Noisy (births/deaths confound migration).
+
+        Spec C (primary fix): true_diff_county_in_rate
+            = B07001_049E (true diff-county same-state in-movers) / total_population
+            These are actual inter-county in-migrants, cleanly measured.
+            Expected direction: higher income -> more in-migration -> positive beta.
+            Equivalently: lower income -> less in-migration.
+
+        Spec D: long_distance_in_rate
+            = (true_diff_county + true_diff_state) / total_population
+            Captures both inter-county and inter-state in-migration.
