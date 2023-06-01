@@ -278,3 +278,13 @@ def build_iv_panel(yields, cpi):
 def load_migration_outcome():
     """Load ACS demographics and compute migration outcome variables.
 
+    ACS B07001 column mislabeling — confirmed by inspection (2026-03-18):
+        'moved_diff_county_same_state' = B07001_002E (Same house 1yr ago, ~87% of total)
+        'moved_diff_state'             = B07001_049E (Moved diff county, same state, ~6%)
+        'moved_from_abroad'            = B07001_065E (Moved diff state, ~2%)
+
+    The download script pulled variables in shifted order, so names are wrong.
+    We rename them to their true content and build two outcomes:
+
+        Spec A: net_outmigration_rate = -(pop_t - pop_{t-1}) / pop_{t-1}
+            Positive = population loss. Noisy (births/deaths confound migration).
