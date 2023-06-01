@@ -258,3 +258,13 @@ def build_iv_panel(yields, cpi):
     # Treatment: fractional deviation from county mean
     county_year["farm_income_deviation"] = (
         (county_year["farm_income_proxy"] - county_year["baseline_income"])
+        / county_year["baseline_income"]
+    )
+
+    # Instrument: weather shock as fraction of baseline income
+    county_year["weather_income_shock"] = (
+        county_year["weather_revenue"] / county_year["baseline_income"]
+    )
+
+    # Quality filters
+    county_year = county_year[county_year["baseline_income"] > 1_000_000].copy()
