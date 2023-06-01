@@ -298,3 +298,13 @@ def load_migration_outcome():
         Spec D: long_distance_in_rate
             = (true_diff_county + true_diff_state) / total_population
             Captures both inter-county and inter-state in-migration.
+
+    Returns:
+        DataFrame with [fips, year, outmigration_rate, true_diff_county_in_rate,
+                         long_distance_in_rate, intercounty_inmigration_rate,
+                         total_population].
+    """
+    mig = pd.read_parquet(
+        PROJECT_ROOT / "data/raw/census/acs_migration_data.parquet",
+        columns=["fips", "year", "mobility_total", "moved_diff_county_same_state",
+                 "moved_diff_state", "moved_from_abroad"],
