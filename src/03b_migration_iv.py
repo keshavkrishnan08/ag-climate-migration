@@ -338,3 +338,13 @@ def load_migration_outcome():
     # Spec D: long-distance in-migration (diff county + diff state)
     panel["long_distance_in_rate"] = (
         (panel["true_diff_county_same_state"].fillna(0)
+         + panel["true_diff_state"].fillna(0))
+        / panel["total_population"].replace(0, np.nan)
+    )
+
+    # Legacy Spec B rate (kept for continuity): all movers / total pop
+    # = (mobility_total - same_house) / total_population
+    panel["intercounty_inmigration_rate"] = (
+        (panel["mobility_total"] - panel["true_same_house"]).clip(lower=0)
+        / panel["total_population"].replace(0, np.nan)
+    )
