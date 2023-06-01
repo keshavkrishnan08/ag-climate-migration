@@ -328,3 +328,13 @@ def load_migration_outcome():
 
     panel = mig.merge(demo, on=["fips", "year"], how="inner")
 
+    # Spec C (primary fix): true inter-county in-migration rate
+    # Uses B07001_049E: moved from different county, same state
+    panel["true_diff_county_in_rate"] = (
+        panel["true_diff_county_same_state"].fillna(0)
+        / panel["total_population"].replace(0, np.nan)
+    )
+
+    # Spec D: long-distance in-migration (diff county + diff state)
+    panel["long_distance_in_rate"] = (
+        (panel["true_diff_county_same_state"].fillna(0)
