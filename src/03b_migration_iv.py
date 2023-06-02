@@ -358,3 +358,13 @@ def load_migration_outcome():
     ].copy()
 
     return panel
+
+
+def demean_twoway(arr, entity_ids, time_ids):
+    """Apply two-way demeaning (Frisch-Waugh-Lovell within transformation).
+
+    For variable x: x_tilde = x - x_bar_i - x_bar_t + x_bar
+
+    Args:
+        arr: 1D array of values.
+        entity_ids: Array of entity identifiers.
