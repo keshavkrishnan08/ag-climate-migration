@@ -348,3 +348,13 @@ def load_migration_outcome():
         (panel["mobility_total"] - panel["true_same_house"]).clip(lower=0)
         / panel["total_population"].replace(0, np.nan)
     )
+
+    # Filter to Corn Belt rural counties
+    panel["state_fips"] = panel["fips"].str[:2]
+    panel = panel[
+        (panel["state_fips"].isin(CORN_BELT_STATE_FIPS))
+        & (panel["total_population"] < POP_CAP)
+        & (panel["total_population"] > 0)
+    ].copy()
+
+    return panel
