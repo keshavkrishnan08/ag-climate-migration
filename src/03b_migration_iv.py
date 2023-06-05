@@ -408,3 +408,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
         instrument_var: Name of instrument.
         entity_col: Column for entity FE.
         time_col: Column for time FE.
+        label: Label for printing.
+
+    Returns:
+        Dict with elasticity, CI, F-stat, diagnostics.
+    """
+    df = panel[[entity_col, time_col, dep_var, endog_var, instrument_var]].dropna().copy()
+    n_obs = len(df)
+    n_counties = df[entity_col].nunique()
+    n_years = df[time_col].nunique()
+
