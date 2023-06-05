@@ -398,3 +398,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     Stage 1: D_tilde on Z_tilde (demeaned for FE)
     Stage 2: Y_tilde on D_hat_tilde
 
+    Uses Frisch-Waugh-Lovell: demean all variables by county and year,
+    then run simple OLS. This absorbs the fixed effects.
+
+    Args:
+        panel: DataFrame with all variables.
+        dep_var: Name of dependent variable.
+        endog_var: Name of endogenous treatment variable.
+        instrument_var: Name of instrument.
+        entity_col: Column for entity FE.
+        time_col: Column for time FE.
