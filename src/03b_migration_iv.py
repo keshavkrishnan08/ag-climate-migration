@@ -388,3 +388,13 @@ def demean_twoway(arr, entity_ids, time_ids):
     time_means = time_sums / time_counts
     time_mean_expanded = time_means[time_inv]
 
+    return arr - entity_mean_expanded - time_mean_expanded + grand_mean
+
+
+def manual_2sls(panel, dep_var, endog_var, instrument_var,
+                entity_col="fips", time_col="year", label=""):
+    """Estimate IV/2SLS with two-way fixed effects via manual two-stage procedure.
+
+    Stage 1: D_tilde on Z_tilde (demeaned for FE)
+    Stage 2: Y_tilde on D_hat_tilde
+
