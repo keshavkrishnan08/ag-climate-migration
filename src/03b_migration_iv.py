@@ -458,3 +458,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     se_beta = np.sqrt(var_beta)
 
     # ── Cluster-robust standard errors (county level) ──
+    unique_clusters = np.unique(entity_ids)
+    n_clusters = len(unique_clusters)
+    scores = residuals * d_hat
+
+    meat = 0.0
+    for c in unique_clusters:
+        mask = entity_ids == c
+        s_c = scores[mask].sum()
+        meat += s_c ** 2
+
