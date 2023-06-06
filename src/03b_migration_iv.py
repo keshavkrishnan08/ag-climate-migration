@@ -438,3 +438,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
 
     print(f"  First stage:")
     print(f"    Coefficient on instrument: {fs['beta'][0]:.6f}")
+    print(f"    t-statistic: {t_stat_z:.2f}")
+    print(f"    F-statistic: {first_stage_F:.2f}")
+    print(f"    R-squared (partial): {fs['r_squared']:.4f}")
+
+    d_hat = fs["fitted"]
+
+    # ── SECOND STAGE: Y on D_hat ──
+    D_hat_mat = d_hat.reshape(-1, 1)
+    ss = ols_fit(y_dm, D_hat_mat)
+    beta_iv = ss["beta"][0]
