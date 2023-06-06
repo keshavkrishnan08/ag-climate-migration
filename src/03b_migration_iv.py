@@ -428,3 +428,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     y_dm = demean_twoway(df[dep_var].values, entity_ids, time_ids)
     d_dm = demean_twoway(df[endog_var].values, entity_ids, time_ids)
     z_dm = demean_twoway(df[instrument_var].values, entity_ids, time_ids)
+
+    # ── FIRST STAGE: D on Z (demeaned) ──
+    Z_mat = z_dm.reshape(-1, 1)
+    fs = ols_fit(d_dm, Z_mat)
+
+    t_stat_z = fs["t_stats"][0]
+    first_stage_F = t_stat_z ** 2
+
+    print(f"  First stage:")
+    print(f"    Coefficient on instrument: {fs['beta'][0]:.6f}")
