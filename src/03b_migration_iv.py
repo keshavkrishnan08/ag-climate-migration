@@ -418,3 +418,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     n_counties = df[entity_col].nunique()
     n_years = df[time_col].nunique()
 
+    print(f"  Sample: {n_obs} county-years, {n_counties} counties, {n_years} years")
+    print(f"  Years: {df[time_col].min()}-{df[time_col].max()}")
+
+    entity_ids = df[entity_col].values
+    time_ids = df[time_col].values
+
+    # Two-way demeaning
+    y_dm = demean_twoway(df[dep_var].values, entity_ids, time_ids)
+    d_dm = demean_twoway(df[endog_var].values, entity_ids, time_ids)
+    z_dm = demean_twoway(df[instrument_var].values, entity_ids, time_ids)
