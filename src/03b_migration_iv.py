@@ -448,3 +448,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     D_hat_mat = d_hat.reshape(-1, 1)
     ss = ols_fit(y_dm, D_hat_mat)
     beta_iv = ss["beta"][0]
+
+    # ── Correct standard errors using actual endogenous residuals ──
+    residuals = y_dm - beta_iv * d_dm
+    dof = n_obs - n_counties - n_years + 1
+    sigma2 = (residuals @ residuals) / max(dof, 1)
+    d_hat_ss = d_hat @ d_hat
+    var_beta = sigma2 / d_hat_ss
+    se_beta = np.sqrt(var_beta)
+
+    # ── Cluster-robust standard errors (county level) ──
