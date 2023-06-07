@@ -498,3 +498,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     rf_scores = rf_resid * z_dm
     rf_meat = 0.0
     for c in unique_clusters:
+        mask = entity_ids == c
+        s_c = rf_scores[mask].sum()
+        rf_meat += s_c ** 2
+    z_ss = z_dm @ z_dm
+    rf_var_cl = (1.0 / z_ss) ** 2 * rf_meat * dof_correction
+    rf_se_cl = np.sqrt(rf_var_cl)
+    rf_t = beta_rf / rf_se_cl
+    rf_p = 2 * stats.t.sf(abs(rf_t), n_clusters - 1)
+
+    print(f"\n  Reduced form (Y on Z directly):")
