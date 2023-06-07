@@ -488,3 +488,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     print(f"    SE (cluster-robust):  {se_clustered:.6f}")
     print(f"    SE (used):            {se_final:.6f}")
     print(f"    95% CI:               [{ci_lower:.6f}, {ci_upper:.6f}]")
+    print(f"    t-stat:               {iv_t:.2f}")
+    print(f"    p-value:              {iv_p:.4f}")
+
+    # ── Reduced form: Y on Z directly ──
+    rf = ols_fit(y_dm, Z_mat)
+    beta_rf = rf["beta"][0]
+    rf_resid = rf["residuals"]
+    rf_scores = rf_resid * z_dm
+    rf_meat = 0.0
+    for c in unique_clusters:
