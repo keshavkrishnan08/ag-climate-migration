@@ -478,3 +478,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     t_crit = stats.t.ppf(0.975, df=n_clusters - 1)
     ci_lower = beta_iv - t_crit * se_final
     ci_upper = beta_iv + t_crit * se_final
+
+    iv_t = beta_iv / se_final
+    iv_p = 2 * stats.t.sf(abs(iv_t), n_clusters - 1)
+
+    print(f"\n  Second stage (IV/2SLS):")
+    print(f"    Elasticity (beta_IV): {beta_iv:.6f}")
+    print(f"    SE (homoskedastic):   {se_beta:.6f}")
+    print(f"    SE (cluster-robust):  {se_clustered:.6f}")
+    print(f"    SE (used):            {se_final:.6f}")
+    print(f"    95% CI:               [{ci_lower:.6f}, {ci_upper:.6f}]")
