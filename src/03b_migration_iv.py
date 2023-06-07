@@ -468,3 +468,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
         s_c = scores[mask].sum()
         meat += s_c ** 2
 
+    dof_correction = n_clusters / (n_clusters - 1)
+    bread = 1.0 / d_hat_ss
+    var_clustered = bread ** 2 * meat * dof_correction
+    se_clustered = np.sqrt(var_clustered)
+
+    se_final = max(se_beta, se_clustered)
+
+    t_crit = stats.t.ppf(0.975, df=n_clusters - 1)
+    ci_lower = beta_iv - t_crit * se_final
+    ci_upper = beta_iv + t_crit * se_final
