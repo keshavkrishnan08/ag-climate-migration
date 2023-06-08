@@ -538,3 +538,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
         "reduced_form_p": float(rf_p),
         "n_obs": int(n_obs),
         "n_counties": int(n_counties),
+        "n_years": int(n_years),
+        "n_clusters": int(n_clusters),
+        "ols_coefficient": float(beta_ols),
+        "residual_variance": float(sigma2),
+        "iv_t_stat": float(iv_t),
+        "iv_p_value": float(iv_p),
+    }
+
+
+def main():
