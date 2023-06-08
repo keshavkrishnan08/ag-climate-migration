@@ -508,3 +508,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     rf_p = 2 * stats.t.sf(abs(rf_t), n_clusters - 1)
 
     print(f"\n  Reduced form (Y on Z directly):")
+    print(f"    Coefficient: {beta_rf:.6f}")
+    print(f"    SE (cluster): {rf_se_cl:.6f}")
+    print(f"    t-stat: {rf_t:.2f}")
+    print(f"    p-value: {rf_p:.4f}")
+
+    # ── OLS comparison ──
+    D_mat = d_dm.reshape(-1, 1)
+    ols = ols_fit(y_dm, D_mat)
+    beta_ols = ols["beta"][0]
+    print(f"\n  OLS comparison:")
