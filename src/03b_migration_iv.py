@@ -518,3 +518,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     ols = ols_fit(y_dm, D_mat)
     beta_ols = ols["beta"][0]
     print(f"\n  OLS comparison:")
+    print(f"    OLS coefficient: {beta_ols:.6f}")
+    print(f"    IV coefficient:  {beta_iv:.6f}")
+    if abs(beta_ols) > 1e-10:
+        print(f"    Ratio (IV/OLS):  {beta_iv / beta_ols:.2f}")
+
+    return {
+        "elasticity": float(beta_iv),
+        "se": float(se_final),
+        "ci_95_lower": float(ci_lower),
+        "ci_95_upper": float(ci_upper),
