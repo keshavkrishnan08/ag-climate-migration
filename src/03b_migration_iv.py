@@ -558,3 +558,13 @@ def main():
     print("\n[1/5] Loading and cleaning NASS yield data...")
     yields = load_and_clean_yields()
     print(f"  Loaded {len(yields)} crop-county-year records")
+    print(f"  Crops: {sorted(yields['crop'].unique())}")
+    print(f"  Counties: {yields['fips'].nunique()}")
+    print(f"  Years: {yields['year'].min()}-{yields['year'].max()}")
+
+    # ── Step 2: Detrend yields ──
+    print("\n[2/5] Detrending yields (quadratic county-crop trends)...")
+    yields = detrend_yields(yields)
+    print(f"  Detrended {len(yields)} records")
+    print(f"  Mean yield_detrended: {yields['yield_detrended'].mean():.2f} (should be ~0)")
+    print(f"  Std yield_detrended:  {yields['yield_detrended'].std():.2f}")
