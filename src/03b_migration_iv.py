@@ -548,3 +548,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
 
 
 def main():
+    """Run the full IV estimation pipeline."""
+    print("=" * 70)
+    print("Fix 4: IV Estimation -- Farm Income -> Outmigration Elasticity")
+    print("=" * 70)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    # ── Step 1: Load and clean yields ──
+    print("\n[1/5] Loading and cleaning NASS yield data...")
+    yields = load_and_clean_yields()
+    print(f"  Loaded {len(yields)} crop-county-year records")
