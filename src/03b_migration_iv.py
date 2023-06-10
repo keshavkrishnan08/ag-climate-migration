@@ -598,3 +598,13 @@ def main():
         on=["fips", "year"],
         how="inner",
     )
+
+    # Filter
+    panel = panel[
+        (panel["year"].between(2010, 2023))
+        & panel["farm_income_deviation"].notna()
+        & panel["weather_income_shock"].notna()
+        & panel["outmigration_rate"].notna()
+        & np.isfinite(panel["farm_income_deviation"])
+        & np.isfinite(panel["weather_income_shock"])
+        & np.isfinite(panel["outmigration_rate"])
