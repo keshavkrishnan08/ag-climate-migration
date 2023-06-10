@@ -588,3 +588,13 @@ def main():
     print(f"  ACS column correction applied: moved_from_abroad -> true_diff_state (B07001_065E)")
     print(f"  Mean outmigration rate (pop change): {migration['outmigration_rate'].mean():.4f}")
     print(f"  Mean true_diff_county_in_rate:       {migration['true_diff_county_in_rate'].mean():.4f}")
+    print(f"  Mean long_distance_in_rate:           {migration['long_distance_in_rate'].mean():.4f}")
+
+    # Merge all outcome columns
+    outcome_cols = ["fips", "year", "outmigration_rate", "intercounty_inmigration_rate",
+                    "true_diff_county_in_rate", "long_distance_in_rate", "total_population"]
+    panel = county_year.merge(
+        migration[outcome_cols],
+        on=["fips", "year"],
+        how="inner",
+    )
