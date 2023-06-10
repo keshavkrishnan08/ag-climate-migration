@@ -578,3 +578,13 @@ def main():
     print(f"  Mean farm income proxy: ${county_year['farm_income_proxy'].mean():,.0f}")
     print(f"  Mean weather_income_shock: {county_year['weather_income_shock'].mean():.4f}")
     print(f"  Sd  weather_income_shock:  {county_year['weather_income_shock'].std():.4f}")
+
+    # ── Step 4: Load migration and merge ──
+    print("\n[4/5] Loading ACS migration data and building analysis panel...")
+    migration = load_migration_outcome()
+    print(f"  Migration records (rural Corn Belt): {len(migration)}")
+    print(f"  ACS column correction applied: moved_diff_county_same_state -> true_same_house (B07001_002E)")
+    print(f"  ACS column correction applied: moved_diff_state -> true_diff_county_same_state (B07001_049E)")
+    print(f"  ACS column correction applied: moved_from_abroad -> true_diff_state (B07001_065E)")
+    print(f"  Mean outmigration rate (pop change): {migration['outmigration_rate'].mean():.4f}")
+    print(f"  Mean true_diff_county_in_rate:       {migration['true_diff_county_in_rate'].mean():.4f}")
