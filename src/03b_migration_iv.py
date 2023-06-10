@@ -568,3 +568,13 @@ def main():
     print(f"  Detrended {len(yields)} records")
     print(f"  Mean yield_detrended: {yields['yield_detrended'].mean():.2f} (should be ~0)")
     print(f"  Std yield_detrended:  {yields['yield_detrended'].std():.2f}")
+
+    # ── Step 3: Build panel with treatment and instrument ──
+    print("\n[3/5] Building IV panel (treatment + instrument)...")
+    cpi = pd.read_csv(PROJECT_ROOT / "data/raw/other/cpi_annual.csv")
+    county_year = build_iv_panel(yields, cpi)
+    print(f"  County-year records: {len(county_year)}")
+    print(f"  Counties: {county_year['fips'].nunique()}")
+    print(f"  Mean farm income proxy: ${county_year['farm_income_proxy'].mean():,.0f}")
+    print(f"  Mean weather_income_shock: {county_year['weather_income_shock'].mean():.4f}")
+    print(f"  Sd  weather_income_shock:  {county_year['weather_income_shock'].std():.4f}")
