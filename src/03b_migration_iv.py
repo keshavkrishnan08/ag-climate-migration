@@ -618,3 +618,13 @@ def main():
     for col in winsorize_cols:
         if col in panel.columns:
             valid = panel[col].dropna()
+            if len(valid) > 10:
+                p01, p99 = valid.quantile([0.01, 0.99])
+                panel[col] = panel[col].clip(p01, p99)
+
+    print(f"  Merged panel: {len(panel)} observations")
+    print(f"  Counties: {panel['fips'].nunique()}")
+    print(f"  Years: {panel['year'].min()}-{panel['year'].max()}")
+
+    print(f"\n  Descriptive statistics (post-winsorize):")
+    print(f"    outmigration_rate (net pop change): mean={panel['outmigration_rate'].mean():.4f}, "
