@@ -608,3 +608,13 @@ def main():
         & np.isfinite(panel["farm_income_deviation"])
         & np.isfinite(panel["weather_income_shock"])
         & np.isfinite(panel["outmigration_rate"])
+    ].copy()
+
+    # Winsorize extremes for all outcomes and treatment/instrument
+    winsorize_cols = [
+        "farm_income_deviation", "weather_income_shock", "outmigration_rate",
+        "true_diff_county_in_rate", "long_distance_in_rate", "intercounty_inmigration_rate",
+    ]
+    for col in winsorize_cols:
+        if col in panel.columns:
+            valid = panel[col].dropna()
