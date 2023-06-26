@@ -628,3 +628,13 @@ def main():
 
     print(f"\n  Descriptive statistics (post-winsorize):")
     print(f"    outmigration_rate (net pop change): mean={panel['outmigration_rate'].mean():.4f}, "
+          f"sd={panel['outmigration_rate'].std():.4f}")
+    print(f"    true_diff_county_in_rate (FIXED):   mean={panel['true_diff_county_in_rate'].mean():.4f}, "
+          f"sd={panel['true_diff_county_in_rate'].std():.4f}")
+    print(f"    long_distance_in_rate:              mean={panel['long_distance_in_rate'].mean():.4f}, "
+          f"sd={panel['long_distance_in_rate'].std():.4f}")
+    print(f"    farm_income_deviation (frac):       mean={panel['farm_income_deviation'].mean():.4f}, "
+          f"sd={panel['farm_income_deviation'].std():.4f}")
+    print(f"    weather_income_shock:               mean={panel['weather_income_shock'].mean():.4f}, "
+          f"sd={panel['weather_income_shock'].std():.4f}")
+
