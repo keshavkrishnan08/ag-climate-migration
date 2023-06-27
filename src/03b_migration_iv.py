@@ -638,3 +638,13 @@ def main():
     print(f"    weather_income_shock:               mean={panel['weather_income_shock'].mean():.4f}, "
           f"sd={panel['weather_income_shock'].std():.4f}")
 
+    # ── Step 5: Run IV/2SLS specifications ──
+    print("\n[5/5] Running IV/2SLS estimations...")
+
+    # Spec A: Net outmigration (from pop change) — legacy, noisy
+    print("\n" + "=" * 50)
+    print("SPEC A: Net outmigration rate (pop change) [legacy, noisy]")
+    print("=" * 50)
+    iv_a = manual_2sls(
+        panel,
+        dep_var="outmigration_rate",
