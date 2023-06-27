@@ -658,3 +658,13 @@ def main():
     # Spec B: All-movers in-migration rate (legacy — confounds same-county moves)
     panel_b = panel[panel["intercounty_inmigration_rate"].notna()].copy()
 
+    print("\n" + "=" * 50)
+    print("SPEC B: All-movers in-migration rate [legacy, includes same-county]")
+    print("=" * 50)
+    iv_b = manual_2sls(
+        panel_b,
+        dep_var="intercounty_inmigration_rate",
+        endog_var="farm_income_deviation",
+        instrument_var="weather_income_shock",
+        entity_col="fips",
+        time_col="year",
