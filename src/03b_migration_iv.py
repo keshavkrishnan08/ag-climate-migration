@@ -678,3 +678,13 @@ def main():
                     & np.isfinite(panel["true_diff_county_in_rate"])].copy()
 
     print("\n" + "=" * 50)
+    print("SPEC C: True inter-county in-migration (B07001_049E) [PRIMARY FIX]")
+    print("=" * 50)
+    iv_c = manual_2sls(
+        panel_c,
+        dep_var="true_diff_county_in_rate",
+        endog_var="farm_income_deviation",
+        instrument_var="weather_income_shock",
+        entity_col="fips",
+        time_col="year",
+        label="true_diff_county",
