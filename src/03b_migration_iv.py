@@ -668,3 +668,13 @@ def main():
         instrument_var="weather_income_shock",
         entity_col="fips",
         time_col="year",
+        label="all_movers",
+    )
+
+    # Spec C: TRUE inter-county in-migration (CORRECTED — B07001_049E)
+    # This is the primary fix: uses actual different-county same-state in-movers.
+    # Expected sign: POSITIVE beta (higher income -> more people move in from other counties).
+    panel_c = panel[panel["true_diff_county_in_rate"].notna()
+                    & np.isfinite(panel["true_diff_county_in_rate"])].copy()
+
+    print("\n" + "=" * 50)
