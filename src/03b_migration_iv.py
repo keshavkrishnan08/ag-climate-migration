@@ -648,3 +648,13 @@ def main():
     iv_a = manual_2sls(
         panel,
         dep_var="outmigration_rate",
+        endog_var="farm_income_deviation",
+        instrument_var="weather_income_shock",
+        entity_col="fips",
+        time_col="year",
+        label="outmigration",
+    )
+
+    # Spec B: All-movers in-migration rate (legacy — confounds same-county moves)
+    panel_b = panel[panel["intercounty_inmigration_rate"].notna()].copy()
+
