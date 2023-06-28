@@ -688,3 +688,13 @@ def main():
         entity_col="fips",
         time_col="year",
         label="true_diff_county",
+    )
+
+    # Spec D: Long-distance in-migration (diff county + diff state)
+    panel_d = panel[panel["long_distance_in_rate"].notna()
+                    & np.isfinite(panel["long_distance_in_rate"])].copy()
+
+    print("\n" + "=" * 50)
+    print("SPEC D: Long-distance in-migration (diff county + diff state) [ROBUSTNESS]")
+    print("=" * 50)
+    iv_d = manual_2sls(
