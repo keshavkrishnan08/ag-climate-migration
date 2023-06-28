@@ -708,3 +708,13 @@ def main():
     )
 
     # ── Choose primary estimate ──
+    # Spec C is primary: true inter-county in-migration (B07001_049E), correctly labeled.
+    # Spec A is secondary: population change (noisy, but directionally consistent).
+    # Spec D is robustness: adds diff-state in-migrants.
+    primary = iv_c
+    mean_primary = panel_c["true_diff_county_in_rate"].mean()
+
+    mean_outmig = panel["outmigration_rate"].mean()
+    mean_inmig_b = panel_b["intercounty_inmigration_rate"].mean()
+    mean_long = panel_d["long_distance_in_rate"].mean()
+
