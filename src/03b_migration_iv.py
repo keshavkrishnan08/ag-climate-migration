@@ -698,3 +698,13 @@ def main():
     print("SPEC D: Long-distance in-migration (diff county + diff state) [ROBUSTNESS]")
     print("=" * 50)
     iv_d = manual_2sls(
+        panel_d,
+        dep_var="long_distance_in_rate",
+        endog_var="farm_income_deviation",
+        instrument_var="weather_income_shock",
+        entity_col="fips",
+        time_col="year",
+        label="long_distance",
+    )
+
+    # ── Choose primary estimate ──
