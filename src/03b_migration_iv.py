@@ -718,3 +718,13 @@ def main():
     mean_inmig_b = panel_b["intercounty_inmigration_rate"].mean()
     mean_long = panel_d["long_distance_in_rate"].mean()
 
+    # Semi-elasticity: beta_IV / mean(outcome)
+    semi_elast_c = iv_c["elasticity"] / mean_primary if abs(mean_primary) > 1e-6 else float("nan")
+    semi_elast_d = iv_d["elasticity"] / mean_long if abs(mean_long) > 1e-6 else float("nan")
+    semi_elast_a = iv_a["elasticity"] / mean_outmig if abs(mean_outmig) > 1e-6 else float("nan")
+    semi_elast_b = iv_b["elasticity"] / mean_inmig_b if abs(mean_inmig_b) > 1e-6 else float("nan")
+
+    print("\n" + "=" * 70)
+    print("ELASTICITY COMPARISON")
+    print("=" * 70)
+    print(f"  Spec C (true diff-county in-migration, PRIMARY FIX):")
