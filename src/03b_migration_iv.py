@@ -738,3 +738,13 @@ def main():
     print(f"    p-value = {iv_d['iv_p_value']:.4f}")
     print(f"    First-stage F = {iv_d['first_stage_F']:.1f}")
     print(f"  Spec A (outmigration, pop change, legacy):")
+    print(f"    beta_IV = {iv_a['elasticity']:.6f}")
+    print(f"    p-value = {iv_a['iv_p_value']:.4f}")
+    print(f"    First-stage F = {iv_a['first_stage_F']:.1f}")
+    print(f"  Spec B (all-movers in-migration, legacy):")
+    print(f"    beta_IV = {iv_b['elasticity']:.6f}")
+    print(f"    p-value = {iv_b['iv_p_value']:.4f}")
+    print(f"    First-stage F = {iv_b['first_stage_F']:.1f}")
+    print(f"  Feng et al. (2010): -0.17 (semi-elasticity, outmigration direction)")
+
+    # ── Gate check ──
