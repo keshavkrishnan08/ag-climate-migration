@@ -748,3 +748,13 @@ def main():
     print(f"  Feng et al. (2010): -0.17 (semi-elasticity, outmigration direction)")
 
     # ── Gate check ──
+    print("\n" + "=" * 50)
+    if primary["first_stage_F"] > 10:
+        gate = "PASS"
+        print(f"GATE: PASS (first-stage F = {primary['first_stage_F']:.1f} > 10)")
+        elasticity = primary["elasticity"]
+        ci_lower = primary["ci_95_lower"]
+        ci_upper = primary["ci_95_upper"]
+    else:
+        gate = "CONDITIONAL"
+        print(f"GATE: CONDITIONAL (first-stage F = {primary['first_stage_F']:.1f} < 10)")
