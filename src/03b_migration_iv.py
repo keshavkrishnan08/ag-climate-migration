@@ -828,3 +828,13 @@ def main():
                     "mean_outcome": float(mean_primary),
                     "semi_elasticity": float(semi_elast_c),
                 },
+                "spec_d_long_distance": {
+                    "outcome": "long_distance_in_rate (diff county + diff state)",
+                    "results": iv_d,
+                    "mean_outcome": float(mean_long),
+                    "semi_elasticity": float(semi_elast_d),
+                },
+                "spec_a_outmigration": {
+                    "outcome": "net_outmigration_rate (pop change, legacy)",
+                    "results": iv_a,
+                    "mean_outcome": float(mean_outmig),
