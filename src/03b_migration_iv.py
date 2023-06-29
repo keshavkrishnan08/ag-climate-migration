@@ -768,3 +768,13 @@ def main():
     economic_params = {
         "migration_elasticity": {
             "estimate": float(elasticity),
+            "ci_95_lower": float(ci_lower),
+            "ci_95_upper": float(ci_upper),
+            "first_stage_F": float(primary["first_stage_F"]),
+            "n_obs": primary["n_obs"],
+            "n_counties": primary["n_counties"],
+            "n_years": primary["n_years"],
+            "sample_period": f"{panel_c['year'].min()}-{panel_c['year'].max()}",
+            "sample_definition": "Rural Corn Belt (pop < 50k), 11 states",
+            "instrument": "weather_income_shock = yield_detrended x mean_acres x price / baseline_income",
+            "treatment": "farm_income_deviation = (income - baseline) / baseline, crop revenue proxy (2023 USD)",
