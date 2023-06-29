@@ -808,3 +808,13 @@ def main():
             ),
             "timestamp": timestamp,
         }
+    }
+
+    output_path = PROJECT_ROOT / "state" / "economic_params.json"
+    with open(output_path, "w") as f:
+        json.dump(economic_params, f, indent=2)
+    print(f"\nResults saved to: {output_path}")
+
+    # Save detailed diagnostics
+    diag_dir = PROJECT_ROOT / "results" / f"{timestamp}"
+    diag_dir.mkdir(parents=True, exist_ok=True)
