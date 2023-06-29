@@ -758,3 +758,13 @@ def main():
     else:
         gate = "CONDITIONAL"
         print(f"GATE: CONDITIONAL (first-stage F = {primary['first_stage_F']:.1f} < 10)")
+        print("  Weak instrument detected. Using literature fallback (Feng et al. 2010).")
+        elasticity = -0.17
+        ci_lower = -0.25
+        ci_upper = -0.09
+        primary["estimated_elasticity_before_fallback"] = primary["elasticity"]
+
+    # ── Save results ──
+    economic_params = {
+        "migration_elasticity": {
+            "estimate": float(elasticity),
