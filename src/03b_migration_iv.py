@@ -798,3 +798,13 @@ def main():
             "spec_a_outmig_elasticity": iv_a["elasticity"],
             "spec_a_outmig_pval": iv_a["iv_p_value"],
             "spec_b_all_movers_elasticity": iv_b["elasticity"],
+            "spec_d_long_dist_elasticity": iv_d["elasticity"],
+            "spec_d_long_dist_pval": iv_d["iv_p_value"],
+            "acs_mislabel_fix": (
+                "moved_diff_county_same_state = B07001_002E (same house, non-movers). "
+                "moved_diff_state = B07001_049E (true diff-county same-state in-movers). "
+                "moved_from_abroad = B07001_065E (true diff-state in-movers). "
+                "Fix applied 2026-03-18."
+            ),
+            "timestamp": timestamp,
+        }
