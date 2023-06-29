@@ -778,3 +778,13 @@ def main():
             "sample_definition": "Rural Corn Belt (pop < 50k), 11 states",
             "instrument": "weather_income_shock = yield_detrended x mean_acres x price / baseline_income",
             "treatment": "farm_income_deviation = (income - baseline) / baseline, crop revenue proxy (2023 USD)",
+            "outcome": (
+                "true_diff_county_in_rate = B07001_049E (diff county same state in-movers) "
+                "/ total_population. ACS column was mislabeled as 'moved_diff_state'; "
+                "corrected 2026-03-18."
+            ),
+            "fixed_effects": "county + year (two-way, absorbed via demeaning)",
+            "standard_errors": "cluster-robust (county level)",
+            "gate": gate,
+            "ols_coefficient": primary["ols_coefficient"],
+            "first_stage_partial_r2": primary["first_stage_partial_r2"],
