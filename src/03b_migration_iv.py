@@ -838,3 +838,13 @@ def main():
                     "outcome": "net_outmigration_rate (pop change, legacy)",
                     "results": iv_a,
                     "mean_outcome": float(mean_outmig),
+                    "semi_elasticity": float(semi_elast_a),
+                },
+                "spec_b_all_movers": {
+                    "outcome": "intercounty_inmigration_rate (all movers, legacy)",
+                    "results": iv_b,
+                    "mean_outcome": float(mean_inmig_b),
+                    "semi_elasticity": float(semi_elast_b),
+                },
+                "economic_params": economic_params,
+                "data_summary": {
