@@ -818,3 +818,13 @@ def main():
     # Save detailed diagnostics
     diag_dir = PROJECT_ROOT / "results" / f"{timestamp}"
     diag_dir.mkdir(parents=True, exist_ok=True)
+    diag_path = diag_dir / "iv_diagnostics.json"
+    with open(diag_path, "w") as f:
+        json.dump(
+            {
+                "spec_c_true_diff_county": {
+                    "outcome": "true_diff_county_in_rate (B07001_049E, PRIMARY FIX)",
+                    "results": iv_c,
+                    "mean_outcome": float(mean_primary),
+                    "semi_elasticity": float(semi_elast_c),
+                },
