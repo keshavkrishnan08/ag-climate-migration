@@ -868,3 +868,13 @@ def main():
                         "The API download script pulled B07001_002E but stored it under "
                         "the diff-county label. Corrected by renaming and using "
                         "moved_diff_state (=B07001_049E) as true inter-county in-migration."
+                    ),
+                },
+            },
+            f,
+            indent=2,
+        )
+    print(f"Diagnostics saved to: {diag_path}")
+
+    # ── Summary ──
+    print("\n" + "=" * 70)
