@@ -848,3 +848,13 @@ def main():
                 },
                 "economic_params": economic_params,
                 "data_summary": {
+                    "total_yield_records": int(len(yields)),
+                    "panel_obs": primary["n_obs"],
+                    "panel_counties": primary["n_counties"],
+                    "panel_years": primary["n_years"],
+                    "mean_true_diff_county_in_rate": float(mean_primary),
+                    "mean_outmigration_rate": float(mean_outmig),
+                    "mean_farm_income_proxy": float(panel["farm_income_proxy"].mean()),
+                    "std_weather_shock": float(panel["weather_income_shock"].std()),
+                },
+                "acs_mislabel_fix": {
