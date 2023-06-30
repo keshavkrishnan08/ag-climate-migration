@@ -878,3 +878,13 @@ def main():
 
     # ── Summary ──
     print("\n" + "=" * 70)
+    print("FINAL SUMMARY")
+    print("=" * 70)
+    print(f"  Primary spec: Spec C (true inter-county in-migration, B07001_049E)")
+    print(f"  Elasticity:    {elasticity:.6f}")
+    print(f"  95% CI:        [{ci_lower:.6f}, {ci_upper:.6f}]")
+    print(f"  First-stage F: {primary['first_stage_F']:.1f}")
+    print(f"  p-value:       {primary['iv_p_value']:.4f}")
+    print(f"  N observations: {primary['n_obs']}")
+    print(f"  N counties:     {primary['n_counties']}")
+    print(f"  Gate:                  {gate}")
