@@ -888,3 +888,13 @@ def main():
     print(f"  N observations: {primary['n_obs']}")
     print(f"  N counties:     {primary['n_counties']}")
     print(f"  Gate:                  {gate}")
+    print(f"\n  Reduced form (weather shock -> true diff-county in-migration):")
+    print(f"    beta = {primary['reduced_form_coeff']:.6f}, p = {primary['reduced_form_p']:.4f}")
+    print(f"\n  Spec D (long-distance in-migration) elasticity: {iv_d['elasticity']:.6f}")
+    print(f"    95% CI: [{iv_d['ci_95_lower']:.6f}, {iv_d['ci_95_upper']:.6f}]")
+    print(f"    p-value: {iv_d['iv_p_value']:.4f}")
+    print(f"\n  Spec A (pop-change outmigration, legacy) elasticity: {iv_a['elasticity']:.6f}")
+    print(f"    p-value: {iv_a['iv_p_value']:.4f}")
+    print("=" * 70)
+
+    return economic_params
