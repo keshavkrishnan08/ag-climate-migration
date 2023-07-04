@@ -28,3 +28,13 @@ Summary of all IV specifications:
     Spec A2 : net outmigration cleaned (excl boundary, 3yr)  [Approach 1]
     Spec A3 : net outmigration pop-weighted                   [Approach 1 variant]
     Spec B  : gross mobility rate (1 - same_house/pop)        [Approach 2]
+    Spec C  : true diff-county in-migration (B07001_049E)     [prior primary fix, p=0.019]
+    Spec D  : long-distance in-migration (diff-county + diff-state)
+    Spec E  : gross out-migration (net + in-migration)        [Approach 3]
+
+Author: Keshav Krishnan
+Date:   2026-03-18
+"""
+import sys
+import json
+import warnings
