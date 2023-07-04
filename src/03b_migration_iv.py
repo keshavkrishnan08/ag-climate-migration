@@ -898,3 +898,7 @@ def main():
     print("=" * 70)
 
     return economic_params
+
+
+if __name__ == "__main__":
+    result = main()
