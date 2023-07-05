@@ -78,3 +78,13 @@ COMMODITY_PRICES = {
     "wheat_spring": 8.10,
     "cotton": 0.78,
     "sorghum": 5.30,
+    "barley": 6.10,
+    "oats": 3.80,
+}
+
+CPI_2023 = 304.703
+
+# Min yield thresholds to filter silage/cover crop records
+MIN_YIELD = {
+    "corn": 50,
+    "soybeans": 10,
