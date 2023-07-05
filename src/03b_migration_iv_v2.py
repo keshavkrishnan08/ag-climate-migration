@@ -58,3 +58,13 @@ CORN_BELT_STATE_FIPS = [
     "17",  # Illinois
     "18",  # Indiana
     "39",  # Ohio
+    "27",  # Minnesota
+    "55",  # Wisconsin
+    "31",  # Nebraska
+    "29",  # Missouri
+    "46",  # South Dakota
+    "38",  # North Dakota
+    "20",  # Kansas
+]
+
+POP_CAP = 50_000          # rural threshold
