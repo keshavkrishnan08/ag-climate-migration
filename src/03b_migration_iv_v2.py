@@ -68,3 +68,13 @@ CORN_BELT_STATE_FIPS = [
 ]
 
 POP_CAP = 50_000          # rural threshold
+POP_CHANGE_EXTREME = 0.10 # exclude counties with |pop_change| > 10% (boundary changes)
+
+# Commodity prices in 2023 USD (5-year average)
+COMMODITY_PRICES = {
+    "corn": 5.50,
+    "soybeans": 12.80,
+    "wheat_winter": 7.20,
+    "wheat_spring": 8.10,
+    "cotton": 0.78,
+    "sorghum": 5.30,
