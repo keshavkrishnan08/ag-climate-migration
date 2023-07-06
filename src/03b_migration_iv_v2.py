@@ -138,3 +138,13 @@ def ols_fit(y, X):
         "n": n,
         "k": k,
     }
+
+
+def demean_twoway(arr, entity_ids, time_ids):
+    """Apply two-way demeaning (within transformation for FE).
+
+    For variable x: x_tilde = x - x_bar_i - x_bar_t + x_bar
+
+    Args:
+        arr: 1D array of values.
+        entity_ids: Entity identifiers.
