@@ -148,3 +148,13 @@ def demean_twoway(arr, entity_ids, time_ids):
     Args:
         arr: 1D array of values.
         entity_ids: Entity identifiers.
+        time_ids: Time period identifiers.
+
+    Returns:
+        Demeaned array.
+    """
+    arr = np.asarray(arr, dtype=np.float64)
+    grand_mean = arr.mean()
+
+    entity_uniq, entity_inv = np.unique(entity_ids, return_inverse=True)
+    entity_sums = np.bincount(entity_inv, weights=arr)
