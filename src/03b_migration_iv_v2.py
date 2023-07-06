@@ -158,3 +158,13 @@ def demean_twoway(arr, entity_ids, time_ids):
 
     entity_uniq, entity_inv = np.unique(entity_ids, return_inverse=True)
     entity_sums = np.bincount(entity_inv, weights=arr)
+    entity_counts = np.bincount(entity_inv)
+    entity_means = entity_sums / entity_counts
+
+    time_uniq, time_inv = np.unique(time_ids, return_inverse=True)
+    time_sums = np.bincount(time_inv, weights=arr)
+    time_counts = np.bincount(time_inv)
+    time_means = time_sums / time_counts
+
+    return arr - entity_means[entity_inv] - time_means[time_inv] + grand_mean
+
