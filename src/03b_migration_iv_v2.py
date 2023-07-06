@@ -188,3 +188,13 @@ def load_and_clean_yields():
     yields = yields[yields["state_fips"].isin(CORN_BELT_STATE_FIPS)].copy()
     yields = yields[yields["crop"].isin(COMMODITY_PRICES.keys())].copy()
 
+    mask = pd.Series(False, index=yields.index)
+    for crop, min_y in MIN_YIELD.items():
+        crop_mask = (yields["crop"] == crop) & (yields["yield_bu_acre"] >= min_y)
+        mask = mask | crop_mask
+    yields = yields[mask].copy()
+
+    yields = (
+        yields.sort_values("production", ascending=False)
+        .groupby(["fips", "year", "crop"])
+        .first()
