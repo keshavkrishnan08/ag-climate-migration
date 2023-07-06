@@ -108,3 +108,13 @@ def ols_fit(y, X):
         y: Response vector (n,).
         X: Design matrix (n, k).
 
+    Returns:
+        Dict with beta, fitted, residuals, se, t_stats, r_squared.
+    """
+    y = np.asarray(y, dtype=np.float64)
+    X = np.asarray(X, dtype=np.float64)
+    n, k = X.shape
+
+    beta, _, rank, sv = np.linalg.lstsq(X, y, rcond=None)
+    fitted = X @ beta
+    resid = y - fitted
