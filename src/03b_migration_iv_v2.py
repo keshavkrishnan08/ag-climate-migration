@@ -98,3 +98,13 @@ MIN_YIELD = {
 
 
 # ──────────────────────────────────────────────────────────────────────
+# OLS helpers
+# ──────────────────────────────────────────────────────────────────────
+
+def ols_fit(y, X):
+    """Fit OLS via numpy least squares.
+
+    Args:
+        y: Response vector (n,).
+        X: Design matrix (n, k).
+
