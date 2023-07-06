@@ -128,3 +128,13 @@ def ols_fit(y, X):
     t_stats = beta / se
 
     return {
+        "beta": beta,
+        "fitted": fitted,
+        "residuals": resid,
+        "se": se,
+        "t_stats": t_stats,
+        "r_squared": r_squared,
+        "sigma2": sigma2,
+        "n": n,
+        "k": k,
+    }
