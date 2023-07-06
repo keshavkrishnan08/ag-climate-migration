@@ -168,3 +168,13 @@ def demean_twoway(arr, entity_ids, time_ids):
 
     return arr - entity_means[entity_inv] - time_means[time_inv] + grand_mean
 
+
+# ──────────────────────────────────────────────────────────────────────
+# Data loading
+# ──────────────────────────────────────────────────────────────────────
+
+def load_and_clean_yields():
+    """Load NASS yields, deduplicate, and filter to Corn Belt.
+
+    Returns:
+        DataFrame with fips, year, crop, yield_bu_acre, acres_harvested,
