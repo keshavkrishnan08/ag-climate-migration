@@ -198,3 +198,13 @@ def load_and_clean_yields():
         yields.sort_values("production", ascending=False)
         .groupby(["fips", "year", "crop"])
         .first()
+        .reset_index()
+    )
+    return yields
+
+
+def detrend_yields(yields):
+    """Remove quadratic time trend from yields within each county-crop.
+
+    Args:
+        yields: DataFrame with fips, year, crop, yield_bu_acre.
