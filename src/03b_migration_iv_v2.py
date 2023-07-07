@@ -218,3 +218,13 @@ def detrend_yields(yields):
             continue
         grp = grp.sort_values("year").copy()
         t = grp["year"].values - grp["year"].values[0]
+        try:
+            coeffs = np.polyfit(t, grp["yield_bu_acre"].values, 2)
+            grp["yield_trend"] = np.polyval(coeffs, t)
+            grp["yield_detrended"] = grp["yield_bu_acre"] - grp["yield_trend"]
+        except (np.linalg.LinAlgError, ValueError):
+            continue
+        results.append(grp)
+    return pd.concat(results, ignore_index=True)
+
+
