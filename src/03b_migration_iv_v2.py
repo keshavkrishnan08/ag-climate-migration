@@ -208,3 +208,13 @@ def detrend_yields(yields):
 
     Args:
         yields: DataFrame with fips, year, crop, yield_bu_acre.
+
+    Returns:
+        DataFrame with yield_trend, yield_detrended added.
+    """
+    results = []
+    for (fips, crop), grp in yields.groupby(["fips", "crop"]):
+        if len(grp) < 5:
+            continue
+        grp = grp.sort_values("year").copy()
+        t = grp["year"].values - grp["year"].values[0]
