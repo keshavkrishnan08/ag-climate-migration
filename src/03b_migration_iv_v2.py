@@ -228,3 +228,13 @@ def detrend_yields(yields):
     return pd.concat(results, ignore_index=True)
 
 
+def build_iv_panel(yields, cpi):
+    """Construct county-year panel with treatment (farm income) and instrument (weather shock).
+
+    Treatment (D): Farm income deviation from county mean.
+        D_it = (income_it - income_i_bar) / income_i_bar
+
+    Instrument (Z): Weather-driven income shock with fixed acreage weights.
+        Z_it = sum_c[ yield_detrended_ict * acres_ic_bar * price_c ] / baseline_income_i
+
+    Args:
