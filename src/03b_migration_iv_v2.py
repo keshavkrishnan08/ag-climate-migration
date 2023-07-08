@@ -238,3 +238,13 @@ def build_iv_panel(yields, cpi):
         Z_it = sum_c[ yield_detrended_ict * acres_ic_bar * price_c ] / baseline_income_i
 
     Args:
+        yields: DataFrame with detrended yields.
+        cpi: DataFrame with year, cpi columns.
+
+    Returns:
+        County-year DataFrame with farm_income_deviation, weather_income_shock.
+    """
+    yields = yields.merge(cpi[["year", "cpi"]], on="year", how="left")
+    deflator = CPI_2023 / yields["cpi"]
+    yields["price"] = yields["crop"].map(COMMODITY_PRICES)
+
