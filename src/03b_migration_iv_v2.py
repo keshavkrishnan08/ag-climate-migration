@@ -248,3 +248,13 @@ def build_iv_panel(yields, cpi):
     deflator = CPI_2023 / yields["cpi"]
     yields["price"] = yields["crop"].map(COMMODITY_PRICES)
 
+    yields["revenue_2023usd"] = (
+        yields["yield_bu_acre"] * yields["acres_harvested"] * yields["price"] * deflator
+    )
+
+    mean_acres = (
+        yields.groupby(["fips", "crop"])["acres_harvested"]
+        .mean()
+        .rename("acres_mean")
+    )
+    yields = yields.merge(mean_acres, on=["fips", "crop"], how="left")
