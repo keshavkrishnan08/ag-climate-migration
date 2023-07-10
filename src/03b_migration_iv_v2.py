@@ -258,3 +258,13 @@ def build_iv_panel(yields, cpi):
         .rename("acres_mean")
     )
     yields = yields.merge(mean_acres, on=["fips", "crop"], how="left")
+
+    yields["weather_revenue_2023usd"] = (
+        yields["yield_detrended"] * yields["acres_mean"] * yields["price"] * deflator
+    )
+
+    county_year = (
+        yields.groupby(["fips", "year"])
+        .agg(
+            farm_income_proxy=("revenue_2023usd", "sum"),
+            weather_revenue=("weather_revenue_2023usd", "sum"),
