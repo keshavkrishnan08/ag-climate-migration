@@ -308,3 +308,13 @@ def load_migration_outcomes():
         Spec B  : gross_mobility_rate = (mobility_total - same_house) / total_population
                   = fraction of current residents who lived elsewhere 1yr ago (in-migration proxy)
         Spec C  : true_diff_county_in_rate = B07001_049E / total_population (PRIMARY)
+        Spec D  : long_distance_in_rate = (diff_county + diff_state) / total_population
+        Spec E  : gross_out_rate = net_outmigration_rate + true_diff_county_in_rate
+                  = (-pop_change + in_migration) / baseline_pop ≈ out-migration rate
+
+    Returns:
+        DataFrame with fips, year, all outcome variables, total_population.
+    """
+    mig = pd.read_parquet(
+        PROJECT_ROOT / "data/raw/census/acs_migration_data.parquet",
+        columns=["fips", "year", "mobility_total", "moved_diff_county_same_state",
