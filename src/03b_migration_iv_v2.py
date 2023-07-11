@@ -328,3 +328,13 @@ def load_migration_outcomes():
     # Rename to true content (correct the mislabeling)
     mig = mig.rename(columns={
         "moved_diff_county_same_state": "same_house",           # B07001_002E
+        "moved_diff_state": "true_diff_county_same_state",     # B07001_049E
+        "moved_from_abroad": "true_diff_state",                # B07001_065E
+    })
+
+    # ── Population-based outcomes ──
+    demo = demo.sort_values(["fips", "year"]).copy()
+    demo["pop_change_rate"] = demo.groupby("fips")["total_population"].pct_change()
+
+    # Flag extreme population changes (likely boundary/reclassification events)
+    demo["extreme_change"] = abs(demo["pop_change_rate"]) > POP_CHANGE_EXTREME
