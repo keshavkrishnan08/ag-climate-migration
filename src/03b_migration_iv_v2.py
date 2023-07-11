@@ -278,3 +278,13 @@ def build_iv_panel(yields, cpi):
     county_year = county_year.merge(baseline, on="fips", how="left")
 
     county_year["farm_income_deviation"] = (
+        (county_year["farm_income_proxy"] - county_year["baseline_income"])
+        / county_year["baseline_income"]
+    )
+    county_year["weather_income_shock"] = (
+        county_year["weather_revenue"] / county_year["baseline_income"]
+    )
+
+    county_year = county_year[county_year["baseline_income"] > 1_000_000].copy()
+    county_counts = county_year.groupby("fips").size()
+    good_counties = county_counts[county_counts >= 10].index
