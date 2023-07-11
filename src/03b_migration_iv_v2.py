@@ -268,3 +268,13 @@ def build_iv_panel(yields, cpi):
         .agg(
             farm_income_proxy=("revenue_2023usd", "sum"),
             weather_revenue=("weather_revenue_2023usd", "sum"),
+            total_acres=("acres_harvested", "sum"),
+            n_crops=("crop", "count"),
+        )
+        .reset_index()
+    )
+
+    baseline = county_year.groupby("fips")["farm_income_proxy"].mean().rename("baseline_income")
+    county_year = county_year.merge(baseline, on="fips", how="left")
+
+    county_year["farm_income_deviation"] = (
