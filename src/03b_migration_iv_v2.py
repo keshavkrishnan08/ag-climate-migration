@@ -288,3 +288,13 @@ def build_iv_panel(yields, cpi):
     county_year = county_year[county_year["baseline_income"] > 1_000_000].copy()
     county_counts = county_year.groupby("fips").size()
     good_counties = county_counts[county_counts >= 10].index
+    county_year = county_year[county_year["fips"].isin(good_counties)].copy()
+
+    return county_year
+
+
+def load_migration_outcomes():
+    """Load ACS migration data and build all outcome variables.
+
+    ACS B07001 column mislabeling fix (confirmed 2026-03-18):
+        'moved_diff_county_same_state' = B07001_002E (same house, non-movers, ~87%)
