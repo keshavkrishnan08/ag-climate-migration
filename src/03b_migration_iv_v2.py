@@ -338,3 +338,13 @@ def load_migration_outcomes():
 
     # Flag extreme population changes (likely boundary/reclassification events)
     demo["extreme_change"] = abs(demo["pop_change_rate"]) > POP_CHANGE_EXTREME
+
+    # 3-year rolling average population change (annualised from 3yr window)
+    demo["pop_change_3yr"] = (
+        demo.groupby("fips")["total_population"]
+        .pct_change(periods=3) / 3.0
+    )
+
+    # Baseline population (mean over sample) for weighting
+    demo["baseline_pop"] = demo.groupby("fips")["total_population"].transform("mean")
+
