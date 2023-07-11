@@ -318,3 +318,13 @@ def load_migration_outcomes():
     mig = pd.read_parquet(
         PROJECT_ROOT / "data/raw/census/acs_migration_data.parquet",
         columns=["fips", "year", "mobility_total", "moved_diff_county_same_state",
+                 "moved_diff_state", "moved_from_abroad"],
+    )
+    demo = pd.read_parquet(
+        PROJECT_ROOT / "data/raw/census/acs_county_demographics.parquet",
+        columns=["fips", "year", "total_population", "median_household_income"],
+    )
+
+    # Rename to true content (correct the mislabeling)
+    mig = mig.rename(columns={
+        "moved_diff_county_same_state": "same_house",           # B07001_002E
