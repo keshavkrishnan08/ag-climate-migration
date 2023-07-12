@@ -438,3 +438,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
         Dict with elasticity, CI, F-stat, p-value, diagnostics.
     """
     needed = [entity_col, time_col, dep_var, endog_var, instrument_var]
+    if weight_col:
+        needed.append(weight_col)
+
+    df = panel[needed].dropna().copy()
+
+    # Also drop rows where instrument or treatment are non-finite
+    mask_finite = (
+        np.isfinite(df[dep_var]) &
+        np.isfinite(df[endog_var]) &
+        np.isfinite(df[instrument_var])
