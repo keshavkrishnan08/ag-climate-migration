@@ -458,3 +458,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     print(f"  Sample: {n_obs} county-years, {n_counties} counties, {n_years} years")
     print(f"  Years: {df[time_col].min()}-{df[time_col].max()}")
 
+    if n_obs < 100:
+        print(f"  WARNING: only {n_obs} observations — skipping.")
+        return None
+
+    entity_ids = df[entity_col].values
+    time_ids = df[time_col].values
+
+    # Optional population weights (square root so variance is proportional to 1/pop)
+    if weight_col and weight_col in df.columns:
+        w = np.sqrt(df[weight_col].values.astype(np.float64))
