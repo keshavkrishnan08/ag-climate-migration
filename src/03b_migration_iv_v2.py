@@ -378,3 +378,13 @@ def load_migration_outcomes():
 
     # ── Spec D: long-distance in-migration ──
     panel["long_distance_in_rate"] = (
+        (panel["true_diff_county_same_state"].fillna(0)
+         + panel["true_diff_state"].fillna(0))
+        / panel["total_population"].replace(0, np.nan)
+    )
+
+    # ── Spec E: gross out-migration (Approach 3) ──
+    # Identity: net_out = gross_out - gross_in
+    # => gross_out = net_out + gross_in
+    # gross_in ≈ true_diff_county_in_rate (in-movers / current pop)
+    # We use raw pop change for net (less smoothing), same_house as in-migration proxy
