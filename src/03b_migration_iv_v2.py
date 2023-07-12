@@ -468,3 +468,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     # Optional population weights (square root so variance is proportional to 1/pop)
     if weight_col and weight_col in df.columns:
         w = np.sqrt(df[weight_col].values.astype(np.float64))
+        w = w / w.mean()  # normalise
+    else:
+        w = np.ones(n_obs)
+
+    y_raw = df[dep_var].values * w
+    d_raw = df[endog_var].values * w
+    z_raw = df[instrument_var].values * w
+
+    y_dm = demean_twoway(y_raw, entity_ids, time_ids)
+    d_dm = demean_twoway(d_raw, entity_ids, time_ids)
