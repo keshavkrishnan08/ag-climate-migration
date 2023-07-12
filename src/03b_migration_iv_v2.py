@@ -428,3 +428,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
         panel: DataFrame with all variables.
         dep_var: Dependent variable name.
         endog_var: Endogenous treatment name.
+        instrument_var: Instrument name.
+        entity_col: Entity column (county FE).
+        time_col: Time column (year FE).
+        weight_col: Optional population weight column (sqrt applied internally).
+        label: Label for printing.
+
+    Returns:
+        Dict with elasticity, CI, F-stat, p-value, diagnostics.
+    """
+    needed = [entity_col, time_col, dep_var, endog_var, instrument_var]
