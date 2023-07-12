@@ -418,3 +418,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
                 weight_col=None, label=""):
     """Estimate IV/2SLS with two-way FE via manual two-stage procedure.
 
+    Stage 1: Regress demeaned endogenous variable on demeaned instrument.
+    Stage 2: Regress demeaned outcome on demeaned fitted values.
+
+    Optionally applies population weights (WLS) before demeaning for
+    noise reduction in small counties.
+
+    Args:
+        panel: DataFrame with all variables.
+        dep_var: Dependent variable name.
+        endog_var: Endogenous treatment name.
