@@ -388,3 +388,13 @@ def load_migration_outcomes():
     # => gross_out = net_out + gross_in
     # gross_in ≈ true_diff_county_in_rate (in-movers / current pop)
     # We use raw pop change for net (less smoothing), same_house as in-migration proxy
+    panel["gross_out_rate"] = (
+        panel["outmigration_rate"].fillna(0) + panel["true_diff_county_in_rate"].fillna(0)
+    )
+    # Only valid when both components are present
+    panel["gross_out_rate"] = np.where(
+        panel["outmigration_rate"].isna() | panel["true_diff_county_in_rate"].isna(),
+        np.nan,
+        panel["gross_out_rate"],
+    )
+
