@@ -408,3 +408,13 @@ def load_migration_outcomes():
 
     return panel
 
+
+# ──────────────────────────────────────────────────────────────────────
+# 2SLS estimator
+# ──────────────────────────────────────────────────────────────────────
+
+def manual_2sls(panel, dep_var, endog_var, instrument_var,
+                entity_col="fips", time_col="year",
+                weight_col=None, label=""):
+    """Estimate IV/2SLS with two-way FE via manual two-stage procedure.
+
