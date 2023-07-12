@@ -358,3 +358,13 @@ def load_migration_outcomes():
         panel["extreme_change"],
         np.nan,
         -panel["pop_change_rate"],
+    )
+
+    # ── Spec A3: 3-year smoothed net outmigration (Approach 1) ──
+    panel["outmigration_rate_3yr"] = -panel["pop_change_3yr"]
+
+    # ── Spec B: gross mobility rate = in-movers / total pop (Approach 2) ──
+    # = 1 - (same_house / total_pop) = movers in from anywhere / total
+    panel["gross_mobility_rate"] = (
+        (panel["mobility_total"] - panel["same_house"]).clip(lower=0)
+        / panel["total_population"].replace(0, np.nan)
