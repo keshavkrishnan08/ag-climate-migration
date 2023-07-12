@@ -348,3 +348,13 @@ def load_migration_outcomes():
     # Baseline population (mean over sample) for weighting
     demo["baseline_pop"] = demo.groupby("fips")["total_population"].transform("mean")
 
+    panel = mig.merge(demo, on=["fips", "year"], how="inner")
+
+    # ── Spec A: raw net outmigration ──
+    panel["outmigration_rate"] = -panel["pop_change_rate"]
+
+    # ── Spec A2: cleaned net outmigration (no boundary changes) ──
+    panel["outmigration_rate_clean"] = np.where(
+        panel["extreme_change"],
+        np.nan,
+        -panel["pop_change_rate"],
