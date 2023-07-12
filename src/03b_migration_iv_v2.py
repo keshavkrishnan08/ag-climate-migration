@@ -448,3 +448,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
         np.isfinite(df[dep_var]) &
         np.isfinite(df[endog_var]) &
         np.isfinite(df[instrument_var])
+    )
+    df = df[mask_finite].copy()
+
+    n_obs = len(df)
+    n_counties = df[entity_col].nunique()
+    n_years = df[time_col].nunique()
+
+    print(f"  Sample: {n_obs} county-years, {n_counties} counties, {n_years} years")
+    print(f"  Years: {df[time_col].min()}-{df[time_col].max()}")
+
