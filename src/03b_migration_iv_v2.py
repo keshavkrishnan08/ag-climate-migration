@@ -398,3 +398,13 @@ def load_migration_outcomes():
         panel["gross_out_rate"],
     )
 
+    # Filter to Corn Belt rural counties
+    panel["state_fips"] = panel["fips"].str[:2]
+    panel = panel[
+        (panel["state_fips"].isin(CORN_BELT_STATE_FIPS))
+        & (panel["total_population"] < POP_CAP)
+        & (panel["total_population"] > 0)
+    ].copy()
+
+    return panel
+
