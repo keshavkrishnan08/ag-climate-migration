@@ -498,3 +498,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     beta_iv = ss["beta"][0]
 
     # Correct SE using actual endogenous residuals
+    residuals = y_dm - beta_iv * d_dm
+    n_clusters = df[entity_col].nunique()
+    unique_clusters = np.unique(entity_ids)
+    dof = n_obs - n_counties - n_years + 1
+    sigma2 = (residuals @ residuals) / max(dof, 1)
+    d_hat_ss = d_hat @ d_hat
+    var_beta_hom = sigma2 / d_hat_ss
+    se_hom = np.sqrt(var_beta_hom)
+
+    # Cluster-robust SE
