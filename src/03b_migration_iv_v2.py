@@ -478,3 +478,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
 
     y_dm = demean_twoway(y_raw, entity_ids, time_ids)
     d_dm = demean_twoway(d_raw, entity_ids, time_ids)
+    z_dm = demean_twoway(z_raw, entity_ids, time_ids)
+
+    # ── FIRST STAGE ──
+    Z_mat = z_dm.reshape(-1, 1)
+    fs = ols_fit(d_dm, Z_mat)
+    t_stat_z = fs["t_stats"][0]
+    first_stage_F = t_stat_z ** 2
+    d_hat = fs["fitted"]
+
+    print(f"  First stage:")
