@@ -488,3 +488,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     d_hat = fs["fitted"]
 
     print(f"  First stage:")
+    print(f"    Instrument coefficient: {fs['beta'][0]:.6f}")
+    print(f"    F-statistic: {first_stage_F:.2f}")
+    print(f"    Partial R²: {fs['r_squared']:.4f}")
+
+    # ── SECOND STAGE ──
+    D_hat_mat = d_hat.reshape(-1, 1)
+    ss = ols_fit(y_dm, D_hat_mat)
+    beta_iv = ss["beta"][0]
+
+    # Correct SE using actual endogenous residuals
