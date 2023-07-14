@@ -548,3 +548,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     ols = ols_fit(y_dm, D_mat)
     beta_ols = ols["beta"][0]
 
+    return {
+        "label": label,
+        "dep_var": dep_var,
+        "elasticity": float(beta_iv),
+        "se_homoskedastic": float(se_hom),
+        "se_clustered": float(se_clustered),
+        "se_final": float(se_final),
+        "ci_95_lower": float(ci_lower),
+        "ci_95_upper": float(ci_upper),
+        "iv_t_stat": float(iv_t),
