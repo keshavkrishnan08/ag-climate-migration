@@ -538,3 +538,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     rf_meat = sum((rf_scores[entity_ids == c]).sum() ** 2 for c in unique_clusters)
     rf_var_cl = (1.0 / z_ss) ** 2 * rf_meat * dof_correction
     rf_se_cl = np.sqrt(rf_var_cl)
+    rf_t = beta_rf / rf_se_cl
+    rf_p = 2 * stats.t.sf(abs(rf_t), n_clusters - 1)
+
+    print(f"  Reduced form: beta={beta_rf:.6f}, p={rf_p:.4f}")
+
+    # ── OLS ──
+    D_mat = d_dm.reshape(-1, 1)
+    ols = ols_fit(y_dm, D_mat)
+    beta_ols = ols["beta"][0]
+
