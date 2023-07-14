@@ -568,3 +568,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
         "reduced_form_p": float(rf_p),
         "ols_coefficient": float(beta_ols),
         "n_obs": int(n_obs),
+        "n_counties": int(n_counties),
+        "n_years": int(n_years),
+        "n_clusters": int(n_clusters),
+        "weighted": weight_col is not None,
+    }
+
+
+# ──────────────────────────────────────────────────────────────────────
+# Main
+# ──────────────────────────────────────────────────────────────────────
