@@ -528,3 +528,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     print(f"    95% CI: [{ci_lower:.6f}, {ci_upper:.6f}]")
     print(f"    t-stat: {iv_t:.2f}")
     print(f"    p-value: {iv_p:.4f}")
+
+    # ── Reduced form ──
+    rf = ols_fit(y_dm, Z_mat)
+    beta_rf = rf["beta"][0]
+    rf_resid = rf["residuals"]
+    rf_scores = rf_resid * z_dm
+    z_ss = z_dm @ z_dm
+    rf_meat = sum((rf_scores[entity_ids == c]).sum() ** 2 for c in unique_clusters)
+    rf_var_cl = (1.0 / z_ss) ** 2 * rf_meat * dof_correction
+    rf_se_cl = np.sqrt(rf_var_cl)
