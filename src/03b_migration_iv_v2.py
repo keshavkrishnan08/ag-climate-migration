@@ -578,3 +578,13 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
 # ──────────────────────────────────────────────────────────────────────
 # Main
 # ──────────────────────────────────────────────────────────────────────
+
+def main():
+    """Run all IV specifications and report comparison table."""
+    print("=" * 70)
+    print("Fix 4 (v2): IV Estimation — Three-Approach Out-Migration Fix")
+    print("=" * 70)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    # ── Step 1: Yields ──
+    print("\n[1/5] Loading NASS yield data...")
