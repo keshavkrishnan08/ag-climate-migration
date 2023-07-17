@@ -588,3 +588,13 @@ def main():
 
     # ── Step 1: Yields ──
     print("\n[1/5] Loading NASS yield data...")
+    yields = load_and_clean_yields()
+    print(f"  {len(yields)} crop-county-year records, {yields['fips'].nunique()} counties")
+
+    # ── Step 2: Detrend ──
+    print("\n[2/5] Detrending yields (quadratic county-crop trends)...")
+    yields = detrend_yields(yields)
+    print(f"  Detrended {len(yields)} records, mean detrended={yields['yield_detrended'].mean():.3f}")
+
+    # ── Step 3: Build IV panel ──
+    print("\n[3/5] Building IV panel...")
