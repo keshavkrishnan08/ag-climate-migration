@@ -598,3 +598,13 @@ def main():
 
     # ── Step 3: Build IV panel ──
     print("\n[3/5] Building IV panel...")
+    cpi = pd.read_csv(PROJECT_ROOT / "data/raw/other/cpi_annual.csv")
+    county_year = build_iv_panel(yields, cpi)
+    print(f"  {len(county_year)} county-years, {county_year['fips'].nunique()} counties")
+    print(f"  Weather shock SD: {county_year['weather_income_shock'].std():.4f}")
+
+    # ── Step 4: Migration outcomes ──
+    print("\n[4/5] Loading ACS migration outcomes (with mislabel correction)...")
+    migration = load_migration_outcomes()
+    print(f"  {len(migration)} migration records (rural Corn Belt)")
+    print(f"  Boundary-change exclusions available via extreme_change flag")
