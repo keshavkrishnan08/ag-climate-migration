@@ -608,3 +608,13 @@ def main():
     migration = load_migration_outcomes()
     print(f"  {len(migration)} migration records (rural Corn Belt)")
     print(f"  Boundary-change exclusions available via extreme_change flag")
+
+    # Merge
+    outcome_cols = [
+        "fips", "year", "outmigration_rate", "outmigration_rate_clean",
+        "outmigration_rate_3yr", "gross_mobility_rate", "true_diff_county_in_rate",
+        "long_distance_in_rate", "gross_out_rate", "total_population",
+        "baseline_pop", "extreme_change",
+    ]
+    panel = county_year.merge(
+        migration[outcome_cols],
