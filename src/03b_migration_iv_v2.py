@@ -668,3 +668,13 @@ def main():
 
     # ---- SPEC A: Original (raw pop change) ----
     print("=" * 55)
+    print("SPEC A: Net outmigration (raw pop change) [original, p=0.49]")
+    print("=" * 55)
+    panel_a = panel[panel["outmigration_rate"].notna()].copy()
+    iv_a = manual_2sls(
+        panel_a, "outmigration_rate", "farm_income_deviation",
+        "weather_income_shock", label="spec_a_raw_outmig",
+    )
+    results["spec_a"] = iv_a
+
+    # ---- SPEC A2: Cleaned (no boundary changes, Approach 1) ----
