@@ -648,3 +648,13 @@ def main():
 
     # Descriptive stats
     desc_cols = {
+        "outmigration_rate": "Spec A  (net out-mig, raw)",
+        "outmigration_rate_clean": "Spec A2 (net out-mig, no extremes)",
+        "outmigration_rate_3yr": "Spec A3 (net out-mig, 3yr avg)",
+        "gross_mobility_rate": "Spec B  (gross mobility 1-same/pop)",
+        "true_diff_county_in_rate": "Spec C  (diff-county in-mig, PRIMARY)",
+        "long_distance_in_rate": "Spec D  (long-distance in-mig)",
+        "gross_out_rate": "Spec E  (gross out-mig = net+in)",
+    }
+    print(f"\n  Outcome descriptive statistics:")
+    for col, desc in desc_cols.items():
