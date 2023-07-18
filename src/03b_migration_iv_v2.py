@@ -638,3 +638,13 @@ def main():
         "true_diff_county_in_rate", "long_distance_in_rate", "gross_out_rate",
     ]
     for col in winsorize_cols:
+        if col in panel.columns:
+            valid = panel[col].dropna()
+            if len(valid) > 10:
+                p01, p99 = valid.quantile([0.01, 0.99])
+                panel[col] = panel[col].clip(p01, p99)
+
+    print(f"\n  Merged panel: {len(panel)} obs, {panel['fips'].nunique()} counties")
+
+    # Descriptive stats
+    desc_cols = {
