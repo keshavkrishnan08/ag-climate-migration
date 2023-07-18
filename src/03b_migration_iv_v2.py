@@ -658,3 +658,13 @@ def main():
     }
     print(f"\n  Outcome descriptive statistics:")
     for col, desc in desc_cols.items():
+        if col in panel.columns:
+            vals = panel[col].dropna()
+            print(f"    {desc}: mean={vals.mean():.4f}, sd={vals.std():.4f}, n={len(vals)}")
+
+    # ── Step 5: Run all IV specs ──
+    print("\n[5/5] Running all IV specifications...\n")
+    results = {}
+
+    # ---- SPEC A: Original (raw pop change) ----
+    print("=" * 55)
