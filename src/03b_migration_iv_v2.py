@@ -688,3 +688,13 @@ def main():
     print(f"  Excluded {len(panel) - len(panel_a2)} obs with extreme pop change (>{POP_CHANGE_EXTREME*100:.0f}%)")
     iv_a2 = manual_2sls(
         panel_a2, "outmigration_rate_clean", "farm_income_deviation",
+        "weather_income_shock", label="spec_a2_cleaned_outmig",
+    )
+    results["spec_a2"] = iv_a2
+
+    # ---- SPEC A3: 3-year smoothed (Approach 1 variant) ----
+    print("\n" + "=" * 55)
+    print("SPEC A3: Net outmigration 3-YEAR SMOOTHED [Approach 1 variant]")
+    print("=" * 55)
+    panel_a3 = panel[panel["outmigration_rate_3yr"].notna()].copy()
+    iv_a3 = manual_2sls(
