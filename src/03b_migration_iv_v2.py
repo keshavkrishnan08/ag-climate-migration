@@ -678,3 +678,13 @@ def main():
     results["spec_a"] = iv_a
 
     # ---- SPEC A2: Cleaned (no boundary changes, Approach 1) ----
+    print("\n" + "=" * 55)
+    print("SPEC A2: Net outmigration CLEANED (excl |Δpop|>10%) [Approach 1]")
+    print("=" * 55)
+    panel_a2 = panel[
+        panel["outmigration_rate_clean"].notna()
+        & ~panel["extreme_change"].fillna(True)
+    ].copy()
+    print(f"  Excluded {len(panel) - len(panel_a2)} obs with extreme pop change (>{POP_CHANGE_EXTREME*100:.0f}%)")
+    iv_a2 = manual_2sls(
+        panel_a2, "outmigration_rate_clean", "farm_income_deviation",
