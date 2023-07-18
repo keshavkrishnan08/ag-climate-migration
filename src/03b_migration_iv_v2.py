@@ -628,3 +628,13 @@ def main():
         panel["farm_income_deviation"].notna()
         & panel["weather_income_shock"].notna()
         & np.isfinite(panel["farm_income_deviation"])
+        & np.isfinite(panel["weather_income_shock"])
+    ].copy()
+
+    # Winsorize treatment, instrument, and all outcomes at 1/99 percentile
+    winsorize_cols = [
+        "farm_income_deviation", "weather_income_shock", "outmigration_rate",
+        "outmigration_rate_clean", "outmigration_rate_3yr", "gross_mobility_rate",
+        "true_diff_county_in_rate", "long_distance_in_rate", "gross_out_rate",
+    ]
+    for col in winsorize_cols:
