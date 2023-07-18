@@ -618,3 +618,13 @@ def main():
     ]
     panel = county_year.merge(
         migration[outcome_cols],
+        on=["fips", "year"],
+        how="inner",
+    )
+    panel = panel[panel["year"].between(2010, 2023)].copy()
+
+    # Drop truly missing treatment/instrument first
+    panel = panel[
+        panel["farm_income_deviation"].notna()
+        & panel["weather_income_shock"].notna()
+        & np.isfinite(panel["farm_income_deviation"])
