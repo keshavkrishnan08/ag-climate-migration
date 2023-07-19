@@ -728,3 +728,13 @@ def main():
     results["spec_b"] = iv_b
 
     # ---- SPEC C: True diff-county in-migration (PRIMARY) ----
+    print("\n" + "=" * 55)
+    print("SPEC C: True diff-county in-migration B07001_049E [PRIMARY, p=0.019]")
+    print("=" * 55)
+    panel_c = panel[
+        panel["true_diff_county_in_rate"].notna()
+        & np.isfinite(panel["true_diff_county_in_rate"])
+    ].copy()
+    iv_c = manual_2sls(
+        panel_c, "true_diff_county_in_rate", "farm_income_deviation",
+        "weather_income_shock", label="spec_c_true_diff_county",
