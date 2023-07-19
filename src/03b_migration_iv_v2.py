@@ -698,3 +698,13 @@ def main():
     print("=" * 55)
     panel_a3 = panel[panel["outmigration_rate_3yr"].notna()].copy()
     iv_a3 = manual_2sls(
+        panel_a3, "outmigration_rate_3yr", "farm_income_deviation",
+        "weather_income_shock", label="spec_a3_3yr_outmig",
+    )
+    results["spec_a3"] = iv_a3
+
+    # ---- SPEC A3w: 3-year smoothed, population-weighted ----
+    print("\n" + "=" * 55)
+    print("SPEC A3w: Net outmigration 3yr POPULATION-WEIGHTED [Approach 1 variant]")
+    print("=" * 55)
+    panel_a3w = panel[panel["outmigration_rate_3yr"].notna()
