@@ -718,3 +718,13 @@ def main():
 
     # ---- SPEC B: Gross mobility rate (Approach 2) ----
     print("\n" + "=" * 55)
+    print("SPEC B: Gross mobility rate (1 - same_house/pop) [Approach 2]")
+    print("=" * 55)
+    panel_b = panel[panel["gross_mobility_rate"].notna()].copy()
+    iv_b = manual_2sls(
+        panel_b, "gross_mobility_rate", "farm_income_deviation",
+        "weather_income_shock", label="spec_b_gross_mobility",
+    )
+    results["spec_b"] = iv_b
+
+    # ---- SPEC C: True diff-county in-migration (PRIMARY) ----
