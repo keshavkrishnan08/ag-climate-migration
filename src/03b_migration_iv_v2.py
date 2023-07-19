@@ -708,3 +708,13 @@ def main():
     print("SPEC A3w: Net outmigration 3yr POPULATION-WEIGHTED [Approach 1 variant]")
     print("=" * 55)
     panel_a3w = panel[panel["outmigration_rate_3yr"].notna()
+                      & panel["baseline_pop"].notna()].copy()
+    iv_a3w = manual_2sls(
+        panel_a3w, "outmigration_rate_3yr", "farm_income_deviation",
+        "weather_income_shock", weight_col="baseline_pop",
+        label="spec_a3w_3yr_popweighted",
+    )
+    results["spec_a3w"] = iv_a3w
+
+    # ---- SPEC B: Gross mobility rate (Approach 2) ----
+    print("\n" + "=" * 55)
