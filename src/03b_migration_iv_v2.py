@@ -738,3 +738,13 @@ def main():
     iv_c = manual_2sls(
         panel_c, "true_diff_county_in_rate", "farm_income_deviation",
         "weather_income_shock", label="spec_c_true_diff_county",
+    )
+    results["spec_c"] = iv_c
+
+    # ---- SPEC D: Long-distance in-migration ----
+    print("\n" + "=" * 55)
+    print("SPEC D: Long-distance in-migration (diff-county + diff-state)")
+    print("=" * 55)
+    panel_d = panel[
+        panel["long_distance_in_rate"].notna()
+        & np.isfinite(panel["long_distance_in_rate"])
