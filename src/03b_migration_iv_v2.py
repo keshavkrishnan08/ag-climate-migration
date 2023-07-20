@@ -758,3 +758,13 @@ def main():
     # ---- SPEC E: Gross out-migration (Approach 3) ----
     print("\n" + "=" * 55)
     print("SPEC E: Gross out-migration (net + in-mig) [Approach 3]")
+    print("=" * 55)
+    panel_e = panel[
+        panel["gross_out_rate"].notna()
+        & np.isfinite(panel["gross_out_rate"])
+    ].copy()
+    iv_e = manual_2sls(
+        panel_e, "gross_out_rate", "farm_income_deviation",
+        "weather_income_shock", label="spec_e_gross_outmig",
+    )
+    results["spec_e"] = iv_e
