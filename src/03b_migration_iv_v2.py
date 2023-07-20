@@ -748,3 +748,13 @@ def main():
     panel_d = panel[
         panel["long_distance_in_rate"].notna()
         & np.isfinite(panel["long_distance_in_rate"])
+    ].copy()
+    iv_d = manual_2sls(
+        panel_d, "long_distance_in_rate", "farm_income_deviation",
+        "weather_income_shock", label="spec_d_long_distance",
+    )
+    results["spec_d"] = iv_d
+
+    # ---- SPEC E: Gross out-migration (Approach 3) ----
+    print("\n" + "=" * 55)
+    print("SPEC E: Gross out-migration (net + in-mig) [Approach 3]")
