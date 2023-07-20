@@ -768,3 +768,13 @@ def main():
         "weather_income_shock", label="spec_e_gross_outmig",
     )
     results["spec_e"] = iv_e
+
+    # ── Comparison table ──
+    print("\n" + "=" * 80)
+    print("FULL COMPARISON TABLE — All IV Specifications")
+    print("=" * 80)
+    print(f"\n{'Spec':<8} {'Outcome':<40} {'beta_IV':>10} {'p-val':>8} {'F-stat':>8} {'N':>6} {'Sig':>5}")
+    print("-" * 80)
+
+    spec_labels = {
+        "spec_a":   "Net outmig (raw pop change)             [orig]",
