@@ -778,3 +778,13 @@ def main():
 
     spec_labels = {
         "spec_a":   "Net outmig (raw pop change)             [orig]",
+        "spec_a2":  "Net outmig cleaned (no extremes)         [A1]",
+        "spec_a3":  "Net outmig 3yr smoothed                  [A1]",
+        "spec_a3w": "Net outmig 3yr pop-weighted              [A1w]",
+        "spec_b":   "Gross mobility (1-same/pop)               [A2]",
+        "spec_c":   "Diff-county in-mig B07001_049E       [PRIMARY]",
+        "spec_d":   "Long-dist in-mig (dc+ds)             [robust]",
+        "spec_e":   "Gross out-mig (net+in-mig)               [A3]",
+    }
+
+    for key, label in spec_labels.items():
