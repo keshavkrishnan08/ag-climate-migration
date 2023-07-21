@@ -788,3 +788,13 @@ def main():
     }
 
     for key, label in spec_labels.items():
+        r = results.get(key)
+        if r is None:
+            print(f"  {key:<8} {label:<40} {'N/A':>10}")
+            continue
+        sig = "***" if r["iv_p_value"] < 0.01 else ("**" if r["iv_p_value"] < 0.05 else
+              ("*" if r["iv_p_value"] < 0.10 else ""))
+        print(f"  {key:<8} {label:<42} {r['elasticity']:>10.6f} {r['iv_p_value']:>8.4f} "
+              f"{r['first_stage_F']:>8.1f} {r['n_obs']:>6} {sig:>5}")
+
+    print("-" * 80)
