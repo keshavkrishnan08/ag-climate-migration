@@ -798,3 +798,13 @@ def main():
               f"{r['first_stage_F']:>8.1f} {r['n_obs']:>6} {sig:>5}")
 
     print("-" * 80)
+    print("  Significance: *** p<0.01, ** p<0.05, * p<0.10")
+    print("  All specs: 2SLS with county+year FE, cluster-robust SE (county level)")
+    print("  Treatment: farm_income_deviation (crop revenue / county baseline)")
+    print("  Instrument: weather_income_shock (detrended yield × fixed acres × price / baseline)")
+
+    # ── Identify best spec for out-migration ──
+    # Priority: correct sign (negative for out-mig, positive for in-mig), p<0.10, F>10
+    out_mig_specs = ["spec_a", "spec_a2", "spec_a3", "spec_a3w", "spec_e"]
+    in_mig_specs  = ["spec_b", "spec_c", "spec_d"]
+
