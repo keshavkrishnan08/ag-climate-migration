@@ -818,3 +818,13 @@ def main():
     print(f"\n  Best out-migration spec: {best_outmig if best_outmig else 'None significant at 10%'}")
     print(f"  Primary spec (Spec C, in-mig): p={results['spec_c']['iv_p_value']:.4f}, "
           f"F={results['spec_c']['first_stage_F']:.1f}")
+
+    # ── Primary estimate (unchanged: Spec C) ──
+    primary = iv_c
+    gate = "PASS" if primary["first_stage_F"] > 10 else "CONDITIONAL"
+
+    # ── Build economic_params ──
+    # Mean outcomes for semi-elasticity
+    mean_c = panel_c["true_diff_county_in_rate"].mean()
+    mean_a = panel_a["outmigration_rate"].mean()
+    mean_b = panel_b["gross_mobility_rate"].mean()
