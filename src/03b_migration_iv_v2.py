@@ -838,3 +838,13 @@ def main():
             return float(r["elasticity"] / mean_y)
         return float("nan")
 
+    economic_params = {
+        "migration_elasticity": {
+            "estimate": float(primary["elasticity"]),
+            "ci_95_lower": float(primary["ci_95_lower"]),
+            "ci_95_upper": float(primary["ci_95_upper"]),
+            "first_stage_F": float(primary["first_stage_F"]),
+            "n_obs": primary["n_obs"],
+            "n_counties": primary["n_counties"],
+            "n_years": primary["n_years"],
+            "sample_period": f"{panel_c['year'].min()}-{panel_c['year'].max()}",
