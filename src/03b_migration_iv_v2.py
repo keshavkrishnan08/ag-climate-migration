@@ -808,3 +808,13 @@ def main():
     out_mig_specs = ["spec_a", "spec_a2", "spec_a3", "spec_a3w", "spec_e"]
     in_mig_specs  = ["spec_b", "spec_c", "spec_d"]
 
+    best_outmig = None
+    for key in out_mig_specs:
+        r = results.get(key)
+        if r and r["first_stage_F"] > 10 and r["iv_p_value"] < 0.10:
+            if best_outmig is None or r["iv_p_value"] < results[best_outmig]["iv_p_value"]:
+                best_outmig = key
+
+    print(f"\n  Best out-migration spec: {best_outmig if best_outmig else 'None significant at 10%'}")
+    print(f"  Primary spec (Spec C, in-mig): p={results['spec_c']['iv_p_value']:.4f}, "
+          f"F={results['spec_c']['first_stage_F']:.1f}")
