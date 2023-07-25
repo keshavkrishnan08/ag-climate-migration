@@ -828,3 +828,13 @@ def main():
     mean_c = panel_c["true_diff_county_in_rate"].mean()
     mean_a = panel_a["outmigration_rate"].mean()
     mean_b = panel_b["gross_mobility_rate"].mean()
+    mean_d = panel_d["long_distance_in_rate"].mean()
+    mean_e = panel_e["gross_out_rate"].mean() if iv_e else np.nan
+    mean_a2 = panel_a2["outmigration_rate_clean"].mean() if iv_a2 else np.nan
+    mean_a3 = panel_a3["outmigration_rate_3yr"].mean() if iv_a3 else np.nan
+
+    def semi_elast(r, mean_y):
+        if r and abs(mean_y) > 1e-6:
+            return float(r["elasticity"] / mean_y)
+        return float("nan")
+
