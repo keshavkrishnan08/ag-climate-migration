@@ -858,3 +858,13 @@ def main():
                 "crop revenue proxy (2023 USD)"
             ),
             "outcome": (
+                "true_diff_county_in_rate = B07001_049E "
+                "(diff county same state in-movers) / total_population. "
+                "ACS column mislabeled as 'moved_diff_state'; corrected 2026-03-18."
+            ),
+            "fixed_effects": "county + year (two-way, absorbed via demeaning)",
+            "standard_errors": "cluster-robust (county level)",
+            "gate": gate,
+            "ols_coefficient": primary["ols_coefficient"],
+            "first_stage_partial_r2": primary["first_stage_partial_r2"],
+            "reduced_form_coeff": primary["reduced_form_coeff"],
