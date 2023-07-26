@@ -848,3 +848,13 @@ def main():
             "n_counties": primary["n_counties"],
             "n_years": primary["n_years"],
             "sample_period": f"{panel_c['year'].min()}-{panel_c['year'].max()}",
+            "sample_definition": "Rural Corn Belt (pop < 50k), 11 states",
+            "instrument": (
+                "weather_income_shock = yield_detrended × mean_acres × price "
+                "/ baseline_income"
+            ),
+            "treatment": (
+                "farm_income_deviation = (income - baseline) / baseline, "
+                "crop revenue proxy (2023 USD)"
+            ),
+            "outcome": (
