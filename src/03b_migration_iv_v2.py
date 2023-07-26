@@ -868,3 +868,13 @@ def main():
             "ols_coefficient": primary["ols_coefficient"],
             "first_stage_partial_r2": primary["first_stage_partial_r2"],
             "reduced_form_coeff": primary["reduced_form_coeff"],
+            "reduced_form_p": primary["reduced_form_p"],
+            "iv_p_value": primary["iv_p_value"],
+            # ── New approach specs ──
+            "spec_a_outmig_elasticity": iv_a["elasticity"] if iv_a else None,
+            "spec_a_outmig_pval": iv_a["iv_p_value"] if iv_a else None,
+            "spec_a2_cleaned_elasticity": iv_a2["elasticity"] if iv_a2 else None,
+            "spec_a2_cleaned_pval": iv_a2["iv_p_value"] if iv_a2 else None,
+            "spec_a3_3yr_elasticity": iv_a3["elasticity"] if iv_a3 else None,
+            "spec_a3_3yr_pval": iv_a3["iv_p_value"] if iv_a3 else None,
+            "spec_a3w_popwt_elasticity": iv_a3w["elasticity"] if iv_a3w else None,
