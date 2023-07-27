@@ -888,3 +888,13 @@ def main():
             "spec_e_grossout_elasticity": iv_e["elasticity"] if iv_e else None,
             "spec_e_grossout_pval": iv_e["iv_p_value"] if iv_e else None,
             # ── Semi-elasticities ──
+            "semi_elasticity_spec_c": semi_elast(iv_c, mean_c),
+            "semi_elasticity_spec_b": semi_elast(iv_b, mean_b),
+            "semi_elasticity_spec_d": semi_elast(iv_d, mean_d),
+            "semi_elasticity_spec_a": semi_elast(iv_a, mean_a),
+            "semi_elasticity_spec_a2": semi_elast(iv_a2, mean_a2) if iv_a2 else None,
+            "semi_elasticity_spec_a3": semi_elast(iv_a3, mean_a3) if iv_a3 else None,
+            "semi_elasticity_spec_e": semi_elast(iv_e, mean_e) if iv_e else None,
+            # ── Metadata ──
+            "acs_mislabel_fix": (
+                "moved_diff_county_same_state = B07001_002E (same house, non-movers). "
