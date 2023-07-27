@@ -898,3 +898,13 @@ def main():
             # ── Metadata ──
             "acs_mislabel_fix": (
                 "moved_diff_county_same_state = B07001_002E (same house, non-movers). "
+                "moved_diff_state = B07001_049E (true diff-county same-state in-movers). "
+                "moved_from_abroad = B07001_065E (true diff-state in-movers). "
+                "Fix applied 2026-03-18."
+            ),
+            "approach_1_boundary_exclusion": (
+                f"Excluded obs with |pop_change| > {POP_CHANGE_EXTREME*100:.0f}% "
+                "(likely boundary/reclassification events). "
+                f"Spec A2 uses 1yr cleaned; Spec A3 uses 3yr rolling average."
+            ),
+            "approach_2_same_house_proxy": (
