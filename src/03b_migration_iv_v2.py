@@ -878,3 +878,13 @@ def main():
             "spec_a3_3yr_elasticity": iv_a3["elasticity"] if iv_a3 else None,
             "spec_a3_3yr_pval": iv_a3["iv_p_value"] if iv_a3 else None,
             "spec_a3w_popwt_elasticity": iv_a3w["elasticity"] if iv_a3w else None,
+            "spec_a3w_popwt_pval": iv_a3w["iv_p_value"] if iv_a3w else None,
+            "spec_b_grossmobility_elasticity": iv_b["elasticity"] if iv_b else None,
+            "spec_b_grossmobility_pval": iv_b["iv_p_value"] if iv_b else None,
+            "spec_c_diffcounty_elasticity": iv_c["elasticity"],
+            "spec_c_diffcounty_pval": iv_c["iv_p_value"],
+            "spec_d_longdist_elasticity": iv_d["elasticity"] if iv_d else None,
+            "spec_d_longdist_pval": iv_d["iv_p_value"] if iv_d else None,
+            "spec_e_grossout_elasticity": iv_e["elasticity"] if iv_e else None,
+            "spec_e_grossout_pval": iv_e["iv_p_value"] if iv_e else None,
+            # ── Semi-elasticities ──
