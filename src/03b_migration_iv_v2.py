@@ -968,3 +968,13 @@ def main():
                     "Recovers out-migration via identity: "
                     "gross_out = net_out + gross_in. "
                     "Combines population-based signal with ACS in-migration data."
+                ),
+            },
+        },
+    }
+
+    with open(diag_path, "w") as f:
+        json.dump(diag, f, indent=2)
+    print(f"  Diagnostics saved to: {diag_path}")
+
+    # ── Final summary ──
