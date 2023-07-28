@@ -958,3 +958,13 @@ def main():
                 "method": "gross_mobility = (mob_total - same_house) / total_pop",
                 "rationale": (
                     "Economic interpretation: fraction of residents who lived elsewhere 1yr ago. "
+                    "Captures in-migration signal, not out-migration directly."
+                ),
+            },
+            "approach_3_gross_outmigration": {
+                "specs": ["spec_e"],
+                "method": "gross_out = net_pop_change + in_migration_rate",
+                "rationale": (
+                    "Recovers out-migration via identity: "
+                    "gross_out = net_out + gross_in. "
+                    "Combines population-based signal with ACS in-migration data."
