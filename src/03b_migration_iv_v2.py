@@ -938,3 +938,13 @@ def main():
     print(f"\n  Results saved to: {output_path}")
 
     # ── Save full diagnostics ──
+    diag_dir = PROJECT_ROOT / "results" / timestamp
+    diag_dir.mkdir(parents=True, exist_ok=True)
+    diag_path = diag_dir / "iv_diagnostics_v2.json"
+
+    diag = {
+        "description": "IV v2: Three-approach out-migration fix",
+        "timestamp": timestamp,
+        "all_specs": {k: v for k, v in results.items() if v is not None},
+        "economic_params": economic_params,
+        "approach_summary": {
