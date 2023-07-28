@@ -948,3 +948,13 @@ def main():
         "all_specs": {k: v for k, v in results.items() if v is not None},
         "economic_params": economic_params,
         "approach_summary": {
+            "approach_1_cleaned_popchange": {
+                "specs": ["spec_a2", "spec_a3", "spec_a3w"],
+                "method": "Exclude |Δpop|>10% (boundary changes); 3yr rolling avg; pop weighting",
+                "rationale": "Population change confounded by births, deaths, reclassifications",
+            },
+            "approach_2_same_house_inverse": {
+                "specs": ["spec_b"],
+                "method": "gross_mobility = (mob_total - same_house) / total_pop",
+                "rationale": (
+                    "Economic interpretation: fraction of residents who lived elsewhere 1yr ago. "
