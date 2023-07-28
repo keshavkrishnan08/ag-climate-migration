@@ -918,3 +918,13 @@ def main():
                 "By accounting identity: gross_out = net_out + gross_in. "
                 "Recovers actual departure rate by adding in-migration back to net."
             ),
+            "reviewer_note": (
+                "Reviewer concern: out-migration drives the cascade. "
+                "Spec A (p=0.49) is too noisy (births+deaths+boundary changes). "
+                "Approaches 1-3 each attempt cleaner out-migration measurement. "
+                "Spec C (in-migration, p=0.019) remains valid because out-migration "
+                "and in-migration are two sides of same shock: income drop -> "
+                "fewer people move IN and more people leave. "
+                "Spec E (gross out-mig) directly addresses reviewer concern."
+            ),
+            "timestamp": timestamp,
