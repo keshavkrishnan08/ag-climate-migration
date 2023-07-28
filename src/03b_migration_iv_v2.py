@@ -908,3 +908,13 @@ def main():
                 f"Spec A2 uses 1yr cleaned; Spec A3 uses 3yr rolling average."
             ),
             "approach_2_same_house_proxy": (
+                "gross_mobility_rate = (mobility_total - same_house) / total_population "
+                "= fraction of current residents who were elsewhere 1yr ago. "
+                "Interpretation: in-migration rate (not pure out-migration). "
+                "Expected sign: positive (income -> more in-migrants)."
+            ),
+            "approach_3_gross_outmig": (
+                "gross_out_rate = net_outmigration_rate + true_diff_county_in_rate. "
+                "By accounting identity: gross_out = net_out + gross_in. "
+                "Recovers actual departure rate by adding in-migration back to net."
+            ),
