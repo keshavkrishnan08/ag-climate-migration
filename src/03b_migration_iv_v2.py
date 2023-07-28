@@ -928,3 +928,13 @@ def main():
                 "Spec E (gross out-mig) directly addresses reviewer concern."
             ),
             "timestamp": timestamp,
+        }
+    }
+
+    # ── Save economic_params.json ──
+    output_path = PROJECT_ROOT / "state" / "economic_params.json"
+    with open(output_path, "w") as f:
+        json.dump(economic_params, f, indent=2)
+    print(f"\n  Results saved to: {output_path}")
+
+    # ── Save full diagnostics ──
