@@ -978,3 +978,13 @@ def main():
     print(f"  Diagnostics saved to: {diag_path}")
 
     # ── Final summary ──
+    print("\n" + "=" * 80)
+    print("FINAL SUMMARY")
+    print("=" * 80)
+
+    def fmt_spec(key, name):
+        r = results.get(key)
+        if r is None:
+            return f"  {name}: N/A"
+        sig = "***" if r["iv_p_value"] < 0.01 else ("**" if r["iv_p_value"] < 0.05 else
+              ("*" if r["iv_p_value"] < 0.10 else "n.s."))
