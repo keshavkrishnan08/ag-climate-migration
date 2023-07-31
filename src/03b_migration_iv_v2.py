@@ -988,3 +988,13 @@ def main():
             return f"  {name}: N/A"
         sig = "***" if r["iv_p_value"] < 0.01 else ("**" if r["iv_p_value"] < 0.05 else
               ("*" if r["iv_p_value"] < 0.10 else "n.s."))
+        return (f"  {name}: β={r['elasticity']:+.6f}, p={r['iv_p_value']:.4f} {sig}, "
+                f"F={r['first_stage_F']:.1f}, n={r['n_obs']}")
+
+    print("\n  --- Out-Migration Specifications ---")
+    print(fmt_spec("spec_a",   "Spec A  (raw net outmig)       [original]"))
+    print(fmt_spec("spec_a2",  "Spec A2 (cleaned outmig)       [Approach 1]"))
+    print(fmt_spec("spec_a3",  "Spec A3 (3yr smoothed outmig)  [Approach 1]"))
+    print(fmt_spec("spec_a3w", "Spec A3w(3yr pop-weighted)     [Approach 1]"))
+    print(fmt_spec("spec_e",   "Spec E  (gross out-mig)        [Approach 3]"))
+    print("\n  --- In-Migration Specifications (reviewer context) ---")
