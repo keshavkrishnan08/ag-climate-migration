@@ -998,3 +998,13 @@ def main():
     print(fmt_spec("spec_a3w", "Spec A3w(3yr pop-weighted)     [Approach 1]"))
     print(fmt_spec("spec_e",   "Spec E  (gross out-mig)        [Approach 3]"))
     print("\n  --- In-Migration Specifications (reviewer context) ---")
+    print(fmt_spec("spec_b",   "Spec B  (gross mobility)       [Approach 2]"))
+    print(fmt_spec("spec_c",   "Spec C  (diff-county in-mig)  [PRIMARY]"))
+    print(fmt_spec("spec_d",   "Spec D  (long-dist in-mig)    [robustness]"))
+
+    print(f"\n  Gate: {gate} (F={primary['first_stage_F']:.1f}, primary=Spec C, p={primary['iv_p_value']:.4f})")
+    print(f"\n  Primary elasticity (Spec C): {primary['elasticity']:.6f}")
+    print(f"  95% CI: [{primary['ci_95_lower']:.6f}, {primary['ci_95_upper']:.6f}]")
+    print("=" * 80)
+
+    return economic_params
