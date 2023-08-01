@@ -18,3 +18,13 @@ Temporal split (per CLAUDE.md):
     val    : 2010-2016  (used as final training cutoff for test evaluation)
     test   : 2017-2023
 
+Output:
+    models/yield/yield_model_q10.pkl
+    results/quantile/q10_metrics.json
+    results/quantile/drought_2012_q10.csv
+    results/quantile/tail_risk_stranded.parquet
+"""
+
+import json
+import pickle
+import sys
