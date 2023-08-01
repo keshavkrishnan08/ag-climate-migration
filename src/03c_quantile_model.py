@@ -38,3 +38,13 @@ import yaml
 from loguru import logger
 from scipy import stats
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT / 'src'))
+
+DATA_PROCESSED = PROJECT_ROOT / 'data' / 'processed'
+PROJECTIONS_DIR = PROJECT_ROOT / 'data' / 'projections'
+DATA_RAW = PROJECT_ROOT / 'data' / 'raw'
+MODELS_DIR = PROJECT_ROOT / 'models' / 'yield'
+RESULTS_DIR = PROJECT_ROOT / 'results' / 'quantile'
+
+with open(PROJECT_ROOT / 'config.yaml') as f:
