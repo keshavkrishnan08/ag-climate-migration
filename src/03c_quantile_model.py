@@ -118,3 +118,13 @@ def prepare_features(
         Tuple of (X, y, years).
     """
     # Reset index for safe concatenation (panel may be a filtered slice)
+    panel = panel.reset_index(drop=True)
+
+    feature_cols = get_feature_columns(panel)
+    X = panel[feature_cols].copy()
+    y = panel['yield_anomaly'].copy()
+    years = panel['year'].copy()
+
+    # One-hot encode crop — use pd.Categorical so every crop level appears
+    # even if only a subset of crops is present in panel.
+    if all_crops is not None:
