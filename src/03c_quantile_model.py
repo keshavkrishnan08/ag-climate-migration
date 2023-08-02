@@ -78,3 +78,13 @@ def get_feature_columns(df: pd.DataFrame) -> list:
     """Extract numeric feature column names, excluding identifiers and target.
 
     Args:
+        df: Feature matrix DataFrame.
+
+    Returns:
+        List of feature column names.
+    """
+    exclude = {
+        'fips', 'year', 'crop', 'yield_bu_acre', 'yield_anomaly',
+        'acres_harvested', 'production',
+    }
+    return [
