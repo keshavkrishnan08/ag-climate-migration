@@ -68,3 +68,13 @@ COMMODITY_PRICES = {
 TRAIN_END = 2009
 VAL_END = 2016
 TEST_END = 2023
+
+
+# ---------------------------------------------------------------------------
+# Data preparation
+# ---------------------------------------------------------------------------
+
+def get_feature_columns(df: pd.DataFrame) -> list:
+    """Extract numeric feature column names, excluding identifiers and target.
+
+    Args:
