@@ -108,3 +108,13 @@ def prepare_features(
     during training. Missing dummy columns are filled with 0.
 
     Args:
+        panel: Full or subset feature matrix.
+        all_crops: Full list of all crop categories (used to build dummies
+                   with consistent column set). If None, derived from panel.
+        training_columns: Column list from training time. If provided,
+                          the returned X will be reindexed to match exactly.
+
+    Returns:
+        Tuple of (X, y, years).
+    """
+    # Reset index for safe concatenation (panel may be a filtered slice)
