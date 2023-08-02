@@ -48,3 +48,13 @@ MODELS_DIR = PROJECT_ROOT / 'models' / 'yield'
 RESULTS_DIR = PROJECT_ROOT / 'results' / 'quantile'
 
 with open(PROJECT_ROOT / 'config.yaml') as f:
+    CONFIG = yaml.safe_load(f)
+
+RANDOM_SEED = CONFIG['yield_model']['random_seed']
+ALPHA = 0.10  # Q10 — captures the lower tail where droughts concentrate
+
+COMMODITY_PRICES = {
+    'corn': 5.50,
+    'soybeans': 12.80,
+    'wheat_winter': 7.20,
+    'wheat_spring': 8.10,
