@@ -98,3 +98,13 @@ def prepare_features(
     all_crops: list = None,
     training_columns: list = None,
 ) -> Tuple[pd.DataFrame, pd.Series, pd.Series]:
+    """Build feature matrix X with crop dummies, target y, and years.
+
+    Mirrors the exact feature engineering in 03_yield_model.py so the Q10
+    model is directly comparable to the mean model.
+
+    When predicting on a subset of the data (e.g., only corn in 2012), pass
+    ``training_columns`` to align the feature matrix with what the model saw
+    during training. Missing dummy columns are filled with 0.
+
+    Args:
