@@ -58,3 +58,13 @@ COMMODITY_PRICES = {
     'soybeans': 12.80,
     'wheat_winter': 7.20,
     'wheat_spring': 8.10,
+    'cotton': 0.78,
+    'sorghum': 5.30,
+    'barley': 6.10,
+    'oats': 3.80,
+}
+
+# Temporal split — per CLAUDE.md (train<=2009, val 2010-2016, test 2017-2023)
+TRAIN_END = 2009
+VAL_END = 2016
+TEST_END = 2023
