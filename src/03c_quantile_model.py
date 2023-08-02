@@ -88,3 +88,13 @@ def get_feature_columns(df: pd.DataFrame) -> list:
         'acres_harvested', 'production',
     }
     return [
+        c for c in df.columns
+        if c not in exclude and df[c].dtype in ('float64', 'float32', 'int64', 'int32')
+    ]
+
+
+def prepare_features(
+    panel: pd.DataFrame,
+    all_crops: list = None,
+    training_columns: list = None,
+) -> Tuple[pd.DataFrame, pd.Series, pd.Series]:
