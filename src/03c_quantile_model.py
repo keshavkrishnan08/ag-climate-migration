@@ -148,3 +148,13 @@ def prepare_features(
 
 def get_q10_params() -> dict:
     """LightGBM quantile parameters at alpha=0.10, same architecture as mean model.
+
+    Returns:
+        Dict of LightGBM hyperparameters.
+    """
+    base = CONFIG['yield_model']
+    return {
+        'objective': 'quantile',
+        'alpha': ALPHA,
+        'metric': 'quantile',
+        'n_estimators': base['n_estimators'],
