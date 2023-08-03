@@ -128,3 +128,13 @@ def prepare_features(
     # One-hot encode crop — use pd.Categorical so every crop level appears
     # even if only a subset of crops is present in panel.
     if all_crops is not None:
+        crop_cat = pd.Categorical(panel['crop'], categories=all_crops)
+    else:
+        crop_cat = panel['crop']
+    crop_dummies = pd.get_dummies(crop_cat, prefix='crop').astype(int)
+    X = pd.concat([X, crop_dummies], axis=1)
+
+    # If training columns are provided, align to them (fill missing with 0)
+    if training_columns is not None:
+        X = X.reindex(columns=training_columns, fill_value=0)
+
