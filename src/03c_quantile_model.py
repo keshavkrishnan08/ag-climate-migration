@@ -138,3 +138,13 @@ def prepare_features(
     if training_columns is not None:
         X = X.reindex(columns=training_columns, fill_value=0)
 
+    logger.info(f"Feature matrix: {X.shape[1]} features ({len(feature_cols)} numeric + {crop_dummies.shape[1]} crop dummies)")
+    return X, y, years
+
+
+# ---------------------------------------------------------------------------
+# Model training
+# ---------------------------------------------------------------------------
+
+def get_q10_params() -> dict:
+    """LightGBM quantile parameters at alpha=0.10, same architecture as mean model.
