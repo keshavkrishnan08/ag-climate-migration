@@ -168,3 +168,13 @@ def get_q10_params() -> dict:
         'reg_lambda': base.get('reg_lambda', 1.0),
         'random_state': RANDOM_SEED,
         'verbose': -1,
+    }
+
+
+def train_q10_model(panel: pd.DataFrame) -> Tuple[lgb.LGBMRegressor, dict, list, list]:
+    """Train LightGBM Q10 quantile model with temporal split.
+
+    Train on years <= TRAIN_END (2009), use val 2010-2016 for early-stopping
+    monitoring, evaluate test performance on 2017-2023.
+
+    Args:
