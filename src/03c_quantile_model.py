@@ -188,3 +188,13 @@ def train_q10_model(panel: pd.DataFrame) -> Tuple[lgb.LGBMRegressor, dict, list,
     logger.info("=" * 60)
 
     all_crops = sorted(panel['crop'].dropna().unique().tolist())
+    X, y, years = prepare_features(panel, all_crops=all_crops)
+    training_columns = list(X.columns)
+    params = get_q10_params()
+
+    train_mask = years <= TRAIN_END
+    val_mask = (years > TRAIN_END) & (years <= VAL_END)
+    test_mask = (years > VAL_END) & (years <= TEST_END)
+
+    X_train = X[train_mask.values]
+    y_train = y[train_mask.values]
