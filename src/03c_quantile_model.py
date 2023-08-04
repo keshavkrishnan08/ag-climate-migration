@@ -198,3 +198,13 @@ def train_q10_model(panel: pd.DataFrame) -> Tuple[lgb.LGBMRegressor, dict, list,
 
     X_train = X[train_mask.values]
     y_train = y[train_mask.values]
+    X_val = X[val_mask.values]
+    y_val = y[val_mask.values]
+    X_test = X[test_mask.values]
+    y_test = y[test_mask.values]
+
+    logger.info(
+        f"Split: train n={len(X_train)} (≤{TRAIN_END}), "
+        f"val n={len(X_val)} ({TRAIN_END+1}-{VAL_END}), "
+        f"test n={len(X_test)} ({VAL_END+1}-{TEST_END})"
+    )
