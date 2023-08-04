@@ -178,3 +178,13 @@ def train_q10_model(panel: pd.DataFrame) -> Tuple[lgb.LGBMRegressor, dict, list,
     monitoring, evaluate test performance on 2017-2023.
 
     Args:
+        panel: Full feature matrix.
+
+    Returns:
+        Tuple of (trained model, metrics dict, training_columns, all_crops).
+    """
+    logger.info("=" * 60)
+    logger.info(f"TRAINING Q{int(ALPHA*100)} QUANTILE MODEL (alpha={ALPHA})")
+    logger.info("=" * 60)
+
+    all_crops = sorted(panel['crop'].dropna().unique().tolist())
