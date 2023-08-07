@@ -208,3 +208,13 @@ def train_q10_model(panel: pd.DataFrame) -> Tuple[lgb.LGBMRegressor, dict, list,
         f"val n={len(X_val)} ({TRAIN_END+1}-{VAL_END}), "
         f"test n={len(X_test)} ({VAL_END+1}-{TEST_END})"
     )
+
+    # Temporal leakage check
+    assert years[train_mask.values].max() < years[val_mask.values].min(), "Train/val leakage!"
+    assert years[val_mask.values].max() < years[test_mask.values].min(), "Val/test leakage!"
+    logger.info("Temporal leakage check PASSED")
+
+    # Train on train set, monitor on val
+    model = lgb.LGBMRegressor(**params)
+    model.fit(
+        X_train, y_train,
