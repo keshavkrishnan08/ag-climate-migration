@@ -218,3 +218,13 @@ def train_q10_model(panel: pd.DataFrame) -> Tuple[lgb.LGBMRegressor, dict, list,
     model = lgb.LGBMRegressor(**params)
     model.fit(
         X_train, y_train,
+        eval_set=[(X_val, y_val)],
+        callbacks=[lgb.log_evaluation(period=200)],
+    )
+
+    # Test evaluation — pinball loss at alpha=0.10 and rank correlation
+    y_pred_test = model.predict(X_test)
+
+    # Pinball (quantile) loss: mean over samples of max(alpha*(y-q), (alpha-1)*(y-q))
+    residuals = y_test.values - y_pred_test
+    pinball = np.where(
