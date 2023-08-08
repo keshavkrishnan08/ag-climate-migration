@@ -258,3 +258,13 @@ def train_q10_model(panel: pd.DataFrame) -> Tuple[lgb.LGBMRegressor, dict, list,
         'test_end': TEST_END,
         'pinball_loss_q10': float(pinball),
         'mae': float(mae),
+        'spearman_rho': float(spearman_rho),
+        'spearman_p': float(spearman_p),
+        'coverage_pct': float(coverage * 100),
+        'q10_pred_min': float(y_pred_test.min()),
+        'q10_pred_max': float(y_pred_test.max()),
+        'q10_pred_mean': float(y_pred_test.mean()),
+    }
+
+    return model, metrics, training_columns, all_crops
+
