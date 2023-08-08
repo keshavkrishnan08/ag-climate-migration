@@ -268,3 +268,13 @@ def train_q10_model(panel: pd.DataFrame) -> Tuple[lgb.LGBMRegressor, dict, list,
 
     return model, metrics, training_columns, all_crops
 
+
+# ---------------------------------------------------------------------------
+# 2012 drought diagnosis
+# ---------------------------------------------------------------------------
+
+def diagnose_2012_drought(
+    model: lgb.LGBMRegressor,
+    panel: pd.DataFrame,
+    all_crops: list,
+    training_columns: list,
