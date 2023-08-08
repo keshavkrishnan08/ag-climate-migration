@@ -238,3 +238,13 @@ def train_q10_model(panel: pd.DataFrame) -> Tuple[lgb.LGBMRegressor, dict, list,
 
     # Coverage: fraction of actual values below the Q10 prediction
     # Should be close to 10% for a well-calibrated Q10 model
+    coverage = (y_test.values < y_pred_test).mean()
+
+    logger.info(f"Q10 TEST METRICS (2017-2023):")
+    logger.info(f"  Pinball loss (Q10): {pinball:.4f}")
+    logger.info(f"  MAE:                {mae:.4f}")
+    logger.info(f"  Spearman ρ:         {spearman_rho:.3f} (p={spearman_p:.2e})")
+    logger.info(f"  Coverage (% actual < Q10): {coverage*100:.1f}% (target: 10%)")
+    logger.info(f"  Q10 pred range: [{y_pred_test.min():.3f}, {y_pred_test.max():.3f}]")
+
+    metrics = {
