@@ -298,3 +298,13 @@ def diagnose_2012_drought(
     logger.info("2012 DROUGHT DIAGNOSIS — Q10 MODEL")
     logger.info("=" * 60)
 
+    drought = panel[(panel['year'] == 2012) & (panel['crop'] == 'corn')].copy().reset_index(drop=True)
+    logger.info(f"2012 corn counties: {len(drought)}")
+
+    X_drought, _, _ = prepare_features(drought, all_crops=all_crops, training_columns=training_columns)
+    q10_pred = model.predict(X_drought)
+
+    drought['q10_prediction'] = q10_pred
+    drought['observed_anomaly'] = drought['yield_anomaly']
+    drought['residual'] = drought['observed_anomaly'] - drought['q10_prediction']
+
