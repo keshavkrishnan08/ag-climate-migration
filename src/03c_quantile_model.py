@@ -248,3 +248,13 @@ def train_q10_model(panel: pd.DataFrame) -> Tuple[lgb.LGBMRegressor, dict, list,
     logger.info(f"  Q10 pred range: [{y_pred_test.min():.3f}, {y_pred_test.max():.3f}]")
 
     metrics = {
+        'alpha': ALPHA,
+        'n_train': int(len(X_train)),
+        'n_val': int(len(X_val)),
+        'n_test': int(len(X_test)),
+        'train_end': TRAIN_END,
+        'val_end': VAL_END,
+        'test_start': VAL_END + 1,
+        'test_end': TEST_END,
+        'pinball_loss_q10': float(pinball),
+        'mae': float(mae),
