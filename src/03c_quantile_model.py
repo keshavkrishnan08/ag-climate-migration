@@ -228,3 +228,13 @@ def train_q10_model(panel: pd.DataFrame) -> Tuple[lgb.LGBMRegressor, dict, list,
     # Pinball (quantile) loss: mean over samples of max(alpha*(y-q), (alpha-1)*(y-q))
     residuals = y_test.values - y_pred_test
     pinball = np.where(
+        residuals >= 0,
+        ALPHA * residuals,
+        (ALPHA - 1) * residuals,
+    ).mean()
+
+    spearman_rho, spearman_p = stats.spearmanr(y_test.values, y_pred_test)
+    mae = np.mean(np.abs(residuals))
+
+    # Coverage: fraction of actual values below the Q10 prediction
+    # Should be close to 10% for a well-calibrated Q10 model
