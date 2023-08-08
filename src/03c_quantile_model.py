@@ -278,3 +278,13 @@ def diagnose_2012_drought(
     panel: pd.DataFrame,
     all_crops: list,
     training_columns: list,
+) -> pd.DataFrame:
+    """Predict Q10 yield anomaly for 2012 corn counties.
+
+    The 2012 drought was the worst US drought since the 1950s Dust Bowl.
+    The mean model predicted an anomaly of -0.11 — far too optimistic.
+    Q10 should capture the true tail risk and predict much more negative values.
+
+    Args:
+        model: Trained Q10 LightGBM model.
+        panel: Full feature matrix.
