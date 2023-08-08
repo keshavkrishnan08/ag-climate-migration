@@ -288,3 +288,13 @@ def diagnose_2012_drought(
     Args:
         model: Trained Q10 LightGBM model.
         panel: Full feature matrix.
+        all_crops: Full crop category list from training.
+        training_columns: Feature column list from training time.
+
+    Returns:
+        DataFrame with fips, observed anomaly, Q10 prediction, and residual.
+    """
+    logger.info("\n" + "=" * 60)
+    logger.info("2012 DROUGHT DIAGNOSIS — Q10 MODEL")
+    logger.info("=" * 60)
+
