@@ -338,3 +338,13 @@ def compute_tail_risk_stranded(
     training_columns: list,
     discount_rate: float = 0.04,
     horizon: int = 30,
+) -> pd.DataFrame:
+    """Compute per-county tail risk premium for stranded asset valuation.
+
+    The mean model tells you expected yield under given climate conditions.
+    The Q10 model tells you what yield looks like in a bad year (bottom decile).
+    The gap — mean prediction minus Q10 prediction — is the "tail risk premium":
+    how much worse things get at the 10th percentile relative to the average.
+
+    Stranded asset tail risk:
+        For each county, compute tail_gap = E[yield_anomaly] - Q10[yield_anomaly]
