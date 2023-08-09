@@ -328,3 +328,13 @@ def diagnose_2012_drought(
 # ---------------------------------------------------------------------------
 # Tail risk stranded asset component
 # ---------------------------------------------------------------------------
+
+def compute_tail_risk_stranded(
+    mean_model: lgb.LGBMRegressor,
+    q10_model: lgb.LGBMRegressor,
+    panel: pd.DataFrame,
+    yield_proj: pd.DataFrame,
+    all_crops: list,
+    training_columns: list,
+    discount_rate: float = 0.04,
+    horizon: int = 30,
