@@ -318,3 +318,13 @@ def diagnose_2012_drought(
     logger.info(f"Q10 improvement over mean:    {mean_q10 - (-0.11):+.3f} z-scores more negative")
 
     # Coverage in 2012: what fraction of observed values fell below Q10?
+    coverage_2012 = (drought['observed_anomaly'] < drought['q10_prediction']).mean()
+    logger.info(f"2012 drought coverage:        {coverage_2012*100:.1f}% of obs below Q10")
+    logger.info(f"  (high coverage = Q10 is well above observed = model captures severity)")
+
+    return drought[['fips', 'year', 'crop', 'observed_anomaly', 'q10_prediction', 'residual']]
+
+
+# ---------------------------------------------------------------------------
+# Tail risk stranded asset component
+# ---------------------------------------------------------------------------
