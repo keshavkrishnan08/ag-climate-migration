@@ -308,3 +308,13 @@ def diagnose_2012_drought(
     drought['observed_anomaly'] = drought['yield_anomaly']
     drought['residual'] = drought['observed_anomaly'] - drought['q10_prediction']
 
+    mean_obs = drought['observed_anomaly'].mean()
+    mean_q10 = drought['q10_prediction'].mean()
+    median_q10 = drought['q10_prediction'].median()
+
+    logger.info(f"Observed 2012 corn anomaly:   mean={mean_obs:.3f} z-scores")
+    logger.info(f"Q10 model prediction:         mean={mean_q10:.3f}, median={median_q10:.3f} z-scores")
+    logger.info(f"(Mean model predicted:        -0.11 z-scores)")
+    logger.info(f"Q10 improvement over mean:    {mean_q10 - (-0.11):+.3f} z-scores more negative")
+
+    # Coverage in 2012: what fraction of observed values fell below Q10?
