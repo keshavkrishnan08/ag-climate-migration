@@ -438,3 +438,13 @@ def compute_tail_risk_stranded(
     # Total income loss = tail_gap income * acres
     proj_base['tail_income_loss'] = (
         proj_base['tail_gap_bu'] * proj_base['price'] * proj_base['acres_harvested']
+    )
+    proj_base['pv_tail_income'] = proj_base['tail_income_loss'] * proj_base['discount_factor']
+
+    # County-level aggregation across crops and years
+    county_tail = (
+        proj_base.groupby('fips')
+        .agg(
+            pv_tail_total=('pv_tail_income', 'sum'),
+            total_acres=('acres_harvested', 'mean'),
+            mean_tail_gap_anomaly=('mean_tail_gap', 'mean'),
