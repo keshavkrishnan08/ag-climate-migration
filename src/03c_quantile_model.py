@@ -348,3 +348,13 @@ def compute_tail_risk_stranded(
 
     Stranded asset tail risk:
         For each county, compute tail_gap = E[yield_anomaly] - Q10[yield_anomaly]
+        Convert to $ income via commodity prices and acreage.
+        Discount to PV over the projection horizon.
+        Sum across counties = additional tail risk stranded value.
+
+    The rationale: farmland buyers pricing tail-risk scenarios should discount
+    by the Q10 loss, not just the mean. This component captures that wedge.
+
+    Args:
+        mean_model: Trained mean LightGBM model.
+        q10_model: Trained Q10 LightGBM model.
