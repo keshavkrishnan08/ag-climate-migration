@@ -418,3 +418,13 @@ def compute_tail_risk_stranded(
     )
 
     # Tail gap in bu/ac = anomaly gap (z-scores) * yield std (bu/ac)
+    county_crop_gap['tail_gap_bu'] = county_crop_gap['mean_tail_gap'] * county_crop_gap['yield_std_bu']
+
+    # Merge tail gap onto projections
+    proj_base = proj_base.merge(
+        county_crop_gap[['fips', 'crop', 'tail_gap_bu', 'mean_tail_gap']],
+        on=['fips', 'crop'],
+        how='left',
+    )
+    proj_base['tail_gap_bu'] = proj_base['tail_gap_bu'].fillna(0.0)
+
