@@ -358,3 +358,13 @@ def compute_tail_risk_stranded(
     Args:
         mean_model: Trained mean LightGBM model.
         q10_model: Trained Q10 LightGBM model.
+        panel: Full feature matrix (for generating predictions on recent baseline).
+        yield_proj: Yield projections DataFrame (for acreage and baseline yields).
+        all_crops: Full crop category list from training.
+        training_columns: Feature column list from training time.
+        discount_rate: Real discount rate for PV computation.
+        horizon: Projection horizon in years.
+
+    Returns:
+        DataFrame with tail risk stranded value per county.
+    """
