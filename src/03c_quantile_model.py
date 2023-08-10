@@ -388,3 +388,13 @@ def compute_tail_risk_stranded(
     county_crop_gap = (
         baseline.groupby(['fips', 'crop'])
         .agg(
+            mean_tail_gap=('tail_gap_anomaly', 'mean'),
+            std_yield=('yield_anomaly', 'std'),   # within-county yield volatility
+        )
+        .reset_index()
+    )
+
+    logger.info(f"County-crop tail gaps computed: {len(county_crop_gap)} rows")
+    logger.info(f"Mean tail gap (z-scores): {county_crop_gap['mean_tail_gap'].mean():.3f}")
+    logger.info(f"P90 tail gap:             {county_crop_gap['mean_tail_gap'].quantile(0.90):.3f}")
+
