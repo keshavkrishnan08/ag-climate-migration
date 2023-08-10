@@ -368,3 +368,13 @@ def compute_tail_risk_stranded(
     Returns:
         DataFrame with tail risk stranded value per county.
     """
+    logger.info("\n" + "=" * 60)
+    logger.info("TAIL RISK STRANDED ASSET COMPONENT")
+    logger.info("=" * 60)
+
+    # Use recent baseline period (2000-2009) to estimate the current tail gap
+    # This represents the climate conditions counties face going into the projection
+    baseline = panel[(panel['year'] >= 2000) & (panel['year'] <= TRAIN_END)].copy().reset_index(drop=True)
+    logger.info(f"Baseline period 2000-{TRAIN_END}: {len(baseline)} obs across {baseline['fips'].nunique()} counties")
+
+    X_base, _, _ = prepare_features(baseline, all_crops=all_crops, training_columns=training_columns)
