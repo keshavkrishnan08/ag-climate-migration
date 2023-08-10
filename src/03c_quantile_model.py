@@ -398,3 +398,13 @@ def compute_tail_risk_stranded(
     logger.info(f"Mean tail gap (z-scores): {county_crop_gap['mean_tail_gap'].mean():.3f}")
     logger.info(f"P90 tail gap:             {county_crop_gap['mean_tail_gap'].quantile(0.90):.3f}")
 
+    # Merge with projections to get acreage and baseline yield
+    proj_base = yield_proj.copy()
+    proj_base['price'] = proj_base['crop'].map(COMMODITY_PRICES).fillna(5.0)
+
+    # Recover yield standard deviation from the panel (needed to convert z-score gap → bu/ac)
+    # std is crop-specific (yield anomaly is z-scored per county-crop-decade)
+    # Use the yield_bu_acre std from baseline for approximation
+    baseline_std = (
+        baseline.groupby(['fips', 'crop'])['yield_bu_acre']
+        .std()
