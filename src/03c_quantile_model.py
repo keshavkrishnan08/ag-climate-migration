@@ -378,3 +378,13 @@ def compute_tail_risk_stranded(
     logger.info(f"Baseline period 2000-{TRAIN_END}: {len(baseline)} obs across {baseline['fips'].nunique()} counties")
 
     X_base, _, _ = prepare_features(baseline, all_crops=all_crops, training_columns=training_columns)
+    mean_pred = mean_model.predict(X_base)
+    q10_pred = q10_model.predict(X_base)
+    baseline['mean_pred'] = mean_pred
+    baseline['q10_pred'] = q10_pred
+    baseline['tail_gap_anomaly'] = baseline['mean_pred'] - baseline['q10_pred']  # > 0 means Q10 is worse
+
+    # County-crop level: average tail gap in anomaly units
+    county_crop_gap = (
+        baseline.groupby(['fips', 'crop'])
+        .agg(
