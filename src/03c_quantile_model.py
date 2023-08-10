@@ -408,3 +408,13 @@ def compute_tail_risk_stranded(
     baseline_std = (
         baseline.groupby(['fips', 'crop'])['yield_bu_acre']
         .std()
+        .reset_index()
+        .rename(columns={'yield_bu_acre': 'yield_std_bu'})
+    )
+
+    county_crop_gap = county_crop_gap.merge(baseline_std, on=['fips', 'crop'], how='left')
+    county_crop_gap['yield_std_bu'] = county_crop_gap['yield_std_bu'].fillna(
+        county_crop_gap.groupby('crop')['yield_std_bu'].transform('median')
+    )
+
+    # Tail gap in bu/ac = anomaly gap (z-scores) * yield std (bu/ac)
