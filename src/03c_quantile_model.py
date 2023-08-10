@@ -428,3 +428,13 @@ def compute_tail_risk_stranded(
     )
     proj_base['tail_gap_bu'] = proj_base['tail_gap_bu'].fillna(0.0)
 
+    # Discount factors
+    min_year = proj_base['year'].min()
+    proj_base['years_ahead'] = proj_base['year'] - min_year + 1
+    proj_base = proj_base[proj_base['years_ahead'] <= horizon]
+    proj_base['discount_factor'] = 1.0 / (1 + discount_rate) ** proj_base['years_ahead']
+
+    # Tail risk income loss per acre per year = tail_gap_bu * price
+    # Total income loss = tail_gap income * acres
+    proj_base['tail_income_loss'] = (
+        proj_base['tail_gap_bu'] * proj_base['price'] * proj_base['acres_harvested']
