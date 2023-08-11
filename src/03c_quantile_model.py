@@ -448,3 +448,13 @@ def compute_tail_risk_stranded(
             pv_tail_total=('pv_tail_income', 'sum'),
             total_acres=('acres_harvested', 'mean'),
             mean_tail_gap_anomaly=('mean_tail_gap', 'mean'),
+        )
+        .reset_index()
+    )
+
+    # Tail risk stranded value = PV of the tail gap income
+    county_tail['tail_risk_stranded'] = county_tail['pv_tail_total'].clip(lower=0)
+    county_tail['tail_risk_per_acre'] = (
+        county_tail['tail_risk_stranded'] / county_tail['total_acres'].replace(0, np.nan)
+    )
+
