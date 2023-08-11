@@ -468,3 +468,13 @@ def compute_tail_risk_stranded(
     logger.info(f"  Mean tail risk per acre:           ${mean_per_acre:.0f}/acre")
 
     # Load current mean-model stranded estimate for comparison
+    stranded_path = PROJECT_ROOT / 'results' / 'stranded_assets' / 'stranded_national_SSP245.parquet'
+    if stranded_path.exists():
+        existing = pd.read_parquet(stranded_path)
+        existing_pos = existing[existing['stranded_value_total'] > 0]
+        existing_total_B = existing_pos['stranded_value_total'].sum() / 1e9
+        logger.info(f"\nComparison to existing mean-model estimate:")
+        logger.info(f"  Existing (mean model, ML only):    ${existing_total_B:.1f}B")
+        logger.info(f"  Tail risk add-on (Q10 premium):    ${total_tail_B:.2f}B")
+        logger.info(f"  Combined (mean + tail risk):       ${existing_total_B + total_tail_B:.1f}B")
+        logger.info(f"  Tail risk as % of mean estimate:   {total_tail_B/existing_total_B*100:.1f}%")
