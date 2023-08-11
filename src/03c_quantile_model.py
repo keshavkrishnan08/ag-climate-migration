@@ -458,3 +458,13 @@ def compute_tail_risk_stranded(
         county_tail['tail_risk_stranded'] / county_tail['total_acres'].replace(0, np.nan)
     )
 
+    total_tail_B = county_tail['tail_risk_stranded'].sum() / 1e9
+    n_exposed = (county_tail['tail_risk_stranded'] > 0).sum()
+    mean_per_acre = county_tail.loc[county_tail['tail_risk_stranded'] > 0, 'tail_risk_per_acre'].mean()
+
+    logger.info(f"\nTail risk stranded asset results (r={discount_rate}, h={horizon}yr):")
+    logger.info(f"  Counties with tail risk exposure:  {n_exposed}")
+    logger.info(f"  Total tail risk stranded:          ${total_tail_B:.2f}B")
+    logger.info(f"  Mean tail risk per acre:           ${mean_per_acre:.0f}/acre")
+
+    # Load current mean-model stranded estimate for comparison
