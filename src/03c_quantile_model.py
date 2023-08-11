@@ -478,3 +478,13 @@ def compute_tail_risk_stranded(
         logger.info(f"  Tail risk add-on (Q10 premium):    ${total_tail_B:.2f}B")
         logger.info(f"  Combined (mean + tail risk):       ${existing_total_B + total_tail_B:.1f}B")
         logger.info(f"  Tail risk as % of mean estimate:   {total_tail_B/existing_total_B*100:.1f}%")
+
+    county_tail['discount_rate'] = discount_rate
+    county_tail['horizon'] = horizon
+    county_tail['alpha'] = ALPHA
+    county_tail['method'] = 'Q10_tail_risk_premium'
+
+    return county_tail
+
+
+# ---------------------------------------------------------------------------
