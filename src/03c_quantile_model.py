@@ -498,3 +498,13 @@ def save_artifacts(
     tail_risk_df: pd.DataFrame,
 ) -> None:
     """Save Q10 model, metrics, drought diagnosis, and tail risk estimates.
+
+    Args:
+        model: Trained Q10 LightGBM model.
+        metrics: Performance metrics dict.
+        drought_df: 2012 drought diagnosis DataFrame.
+        tail_risk_df: Tail risk stranded asset DataFrame.
+    """
+    MODELS_DIR.mkdir(parents=True, exist_ok=True)
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+
