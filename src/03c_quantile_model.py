@@ -488,3 +488,13 @@ def compute_tail_risk_stranded(
 
 
 # ---------------------------------------------------------------------------
+# Persistence
+# ---------------------------------------------------------------------------
+
+def save_artifacts(
+    model: lgb.LGBMRegressor,
+    metrics: dict,
+    drought_df: pd.DataFrame,
+    tail_risk_df: pd.DataFrame,
+) -> None:
+    """Save Q10 model, metrics, drought diagnosis, and tail risk estimates.
