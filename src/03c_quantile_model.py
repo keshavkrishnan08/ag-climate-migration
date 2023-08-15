@@ -538,3 +538,13 @@ def save_artifacts(
 def run_quantile_model() -> dict:
     """Execute quantile model pipeline end-to-end.
 
+    Returns:
+        Dict with model, metrics, drought summary, and tail risk totals.
+    """
+    logger.info("=" * 60)
+    logger.info("PHASE 3C: QUANTILE REGRESSION FOREST (Q10) — TAIL RISK")
+    logger.info("=" * 60)
+
+    # Load feature matrix
+    panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
+    if not panel_path.exists():
