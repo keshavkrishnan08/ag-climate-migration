@@ -528,3 +528,13 @@ def save_artifacts(
     # Tail risk
     tail_path = RESULTS_DIR / 'tail_risk_stranded.parquet'
     tail_risk_df.to_parquet(tail_path, index=False)
+    logger.info(f"Tail risk stranded values saved → {tail_path}")
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+def run_quantile_model() -> dict:
+    """Execute quantile model pipeline end-to-end.
+
