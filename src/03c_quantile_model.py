@@ -508,3 +508,13 @@ def save_artifacts(
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
+    # Model
+    model_path = MODELS_DIR / 'yield_model_q10.pkl'
+    with open(model_path, 'wb') as f:
+        pickle.dump(model, f)
+    logger.info(f"Q10 model saved → {model_path}")
+
+    # Metrics
+    metrics_path = RESULTS_DIR / 'q10_metrics.json'
+    with open(metrics_path, 'w') as f:
+        json.dump(metrics, f, indent=2)
