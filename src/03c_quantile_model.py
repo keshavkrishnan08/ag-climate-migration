@@ -518,3 +518,13 @@ def save_artifacts(
     metrics_path = RESULTS_DIR / 'q10_metrics.json'
     with open(metrics_path, 'w') as f:
         json.dump(metrics, f, indent=2)
+    logger.info(f"Metrics saved → {metrics_path}")
+
+    # 2012 drought
+    drought_path = RESULTS_DIR / 'drought_2012_q10.csv'
+    drought_df.to_csv(drought_path, index=False)
+    logger.info(f"2012 drought diagnosis saved → {drought_path}")
+
+    # Tail risk
+    tail_path = RESULTS_DIR / 'tail_risk_stranded.parquet'
+    tail_risk_df.to_parquet(tail_path, index=False)
