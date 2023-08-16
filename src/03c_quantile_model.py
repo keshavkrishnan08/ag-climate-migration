@@ -598,3 +598,13 @@ def run_quantile_model() -> dict:
     mean_pred_2012 = mean_model.predict(X_2012)
     logger.info(f"\nMean model 2012 corn prediction:  {mean_pred_2012.mean():.3f} z-scores")
     q10_pred_2012 = q10_model.predict(X_2012)
+    logger.info(f"Q10  model 2012 corn prediction:  {q10_pred_2012.mean():.3f} z-scores")
+    logger.info(f"Observed 2012 corn mean anomaly:  {drought_2012['yield_anomaly'].mean():.3f} z-scores")
+
+    metrics['mean_model_2012_prediction'] = float(mean_pred_2012.mean())
+    metrics['q10_model_2012_prediction'] = float(q10_pred_2012.mean())
+    metrics['observed_2012_anomaly'] = float(drought_2012['yield_anomaly'].mean())
+
+    # 4. Tail risk stranded assets
+    proj_path = PROJECTIONS_DIR / 'yield_projections_SSP245.parquet'
+    if not proj_path.exists():
