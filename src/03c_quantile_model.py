@@ -618,3 +618,13 @@ def run_quantile_model() -> dict:
             mean_model, q10_model, panel, yield_proj,
             all_crops=all_crops, training_columns=training_columns,
             discount_rate=r, horizon=h,
+        )
+        tail_total_B = tail_risk_df['tail_risk_stranded'].sum() / 1e9
+        metrics['tail_risk_stranded_B'] = float(tail_total_B)
+
+    # 5. Save everything
+    save_artifacts(q10_model, metrics, drought_df, tail_risk_df)
+
+    # Final summary
+    logger.info("\n" + "=" * 60)
+    logger.info("PHASE 3C SUMMARY")
