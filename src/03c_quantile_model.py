@@ -578,3 +578,13 @@ def run_quantile_model() -> dict:
         'max_depth': CONFIG['yield_model']['max_depth'],
         'num_leaves': CONFIG['yield_model']['num_leaves'],
         'min_child_samples': CONFIG['yield_model'].get('min_child_samples', 20),
+        'subsample': CONFIG['yield_model'].get('subsample', 0.8),
+        'colsample_bytree': CONFIG['yield_model'].get('colsample_bytree', 0.8),
+        'reg_alpha': CONFIG['yield_model'].get('reg_alpha', 0.1),
+        'reg_lambda': CONFIG['yield_model'].get('reg_lambda', 1.0),
+        'random_state': RANDOM_SEED,
+        'verbose': -1,
+    }
+
+    mean_model = lgb.LGBMRegressor(**mean_params)
+    mean_model.fit(
