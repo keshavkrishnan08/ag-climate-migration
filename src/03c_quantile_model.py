@@ -548,3 +548,13 @@ def run_quantile_model() -> dict:
     # Load feature matrix
     panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
     if not panel_path.exists():
+        logger.error(f"Feature matrix not found at {panel_path} — run Phase 2 first")
+        return {}
+
+    panel = pd.read_parquet(panel_path)
+    # Restrict to 1950-2023 (exclude 2024-2025 partial years)
+    panel = panel[panel['year'] <= TEST_END].reset_index(drop=True)
+    logger.info(f"Loaded feature matrix: {panel.shape} (years {panel['year'].min()}-{panel['year'].max()})")
+
+    # 1. Train Q10 model
+    q10_model, metrics, training_columns, all_crops = train_q10_model(panel)
