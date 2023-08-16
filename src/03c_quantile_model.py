@@ -628,3 +628,13 @@ def run_quantile_model() -> dict:
     # Final summary
     logger.info("\n" + "=" * 60)
     logger.info("PHASE 3C SUMMARY")
+    logger.info("=" * 60)
+    logger.info(f"Q10 model test (2017-2023):")
+    logger.info(f"  Pinball loss (Q10):           {metrics['pinball_loss_q10']:.4f}")
+    logger.info(f"  Spearman ρ:                   {metrics['spearman_rho']:.3f}")
+    logger.info(f"  Coverage (% actual < Q10):    {metrics['coverage_pct']:.1f}%  (target: 10%)")
+    logger.info(f"\n2012 drought diagnosis:")
+    logger.info(f"  Observed mean corn anomaly:   {metrics['observed_2012_anomaly']:.3f} z-scores")
+    logger.info(f"  Mean model prediction:        {metrics['mean_model_2012_prediction']:.3f} z-scores")
+    logger.info(f"  Q10 model prediction:         {metrics['q10_model_2012_prediction']:.3f} z-scores")
+    if 'tail_risk_stranded_B' in metrics:
