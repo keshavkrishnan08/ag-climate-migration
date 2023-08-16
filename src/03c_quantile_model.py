@@ -568,3 +568,13 @@ def run_quantile_model() -> dict:
     logger.info("-" * 40)
 
     X_full, y_full, years_full = prepare_features(panel, all_crops=all_crops, training_columns=training_columns)
+    train_mask = years_full <= TRAIN_END
+
+    mean_params = {
+        'objective': 'regression',
+        'metric': 'rmse',
+        'n_estimators': CONFIG['yield_model']['n_estimators'],
+        'learning_rate': CONFIG['yield_model']['learning_rate'],
+        'max_depth': CONFIG['yield_model']['max_depth'],
+        'num_leaves': CONFIG['yield_model']['num_leaves'],
+        'min_child_samples': CONFIG['yield_model'].get('min_child_samples', 20),
