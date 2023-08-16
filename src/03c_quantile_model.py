@@ -558,3 +558,13 @@ def run_quantile_model() -> dict:
 
     # 1. Train Q10 model
     q10_model, metrics, training_columns, all_crops = train_q10_model(panel)
+
+    # 2. 2012 drought diagnosis
+    drought_df = diagnose_2012_drought(q10_model, panel, all_crops, training_columns)
+
+    # 3. Train companion MEAN model on the same split and feature set for fair comparison
+    logger.info("\n" + "-" * 40)
+    logger.info("Training companion MEAN model on same split (train ≤2009)")
+    logger.info("-" * 40)
+
+    X_full, y_full, years_full = prepare_features(panel, all_crops=all_crops, training_columns=training_columns)
