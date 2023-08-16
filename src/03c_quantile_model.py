@@ -608,3 +608,13 @@ def run_quantile_model() -> dict:
     # 4. Tail risk stranded assets
     proj_path = PROJECTIONS_DIR / 'yield_projections_SSP245.parquet'
     if not proj_path.exists():
+        logger.warning("Yield projections not found — skipping tail risk computation")
+        tail_risk_df = pd.DataFrame()
+    else:
+        yield_proj = pd.read_parquet(proj_path)
+        r = CONFIG['stranded_assets']['discount_rate']
+        h = CONFIG['stranded_assets']['projection_horizon']
+        tail_risk_df = compute_tail_risk_stranded(
+            mean_model, q10_model, panel, yield_proj,
+            all_crops=all_crops, training_columns=training_columns,
+            discount_rate=r, horizon=h,
