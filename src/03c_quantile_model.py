@@ -588,3 +588,13 @@ def run_quantile_model() -> dict:
 
     mean_model = lgb.LGBMRegressor(**mean_params)
     mean_model.fit(
+        X_full[train_mask.values], y_full[train_mask.values],
+        callbacks=[lgb.log_evaluation(period=0)],
+    )
+
+    # 2012 mean model prediction for direct comparison
+    drought_2012 = panel[(panel['year'] == 2012) & (panel['crop'] == 'corn')].copy()
+    X_2012, _, _ = prepare_features(drought_2012, all_crops=all_crops, training_columns=training_columns)
+    mean_pred_2012 = mean_model.predict(X_2012)
+    logger.info(f"\nMean model 2012 corn prediction:  {mean_pred_2012.mean():.3f} z-scores")
+    q10_pred_2012 = q10_model.predict(X_2012)
