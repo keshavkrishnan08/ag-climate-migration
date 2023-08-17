@@ -8,3 +8,13 @@ let the tree structure capture the threshold behavior.
 New features added:
     heat_x_drought     = tmax_july_c_anomaly * (-pdsi_growing_anomaly)
     heat_x_precip      = tmax_july_c_anomaly * (-precip_growing_anomaly)
+    extreme_compound   = (tmax_anom > 1°C) AND (pdsi_anom < -1) binary flag
+    tmax_july_sq       = tmax_july_c_anomaly² (quadratic heat threshold)
+    precip_deficit     = max(0, county_baseline_precip - actual_precip)
+    tmax_peak_c        = max(tmax Jun/Jul/Aug) in Celsius (from monthly data)
+    precip_jja         = total Jun+Jul+Aug precipitation
+    pdsi_peak_drought  = min(PDSI Jun/Jul/Aug) — worst summer drought month
+    edd_months_c       = months where tmax > 33.5°C (Schlenker & Roberts threshold)
+    edd_x_pdsi         = edd_months_c * (-pdsi_peak_drought) compound signal
+    + anomaly versions of the monthly features (county mean subtracted)
+
