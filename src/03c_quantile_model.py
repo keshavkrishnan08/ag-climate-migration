@@ -638,3 +638,13 @@ def run_quantile_model() -> dict:
     logger.info(f"  Mean model prediction:        {metrics['mean_model_2012_prediction']:.3f} z-scores")
     logger.info(f"  Q10 model prediction:         {metrics['q10_model_2012_prediction']:.3f} z-scores")
     if 'tail_risk_stranded_B' in metrics:
+        logger.info(f"\nTail risk stranded add-on:")
+        logger.info(f"  Q10 tail risk premium:        ${metrics['tail_risk_stranded_B']:.2f}B")
+    logger.info("=" * 60)
+
+    return {
+        'q10_model': q10_model,
+        'mean_model': mean_model,
+        'metrics': metrics,
+        'drought_2012': drought_df,
+        'tail_risk': tail_risk_df,
