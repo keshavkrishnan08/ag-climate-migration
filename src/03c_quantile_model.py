@@ -648,3 +648,8 @@ def run_quantile_model() -> dict:
         'metrics': metrics,
         'drought_2012': drought_df,
         'tail_risk': tail_risk_df,
+    }
+
+
+if __name__ == '__main__':
+    run_quantile_model()
