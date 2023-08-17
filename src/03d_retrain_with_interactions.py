@@ -18,3 +18,13 @@ New features added:
     edd_x_pdsi         = edd_months_c * (-pdsi_peak_drought) compound signal
     + anomaly versions of the monthly features (county mean subtracted)
 
+Temporal split (matches config.yaml val_end=2012):
+    Train:  years <= 2012
+    Test:   2013-2023
+
+Saves:
+    results/yield_model_v2.pkl   — new primary model
+    results/yield_model_v2_metrics.json
+    results/feature_importance_v2.csv
+"""
+
