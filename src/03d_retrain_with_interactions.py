@@ -58,3 +58,13 @@ RESULTS_DIR = PROJECT_ROOT / 'results'
 
 with open(PROJECT_ROOT / 'config.yaml') as f:
     CONFIG = yaml.safe_load(f)
+
+RANDOM_SEED = CONFIG['yield_model']['random_seed']
+
+# Schlenker & Roberts (2009) EDD threshold for corn (°C)
+EDD_THRESHOLD_C = 33.5
+
+# Growing-season months: May–September
+GROWING_MONTHS = ['05', '06', '07', '08', '09']
+# Critical pollination months: June–August
+PEAK_MONTHS = ['06', '07', '08']
