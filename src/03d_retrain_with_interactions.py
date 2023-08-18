@@ -48,3 +48,13 @@ sys.path.insert(0, str(PROJECT_ROOT / 'src'))
 
 from utils.validation import (
     temporal_rolling_cv,
+    check_no_future_leakage,
+    compute_performance_metrics,
+)
+
+DATA_PROCESSED = PROJECT_ROOT / 'data' / 'processed'
+DATA_RAW = PROJECT_ROOT / 'data' / 'raw'
+RESULTS_DIR = PROJECT_ROOT / 'results'
+
+with open(PROJECT_ROOT / 'config.yaml') as f:
+    CONFIG = yaml.safe_load(f)
