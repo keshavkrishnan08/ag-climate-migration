@@ -68,3 +68,13 @@ EDD_THRESHOLD_C = 33.5
 GROWING_MONTHS = ['05', '06', '07', '08', '09']
 # Critical pollination months: June–August
 PEAK_MONTHS = ['06', '07', '08']
+
+
+def load_monthly_features() -> pd.DataFrame:
+    """Load and derive monthly climate features for compound drought detection.
+
+    Converts nClimDiv temperatures from Fahrenheit to Celsius, then computes:
+    - tmax_peak_c:      max(Jun, Jul, Aug) Tmax in Celsius
+    - precip_jja:       total Jun+Jul+Aug precipitation
+    - pdsi_peak_drought: min(Jun,Jul,Aug PDSI) — most severe monthly drought
+    - edd_months_c:     count of months with Tmax > 33.5°C (EDD threshold)
