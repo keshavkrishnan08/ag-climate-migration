@@ -88,3 +88,13 @@ def load_monthly_features() -> pd.DataFrame:
 
     monthly = pd.read_parquet(monthly_path)
 
+    # Convert peak-month temperatures to Celsius
+    for m in PEAK_MONTHS:
+        monthly[f'tmax_m{m}_c'] = (monthly[f'tmax_m{m}'] - 32) * 5 / 9
+
+    tmax_peak_cols = [f'tmax_m{m}_c' for m in PEAK_MONTHS]
+    precip_jja_cols = [f'precip_m{m}' for m in PEAK_MONTHS]
+    pdsi_jja_cols = [f'pdsi_m{m}' for m in PEAK_MONTHS]
+
+    monthly['tmax_peak_c'] = monthly[tmax_peak_cols].max(axis=1)
+    monthly['precip_jja'] = monthly[precip_jja_cols].sum(axis=1)
