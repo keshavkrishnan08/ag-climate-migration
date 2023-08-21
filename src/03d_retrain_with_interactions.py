@@ -78,3 +78,13 @@ def load_monthly_features() -> pd.DataFrame:
     - precip_jja:       total Jun+Jul+Aug precipitation
     - pdsi_peak_drought: min(Jun,Jul,Aug PDSI) — most severe monthly drought
     - edd_months_c:     count of months with Tmax > 33.5°C (EDD threshold)
+
+    Returns:
+        DataFrame indexed on (fips, year) with the four derived monthly features.
+    """
+    monthly_path = DATA_RAW / 'prism' / 'county_climate_monthly.parquet'
+    if not monthly_path.exists():
+        raise FileNotFoundError(f"Monthly climate not found: {monthly_path}")
+
+    monthly = pd.read_parquet(monthly_path)
+
