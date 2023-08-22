@@ -98,3 +98,13 @@ def load_monthly_features() -> pd.DataFrame:
 
     monthly['tmax_peak_c'] = monthly[tmax_peak_cols].max(axis=1)
     monthly['precip_jja'] = monthly[precip_jja_cols].sum(axis=1)
+    monthly['pdsi_peak_drought'] = monthly[pdsi_jja_cols].min(axis=1)
+    monthly['edd_months_c'] = (monthly[tmax_peak_cols] > EDD_THRESHOLD_C).sum(axis=1).astype(float)
+
+    features = monthly[['fips', 'year', 'tmax_peak_c', 'precip_jja',
+                         'pdsi_peak_drought', 'edd_months_c']].copy()
+    features['fips'] = features['fips'].astype(str)
+    logger.info(f"Loaded monthly features: {features.shape} for {features['year'].nunique()} years")
+    return features
+
+
