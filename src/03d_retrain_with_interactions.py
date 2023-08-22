@@ -108,3 +108,13 @@ def load_monthly_features() -> pd.DataFrame:
     return features
 
 
+def add_interaction_features(panel: pd.DataFrame) -> pd.DataFrame:
+    """Add compound drought interaction features to the panel.
+
+    The 2012 US drought combined record heat (+2°C July anomaly) with the worst
+    PDSI drought signal in decades. Neither stress alone explains the -0.94σ
+    yield anomaly; their interaction does.
+
+    New features:
+        heat_x_drought   — positive when hot AND dry (anomaly space)
+        heat_x_precip    — positive when hot AND low precipitation
