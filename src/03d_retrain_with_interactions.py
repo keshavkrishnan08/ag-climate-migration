@@ -128,3 +128,13 @@ def add_interaction_features(panel: pd.DataFrame) -> pd.DataFrame:
     Returns:
         Panel with five new interaction columns appended.
     """
+    panel = panel.copy()
+
+    panel['heat_x_drought'] = (
+        panel['tmax_july_c_anomaly'] * (-panel['pdsi_growing_anomaly'])
+    )
+    panel['heat_x_precip'] = (
+        panel['tmax_july_c_anomaly'] * (-panel['precip_growing_anomaly'])
+    )
+    panel['extreme_compound'] = (
+        (panel['tmax_july_c_anomaly'] > 1.0) &
