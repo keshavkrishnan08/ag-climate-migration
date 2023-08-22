@@ -118,3 +118,13 @@ def add_interaction_features(panel: pd.DataFrame) -> pd.DataFrame:
     New features:
         heat_x_drought   — positive when hot AND dry (anomaly space)
         heat_x_precip    — positive when hot AND low precipitation
+        extreme_compound — binary: both heat > +1σ and PDSI < -1σ
+        tmax_july_sq     — quadratic heat term for yield-cliff threshold
+        precip_deficit   — county-specific moisture shortfall vs historical mean
+
+    Args:
+        panel: Feature matrix with anomaly columns already present.
+
+    Returns:
+        Panel with five new interaction columns appended.
+    """
