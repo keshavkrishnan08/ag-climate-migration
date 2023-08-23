@@ -198,3 +198,13 @@ def get_feature_columns(df: pd.DataFrame) -> list:
         'yield_bu_acre', 'yield_anomaly',
         'acres_harvested', 'production',
     }
+    return [
+        c for c in df.columns
+        if c not in exclude
+        and df[c].dtype in ('float64', 'float32', 'int64', 'int32', 'bool')
+        and not df[c].isna().all()
+    ]
+
+
+def prepare_features(panel: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series, pd.Series]:
+    """Build final feature matrix with crop dummies and fill missing values.
