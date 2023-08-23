@@ -158,3 +158,13 @@ def add_monthly_anomaly_features(
     """Merge monthly features into panel and compute county-level anomalies.
 
     Args:
+        panel: Feature matrix (must have fips, year columns).
+        monthly_features: Output of load_monthly_features().
+
+    Returns:
+        Panel with monthly features and their county anomalies appended.
+
+    Raises:
+        ValueError: If merge results in more rows than input panel.
+    """
+    n_before = len(panel)
