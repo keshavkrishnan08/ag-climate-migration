@@ -208,3 +208,13 @@ def get_feature_columns(df: pd.DataFrame) -> list:
 
 def prepare_features(panel: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series, pd.Series]:
     """Build final feature matrix with crop dummies and fill missing values.
+
+    Args:
+        panel: Panel with all interaction/monthly features already added.
+
+    Returns:
+        Tuple of (X, y, years) ready for LightGBM training.
+    """
+    feature_cols = get_feature_columns(panel)
+    logger.info(f"Using {len(feature_cols)} features")
+
