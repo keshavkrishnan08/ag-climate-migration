@@ -138,3 +138,13 @@ def add_interaction_features(panel: pd.DataFrame) -> pd.DataFrame:
     )
     panel['extreme_compound'] = (
         (panel['tmax_july_c_anomaly'] > 1.0) &
+        (panel['pdsi_growing_anomaly'] < -1.0)
+    ).astype(float)
+    panel['tmax_july_sq'] = panel['tmax_july_c_anomaly'] ** 2
+
+    # County × crop baseline for precipitation deficit
+    precip_baseline = panel.groupby(['fips', 'crop'])['precip_growing'].transform('mean')
+    panel['precip_deficit'] = (precip_baseline - panel['precip_growing']).clip(lower=0)
+
+    logger.info("Added 5 interaction features: heat_x_drought, heat_x_precip, "
+                "extreme_compound, tmax_july_sq, precip_deficit")
