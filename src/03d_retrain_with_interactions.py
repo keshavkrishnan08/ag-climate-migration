@@ -148,3 +148,13 @@ def add_interaction_features(panel: pd.DataFrame) -> pd.DataFrame:
 
     logger.info("Added 5 interaction features: heat_x_drought, heat_x_precip, "
                 "extreme_compound, tmax_july_sq, precip_deficit")
+    return panel
+
+
+def add_monthly_anomaly_features(
+    panel: pd.DataFrame,
+    monthly_features: pd.DataFrame
+) -> pd.DataFrame:
+    """Merge monthly features into panel and compute county-level anomalies.
+
+    Args:
