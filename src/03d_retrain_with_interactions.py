@@ -218,3 +218,13 @@ def prepare_features(panel: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series, pd.S
     feature_cols = get_feature_columns(panel)
     logger.info(f"Using {len(feature_cols)} features")
 
+    X = panel[feature_cols].fillna(0).copy()
+    crop_dummies = pd.get_dummies(panel['crop'], prefix='crop')
+    X = pd.concat([X, crop_dummies], axis=1)
+
+    y = panel['yield_anomaly'].copy()
+    years = panel['year'].copy()
+
+    logger.info(f"Feature matrix: X={X.shape}, y={y.shape}")
+    return X, y, years
+
