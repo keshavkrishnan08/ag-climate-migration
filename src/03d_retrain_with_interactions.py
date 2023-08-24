@@ -228,3 +228,13 @@ def prepare_features(panel: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series, pd.S
     logger.info(f"Feature matrix: X={X.shape}, y={y.shape}")
     return X, y, years
 
+
+def get_v2_params() -> dict:
+    """Return LightGBM hyperparameters for the v2 interaction model.
+
+    Changes vs v1: depth 6→8, leaves 63→127, lr 0.03→0.02, n_est 1000→1500.
+    Deeper trees are needed to capture the three-way heat × drought × crop
+    interaction without manual feature engineering for every cross.
+
+    Returns:
+        Dict of LightGBM hyperparameters.
