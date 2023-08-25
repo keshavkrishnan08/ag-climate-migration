@@ -248,3 +248,13 @@ def get_v2_params() -> dict:
         'num_leaves': 127,
         'min_child_samples': 20,
         'subsample': 0.8,
+        'colsample_bytree': 0.8,
+        'reg_alpha': 0.05,
+        'reg_lambda': 0.5,
+        'random_state': RANDOM_SEED,
+        'verbose': -1,
+    }
+
+
+def evaluate_2012_drought(
+    model: lgb.LGBMRegressor,
