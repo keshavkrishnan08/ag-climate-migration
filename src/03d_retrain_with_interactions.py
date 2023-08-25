@@ -258,3 +258,13 @@ def get_v2_params() -> dict:
 
 def evaluate_2012_drought(
     model: lgb.LGBMRegressor,
+    X: pd.DataFrame,
+    panel: pd.DataFrame,
+    split: str = 'in_sample',
+) -> dict:
+    """Evaluate 2012 drought prediction quality.
+
+    The 2012 US Midwest drought is the primary reviewer validation case.
+    Observed national corn yield anomaly: -0.94σ (unweighted mean) / -1.09σ
+    (acreage-weighted). A credible model should predict below -0.5σ.
+
