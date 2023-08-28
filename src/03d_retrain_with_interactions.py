@@ -278,3 +278,13 @@ def evaluate_2012_drought(
         Dict with mean_pred, median_pred, weighted_pred, observed keys.
     """
     mask = (panel['crop'] == 'corn') & (panel['year'] == 2012)
+    if mask.sum() == 0:
+        logger.warning("No 2012 corn observations found")
+        return {}
+
+    pred = model.predict(X[mask])
+    obs = panel.loc[mask, 'yield_anomaly'].values
+    acres = panel.loc[mask, 'acres_harvested'].fillna(1).values
+
+    mean_pred = float(pred.mean())
+    median_pred = float(np.median(pred))
