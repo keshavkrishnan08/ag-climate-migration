@@ -288,3 +288,13 @@ def evaluate_2012_drought(
 
     mean_pred = float(pred.mean())
     median_pred = float(np.median(pred))
+    weighted_pred = float(np.average(pred, weights=acres))
+    mean_obs = float(obs.mean())
+    weighted_obs = float(np.average(obs, weights=acres))
+
+    target_unweighted = -0.50
+    target_weighted = -0.70
+
+    logger.info(f"=== 2012 Drought Validation ({split}) ===")
+    logger.info(f"  Observed:  mean={mean_obs:.3f}σ, acreage-weighted={weighted_obs:.3f}σ")
+    logger.info(f"  Predicted: mean={mean_pred:.3f}σ, median={median_pred:.3f}σ, "
