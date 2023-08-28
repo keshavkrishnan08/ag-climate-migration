@@ -268,3 +268,13 @@ def evaluate_2012_drought(
     Observed national corn yield anomaly: -0.94σ (unweighted mean) / -1.09σ
     (acreage-weighted). A credible model should predict below -0.5σ.
 
+    Args:
+        model: Trained LightGBM model.
+        X: Full feature matrix aligned with panel.
+        panel: Panel with yield_anomaly and acres_harvested columns.
+        split: 'in_sample' or 'out_of_sample' for logging context.
+
+    Returns:
+        Dict with mean_pred, median_pred, weighted_pred, observed keys.
+    """
+    mask = (panel['crop'] == 'corn') & (panel['year'] == 2012)
