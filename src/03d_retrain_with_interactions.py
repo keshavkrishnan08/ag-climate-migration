@@ -308,3 +308,13 @@ def evaluate_2012_drought(
         'mean_pred': mean_pred,
         'median_pred': median_pred,
         'weighted_pred': weighted_pred,
+        'mean_obs': mean_obs,
+        'weighted_obs': weighted_obs,
+        'n_counties': int(mask.sum()),
+        'split': split,
+        'gate_mean_pass': unweighted_ok,
+        'gate_weighted_pass': weighted_ok,
+    }
+
+
+def train_and_evaluate(
