@@ -348,3 +348,13 @@ def train_and_evaluate(
         temporal_rolling_cv(years.values, n_folds=5)
     ):
         X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
+        y_train, y_val = y.iloc[train_idx], y.iloc[val_idx]
+
+        fold_model = lgb.LGBMRegressor(**params)
+        fold_model.fit(
+            X_train, y_train,
+            eval_set=[(X_val, y_val)],
+            callbacks=[lgb.log_evaluation(period=0)],
+        )
+        y_pred = fold_model.predict(X_val)
+        metrics = compute_performance_metrics(
