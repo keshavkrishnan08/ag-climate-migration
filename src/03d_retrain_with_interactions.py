@@ -358,3 +358,13 @@ def train_and_evaluate(
         )
         y_pred = fold_model.predict(X_val)
         metrics = compute_performance_metrics(
+            y_val.values, y_pred, crop_name=f"Fold {fold_idx + 1}"
+        )
+        cv_results.append(metrics)
+
+    avg_spearman = np.mean([r['spearman_rank'] for r in cv_results])
+    avg_r2 = np.mean([r['r2'] for r in cv_results])
+    logger.info(f"CV Average — Spearman: {avg_spearman:.3f}, R²: {avg_r2:.3f}")
+
+    # ---- Final model ----
+    train_mask = years <= CONFIG['temporal']['val_end']
