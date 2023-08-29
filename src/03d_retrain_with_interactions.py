@@ -338,3 +338,13 @@ def train_and_evaluate(
     logger.info("=" * 60)
     logger.info("RETRAINING YIELD MODEL v2 — COMPOUND DROUGHT FIX")
     logger.info("=" * 60)
+
+    X, y, years = prepare_features(panel)
+    params = get_v2_params()
+
+    # ---- Temporal cross-validation ----
+    cv_results = []
+    for fold_idx, (train_idx, val_idx) in enumerate(
+        temporal_rolling_cv(years.values, n_folds=5)
+    ):
+        X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
