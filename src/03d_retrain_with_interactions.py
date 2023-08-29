@@ -328,3 +328,13 @@ def train_and_evaluate(
 
     CV folds use the same rolling structure as v1 (five 5-year windows
     ending at 2010), so the CV Spearman comparison is apples-to-apples.
+
+    Args:
+        panel: Full panel with all interaction and monthly features.
+
+    Returns:
+        Tuple of (trained_model, metrics_dict).
+    """
+    logger.info("=" * 60)
+    logger.info("RETRAINING YIELD MODEL v2 — COMPOUND DROUGHT FIX")
+    logger.info("=" * 60)
