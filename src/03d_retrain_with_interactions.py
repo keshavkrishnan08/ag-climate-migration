@@ -318,3 +318,13 @@ def evaluate_2012_drought(
 
 
 def train_and_evaluate(
+    panel: pd.DataFrame,
+) -> Tuple[lgb.LGBMRegressor, dict]:
+    """Train v2 model with full temporal CV and holdout test evaluation.
+
+    Temporal split:
+        Train:  years ≤ 2012 (config val_end — same as v1 final model)
+        Test:   2013–2023 (config test_end)
+
+    CV folds use the same rolling structure as v1 (five 5-year windows
+    ending at 2010), so the CV Spearman comparison is apples-to-apples.
