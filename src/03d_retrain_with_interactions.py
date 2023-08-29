@@ -298,3 +298,13 @@ def evaluate_2012_drought(
     logger.info(f"=== 2012 Drought Validation ({split}) ===")
     logger.info(f"  Observed:  mean={mean_obs:.3f}σ, acreage-weighted={weighted_obs:.3f}σ")
     logger.info(f"  Predicted: mean={mean_pred:.3f}σ, median={median_pred:.3f}σ, "
+                f"acreage-weighted={weighted_pred:.3f}σ")
+    unweighted_ok = mean_pred <= target_unweighted
+    weighted_ok = weighted_pred <= target_weighted
+    logger.info(f"  Gate mean ≤ {target_unweighted}σ: {'PASS' if unweighted_ok else 'FAIL'}")
+    logger.info(f"  Gate weighted ≤ {target_weighted}σ: {'PASS' if weighted_ok else 'FAIL'}")
+
+    return {
+        'mean_pred': mean_pred,
+        'median_pred': median_pred,
+        'weighted_pred': weighted_pred,
