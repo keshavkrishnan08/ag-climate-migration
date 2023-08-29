@@ -368,3 +368,13 @@ def train_and_evaluate(
 
     # ---- Final model ----
     train_mask = years <= CONFIG['temporal']['val_end']
+    test_mask = (years > CONFIG['temporal']['val_end']) & (years <= CONFIG['temporal']['test_end'])
+
+    check_no_future_leakage(years[train_mask].values, years[test_mask].values)
+
+    logger.info(f"Final split: train n={train_mask.sum()} (≤{CONFIG['temporal']['val_end']}), "
+                f"test n={test_mask.sum()} ({CONFIG['temporal']['val_end'] + 1}–{CONFIG['temporal']['test_end']})")
+
+    final_model = lgb.LGBMRegressor(**params)
+    final_model.fit(
+        X[train_mask], y[train_mask],
