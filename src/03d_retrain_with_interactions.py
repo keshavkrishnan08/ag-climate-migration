@@ -408,3 +408,13 @@ def train_and_evaluate(
     min_spearman_per_crop = gate_cfg['min_spearman_per_crop']
     min_r2_anomaly = gate_cfg['min_r2_anomaly']
     exclude_from_gate = set(gate_cfg.get('exclude_from_gate', []))
+
+    logger.info("=" * 40)
+    logger.info("GATE CHECKS (v2 model — z-scored anomaly target)")
+    thresholds_passed = True
+
+    overall_spearman = test_metrics.get('spearman_rank', float('nan'))
+    spearman_ok = overall_spearman >= min_spearman_overall
+    logger.info(f"  Overall Spearman ≥ {min_spearman_overall}: "
+                f"{'PASS' if spearman_ok else 'FAIL'} ({overall_spearman:.3f})")
+    thresholds_passed &= spearman_ok
