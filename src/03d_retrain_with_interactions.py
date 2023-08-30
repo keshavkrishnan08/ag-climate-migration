@@ -458,3 +458,13 @@ def train_and_evaluate(
     }
 
     return final_model, all_metrics
+
+
+def save_v2_artifacts(
+    model: lgb.LGBMRegressor,
+    metrics: dict,
+    X_sample: pd.DataFrame,
+) -> Path:
+    """Save v2 model, metrics, and feature importances.
+
+    Also copies the model to results/yield_model_v2.pkl for easy reference
