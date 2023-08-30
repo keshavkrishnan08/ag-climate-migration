@@ -398,3 +398,13 @@ def train_and_evaluate(
             crop_name=crop,
         )
         crop_metrics[crop] = cm
+
+    # ---- 2012 drought validation ----
+    drought_2012 = evaluate_2012_drought(final_model, X, panel, split='in_sample')
+
+    # ---- Gate checks ----
+    gate_cfg = CONFIG['yield_model_gates']
+    min_spearman_overall = gate_cfg['min_spearman_overall']
+    min_spearman_per_crop = gate_cfg['min_spearman_per_crop']
+    min_r2_anomaly = gate_cfg['min_r2_anomaly']
+    exclude_from_gate = set(gate_cfg.get('exclude_from_gate', []))
