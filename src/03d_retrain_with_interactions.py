@@ -438,3 +438,13 @@ def train_and_evaluate(
         drought_2012.get('gate_mean_pass', False) or
         drought_2012.get('gate_weighted_pass', False)
     )
+    logger.info(f"  2012 drought mean ≤ -0.50σ: "
+                f"{'PASS' if drought_2012.get('gate_mean_pass') else 'FAIL'} "
+                f"({drought_2012.get('mean_pred', float('nan')):.3f}σ)")
+    logger.info(f"  2012 drought weighted ≤ -0.70σ: "
+                f"{'PASS' if drought_2012.get('gate_weighted_pass') else 'FAIL'} "
+                f"({drought_2012.get('weighted_pred', float('nan')):.3f}σ)")
+    thresholds_passed &= drought_gate_ok
+
+    all_metrics = {
+        'model_version': 'v2_compound_drought',
