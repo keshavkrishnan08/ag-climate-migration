@@ -418,3 +418,13 @@ def train_and_evaluate(
     logger.info(f"  Overall Spearman ≥ {min_spearman_overall}: "
                 f"{'PASS' if spearman_ok else 'FAIL'} ({overall_spearman:.3f})")
     thresholds_passed &= spearman_ok
+
+    r2_ok = test_metrics['r2'] >= min_r2_anomaly
+    logger.info(f"  Overall R² ≥ {min_r2_anomaly}: "
+                f"{'PASS' if r2_ok else 'FAIL'} ({test_metrics['r2']:.3f})")
+    thresholds_passed &= r2_ok
+
+    for crop, cm in crop_metrics.items():
+        if crop in exclude_from_gate:
+            logger.info(f"  [{crop}] SKIPPED (excluded from gate)")
+            continue
