@@ -378,3 +378,13 @@ def train_and_evaluate(
     final_model = lgb.LGBMRegressor(**params)
     final_model.fit(
         X[train_mask], y[train_mask],
+        eval_set=[(X[test_mask], y[test_mask])],
+        callbacks=[lgb.log_evaluation(period=0)],
+    )
+
+    y_pred_test = final_model.predict(X[test_mask])
+    test_metrics = compute_performance_metrics(y[test_mask].values, y_pred_test, 'FINAL TEST')
+
+    # Per-crop test performance
+    crop_metrics = {}
+    test_panel = panel[test_mask].copy()
