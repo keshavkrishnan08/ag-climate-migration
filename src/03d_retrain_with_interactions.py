@@ -428,3 +428,13 @@ def train_and_evaluate(
         if crop in exclude_from_gate:
             logger.info(f"  [{crop}] SKIPPED (excluded from gate)")
             continue
+        crop_sp = cm.get('spearman_rank', float('nan'))
+        crop_ok = crop_sp >= min_spearman_per_crop
+        logger.info(f"  [{crop}] Spearman ≥ {min_spearman_per_crop}: "
+                    f"{'PASS' if crop_ok else 'FAIL'} ({crop_sp:.3f})")
+        thresholds_passed &= crop_ok
+
+    drought_gate_ok = (
+        drought_2012.get('gate_mean_pass', False) or
+        drought_2012.get('gate_weighted_pass', False)
+    )
