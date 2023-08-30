@@ -388,3 +388,13 @@ def train_and_evaluate(
     # Per-crop test performance
     crop_metrics = {}
     test_panel = panel[test_mask].copy()
+    test_panel['y_pred'] = y_pred_test
+
+    for crop in sorted(test_panel['crop'].unique()):
+        crop_mask = test_panel['crop'] == crop
+        cm = compute_performance_metrics(
+            test_panel.loc[crop_mask, 'yield_anomaly'].values,
+            test_panel.loc[crop_mask, 'y_pred'].values,
+            crop_name=crop,
+        )
+        crop_metrics[crop] = cm
