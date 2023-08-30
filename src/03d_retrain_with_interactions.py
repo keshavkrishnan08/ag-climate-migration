@@ -448,3 +448,13 @@ def train_and_evaluate(
 
     all_metrics = {
         'model_version': 'v2_compound_drought',
+        'cv_results': cv_results,
+        'test_metrics': test_metrics,
+        'crop_metrics': crop_metrics,
+        'drought_2012': drought_2012,
+        'thresholds_passed': thresholds_passed,
+        'params': params,
+        'n_features': X.shape[1],
+    }
+
+    return final_model, all_metrics
