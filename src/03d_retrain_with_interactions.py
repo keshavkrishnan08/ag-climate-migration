@@ -488,3 +488,13 @@ def save_v2_artifacts(
         pickle.dump(model, f)
     logger.info(f"Saved model → {model_path}")
 
+    # Convenience alias for downstream scripts
+    alias_path = RESULTS_DIR / 'yield_model_v2.pkl'
+    with open(alias_path, 'wb') as f:
+        pickle.dump(model, f)
+    logger.info(f"Saved alias → {alias_path}")
+
+    # Metrics JSON
+    def _serialise(obj):
+        if isinstance(obj, (np.floating, np.integer)):
+            return float(obj)
