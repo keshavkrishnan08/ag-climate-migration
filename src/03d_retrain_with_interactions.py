@@ -498,3 +498,13 @@ def save_v2_artifacts(
     def _serialise(obj):
         if isinstance(obj, (np.floating, np.integer)):
             return float(obj)
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return str(obj)
+
+    metrics_path = out_dir / 'yield_model_metrics.json'
+    with open(metrics_path, 'w') as f:
+        json.dump(metrics, f, indent=2, default=_serialise)
+
+    v2_metrics_path = RESULTS_DIR / 'yield_model_v2_metrics.json'
+    with open(v2_metrics_path, 'w') as f:
