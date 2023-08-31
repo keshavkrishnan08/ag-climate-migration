@@ -478,3 +478,13 @@ def save_v2_artifacts(
     Returns:
         Path to timestamped results directory.
     """
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    out_dir = RESULTS_DIR / timestamp
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    # Primary save: timestamped directory
+    model_path = out_dir / 'yield_model.pkl'
+    with open(model_path, 'wb') as f:
+        pickle.dump(model, f)
+    logger.info(f"Saved model → {model_path}")
+
