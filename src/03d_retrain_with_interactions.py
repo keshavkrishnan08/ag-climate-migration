@@ -468,3 +468,13 @@ def save_v2_artifacts(
     """Save v2 model, metrics, and feature importances.
 
     Also copies the model to results/yield_model_v2.pkl for easy reference
+    by downstream scripts (05_project.py, 06_stranded.py).
+
+    Args:
+        model: Trained v2 LightGBM model.
+        metrics: Metrics dict from train_and_evaluate.
+        X_sample: Feature matrix (used for column names / importance).
+
+    Returns:
+        Path to timestamped results directory.
+    """
