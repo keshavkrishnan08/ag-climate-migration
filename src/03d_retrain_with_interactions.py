@@ -528,3 +528,13 @@ def save_v2_artifacts(
     return out_dir
 
 
+def run_retrain() -> Tuple[lgb.LGBMRegressor, dict]:
+    """Execute the v2 retraining pipeline.
+
+    Steps:
+    1. Load feature matrix
+    2. Merge monthly climate features
+    3. Add compound drought interaction features
+    4. Train with temporal CV + final holdout evaluation
+    5. Gate check: Spearman, R², per-crop Spearman, 2012 drought
+    6. Save model and metrics
