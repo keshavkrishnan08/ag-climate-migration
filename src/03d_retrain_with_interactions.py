@@ -518,3 +518,13 @@ def save_v2_artifacts(
     fi_path = out_dir / 'feature_importance.csv'
     fi.to_csv(fi_path, index=False)
     fi_v2_path = RESULTS_DIR / 'feature_importance_v2.csv'
+    fi.to_csv(fi_v2_path, index=False)
+
+    logger.info(f"Top 10 features by split importance:")
+    for _, row in fi.head(10).iterrows():
+        logger.info(f"  {row['feature']}: {row['importance']:.0f}")
+
+    logger.info(f"All v2 artifacts saved → {out_dir}")
+    return out_dir
+
+
