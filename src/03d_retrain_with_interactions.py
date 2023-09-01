@@ -508,3 +508,13 @@ def save_v2_artifacts(
 
     v2_metrics_path = RESULTS_DIR / 'yield_model_v2_metrics.json'
     with open(v2_metrics_path, 'w') as f:
+        json.dump(metrics, f, indent=2, default=_serialise)
+
+    # Feature importance
+    fi = pd.DataFrame({
+        'feature': X_sample.columns,
+        'importance': model.feature_importances_,
+    }).sort_values('importance', ascending=False)
+    fi_path = out_dir / 'feature_importance.csv'
+    fi.to_csv(fi_path, index=False)
+    fi_v2_path = RESULTS_DIR / 'feature_importance_v2.csv'
