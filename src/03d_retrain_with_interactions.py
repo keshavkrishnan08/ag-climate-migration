@@ -538,3 +538,13 @@ def run_retrain() -> Tuple[lgb.LGBMRegressor, dict]:
     4. Train with temporal CV + final holdout evaluation
     5. Gate check: Spearman, R², per-crop Spearman, 2012 drought
     6. Save model and metrics
+
+    Returns:
+        Tuple of (model, metrics).
+    """
+    logger.info("=" * 60)
+    logger.info("PHASE 3D: RETRAIN WITH COMPOUND DROUGHT INTERACTIONS")
+    logger.info("=" * 60)
+
+    panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
+    if not panel_path.exists():
