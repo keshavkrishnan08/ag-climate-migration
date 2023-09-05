@@ -578,3 +578,6 @@ def run_retrain() -> Tuple[lgb.LGBMRegressor, dict]:
 
     return model, metrics
 
+
+if __name__ == '__main__':
+    run_retrain()
