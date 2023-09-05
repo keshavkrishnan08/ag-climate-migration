@@ -8,3 +8,13 @@ each capture different aspects of the yield-climate relationship:
   - RandomForest: bagged trees, robust to outlier years
 
 All three train on IDENTICAL features and splits. The ensemble is a simple
+unweighted average (equal weights).
+
+Approaches tested:
+  1. Ensemble (LightGBM + Ridge + RF), train ≤ 2012, test 2013-2023
+  2. Extended training set (train ≤ 2012, adds 2010-2012 vs prior ≤ 2009 split)
+     — already the default in v2; carried forward here.
+
+Temporal splits (match CLAUDE.md Critical Rules):
+  Train:  years ≤ 2012 (val_end in config.yaml)
+  Test:   2013-2023
