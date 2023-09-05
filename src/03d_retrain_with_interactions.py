@@ -558,3 +558,13 @@ def run_retrain() -> Tuple[lgb.LGBMRegressor, dict]:
     # Add monthly climate features
     monthly_features = load_monthly_features()
     panel = add_monthly_anomaly_features(panel, monthly_features)
+
+    # Add interaction features
+    panel = add_interaction_features(panel)
+
+    # Train and evaluate
+    model, metrics = train_and_evaluate(panel)
+
+    # Save artifacts (need X for column names)
+    X, y, years = prepare_features(panel)
+    save_v2_artifacts(model, metrics, X)
