@@ -568,3 +568,13 @@ def run_retrain() -> Tuple[lgb.LGBMRegressor, dict]:
     # Save artifacts (need X for column names)
     X, y, years = prepare_features(panel)
     save_v2_artifacts(model, metrics, X)
+
+    logger.info("=" * 60)
+    logger.info(f"PHASE 3D COMPLETE — gates passed: {metrics.get('thresholds_passed')}")
+    logger.info(f"  Test Spearman: {metrics['test_metrics'].get('spearman_rank', 'N/A'):.3f}")
+    logger.info(f"  2012 drought predicted: {metrics['drought_2012'].get('mean_pred', 'N/A'):.3f}σ "
+                f"(acreage-weighted: {metrics['drought_2012'].get('weighted_pred', 'N/A'):.3f}σ)")
+    logger.info("=" * 60)
+
+    return model, metrics
+
