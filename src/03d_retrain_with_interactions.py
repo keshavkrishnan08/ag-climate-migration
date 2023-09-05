@@ -548,3 +548,13 @@ def run_retrain() -> Tuple[lgb.LGBMRegressor, dict]:
 
     panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
     if not panel_path.exists():
+        logger.error(f"Feature matrix not found: {panel_path} — run Phase 2 first")
+        return None, {}
+
+    panel = pd.read_parquet(panel_path)
+    panel['fips'] = panel['fips'].astype(str)
+    logger.info(f"Loaded feature matrix: {panel.shape}")
+
+    # Add monthly climate features
+    monthly_features = load_monthly_features()
+    panel = add_monthly_anomaly_features(panel, monthly_features)
