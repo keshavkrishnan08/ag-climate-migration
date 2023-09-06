@@ -48,3 +48,13 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import Ridge
 from sklearn.preprocessing import StandardScaler
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
+
+from utils.validation import (
+    check_no_future_leakage,
+    compute_performance_metrics,
+    temporal_rolling_cv,
+)
+
+DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
