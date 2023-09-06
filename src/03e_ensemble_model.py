@@ -18,3 +18,13 @@ Approaches tested:
 Temporal splits (match CLAUDE.md Critical Rules):
   Train:  years ≤ 2012 (val_end in config.yaml)
   Test:   2013-2023
+
+Gate targets:
+  R² ≥ 0.25, Spearman ≥ 0.50
+
+Saves (if ensemble beats v2 alone):
+  results/yield_model_ensemble.pkl
+  results/yield_model_ensemble_metrics.json
+
+Usage:
+  python src/03e_ensemble_model.py
