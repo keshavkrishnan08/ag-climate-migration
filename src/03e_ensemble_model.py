@@ -58,3 +58,13 @@ from utils.validation import (
 )
 
 DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
+DATA_RAW = PROJECT_ROOT / "data" / "raw"
+RESULTS_DIR = PROJECT_ROOT / "results"
+
+with open(PROJECT_ROOT / "config.yaml") as f:
+    CONFIG = yaml.safe_load(f)
+
+RANDOM_SEED = CONFIG["yield_model"]["random_seed"]
+VAL_END = CONFIG["temporal"]["val_end"]      # 2012
+TEST_END = CONFIG["temporal"]["test_end"]    # 2023
+
