@@ -88,3 +88,13 @@ def load_monthly_features() -> pd.DataFrame:
 
     Returns:
         DataFrame with fips, year, and four derived columns.
+    """
+    monthly_path = DATA_RAW / "prism" / "county_climate_monthly.parquet"
+    monthly = pd.read_parquet(monthly_path)
+
+    for m in PEAK_MONTHS:
+        monthly[f"tmax_m{m}_c"] = (monthly[f"tmax_m{m}"] - 32) * 5 / 9
+
+    tmax_cols = [f"tmax_m{m}_c" for m in PEAK_MONTHS]
+    precip_cols = [f"precip_m{m}" for m in PEAK_MONTHS]
+    pdsi_cols = [f"pdsi_m{m}" for m in PEAK_MONTHS]
