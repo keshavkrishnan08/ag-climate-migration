@@ -138,3 +138,13 @@ def add_interaction_features(panel: pd.DataFrame) -> pd.DataFrame:
     panel["precip_deficit"] = (precip_baseline - panel["precip_growing"]).clip(lower=0)
     logger.info("Added 5 interaction features")
     return panel
+
+
+def add_monthly_anomaly_features(
+    panel: pd.DataFrame,
+    monthly_features: pd.DataFrame,
+) -> pd.DataFrame:
+    """Merge monthly features into panel and compute county anomalies.
+
+    Args:
+        panel: Feature matrix with fips, year columns.
