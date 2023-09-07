@@ -78,3 +78,13 @@ PEAK_MONTHS = ["06", "07", "08"]
 # ---------------------------------------------------------------------------
 
 def load_monthly_features() -> pd.DataFrame:
+    """Load monthly climate data and compute peak-season features.
+
+    Converts nClimDiv temperatures (°F) to Celsius, then derives:
+      - tmax_peak_c:       max(Jun,Jul,Aug) Tmax
+      - precip_jja:        sum of Jun+Jul+Aug precipitation
+      - pdsi_peak_drought: min(Jun,Jul,Aug PDSI) — worst drought month
+      - edd_months_c:      count of months above 33.5°C EDD threshold
+
+    Returns:
+        DataFrame with fips, year, and four derived columns.
