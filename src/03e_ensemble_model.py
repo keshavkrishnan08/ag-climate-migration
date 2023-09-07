@@ -118,3 +118,13 @@ def add_interaction_features(panel: pd.DataFrame) -> pd.DataFrame:
       heat_x_drought   — hot AND dry anomaly product
       heat_x_precip    — hot AND low precip anomaly product
       extreme_compound — binary: heat > +1σ AND PDSI < -1σ
+      tmax_july_sq     — quadratic heat for yield-cliff threshold
+      precip_deficit   — county-crop shortfall vs historical mean
+
+    Args:
+        panel: Feature matrix with anomaly columns.
+
+    Returns:
+        Panel with five new columns.
+    """
+    panel = panel.copy()
