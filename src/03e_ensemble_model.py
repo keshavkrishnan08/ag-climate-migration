@@ -68,3 +68,13 @@ RANDOM_SEED = CONFIG["yield_model"]["random_seed"]
 VAL_END = CONFIG["temporal"]["val_end"]      # 2012
 TEST_END = CONFIG["temporal"]["test_end"]    # 2023
 
+# Schlenker & Roberts EDD threshold
+EDD_THRESHOLD_C = 33.5
+PEAK_MONTHS = ["06", "07", "08"]
+
+
+# ---------------------------------------------------------------------------
+# Feature engineering (mirrors 03d_retrain_with_interactions.py exactly)
+# ---------------------------------------------------------------------------
+
+def load_monthly_features() -> pd.DataFrame:
