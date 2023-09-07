@@ -108,3 +108,13 @@ def load_monthly_features() -> pd.DataFrame:
                    "pdsi_peak_drought", "edd_months_c"]].copy()
     out["fips"] = out["fips"].astype(str)
     logger.info(f"Monthly features loaded: {out.shape}")
+    return out
+
+
+def add_interaction_features(panel: pd.DataFrame) -> pd.DataFrame:
+    """Add compound drought interaction and quadratic features.
+
+    Features added:
+      heat_x_drought   — hot AND dry anomaly product
+      heat_x_precip    — hot AND low precip anomaly product
+      extreme_compound — binary: heat > +1σ AND PDSI < -1σ
