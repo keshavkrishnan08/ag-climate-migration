@@ -168,3 +168,13 @@ def add_monthly_anomaly_features(
 
     panel["edd_x_pdsi"] = panel["edd_months_c"] * (-panel["pdsi_peak_drought"])
     logger.info(f"Merged monthly features. Panel: {panel.shape}")
+    return panel
+
+
+def get_feature_columns(df: pd.DataFrame) -> List[str]:
+    """Extract numeric feature columns, excluding identifiers and target.
+
+    Args:
+        df: Feature matrix DataFrame.
+
+    Returns:
