@@ -158,3 +158,13 @@ def add_monthly_anomaly_features(
     """
     n_before = len(panel)
     panel = panel.merge(monthly_features, on=["fips", "year"], how="left")
+    if len(panel) != n_before:
+        raise ValueError(f"Merge changed row count: {n_before} → {len(panel)}")
+
+    base_cols = ["tmax_peak_c", "precip_jja", "pdsi_peak_drought", "edd_months_c"]
+    for col in base_cols:
+        county_mean = panel.groupby("fips")[col].transform("mean")
+        panel[f"{col}_anomaly"] = panel[col] - county_mean
+
+    panel["edd_x_pdsi"] = panel["edd_months_c"] * (-panel["pdsi_peak_drought"])
+    logger.info(f"Merged monthly features. Panel: {panel.shape}")
