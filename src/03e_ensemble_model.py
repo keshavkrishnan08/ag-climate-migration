@@ -178,3 +178,13 @@ def get_feature_columns(df: pd.DataFrame) -> List[str]:
         df: Feature matrix DataFrame.
 
     Returns:
+        List of numeric column names for model input.
+    """
+    exclude = {
+        "fips", "year", "crop",
+        "yield_bu_acre", "yield_anomaly",
+        "acres_harvested", "production",
+    }
+    return [
+        c for c in df.columns
+        if c not in exclude
