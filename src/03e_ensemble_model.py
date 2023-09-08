@@ -148,3 +148,13 @@ def add_monthly_anomaly_features(
 
     Args:
         panel: Feature matrix with fips, year columns.
+        monthly_features: Output of load_monthly_features().
+
+    Returns:
+        Panel with monthly features and county-level anomaly columns.
+
+    Raises:
+        ValueError: If merge changes row count.
+    """
+    n_before = len(panel)
+    panel = panel.merge(monthly_features, on=["fips", "year"], how="left")
