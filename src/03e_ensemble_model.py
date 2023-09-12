@@ -198,3 +198,13 @@ def prepare_features(panel: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series, pd.S
 
     Args:
         panel: Panel with all features added.
+
+    Returns:
+        Tuple of (X, y, years) ready for model training.
+    """
+    feature_cols = get_feature_columns(panel)
+    logger.info(f"Feature count: {len(feature_cols)}")
+
+    X = panel[feature_cols].fillna(0).copy()
+    crop_dummies = pd.get_dummies(panel["crop"], prefix="crop")
+    X = pd.concat([X, crop_dummies], axis=1)
