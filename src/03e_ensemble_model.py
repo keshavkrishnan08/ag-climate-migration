@@ -238,3 +238,13 @@ def train_lgbm(
 
     Returns:
         Fitted LGBMRegressor.
+    """
+    params = {
+        "objective": "regression",
+        "metric": "rmse",
+        "n_estimators": 1500,
+        "learning_rate": 0.02,
+        "max_depth": 8,
+        "num_leaves": 127,
+        "min_child_samples": 20,
+        "subsample": 0.8,
