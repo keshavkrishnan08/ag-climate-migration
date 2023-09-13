@@ -248,3 +248,13 @@ def train_lgbm(
         "num_leaves": 127,
         "min_child_samples": 20,
         "subsample": 0.8,
+        "colsample_bytree": 0.8,
+        "reg_alpha": 0.05,
+        "reg_lambda": 0.5,
+        "random_state": RANDOM_SEED,
+        "verbose": -1,
+    }
+    model = lgb.LGBMRegressor(**params)
+    model.fit(
+        X_train, y_train,
+        eval_set=[(X_val, y_val)],
