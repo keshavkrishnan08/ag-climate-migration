@@ -218,3 +218,13 @@ def prepare_features(panel: pd.DataFrame) -> Tuple[pd.DataFrame, pd.Series, pd.S
 
 # ---------------------------------------------------------------------------
 # Individual models
+# ---------------------------------------------------------------------------
+
+def train_lgbm(
+    X_train: pd.DataFrame,
+    y_train: pd.Series,
+    X_val: pd.DataFrame,
+    y_val: pd.Series,
+) -> lgb.LGBMRegressor:
+    """Train LightGBM v2 with compound drought hyperparameters.
+
