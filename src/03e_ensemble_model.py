@@ -228,3 +228,13 @@ def train_lgbm(
 ) -> lgb.LGBMRegressor:
     """Train LightGBM v2 with compound drought hyperparameters.
 
+    Matches 03d exactly: depth=8, leaves=127, lr=0.02, n_est=1500.
+
+    Args:
+        X_train: Training features.
+        y_train: Training targets.
+        X_val: Validation features for early stopping evaluation.
+        y_val: Validation targets.
+
+    Returns:
+        Fitted LGBMRegressor.
