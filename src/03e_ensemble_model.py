@@ -258,3 +258,13 @@ def train_lgbm(
     model.fit(
         X_train, y_train,
         eval_set=[(X_val, y_val)],
+        callbacks=[lgb.log_evaluation(period=0)],
+    )
+    return model
+
+
+def train_ridge(
+    X_train: pd.DataFrame,
+    y_train: pd.Series,
+) -> Tuple[Ridge, StandardScaler]:
+    """Train Ridge regression with StandardScaler normalisation.
