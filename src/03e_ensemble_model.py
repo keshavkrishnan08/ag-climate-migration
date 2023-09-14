@@ -308,3 +308,13 @@ def train_rf(
         max_depth=10,
         min_samples_leaf=30,
         max_features=0.4,
+        max_samples=0.3,      # subsample 30% per tree — huge speedup, minimal quality loss
+        n_jobs=-1,
+        random_state=RANDOM_SEED,
+    )
+    model.fit(X_train, y_train)
+    return model
+
+
+# ---------------------------------------------------------------------------
+# Ensemble prediction
