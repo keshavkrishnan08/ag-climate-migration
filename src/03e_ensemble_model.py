@@ -268,3 +268,13 @@ def train_ridge(
     y_train: pd.Series,
 ) -> Tuple[Ridge, StandardScaler]:
     """Train Ridge regression with StandardScaler normalisation.
+
+    Ridge captures the linear component of the climate-yield relationship.
+    Alpha=10 provides moderate regularisation on ~50 features.
+
+    Args:
+        X_train: Training features.
+        y_train: Training targets.
+
+    Returns:
+        Tuple of (fitted Ridge, fitted StandardScaler).
