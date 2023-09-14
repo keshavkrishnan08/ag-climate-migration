@@ -278,3 +278,13 @@ def train_ridge(
 
     Returns:
         Tuple of (fitted Ridge, fitted StandardScaler).
+    """
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X_train)
+    model = Ridge(alpha=10.0, random_state=RANDOM_SEED)
+    model.fit(X_scaled, y_train)
+    return model, scaler
+
+
+def train_rf(
+    X_train: pd.DataFrame,
