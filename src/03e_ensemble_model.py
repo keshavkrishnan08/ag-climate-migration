@@ -298,3 +298,13 @@ def train_rf(
 
     Args:
         X_train: Training features.
+        y_train: Training targets.
+
+    Returns:
+        Fitted RandomForestRegressor.
+    """
+    model = RandomForestRegressor(
+        n_estimators=150,
+        max_depth=10,
+        min_samples_leaf=30,
+        max_features=0.4,
