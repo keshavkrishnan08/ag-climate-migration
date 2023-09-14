@@ -288,3 +288,13 @@ def train_ridge(
 
 def train_rf(
     X_train: pd.DataFrame,
+    y_train: pd.Series,
+) -> RandomForestRegressor:
+    """Train RandomForest with conservative depth to avoid overfitting.
+
+    n_estimators=150, max_depth=10, max_samples=0.3 keeps training fast
+    on 582K observations (roughly 175K samples per tree). min_samples_leaf=30
+    prevents individual year/county quirks from dominating predictions.
+
+    Args:
+        X_train: Training features.
