@@ -328,3 +328,13 @@ def fit_blend_weights(
     X_val: pd.DataFrame,
     y_val: pd.Series,
 ) -> np.ndarray:
+    """Fit non-negative blend weights by minimising RMSE on a validation set.
+
+    Rather than equal weights (which dilutes LightGBM's superior signal with
+    weaker Ridge/RF predictions), we solve for the optimal convex combination:
+        w* = argmin ||y_val - (w1*p_lgbm + w2*p_ridge + w3*p_rf)||²
+        subject to w >= 0, sum(w) = 1
+
+    Uses NNLS (non-negative least squares) followed by L1 normalisation.
+
+    Args:
