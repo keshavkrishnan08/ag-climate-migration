@@ -318,3 +318,13 @@ def train_rf(
 
 # ---------------------------------------------------------------------------
 # Ensemble prediction
+# ---------------------------------------------------------------------------
+
+def fit_blend_weights(
+    lgbm_model: lgb.LGBMRegressor,
+    ridge_model: Ridge,
+    rf_model: RandomForestRegressor,
+    scaler: StandardScaler,
+    X_val: pd.DataFrame,
+    y_val: pd.Series,
+) -> np.ndarray:
