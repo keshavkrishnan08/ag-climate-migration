@@ -338,3 +338,13 @@ def fit_blend_weights(
     Uses NNLS (non-negative least squares) followed by L1 normalisation.
 
     Args:
+        lgbm_model: Trained LightGBM.
+        ridge_model: Trained Ridge regression.
+        rf_model: Trained RandomForest.
+        scaler: StandardScaler for Ridge input.
+        X_val: Held-out validation features.
+        y_val: Held-out validation targets.
+
+    Returns:
+        Array of three blend weights [w_lgbm, w_ridge, w_rf].
+    """
