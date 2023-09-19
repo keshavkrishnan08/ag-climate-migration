@@ -348,3 +348,13 @@ def fit_blend_weights(
     Returns:
         Array of three blend weights [w_lgbm, w_ridge, w_rf].
     """
+    from scipy.optimize import nnls
+
+    pred_lgbm = lgbm_model.predict(X_val)
+    pred_ridge = ridge_model.predict(scaler.transform(X_val))
+    pred_rf = rf_model.predict(X_val)
+
+    # Stack predictions as columns: (n, 3)
+    P = np.column_stack([pred_lgbm, pred_ridge, pred_rf])
+    weights, _ = nnls(P, y_val.values)
+
