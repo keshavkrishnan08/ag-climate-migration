@@ -448,3 +448,13 @@ def evaluate_2012_drought_ensemble(
                 blend_weights[2] * pred_rf)
 
     def _stats(pred, name):
+        mean_pred = float(pred.mean())
+        wtd_pred = float(np.average(pred, weights=acres))
+        logger.info(f"  {name}: mean={mean_pred:.3f}σ, weighted={wtd_pred:.3f}σ")
+        return mean_pred, wtd_pred
+
+    mean_obs = float(obs.mean())
+    wtd_obs = float(np.average(obs, weights=acres))
+    logger.info(f"=== 2012 Drought Validation ===")
+    logger.info(f"  Observed: mean={mean_obs:.3f}σ, weighted={wtd_obs:.3f}σ")
+
