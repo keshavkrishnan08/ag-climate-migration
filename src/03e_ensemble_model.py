@@ -358,3 +358,13 @@ def fit_blend_weights(
     P = np.column_stack([pred_lgbm, pred_ridge, pred_rf])
     weights, _ = nnls(P, y_val.values)
 
+    # Normalise to sum to 1
+    total = weights.sum()
+    if total < 1e-10:
+        weights = np.array([1.0, 0.0, 0.0])  # fallback: use lgbm only
+    else:
+        weights = weights / total
+
+    logger.info(f"Blend weights — LightGBM: {weights[0]:.3f}, Ridge: {weights[1]:.3f}, RF: {weights[2]:.3f}")
+    return weights
+
