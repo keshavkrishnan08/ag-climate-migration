@@ -368,3 +368,13 @@ def fit_blend_weights(
     logger.info(f"Blend weights — LightGBM: {weights[0]:.3f}, Ridge: {weights[1]:.3f}, RF: {weights[2]:.3f}")
     return weights
 
+
+def ensemble_predict(
+    lgbm_model: lgb.LGBMRegressor,
+    ridge_model: Ridge,
+    rf_model: RandomForestRegressor,
+    scaler: StandardScaler,
+    X: pd.DataFrame,
+    weights: np.ndarray = None,
+) -> np.ndarray:
+    """Predict using a weighted blend of three models.
