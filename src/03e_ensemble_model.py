@@ -378,3 +378,13 @@ def ensemble_predict(
     weights: np.ndarray = None,
 ) -> np.ndarray:
     """Predict using a weighted blend of three models.
+
+    If weights=None, uses equal weights (1/3 each) as a fallback.
+    In practice, weights from fit_blend_weights are passed.
+
+    Args:
+        lgbm_model: Trained LightGBM model.
+        ridge_model: Trained Ridge regression.
+        rf_model: Trained RandomForest.
+        scaler: StandardScaler fitted on training data.
+        X: Feature matrix for prediction.
