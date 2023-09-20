@@ -428,3 +428,13 @@ def evaluate_2012_drought_ensemble(
         panel: Full panel with yield_anomaly and acres_harvested.
         blend_weights: Optimal weights from fit_blend_weights.
 
+    Returns:
+        Dict with individual and ensemble predictions, obs, and gate booleans.
+    """
+    mask = (panel["crop"] == "corn") & (panel["year"] == 2012)
+    if mask.sum() == 0:
+        logger.warning("No 2012 corn observations")
+        return {}
+
+    X_2012 = X[mask]
+    obs = panel.loc[mask, "yield_anomaly"].values
