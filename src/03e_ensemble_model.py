@@ -398,3 +398,13 @@ def ensemble_predict(
 
     pred_lgbm = lgbm_model.predict(X)
     pred_ridge = ridge_model.predict(scaler.transform(X))
+    pred_rf = rf_model.predict(X)
+    return weights[0] * pred_lgbm + weights[1] * pred_ridge + weights[2] * pred_rf
+
+
+# ---------------------------------------------------------------------------
+# 2012 drought evaluation
+# ---------------------------------------------------------------------------
+
+def evaluate_2012_drought_ensemble(
+    lgbm_model: lgb.LGBMRegressor,
