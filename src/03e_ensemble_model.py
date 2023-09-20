@@ -418,3 +418,13 @@ def evaluate_2012_drought_ensemble(
     """Check ensemble 2012 corn drought prediction against gate targets.
 
     Gate: unweighted mean ≤ -0.50σ, acreage-weighted ≤ -0.70σ.
+
+    Args:
+        lgbm_model: Trained LightGBM.
+        ridge_model: Trained Ridge.
+        rf_model: Trained RandomForest.
+        scaler: StandardScaler for Ridge.
+        X: Full aligned feature matrix.
+        panel: Full panel with yield_anomaly and acres_harvested.
+        blend_weights: Optimal weights from fit_blend_weights.
+
