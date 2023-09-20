@@ -438,3 +438,13 @@ def evaluate_2012_drought_ensemble(
 
     X_2012 = X[mask]
     obs = panel.loc[mask, "yield_anomaly"].values
+    acres = panel.loc[mask, "acres_harvested"].fillna(1).values
+
+    pred_lgbm = lgbm_model.predict(X_2012)
+    pred_ridge = ridge_model.predict(scaler.transform(X_2012))
+    pred_rf = rf_model.predict(X_2012)
+    pred_ens = (blend_weights[0] * pred_lgbm +
+                blend_weights[1] * pred_ridge +
+                blend_weights[2] * pred_rf)
+
+    def _stats(pred, name):
