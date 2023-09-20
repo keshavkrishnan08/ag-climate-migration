@@ -408,3 +408,13 @@ def ensemble_predict(
 
 def evaluate_2012_drought_ensemble(
     lgbm_model: lgb.LGBMRegressor,
+    ridge_model: Ridge,
+    rf_model: RandomForestRegressor,
+    scaler: StandardScaler,
+    X: pd.DataFrame,
+    panel: pd.DataFrame,
+    blend_weights: np.ndarray,
+) -> dict:
+    """Check ensemble 2012 corn drought prediction against gate targets.
+
+    Gate: unweighted mean ≤ -0.50σ, acreage-weighted ≤ -0.70σ.
