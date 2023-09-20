@@ -388,3 +388,13 @@ def ensemble_predict(
         rf_model: Trained RandomForest.
         scaler: StandardScaler fitted on training data.
         X: Feature matrix for prediction.
+        weights: Array [w_lgbm, w_ridge, w_rf] summing to 1.
+
+    Returns:
+        Array of ensemble predictions.
+    """
+    if weights is None:
+        weights = np.array([1 / 3, 1 / 3, 1 / 3])
+
+    pred_lgbm = lgbm_model.predict(X)
+    pred_ridge = ridge_model.predict(scaler.transform(X))
