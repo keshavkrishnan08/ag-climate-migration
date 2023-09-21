@@ -498,3 +498,13 @@ def run_ensemble() -> dict:
       2. Add interaction features (identical to v2)
       3. Splits:
            blend_train: years ≤ 2009 (train base models)
+           blend_val:   2010-2012 (fit blend weights, never seen by test eval)
+           test:        2013-2023 (held-out evaluation)
+      4. Train LightGBM v2, Ridge, RandomForest on blend_train
+      5. Fit NNLS blend weights on blend_val
+      6. Evaluate all models + weighted ensemble on test set
+      7. Run 2012 drought gate (2012 is in blend_val, so in-sample there but not test)
+      8. Also evaluate equal-weight ensemble for comparison
+      9. Save ensemble if weighted version beats v2 R² or Spearman
+
+    Returns:
