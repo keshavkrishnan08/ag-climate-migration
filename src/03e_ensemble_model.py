@@ -488,3 +488,13 @@ def evaluate_2012_drought_ensemble(
 
 # ---------------------------------------------------------------------------
 # Main training pipeline
+# ---------------------------------------------------------------------------
+
+def run_ensemble() -> dict:
+    """Train ensemble model and compare against LightGBM v2 baseline.
+
+    Pipeline:
+      1. Load feature matrix + monthly features
+      2. Add interaction features (identical to v2)
+      3. Splits:
+           blend_train: years ≤ 2009 (train base models)
