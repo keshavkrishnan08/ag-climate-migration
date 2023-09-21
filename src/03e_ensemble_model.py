@@ -458,3 +458,13 @@ def evaluate_2012_drought_ensemble(
     logger.info(f"=== 2012 Drought Validation ===")
     logger.info(f"  Observed: mean={mean_obs:.3f}σ, weighted={wtd_obs:.3f}σ")
 
+    lgbm_mean, lgbm_wtd = _stats(pred_lgbm, "LightGBM")
+    ridge_mean, ridge_wtd = _stats(pred_ridge, "Ridge")
+    rf_mean, rf_wtd = _stats(pred_rf, "RF")
+    ens_mean, ens_wtd = _stats(pred_ens, f"Ensemble (w={blend_weights.round(3)})")
+
+    gate_mean = ens_mean <= -0.50
+    gate_wtd = ens_wtd <= -0.70
+    logger.info(f"  Gate mean ≤ -0.50σ: {'PASS' if gate_mean else 'FAIL'} ({ens_mean:.3f}σ)")
+    logger.info(f"  Gate weighted ≤ -0.70σ: {'PASS' if gate_wtd else 'FAIL'} ({ens_wtd:.3f}σ)")
+
