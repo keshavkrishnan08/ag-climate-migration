@@ -518,3 +518,13 @@ def run_ensemble() -> dict:
     panel_path = DATA_PROCESSED / "feature_matrix.parquet"
     panel = pd.read_parquet(panel_path)
     panel["fips"] = panel["fips"].astype(str)
+    logger.info(f"Loaded panel: {panel.shape}")
+
+    monthly = load_monthly_features()
+    panel = add_monthly_anomaly_features(panel, monthly)
+    panel = add_interaction_features(panel)
+
+    X, y, years = prepare_features(panel)
+    years_arr = years.values
+
+    # --- Three-way temporal split ---
