@@ -468,3 +468,13 @@ def evaluate_2012_drought_ensemble(
     logger.info(f"  Gate mean ≤ -0.50σ: {'PASS' if gate_mean else 'FAIL'} ({ens_mean:.3f}σ)")
     logger.info(f"  Gate weighted ≤ -0.70σ: {'PASS' if gate_wtd else 'FAIL'} ({ens_wtd:.3f}σ)")
 
+    return {
+        "mean_obs": mean_obs,
+        "weighted_obs": wtd_obs,
+        "lgbm_mean": lgbm_mean,
+        "lgbm_weighted": lgbm_wtd,
+        "ridge_mean": ridge_mean,
+        "ridge_weighted": ridge_wtd,
+        "rf_mean": rf_mean,
+        "rf_weighted": rf_wtd,
+        "ensemble_mean": ens_mean,
