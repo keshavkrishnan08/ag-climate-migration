@@ -478,3 +478,13 @@ def evaluate_2012_drought_ensemble(
         "rf_mean": rf_mean,
         "rf_weighted": rf_wtd,
         "ensemble_mean": ens_mean,
+        "ensemble_weighted": ens_wtd,
+        "gate_mean_pass": gate_mean,
+        "gate_weighted_pass": gate_wtd,
+        "n_counties": int(mask.sum()),
+        "blend_weights": blend_weights.tolist(),
+    }
+
+
+# ---------------------------------------------------------------------------
+# Main training pipeline
