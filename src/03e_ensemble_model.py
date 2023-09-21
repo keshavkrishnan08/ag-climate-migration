@@ -508,3 +508,13 @@ def run_ensemble() -> dict:
       9. Save ensemble if weighted version beats v2 R² or Spearman
 
     Returns:
+        Dict with all metrics for all models.
+    """
+    logger.info("=" * 60)
+    logger.info("PHASE 3E: ENSEMBLE MODEL (LightGBM + Ridge + RandomForest)")
+    logger.info("=" * 60)
+
+    # --- Load data ---
+    panel_path = DATA_PROCESSED / "feature_matrix.parquet"
+    panel = pd.read_parquet(panel_path)
+    panel["fips"] = panel["fips"].astype(str)
