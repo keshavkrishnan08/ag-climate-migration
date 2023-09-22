@@ -588,3 +588,13 @@ def run_ensemble() -> dict:
     best_pred = pred_ens_wtd if m_ens_wtd["r2"] >= m_ens_equal["r2"] else pred_ens_equal
     m_best = m_ens_wtd if m_ens_wtd["r2"] >= m_ens_equal["r2"] else m_ens_equal
     best_label = "NNLS-weighted" if m_ens_wtd["r2"] >= m_ens_equal["r2"] else "equal-weighted"
+
+    test_panel = panel[test_mask].copy().reset_index(drop=True)
+    test_panel["y_pred_ens"] = best_pred
+    crop_metrics_ens = {}
+    for crop in sorted(test_panel["crop"].unique()):
+        cmask = test_panel["crop"] == crop
+        cm = compute_performance_metrics(
+            test_panel.loc[cmask, "yield_anomaly"].values,
+            test_panel.loc[cmask, "y_pred_ens"].values,
+            crop_name=crop,
