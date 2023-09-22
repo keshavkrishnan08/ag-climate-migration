@@ -528,3 +528,13 @@ def run_ensemble() -> dict:
     years_arr = years.values
 
     # --- Three-way temporal split ---
+    # blend_train: base model training data (≤2009)
+    # blend_val:   2010-2012 — fit blend weights here (no leakage: after train, before test)
+    # test:        2013-2023 — held-out, never touched until final eval
+    BLEND_TRAIN_END = 2009
+    blend_train_mask = years_arr <= BLEND_TRAIN_END
+    blend_val_mask = (years_arr > BLEND_TRAIN_END) & (years_arr <= VAL_END)
+    test_mask = (years_arr > VAL_END) & (years_arr <= TEST_END)
+
+    check_no_future_leakage(years_arr[blend_train_mask], years_arr[test_mask])
+
