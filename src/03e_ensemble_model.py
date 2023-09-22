@@ -568,3 +568,13 @@ def run_ensemble() -> dict:
     pred_lgbm = lgbm_model.predict(X_test)
     pred_ridge = ridge_model.predict(scaler.transform(X_test))
     pred_rf = rf_model.predict(X_test)
+    pred_ens_equal = (pred_lgbm + pred_ridge + pred_rf) / 3.0
+    pred_ens_wtd = (blend_weights[0] * pred_lgbm +
+                   blend_weights[1] * pred_ridge +
+                   blend_weights[2] * pred_rf)
+
+    # --- Evaluate ---
+    logger.info("=" * 40)
+    logger.info("TEST SET PERFORMANCE (2013-2023)")
+    logger.info("=" * 40)
+
