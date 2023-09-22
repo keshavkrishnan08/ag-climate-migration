@@ -578,3 +578,13 @@ def run_ensemble() -> dict:
     logger.info("TEST SET PERFORMANCE (2013-2023)")
     logger.info("=" * 40)
 
+    m_lgbm = compute_performance_metrics(y_test.values, pred_lgbm, "LightGBM v2")
+    m_ridge = compute_performance_metrics(y_test.values, pred_ridge, "Ridge")
+    m_rf = compute_performance_metrics(y_test.values, pred_rf, "RandomForest")
+    m_ens_equal = compute_performance_metrics(y_test.values, pred_ens_equal, "Ensemble (equal wt)")
+    m_ens_wtd = compute_performance_metrics(y_test.values, pred_ens_wtd, "Ensemble (NNLS wt)")
+
+    # Per-crop metrics for the best ensemble
+    best_pred = pred_ens_wtd if m_ens_wtd["r2"] >= m_ens_equal["r2"] else pred_ens_equal
+    m_best = m_ens_wtd if m_ens_wtd["r2"] >= m_ens_equal["r2"] else m_ens_equal
+    best_label = "NNLS-weighted" if m_ens_wtd["r2"] >= m_ens_equal["r2"] else "equal-weighted"
