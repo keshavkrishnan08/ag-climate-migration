@@ -558,3 +558,13 @@ def run_ensemble() -> dict:
     logger.info("----- Training RandomForest -----")
     rf_model = train_rf(X_blend_train, y_blend_train)
 
+    # --- Fit blend weights on blend_val (2010-2012) ---
+    logger.info("----- Fitting blend weights on 2010-2012 -----")
+    blend_weights = fit_blend_weights(
+        lgbm_model, ridge_model, rf_model, scaler, X_blend_val, y_blend_val
+    )
+
+    # --- Predict on test set ---
+    pred_lgbm = lgbm_model.predict(X_test)
+    pred_ridge = ridge_model.predict(scaler.transform(X_test))
+    pred_rf = rf_model.predict(X_test)
