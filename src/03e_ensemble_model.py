@@ -548,3 +548,13 @@ def run_ensemble() -> dict:
                 f"Blend-val: n={blend_val_mask.sum()} ({BLEND_TRAIN_END+1}-{VAL_END}), "
                 f"Test: n={test_mask.sum()} ({VAL_END+1}-{TEST_END})")
 
+    # --- Train base models on blend_train ---
+    logger.info("----- Training LightGBM v2 -----")
+    lgbm_model = train_lgbm(X_blend_train, y_blend_train, X_blend_val, y_blend_val)
+
+    logger.info("----- Training Ridge -----")
+    ridge_model, scaler = train_ridge(X_blend_train, y_blend_train)
+
+    logger.info("----- Training RandomForest -----")
+    rf_model = train_rf(X_blend_train, y_blend_train)
+
