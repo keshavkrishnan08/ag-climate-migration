@@ -598,3 +598,13 @@ def run_ensemble() -> dict:
             test_panel.loc[cmask, "yield_anomaly"].values,
             test_panel.loc[cmask, "y_pred_ens"].values,
             crop_name=crop,
+        )
+        crop_metrics_ens[crop] = cm
+
+    # --- 2012 drought (blend_val in-sample, still a meaningful check) ---
+    drought_results = evaluate_2012_drought_ensemble(
+        lgbm_model, ridge_model, rf_model, scaler, X, panel, blend_weights
+    )
+
+    # --- Gate check ---
+    logger.info("=" * 40)
