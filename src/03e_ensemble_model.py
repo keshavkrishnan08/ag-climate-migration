@@ -538,3 +538,13 @@ def run_ensemble() -> dict:
 
     check_no_future_leakage(years_arr[blend_train_mask], years_arr[test_mask])
 
+    X_blend_train = X[blend_train_mask]
+    y_blend_train = y[blend_train_mask]
+    X_blend_val = X[blend_val_mask]
+    y_blend_val = y[blend_val_mask]
+    X_test, y_test = X[test_mask], y[test_mask]
+
+    logger.info(f"Blend-train: n={blend_train_mask.sum()} (≤{BLEND_TRAIN_END}), "
+                f"Blend-val: n={blend_val_mask.sum()} ({BLEND_TRAIN_END+1}-{VAL_END}), "
+                f"Test: n={test_mask.sum()} ({VAL_END+1}-{TEST_END})")
+
