@@ -618,3 +618,13 @@ def run_ensemble() -> dict:
     r2_pass = ens_r2 >= r2_target
     sp_pass = ens_sp >= sp_target
 
+    v2_r2 = m_lgbm["r2"]
+    v2_sp = m_lgbm["spearman_rank"]
+
+    logger.info(f"  LightGBM v2         : R²={v2_r2:.4f}, Spearman={v2_sp:.4f}")
+    logger.info(f"  Ridge               : R²={m_ridge['r2']:.4f}, Spearman={m_ridge['spearman_rank']:.4f}")
+    logger.info(f"  RandomForest        : R²={m_rf['r2']:.4f}, Spearman={m_rf['spearman_rank']:.4f}")
+    logger.info(f"  Ensemble (equal wt) : R²={m_ens_equal['r2']:.4f}, Spearman={m_ens_equal['spearman_rank']:.4f}")
+    logger.info(f"  Ensemble (NNLS wt)  : R²={m_ens_wtd['r2']:.4f}, Spearman={m_ens_wtd['spearman_rank']:.4f}")
+    logger.info(f"  Best ({best_label}): R²={ens_r2:.4f}, Spearman={ens_sp:.4f}")
+    logger.info(f"  Blend weights       : LightGBM={blend_weights[0]:.3f}, Ridge={blend_weights[1]:.3f}, RF={blend_weights[2]:.3f}")
