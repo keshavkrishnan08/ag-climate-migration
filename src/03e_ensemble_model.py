@@ -608,3 +608,13 @@ def run_ensemble() -> dict:
 
     # --- Gate check ---
     logger.info("=" * 40)
+    logger.info("GATE CHECKS")
+    r2_target = 0.25
+    sp_target = 0.50
+
+    # Use best ensemble for gates
+    ens_r2 = m_best["r2"]
+    ens_sp = m_best["spearman_rank"]
+    r2_pass = ens_r2 >= r2_target
+    sp_pass = ens_sp >= sp_target
+
