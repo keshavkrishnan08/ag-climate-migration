@@ -628,3 +628,13 @@ def run_ensemble() -> dict:
     logger.info(f"  Ensemble (NNLS wt)  : R²={m_ens_wtd['r2']:.4f}, Spearman={m_ens_wtd['spearman_rank']:.4f}")
     logger.info(f"  Best ({best_label}): R²={ens_r2:.4f}, Spearman={ens_sp:.4f}")
     logger.info(f"  Blend weights       : LightGBM={blend_weights[0]:.3f}, Ridge={blend_weights[1]:.3f}, RF={blend_weights[2]:.3f}")
+    logger.info(f"  Target              : R²≥{r2_target}, Spearman≥{sp_target}")
+    logger.info(f"  R² gate: {'PASS' if r2_pass else 'FAIL'}")
+    logger.info(f"  Spearman gate: {'PASS' if sp_pass else 'FAIL'}")
+
+    ensemble_beats_v2 = (ens_r2 > v2_r2) or (ens_sp > v2_sp)
+    logger.info(f"  Ensemble beats LightGBM v2: {ensemble_beats_v2} "
+                f"(ΔR²={ens_r2 - v2_r2:+.4f}, ΔSpearman={ens_sp - v2_sp:+.4f})")
+
+    all_metrics = {
+        "model_version": "v3_ensemble",
