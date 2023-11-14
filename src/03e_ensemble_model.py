@@ -668,3 +668,13 @@ def run_ensemble() -> dict:
     _save_metrics(all_metrics)
 
     logger.info("=" * 60)
+    logger.info("PHASE 3E COMPLETE")
+    logger.info(f"  Best ensemble R²={ens_r2:.4f}, Spearman={ens_sp:.4f}")
+    logger.info(f"  vs v2         R²={v2_r2:.4f}, Spearman={v2_sp:.4f}")
+    logger.info(f"  Gates: R²={'PASS' if r2_pass else 'FAIL'}, Spearman={'PASS' if sp_pass else 'FAIL'}")
+    logger.info("=" * 60)
+
+    return all_metrics
+
+
+def _save_ensemble(
