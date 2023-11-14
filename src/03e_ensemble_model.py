@@ -648,3 +648,13 @@ def run_ensemble() -> dict:
         "ridge": m_ridge,
         "random_forest": m_rf,
         "ensemble_equal": m_ens_equal,
+        "ensemble_nnls": m_ens_wtd,
+        "ensemble_best": m_best,
+        "best_variant": best_label,
+        "crop_metrics_ensemble": crop_metrics_ens,
+        "drought_2012": drought_results,
+        "gate_r2_pass": r2_pass,
+        "gate_spearman_pass": sp_pass,
+        "ensemble_beats_v2": ensemble_beats_v2,
+    }
+
