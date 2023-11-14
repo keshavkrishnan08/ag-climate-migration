@@ -638,3 +638,13 @@ def run_ensemble() -> dict:
 
     all_metrics = {
         "model_version": "v3_ensemble",
+        "timestamp": datetime.now().isoformat(),
+        "blend_train_end": BLEND_TRAIN_END,
+        "blend_val_years": f"{BLEND_TRAIN_END+1}-{VAL_END}",
+        "test_start": VAL_END + 1,
+        "test_end": TEST_END,
+        "blend_weights": blend_weights.tolist(),
+        "lgbm_v2": m_lgbm,
+        "ridge": m_ridge,
+        "random_forest": m_rf,
+        "ensemble_equal": m_ens_equal,
