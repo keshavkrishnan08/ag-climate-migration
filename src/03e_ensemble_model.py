@@ -658,3 +658,13 @@ def run_ensemble() -> dict:
         "ensemble_beats_v2": ensemble_beats_v2,
     }
 
+    # --- Save ---
+    if ensemble_beats_v2:
+        _save_ensemble(lgbm_model, ridge_model, rf_model, scaler,
+                       blend_weights, all_metrics, X_blend_train)
+    else:
+        logger.warning("Ensemble does NOT beat v2. Keeping results/yield_model_v2.pkl as primary.")
+
+    _save_metrics(all_metrics)
+
+    logger.info("=" * 60)
