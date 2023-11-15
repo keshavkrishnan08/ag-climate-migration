@@ -708,3 +708,13 @@ def _save_ensemble(
         "ridge": ridge_model,
         "rf": rf_model,
         "blend_weights": blend_weights,
+        "scaler": scaler,
+        "feature_columns": list(X_sample.columns),
+        "model_version": "v3_ensemble",
+    }
+
+    for path in [out_dir / "yield_model_ensemble.pkl", RESULTS_DIR / "yield_model_ensemble.pkl"]:
+        with open(path, "wb") as f:
+            pickle.dump(bundle, f)
+    logger.info(f"Saved ensemble → {RESULTS_DIR / 'yield_model_ensemble.pkl'}")
+
