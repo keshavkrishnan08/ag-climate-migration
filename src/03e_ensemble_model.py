@@ -728,3 +728,13 @@ def _save_ensemble(
     for path in [out_dir / "yield_model_ensemble_metrics.json",
                  RESULTS_DIR / "yield_model_ensemble_metrics.json"]:
         with open(path, "w") as f:
+            json.dump(metrics, f, indent=2, default=_ser)
+
+
+def _save_metrics(metrics: dict) -> None:
+    """Always write metrics, even when ensemble does not beat v2.
+
+    Args:
+        metrics: Full metrics dict.
+    """
+    def _ser(obj):
