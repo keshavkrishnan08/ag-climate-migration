@@ -688,3 +688,13 @@ def _save_ensemble(
 ) -> None:
     """Persist ensemble components and metrics.
 
+    Saves both a timestamped copy and the canonical results/yield_model_ensemble.pkl.
+
+    Args:
+        lgbm_model: Trained LightGBM.
+        ridge_model: Trained Ridge.
+        rf_model: Trained RandomForest.
+        scaler: StandardScaler for Ridge input.
+        blend_weights: NNLS blend weights [w_lgbm, w_ridge, w_rf].
+        metrics: Full metrics dict.
+        X_sample: Feature matrix (for column recording).
