@@ -698,3 +698,13 @@ def _save_ensemble(
         blend_weights: NNLS blend weights [w_lgbm, w_ridge, w_rf].
         metrics: Full metrics dict.
         X_sample: Feature matrix (for column recording).
+    """
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    out_dir = RESULTS_DIR / timestamp
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    bundle = {
+        "lgbm": lgbm_model,
+        "ridge": ridge_model,
+        "rf": rf_model,
+        "blend_weights": blend_weights,
