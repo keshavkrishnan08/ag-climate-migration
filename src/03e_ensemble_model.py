@@ -678,3 +678,13 @@ def run_ensemble() -> dict:
 
 
 def _save_ensemble(
+    lgbm_model: lgb.LGBMRegressor,
+    ridge_model: Ridge,
+    rf_model: RandomForestRegressor,
+    scaler: StandardScaler,
+    blend_weights: np.ndarray,
+    metrics: dict,
+    X_sample: pd.DataFrame,
+) -> None:
+    """Persist ensemble components and metrics.
+
