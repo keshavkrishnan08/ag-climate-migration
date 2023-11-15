@@ -718,3 +718,13 @@ def _save_ensemble(
             pickle.dump(bundle, f)
     logger.info(f"Saved ensemble → {RESULTS_DIR / 'yield_model_ensemble.pkl'}")
 
+    def _ser(obj):
+        if isinstance(obj, (np.floating, np.integer)):
+            return float(obj)
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return str(obj)
+
+    for path in [out_dir / "yield_model_ensemble_metrics.json",
+                 RESULTS_DIR / "yield_model_ensemble_metrics.json"]:
+        with open(path, "w") as f:
