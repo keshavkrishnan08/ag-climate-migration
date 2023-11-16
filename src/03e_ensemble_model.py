@@ -738,3 +738,13 @@ def _save_metrics(metrics: dict) -> None:
         metrics: Full metrics dict.
     """
     def _ser(obj):
+        if isinstance(obj, (np.floating, np.integer)):
+            return float(obj)
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return str(obj)
+
+    path = RESULTS_DIR / "yield_model_ensemble_metrics.json"
+    with open(path, "w") as f:
+        json.dump(metrics, f, indent=2, default=_ser)
+    logger.info(f"Metrics saved → {path}")
