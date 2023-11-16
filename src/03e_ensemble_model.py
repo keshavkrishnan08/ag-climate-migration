@@ -748,3 +748,7 @@ def _save_metrics(metrics: dict) -> None:
     with open(path, "w") as f:
         json.dump(metrics, f, indent=2, default=_ser)
     logger.info(f"Metrics saved → {path}")
+
+
+if __name__ == "__main__":
+    run_ensemble()
