@@ -38,3 +38,13 @@ from loguru import logger
 import yaml
 import pickle
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT / 'src'))
+DATA_PROCESSED = PROJECT_ROOT / 'data' / 'processed'
+RESULTS_DIR = PROJECT_ROOT / 'results'
+
+with open(PROJECT_ROOT / 'config.yaml') as f:
+    CONFIG = yaml.safe_load(f)
+
+RANDOM_SEED = CONFIG['yield_model']['random_seed']
+SWITCHING_PAIRS = [tuple(p) for p in CONFIG['crops']['switching_pairs']]
