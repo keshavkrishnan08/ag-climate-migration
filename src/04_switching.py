@@ -48,3 +48,13 @@ with open(PROJECT_ROOT / 'config.yaml') as f:
 
 RANDOM_SEED = CONFIG['yield_model']['random_seed']
 SWITCHING_PAIRS = [tuple(p) for p in CONFIG['crops']['switching_pairs']]
+
+
+def build_switching_labels(
+    panel: pd.DataFrame,
+    switching_rates: pd.DataFrame,
+    pair: Tuple[str, str],
+    threshold: float = 0.05
+) -> pd.DataFrame:
+    """Build binary switching labels for a crop pair.
+
