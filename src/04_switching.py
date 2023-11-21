@@ -78,3 +78,13 @@ def build_switching_labels(
             switching_rates[['fips', 'year', f'switch_{from_crop}_to_{to_crop}']],
             on=['fips', 'year'],
             how='left'
+        )
+        switch_col = f'switch_{from_crop}_to_{to_crop}'
+        from_counties['switched'] = (from_counties[switch_col] > threshold).astype(int)
+    else:
+        from_counties['switched'] = 0
+
+    return from_counties
+
+
+def get_switching_features(
