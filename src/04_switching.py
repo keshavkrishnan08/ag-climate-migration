@@ -58,3 +58,13 @@ def build_switching_labels(
 ) -> pd.DataFrame:
     """Build binary switching labels for a crop pair.
 
+    Args:
+        panel: Feature matrix with county-year observations.
+        switching_rates: County-year switching rate data.
+        pair: Tuple of (from_crop, to_crop).
+        threshold: Fraction above which we label as 'switched'.
+
+    Returns:
+        DataFrame with features and binary switch label.
+    """
+    from_crop, to_crop = pair
