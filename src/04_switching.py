@@ -68,3 +68,13 @@ def build_switching_labels(
         DataFrame with features and binary switch label.
     """
     from_crop, to_crop = pair
+
+    # Get counties that grew from_crop
+    from_counties = panel[panel['crop'] == from_crop][['fips', 'year']].copy()
+
+    # Merge with switching rates
+    if not switching_rates.empty:
+        from_counties = from_counties.merge(
+            switching_rates[['fips', 'year', f'switch_{from_crop}_to_{to_crop}']],
+            on=['fips', 'year'],
+            how='left'
