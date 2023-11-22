@@ -88,3 +88,13 @@ def build_switching_labels(
 
 
 def get_switching_features(
+    panel: pd.DataFrame,
+    pair: Tuple[str, str]
+) -> List[str]:
+    """Get relevant features for a switching model.
+
+    Args:
+        panel: Feature matrix.
+        pair: Crop pair being modeled.
+
+    Returns:
