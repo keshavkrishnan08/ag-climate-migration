@@ -98,3 +98,13 @@ def get_switching_features(
         pair: Crop pair being modeled.
 
     Returns:
+        List of feature column names.
+    """
+    exclude = {
+        'fips', 'year', 'crop', 'yield_bu_acre', 'yield_anomaly',
+        'acres_harvested', 'production', 'switched'
+    }
+    base_features = [c for c in panel.columns
+                     if c not in exclude and panel[c].dtype in ('float64', 'float32', 'int64')]
+
+    # Add pair-specific features
