@@ -108,3 +108,13 @@ def get_switching_features(
                      if c not in exclude and panel[c].dtype in ('float64', 'float32', 'int64')]
 
     # Add pair-specific features
+    # - Relative profitability between crops
+    # - Neighbor county switching rate
+    # - Temperature trend (critical for monotonicity)
+    return base_features
+
+
+def train_switching_model(
+    panel: pd.DataFrame,
+    switching_rates: pd.DataFrame,
+    pair: Tuple[str, str]
