@@ -118,3 +118,13 @@ def train_switching_model(
     panel: pd.DataFrame,
     switching_rates: pd.DataFrame,
     pair: Tuple[str, str]
+) -> Tuple[CalibratedClassifierCV, dict]:
+    """Train a calibrated switching probability model for one crop pair.
+
+    Args:
+        panel: Feature matrix.
+        switching_rates: County-year switching rates.
+        pair: (from_crop, to_crop) tuple.
+
+    Returns:
+        Tuple of (calibrated model, metrics dict).
