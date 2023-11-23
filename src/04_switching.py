@@ -128,3 +128,13 @@ def train_switching_model(
 
     Returns:
         Tuple of (calibrated model, metrics dict).
+    """
+    from_crop, to_crop = pair
+    logger.info(f"Training switching model: {from_crop} → {to_crop}")
+
+    # Build labels
+    data = build_switching_labels(panel, switching_rates, pair)
+
+    if data.empty or data['switched'].sum() == 0:
+        logger.warning(f"No switching events for {from_crop} → {to_crop}")
+        return None, {}
