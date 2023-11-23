@@ -138,3 +138,13 @@ def train_switching_model(
     if data.empty or data['switched'].sum() == 0:
         logger.warning(f"No switching events for {from_crop} → {to_crop}")
         return None, {}
+
+    # Merge with features
+    feature_data = panel[panel['crop'] == from_crop].merge(
+        data[['fips', 'year', 'switched']],
+        on=['fips', 'year'],
+        how='inner'
+    )
+
+    feature_cols = get_switching_features(feature_data, pair)
+    X = feature_data[feature_cols].copy()
