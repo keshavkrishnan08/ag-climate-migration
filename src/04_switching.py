@@ -148,3 +148,13 @@ def train_switching_model(
 
     feature_cols = get_switching_features(feature_data, pair)
     X = feature_data[feature_cols].copy()
+    y = feature_data['switched'].copy()
+    years = feature_data['year'].copy()
+
+    # Temporal split
+    train_mask = years <= CONFIG['temporal']['val_end']
+    test_mask = years > CONFIG['temporal']['val_end']
+
+    X_train, X_test = X[train_mask], X[test_mask]
+    y_train, y_test = y[train_mask], y[test_mask]
+
