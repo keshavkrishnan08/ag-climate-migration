@@ -178,3 +178,13 @@ def train_switching_model(
     base_model.fit(
         X_train, y_train,
         eval_set=[(X_test, y_test)],
+        callbacks=[lgb.log_evaluation(period=0)],
+    )
+
+    # Platt scaling calibration
+    calibrated_model = CalibratedClassifierCV(
+        base_model, method='sigmoid', cv='prefit'
+    )
+    calibrated_model.fit(X_test, y_test)
+
+    # Evaluate
