@@ -168,3 +168,13 @@ def train_switching_model(
         max_depth=5,
         num_leaves=31,
         min_child_samples=20,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        random_state=RANDOM_SEED,
+        verbose=-1,
+        is_unbalance=True,  # Handle class imbalance
+    )
+
+    base_model.fit(
+        X_train, y_train,
+        eval_set=[(X_test, y_test)],
