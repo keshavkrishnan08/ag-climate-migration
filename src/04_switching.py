@@ -198,3 +198,13 @@ def train_switching_model(
         'log_loss': log_loss(y_test, y_prob),
         'n_train': len(X_train),
         'n_test': len(X_test),
+        'positive_rate_train': float(y_train.mean()),
+        'positive_rate_test': float(y_test.mean()),
+    }
+
+    logger.info(f"  AUC-ROC: {metrics['auc_roc']:.3f}, Brier: {metrics['brier_score']:.4f}")
+
+    # CRITICAL: Verify monotonicity in temperature trend
+    if 'gdd_trend_slope' in X_test.columns:
+        verify_temp_monotonicity(calibrated_model, X_test, pair)
+
