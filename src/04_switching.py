@@ -188,3 +188,13 @@ def train_switching_model(
     calibrated_model.fit(X_test, y_test)
 
     # Evaluate
+    y_prob = calibrated_model.predict_proba(X_test)[:, 1]
+
+    metrics = {
+        'pair': f"{from_crop}_to_{to_crop}",
+        'auc_roc': roc_auc_score(y_test, y_prob) if y_test.nunique() > 1 else 0,
+        'avg_precision': average_precision_score(y_test, y_prob) if y_test.nunique() > 1 else 0,
+        'brier_score': brier_score_loss(y_test, y_prob),
+        'log_loss': log_loss(y_test, y_prob),
+        'n_train': len(X_train),
+        'n_test': len(X_test),
