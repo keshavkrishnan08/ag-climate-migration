@@ -158,3 +158,13 @@ def train_switching_model(
     X_train, X_test = X[train_mask], X[test_mask]
     y_train, y_test = y[train_mask], y[test_mask]
 
+    logger.info(f"  Train: n={len(X_train)} (positive rate: {y_train.mean():.3f})")
+    logger.info(f"  Test:  n={len(X_test)} (positive rate: {y_test.mean():.3f})")
+
+    # Train LightGBM classifier
+    base_model = lgb.LGBMClassifier(
+        n_estimators=500,
+        learning_rate=0.05,
+        max_depth=5,
+        num_leaves=31,
+        min_child_samples=20,
