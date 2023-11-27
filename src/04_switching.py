@@ -208,3 +208,13 @@ def train_switching_model(
     if 'gdd_trend_slope' in X_test.columns:
         verify_temp_monotonicity(calibrated_model, X_test, pair)
 
+    return calibrated_model, metrics
+
+
+def verify_temp_monotonicity(
+    model: CalibratedClassifierCV,
+    X: pd.DataFrame,
+    pair: Tuple[str, str]
+) -> bool:
+    """Verify that switching probability is monotone in temperature trend.
+
