@@ -218,3 +218,13 @@ def verify_temp_monotonicity(
 ) -> bool:
     """Verify that switching probability is monotone in temperature trend.
 
+    CRITICAL constraint: hotter counties should be more likely to switch
+    away from heat-sensitive crops.
+
+    Args:
+        model: Calibrated switching model.
+        X: Feature matrix.
+        pair: (from_crop, to_crop) tuple.
+
+    Returns:
+        True if monotonicity holds.
