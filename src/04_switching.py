@@ -238,3 +238,13 @@ def verify_temp_monotonicity(
     # Create synthetic data varying only temperature trend
     X_synth = X.median().to_frame().T
     X_synth = pd.concat([X_synth] * 50, ignore_index=True)
+
+    temp_range = np.linspace(
+        X['gdd_trend_slope'].quantile(0.05),
+        X['gdd_trend_slope'].quantile(0.95),
+        50
+    )
+    X_synth['gdd_trend_slope'] = temp_range
+
+    probs = model.predict_proba(X_synth)[:, 1]
+
