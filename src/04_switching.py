@@ -228,3 +228,13 @@ def verify_temp_monotonicity(
 
     Returns:
         True if monotonicity holds.
+    """
+    from_crop, to_crop = pair
+
+    if 'gdd_trend_slope' not in X.columns:
+        logger.warning("Cannot verify monotonicity — gdd_trend_slope not in features")
+        return True
+
+    # Create synthetic data varying only temperature trend
+    X_synth = X.median().to_frame().T
+    X_synth = pd.concat([X_synth] * 50, ignore_index=True)
