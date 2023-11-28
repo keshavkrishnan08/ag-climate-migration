@@ -248,3 +248,13 @@ def verify_temp_monotonicity(
 
     probs = model.predict_proba(X_synth)[:, 1]
 
+    # Check if probability is generally increasing with temperature
+    correlation = np.corrcoef(temp_range, probs)[0, 1]
+
+    heat_sensitive = {'corn', 'cotton', 'wheat_winter'}
+    if from_crop in heat_sensitive:
+        # Switching AWAY from heat-sensitive crop: should increase with temp
+        monotone = correlation > 0
+        logger.info(f"  Monotonicity ({from_crop}→{to_crop}): corr={correlation:.3f} "
+                    f"{'PASS' if monotone else 'WARN — not monotone'}")
+    else:
