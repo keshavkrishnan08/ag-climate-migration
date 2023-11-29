@@ -278,3 +278,13 @@ def project_switching_probability(
         year: Projection year (2025-2050).
 
     Returns:
+        Dict: {crop_pair: probability_of_switch}.
+    """
+    # Build feature vector for projection year
+    features = county_features.copy()
+
+    # Update climate features from scenario
+    if not temp_scenario.empty:
+        for col in temp_scenario.columns:
+            if col in features.columns:
+                features[col] = temp_scenario[col].values
