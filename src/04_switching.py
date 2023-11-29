@@ -288,3 +288,13 @@ def project_switching_probability(
         for col in temp_scenario.columns:
             if col in features.columns:
                 features[col] = temp_scenario[col].values
+
+    # Predict
+    prob = model.predict_proba(features)[:, 1]
+    return {'probability': float(prob.mean())}
+
+
+# ---------------------------------------------------------------------------
+# Historical validation (PRD Section 12, Fix 5)
+# ---------------------------------------------------------------------------
+def validate_switching_historical() -> dict:
