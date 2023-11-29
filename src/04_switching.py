@@ -308,3 +308,13 @@ def validate_switching_historical() -> dict:
 
     Returns:
         Dict of validation results with pass/fail for each event.
+    """
+    logger.info("=" * 40)
+    logger.info("HISTORICAL SWITCHING VALIDATION")
+    logger.info("=" * 40)
+
+    results = {}
+
+    # Test 1: Soybean adoption 1960-1980 — NEGATIVE TEST
+    # Model trained on 1950-1960 should NOT predict soybean expansion
+    # from climate signals alone (it was technology-driven)
