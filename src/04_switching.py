@@ -268,3 +268,13 @@ def project_switching_probability(
     county_features: pd.DataFrame,
     temp_scenario: pd.DataFrame,
     year: int
+) -> Dict[str, float]:
+    """Project probability of crop switching given climate scenario.
+
+    Args:
+        model: Calibrated switching model.
+        county_features: Fixed county characteristics (soil, farm structure).
+        temp_scenario: Temperature trajectory to projection year.
+        year: Projection year (2025-2050).
+
+    Returns:
