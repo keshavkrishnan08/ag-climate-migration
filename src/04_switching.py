@@ -298,3 +298,13 @@ def project_switching_probability(
 # Historical validation (PRD Section 12, Fix 5)
 # ---------------------------------------------------------------------------
 def validate_switching_historical() -> dict:
+    """Validate switching model against pre-CDL historical events.
+
+    Four validation events using NASS county acreage records from 1950:
+    1. Soybean adoption in Corn Belt (1960-1980) — NEGATIVE TEST
+    2. Sorghum expansion in southern Plains (1950-1975)
+    3. Cotton retreat from Missouri/Tennessee (1980-2010)
+    4. Winter wheat boundary southward shift in Kansas (1990-2010)
+
+    Returns:
+        Dict of validation results with pass/fail for each event.
