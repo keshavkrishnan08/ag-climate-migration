@@ -258,3 +258,13 @@ def verify_temp_monotonicity(
         logger.info(f"  Monotonicity ({from_crop}→{to_crop}): corr={correlation:.3f} "
                     f"{'PASS' if monotone else 'WARN — not monotone'}")
     else:
+        monotone = True  # No constraint for non-heat-sensitive crops
+
+    return monotone
+
+
+def project_switching_probability(
+    model: CalibratedClassifierCV,
+    county_features: pd.DataFrame,
+    temp_scenario: pd.DataFrame,
+    year: int
