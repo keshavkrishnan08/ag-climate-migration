@@ -328,3 +328,13 @@ def validate_switching_historical() -> dict:
     # Test 2: Sorghum expansion 1950-1975
     results['sorghum_positive'] = {
         'event': 'Sorghum expansion in southern Plains 1950-1975',
+        'test_type': 'POSITIVE',
+        'criterion': 'Spearman rank correlation > 0.55 across counties',
+        'passed': None,
+    }
+
+    # Test 3: Cotton retreat 1980-2010
+    results['cotton_positive'] = {
+        'event': 'Cotton retreat from Missouri/Tennessee 1980-2010',
+        'test_type': 'POSITIVE',
+        'criterion': 'Model identifies 70%+ of counties that exited cotton',
