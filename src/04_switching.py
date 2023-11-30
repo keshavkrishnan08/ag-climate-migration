@@ -318,3 +318,13 @@ def validate_switching_historical() -> dict:
     # Test 1: Soybean adoption 1960-1980 — NEGATIVE TEST
     # Model trained on 1950-1960 should NOT predict soybean expansion
     # from climate signals alone (it was technology-driven)
+    results['soybean_negative'] = {
+        'event': 'Soybean adoption in Corn Belt 1960-1980',
+        'test_type': 'NEGATIVE',
+        'criterion': 'Model predicts <10% of actual soybean expansion from climate features',
+        'passed': None,  # Will be filled when data is available
+    }
+
+    # Test 2: Sorghum expansion 1950-1975
+    results['sorghum_positive'] = {
+        'event': 'Sorghum expansion in southern Plains 1950-1975',
