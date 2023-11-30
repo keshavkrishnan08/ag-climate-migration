@@ -338,3 +338,13 @@ def validate_switching_historical() -> dict:
         'event': 'Cotton retreat from Missouri/Tennessee 1980-2010',
         'test_type': 'POSITIVE',
         'criterion': 'Model identifies 70%+ of counties that exited cotton',
+        'passed': None,
+    }
+
+    # Test 4: Winter wheat boundary shift 1990-2010
+    results['wheat_positive'] = {
+        'event': 'Winter wheat boundary southward shift in Kansas 1990-2010',
+        'test_type': 'POSITIVE',
+        'criterion': 'Predicted boundary within 50km of observed NASS boundary',
+        'passed': None,
+    }
