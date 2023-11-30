@@ -378,3 +378,13 @@ def run_switching_models() -> Dict[str, Tuple]:
     panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
     if not panel_path.exists():
         logger.error(f"Feature matrix not found — run Phase 2 first")
+        return {}
+
+    panel = pd.read_parquet(panel_path)
+
+    # Load switching rates (from CDL processing)
+    switching_path = DATA_PROCESSED / 'switching_rates.parquet'
+    if switching_path.exists():
+        switching_rates = pd.read_parquet(switching_path)
+    else:
+        logger.warning("Switching rates not found — using empty DataFrame")
