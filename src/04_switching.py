@@ -358,3 +358,13 @@ def validate_switching_historical() -> dict:
         else:
             logger.info("All 4 historical validation tests PASSED")
 
+    return results
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+def run_switching_models() -> Dict[str, Tuple]:
+    """Train switching models for all crop pairs.
+
+    Returns:
