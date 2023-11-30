@@ -348,3 +348,13 @@ def validate_switching_historical() -> dict:
         'criterion': 'Predicted boundary within 50km of observed NASS boundary',
         'passed': None,
     }
+
+    # All four must pass before projections are credible
+    all_tested = all(r['passed'] is not None for r in results.values())
+    if all_tested:
+        all_passed = all(r['passed'] for r in results.values())
+        if not all_passed:
+            logger.error("Switching model fails historical validation — do not project")
+        else:
+            logger.info("All 4 historical validation tests PASSED")
+
