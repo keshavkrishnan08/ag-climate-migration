@@ -368,3 +368,13 @@ def run_switching_models() -> Dict[str, Tuple]:
     """Train switching models for all crop pairs.
 
     Returns:
+        Dict mapping pair name to (model, metrics) tuple.
+    """
+    logger.info("=" * 60)
+    logger.info("PHASE 3B: CROP SWITCHING MODELS")
+    logger.info("=" * 60)
+
+    # Load data
+    panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
+    if not panel_path.exists():
+        logger.error(f"Feature matrix not found — run Phase 2 first")
