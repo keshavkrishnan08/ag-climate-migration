@@ -388,3 +388,13 @@ def run_switching_models() -> Dict[str, Tuple]:
         switching_rates = pd.read_parquet(switching_path)
     else:
         logger.warning("Switching rates not found — using empty DataFrame")
+        switching_rates = pd.DataFrame()
+
+    # Train models for each pair
+    models = {}
+    for pair in SWITCHING_PAIRS:
+        pair_name = f"{pair[0]}_to_{pair[1]}"
+        model, metrics = train_switching_model(panel, switching_rates, pair)
+        models[pair_name] = (model, metrics)
+
+        # Save model
