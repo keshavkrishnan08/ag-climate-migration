@@ -408,3 +408,11 @@ def run_switching_models() -> Dict[str, Tuple]:
     hist_results = validate_switching_historical()
 
     logger.info("=" * 60)
+    logger.info("PHASE 3B COMPLETE")
+    logger.info("=" * 60)
+
+    return models
+
+
+if __name__ == '__main__':
+    run_switching_models()
