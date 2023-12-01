@@ -398,3 +398,13 @@ def run_switching_models() -> Dict[str, Tuple]:
         models[pair_name] = (model, metrics)
 
         # Save model
+        output_dir = RESULTS_DIR / 'switching_models'
+        output_dir.mkdir(parents=True, exist_ok=True)
+        if model is not None:
+            with open(output_dir / f'{pair_name}_model.pkl', 'wb') as f:
+                pickle.dump(model, f)
+
+    # Historical validation
+    hist_results = validate_switching_historical()
+
+    logger.info("=" * 60)
