@@ -8,3 +8,13 @@ Projects county-level crop yields using:
 Primary scenario: SSP2-4.5 (~RCP 4.5), +1.4-1.8°C by 2050.
 GCM ensemble: 5 CMIP6 models, median + 10-90th percentile uncertainty.
 """
+
+import sys
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+from scipy import stats
+from loguru import logger
+import yaml
+import pickle
