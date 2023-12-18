@@ -38,3 +38,13 @@ def load_trained_models() -> dict:
 
     Returns:
         Dict with 'yield_model' and 'switching_models' keys.
+
+    Raises:
+        FileNotFoundError: If model files don't exist.
+    """
+    results_dirs = sorted(RESULTS_DIR.glob('20*'))
+    if not results_dirs:
+        raise FileNotFoundError("No results directory found — run Phase 3 first")
+
+    models = {}
+
