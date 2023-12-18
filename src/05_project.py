@@ -28,3 +28,13 @@ RESULTS_DIR = PROJECT_ROOT / 'results'
 
 with open(PROJECT_ROOT / 'config.yaml') as f:
     CONFIG = yaml.safe_load(f)
+
+SCENARIOS = CONFIG['climate_scenarios']
+RANDOM_SEED = CONFIG['yield_model']['random_seed']
+
+
+def load_trained_models() -> dict:
+    """Load yield model and switching models from Phase 3.
+
+    Returns:
+        Dict with 'yield_model' and 'switching_models' keys.
