@@ -88,3 +88,13 @@ def project_yields(
       2. Apply climate deltas from CMIP6 projections
       3. Predict yield anomaly with the model
       4. Re-add extrapolated technology trend
+
+    Args:
+        yield_model: Trained LGBMRegressor.
+        climate_proj: County-year climate projections with delta columns.
+        panel: Full feature matrix (training data).
+        scenario: Climate scenario name.
+
+    Returns:
+        DataFrame with projected yields by county-crop-year.
+    """
