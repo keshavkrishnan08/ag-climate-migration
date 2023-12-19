@@ -78,3 +78,13 @@ def project_yields(
     yield_model,
     climate_proj: pd.DataFrame,
     panel: pd.DataFrame,
+    scenario: str
+) -> pd.DataFrame:
+    """Project county-crop yields under a climate scenario.
+
+    Uses the trained LightGBM yield model on modified feature vectors.
+    For each projection year:
+      1. Start from most recent observed features per county-crop
+      2. Apply climate deltas from CMIP6 projections
+      3. Predict yield anomaly with the model
+      4. Re-add extrapolated technology trend
