@@ -48,3 +48,13 @@ def load_trained_models() -> dict:
 
     models = {}
 
+    # Find yield model across results dirs
+    for d in reversed(results_dirs):
+        yield_path = d / 'yield_model.pkl'
+        if yield_path.exists():
+            with open(yield_path, 'rb') as f:
+                models['yield_model'] = pickle.load(f)
+            logger.info(f"Loaded yield model from {yield_path}")
+            break
+
+    switching_dir = RESULTS_DIR / 'switching_models'
