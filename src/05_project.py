@@ -108,3 +108,13 @@ def project_yields(
     # Compute per-crop detrended yield std (for converting z-score anomaly → bu/acre)
     crop_detrended_std = {}
     for crop in crops:
+        cp = panel[panel['crop'] == crop]
+        if cp.empty:
+            continue
+        detrended = cp['yield_bu_acre'] - (
+            cp['yield_trend_intercept'] + cp['yield_trend_slope_15yr'] * cp['year']
+        )
+        crop_detrended_std[crop] = detrended.std()
+    logger.info(f"  Detrended yield std: " +
+                ", ".join(f"{c}={v:.1f}" for c, v in sorted(crop_detrended_std.items())))
+
