@@ -68,3 +68,13 @@ def load_trained_models() -> dict:
 
     return models
 
+
+def _f_to_c(f_val):
+    """Convert Fahrenheit to Celsius."""
+    return (f_val - 32) * 5 / 9
+
+
+def project_yields(
+    yield_model,
+    climate_proj: pd.DataFrame,
+    panel: pd.DataFrame,
