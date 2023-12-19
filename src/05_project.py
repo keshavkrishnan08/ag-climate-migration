@@ -98,3 +98,13 @@ def project_yields(
     Returns:
         DataFrame with projected yields by county-crop-year.
     """
+    logger.info(f"Projecting yields under {scenario}...")
+
+    crops = CONFIG['crops']['primary']
+
+    # Get model feature names
+    feature_cols = yield_model.feature_name_
+
+    # Compute per-crop detrended yield std (for converting z-score anomaly → bu/acre)
+    crop_detrended_std = {}
+    for crop in crops:
