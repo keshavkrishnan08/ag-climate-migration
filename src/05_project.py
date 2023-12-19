@@ -58,3 +58,13 @@ def load_trained_models() -> dict:
             break
 
     switching_dir = RESULTS_DIR / 'switching_models'
+    if switching_dir.exists():
+        models['switching_models'] = {}
+        for pkl_file in switching_dir.glob('*_model.pkl'):
+            pair_name = pkl_file.stem.replace('_model', '')
+            with open(pkl_file, 'rb') as f:
+                models['switching_models'][pair_name] = pickle.load(f)
+        logger.info(f"Loaded {len(models['switching_models'])} switching models")
+
+    return models
+
