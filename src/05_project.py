@@ -128,3 +128,13 @@ def project_yields(
     for c in crops:
         col = f'crop_{c}'
         if col not in baseline.columns:
+            baseline[col] = (baseline['crop'] == c).astype(float)
+
+    # Check climate projection columns exist
+    has_deltas = 'delta_tmax_july' in climate_proj.columns
+
+    all_projections = []
+    projection_years = sorted(climate_proj['year'].unique())
+
+    for year in projection_years:
+        year_climate = climate_proj[climate_proj['year'] == year].set_index('fips')
