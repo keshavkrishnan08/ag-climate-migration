@@ -138,3 +138,13 @@ def project_yields(
 
     for year in projection_years:
         year_climate = climate_proj[climate_proj['year'] == year].set_index('fips')
+        years_ahead = year - max_year
+
+        for crop in crops:
+            crop_base = baseline[baseline['crop'] == crop].copy()
+            if crop_base.empty:
+                continue
+
+            # Merge with climate projections
+            merged = crop_base.set_index('fips')
+
