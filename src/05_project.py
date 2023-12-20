@@ -118,3 +118,13 @@ def project_yields(
     logger.info(f"  Detrended yield std: " +
                 ", ".join(f"{c}={v:.1f}" for c, v in sorted(crop_detrended_std.items())))
 
+    # Build baseline: most recent year per county-crop
+    max_year = panel['year'].max()
+    recent_years = panel[panel['year'] >= max_year - 2]
+    baseline = recent_years.groupby(['fips', 'crop'], as_index=False).agg('last')
+    logger.info(f"  Baseline: {len(baseline)} county-crop pairs (year={max_year})")
+
+    # One-hot encode crop in baseline
+    for c in crops:
+        col = f'crop_{c}'
+        if col not in baseline.columns:
