@@ -148,3 +148,13 @@ def project_yields(
             # Merge with climate projections
             merged = crop_base.set_index('fips')
 
+            # Apply climate deltas to features
+            if has_deltas:
+                # Get deltas for counties in this crop
+                common_fips = merged.index.intersection(year_climate.index)
+                if len(common_fips) == 0:
+                    continue
+                merged = merged.loc[common_fips].copy()
+                deltas = year_climate.loc[common_fips]
+
+                # Climate is in °F, model features in °C
