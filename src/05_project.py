@@ -158,3 +158,13 @@ def project_yields(
                 deltas = year_climate.loc[common_fips]
 
                 # Climate is in °F, model features in °C
+                # delta_tmax in °F → ΔC = Δ°F × 5/9
+                delta_tmax_c = deltas['delta_tmax_july'] * 5 / 9
+                delta_tmax_grow_c = deltas['delta_tmax_growing'] * 5 / 9
+                delta_tmin_grow_c = deltas.get('delta_tmin_growing', 0) * 5 / 9
+                delta_precip = deltas['delta_precip_growing']
+
+                # Update climate features with deltas
+                merged['tmax_july_c'] = merged['tmax_july_c'] + delta_tmax_c
+                merged['tmax_growing_c'] = merged['tmax_growing_c'] + delta_tmax_grow_c
+                merged['tmin_growing_c'] = merged['tmin_growing_c'] + delta_tmin_grow_c
