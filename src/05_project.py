@@ -168,3 +168,13 @@ def project_yields(
                 merged['tmax_july_c'] = merged['tmax_july_c'] + delta_tmax_c
                 merged['tmax_growing_c'] = merged['tmax_growing_c'] + delta_tmax_grow_c
                 merged['tmin_growing_c'] = merged['tmin_growing_c'] + delta_tmin_grow_c
+                merged['precip_growing'] = merged['precip_growing'] + delta_precip
+
+                # Update trend features (warming rate accelerates)
+                merged['tmax_july_c_trend10'] = merged['tmax_july_c_trend10'] + delta_tmax_c * 0.1
+                merged['tmax_july_c_anomaly'] = delta_tmax_c  # anomaly = departure from baseline
+
+                # CDD increases with warming (rough: +100 CDD per °C warming)
+                merged['cdd_annual'] = merged['cdd_annual'] + delta_tmax_c * 100
+
+                # GDD adjustments (warming shifts GDD accumulation)
