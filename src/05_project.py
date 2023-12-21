@@ -218,3 +218,13 @@ def project_yields(
                         merged['tmax_july_c_anomaly'] * (-merged['pdsi_growing_anomaly'])
                     )
                 if 'heat_x_precip' in merged.columns:
+                    merged['heat_x_precip'] = (
+                        merged['tmax_july_c_anomaly'] * (-merged['precip_growing_anomaly'])
+                    )
+                if 'extreme_compound' in merged.columns:
+                    merged['extreme_compound'] = (
+                        (merged['tmax_july_c_anomaly'] > 1.0) &
+                        (merged['pdsi_growing_anomaly'] < -1.0)
+                    ).astype(float)
+                if 'tmax_july_sq' in merged.columns:
+                    merged['tmax_july_sq'] = merged['tmax_july_c_anomaly'] ** 2
