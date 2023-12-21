@@ -188,3 +188,13 @@ def project_yields(
 
                 # Update precip anomaly (relative to baseline)
                 if 'precip_growing_anomaly' in merged.columns:
+                    merged['precip_growing_anomaly'] = merged['precip_growing_anomaly'] + delta_precip
+
+                # Update monthly-derived features if v2 model expects them
+                # tmax_peak_c increases with July warming
+                if 'tmax_peak_c' in merged.columns:
+                    merged['tmax_peak_c'] = merged['tmax_peak_c'] + delta_tmax_c
+                if 'tmax_peak_c_anomaly' in merged.columns:
+                    merged['tmax_peak_c_anomaly'] = merged['tmax_peak_c_anomaly'] + delta_tmax_c
+                # precip_jja decreases with precip reduction
+                if 'precip_jja' in merged.columns:
