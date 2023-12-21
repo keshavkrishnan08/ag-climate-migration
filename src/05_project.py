@@ -198,3 +198,13 @@ def project_yields(
                     merged['tmax_peak_c_anomaly'] = merged['tmax_peak_c_anomaly'] + delta_tmax_c
                 # precip_jja decreases with precip reduction
                 if 'precip_jja' in merged.columns:
+                    merged['precip_jja'] = merged['precip_jja'] + delta_precip * 0.5  # JJA is ~half growing season
+                if 'precip_jja_anomaly' in merged.columns:
+                    merged['precip_jja_anomaly'] = merged['precip_jja_anomaly'] + delta_precip * 0.5
+                # PDSI worsens with heat + drying (rough: -0.5 per °C warming)
+                if 'pdsi_peak_drought' in merged.columns:
+                    merged['pdsi_peak_drought'] = merged['pdsi_peak_drought'] - delta_tmax_c * 0.5
+                if 'pdsi_peak_drought_anomaly' in merged.columns:
+                    merged['pdsi_peak_drought_anomaly'] = merged['pdsi_peak_drought_anomaly'] - delta_tmax_c * 0.5
+                # EDD months increase with warming (~0.3 months per °C in crop belt)
+                if 'edd_months_c' in merged.columns:
