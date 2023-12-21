@@ -208,3 +208,13 @@ def project_yields(
                     merged['pdsi_peak_drought_anomaly'] = merged['pdsi_peak_drought_anomaly'] - delta_tmax_c * 0.5
                 # EDD months increase with warming (~0.3 months per °C in crop belt)
                 if 'edd_months_c' in merged.columns:
+                    merged['edd_months_c'] = np.maximum(0, merged['edd_months_c'] + delta_tmax_c * 0.3)
+                if 'edd_months_c_anomaly' in merged.columns:
+                    merged['edd_months_c_anomaly'] = merged['edd_months_c_anomaly'] + delta_tmax_c * 0.3
+
+                # Recalculate compound interaction features from updated climate state
+                if 'heat_x_drought' in merged.columns:
+                    merged['heat_x_drought'] = (
+                        merged['tmax_july_c_anomaly'] * (-merged['pdsi_growing_anomaly'])
+                    )
+                if 'heat_x_precip' in merged.columns:
