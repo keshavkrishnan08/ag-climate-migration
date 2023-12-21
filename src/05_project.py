@@ -178,3 +178,13 @@ def project_yields(
                 merged['cdd_annual'] = merged['cdd_annual'] + delta_tmax_c * 100
 
                 # GDD adjustments (warming shifts GDD accumulation)
+                for gdd_crop in crops:
+                    gdd_col = f'gdd_{gdd_crop}'
+                    if gdd_col in merged.columns:
+                        merged[gdd_col] = merged[gdd_col] + delta_tmax_grow_c * 50
+
+                # More extreme heat months with warming
+                merged['extreme_heat_months'] = merged['extreme_heat_months'] + np.maximum(delta_tmax_c * 0.5, 0)
+
+                # Update precip anomaly (relative to baseline)
+                if 'precip_growing_anomaly' in merged.columns:
