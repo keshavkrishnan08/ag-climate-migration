@@ -248,3 +248,13 @@ def project_yields(
             # Also predict baseline anomaly (what model says under current climate)
             X_baseline = crop_base.set_index('fips').loc[common_fips].copy()
             # One-hot encode crop for baseline too
+            for c_name in crops:
+                col = f'crop_{c_name}'
+                if col not in X_baseline.columns:
+                    X_baseline[col] = (crop == c_name) * 1.0
+            X_base_feat = X_baseline.reindex(columns=feature_cols).fillna(0)
+            baseline_anomaly = yield_model.predict(X_base_feat)
+
+            # Climate impact = difference between projected and baseline anomaly
+            # This isolates the pure climate-driven shift
+            anomaly_delta = pred_anomaly - baseline_anomaly
