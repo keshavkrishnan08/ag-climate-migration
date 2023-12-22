@@ -258,3 +258,13 @@ def project_yields(
             # Climate impact = difference between projected and baseline anomaly
             # This isolates the pure climate-driven shift
             anomaly_delta = pred_anomaly - baseline_anomaly
+
+            # Convert z-score delta to bu/acre using per-crop detrended std
+            detrended_std = crop_detrended_std.get(crop, 15.0)
+            climate_impact = anomaly_delta * detrended_std
+
+            # Final projected yield = technology trend + climate impact
+            yield_projected = tech_yield + climate_impact
+
+            # Uncertainty from GCM spread
+            if 'tmax_july_p10' in year_climate.columns and 'tmax_july_p90' in year_climate.columns:
