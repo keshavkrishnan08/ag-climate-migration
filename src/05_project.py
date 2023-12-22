@@ -238,3 +238,13 @@ def project_yields(
             tech_yield = np.maximum(tech_yield, 0)
 
             # Prepare features for model prediction
+            X = merged.reindex(columns=feature_cols)
+            # Fill any missing columns with 0
+            X = X.fillna(0)
+
+            # Predict yield anomaly (z-score)
+            pred_anomaly = yield_model.predict(X)
+
+            # Also predict baseline anomaly (what model says under current climate)
+            X_baseline = crop_base.set_index('fips').loc[common_fips].copy()
+            # One-hot encode crop for baseline too
