@@ -228,3 +228,13 @@ def project_yields(
                     ).astype(float)
                 if 'tmax_july_sq' in merged.columns:
                     merged['tmax_july_sq'] = merged['tmax_july_c_anomaly'] ** 2
+                if 'edd_x_pdsi' in merged.columns:
+                    merged['edd_x_pdsi'] = (
+                        merged.get('edd_months_c', 0) * (-merged.get('pdsi_peak_drought', 0))
+                    )
+
+            # Extrapolate technology trend
+            tech_yield = merged['yield_bu_acre'] + merged['yield_trend_slope_15yr'] * years_ahead
+            tech_yield = np.maximum(tech_yield, 0)
+
+            # Prepare features for model prediction
