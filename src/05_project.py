@@ -278,3 +278,13 @@ def project_yields(
                 'fips': common_fips,
                 'year': year,
                 'crop': crop,
+                'scenario': scenario,
+                'yield_projected': np.asarray(yield_projected),
+                'yield_baseline': np.asarray(merged['yield_bu_acre']),
+                'yield_tech_trend': np.asarray(tech_yield),
+                'climate_impact_bu': np.asarray(climate_impact),
+                'yield_p10': np.asarray(yield_projected * (1 - uncertainty_pct)),
+                'yield_p90': np.asarray(yield_projected * (1 + uncertainty_pct)),
+                'acres_harvested': np.asarray(merged['acres_harvested']),
+            })
+            all_projections.append(result_df)
