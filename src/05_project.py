@@ -288,3 +288,13 @@ def project_yields(
                 'acres_harvested': np.asarray(merged['acres_harvested']),
             })
             all_projections.append(result_df)
+
+    result = pd.concat(all_projections, ignore_index=True) if all_projections else pd.DataFrame()
+    logger.info(f"  {scenario}: {len(result)} county-crop-year projections "
+                f"({result['fips'].nunique() if not result.empty else 0} counties)")
+    return result
+
+
+def project_switching(
+    switching_models: dict,
+    climate_proj: pd.DataFrame,
