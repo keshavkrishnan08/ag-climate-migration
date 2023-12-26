@@ -318,3 +318,13 @@ def project_switching(
     max_year = panel['year'].max()
     recent = panel[panel['year'] >= max_year - 2]
     baseline = recent.groupby(['fips', 'crop'], as_index=False).agg('last')
+
+    # One-hot encode crop
+    for c in crops:
+        col = f'crop_{c}'
+        if col not in baseline.columns:
+            baseline[col] = (baseline['crop'] == c).astype(float)
+
+    all_projections = []
+    projection_years = sorted(climate_proj['year'].unique())
+    # Sample every 5 years for switching (it's slow)
