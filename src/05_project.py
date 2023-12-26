@@ -308,3 +308,13 @@ def project_switching(
         climate_proj: Projected climate data.
         panel: Feature matrix.
         scenario: Climate scenario name.
+
+    Returns:
+        DataFrame with switching probabilities by county-pair-year.
+    """
+    logger.info(f"Projecting crop switching under {scenario}...")
+
+    crops = CONFIG['crops']['primary']
+    max_year = panel['year'].max()
+    recent = panel[panel['year'] >= max_year - 2]
+    baseline = recent.groupby(['fips', 'crop'], as_index=False).agg('last')
