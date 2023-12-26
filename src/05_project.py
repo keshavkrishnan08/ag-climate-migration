@@ -298,3 +298,13 @@ def project_yields(
 def project_switching(
     switching_models: dict,
     climate_proj: pd.DataFrame,
+    panel: pd.DataFrame,
+    scenario: str
+) -> pd.DataFrame:
+    """Project crop switching probabilities under a climate scenario.
+
+    Args:
+        switching_models: Dict of trained switching models.
+        climate_proj: Projected climate data.
+        panel: Feature matrix.
+        scenario: Climate scenario name.
