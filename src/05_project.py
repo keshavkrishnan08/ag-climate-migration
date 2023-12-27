@@ -338,3 +338,13 @@ def project_switching(
         crop_data = baseline[baseline['crop'] == from_crop].copy()
         if crop_data.empty:
             continue
+
+        # Get features the switching model expects (28 features, no crop dummies)
+        exclude = {'fips', 'year', 'crop', 'yield_bu_acre', 'yield_anomaly',
+                    'acres_harvested', 'production', 'switched'}
+        # Also exclude crop dummies — switching models were trained without them
+        exclude.update({f'crop_{c}' for c in crops})
+        feature_cols = [c for c in crop_data.columns
+                        if c not in exclude and crop_data[c].dtype in ('float64', 'float32', 'int64')]
+
+        for year in sample_years:
