@@ -348,3 +348,13 @@ def project_switching(
                         if c not in exclude and crop_data[c].dtype in ('float64', 'float32', 'int64')]
 
         for year in sample_years:
+            year_climate = climate_proj[climate_proj['year'] == year].set_index('fips')
+
+            features = crop_data.set_index('fips').copy()
+            common_fips = features.index.intersection(year_climate.index)
+            if len(common_fips) == 0:
+                continue
+            features = features.loc[common_fips]
+
+            # Apply warming deltas
+            if 'delta_tmax_july' in year_climate.columns:
