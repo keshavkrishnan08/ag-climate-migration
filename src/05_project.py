@@ -328,3 +328,13 @@ def project_switching(
     all_projections = []
     projection_years = sorted(climate_proj['year'].unique())
     # Sample every 5 years for switching (it's slow)
+    sample_years = [y for y in projection_years if y % 5 == 0 or y == projection_years[-1]]
+
+    for pair_name, model in switching_models.items():
+        if model is None:
+            continue
+
+        from_crop, to_crop = pair_name.split('_to_')
+        crop_data = baseline[baseline['crop'] == from_crop].copy()
+        if crop_data.empty:
+            continue
