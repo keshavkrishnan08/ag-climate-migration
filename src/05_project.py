@@ -358,3 +358,13 @@ def project_switching(
 
             # Apply warming deltas
             if 'delta_tmax_july' in year_climate.columns:
+                delta_c = year_climate.loc[common_fips, 'delta_tmax_july'] * 5 / 9
+                features['tmax_july_c'] = features['tmax_july_c'] + delta_c
+                features['tmax_july_c_trend10'] = features['tmax_july_c_trend10'] + delta_c * 0.1
+
+            X = features[feature_cols].fillna(0)
+
+            try:
+                probs = model.predict_proba(X)[:, 1]
+            except Exception:
+                probs = np.zeros(len(X))
