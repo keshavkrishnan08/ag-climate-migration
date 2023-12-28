@@ -398,3 +398,13 @@ def validate_hindcast(
         test_start: Start of hindcast period.
         test_end: End of hindcast period.
 
+    Returns:
+        Dict of hindcast validation metrics.
+    """
+    logger.info("=" * 40)
+    logger.info("HINDCAST VALIDATION 2013-2023")
+    logger.info("=" * 40)
+
+    crops_list = CONFIG['crops']['primary']
+    test = panel[(panel['year'] >= test_start) & (panel['year'] <= test_end)].copy()
+
