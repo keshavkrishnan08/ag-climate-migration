@@ -408,3 +408,13 @@ def validate_hindcast(
     crops_list = CONFIG['crops']['primary']
     test = panel[(panel['year'] >= test_start) & (panel['year'] <= test_end)].copy()
 
+    # One-hot encode crop
+    for c in crops_list:
+        col = f'crop_{c}'
+        if col not in test.columns:
+            test[col] = (test['crop'] == c).astype(float)
+
+    feature_cols = yield_model.feature_name_
+
+    results = {}
+    for crop in test['crop'].unique():
