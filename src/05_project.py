@@ -368,3 +368,13 @@ def project_switching(
                 probs = model.predict_proba(X)[:, 1]
             except Exception:
                 probs = np.zeros(len(X))
+
+            result_df = pd.DataFrame({
+                'fips': common_fips,
+                'year': year,
+                'from_crop': from_crop,
+                'to_crop': to_crop,
+                'scenario': scenario,
+                'switch_probability': probs,
+            })
+            all_projections.append(result_df)
