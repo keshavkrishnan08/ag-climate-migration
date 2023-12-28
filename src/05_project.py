@@ -418,3 +418,13 @@ def validate_hindcast(
 
     results = {}
     for crop in test['crop'].unique():
+        crop_data = test[test['crop'] == crop].copy()
+        if len(crop_data) < 10:
+            continue
+
+        X = crop_data.reindex(columns=feature_cols).fillna(0)
+        y_true = crop_data['yield_anomaly'].values
+
+        y_pred = yield_model.predict(X)
+
+        rmse = np.sqrt(np.mean((y_true - y_pred) ** 2))
