@@ -388,3 +388,13 @@ def validate_hindcast(
     yield_model,
     panel: pd.DataFrame,
     test_start: int = 2013,
+    test_end: int = 2023
+) -> dict:
+    """Validate model by hindcasting 2013-2023 period.
+
+    Args:
+        yield_model: Trained yield model.
+        panel: Feature matrix including test period.
+        test_start: Start of hindcast period.
+        test_end: End of hindcast period.
+
