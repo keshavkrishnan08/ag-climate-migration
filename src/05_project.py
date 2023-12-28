@@ -438,3 +438,13 @@ def validate_hindcast(
         logger.info(f"  {crop:15s}  RMSE={rmse:.3f}  Spearman={spearman_r:.3f}  n={len(crop_data)}")
 
     # 2012 drought test
+    drought_2012 = panel[(panel['year'] == 2012) & (panel['crop'] == 'corn')].copy()
+    if not drought_2012.empty:
+        # Add crop dummies BEFORE reindex so they get correct values (not filled with 0)
+        for c in crops_list:
+            drought_2012[f'crop_{c}'] = (drought_2012['crop'] == c).astype(float)
+        X_drought = drought_2012.reindex(columns=feature_cols).fillna(0)
+        drought_pred = yield_model.predict(X_drought)
+        acres_2012 = drought_2012['acres_harvested'].fillna(1).values
+        import numpy as _np
+        weighted_pred = float(_np.average(drought_pred, weights=acres_2012))
