@@ -378,3 +378,13 @@ def project_switching(
                 'switch_probability': probs,
             })
             all_projections.append(result_df)
+
+    result = pd.concat(all_projections, ignore_index=True) if all_projections else pd.DataFrame()
+    logger.info(f"  {scenario}: {len(result)} switching projections")
+    return result
+
+
+def validate_hindcast(
+    yield_model,
+    panel: pd.DataFrame,
+    test_start: int = 2013,
