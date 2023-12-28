@@ -428,3 +428,13 @@ def validate_hindcast(
         y_pred = yield_model.predict(X)
 
         rmse = np.sqrt(np.mean((y_true - y_pred) ** 2))
+        spearman_r, _ = stats.spearmanr(y_true, y_pred)
+
+        results[crop] = {
+            'n_obs': len(crop_data),
+            'rmse': float(rmse),
+            'spearman_rank': float(spearman_r),
+        }
+        logger.info(f"  {crop:15s}  RMSE={rmse:.3f}  Spearman={spearman_r:.3f}  n={len(crop_data)}")
+
+    # 2012 drought test
