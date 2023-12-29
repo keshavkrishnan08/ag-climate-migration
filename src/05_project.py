@@ -488,3 +488,13 @@ def run_projections() -> dict:
     # Load feature matrix
     panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
     panel = pd.read_parquet(panel_path)
+    logger.info(f"Loaded panel: {len(panel)} rows, {panel['fips'].nunique()} counties")
+
+    # If the yield model expects v2 interaction features, add them to the panel.
+    # This is safe: if the model doesn't use a feature, LightGBM ignores it.
+    yield_model = models['yield_model']
+    model_features = set(yield_model.feature_name_) if hasattr(yield_model, 'feature_name_') else set()
+    if 'heat_x_drought' in model_features:
+        logger.info("v2 model detected — enriching panel with compound drought features")
+        panel['fips'] = panel['fips'].astype(str)
+
