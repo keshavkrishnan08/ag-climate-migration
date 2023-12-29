@@ -448,3 +448,13 @@ def validate_hindcast(
         acres_2012 = drought_2012['acres_harvested'].fillna(1).values
         import numpy as _np
         weighted_pred = float(_np.average(drought_pred, weights=acres_2012))
+        logger.info(f"  2012 drought: mean={drought_pred.mean():.3f}σ, "
+                    f"acreage-weighted={weighted_pred:.3f}σ "
+                    f"(observed: {drought_2012['yield_anomaly'].mean():.3f}σ)")
+        results['drought_2012'] = {
+            'mean_predicted_anomaly': float(drought_pred.mean()),
+            'weighted_predicted_anomaly': weighted_pred,
+            'observed_anomaly': float(drought_2012['yield_anomaly'].mean()),
+            'passed': drought_pred.mean() < -0.5,
+        }
+
