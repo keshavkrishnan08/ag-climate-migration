@@ -458,3 +458,13 @@ def validate_hindcast(
             'passed': drought_pred.mean() < -0.5,
         }
 
+    return results
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+def run_projections() -> dict:
+    """Execute full projection pipeline under all scenarios.
+
+    Returns:
