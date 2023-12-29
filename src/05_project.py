@@ -478,3 +478,13 @@ def run_projections() -> dict:
     try:
         models = load_trained_models()
     except FileNotFoundError as e:
+        logger.error(str(e))
+        return {}
+
+    if 'yield_model' not in models:
+        logger.error("No yield model found — run Phase 3 first")
+        return {}
+
+    # Load feature matrix
+    panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
+    panel = pd.read_parquet(panel_path)
