@@ -468,3 +468,13 @@ def run_projections() -> dict:
     """Execute full projection pipeline under all scenarios.
 
     Returns:
+        Dict with yield and switching projections for all scenarios.
+    """
+    logger.info("=" * 60)
+    logger.info("PHASE 4: CLIMATE PROJECTIONS 2025-2050")
+    logger.info("=" * 60)
+
+    # Load models
+    try:
+        models = load_trained_models()
+    except FileNotFoundError as e:
