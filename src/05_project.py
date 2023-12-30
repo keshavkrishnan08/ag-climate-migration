@@ -508,3 +508,13 @@ def run_projections() -> dict:
             monthly['precip_jja'] = monthly[['precip_m06', 'precip_m07', 'precip_m08']].sum(axis=1)
             monthly['pdsi_peak_drought'] = monthly[['pdsi_m06', 'pdsi_m07', 'pdsi_m08']].min(axis=1)
             monthly['edd_months_c'] = (
+                monthly[['tmax_m06_c', 'tmax_m07_c', 'tmax_m08_c']] > 33.5
+            ).sum(axis=1).astype(float)
+            monthly_feats = monthly[['fips', 'year', 'tmax_peak_c', 'precip_jja',
+                                     'pdsi_peak_drought', 'edd_months_c']].copy()
+            monthly_feats['fips'] = monthly_feats['fips'].astype(str)
+            panel = panel.merge(monthly_feats, on=['fips', 'year'], how='left')
+            for col in ['tmax_peak_c', 'precip_jja', 'pdsi_peak_drought', 'edd_months_c']:
+                county_mean = panel.groupby('fips')[col].transform('mean')
+                panel[f'{col}_anomaly'] = panel[col] - county_mean
+            panel['edd_x_pdsi'] = panel['edd_months_c'] * (-panel['pdsi_peak_drought'])
