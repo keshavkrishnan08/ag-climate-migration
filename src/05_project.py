@@ -498,3 +498,13 @@ def run_projections() -> dict:
         logger.info("v2 model detected — enriching panel with compound drought features")
         panel['fips'] = panel['fips'].astype(str)
 
+        # Monthly climate features for compound drought interactions
+        monthly_path = DATA_RAW / 'prism' / 'county_climate_monthly.parquet'
+        if monthly_path.exists():
+            monthly = pd.read_parquet(monthly_path)
+            for m in ['05', '06', '07', '08']:
+                monthly[f'tmax_m{m}_c'] = (monthly[f'tmax_m{m}'] - 32) * 5 / 9
+            monthly['tmax_peak_c'] = monthly[['tmax_m06_c', 'tmax_m07_c', 'tmax_m08_c']].max(axis=1)
+            monthly['precip_jja'] = monthly[['precip_m06', 'precip_m07', 'precip_m08']].sum(axis=1)
+            monthly['pdsi_peak_drought'] = monthly[['pdsi_m06', 'pdsi_m07', 'pdsi_m08']].min(axis=1)
+            monthly['edd_months_c'] = (
