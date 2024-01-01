@@ -528,3 +528,13 @@ def run_projections() -> dict:
         panel['tmax_july_sq'] = panel['tmax_july_c_anomaly'] ** 2
         precip_baseline = panel.groupby(['fips', 'crop'])['precip_growing'].transform('mean')
         panel['precip_deficit'] = (precip_baseline - panel['precip_growing']).clip(lower=0)
+
+        logger.info("Compound drought features added to panel")
+
+    # Load pre-computed CMIP6 county climate projections
+    climate_path = PROJECTIONS_DIR / 'county_climate_projections.parquet'
+    if not climate_path.exists():
+        logger.error("County climate projections not found — run build_county_climate_projections.py first")
+        return {}
+
+    climate_proj = pd.read_parquet(climate_path)
