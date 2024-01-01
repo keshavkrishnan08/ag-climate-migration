@@ -538,3 +538,13 @@ def run_projections() -> dict:
         return {}
 
     climate_proj = pd.read_parquet(climate_path)
+    logger.info(f"Loaded climate projections: {len(climate_proj)} rows, "
+                f"{climate_proj['year'].min()}-{climate_proj['year'].max()}")
+
+    PROJECTIONS_DIR.mkdir(parents=True, exist_ok=True)
+    all_projections = {}
+
+    for scenario in SCENARIOS:
+        logger.info(f"\n{'=' * 40}")
+        logger.info(f"SCENARIO: {scenario}")
+        logger.info(f"{'=' * 40}")
