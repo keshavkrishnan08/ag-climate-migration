@@ -608,3 +608,13 @@ def run_projections() -> dict:
 
     logger.info("=" * 60)
     logger.info("PHASE 4 COMPLETE")
+    logger.info("=" * 60)
+
+    return all_projections
+
+
+def _update_pipeline_state(projections: dict):
+    """Update pipeline_state.json with A4 results."""
+    import json
+    state_path = PROJECT_ROOT / 'state' / 'pipeline_state.json'
+    if state_path.exists():
