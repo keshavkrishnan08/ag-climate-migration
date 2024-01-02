@@ -568,3 +568,13 @@ def run_projections() -> dict:
             panel,
             scenario
         )
+
+        # Project switching
+        switching_proj = project_switching(
+            models.get('switching_models', {}),
+            scenario_climate,
+            panel,
+            scenario
+        )
+
+        # Save
