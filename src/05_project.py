@@ -548,3 +548,13 @@ def run_projections() -> dict:
         logger.info(f"\n{'=' * 40}")
         logger.info(f"SCENARIO: {scenario}")
         logger.info(f"{'=' * 40}")
+
+        # Filter climate for this scenario
+        scenario_climate = climate_proj[climate_proj['scenario'] == scenario]
+        if scenario_climate.empty:
+            # Try mapping scenario names
+            mapping = {'SSP245': 'SSP245', 'RCP45': 'SSP245', 'SSP126': 'SSP126', 'SSP585': 'SSP585'}
+            alt = mapping.get(scenario, scenario)
+            scenario_climate = climate_proj[climate_proj['scenario'] == alt]
+
+        if scenario_climate.empty:
