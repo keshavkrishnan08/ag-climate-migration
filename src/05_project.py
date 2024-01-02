@@ -558,3 +558,13 @@ def run_projections() -> dict:
             scenario_climate = climate_proj[climate_proj['scenario'] == alt]
 
         if scenario_climate.empty:
+            logger.warning(f"No climate data for {scenario} — skipping")
+            continue
+
+        # Project yields
+        yield_proj = project_yields(
+            models['yield_model'],
+            scenario_climate,
+            panel,
+            scenario
+        )
