@@ -598,3 +598,13 @@ def run_projections() -> dict:
             decline_pct = (yield_proj['climate_impact_bu'] < 0).mean() * 100
             logger.info(f"  Mean climate impact: {mean_impact:+.2f} bu/acre")
             logger.info(f"  Counties with decline: {decline_pct:.0f}%")
+
+    # Hindcast validation
+    hindcast = validate_hindcast(models['yield_model'], panel)
+    all_projections['hindcast_validation'] = hindcast
+
+    # Update pipeline state
+    _update_pipeline_state(all_projections)
+
+    logger.info("=" * 60)
+    logger.info("PHASE 4 COMPLETE")
