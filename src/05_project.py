@@ -588,3 +588,13 @@ def run_projections() -> dict:
             )
 
         all_projections[scenario] = {
+            'yields': yield_proj,
+            'switching': switching_proj,
+        }
+
+        # Summary
+        if not yield_proj.empty:
+            mean_impact = yield_proj['climate_impact_bu'].mean()
+            decline_pct = (yield_proj['climate_impact_bu'] < 0).mean() * 100
+            logger.info(f"  Mean climate impact: {mean_impact:+.2f} bu/acre")
+            logger.info(f"  Counties with decline: {decline_pct:.0f}%")
