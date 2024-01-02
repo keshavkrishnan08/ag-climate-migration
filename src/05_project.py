@@ -578,3 +578,13 @@ def run_projections() -> dict:
         )
 
         # Save
+        if not yield_proj.empty:
+            yield_proj.to_parquet(
+                PROJECTIONS_DIR / f'yield_projections_{scenario}.parquet', index=False
+            )
+        if not switching_proj.empty:
+            switching_proj.to_parquet(
+                PROJECTIONS_DIR / f'switching_projections_{scenario}.parquet', index=False
+            )
+
+        all_projections[scenario] = {
