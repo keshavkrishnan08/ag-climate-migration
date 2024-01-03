@@ -618,3 +618,13 @@ def _update_pipeline_state(projections: dict):
     import json
     state_path = PROJECT_ROOT / 'state' / 'pipeline_state.json'
     if state_path.exists():
+        with open(state_path) as f:
+            state = json.load(f)
+    else:
+        state = {'phases': {}}
+
+    hindcast = projections.get('hindcast_validation', {})
+    scenarios_done = [k for k in projections if k != 'hindcast_validation']
+
+    state['phases']['A4'] = {
+        'status': 'DONE',
