@@ -638,3 +638,9 @@ def _update_pipeline_state(projections: dict):
         'note': 'All 4 switching pairs trained successfully'
     }
 
+    with open(state_path, 'w') as f:
+        json.dump(state, f, indent=2, default=str)
+
+
+if __name__ == '__main__':
+    run_projections()
