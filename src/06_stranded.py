@@ -18,3 +18,13 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from loguru import logger
+import yaml
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT / 'src'))
+DATA_RAW = PROJECT_ROOT / 'data' / 'raw'
+PROJECTIONS_DIR = PROJECT_ROOT / 'data' / 'projections'
+RESULTS_DIR = PROJECT_ROOT / 'results'
+
+with open(PROJECT_ROOT / 'config.yaml') as f:
