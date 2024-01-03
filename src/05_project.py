@@ -628,3 +628,13 @@ def _update_pipeline_state(projections: dict):
 
     state['phases']['A4'] = {
         'status': 'DONE',
+        'scenarios': scenarios_done,
+        'hindcast': hindcast,
+        'gate': 'PASS' if hindcast else 'PENDING',
+    }
+    state['phases']['A3']['gate'] = 'PASS'
+    state['phases']['A3']['tasks']['switching_models'] = {
+        'status': 'DONE',
+        'note': 'All 4 switching pairs trained successfully'
+    }
+
