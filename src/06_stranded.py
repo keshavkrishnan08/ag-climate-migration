@@ -28,3 +28,13 @@ PROJECTIONS_DIR = PROJECT_ROOT / 'data' / 'projections'
 RESULTS_DIR = PROJECT_ROOT / 'results'
 
 with open(PROJECT_ROOT / 'config.yaml') as f:
+    CONFIG = yaml.safe_load(f)
+
+COMMODITY_PRICES = {
+    'corn': 5.50, 'soybeans': 12.80, 'wheat_winter': 7.20,
+    'wheat_spring': 8.10, 'cotton': 0.78, 'sorghum': 5.30,
+    'barley': 6.10, 'oats': 3.80,
+}
+
+# Schlenker-Roberts (2009) temperature thresholds (°C)
+SR_THRESHOLD_MODERATE = 29.0   # yield response accelerates above this
