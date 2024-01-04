@@ -48,3 +48,13 @@ def compute_stranded_vectorized(
     yield_proj: pd.DataFrame,
     land_values: pd.DataFrame,
     discount_rate: float = 0.04,
+    horizon: int = 30,
+    scenario: str = 'SSP245'
+) -> pd.DataFrame:
+    """Compute stranded assets vectorized across all counties/crops.
+
+    Stranded = PV(tech-only income stream) - PV(tech+climate income stream)
+             = -PV(climate impact income stream)
+
+    The projections file has:
+      yield_tech_trend: yield under technology trend only (no climate change)
