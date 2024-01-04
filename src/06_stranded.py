@@ -38,3 +38,13 @@ COMMODITY_PRICES = {
 
 # Schlenker-Roberts (2009) temperature thresholds (°C)
 SR_THRESHOLD_MODERATE = 29.0   # yield response accelerates above this
+SR_THRESHOLD_SEVERE = 33.0     # severe damage threshold
+
+# SSP5-8.5 scaling factor relative to SSP2-4.5 (IPCC AR6, warming by 2050)
+SSP585_SCALE = 1.8
+
+
+def compute_stranded_vectorized(
+    yield_proj: pd.DataFrame,
+    land_values: pd.DataFrame,
+    discount_rate: float = 0.04,
