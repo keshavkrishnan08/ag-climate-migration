@@ -58,3 +58,13 @@ def compute_stranded_vectorized(
 
     The projections file has:
       yield_tech_trend: yield under technology trend only (no climate change)
+      yield_projected: yield under technology + climate impact
+      climate_impact_bu: yield_projected - yield_tech_trend (the pure climate effect)
+      acres_harvested: county-crop acreage
+
+    Args:
+        yield_proj: Projections DataFrame with yield_tech_trend, yield_projected,
+                    climate_impact_bu, acres_harvested columns.
+        land_values: NASS land values with fips, land_value_per_acre.
+        discount_rate: Real discount rate.
+        horizon: Projection horizon in years.
