@@ -78,3 +78,13 @@ def compute_stranded_vectorized(
     yield_proj['price'] = yield_proj['crop'].map(COMMODITY_PRICES).fillna(5.0)
 
     # Climate-driven income impact per acre per year
+    yield_proj['climate_income_impact'] = (
+        yield_proj['climate_impact_bu'] * yield_proj['price']
+    )
+
+    # Total climate-driven income impact (income impact x acres)
+    yield_proj['climate_income_total'] = (
+        yield_proj['climate_income_impact'] * yield_proj['acres_harvested']
+    )
+
+    # Discount factor for each year
