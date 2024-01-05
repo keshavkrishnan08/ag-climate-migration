@@ -108,3 +108,13 @@ def compute_stranded_vectorized(
         )
         .reset_index()
     )
+
+    # Stranded = -PV(climate impact)
+    # If climate impact is negative (yield decline), stranded is positive
+    county_pv['stranded_value_total'] = -county_pv['pv_climate_total']
+    county_pv['stranded_value_per_acre'] = (
+        county_pv['stranded_value_total'] / county_pv['total_acres'].replace(0, np.nan)
+    )
+
+    # Merge with land values for stranded fraction
+    if not land_values.empty:
