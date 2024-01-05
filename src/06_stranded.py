@@ -68,3 +68,13 @@ def compute_stranded_vectorized(
         land_values: NASS land values with fips, land_value_per_acre.
         discount_rate: Real discount rate.
         horizon: Projection horizon in years.
+        scenario: Climate scenario label.
+
+    Returns:
+        DataFrame with stranded value per county (aggregated across crops).
+    """
+    # Map crop prices
+    yield_proj = yield_proj.copy()
+    yield_proj['price'] = yield_proj['crop'].map(COMMODITY_PRICES).fillna(5.0)
+
+    # Climate-driven income impact per acre per year
