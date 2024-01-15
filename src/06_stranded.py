@@ -138,3 +138,13 @@ def compute_stranded_vectorized(
 
     return county_pv
 
+
+
+# Schlenker & Roberts (2009, PNAS) Table 1 — OLS coefficients for US field crops.
+# Units: yield loss in bushels/acre per extreme degree-day (EDD) above 29°C.
+# EDD = sum of daily max temps above threshold, in degree-day units.
+# We approximate annual EDD from July Tmax using 31 days * excess degrees.
+# For soybeans: -0.0560 bu/ac/EDD (SR Table 1, col 4).
+# For cotton, sorghum, other: use corn coefficient (conservative).
+SR_COEFFICIENTS = {
+    'corn':         -0.0662,   # SR Table 1 col 1, EDD>29C
