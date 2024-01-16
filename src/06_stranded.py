@@ -148,3 +148,13 @@ def compute_stranded_vectorized(
 # For cotton, sorghum, other: use corn coefficient (conservative).
 SR_COEFFICIENTS = {
     'corn':         -0.0662,   # SR Table 1 col 1, EDD>29C
+    'soybeans':     -0.0560,   # SR Table 1 col 4
+    'wheat_winter': -0.0420,   # SR Table 1 col 7 (winter wheat, EDD>29C)
+    'wheat_spring': -0.0420,
+    'cotton':       -0.0662,   # use corn as conservative proxy
+    'sorghum':      -0.0662,
+    'barley':       -0.0420,
+    'oats':         -0.0420,
+}
+
+# Days contributing to EDD above 29C in the growing season
