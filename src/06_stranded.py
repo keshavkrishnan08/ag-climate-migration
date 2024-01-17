@@ -188,3 +188,13 @@ def compute_edd_above_threshold(
     """
     edd_july = np.maximum(0.0, tmax_july_C - threshold_C) * SR_JULY_DAYS
     edd_shoulder = np.maximum(0.0, tmax_growing_C - threshold_C) * SR_SHOULDER_DAYS
+    return edd_july + edd_shoulder
+
+
+def compute_stranded_with_damage_function(
+    yield_proj: pd.DataFrame,
+    climate_proj: pd.DataFrame,
+    land_values: pd.DataFrame,
+    discount_rate: float = 0.04,
+    horizon: int = 30,
+    scenario: str = 'SSP245',
