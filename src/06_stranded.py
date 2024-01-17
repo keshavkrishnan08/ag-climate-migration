@@ -158,3 +158,13 @@ SR_COEFFICIENTS = {
 }
 
 # Days contributing to EDD above 29C in the growing season
+# July: 31 days (peak heat); June + August: 60 additional days (shoulder months)
+# SR (2009) uses full-season annual EDD; we approximate with July + shoulder months
+SR_JULY_DAYS = 31
+SR_SHOULDER_DAYS = 60  # June + August combined
+
+
+def compute_edd_above_threshold(
+    tmax_july_C: np.ndarray,
+    tmax_growing_C: np.ndarray,
+    threshold_C: float = SR_THRESHOLD_MODERATE,
