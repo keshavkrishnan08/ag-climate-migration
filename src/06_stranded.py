@@ -168,3 +168,13 @@ def compute_edd_above_threshold(
     tmax_july_C: np.ndarray,
     tmax_growing_C: np.ndarray,
     threshold_C: float = SR_THRESHOLD_MODERATE,
+) -> np.ndarray:
+    """Compute extreme degree-days above threshold from July and growing-season Tmax.
+
+    Schlenker & Roberts (2009) use full-season annual EDD. We approximate using:
+      - July (31 days): hottest month, highest EDD contribution
+      - June + August shoulder months (60 days): approximated from growing-season Tmax
+
+    Using mean Tmax to approximate EDD is conservative (daily variation means
+    true EDD is higher), consistent with county-level literature practice.
+
