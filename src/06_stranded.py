@@ -208,3 +208,13 @@ def compute_stranded_with_damage_function(
     into yield losses using published per-crop OLS coefficients from Schlenker &
     Roberts (2009, PNAS Table 1). This captures non-linear heat stress that the
     GDD-trained ML model systematically underestimates above the damage threshold.
+
+    The methodology:
+      1. Compute baseline EDD (year 2025, warming delta ~ 0) per county.
+      2. Compute projected EDD for each year under the scenario.
+      3. Delta EDD = projected - baseline (the incremental heat stress from warming).
+      4. Apply SR coefficient: additional yield loss (bu/ac) = delta_EDD * SR_coef * season_fraction.
+      5. Apply indirect_multiplier to combined climate impact before discounting.
+         Captures higher input costs (irrigation, pest pressure: +15%), quality
+         downgrades (protein content, test weight: +10%), and crop insurance premium
+         increases (+5%), for a total indirect multiplier of 1.30x (Zhao et al. 2017
