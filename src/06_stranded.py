@@ -178,3 +178,13 @@ def compute_edd_above_threshold(
     Using mean Tmax to approximate EDD is conservative (daily variation means
     true EDD is higher), consistent with county-level literature practice.
 
+    Args:
+        tmax_july_C: Array of mean July Tmax in degrees Celsius.
+        tmax_growing_C: Array of mean growing-season Tmax (May-Sep) in °C.
+        threshold_C: Damage threshold (default 29°C per Schlenker & Roberts 2009).
+
+    Returns:
+        Array of annual EDD values (degree-days above threshold, growing season).
+    """
+    edd_july = np.maximum(0.0, tmax_july_C - threshold_C) * SR_JULY_DAYS
+    edd_shoulder = np.maximum(0.0, tmax_growing_C - threshold_C) * SR_SHOULDER_DAYS
