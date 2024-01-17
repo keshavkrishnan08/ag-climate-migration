@@ -228,3 +228,13 @@ def compute_stranded_with_damage_function(
                       and delta_tmax_july (°F).
         land_values: NASS land values for stranded fraction computation.
         discount_rate: Real discount rate for PV computation.
+        horizon: Projection horizon in years.
+        scenario: Climate scenario label (used for tagging output).
+        ssp585_scale: Scaling factor applied to delta_tmax to simulate alternate
+                      emission scenarios. 1.0 = SSP2-4.5; 1.8 = synthetic SSP5-8.5
+                      (IPCC AR6 ratio of SSP5-8.5 to SSP2-4.5 warming by 2050).
+        indirect_multiplier: Multiplier applied to the combined ML+SR climate impact
+                             income before discounting, capturing indirect losses:
+                             higher input costs, quality downgrades, and insurance
+                             premium increases. 1.0 = direct losses only; 1.30 =
+                             includes 30% indirect compounding (Zhao et al. 2017;
