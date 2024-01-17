@@ -218,3 +218,13 @@ def compute_stranded_with_damage_function(
          Captures higher input costs (irrigation, pest pressure: +15%), quality
          downgrades (protein content, test weight: +10%), and crop insurance premium
          increases (+5%), for a total indirect multiplier of 1.30x (Zhao et al. 2017
+         PNAS; Lobell et al. 2014 Nature CC).
+      6. Convert to income loss, discount, and sum to PV.
+      7. Add to ML-model PV to get combined central estimate.
+
+    Args:
+        yield_proj: Yield projections DataFrame (from PROJECTIONS_DIR).
+        climate_proj: County-level climate projections with tmax_july_projected (°F)
+                      and delta_tmax_july (°F).
+        land_values: NASS land values for stranded fraction computation.
+        discount_rate: Real discount rate for PV computation.
