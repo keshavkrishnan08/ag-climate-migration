@@ -198,3 +198,13 @@ def compute_stranded_with_damage_function(
     discount_rate: float = 0.04,
     horizon: int = 30,
     scenario: str = 'SSP245',
+    ssp585_scale: float = 1.0,
+    indirect_multiplier: float = 1.0,
+) -> pd.DataFrame:
+    """Compute stranded assets using Schlenker-Roberts (2009) EDD damage function.
+
+    Adds an ADDITIVE EDD-based yield penalty on top of the ML model's estimate.
+    The SR function directly translates incremental extreme degree-days above 29°C
+    into yield losses using published per-crop OLS coefficients from Schlenker &
+    Roberts (2009, PNAS Table 1). This captures non-linear heat stress that the
+    GDD-trained ML model systematically underestimates above the damage threshold.
