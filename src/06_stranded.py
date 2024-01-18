@@ -238,3 +238,13 @@ def compute_stranded_with_damage_function(
                              higher input costs, quality downgrades, and insurance
                              premium increases. 1.0 = direct losses only; 1.30 =
                              includes 30% indirect compounding (Zhao et al. 2017;
+                             Lobell et al. 2014). Applied per county-crop-year.
+
+    Returns:
+        DataFrame with stranded value per county (aggregated across crops).
+        Columns include 'stranded_value_total' (ML + SR additive), 'pv_ml_only',
+        'pv_sr_additive', 'mean_delta_edd', 'damage_method' = 'SR_EDD_additive'.
+    """
+    yield_proj = yield_proj.copy()
+    climate_proj = climate_proj.copy()
+
