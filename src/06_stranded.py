@@ -248,3 +248,13 @@ def compute_stranded_with_damage_function(
     yield_proj = yield_proj.copy()
     climate_proj = climate_proj.copy()
 
+    # Apply SSP5-8.5 scaling: scale only the warming delta, not the baseline.
+    # tmax_projected = baseline + delta; synthetic SSP585 = baseline + delta * 1.8.
+    if ssp585_scale != 1.0:
+        climate_proj['tmax_july_projected'] = (
+            (climate_proj['tmax_july_projected'] - climate_proj['delta_tmax_july'])
+            + climate_proj['delta_tmax_july'] * ssp585_scale
+        )
+        climate_proj['tmax_growing_projected'] = (
+            (climate_proj['tmax_growing_projected'] - climate_proj['delta_tmax_growing'])
+            + climate_proj['delta_tmax_growing'] * ssp585_scale
