@@ -258,3 +258,13 @@ def compute_stranded_with_damage_function(
         climate_proj['tmax_growing_projected'] = (
             (climate_proj['tmax_growing_projected'] - climate_proj['delta_tmax_growing'])
             + climate_proj['delta_tmax_growing'] * ssp585_scale
+        )
+        climate_proj['delta_tmax_july'] = climate_proj['delta_tmax_july'] * ssp585_scale
+        climate_proj['delta_tmax_growing'] = climate_proj['delta_tmax_growing'] * ssp585_scale
+
+    # Convert projected temperatures from °F to °C
+    climate_proj['tmax_july_C'] = (climate_proj['tmax_july_projected'] - 32) * 5.0 / 9.0
+    climate_proj['tmax_growing_C'] = (climate_proj['tmax_growing_projected'] - 32) * 5.0 / 9.0
+
+    # Historical baseline temperatures (remove the warming delta)
+    climate_proj['tmax_july_baseline_C'] = (
