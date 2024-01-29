@@ -288,3 +288,13 @@ def compute_stranded_with_damage_function(
         climate_proj['edd_projected'] - climate_proj['edd_baseline']
     ).clip(lower=0)
 
+    # Map commodity prices and SR coefficients into yield projections
+    yield_proj['price'] = yield_proj['crop'].map(COMMODITY_PRICES).fillna(5.0)
+    yield_proj['sr_coef'] = yield_proj['crop'].map(SR_COEFFICIENTS).fillna(SR_COEFFICIENTS['corn'])
+
+    # Merge climate data (county-year)
+    clim_key = climate_proj[['fips', 'year', 'tmax_july_C', 'tmax_growing_C',
+                               'edd_projected', 'delta_edd']]
+    yield_proj = yield_proj.merge(clim_key, on=['fips', 'year'], how='left')
+    yield_proj['delta_edd'] = yield_proj['delta_edd'].fillna(0.0)
+
