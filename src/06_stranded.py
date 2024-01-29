@@ -278,3 +278,13 @@ def compute_stranded_with_damage_function(
     climate_proj['edd_projected'] = compute_edd_above_threshold(
         climate_proj['tmax_july_C'].values,
         climate_proj['tmax_growing_C'].values,
+    )
+    climate_proj['edd_baseline'] = compute_edd_above_threshold(
+        climate_proj['tmax_july_baseline_C'].values,
+        climate_proj['tmax_growing_baseline_C'].values,
+    )
+    # Delta EDD: incremental heat stress from warming above historical baseline
+    climate_proj['delta_edd'] = (
+        climate_proj['edd_projected'] - climate_proj['edd_baseline']
+    ).clip(lower=0)
+
