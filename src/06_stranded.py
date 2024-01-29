@@ -298,3 +298,13 @@ def compute_stranded_with_damage_function(
     yield_proj = yield_proj.merge(clim_key, on=['fips', 'year'], how='left')
     yield_proj['delta_edd'] = yield_proj['delta_edd'].fillna(0.0)
 
+    # SR additive yield penalty (bu/ac/yr) using growing-season EDD:
+    #   delta_edd * SR_coef (already annual scale from July + shoulder months)
+    # SR_coef is negative, so this is additional yield loss on top of ML estimate.
+    # No season fraction needed — delta_edd already represents the full growing-season
+    # EDD increment above historical baseline.
+    yield_proj['sr_yield_penalty'] = (
+        yield_proj['delta_edd'] * yield_proj['sr_coef']
+    )
+
+    # Combined climate impact: ML estimate + SR additive penalty
