@@ -348,3 +348,13 @@ def compute_stranded_with_damage_function(
             total_acres=('acres_harvested', 'mean'),
             mean_delta_edd=('delta_edd', 'mean'),
             mean_tmax_july_C=('tmax_july_C', 'mean'),
+            mean_sr_yield_penalty=('sr_yield_penalty', 'mean'),
+        )
+        .reset_index()
+    )
+
+    # Stranded = -PV(combined climate impact)
+    county_pv['stranded_value_total'] = -county_pv['pv_combined_total']
+    county_pv['stranded_ml_only'] = -county_pv['pv_ml_total']
+    county_pv['stranded_sr_additive'] = -county_pv['pv_sr_additive']
+    county_pv['stranded_value_per_acre'] = (
