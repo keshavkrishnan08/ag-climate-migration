@@ -308,3 +308,13 @@ def compute_stranded_with_damage_function(
     )
 
     # Combined climate impact: ML estimate + SR additive penalty
+    yield_proj['climate_impact_combined'] = (
+        yield_proj['climate_impact_bu'] + yield_proj['sr_yield_penalty']
+    )
+
+    # Income impacts
+    # ML and SR components are computed at direct (1x) scale for decomposition.
+    # indirect_multiplier is applied to the combined impact only, before discounting.
+    # This captures higher input costs, quality downgrades, and insurance premium
+    # increases (Zhao et al. 2017 PNAS; Lobell et al. 2014 Nature CC).
+    yield_proj['income_ml'] = (
