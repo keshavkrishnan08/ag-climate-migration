@@ -388,3 +388,13 @@ def sensitivity_grid(
     scenario: str = 'SSP245'
 ) -> pd.DataFrame:
     """Compute stranded assets across discount rate x horizon grid.
+
+    Args:
+        yield_proj: Yield projections.
+        land_values: Land value data.
+        scenario: Scenario label.
+
+    Returns:
+        DataFrame with total stranded value for each parameter combo.
+    """
+    logger.info("Computing sensitivity grid...")
