@@ -378,3 +378,13 @@ def compute_stranded_with_damage_function(
     county_pv['damage_method'] = 'SR_EDD_additive'
     county_pv['ssp585_scale'] = ssp585_scale
     county_pv['indirect_multiplier'] = indirect_multiplier
+
+    return county_pv
+
+
+def sensitivity_grid(
+    yield_proj: pd.DataFrame,
+    land_values: pd.DataFrame,
+    scenario: str = 'SSP245'
+) -> pd.DataFrame:
+    """Compute stranded assets across discount rate x horizon grid.
