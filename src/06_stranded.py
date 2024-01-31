@@ -408,3 +408,13 @@ def sensitivity_grid(
             county_pv = compute_stranded_vectorized(
                 yield_proj, land_values, discount_rate=r, horizon=h, scenario=scenario
             )
+            positive_stranded = county_pv[county_pv['stranded_value_total'] > 0]
+            total_B = positive_stranded['stranded_value_total'].sum() / 1e9
+            n_counties = len(positive_stranded)
+
+            results.append({
+                'discount_rate': r,
+                'horizon': h,
+                'scenario': scenario,
+                'total_stranded_B': total_B,
+                'n_stranded_counties': n_counties,
