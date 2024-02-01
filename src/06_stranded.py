@@ -428,3 +428,13 @@ def sensitivity_grid(
     logger.info(f"  Range: ${rcp45_min:.1f}B to ${rcp45_max:.1f}B")
 
     return grid
+
+
+def cap_rate_analysis(
+    yield_proj: pd.DataFrame,
+    land_values: pd.DataFrame,
+    cash_rent: pd.DataFrame,
+    scenario: str = 'SSP245'
+) -> pd.DataFrame:
+    """Compute overvaluation using market cap rates.
+
