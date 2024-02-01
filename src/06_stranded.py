@@ -418,3 +418,13 @@ def sensitivity_grid(
                 'scenario': scenario,
                 'total_stranded_B': total_B,
                 'n_stranded_counties': n_counties,
+            })
+
+    grid = pd.DataFrame(results)
+    logger.info(f"Sensitivity grid complete: {len(grid)} combinations")
+
+    rcp45_min = grid['total_stranded_B'].min()
+    rcp45_max = grid['total_stranded_B'].max()
+    logger.info(f"  Range: ${rcp45_min:.1f}B to ${rcp45_max:.1f}B")
+
+    return grid
