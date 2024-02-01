@@ -458,3 +458,13 @@ def cap_rate_analysis(
     land_avg = land_values.groupby('fips')['land_value_per_acre'].mean().reset_index()
 
     cap = rent_avg.merge(land_avg, on='fips', how='inner')
+    cap['cap_rate'] = cap['cash_rent_per_acre'] / cap['land_value_per_acre'].replace(0, np.nan)
+    cap = cap.dropna(subset=['cap_rate'])
+    cap = cap[cap['cap_rate'] > 0]
+
+    # Projected rent = projected yield x price, averaged over 2040-2050
+    late_proj = yield_proj[yield_proj['year'] >= 2040].copy()
+    late_proj['price'] = late_proj['crop'].map(COMMODITY_PRICES).fillna(5.0)
+    late_proj['revenue_per_acre'] = late_proj['yield_projected'] * late_proj['price']
+
+    # Sum across crops per county, then average across years
