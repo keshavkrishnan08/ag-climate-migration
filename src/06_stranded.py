@@ -448,3 +448,13 @@ def cap_rate_analysis(
         cash_rent: Current cash rent.
         scenario: Scenario label.
 
+    Returns:
+        DataFrame with overvaluation per county.
+    """
+    logger.info("Computing cap rate overvaluation...")
+
+    # Compute current cap rate per county
+    rent_avg = cash_rent.groupby('fips')['cash_rent_per_acre'].mean().reset_index()
+    land_avg = land_values.groupby('fips')['land_value_per_acre'].mean().reset_index()
+
+    cap = rent_avg.merge(land_avg, on='fips', how='inner')
