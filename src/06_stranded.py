@@ -438,3 +438,13 @@ def cap_rate_analysis(
 ) -> pd.DataFrame:
     """Compute overvaluation using market cap rates.
 
+    Cap rate = Annual Rent / Land Value (observed from market data)
+    Fair value under climate = Projected Rent / Cap Rate
+    Overvaluation = Current Value - Fair Value
+
+    Args:
+        yield_proj: Yield projections.
+        land_values: Current land values.
+        cash_rent: Current cash rent.
+        scenario: Scenario label.
+
