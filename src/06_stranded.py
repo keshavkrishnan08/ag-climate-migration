@@ -498,3 +498,13 @@ def cap_rate_analysis(
 # Main
 # ---------------------------------------------------------------------------
 def run_stranded_assets() -> dict:
+    """Execute stranded asset computation.
+
+    Returns:
+        Dict with national results, sensitivity grid, and cap rate analysis.
+    """
+    logger.info("=" * 60)
+    logger.info("PHASE 5A: STRANDED AGRICULTURAL ASSETS")
+    logger.info("=" * 60)
+
+    output_dir = RESULTS_DIR / 'stranded_assets'
