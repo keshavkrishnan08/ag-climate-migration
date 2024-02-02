@@ -488,3 +488,13 @@ def cap_rate_analysis(
 
     overvalued = result[result['overvaluation_per_acre'] > 0]
     logger.info(f"  {len(overvalued)} overvalued counties out of {len(result)}")
+    if not overvalued.empty:
+        logger.info(f"  Mean overvaluation: ${overvalued['overvaluation_per_acre'].mean():.0f}/acre")
+
+    return result
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+def run_stranded_assets() -> dict:
