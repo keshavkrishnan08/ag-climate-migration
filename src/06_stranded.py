@@ -478,3 +478,13 @@ def cap_rate_analysis(
     )
 
     # Merge
+    result = cap.merge(projected_rent, on='fips', how='inner')
+    result['fair_land_value'] = result['projected_rent'] / result['cap_rate']
+    result['overvaluation_per_acre'] = result['land_value_per_acre'] - result['fair_land_value']
+    result['overvaluation_fraction'] = (
+        result['overvaluation_per_acre'] / result['land_value_per_acre'].replace(0, np.nan)
+    )
+    result['scenario'] = scenario
+
+    overvalued = result[result['overvaluation_per_acre'] > 0]
+    logger.info(f"  {len(overvalued)} overvalued counties out of {len(result)}")
