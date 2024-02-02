@@ -508,3 +508,13 @@ def run_stranded_assets() -> dict:
     logger.info("=" * 60)
 
     output_dir = RESULTS_DIR / 'stranded_assets'
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Load projections
+    scenario = 'SSP245'
+    proj_path = PROJECTIONS_DIR / f'yield_projections_{scenario}.parquet'
+    if not proj_path.exists():
+        logger.error("No yield projections found — run Phase 4 first")
+        return {}
+
+    yield_proj = pd.read_parquet(proj_path)
