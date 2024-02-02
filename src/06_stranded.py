@@ -468,3 +468,13 @@ def cap_rate_analysis(
     late_proj['revenue_per_acre'] = late_proj['yield_projected'] * late_proj['price']
 
     # Sum across crops per county, then average across years
+    projected_rent = (
+        late_proj.groupby(['fips', 'year'])['revenue_per_acre']
+        .sum()
+        .groupby('fips')
+        .mean()
+        .reset_index()
+        .rename(columns={'revenue_per_acre': 'projected_rent'})
+    )
+
+    # Merge
