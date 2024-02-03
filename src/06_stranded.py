@@ -528,3 +528,13 @@ def run_stranded_assets() -> dict:
     climate_proj = pd.read_parquet(
         clim_path,
         columns=[
+            'fips', 'year',
+            'tmax_july_projected', 'delta_tmax_july',
+            'tmax_growing_projected', 'delta_tmax_growing',
+        ]
+    )
+    logger.info(f"Loaded climate projections: {len(climate_proj)} rows")
+
+    # Load land values
+    land_path = DATA_RAW / 'nass' / 'nass_land_values.parquet'
+    land_values = pd.read_parquet(land_path) if land_path.exists() else pd.DataFrame()
