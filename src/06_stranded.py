@@ -518,3 +518,13 @@ def run_stranded_assets() -> dict:
         return {}
 
     yield_proj = pd.read_parquet(proj_path)
+    logger.info(f"Loaded projections: {len(yield_proj)} rows, {yield_proj['fips'].nunique()} counties")
+
+    # Load climate projections for damage function
+    clim_path = PROJECTIONS_DIR / 'county_climate_projections.parquet'
+    if not clim_path.exists():
+        logger.error("No climate projections found — run build_county_climate_projections.py first")
+        return {}
+    climate_proj = pd.read_parquet(
+        clim_path,
+        columns=[
