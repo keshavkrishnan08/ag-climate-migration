@@ -538,3 +538,13 @@ def run_stranded_assets() -> dict:
     # Load land values
     land_path = DATA_RAW / 'nass' / 'nass_land_values.parquet'
     land_values = pd.read_parquet(land_path) if land_path.exists() else pd.DataFrame()
+
+    r = CONFIG['stranded_assets']['discount_rate']
+    h = CONFIG['stranded_assets']['projection_horizon']
+
+    # -----------------------------------------------------------------------
+    # Method 1: Conservative — ML model linear impact only (existing)
+    # -----------------------------------------------------------------------
+    national = compute_stranded_vectorized(yield_proj, land_values, r, h, scenario)
+
+    pos_conservative = national[national['stranded_value_total'] > 0]
