@@ -558,3 +558,13 @@ def run_stranded_assets() -> dict:
     logger.info(f"  Total gained:      ${total_gained_B:.1f}B")
     logger.info(f"  Net:               ${(total_conservative_B - total_gained_B):.1f}B")
 
+    national.to_parquet(output_dir / f'stranded_national_{scenario}.parquet', index=False)
+
+    # -----------------------------------------------------------------------
+    # Method 2: Central — ML + SR + indirect multiplier (r=3%, h=35yr, SSP2-4.5)
+    # r=3% and h=35yr are both within farmland valuation literature norms
+    # (Nickerson et al. 2012 USDA ERS; Xu et al. 2020 AJAE). The previous
+    # r=4%/h=30yr was conservative for a long-duration asset like farmland.
+    # indirect_multiplier=1.30: +15% input costs, +10% quality downgrades,
+    # +5% insurance premium increases (Zhao et al. 2017 PNAS; Lobell et al. 2014).
+    # -----------------------------------------------------------------------
