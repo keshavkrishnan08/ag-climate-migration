@@ -568,3 +568,13 @@ def run_stranded_assets() -> dict:
     # indirect_multiplier=1.30: +15% input costs, +10% quality downgrades,
     # +5% insurance premium increases (Zhao et al. 2017 PNAS; Lobell et al. 2014).
     # -----------------------------------------------------------------------
+    INDIRECT_MULTIPLIER = 1.30
+    CENTRAL_DISCOUNT_RATE = 0.03   # Nickerson et al. 2012; Xu et al. 2020 AJAE
+    CENTRAL_HORIZON = 35           # Mid-range farmland valuation horizon
+    logger.info(
+        f"\nMethod 2 — Central (ML + SR + indirect multiplier {INDIRECT_MULTIPLIER}x), "
+        f"SSP2-4.5, r={CENTRAL_DISCOUNT_RATE}, h={CENTRAL_HORIZON}:"
+    )
+    national_sr = compute_stranded_with_damage_function(
+        yield_proj, climate_proj, land_values,
+        discount_rate=CENTRAL_DISCOUNT_RATE, horizon=CENTRAL_HORIZON,
