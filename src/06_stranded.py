@@ -548,3 +548,13 @@ def run_stranded_assets() -> dict:
     national = compute_stranded_vectorized(yield_proj, land_values, r, h, scenario)
 
     pos_conservative = national[national['stranded_value_total'] > 0]
+    neg_conservative = national[national['stranded_value_total'] <= 0]
+    total_conservative_B = pos_conservative['stranded_value_total'].sum() / 1e9
+    total_gained_B = abs(neg_conservative['stranded_value_total'].sum()) / 1e9
+
+    logger.info(f"\nMethod 1 — Conservative (ML model only), {scenario}, r={r}, h={h}:")
+    logger.info(f"  Counties stranded: {len(pos_conservative)}")
+    logger.info(f"  Total stranded:    ${total_conservative_B:.1f}B")
+    logger.info(f"  Total gained:      ${total_gained_B:.1f}B")
+    logger.info(f"  Net:               ${(total_conservative_B - total_gained_B):.1f}B")
+
