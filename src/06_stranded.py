@@ -588,3 +588,13 @@ def run_stranded_assets() -> dict:
     total_gained_sr_B = abs(neg_sr['stranded_value_total'].sum()) / 1e9
     sr_additive_B = national_sr['stranded_sr_additive'].clip(lower=0).sum() / 1e9
     mean_delta_edd = national_sr['mean_delta_edd'].mean()
+    mean_tmax = national_sr['mean_tmax_july_C'].mean()
+
+    logger.info(f"  Mean July Tmax (projected, °C):  {mean_tmax:.2f}")
+    logger.info(f"  Mean incremental EDD above 29C:  {mean_delta_edd:.1f} degree-days/month")
+    logger.info(f"  SR additive component:           ${sr_additive_B:.1f}B")
+    logger.info(f"  Indirect multiplier:             {INDIRECT_MULTIPLIER}x")
+    logger.info(f"  Counties stranded:               {len(pos_sr)}")
+    logger.info(f"  Total stranded:                  ${total_sr_B:.1f}B")
+    logger.info(f"  Total gained:                    ${total_gained_sr_B:.1f}B")
+    logger.info(f"  Net:                             ${(total_sr_B - total_gained_sr_B):.1f}B")
