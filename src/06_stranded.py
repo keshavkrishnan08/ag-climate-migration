@@ -608,3 +608,13 @@ def run_stranded_assets() -> dict:
     # -----------------------------------------------------------------------
     FARMLAND_DISCOUNT_RATE = 0.025   # Nickerson et al. 2012, USDA ERS farmland literature
     FARMLAND_HORIZON = 40            # 40-50yr horizon standard in farmland valuation
+
+    logger.info(
+        f"\nMethod 3 — High (ML + SR + indirect {INDIRECT_MULTIPLIER}x + SSP5-8.5, "
+        f"r={FARMLAND_DISCOUNT_RATE}, h={FARMLAND_HORIZON}):"
+    )
+    national_ssp585 = compute_stranded_with_damage_function(
+        yield_proj, climate_proj, land_values,
+        discount_rate=FARMLAND_DISCOUNT_RATE,
+        horizon=FARMLAND_HORIZON,
+        scenario='SSP585_synthetic',
