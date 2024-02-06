@@ -598,3 +598,13 @@ def run_stranded_assets() -> dict:
     logger.info(f"  Total stranded:                  ${total_sr_B:.1f}B")
     logger.info(f"  Total gained:                    ${total_gained_sr_B:.1f}B")
     logger.info(f"  Net:                             ${(total_sr_B - total_gained_sr_B):.1f}B")
+
+    national_sr.to_parquet(output_dir / 'stranded_national_SR_SSP245.parquet', index=False)
+
+    # -----------------------------------------------------------------------
+    # Method 3: High — ML + SR + indirect + SSP5-8.5 (1.8x warming)
+    # Also uses farmland valuation parameters: r=2.5%, h=40yr (Nickerson et al.
+    # 2012, USDA ERS). The long-duration asset PV multiplier roughly doubles.
+    # -----------------------------------------------------------------------
+    FARMLAND_DISCOUNT_RATE = 0.025   # Nickerson et al. 2012, USDA ERS farmland literature
+    FARMLAND_HORIZON = 40            # 40-50yr horizon standard in farmland valuation
