@@ -618,3 +618,13 @@ def run_stranded_assets() -> dict:
         discount_rate=FARMLAND_DISCOUNT_RATE,
         horizon=FARMLAND_HORIZON,
         scenario='SSP585_synthetic',
+        ssp585_scale=SSP585_SCALE,
+        indirect_multiplier=INDIRECT_MULTIPLIER,
+    )
+
+    pos_ssp585 = national_ssp585[national_ssp585['stranded_value_total'] > 0]
+    neg_ssp585 = national_ssp585[national_ssp585['stranded_value_total'] <= 0]
+    total_ssp585_B = pos_ssp585['stranded_value_total'].sum() / 1e9
+    total_gained_ssp585_B = abs(neg_ssp585['stranded_value_total'].sum()) / 1e9
+    sr585_additive_B = national_ssp585['stranded_sr_additive'].clip(lower=0).sum() / 1e9
+    mean_delta_edd_585 = national_ssp585['mean_delta_edd'].mean()
