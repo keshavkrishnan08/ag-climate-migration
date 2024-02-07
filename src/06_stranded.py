@@ -638,3 +638,13 @@ def run_stranded_assets() -> dict:
     logger.info(f"  Farmland horizon:                {FARMLAND_HORIZON}yr")
     logger.info(f"  Counties stranded:               {len(pos_ssp585)}")
     logger.info(f"  Total stranded:                  ${total_ssp585_B:.1f}B")
+    logger.info(f"  Total gained:                    ${total_gained_ssp585_B:.1f}B")
+    logger.info(f"  Net:                             ${(total_ssp585_B - total_gained_ssp585_B):.1f}B")
+
+    national_ssp585.to_parquet(output_dir / 'stranded_national_SR_SSP585synthetic.parquet', index=False)
+
+    # -----------------------------------------------------------------------
+    # Summary across methods
+    # -----------------------------------------------------------------------
+    logger.info("\n" + "=" * 60)
+    logger.info("STRANDED ASSET ESTIMATE SUMMARY")
