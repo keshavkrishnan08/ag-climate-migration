@@ -648,3 +648,13 @@ def run_stranded_assets() -> dict:
     # -----------------------------------------------------------------------
     logger.info("\n" + "=" * 60)
     logger.info("STRANDED ASSET ESTIMATE SUMMARY")
+    logger.info("=" * 60)
+    logger.info(
+        f"  Lower bound  (ML only, SSP2-4.5, r=4%, h=30yr):               "
+        f"${total_conservative_B:.1f}B"
+    )
+    logger.info(
+        f"  Central      (ML + SR + indirect 1.30x, SSP2-4.5, r=3%, h=35): "
+        f"${total_sr_B:.1f}B"
+    )
+    logger.info(
