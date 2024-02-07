@@ -658,3 +658,13 @@ def run_stranded_assets() -> dict:
         f"${total_sr_B:.1f}B"
     )
     logger.info(
+        f"  Upper bound  (ML + SR + indirect 1.30x, SSP5-8.5, r=2.5%, h=40): "
+        f"${total_ssp585_B:.1f}B"
+    )
+    logger.info(f"  Nature Food target: $200-400B")
+
+    # Sensitivity grid (Fix 3A) — run on conservative ML-only method
+    grid = sensitivity_grid(yield_proj, land_values, scenario)
+    grid.to_csv(output_dir / 'sensitivity_grid.csv', index=False)
+
+    # Cap rate method (Fix 3B)
