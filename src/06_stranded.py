@@ -628,3 +628,13 @@ def run_stranded_assets() -> dict:
     total_gained_ssp585_B = abs(neg_ssp585['stranded_value_total'].sum()) / 1e9
     sr585_additive_B = national_ssp585['stranded_sr_additive'].clip(lower=0).sum() / 1e9
     mean_delta_edd_585 = national_ssp585['mean_delta_edd'].mean()
+    mean_tmax_585 = national_ssp585['mean_tmax_july_C'].mean()
+
+    logger.info(f"  Mean July Tmax (projected, °C):  {mean_tmax_585:.2f}")
+    logger.info(f"  Mean incremental EDD above 29C:  {mean_delta_edd_585:.1f} degree-days/month")
+    logger.info(f"  SR additive component:           ${sr585_additive_B:.1f}B")
+    logger.info(f"  Indirect multiplier:             {INDIRECT_MULTIPLIER}x")
+    logger.info(f"  Farmland discount rate:          {FARMLAND_DISCOUNT_RATE*100:.1f}%")
+    logger.info(f"  Farmland horizon:                {FARMLAND_HORIZON}yr")
+    logger.info(f"  Counties stranded:               {len(pos_ssp585)}")
+    logger.info(f"  Total stranded:                  ${total_ssp585_B:.1f}B")
