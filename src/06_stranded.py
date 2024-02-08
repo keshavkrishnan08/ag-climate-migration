@@ -688,3 +688,13 @@ def run_stranded_assets() -> dict:
         # Update with all three estimates
         headline['stranded_assets_climate_B'] = float(total_conservative_B)
         headline['stranded_assets_net_B'] = float(total_conservative_B - total_gained_B)
+        headline['n_stranded_counties'] = int(len(pos_conservative))
+        headline['stranded_assets_method'] = 'DCF_climate_impact_only'
+
+        # Remove stale keys from previous computation approach
+        for stale_key in ['mean_SR_multiplier_SSP245', 'mean_SR_multiplier_SSP585']:
+            headline.pop(stale_key, None)
+
+        # Add full range estimates
+        headline['stranded_lower_bound_B'] = float(total_conservative_B)
+        headline['stranded_conservative_B'] = float(total_conservative_B)
