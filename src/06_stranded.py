@@ -678,3 +678,13 @@ def run_stranded_assets() -> dict:
                 cap_rate_df.to_parquet(output_dir / 'cap_rate_overvaluation.parquet', index=False)
 
     # -----------------------------------------------------------------------
+    # Update headline numbers
+    # -----------------------------------------------------------------------
+    headline_path = PROJECT_ROOT / 'state' / 'headline_numbers_preliminary.json'
+    if headline_path.exists():
+        with open(headline_path) as f:
+            headline = json.load(f)
+
+        # Update with all three estimates
+        headline['stranded_assets_climate_B'] = float(total_conservative_B)
+        headline['stranded_assets_net_B'] = float(total_conservative_B - total_gained_B)
