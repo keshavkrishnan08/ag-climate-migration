@@ -668,3 +668,13 @@ def run_stranded_assets() -> dict:
     grid.to_csv(output_dir / 'sensitivity_grid.csv', index=False)
 
     # Cap rate method (Fix 3B)
+    cash_rent_path = DATA_RAW / 'nass' / 'nass_cash_rent.parquet'
+    cap_rate_df = pd.DataFrame()
+    if cash_rent_path.exists():
+        cash_rent = pd.read_parquet(cash_rent_path)
+        if not land_values.empty:
+            cap_rate_df = cap_rate_analysis(yield_proj, land_values, cash_rent, scenario)
+            if not cap_rate_df.empty:
+                cap_rate_df.to_parquet(output_dir / 'cap_rate_overvaluation.parquet', index=False)
+
+    # -----------------------------------------------------------------------
