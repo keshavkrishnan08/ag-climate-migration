@@ -708,3 +708,13 @@ def run_stranded_assets() -> dict:
         headline['n_stranded_counties_high'] = int(len(pos_ssp585))
         headline['mean_delta_edd_SSP245'] = float(mean_delta_edd)
         headline['mean_delta_edd_SSP585'] = float(mean_delta_edd_585)
+        headline['sr_additive_B_SSP245'] = float(sr_additive_B)
+        headline['sr_additive_B_SSP585'] = float(sr585_additive_B)
+        headline['damage_function'] = 'Schlenker_Roberts_2009_EDD_additive'
+        headline['SSP585_scale_factor'] = SSP585_SCALE
+        headline['indirect_multiplier'] = INDIRECT_MULTIPLIER
+        headline['farmland_discount_rate'] = FARMLAND_DISCOUNT_RATE
+        headline['farmland_horizon'] = FARMLAND_HORIZON
+        headline['stranded_range_note'] = (
+            f"Lower ${total_conservative_B:.0f}B (ML only, SSP2-4.5, r=4%, h=30yr) | "
+            f"Central ${total_sr_B:.0f}B (ML+SR+indirect 1.30x, SSP2-4.5, r=3%, h=35yr) | "
