@@ -698,3 +698,13 @@ def run_stranded_assets() -> dict:
         # Add full range estimates
         headline['stranded_lower_bound_B'] = float(total_conservative_B)
         headline['stranded_conservative_B'] = float(total_conservative_B)
+        headline['stranded_central_SR_B'] = float(total_sr_B)
+        headline['stranded_upper_bound_B'] = float(total_ssp585_B)
+        headline['stranded_high_SSP585_B'] = float(total_ssp585_B)
+        headline['stranded_net_conservative_B'] = float(total_conservative_B - total_gained_B)
+        headline['stranded_net_central_B'] = float(total_sr_B - total_gained_sr_B)
+        headline['stranded_net_high_B'] = float(total_ssp585_B - total_gained_ssp585_B)
+        headline['n_stranded_counties_central'] = int(len(pos_sr))
+        headline['n_stranded_counties_high'] = int(len(pos_ssp585))
+        headline['mean_delta_edd_SSP245'] = float(mean_delta_edd)
+        headline['mean_delta_edd_SSP585'] = float(mean_delta_edd_585)
