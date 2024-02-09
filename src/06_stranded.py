@@ -748,3 +748,8 @@ def run_stranded_assets() -> dict:
             'upper_bound_B': total_ssp585_B,
             'high_SSP585_B': total_ssp585_B,
         }
+    }
+
+
+if __name__ == '__main__':
+    run_stranded_assets()
