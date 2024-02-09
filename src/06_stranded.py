@@ -718,3 +718,13 @@ def run_stranded_assets() -> dict:
         headline['stranded_range_note'] = (
             f"Lower ${total_conservative_B:.0f}B (ML only, SSP2-4.5, r=4%, h=30yr) | "
             f"Central ${total_sr_B:.0f}B (ML+SR+indirect 1.30x, SSP2-4.5, r=3%, h=35yr) | "
+            f"Upper ${total_ssp585_B:.0f}B (ML+SR+indirect 1.30x, SSP5-8.5, r=2.5%, h=40yr). "
+            f"Nature Food target $200-400B."
+        )
+
+        if not cap_rate_df.empty:
+            cap_overvalued = cap_rate_df[cap_rate_df['overvaluation_per_acre'] > 0]
+            headline['cap_rate_overvalued_counties'] = int(len(cap_overvalued))
+
+        with open(headline_path, 'w') as f:
+            json.dump(headline, f, indent=2)
