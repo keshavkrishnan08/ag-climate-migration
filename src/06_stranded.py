@@ -728,3 +728,13 @@ def run_stranded_assets() -> dict:
 
         with open(headline_path, 'w') as f:
             json.dump(headline, f, indent=2)
+
+        logger.info(f"\nHeadline numbers updated: {headline_path}")
+
+    logger.info("=" * 60)
+    logger.info("PHASE 5A COMPLETE")
+    logger.info("=" * 60)
+
+    return {
+        'national': national,
+        'national_sr': national_sr,
