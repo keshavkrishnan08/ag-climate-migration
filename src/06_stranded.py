@@ -738,3 +738,13 @@ def run_stranded_assets() -> dict:
     return {
         'national': national,
         'national_sr': national_sr,
+        'national_ssp585': national_ssp585,
+        'sensitivity_grid': grid,
+        'cap_rate': cap_rate_df,
+        'summary': {
+            'lower_bound_B': total_conservative_B,
+            'conservative_B': total_conservative_B,
+            'central_SR_B': total_sr_B,
+            'upper_bound_B': total_ssp585_B,
+            'high_SSP585_B': total_ssp585_B,
+        }
