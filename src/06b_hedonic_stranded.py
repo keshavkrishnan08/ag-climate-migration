@@ -8,3 +8,13 @@ market-revealed land prices.
 
 Model:
     log(land_value) = β₀ + β₁·tmax_july + β₂·tmax_july² + β₃·precip_growing
+                    + β₄·log(pop) + β₅·log(income) + state_FE + ε
+
+Stranded value per county:
+    delta_value = predicted(current) - predicted(projected)  [$/acre]
+    total = delta_value × farm_acres
+
+Aggregate nationally to get hedonic stranded estimate.
+
+Output:
+    results/stranded_assets/hedonic_stranded.parquet
