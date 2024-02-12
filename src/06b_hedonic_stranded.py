@@ -18,3 +18,13 @@ Aggregate nationally to get hedonic stranded estimate.
 
 Output:
     results/stranded_assets/hedonic_stranded.parquet
+    state/headline_numbers_preliminary.json  (hedonic_stranded_B field added)
+"""
+
+import json
+import sys
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import statsmodels.formula.api as smf
