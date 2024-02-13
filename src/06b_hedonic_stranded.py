@@ -48,3 +48,13 @@ DEFLATOR_2022 = CPI_2023 / CPI_2022  # inflate 2022 values to 2023 USD
 # Winsorize outliers to avoid leverage from extreme markets (urban fringe)
 LAND_VALUE_UPPER_PCTILE = 99
 LAND_VALUE_LOWER_PCTILE = 1
+
+# USDA Census of Agriculture 2022: total acres in farms by state FIPS.
+# Source: USDA NASS 2022 Census of Agriculture, Table 1.
+# Used to calibrate county farm acres derived from NASS cropland data,
+# which only covers 8 field crops and substantially undercounts total farmland
+# (pasture, rangeland, orchards, fallow, farmsteads, etc.).
+# Calibration: state_factor = USDA_total / sum(max_crop_acres_per_county)
+# Applied county-proportionally so county shares within each state are preserved.
+USDA_STATE_FARM_ACRES_2022 = {
+    '01': 8_700_000, '04': 26_000_000, '05': 14_500_000, '06': 25_300_000,
