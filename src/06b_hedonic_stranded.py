@@ -78,3 +78,13 @@ def build_cross_section(
     acs: pd.DataFrame,
     nass_yields: pd.DataFrame,
 ) -> pd.DataFrame:
+    """Build county-level cross-section for hedonic regression.
+
+    Uses:
+      - Land value: average of 2017 and 2022 Census of Ag (most recent bracket
+        around the 2019-2023 climate window), deflated to 2023 USD.
+      - Climate: 2019-2023 average tmax_july (July mean Tmax, °F) and
+        precip_growing (Apr-Sep total precip, inches/yr).
+      - Controls: 2019-2023 average log(population) and log(median_income).
+      - State fixed effects from FIPS prefix.
+
