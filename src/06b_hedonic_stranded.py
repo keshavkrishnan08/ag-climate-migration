@@ -98,3 +98,13 @@ def build_cross_section(
 
     Returns:
         DataFrame with one row per county: fips, state_fips, log_land_value,
+        tmax_july, tmax_july_sq, precip_growing, log_pop, log_income,
+        farm_acres, land_value_per_acre.
+    """
+    logger.info("Building hedonic cross-section...")
+
+    # --- Land value: average 2017 and 2022 ---
+    lv_recent = land_values[land_values['year'].isin([2017, 2022])].copy()
+    # Inflate 2022 values to 2023 USD; 2017 values use 2022 CPI ratio as approx
+    lv_recent.loc[lv_recent['year'] == 2022, 'land_value_per_acre'] *= DEFLATOR_2022
+    lv_cs = (
