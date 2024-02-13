@@ -88,3 +88,13 @@ def build_cross_section(
       - Controls: 2019-2023 average log(population) and log(median_income).
       - State fixed effects from FIPS prefix.
 
+    Args:
+        land_values: NASS land values (fips, year, land_value_per_acre).
+        climate_monthly: PRISM monthly (fips, year, tmax_m01..m12,
+                         precip_m01..m12). Tmax in °F.
+        acs: ACS demographics (fips, year, total_population,
+             median_household_income).
+        nass_yields: NASS county yields (fips, year, acres_harvested).
+
+    Returns:
+        DataFrame with one row per county: fips, state_fips, log_land_value,
