@@ -108,3 +108,13 @@ def build_cross_section(
     # Inflate 2022 values to 2023 USD; 2017 values use 2022 CPI ratio as approx
     lv_recent.loc[lv_recent['year'] == 2022, 'land_value_per_acre'] *= DEFLATOR_2022
     lv_cs = (
+        lv_recent.groupby('fips')['land_value_per_acre']
+        .mean()
+        .reset_index()
+        .rename(columns={'land_value_per_acre': 'land_value_per_acre'})
+    )
+    logger.info(f"  Land values: {len(lv_cs)} counties (2017/2022 avg, 2023 USD)")
+
+    # Winsorize extreme land values (urban fringe parcels distort regression)
+    lo = np.percentile(lv_cs['land_value_per_acre'], LAND_VALUE_LOWER_PCTILE)
+    hi = np.percentile(lv_cs['land_value_per_acre'], LAND_VALUE_UPPER_PCTILE)
