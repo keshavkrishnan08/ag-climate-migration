@@ -118,3 +118,13 @@ def build_cross_section(
     # Winsorize extreme land values (urban fringe parcels distort regression)
     lo = np.percentile(lv_cs['land_value_per_acre'], LAND_VALUE_LOWER_PCTILE)
     hi = np.percentile(lv_cs['land_value_per_acre'], LAND_VALUE_UPPER_PCTILE)
+    lv_cs = lv_cs[
+        (lv_cs['land_value_per_acre'] >= lo) &
+        (lv_cs['land_value_per_acre'] <= hi)
+    ].copy()
+    logger.info(f"  After winsorize [{lo:.0f}, {hi:.0f}]: {len(lv_cs)} counties")
+
+    # --- Climate: 2019-2023 average ---
+    clim_window = climate_monthly[climate_monthly['year'].between(2019, 2023)].copy()
+    precip_cols = [f'precip_m{m:02d}' for m in GROWING_MONTHS]
+    clim_window['precip_growing'] = clim_window[precip_cols].sum(axis=1)
