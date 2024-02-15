@@ -168,3 +168,13 @@ def build_cross_section(
     calib_factors = {}
     for st, usda_acres in USDA_STATE_FARM_ACRES_2022.items():
         our_max = state_max_totals.get(st, 0)
+        if our_max > 0:
+            calib_factors[st] = usda_acres / our_max
+        else:
+            calib_factors[st] = 5.0   # default for states with no NASS cropland data
+    max_acres_df['calib_factor'] = max_acres_df['state'].map(calib_factors).fillna(5.0)
+    max_acres_df['farm_acres'] = max_acres_df['max_crop_acres'] * max_acres_df['calib_factor']
+    farm_acres = max_acres_df[['fips', 'farm_acres']]
+    logger.info(
+        f"  Farm acres (calibrated): {len(farm_acres)} counties, "
+        f"total={farm_acres['farm_acres'].sum()/1e9:.2f}B acres"
