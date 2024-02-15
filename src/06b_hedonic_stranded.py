@@ -148,3 +148,13 @@ def build_cross_section(
 
     # --- Farm acres: calibrated to USDA Census of Agriculture 2022 state totals ---
     # Step 1: max single-crop harvested acres per county-year, averaged 2017-2022.
+    # Taking max (not sum) avoids multi-crop double-counting (a corn/soy field
+    # would appear in both crop rows). Max gives dominant crop acres.
+    # Step 2: apply state-specific calibration factor = USDA_total / sum(max_acres).
+    # This preserves within-state county proportions while anchoring to USDA totals.
+    # Result: county-level farm acres covering ALL land uses (cropland + rangeland
+    # + orchards + fallow + farmsteads), consistent with hedonic model scope.
+    nass_recent = nass_yields[nass_yields['year'].between(2017, 2022)].copy()
+    max_by_county_year = (
+        nass_recent.groupby(['fips', 'year'])['acres_harvested'].max()
+    )
