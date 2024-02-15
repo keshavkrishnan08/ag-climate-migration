@@ -138,3 +138,13 @@ def build_cross_section(
     logger.info(f"  Climate: {len(clim_cs)} counties (2019-2023 avg)")
 
     # --- ACS controls: 2019-2023 average ---
+    acs_window = acs[acs['year'].between(2019, 2023)].copy()
+    acs_cs = (
+        acs_window.groupby('fips')[['total_population', 'median_household_income']]
+        .mean()
+        .reset_index()
+    )
+    logger.info(f"  ACS demographics: {len(acs_cs)} counties (2019-2023 avg)")
+
+    # --- Farm acres: calibrated to USDA Census of Agriculture 2022 state totals ---
+    # Step 1: max single-crop harvested acres per county-year, averaged 2017-2022.
