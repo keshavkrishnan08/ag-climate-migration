@@ -178,3 +178,13 @@ def build_cross_section(
     logger.info(
         f"  Farm acres (calibrated): {len(farm_acres)} counties, "
         f"total={farm_acres['farm_acres'].sum()/1e9:.2f}B acres"
+    )
+
+    # --- Merge all together ---
+    df = lv_cs.merge(clim_cs, on='fips', how='inner')
+    df = df.merge(acs_cs, on='fips', how='inner')
+    df = df.merge(farm_acres[['fips', 'farm_acres']], on='fips', how='left')
+
+    # --- Derived variables ---
+    df['tmax_july_sq'] = df['tmax_july'] ** 2
+    df['log_land_value'] = np.log(df['land_value_per_acre'])
