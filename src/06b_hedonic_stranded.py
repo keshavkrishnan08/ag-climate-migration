@@ -198,3 +198,13 @@ def build_cross_section(
     df = df.dropna(subset=[
         'log_land_value', 'tmax_july', 'precip_growing',
         'log_pop', 'log_income',
+    ])
+    # Filter implausible values
+    df = df[df['total_population'] > 0]
+    df = df[df['median_household_income'] > 0]
+    df = df[df['tmax_july'] > 30]    # sanity: must be above 30°F for July
+    df = df[df['precip_growing'] >= 0]
+
+    logger.info(f"  Final cross-section: {len(df)} counties")
+    logger.info(f"  tmax_july: {df['tmax_july'].mean():.1f} ± {df['tmax_july'].std():.1f} °F")
+    logger.info(f"  precip_growing: {df['precip_growing'].mean():.1f} ± {df['precip_growing'].std():.1f} in")
