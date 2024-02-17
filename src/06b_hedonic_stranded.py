@@ -208,3 +208,13 @@ def build_cross_section(
     logger.info(f"  Final cross-section: {len(df)} counties")
     logger.info(f"  tmax_july: {df['tmax_july'].mean():.1f} ± {df['tmax_july'].std():.1f} °F")
     logger.info(f"  precip_growing: {df['precip_growing'].mean():.1f} ± {df['precip_growing'].std():.1f} in")
+    logger.info(f"  log_land_value: mean={df['log_land_value'].mean():.3f}")
+    logger.info(f"  States: {df['state_fips'].nunique()}")
+
+    return df
+
+
+def estimate_hedonic_regression(df: pd.DataFrame) -> tuple:
+    """Estimate the hedonic farmland value regression.
+
+    Model: log(land_value) = β₀ + β₁·T + β₂·T² + β₃·P
