@@ -228,3 +228,13 @@ def estimate_hedonic_regression(df: pd.DataFrame) -> tuple:
 
     Returns:
         Tuple of (fitted OLS RegressionResultsWrapper, DataFrame with
+        residuals and fitted values appended).
+    """
+    logger.info("Estimating hedonic regression...")
+
+    formula = (
+        "log_land_value ~ tmax_july + tmax_july_sq + precip_growing "
+        "+ log_pop + log_income + C(state_fips)"
+    )
+    model = smf.ols(formula=formula, data=df)
+    result = model.fit(cov_type='HC3')
