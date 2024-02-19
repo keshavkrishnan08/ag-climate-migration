@@ -238,3 +238,13 @@ def estimate_hedonic_regression(df: pd.DataFrame) -> tuple:
     )
     model = smf.ols(formula=formula, data=df)
     result = model.fit(cov_type='HC3')
+
+    logger.info(f"  N = {int(result.nobs)}")
+    logger.info(f"  R² = {result.rsquared:.4f}")
+    logger.info(f"  Adj R² = {result.rsquared_adj:.4f}")
+    logger.info(f"  F-stat = {result.fvalue:.2f}")
+
+    # Extract key coefficients
+    for var in ['tmax_july', 'tmax_july_sq', 'precip_growing', 'log_pop', 'log_income']:
+        coef = result.params.get(var, float('nan'))
+        se = result.bse.get(var, float('nan'))
