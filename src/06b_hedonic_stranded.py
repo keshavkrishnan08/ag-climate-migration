@@ -218,3 +218,13 @@ def estimate_hedonic_regression(df: pd.DataFrame) -> tuple:
     """Estimate the hedonic farmland value regression.
 
     Model: log(land_value) = β₀ + β₁·T + β₂·T² + β₃·P
+                           + β₄·log(pop) + β₅·log(income) + state_FE + ε
+
+    Uses HC3 heteroskedasticity-consistent standard errors (White 1980).
+    State fixed effects via C(state_fips) in patsy formula.
+
+    Args:
+        df: Cross-section DataFrame from build_cross_section.
+
+    Returns:
+        Tuple of (fitted OLS RegressionResultsWrapper, DataFrame with
