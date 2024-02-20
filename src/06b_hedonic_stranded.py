@@ -288,3 +288,13 @@ def compute_hedonic_stranded(
     climate_proj: pd.DataFrame,
     target_year: int = 2050,
     scenario: str = 'SSP245',
+) -> tuple:
+    """Compute hedonic stranded value using projected warming delta.
+
+    Strategy:
+      1. Use the fitted model to predict log(land_value) at current climate.
+      2. Apply the county-specific warming delta (delta_tmax_july, °F) from
+         CMIP6 projections to get projected tmax_july.
+      3. Predict log(land_value) at projected climate.
+      4. delta_log = predicted_current - predicted_projected
+         → approx fractional value loss per acre.
