@@ -268,3 +268,13 @@ def estimate_hedonic_regression(df: pd.DataFrame) -> tuple:
             # degree of July warming costs ~2.4% of land value. The quadratic is small
             # relative to the linear effect over the projected warming range (+0.4 to +1.9°F).
             logger.warning(
+                "  NOTE: β_T² > 0 (U-shaped cross-section). This reflects geographic sorting "
+                "in the raw data (high values in cool Pacific NW and hot irrigated Southwest). "
+                "The net effect on stranded value at +1.87°F warming remains large and negative "
+                "because β_T (linear) dominates. See Mendelsohn et al. 1994 for discussion."
+            )
+
+    # Append fitted values and residuals
+    df = df.copy()
+    df['fitted_log_lv'] = result.fittedvalues
+    df['residual'] = result.resid
