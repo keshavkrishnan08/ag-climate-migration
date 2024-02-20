@@ -308,3 +308,13 @@ def compute_hedonic_stranded(
 
     Args:
         df: Cross-section DataFrame with fitted values.
+        result: Fitted OLS result from estimate_hedonic_regression.
+        climate_proj: CMIP6 projections (fips, year, delta_tmax_july,
+                      delta_precip_growing — optional).
+        target_year: Projection year for warming delta (2040 or 2050).
+        scenario: Scenario label for output tagging.
+
+    Returns:
+        Tuple of (county-level stranded DataFrame, national summary dict).
+    """
+    logger.info(f"Computing hedonic stranded value for {target_year} ({scenario})...")
