@@ -278,3 +278,13 @@ def estimate_hedonic_regression(df: pd.DataFrame) -> tuple:
     df = df.copy()
     df['fitted_log_lv'] = result.fittedvalues
     df['residual'] = result.resid
+
+    return result, df
+
+
+def compute_hedonic_stranded(
+    df: pd.DataFrame,
+    result,
+    climate_proj: pd.DataFrame,
+    target_year: int = 2050,
+    scenario: str = 'SSP245',
