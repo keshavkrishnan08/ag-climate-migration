@@ -298,3 +298,13 @@ def compute_hedonic_stranded(
       3. Predict log(land_value) at projected climate.
       4. delta_log = predicted_current - predicted_projected
          → approx fractional value loss per acre.
+      5. Multiply by actual (observed) land_value_per_acre to get $/acre loss.
+      6. Multiply by farm_acres to get total stranded value per county.
+      7. Sum nationally (only positive losses = stranded, not gains).
+
+    This approach uses the fitted model to isolate the temperature effect while
+    holding all other covariates (income, population, state FE) constant.
+    Only the climate variables (tmax_july, tmax_july_sq, precip_growing) change.
+
+    Args:
+        df: Cross-section DataFrame with fitted values.
