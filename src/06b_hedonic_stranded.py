@@ -318,3 +318,13 @@ def compute_hedonic_stranded(
         Tuple of (county-level stranded DataFrame, national summary dict).
     """
     logger.info(f"Computing hedonic stranded value for {target_year} ({scenario})...")
+
+    # Get warming delta for target year
+    proj_yr = climate_proj[climate_proj['year'] == target_year].copy()
+    if proj_yr.empty:
+        logger.error(f"No projection data for year {target_year}")
+        return pd.DataFrame(), {}
+
+    logger.info(f"  Climate projections available: {len(proj_yr)} counties")
+
+    # Merge projection deltas into cross-section
