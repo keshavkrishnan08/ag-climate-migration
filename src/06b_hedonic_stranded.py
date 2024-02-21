@@ -388,3 +388,13 @@ def compute_hedonic_stranded(
     )
 
     # Total stranded value per county
+    df_proj['farm_acres'] = df_proj['farm_acres'].fillna(0)
+    df_proj['stranded_total'] = df_proj['delta_lv_per_acre'] * df_proj['farm_acres']
+
+    # Diagnostics
+    n_stranded = (df_proj['stranded_total'] > 0).sum()
+    n_gaining = (df_proj['stranded_total'] < 0).sum()
+    mean_delta_T = df_proj['delta_tmax_july'].mean()
+    mean_delta_log = df_proj['delta_log_lv'].mean()
+
+    pos = df_proj[df_proj['stranded_total'] > 0]
