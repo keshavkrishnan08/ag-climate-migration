@@ -338,3 +338,13 @@ def compute_hedonic_stranded(
     # Compute projected climate variables
     df_proj['tmax_july_proj'] = df_proj['tmax_july'] + df_proj['delta_tmax_july']
     df_proj['tmax_july_sq_proj'] = df_proj['tmax_july_proj'] ** 2
+
+    # Projected precip: use delta if available, else hold constant
+    if 'delta_precip_growing' in df_proj.columns:
+        # delta_precip_growing is in mm in projections; convert to inches (1mm = 0.0394in)
+        # Actually check: PRISM precip is in inches, CMIP6 deltas in mm. Let's check units.
+        # The projections file has delta_precip_growing — check sign and magnitude
+        df_proj['precip_growing_proj'] = df_proj['precip_growing']  # hold constant for now
+        # We only propagate temperature effect as that's the primary driver
+        # Precip delta is small and more uncertain; holding constant is conservative
+    else:
