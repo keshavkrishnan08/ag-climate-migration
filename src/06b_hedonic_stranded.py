@@ -328,3 +328,13 @@ def compute_hedonic_stranded(
     logger.info(f"  Climate projections available: {len(proj_yr)} counties")
 
     # Merge projection deltas into cross-section
+    df_proj = df.merge(
+        proj_yr[['fips', 'delta_tmax_july', 'delta_precip_growing']],
+        on='fips',
+        how='inner',
+    )
+    logger.info(f"  Matched counties (land value + projection): {len(df_proj)}")
+
+    # Compute projected climate variables
+    df_proj['tmax_july_proj'] = df_proj['tmax_july'] + df_proj['delta_tmax_july']
+    df_proj['tmax_july_sq_proj'] = df_proj['tmax_july_proj'] ** 2
