@@ -368,3 +368,13 @@ def compute_hedonic_stranded(
         b_T * df_proj['tmax_july'] +
         b_T2 * df_proj['tmax_july_sq'] +
         b_P * df_proj['precip_growing']
+    )
+    # Projected climate contribution
+    df_proj['climate_hat_proj'] = (
+        b_T * df_proj['tmax_july_proj'] +
+        b_T2 * df_proj['tmax_july_sq_proj'] +
+        b_P * df_proj['precip_growing_proj']
+    )
+
+    # Delta in log-land-value from climate change only
+    df_proj['delta_log_lv'] = df_proj['climate_hat_current'] - df_proj['climate_hat_proj']
