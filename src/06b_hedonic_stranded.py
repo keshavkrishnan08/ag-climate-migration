@@ -398,3 +398,13 @@ def compute_hedonic_stranded(
     mean_delta_log = df_proj['delta_log_lv'].mean()
 
     pos = df_proj[df_proj['stranded_total'] > 0]
+    neg = df_proj[df_proj['stranded_total'] < 0]
+    total_stranded_B = pos['stranded_total'].sum() / 1e9
+    total_gained_B = abs(neg['stranded_total'].sum()) / 1e9
+    net_B = total_stranded_B - total_gained_B
+
+    logger.info(f"  Mean warming delta: +{mean_delta_T:.2f} °F")
+    logger.info(f"  Mean Δ log(land value): {mean_delta_log:.4f} ({mean_delta_log*100:.2f}%)")
+    logger.info(f"  Counties losing value: {n_stranded}")
+    logger.info(f"  Counties gaining value: {n_gaining}")
+    logger.info(f"  Total stranded (losses only): ${total_stranded_B:.1f}B")
