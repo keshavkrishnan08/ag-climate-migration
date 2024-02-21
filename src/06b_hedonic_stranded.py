@@ -408,3 +408,13 @@ def compute_hedonic_stranded(
     logger.info(f"  Counties losing value: {n_stranded}")
     logger.info(f"  Counties gaining value: {n_gaining}")
     logger.info(f"  Total stranded (losses only): ${total_stranded_B:.1f}B")
+    logger.info(f"  Total gained (gains only):    ${total_gained_B:.1f}B")
+    logger.info(f"  Net:                          ${net_B:.1f}B")
+
+    df_proj['target_year'] = target_year
+    df_proj['scenario'] = scenario
+
+    summary = {
+        'target_year': target_year,
+        'scenario': scenario,
+        'n_counties': len(df_proj),
