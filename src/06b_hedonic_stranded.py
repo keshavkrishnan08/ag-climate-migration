@@ -378,3 +378,13 @@ def compute_hedonic_stranded(
 
     # Delta in log-land-value from climate change only
     df_proj['delta_log_lv'] = df_proj['climate_hat_current'] - df_proj['climate_hat_proj']
+    # Positive delta_log_lv = land loses value from warming
+
+    # Convert log-change to level change: $/acre stranded
+    # δ(log V) ≈ δV/V, so δV ≈ V × δ(log V)
+    # More precise: δV = V × (1 - exp(-δ log V))
+    df_proj['delta_lv_per_acre'] = (
+        df_proj['land_value_per_acre'] * (1 - np.exp(-df_proj['delta_log_lv']))
+    )
+
+    # Total stranded value per county
