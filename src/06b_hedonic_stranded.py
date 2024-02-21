@@ -358,3 +358,13 @@ def compute_hedonic_stranded(
     b_pop = result.params.get('log_pop', 0)
     b_inc = result.params.get('log_income', 0)
 
+    # Build state FE vector (sum of state dummies × their coefficients)
+    # Fitted = b0 + b_T·T + b_T2·T² + b_P·P + b_pop·logpop + b_inc·loginc + state_FE
+    # We isolate climate portion: climate_pred = b_T·T + b_T2·T² + b_P·P
+    # Delta is purely climate channel change
+
+    # Current climate contribution to log(land value)
+    df_proj['climate_hat_current'] = (
+        b_T * df_proj['tmax_july'] +
+        b_T2 * df_proj['tmax_july_sq'] +
+        b_P * df_proj['precip_growing']
