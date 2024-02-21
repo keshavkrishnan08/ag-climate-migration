@@ -348,3 +348,13 @@ def compute_hedonic_stranded(
         # We only propagate temperature effect as that's the primary driver
         # Precip delta is small and more uncertain; holding constant is conservative
     else:
+        df_proj['precip_growing_proj'] = df_proj['precip_growing']
+
+    # Extract coefficients for manual prediction (so we hold state_FE constant)
+    b0 = result.params.get('Intercept', 0)
+    b_T = result.params.get('tmax_july', 0)
+    b_T2 = result.params.get('tmax_july_sq', 0)
+    b_P = result.params.get('precip_growing', 0)
+    b_pop = result.params.get('log_pop', 0)
+    b_inc = result.params.get('log_income', 0)
+
