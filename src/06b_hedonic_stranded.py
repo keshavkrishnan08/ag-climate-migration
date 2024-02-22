@@ -428,3 +428,13 @@ def compute_hedonic_stranded(
     }
 
     return df_proj, summary
+
+
+def run_hedonic_stranded() -> dict:
+    """Execute the Mendelsohn-Nordhaus-Schlenker hedonic stranded asset analysis.
+
+    Returns:
+        Dict with regression results, county-level stranded estimates, and
+        national summary for both 2040 and 2050 target years.
+    """
+    logger.info("=" * 60)
