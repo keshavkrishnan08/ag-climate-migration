@@ -488,3 +488,13 @@ def run_hedonic_stranded() -> dict:
     # --- Estimate regression ---
     result, df = estimate_hedonic_regression(df)
 
+    # --- Regression summary for paper ---
+    b_T = result.params.get('tmax_july', np.nan)
+    b_T2 = result.params.get('tmax_july_sq', np.nan)
+    b_P = result.params.get('precip_growing', np.nan)
+    b_pop = result.params.get('log_pop', np.nan)
+    b_inc = result.params.get('log_income', np.nan)
+    p_T = result.pvalues.get('tmax_july', np.nan)
+    p_T2 = result.pvalues.get('tmax_july_sq', np.nan)
+    p_P = result.pvalues.get('precip_growing', np.nan)
+    p_pop = result.pvalues.get('log_pop', np.nan)
