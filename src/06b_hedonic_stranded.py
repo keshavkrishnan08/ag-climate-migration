@@ -498,3 +498,13 @@ def run_hedonic_stranded() -> dict:
     p_T2 = result.pvalues.get('tmax_july_sq', np.nan)
     p_P = result.pvalues.get('precip_growing', np.nan)
     p_pop = result.pvalues.get('log_pop', np.nan)
+    p_inc = result.pvalues.get('log_income', np.nan)
+
+    turning_point = float('nan')
+    if not np.isnan(b_T2) and b_T2 != 0:
+        turning_point = -b_T / (2 * b_T2)
+
+    logger.info("\n--- REGRESSION SUMMARY (for paper) ---")
+    logger.info(f"  R² = {result.rsquared:.4f}  |  Adj R² = {result.rsquared_adj:.4f}")
+    logger.info(f"  N = {int(result.nobs)}")
+    logger.info(f"  β_tmax_july     = {b_T:+.5f}  (p={p_T:.4f})")
