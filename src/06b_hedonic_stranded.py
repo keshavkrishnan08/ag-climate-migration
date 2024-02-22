@@ -438,3 +438,13 @@ def run_hedonic_stranded() -> dict:
         national summary for both 2040 and 2050 target years.
     """
     logger.info("=" * 60)
+    logger.info("PHASE 5B: HEDONIC FARMLAND VALUATION (MNS METHOD)")
+    logger.info("=" * 60)
+
+    output_dir = RESULTS_DIR / 'stranded_assets'
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # --- Load data ---
+    logger.info("Loading datasets...")
+
+    land_values = pd.read_parquet(
