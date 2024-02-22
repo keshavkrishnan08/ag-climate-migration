@@ -478,3 +478,13 @@ def run_hedonic_stranded() -> dict:
         PROJECTIONS_DIR / 'county_climate_projections.parquet',
         columns=['fips', 'year', 'scenario', 'delta_tmax_july', 'delta_precip_growing'],
     )
+    # Use SSP245 scenario
+    climate_proj = climate_proj[climate_proj['scenario'] == 'SSP245'].copy()
+    logger.info(f"  Climate projections (SSP245): {len(climate_proj)} rows")
+
+    # --- Build cross-section ---
+    df = build_cross_section(land_values, climate_monthly, acs, nass_yields)
+
+    # --- Estimate regression ---
+    result, df = estimate_hedonic_regression(df)
+
