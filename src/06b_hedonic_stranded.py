@@ -418,3 +418,13 @@ def compute_hedonic_stranded(
         'target_year': target_year,
         'scenario': scenario,
         'n_counties': len(df_proj),
+        'n_stranded_counties': int(n_stranded),
+        'n_gaining_counties': int(n_gaining),
+        'mean_delta_tmax_july_F': float(mean_delta_T),
+        'mean_delta_log_lv': float(mean_delta_log),
+        'hedonic_stranded_B': float(total_stranded_B),
+        'hedonic_gained_B': float(total_gained_B),
+        'hedonic_net_B': float(net_B),
+    }
+
+    return df_proj, summary
