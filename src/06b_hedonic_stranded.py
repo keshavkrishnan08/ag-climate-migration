@@ -508,3 +508,13 @@ def run_hedonic_stranded() -> dict:
     logger.info(f"  R² = {result.rsquared:.4f}  |  Adj R² = {result.rsquared_adj:.4f}")
     logger.info(f"  N = {int(result.nobs)}")
     logger.info(f"  β_tmax_july     = {b_T:+.5f}  (p={p_T:.4f})")
+    logger.info(f"  β_tmax_july²    = {b_T2:+.5f}  (p={p_T2:.4f}) [should be negative]")
+    logger.info(f"  β_precip        = {b_P:+.5f}  (p={p_P:.4f})")
+    logger.info(f"  β_log_pop       = {b_pop:+.5f}  (p={p_pop:.4f})")
+    logger.info(f"  β_log_income    = {b_inc:+.5f}  (p={p_inc:.4f})")
+    logger.info(f"  Turning point T* = {turning_point:.1f} °F  ({(turning_point-32)*5/9:.1f} °C)")
+
+    # --- Stranded value for 2040 and 2050 ---
+    results_all = {}
+
+    for target_year in [2040, 2050]:
