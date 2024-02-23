@@ -538,3 +538,13 @@ def run_hedonic_stranded() -> dict:
     # Primary estimate = 2050, SSP245 (central warming scenario)
     s2050 = results_all[2050]['summary']
     s2040 = results_all[2040]['summary']
+
+    logger.info("\n--- HEDONIC STRANDED VALUE SUMMARY ---")
+    logger.info(f"  2040 stranded: ${s2040['hedonic_stranded_B']:.1f}B "
+                f"(net ${s2040['hedonic_net_B']:.1f}B)")
+    logger.info(f"  2050 stranded: ${s2050['hedonic_stranded_B']:.1f}B "
+                f"(net ${s2050['hedonic_net_B']:.1f}B)")
+
+    # Save full county-level combined file
+    combined = pd.concat(
+        [results_all[yr]['county_df'] for yr in [2040, 2050]
