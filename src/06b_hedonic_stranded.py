@@ -528,3 +528,13 @@ def run_hedonic_stranded() -> dict:
         if not county_df.empty:
             out_path = output_dir / f'hedonic_stranded_{target_year}.parquet'
             county_df[[
+                'fips', 'state_fips', 'land_value_per_acre', 'farm_acres',
+                'tmax_july', 'precip_growing', 'delta_tmax_july',
+                'delta_log_lv', 'delta_lv_per_acre', 'stranded_total',
+                'target_year', 'scenario',
+            ]].to_parquet(out_path, index=False)
+            logger.info(f"  Saved: {out_path}")
+
+    # Primary estimate = 2050, SSP245 (central warming scenario)
+    s2050 = results_all[2050]['summary']
+    s2040 = results_all[2040]['summary']
