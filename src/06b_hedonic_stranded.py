@@ -548,3 +548,13 @@ def run_hedonic_stranded() -> dict:
     # Save full county-level combined file
     combined = pd.concat(
         [results_all[yr]['county_df'] for yr in [2040, 2050]
+         if not results_all[yr]['county_df'].empty],
+        ignore_index=True,
+    )
+    if not combined.empty:
+        combined[[
+            'fips', 'state_fips', 'land_value_per_acre', 'farm_acres',
+            'tmax_july', 'precip_growing', 'delta_tmax_july',
+            'delta_log_lv', 'delta_lv_per_acre', 'stranded_total',
+            'target_year', 'scenario',
+        ]].to_parquet(output_dir / 'hedonic_stranded.parquet', index=False)
