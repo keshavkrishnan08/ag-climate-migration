@@ -518,3 +518,13 @@ def run_hedonic_stranded() -> dict:
     results_all = {}
 
     for target_year in [2040, 2050]:
+        county_df, summary = compute_hedonic_stranded(
+            df, result, climate_proj, target_year=target_year, scenario='SSP245'
+        )
+        results_all[target_year] = {
+            'county_df': county_df,
+            'summary': summary,
+        }
+        if not county_df.empty:
+            out_path = output_dir / f'hedonic_stranded_{target_year}.parquet'
+            county_df[[
