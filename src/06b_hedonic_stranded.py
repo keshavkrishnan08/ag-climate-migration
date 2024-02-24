@@ -558,3 +558,13 @@ def run_hedonic_stranded() -> dict:
             'delta_log_lv', 'delta_lv_per_acre', 'stranded_total',
             'target_year', 'scenario',
         ]].to_parquet(output_dir / 'hedonic_stranded.parquet', index=False)
+        logger.info(f"  Saved combined: {output_dir / 'hedonic_stranded.parquet'}")
+
+    # --- Update headline numbers ---
+    headline_path = PROJECT_ROOT / 'state' / 'headline_numbers_preliminary.json'
+    if headline_path.exists():
+        with open(headline_path) as f:
+            headline = json.load(f)
+
+        headline['hedonic_stranded_B'] = float(s2050['hedonic_stranded_B'])
+        headline['hedonic_stranded_net_B'] = float(s2050['hedonic_net_B'])
