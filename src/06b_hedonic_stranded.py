@@ -568,3 +568,13 @@ def run_hedonic_stranded() -> dict:
 
         headline['hedonic_stranded_B'] = float(s2050['hedonic_stranded_B'])
         headline['hedonic_stranded_net_B'] = float(s2050['hedonic_net_B'])
+        headline['hedonic_stranded_2040_B'] = float(s2040['hedonic_stranded_B'])
+        headline['hedonic_stranded_2040_net_B'] = float(s2040['hedonic_net_B'])
+        headline['hedonic_stranded_n_counties'] = int(s2050['n_stranded_counties'])
+        headline['hedonic_r2'] = float(result.rsquared)
+        headline['hedonic_beta_tmax'] = float(b_T)
+        headline['hedonic_beta_tmax_sq'] = float(b_T2)
+        headline['hedonic_beta_precip'] = float(b_P)
+        headline['hedonic_turning_point_F'] = float(turning_point)
+        headline['hedonic_method'] = (
+            'Mendelsohn-Nordhaus-Schlenker cross-sectional hedonic: '
