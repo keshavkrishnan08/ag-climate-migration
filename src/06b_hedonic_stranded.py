@@ -578,3 +578,13 @@ def run_hedonic_stranded() -> dict:
         headline['hedonic_turning_point_F'] = float(turning_point)
         headline['hedonic_method'] = (
             'Mendelsohn-Nordhaus-Schlenker cross-sectional hedonic: '
+            'log(land_value) ~ tmax_july + tmax_july² + precip_growing '
+            '+ log(pop) + log(income) + state_FE. HC3 robust SE. '
+            'CMIP6 SSP2-4.5 warming applied to land value via Δlog(V) = β·ΔT + β²·ΔT².'
+        )
+
+        # Cross-check comparison note
+        dcf_central = headline.get('stranded_central_SR_B', headline.get('stranded_assets_climate_B', 0))
+        headline['hedonic_vs_dcf_note'] = (
+            f"Hedonic ${s2050['hedonic_stranded_B']:.0f}B vs "
+            f"DCF central ${dcf_central:.0f}B. "
