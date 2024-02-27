@@ -608,3 +608,13 @@ def run_hedonic_stranded() -> dict:
             'r2': float(result.rsquared),
             'n': int(result.nobs),
             'beta_tmax': float(b_T),
+            'beta_tmax_sq': float(b_T2),
+            'beta_precip': float(b_P),
+            'turning_point_F': float(turning_point),
+            'hedonic_stranded_2040_B': float(s2040['hedonic_stranded_B']),
+            'hedonic_stranded_2050_B': float(s2050['hedonic_stranded_B']),
+            'hedonic_net_2050_B': float(s2050['hedonic_net_B']),
+        }
+    }
+
+
