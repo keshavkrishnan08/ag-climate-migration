@@ -618,3 +618,5 @@ def run_hedonic_stranded() -> dict:
     }
 
 
+if __name__ == '__main__':
+    run_hedonic_stranded()
