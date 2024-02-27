@@ -588,3 +588,13 @@ def run_hedonic_stranded() -> dict:
         headline['hedonic_vs_dcf_note'] = (
             f"Hedonic ${s2050['hedonic_stranded_B']:.0f}B vs "
             f"DCF central ${dcf_central:.0f}B. "
+            f"Three independent methods: DCF, cap rate, hedonic."
+        )
+
+        with open(headline_path, 'w') as f:
+            json.dump(headline, f, indent=2)
+        logger.info(f"  Headline numbers updated: {headline_path}")
+
+    logger.info("=" * 60)
+    logger.info("PHASE 5B COMPLETE")
+    logger.info("=" * 60)
