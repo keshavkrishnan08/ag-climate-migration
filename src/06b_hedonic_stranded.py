@@ -598,3 +598,13 @@ def run_hedonic_stranded() -> dict:
     logger.info("=" * 60)
     logger.info("PHASE 5B COMPLETE")
     logger.info("=" * 60)
+
+    return {
+        'regression_result': result,
+        'cross_section': df,
+        'results_2040': results_all[2040],
+        'results_2050': results_all[2050],
+        'summary': {
+            'r2': float(result.rsquared),
+            'n': int(result.nobs),
+            'beta_tmax': float(b_T),
