@@ -18,3 +18,13 @@ This script:
 
 Model (baseline, 06b):
     log(V) = β₀ + β_T·T + β_T²·T² + β_P·P + β_pop·log(pop)
+           + β_inc·log(inc) + state_FE + ε
+
+Model (soil-controlled, this script):
+    log(V) = β₀ + β_T·T + β_T²·T² + β_P·P + β_pop·log(pop)
+           + β_inc·log(inc) + β_soil·nccpi_proxy
+           + β_amenity·hi_amenity + state_FE + ε
+
+Output:
+    results/stranded_assets/hedonic_soil_stranded_2050.parquet
+    results/stranded_assets/hedonic_soil_comparison.json
