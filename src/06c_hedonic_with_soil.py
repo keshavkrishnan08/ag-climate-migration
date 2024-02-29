@@ -78,3 +78,13 @@ USDA_STATE_FARM_ACRES_2022 = {
 
 def build_nccpi_proxy(nass_yields: pd.DataFrame) -> pd.DataFrame:
     """Build county-level soil productivity index from peak corn yields.
+
+    NCCPI proxy logic: the all-time maximum corn yield observed in a county
+    (1950–2023) reflects soil potential under optimal weather conditions. Rich
+    soils reach higher ceilings under good weather. Thin soils plateau lower.
+    Normalizing to [0,1] gives a scale-free productivity index comparable to
+    the USDA NCCPI (0=worst, 1=best).
+
+    Counties without any corn history receive NaN (handled downstream).
+
+    Args:
