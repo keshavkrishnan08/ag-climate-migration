@@ -48,3 +48,13 @@ PROJECTIONS_DIR = PROJECT_ROOT / 'data' / 'projections'
 RESULTS_DIR = PROJECT_ROOT / 'results'
 
 # Growing season months (April–September)
+GROWING_MONTHS = [4, 5, 6, 7, 8, 9]
+
+# CPI deflator — 2023 USD
+CPI_2022 = 296.8
+CPI_2023 = 304.7
+DEFLATOR_2022 = CPI_2023 / CPI_2022
+
+# Winsorize bounds
+LAND_VALUE_UPPER_PCTILE = 99
+LAND_VALUE_LOWER_PCTILE = 1
