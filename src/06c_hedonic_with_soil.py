@@ -28,3 +28,13 @@ Model (soil-controlled, this script):
 Output:
     results/stranded_assets/hedonic_soil_stranded_2050.parquet
     results/stranded_assets/hedonic_soil_comparison.json
+    state/headline_numbers_preliminary.json  (soil_controlled fields added)
+"""
+
+import json
+import sys
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import statsmodels.formula.api as smf
