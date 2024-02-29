@@ -88,3 +88,13 @@ def build_nccpi_proxy(nass_yields: pd.DataFrame) -> pd.DataFrame:
     Counties without any corn history receive NaN (handled downstream).
 
     Args:
+        nass_yields: NASS county yields with columns [fips, year, crop,
+                     yield_bu_acre].
+
+    Returns:
+        DataFrame with columns [fips, max_corn_yield, nccpi_proxy].
+    """
+    logger.info("Building NCCPI proxy from peak corn yields (1950–2023)...")
+
+    corn = nass_yields[nass_yields['crop'] == 'corn'].copy()
+    corn = corn[(corn['yield_bu_acre'] > 0) & corn['yield_bu_acre'].notna()]
