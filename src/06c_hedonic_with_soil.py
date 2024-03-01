@@ -108,3 +108,13 @@ def build_nccpi_proxy(nass_yields: pd.DataFrame) -> pd.DataFrame:
 
     logger.info(
         f"  NCCPI proxy: {len(max_yield)} counties, "
+        f"max yield = {y_max:.0f} bu/ac, "
+        f"mean proxy = {max_yield['nccpi_proxy'].mean():.3f}"
+    )
+    return max_yield[['fips', 'nccpi_proxy']]
+
+
+def build_amenity_control(ers_path: Path) -> pd.DataFrame:
+    """Extract HiAmenity binary from ERS Rural Atlas county classifications.
+
+    The USDA ERS Natural Amenities measure (embedded as HiAmenity in the
