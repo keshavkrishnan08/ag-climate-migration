@@ -98,3 +98,13 @@ def build_nccpi_proxy(nass_yields: pd.DataFrame) -> pd.DataFrame:
 
     corn = nass_yields[nass_yields['crop'] == 'corn'].copy()
     corn = corn[(corn['yield_bu_acre'] > 0) & corn['yield_bu_acre'].notna()]
+
+    max_yield = corn.groupby('fips')['yield_bu_acre'].max().reset_index()
+    max_yield.columns = ['fips', 'max_corn_yield']
+
+    # Normalize to [0, 1]
+    y_max = max_yield['max_corn_yield'].max()
+    max_yield['nccpi_proxy'] = max_yield['max_corn_yield'] / y_max
+
+    logger.info(
+        f"  NCCPI proxy: {len(max_yield)} counties, "
