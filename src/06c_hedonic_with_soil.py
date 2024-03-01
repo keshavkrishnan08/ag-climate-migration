@@ -128,3 +128,13 @@ def build_amenity_control(ers_path: Path) -> pd.DataFrame:
 
     Returns:
         DataFrame with columns [fips, hi_amenity] (int 0/1).
+    """
+    logger.info("Loading ERS HiAmenity control from Rural Atlas...")
+
+    df = pd.read_csv(ers_path, encoding='latin1')
+    # First column is FIPS (unnamed in the CSV)
+    fips_col = df.columns[0]
+    df = df.rename(columns={fips_col: 'fips_raw'})
+
+    amenity = df[df['Attribute'] == 'HiAmenity'][['fips_raw', 'Value']].copy()
+    amenity['fips'] = amenity['fips_raw'].astype(str).str.zfill(5)
