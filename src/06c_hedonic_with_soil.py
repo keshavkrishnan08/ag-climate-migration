@@ -118,3 +118,13 @@ def build_amenity_control(ers_path: Path) -> pd.DataFrame:
     """Extract HiAmenity binary from ERS Rural Atlas county classifications.
 
     The USDA ERS Natural Amenities measure (embedded as HiAmenity in the
+    Rural Atlas) captures climate amenity value: mild winters, low humidity,
+    topographic relief, water access. Including it controls for the amenity
+    channel in land values that is correlated with but distinct from
+    agricultural climate productivity.
+
+    Args:
+        ers_path: Path to ERS atlas CountyClassifications.csv.
+
+    Returns:
+        DataFrame with columns [fips, hi_amenity] (int 0/1).
