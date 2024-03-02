@@ -138,3 +138,13 @@ def build_amenity_control(ers_path: Path) -> pd.DataFrame:
 
     amenity = df[df['Attribute'] == 'HiAmenity'][['fips_raw', 'Value']].copy()
     amenity['fips'] = amenity['fips_raw'].astype(str).str.zfill(5)
+    amenity = amenity.rename(columns={'Value': 'hi_amenity'})
+    amenity['hi_amenity'] = amenity['hi_amenity'].astype(int)
+
+    logger.info(
+        f"  HiAmenity: {len(amenity)} counties, "
+        f"{amenity['hi_amenity'].sum()} high-amenity (={amenity['hi_amenity'].mean():.1%})"
+    )
+    return amenity[['fips', 'hi_amenity']]
+
+
