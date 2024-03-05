@@ -158,3 +158,13 @@ def build_cross_section_with_soil(
 ) -> pd.DataFrame:
     """Build county cross-section with soil and amenity controls.
 
+    Extends the baseline 06b cross-section by merging in:
+    - nccpi_proxy (soil productivity index, 0–1)
+    - hi_amenity (ERS binary amenity indicator)
+
+    Counties lacking corn history get nccpi_proxy = median (imputed).
+    Counties lacking amenity data get hi_amenity = 0 (conservative).
+
+    Args:
+        land_values: NASS land values (fips, year, land_value_per_acre).
+        climate_monthly: PRISM monthly climate data.
