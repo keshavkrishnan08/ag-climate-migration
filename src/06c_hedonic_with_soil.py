@@ -148,3 +148,13 @@ def build_amenity_control(ers_path: Path) -> pd.DataFrame:
     return amenity[['fips', 'hi_amenity']]
 
 
+def build_cross_section_with_soil(
+    land_values: pd.DataFrame,
+    climate_monthly: pd.DataFrame,
+    acs: pd.DataFrame,
+    nass_yields: pd.DataFrame,
+    nccpi_proxy: pd.DataFrame,
+    amenity: pd.DataFrame,
+) -> pd.DataFrame:
+    """Build county cross-section with soil and amenity controls.
+
