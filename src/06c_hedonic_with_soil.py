@@ -188,3 +188,13 @@ def build_cross_section_with_soil(
         .mean()
         .reset_index()
     )
+
+    lo = np.percentile(lv_cs['land_value_per_acre'], LAND_VALUE_LOWER_PCTILE)
+    hi = np.percentile(lv_cs['land_value_per_acre'], LAND_VALUE_UPPER_PCTILE)
+    lv_cs = lv_cs[
+        (lv_cs['land_value_per_acre'] >= lo) &
+        (lv_cs['land_value_per_acre'] <= hi)
+    ].copy()
+    logger.info(f"  Land values after winsorize: {len(lv_cs)} counties")
+
+    # --- Climate: 2019-2023 average ---
