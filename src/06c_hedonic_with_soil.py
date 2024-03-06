@@ -218,3 +218,13 @@ def build_cross_section_with_soil(
 
     # --- Farm acres: calibrated (identical method to 06b) ---
     nass_recent = nass_yields[nass_yields['year'].between(2017, 2022)].copy()
+    max_by_county_year = (
+        nass_recent.groupby(['fips', 'year'])['acres_harvested'].max()
+    )
+    max_acres_df = (
+        max_by_county_year.groupby('fips').mean().reset_index()
+        .rename(columns={'acres_harvested': 'max_crop_acres'})
+    )
+    max_acres_df['state'] = max_acres_df['fips'].str[:2]
+    state_max_totals = max_acres_df.groupby('state')['max_crop_acres'].sum()
+    calib_factors = {}
