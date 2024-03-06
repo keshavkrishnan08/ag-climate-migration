@@ -198,3 +198,13 @@ def build_cross_section_with_soil(
     logger.info(f"  Land values after winsorize: {len(lv_cs)} counties")
 
     # --- Climate: 2019-2023 average ---
+    clim_window = climate_monthly[climate_monthly['year'].between(2019, 2023)].copy()
+    precip_cols = [f'precip_m{m:02d}' for m in GROWING_MONTHS]
+    clim_window['precip_growing'] = clim_window[precip_cols].sum(axis=1)
+    clim_window['tmax_july'] = clim_window['tmax_m07']
+    clim_cs = (
+        clim_window.groupby('fips')[['tmax_july', 'precip_growing']]
+        .mean()
+        .reset_index()
+    )
+
