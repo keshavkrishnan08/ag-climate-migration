@@ -208,3 +208,13 @@ def build_cross_section_with_soil(
         .reset_index()
     )
 
+    # --- ACS controls: 2019-2023 average ---
+    acs_window = acs[acs['year'].between(2019, 2023)].copy()
+    acs_cs = (
+        acs_window.groupby('fips')[['total_population', 'median_household_income']]
+        .mean()
+        .reset_index()
+    )
+
+    # --- Farm acres: calibrated (identical method to 06b) ---
+    nass_recent = nass_yields[nass_yields['year'].between(2017, 2022)].copy()
