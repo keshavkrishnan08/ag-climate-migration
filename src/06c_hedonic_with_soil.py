@@ -168,3 +168,13 @@ def build_cross_section_with_soil(
     Args:
         land_values: NASS land values (fips, year, land_value_per_acre).
         climate_monthly: PRISM monthly climate data.
+        acs: ACS demographics (fips, year, total_population,
+             median_household_income).
+        nass_yields: NASS county yields (fips, year, acres_harvested).
+        nccpi_proxy: Soil proxy from build_nccpi_proxy.
+        amenity: Amenity binary from build_amenity_control.
+
+    Returns:
+        DataFrame with one row per county, including nccpi_proxy and
+        hi_amenity columns alongside baseline hedonic variables.
+    """
