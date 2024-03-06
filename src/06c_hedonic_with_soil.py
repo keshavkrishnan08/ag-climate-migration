@@ -178,3 +178,13 @@ def build_cross_section_with_soil(
         DataFrame with one row per county, including nccpi_proxy and
         hi_amenity columns alongside baseline hedonic variables.
     """
+    logger.info("Building soil-controlled cross-section...")
+
+    # --- Land value: average 2017 and 2022 ---
+    lv_recent = land_values[land_values['year'].isin([2017, 2022])].copy()
+    lv_recent.loc[lv_recent['year'] == 2022, 'land_value_per_acre'] *= DEFLATOR_2022
+    lv_cs = (
+        lv_recent.groupby('fips')['land_value_per_acre']
+        .mean()
+        .reset_index()
+    )
