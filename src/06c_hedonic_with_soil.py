@@ -248,3 +248,13 @@ def build_cross_section_with_soil(
     median_nccpi = df['nccpi_proxy'].median()
     n_imputed = df['nccpi_proxy'].isna().sum()
     df['nccpi_proxy'] = df['nccpi_proxy'].fillna(median_nccpi)
+    df['nccpi_imputed'] = (df['nccpi_proxy'] == median_nccpi).astype(int)
+    if n_imputed > 0:
+        logger.info(f"  NCCPI proxy: imputed {n_imputed} counties with median={median_nccpi:.3f}")
+
+    # Missing amenity → 0 (most non-amenity counties are ag counties)
+    df['hi_amenity'] = df['hi_amenity'].fillna(0).astype(int)
+
+    # --- Derived variables ---
+    df['tmax_july_sq'] = df['tmax_july'] ** 2
+    df['log_land_value'] = np.log(df['land_value_per_acre'])
