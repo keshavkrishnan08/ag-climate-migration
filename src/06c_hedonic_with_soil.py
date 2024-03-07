@@ -238,3 +238,13 @@ def build_cross_section_with_soil(
     # --- Merge baseline ---
     df = lv_cs.merge(clim_cs, on='fips', how='inner')
     df = df.merge(acs_cs, on='fips', how='inner')
+    df = df.merge(farm_acres, on='fips', how='left')
+
+    # --- Merge soil + amenity ---
+    df = df.merge(nccpi_proxy, on='fips', how='left')
+    df = df.merge(amenity, on='fips', how='left')
+
+    # Impute missing nccpi_proxy with median (non-corn counties)
+    median_nccpi = df['nccpi_proxy'].median()
+    n_imputed = df['nccpi_proxy'].isna().sum()
+    df['nccpi_proxy'] = df['nccpi_proxy'].fillna(median_nccpi)
