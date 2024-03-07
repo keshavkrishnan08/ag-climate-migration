@@ -228,3 +228,13 @@ def build_cross_section_with_soil(
     max_acres_df['state'] = max_acres_df['fips'].str[:2]
     state_max_totals = max_acres_df.groupby('state')['max_crop_acres'].sum()
     calib_factors = {}
+    for st, usda_acres in USDA_STATE_FARM_ACRES_2022.items():
+        our_max = state_max_totals.get(st, 0)
+        calib_factors[st] = usda_acres / our_max if our_max > 0 else 5.0
+    max_acres_df['calib_factor'] = max_acres_df['state'].map(calib_factors).fillna(5.0)
+    max_acres_df['farm_acres'] = max_acres_df['max_crop_acres'] * max_acres_df['calib_factor']
+    farm_acres = max_acres_df[['fips', 'farm_acres']]
+
+    # --- Merge baseline ---
+    df = lv_cs.merge(clim_cs, on='fips', how='inner')
+    df = df.merge(acs_cs, on='fips', how='inner')
