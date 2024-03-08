@@ -278,3 +278,13 @@ def build_cross_section_with_soil(
     return df
 
 
+def estimate_hedonic_with_soil(df: pd.DataFrame) -> tuple:
+    """Estimate hedonic regression with NCCPI soil proxy and amenity controls.
+
+    Model:
+        log(V) ~ tmax_july + tmax_july_sq + precip_growing
+               + log_pop + log_income
+               + nccpi_proxy + hi_amenity
+               + C(state_fips)
+
+    Uses HC3 heteroskedasticity-consistent standard errors.
