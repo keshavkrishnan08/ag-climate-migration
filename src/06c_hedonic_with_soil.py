@@ -328,3 +328,13 @@ def estimate_hedonic_with_soil(df: pd.DataFrame) -> tuple:
         turning_point = -b1 / (2 * b2)
         logger.info(f"  Turning point T* = {turning_point:.1f} °F ({(turning_point-32)*5/9:.1f} °C)")
 
+    df = df.copy()
+    df['fitted_log_lv'] = result.fittedvalues
+    df['residual'] = result.resid
+
+    return result, df
+
+
+def compute_stranded_with_soil(
+    df: pd.DataFrame,
+    result,
