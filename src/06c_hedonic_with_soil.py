@@ -318,3 +318,13 @@ def estimate_hedonic_with_soil(df: pd.DataFrame) -> tuple:
     for var in key_vars:
         coef = result.params.get(var, float('nan'))
         se = result.bse.get(var, float('nan'))
+        pval = result.pvalues.get(var, float('nan'))
+        stars = '***' if pval < 0.01 else ('**' if pval < 0.05 else ('*' if pval < 0.1 else ''))
+        logger.info(f"  {var:22s}: coef={coef:+.5f}  SE={se:.5f}  p={pval:.4f}{stars}")
+
+    b1 = result.params.get('tmax_july', np.nan)
+    b2 = result.params.get('tmax_july_sq', np.nan)
+    if b2 != 0 and not np.isnan(b2):
+        turning_point = -b1 / (2 * b2)
+        logger.info(f"  Turning point T* = {turning_point:.1f} °F ({(turning_point-32)*5/9:.1f} °C)")
+
