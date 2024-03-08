@@ -258,3 +258,13 @@ def build_cross_section_with_soil(
     # --- Derived variables ---
     df['tmax_july_sq'] = df['tmax_july'] ** 2
     df['log_land_value'] = np.log(df['land_value_per_acre'])
+    df['log_pop'] = np.log(df['total_population'].clip(lower=1))
+    df['log_income'] = np.log(df['median_household_income'].clip(lower=1))
+    df['state_fips'] = df['fips'].str[:2]
+
+    df = df.dropna(subset=[
+        'log_land_value', 'tmax_july', 'precip_growing',
+        'log_pop', 'log_income', 'nccpi_proxy',
+    ])
+    df = df[df['total_population'] > 0]
+    df = df[df['median_household_income'] > 0]
