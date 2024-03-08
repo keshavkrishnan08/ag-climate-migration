@@ -288,3 +288,13 @@ def estimate_hedonic_with_soil(df: pd.DataFrame) -> tuple:
                + C(state_fips)
 
     Uses HC3 heteroskedasticity-consistent standard errors.
+
+    Args:
+        df: Cross-section from build_cross_section_with_soil.
+
+    Returns:
+        Tuple of (OLS result, DataFrame with fitted values/residuals).
+    """
+    logger.info("Estimating soil-controlled hedonic regression...")
+
+    formula = (
