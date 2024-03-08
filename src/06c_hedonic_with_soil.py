@@ -268,3 +268,13 @@ def build_cross_section_with_soil(
     ])
     df = df[df['total_population'] > 0]
     df = df[df['median_household_income'] > 0]
+    df = df[df['tmax_july'] > 30]
+    df = df[df['precip_growing'] >= 0]
+
+    logger.info(f"  Final cross-section (soil-controlled): {len(df)} counties")
+    logger.info(f"  nccpi_proxy: mean={df['nccpi_proxy'].mean():.3f}, sd={df['nccpi_proxy'].std():.3f}")
+    logger.info(f"  hi_amenity: {df['hi_amenity'].sum()} counties ({df['hi_amenity'].mean():.1%})")
+
+    return df
+
+
