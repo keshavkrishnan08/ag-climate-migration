@@ -298,3 +298,13 @@ def estimate_hedonic_with_soil(df: pd.DataFrame) -> tuple:
     logger.info("Estimating soil-controlled hedonic regression...")
 
     formula = (
+        "log_land_value ~ tmax_july + tmax_july_sq + precip_growing "
+        "+ log_pop + log_income "
+        "+ nccpi_proxy + hi_amenity "
+        "+ C(state_fips)"
+    )
+    model = smf.ols(formula=formula, data=df)
+    result = model.fit(cov_type='HC3')
+
+    logger.info(f"  N = {int(result.nobs)}")
+    logger.info(f"  R² = {result.rsquared:.4f}")
