@@ -338,3 +338,13 @@ def estimate_hedonic_with_soil(df: pd.DataFrame) -> tuple:
 def compute_stranded_with_soil(
     df: pd.DataFrame,
     result,
+    climate_proj: pd.DataFrame,
+    target_year: int = 2050,
+    scenario: str = 'SSP245',
+) -> tuple:
+    """Compute hedonic stranded value using soil-controlled regression.
+
+    Identical methodology to 06b.compute_hedonic_stranded: isolate
+    climate channel by holding all non-climate covariates fixed.
+
+    Args:
