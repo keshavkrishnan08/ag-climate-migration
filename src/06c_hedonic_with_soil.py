@@ -378,3 +378,13 @@ def compute_stranded_with_soil(
     b_T2 = result.params.get('tmax_july_sq', 0)
     b_P = result.params.get('precip_growing', 0)
 
+    # Climate contribution: only T, T², P change — soil/amenity/FE held fixed
+    df_proj['climate_hat_current'] = (
+        b_T * df_proj['tmax_july'] +
+        b_T2 * df_proj['tmax_july_sq'] +
+        b_P * df_proj['precip_growing']
+    )
+    df_proj['climate_hat_proj'] = (
+        b_T * df_proj['tmax_july_proj'] +
+        b_T2 * df_proj['tmax_july_sq_proj'] +
+        b_P * df_proj['precip_growing_proj']
