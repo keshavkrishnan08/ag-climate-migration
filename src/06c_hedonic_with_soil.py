@@ -348,3 +348,13 @@ def compute_stranded_with_soil(
     climate channel by holding all non-climate covariates fixed.
 
     Args:
+        df: Soil-controlled cross-section with fitted values.
+        result: Fitted OLS from estimate_hedonic_with_soil.
+        climate_proj: CMIP6 projections (fips, year, delta_tmax_july).
+        target_year: 2040 or 2050.
+        scenario: Scenario label.
+
+    Returns:
+        Tuple of (county DataFrame, summary dict).
+    """
+    logger.info(f"Computing soil-controlled stranded value: {target_year} ({scenario})...")
