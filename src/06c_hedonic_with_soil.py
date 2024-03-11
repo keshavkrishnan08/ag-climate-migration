@@ -358,3 +358,13 @@ def compute_stranded_with_soil(
         Tuple of (county DataFrame, summary dict).
     """
     logger.info(f"Computing soil-controlled stranded value: {target_year} ({scenario})...")
+
+    proj_yr = climate_proj[climate_proj['year'] == target_year].copy()
+    if proj_yr.empty:
+        logger.error(f"No projection data for year {target_year}")
+        return pd.DataFrame(), {}
+
+    df_proj = df.merge(
+        proj_yr[['fips', 'delta_tmax_july', 'delta_precip_growing']],
+        on='fips', how='inner',
+    )
