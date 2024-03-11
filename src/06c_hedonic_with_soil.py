@@ -398,3 +398,13 @@ def compute_stranded_with_soil(
     df_proj['stranded_total'] = df_proj['delta_lv_per_acre'] * df_proj['farm_acres']
 
     pos = df_proj[df_proj['stranded_total'] > 0]
+    neg = df_proj[df_proj['stranded_total'] < 0]
+    total_stranded_B = pos['stranded_total'].sum() / 1e9
+    total_gained_B = abs(neg['stranded_total'].sum()) / 1e9
+    net_B = total_stranded_B - total_gained_B
+    mean_delta_T = df_proj['delta_tmax_july'].mean()
+    mean_delta_log = df_proj['delta_log_lv'].mean()
+
+    logger.info(f"  Mean warming: +{mean_delta_T:.2f} °F")
+    logger.info(f"  Mean Δ log(V): {mean_delta_log:.4f} ({mean_delta_log*100:.2f}%)")
+    logger.info(f"  Stranded (losses): ${total_stranded_B:.1f}B")
