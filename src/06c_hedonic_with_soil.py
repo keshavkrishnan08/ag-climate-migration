@@ -368,3 +368,13 @@ def compute_stranded_with_soil(
         proj_yr[['fips', 'delta_tmax_july', 'delta_precip_growing']],
         on='fips', how='inner',
     )
+    logger.info(f"  Matched counties: {len(df_proj)}")
+
+    df_proj['tmax_july_proj'] = df_proj['tmax_july'] + df_proj['delta_tmax_july']
+    df_proj['tmax_july_sq_proj'] = df_proj['tmax_july_proj'] ** 2
+    df_proj['precip_growing_proj'] = df_proj['precip_growing']  # hold constant
+
+    b_T = result.params.get('tmax_july', 0)
+    b_T2 = result.params.get('tmax_july_sq', 0)
+    b_P = result.params.get('precip_growing', 0)
+
