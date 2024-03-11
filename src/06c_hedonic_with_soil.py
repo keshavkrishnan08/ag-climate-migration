@@ -388,3 +388,13 @@ def compute_stranded_with_soil(
         b_T * df_proj['tmax_july_proj'] +
         b_T2 * df_proj['tmax_july_sq_proj'] +
         b_P * df_proj['precip_growing_proj']
+    )
+
+    df_proj['delta_log_lv'] = df_proj['climate_hat_current'] - df_proj['climate_hat_proj']
+    df_proj['delta_lv_per_acre'] = (
+        df_proj['land_value_per_acre'] * (1 - np.exp(-df_proj['delta_log_lv']))
+    )
+    df_proj['farm_acres'] = df_proj['farm_acres'].fillna(0)
+    df_proj['stranded_total'] = df_proj['delta_lv_per_acre'] * df_proj['farm_acres']
+
+    pos = df_proj[df_proj['stranded_total'] > 0]
