@@ -428,3 +428,13 @@ def compute_stranded_with_soil(
     }
     return df_proj, summary
 
+
+def run_hedonic_with_soil() -> dict:
+    """Execute soil-controlled hedonic stranded asset analysis.
+
+    Runs the full pipeline: soil proxy construction, amenity loading,
+    cross-section build, regression estimation, stranded computation for
+    2040 and 2050. Produces comparison JSON vs baseline (06b).
+
+    Returns:
+        Dict with regression results and comparison summary.
