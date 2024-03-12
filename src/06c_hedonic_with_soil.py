@@ -448,3 +448,13 @@ def run_hedonic_with_soil() -> dict:
 
     # --- Load data ---
     logger.info("Loading datasets...")
+
+    land_values = pd.read_parquet(
+        DATA_RAW / 'nass' / 'nass_land_values.parquet',
+        columns=['fips', 'year', 'land_value_per_acre'],
+    )
+    logger.info(f"  Land values: {len(land_values)} rows")
+
+    climate_monthly = pd.read_parquet(
+        DATA_RAW / 'prism' / 'county_climate_monthly.parquet',
+        columns=(
