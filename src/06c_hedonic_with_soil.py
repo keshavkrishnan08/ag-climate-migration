@@ -418,3 +418,13 @@ def compute_stranded_with_soil(
         'target_year': target_year,
         'scenario': scenario,
         'n_counties': len(df_proj),
+        'n_stranded_counties': int((df_proj['stranded_total'] > 0).sum()),
+        'n_gaining_counties': int((df_proj['stranded_total'] < 0).sum()),
+        'mean_delta_tmax_july_F': float(mean_delta_T),
+        'mean_delta_log_lv': float(mean_delta_log),
+        'hedonic_soil_stranded_B': float(total_stranded_B),
+        'hedonic_soil_gained_B': float(total_gained_B),
+        'hedonic_soil_net_B': float(net_B),
+    }
+    return df_proj, summary
+
