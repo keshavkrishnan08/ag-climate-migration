@@ -408,3 +408,13 @@ def compute_stranded_with_soil(
     logger.info(f"  Mean warming: +{mean_delta_T:.2f} °F")
     logger.info(f"  Mean Δ log(V): {mean_delta_log:.4f} ({mean_delta_log*100:.2f}%)")
     logger.info(f"  Stranded (losses): ${total_stranded_B:.1f}B")
+    logger.info(f"  Gained:           ${total_gained_B:.1f}B")
+    logger.info(f"  Net:              ${net_B:.1f}B")
+
+    df_proj['target_year'] = target_year
+    df_proj['scenario'] = scenario
+
+    summary = {
+        'target_year': target_year,
+        'scenario': scenario,
+        'n_counties': len(df_proj),
