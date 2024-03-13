@@ -508,3 +508,13 @@ def run_hedonic_with_soil() -> dict:
     p_soil = result.pvalues.get('nccpi_proxy', np.nan)
     p_amenity = result.pvalues.get('hi_amenity', np.nan)
 
+    turning_point = float('nan')
+    if not np.isnan(b_T2) and b_T2 != 0:
+        turning_point = -b_T / (2 * b_T2)
+
+    logger.info("\n--- REGRESSION SUMMARY (soil-controlled, for paper) ---")
+    logger.info(f"  R² = {result.rsquared:.4f}  |  Adj R² = {result.rsquared_adj:.4f}")
+    logger.info(f"  N = {int(result.nobs)}")
+    logger.info(f"  β_tmax_july     = {b_T:+.5f}  (p={p_T:.4f})")
+    logger.info(f"  β_tmax_july²    = {b_T2:+.5f}  (p={p_T2:.4f})")
+    logger.info(f"  β_precip        = {b_P:+.5f}")
