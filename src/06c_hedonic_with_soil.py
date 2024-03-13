@@ -458,3 +458,13 @@ def run_hedonic_with_soil() -> dict:
     climate_monthly = pd.read_parquet(
         DATA_RAW / 'prism' / 'county_climate_monthly.parquet',
         columns=(
+            ['fips', 'year', 'tmax_m07'] +
+            [f'precip_m{m:02d}' for m in GROWING_MONTHS]
+        ),
+    )
+    logger.info(f"  Climate monthly: {len(climate_monthly)} rows")
+
+    acs = pd.read_parquet(
+        DATA_RAW / 'census' / 'acs_county_demographics.parquet',
+        columns=['fips', 'year', 'total_population', 'median_household_income'],
+    )
