@@ -488,3 +488,13 @@ def run_hedonic_with_soil() -> dict:
     ers_path = DATA_RAW / 'other' / 'ers_atlas' / 'CountyClassifications.csv'
     amenity = build_amenity_control(ers_path)
 
+    # --- Build cross-section ---
+    df = build_cross_section_with_soil(
+        land_values, climate_monthly, acs, nass_yields,
+        nccpi_proxy, amenity,
+    )
+
+    # --- Estimate regression ---
+    result, df = estimate_hedonic_with_soil(df)
+
+    # Extract key regression stats
