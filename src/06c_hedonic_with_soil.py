@@ -468,3 +468,13 @@ def run_hedonic_with_soil() -> dict:
         DATA_RAW / 'census' / 'acs_county_demographics.parquet',
         columns=['fips', 'year', 'total_population', 'median_household_income'],
     )
+    logger.info(f"  ACS: {len(acs)} rows")
+
+    nass_yields = pd.read_parquet(
+        DATA_RAW / 'nass' / 'nass_county_yields.parquet',
+        columns=['fips', 'year', 'crop', 'yield_bu_acre', 'acres_harvested'],
+    )
+    logger.info(f"  NASS yields: {len(nass_yields)} rows")
+
+    climate_proj = pd.read_parquet(
+        PROJECTIONS_DIR / 'county_climate_projections.parquet',
