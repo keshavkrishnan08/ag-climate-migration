@@ -498,3 +498,13 @@ def run_hedonic_with_soil() -> dict:
     result, df = estimate_hedonic_with_soil(df)
 
     # Extract key regression stats
+    b_T = result.params.get('tmax_july', np.nan)
+    b_T2 = result.params.get('tmax_july_sq', np.nan)
+    b_P = result.params.get('precip_growing', np.nan)
+    b_soil = result.params.get('nccpi_proxy', np.nan)
+    b_amenity = result.params.get('hi_amenity', np.nan)
+    p_T = result.pvalues.get('tmax_july', np.nan)
+    p_T2 = result.pvalues.get('tmax_july_sq', np.nan)
+    p_soil = result.pvalues.get('nccpi_proxy', np.nan)
+    p_amenity = result.pvalues.get('hi_amenity', np.nan)
+
