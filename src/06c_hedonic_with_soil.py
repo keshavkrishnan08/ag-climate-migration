@@ -518,3 +518,13 @@ def run_hedonic_with_soil() -> dict:
     logger.info(f"  β_tmax_july     = {b_T:+.5f}  (p={p_T:.4f})")
     logger.info(f"  β_tmax_july²    = {b_T2:+.5f}  (p={p_T2:.4f})")
     logger.info(f"  β_precip        = {b_P:+.5f}")
+    logger.info(f"  β_nccpi_proxy   = {b_soil:+.5f}  (p={p_soil:.4f}) [soil quality]")
+    logger.info(f"  β_hi_amenity    = {b_amenity:+.5f}  (p={p_amenity:.4f}) [natural amenity]")
+    logger.info(f"  Turning point T* = {turning_point:.1f} °F")
+
+    # --- Stranded value for 2040 and 2050 ---
+    results_all = {}
+    for target_year in [2040, 2050]:
+        county_df, summary = compute_stranded_with_soil(
+            df, result, climate_proj, target_year=target_year, scenario='SSP245',
+        )
