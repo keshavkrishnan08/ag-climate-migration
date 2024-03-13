@@ -478,3 +478,13 @@ def run_hedonic_with_soil() -> dict:
 
     climate_proj = pd.read_parquet(
         PROJECTIONS_DIR / 'county_climate_projections.parquet',
+        columns=['fips', 'year', 'scenario', 'delta_tmax_july', 'delta_precip_growing'],
+    )
+    climate_proj = climate_proj[climate_proj['scenario'] == 'SSP245'].copy()
+    logger.info(f"  Climate projections (SSP245): {len(climate_proj)} rows")
+
+    # --- Build new controls ---
+    nccpi_proxy = build_nccpi_proxy(nass_yields)
+    ers_path = DATA_RAW / 'other' / 'ers_atlas' / 'CountyClassifications.csv'
+    amenity = build_amenity_control(ers_path)
+
