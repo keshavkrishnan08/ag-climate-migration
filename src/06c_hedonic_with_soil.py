@@ -528,3 +528,13 @@ def run_hedonic_with_soil() -> dict:
         county_df, summary = compute_stranded_with_soil(
             df, result, climate_proj, target_year=target_year, scenario='SSP245',
         )
+        results_all[target_year] = {'county_df': county_df, 'summary': summary}
+
+        if not county_df.empty:
+            out_cols = [
+                'fips', 'state_fips', 'land_value_per_acre', 'farm_acres',
+                'tmax_july', 'precip_growing', 'nccpi_proxy', 'hi_amenity',
+                'delta_tmax_july', 'delta_log_lv', 'delta_lv_per_acre',
+                'stranded_total', 'target_year', 'scenario',
+            ]
+            out_path = output_dir / f'hedonic_soil_stranded_{target_year}.parquet'
