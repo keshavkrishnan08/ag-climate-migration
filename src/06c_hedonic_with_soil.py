@@ -548,3 +548,13 @@ def run_hedonic_with_soil() -> dict:
     headline_path = PROJECT_ROOT / 'state' / 'headline_numbers_preliminary.json'
     baseline_B = 168.0  # 06b result
     if headline_path.exists():
+        with open(headline_path) as f:
+            hl = json.load(f)
+        sa = hl.get('stranded_assets', {})
+        baseline_B = sa.get('hedonic_B', baseline_B)
+
+    # Coefficient change (primary robustness check)
+    baseline_beta_T = -0.26400  # approximate from 06b log output
+    if headline_path.exists():
+        baseline_beta_T = sa.get('hedonic_beta_tmax', baseline_beta_T) if 'hedonic_beta_tmax' in sa else baseline_beta_T
+
