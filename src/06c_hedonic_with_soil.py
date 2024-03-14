@@ -538,3 +538,13 @@ def run_hedonic_with_soil() -> dict:
                 'stranded_total', 'target_year', 'scenario',
             ]
             out_path = output_dir / f'hedonic_soil_stranded_{target_year}.parquet'
+            county_df[out_cols].to_parquet(out_path, index=False)
+            logger.info(f"  Saved: {out_path}")
+
+    s2040 = results_all[2040]['summary']
+    s2050 = results_all[2050]['summary']
+
+    # --- Load baseline numbers for comparison ---
+    headline_path = PROJECT_ROOT / 'state' / 'headline_numbers_preliminary.json'
+    baseline_B = 168.0  # 06b result
+    if headline_path.exists():
