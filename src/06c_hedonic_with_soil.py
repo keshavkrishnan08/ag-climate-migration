@@ -558,3 +558,13 @@ def run_hedonic_with_soil() -> dict:
     if headline_path.exists():
         baseline_beta_T = sa.get('hedonic_beta_tmax', baseline_beta_T) if 'hedonic_beta_tmax' in sa else baseline_beta_T
 
+    stranded_pct_change = (s2050['hedonic_soil_stranded_B'] - baseline_B) / baseline_B * 100
+    coef_stable = abs(stranded_pct_change) < 20
+
+    logger.info("\n--- ROBUSTNESS COMPARISON ---")
+    logger.info(f"  Baseline hedonic (06b, no soil): ${baseline_B:.1f}B")
+    logger.info(f"  Soil-controlled (this script):   ${s2050['hedonic_soil_stranded_B']:.1f}B")
+    logger.info(f"  Change: {stranded_pct_change:+.1f}%")
+    logger.info(f"  Coefficient stable (<20% change): {coef_stable}")
+    if coef_stable:
+        logger.info("  VERDICT: Soil controls do NOT substantially alter the climate coefficient.")
