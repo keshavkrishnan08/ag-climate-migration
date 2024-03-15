@@ -578,3 +578,13 @@ def run_hedonic_with_soil() -> dict:
         'soil_controlled_2050_B': float(s2050['hedonic_soil_stranded_B']),
         'soil_controlled_2040_B': float(s2040['hedonic_soil_stranded_B']),
         'soil_controlled_net_2050_B': float(s2050['hedonic_soil_net_B']),
+        'stranded_pct_change_vs_baseline': float(stranded_pct_change),
+        'coefficient_stable_lt20pct': bool(coef_stable),
+        'soil_controlled_r2': float(result.rsquared),
+        'soil_controlled_beta_tmax': float(b_T),
+        'soil_controlled_beta_tmax_sq': float(b_T2),
+        'soil_controlled_beta_nccpi': float(b_soil),
+        'soil_controlled_beta_amenity': float(b_amenity),
+        'soil_controlled_turning_point_F': float(turning_point),
+        'n_counties': int(result.nobs),
+        'method': (
