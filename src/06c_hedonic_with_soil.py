@@ -568,3 +568,13 @@ def run_hedonic_with_soil() -> dict:
     logger.info(f"  Coefficient stable (<20% change): {coef_stable}")
     if coef_stable:
         logger.info("  VERDICT: Soil controls do NOT substantially alter the climate coefficient.")
+        logger.info("  This is strong robustness evidence — omitted soil bias is small.")
+    else:
+        logger.info("  VERDICT: Soil controls change the estimate >20%. Report soil-controlled estimate.")
+
+    # --- Save comparison JSON ---
+    comparison = {
+        'baseline_hedonic_B': float(baseline_B),
+        'soil_controlled_2050_B': float(s2050['hedonic_soil_stranded_B']),
+        'soil_controlled_2040_B': float(s2040['hedonic_soil_stranded_B']),
+        'soil_controlled_net_2050_B': float(s2050['hedonic_soil_net_B']),
