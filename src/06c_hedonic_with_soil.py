@@ -598,3 +598,13 @@ def run_hedonic_with_soil() -> dict:
             if coef_stable else
             'SENSITIVE: soil controls change headline >20%, report soil-controlled estimate'
         ),
+    }
+
+    comp_path = output_dir / 'hedonic_soil_comparison.json'
+    with open(comp_path, 'w') as f:
+        json.dump(comparison, f, indent=2)
+    logger.info(f"  Comparison saved: {comp_path}")
+
+    # --- Update headline numbers ---
+    if headline_path.exists():
+        with open(headline_path) as f:
