@@ -588,3 +588,13 @@ def run_hedonic_with_soil() -> dict:
         'soil_controlled_turning_point_F': float(turning_point),
         'n_counties': int(result.nobs),
         'method': (
+            'NCCPI proxy = max(corn_yield_1950-2023)/max_national, normalized [0,1]. '
+            'Amenity = ERS Rural Atlas HiAmenity binary (2024). '
+            'Model: log(V) ~ T + T² + P + log(pop) + log(inc) + nccpi_proxy + hi_amenity + state_FE. '
+            'HC3 SE. CMIP6 SSP2-4.5 warming. Climate channel isolated by holding soil/amenity fixed.'
+        ),
+        'verdict': (
+            'ROBUST: soil controls change headline by <20%'
+            if coef_stable else
+            'SENSITIVE: soil controls change headline >20%, report soil-controlled estimate'
+        ),
