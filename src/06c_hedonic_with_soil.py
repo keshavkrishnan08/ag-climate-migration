@@ -608,3 +608,13 @@ def run_hedonic_with_soil() -> dict:
     # --- Update headline numbers ---
     if headline_path.exists():
         with open(headline_path) as f:
+            hl = json.load(f)
+
+        hl['hedonic_soil_stranded_B'] = float(s2050['hedonic_soil_stranded_B'])
+        hl['hedonic_soil_stranded_2040_B'] = float(s2040['hedonic_soil_stranded_B'])
+        hl['hedonic_soil_net_2050_B'] = float(s2050['hedonic_soil_net_B'])
+        hl['hedonic_soil_r2'] = float(result.rsquared)
+        hl['hedonic_soil_beta_tmax'] = float(b_T)
+        hl['hedonic_soil_beta_nccpi'] = float(b_soil)
+        hl['hedonic_soil_beta_amenity'] = float(b_amenity)
+        hl['hedonic_soil_pct_change_vs_baseline'] = float(stranded_pct_change)
