@@ -618,3 +618,13 @@ def run_hedonic_with_soil() -> dict:
         hl['hedonic_soil_beta_nccpi'] = float(b_soil)
         hl['hedonic_soil_beta_amenity'] = float(b_amenity)
         hl['hedonic_soil_pct_change_vs_baseline'] = float(stranded_pct_change)
+        hl['hedonic_soil_coefficient_stable'] = bool(coef_stable)
+        hl['hedonic_soil_method'] = comparison['method']
+
+        with open(headline_path, 'w') as f:
+            json.dump(hl, f, indent=2)
+        logger.info(f"  Headline numbers updated: {headline_path}")
+
+    logger.info("\n--- FINAL SUMMARY ---")
+    logger.info(f"  R² (with soil): {result.rsquared:.4f}")
+    logger.info(f"  β_tmax_july (with soil): {b_T:+.5f}")
