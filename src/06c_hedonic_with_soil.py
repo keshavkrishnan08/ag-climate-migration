@@ -638,3 +638,13 @@ def run_hedonic_with_soil() -> dict:
     logger.info("PHASE 5C COMPLETE")
     logger.info("=" * 60)
 
+    return {
+        'regression_result': result,
+        'cross_section': df,
+        'comparison': comparison,
+        'summary_2040': s2040,
+        'summary_2050': s2050,
+    }
+
+
+if __name__ == '__main__':
