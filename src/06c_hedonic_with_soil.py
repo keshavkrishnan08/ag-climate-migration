@@ -648,3 +648,4 @@ def run_hedonic_with_soil() -> dict:
 
 
 if __name__ == '__main__':
+    run_hedonic_with_soil()
