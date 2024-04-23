@@ -628,3 +628,13 @@ def run_hedonic_with_soil() -> dict:
     logger.info("\n--- FINAL SUMMARY ---")
     logger.info(f"  R² (with soil): {result.rsquared:.4f}")
     logger.info(f"  β_tmax_july (with soil): {b_T:+.5f}")
+    logger.info(f"  β_nccpi_proxy: {b_soil:+.5f} (p={p_soil:.4f})")
+    logger.info(f"  β_hi_amenity:  {b_amenity:+.5f} (p={p_amenity:.4f})")
+    logger.info(f"  Stranded 2040: ${s2040['hedonic_soil_stranded_B']:.1f}B")
+    logger.info(f"  Stranded 2050: ${s2050['hedonic_soil_stranded_B']:.1f}B")
+    logger.info(f"  vs baseline:   {stranded_pct_change:+.1f}%")
+
+    logger.info("=" * 60)
+    logger.info("PHASE 5C COMPLETE")
+    logger.info("=" * 60)
+
