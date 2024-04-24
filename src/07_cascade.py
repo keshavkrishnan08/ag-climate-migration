@@ -68,3 +68,13 @@ def compute_farm_income_change(
     yield_projections: pd.DataFrame,
     yield_baseline: pd.DataFrame,
     acres_data: pd.DataFrame,
+    county_fips: str
+) -> pd.DataFrame:
+    """Step 1: Compute farm income change from yield projections.
+
+    ΔIncome = Σ_crops [ΔYield × Acres × Price × (1 - InsuranceOffset)]
+
+    Args:
+        yield_projections: Projected yields under scenario.
+        yield_baseline: Baseline yields.
+        acres_data: County-crop acreage.
