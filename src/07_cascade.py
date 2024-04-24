@@ -58,3 +58,13 @@ with open(PROJECT_ROOT / 'config.yaml') as f:
 
 CASCADE = CONFIG['community_cascade']
 COMMODITY_PRICES = {
+    'corn': 5.50, 'soybeans': 12.80, 'wheat_winter': 7.20,
+    'wheat_spring': 8.10, 'cotton': 0.78, 'sorghum': 5.30,
+    'barley': 6.10, 'oats': 3.80,
+}
+
+
+def compute_farm_income_change(
+    yield_projections: pd.DataFrame,
+    yield_baseline: pd.DataFrame,
+    acres_data: pd.DataFrame,
