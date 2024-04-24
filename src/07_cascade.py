@@ -18,3 +18,13 @@ Cascade structure (PRD Section 5.3 & 7B):
     Step 6: Tax base → Infrastructure
             ΔRoadCondition = f(ΔTaxBase) (lagged 5 years)
     Step 7: Infrastructure → Further yield loss (FEEDBACK LOOP)
+            Feedback_multiplier = 0.08 per σ decline in infrastructure
+
+Tipping point: county crosses when ALL FOUR conditions met simultaneously:
+    1. Population below hospital threshold
+    2. School enrollment below closure threshold
+    3. Infrastructure feedback accelerating yield loss
+    4. Outmigration > 2× in-migration
+
+Target finding: 300 counties cross tipping point before 2040 under RCP 4.5.
+
