@@ -28,3 +28,13 @@ Tipping point: county crosses when ALL FOUR conditions met simultaneously:
 
 Target finding: 300 counties cross tipping point before 2040 under RCP 4.5.
 
+Reviewer Fix 4: Re-estimate migration elasticity via IV on 2000-2020 data.
+Dual calibration (Reviewer Fix — Issue 2):
+    Calibration A: Own IV estimate β=-0.003 (p=0.019, F=1184) — PRIMARY
+    Calibration B: Feng et al. (2010) β=-0.17 — SENSITIVITY
+    Both are reported so reviewers can evaluate the 57x difference in magnitude.
+"""
+
+import os
+import sys
+from pathlib import Path
