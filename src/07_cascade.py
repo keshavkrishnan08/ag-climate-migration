@@ -78,3 +78,13 @@ def compute_farm_income_change(
         yield_projections: Projected yields under scenario.
         yield_baseline: Baseline yields.
         acres_data: County-crop acreage.
+        county_fips: 5-digit FIPS code.
+
+    Returns:
+        DataFrame with annual income change for this county.
+    """
+    county_proj = yield_projections[yield_projections['fips'] == county_fips]
+    county_base = yield_baseline[yield_baseline['fips'] == county_fips]
+
+    income_changes = []
+    for year in county_proj['year'].unique():
