@@ -128,3 +128,13 @@ def compute_population_change(
     """Step 2: Compute rural population change from farm income change.
 
     ΔPop = elasticity × ΔIncome% (for working-age adults in rural Corn Belt)
+    Effect is lagged 3-5 years.
+
+    Fix D: Use a direct income-share formula.  Feng et al. (2010) estimate
+    the elasticity of outmigration with respect to farm income as a share of
+    **farm income** (not total county income).  We use:
+        delta_pop_pct = elasticity * (delta_farm_income / baseline_farm_income)
+    where baseline_farm_income is proxied as the mean positive farm income
+    across all years in income_changes (when available) or falls back to
+    baseline_pop × per_capita_income × farm_income_share (≈ 10% of total
+    income in rural Corn Belt counties).
