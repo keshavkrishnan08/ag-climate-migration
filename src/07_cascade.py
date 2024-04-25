@@ -88,3 +88,13 @@ def compute_farm_income_change(
 
     income_changes = []
     for year in county_proj['year'].unique():
+        year_proj = county_proj[county_proj['year'] == year]
+        total_delta_income = 0
+
+        for _, row in year_proj.iterrows():
+            crop = row['crop']
+            yield_proj = row.get('yield_projected', 0)
+
+            base_row = county_base[county_base['crop'] == crop]
+            yield_base = base_row['yield_projected'].mean() if not base_row.empty else yield_proj
+
