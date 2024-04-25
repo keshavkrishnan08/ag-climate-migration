@@ -158,3 +158,13 @@ def compute_population_change(
     # or fall back to a farm-income share of total county personal income.
     # Rural Corn Belt: farm income ≈ 10% of total personal income.
     FARM_INCOME_SHARE = 0.10
+    fallback_farm_income = max(baseline_pop * per_capita_income * FARM_INCOME_SHARE, 1)
+    positive_income_rows = income_changes[income_changes['delta_farm_income'] > 0]
+    if not positive_income_rows.empty:
+        baseline_farm_income = positive_income_rows['delta_farm_income'].mean()
+    else:
+        baseline_farm_income = fallback_farm_income
+
+    pop_trajectory = []
+    current_pop = baseline_pop
+
