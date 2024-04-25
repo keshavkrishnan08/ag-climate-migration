@@ -138,3 +138,13 @@ def compute_population_change(
     across all years in income_changes (when available) or falls back to
     baseline_pop × per_capita_income × farm_income_share (≈ 10% of total
     income in rural Corn Belt counties).
+
+    Args:
+        income_changes: Annual farm income changes (delta from baseline).
+        baseline_pop: County baseline population.
+        elasticity: Income-migration elasticity (default from config: -0.17).
+        lag_years: Lag between income shock and migration.
+        per_capita_income: Rural per-capita income; used only as fallback to
+            estimate baseline farm income when no positive income rows exist.
+            From census median_household_income or $35,000 rural average.
+
