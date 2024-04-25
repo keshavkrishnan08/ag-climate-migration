@@ -108,3 +108,13 @@ def compute_farm_income_change(
             delta_yield = yield_proj - yield_base
             delta_income = delta_yield * acres * price * (1 - CONFIG['insurance']['subsidy_rate_avg'])
             total_delta_income += delta_income
+
+        income_changes.append({
+            'fips': county_fips,
+            'year': year,
+            'delta_farm_income': total_delta_income,
+        })
+
+    return pd.DataFrame(income_changes)
+
+
