@@ -148,3 +148,13 @@ def compute_population_change(
             estimate baseline farm income when no positive income rows exist.
             From census median_household_income or $35,000 rural average.
 
+    Returns:
+        DataFrame with projected population trajectory.
+    """
+    if elasticity is None:
+        elasticity = CASCADE['income_elasticity_migration']
+
+    # Estimate baseline farm income from the positive (non-shock) rows,
+    # or fall back to a farm-income share of total county personal income.
+    # Rural Corn Belt: farm income ≈ 10% of total personal income.
+    FARM_INCOME_SHARE = 0.10
