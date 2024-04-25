@@ -118,3 +118,13 @@ def compute_farm_income_change(
     return pd.DataFrame(income_changes)
 
 
+def compute_population_change(
+    income_changes: pd.DataFrame,
+    baseline_pop: float,
+    elasticity: float = None,
+    lag_years: int = 3,
+    per_capita_income: float = 35000.0,
+) -> pd.DataFrame:
+    """Step 2: Compute rural population change from farm income change.
+
+    ΔPop = elasticity × ΔIncome% (for working-age adults in rural Corn Belt)
