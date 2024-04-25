@@ -98,3 +98,13 @@ def compute_farm_income_change(
             base_row = county_base[county_base['crop'] == crop]
             yield_base = base_row['yield_projected'].mean() if not base_row.empty else yield_proj
 
+            acres_row = acres_data[
+                (acres_data['fips'] == county_fips) &
+                (acres_data['crop'] == crop)
+            ]
+            acres = acres_row['acres_harvested'].mean() if not acres_row.empty else 0
+
+            price = COMMODITY_PRICES.get(crop, 5.0)
+            delta_yield = yield_proj - yield_base
+            delta_income = delta_yield * acres * price * (1 - CONFIG['insurance']['subsidy_rate_avg'])
+            total_delta_income += delta_income
