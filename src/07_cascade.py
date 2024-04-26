@@ -178,3 +178,13 @@ def compute_population_change(
         # Lagged effect
         delta_pop_pct = elasticity * delta_income_pct
         current_pop = current_pop * (1 + delta_pop_pct)
+
+        pop_trajectory.append({
+            'fips': row['fips'],
+            'year': year + lag_years,
+            'projected_population': max(current_pop, 0),
+            'delta_pop_pct': delta_pop_pct,
+        })
+
+    return pd.DataFrame(pop_trajectory)
+
