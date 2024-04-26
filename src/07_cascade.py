@@ -208,3 +208,13 @@ def compute_school_enrollment(
         DataFrame with enrollment trajectory and closure flag.
     """
     elasticity = CASCADE['school_enrollment_elasticity']
+    closure_threshold = 150
+
+    enrollment_traj = []
+    current_enrollment = baseline_enrollment
+
+    for _, row in pop_trajectory.sort_values('year').iterrows():
+        delta_pop_pct = row['delta_pop_pct']
+        delta_enrollment_pct = elasticity * delta_pop_pct
+        current_enrollment = current_enrollment * (1 + delta_enrollment_pct)
+
