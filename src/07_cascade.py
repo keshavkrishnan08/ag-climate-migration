@@ -218,3 +218,13 @@ def compute_school_enrollment(
         delta_enrollment_pct = elasticity * delta_pop_pct
         current_enrollment = current_enrollment * (1 + delta_enrollment_pct)
 
+        enrollment_traj.append({
+            'fips': row['fips'],
+            'year': row['year'],
+            'projected_enrollment': max(current_enrollment, 0),
+            'school_closure_risk': current_enrollment < closure_threshold,
+        })
+
+    return pd.DataFrame(enrollment_traj)
+
+
