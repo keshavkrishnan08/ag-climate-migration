@@ -188,3 +188,13 @@ def compute_population_change(
 
     return pd.DataFrame(pop_trajectory)
 
+
+def compute_school_enrollment(
+    pop_trajectory: pd.DataFrame,
+    baseline_enrollment: float,
+    baseline_pop: float
+) -> pd.DataFrame:
+    """Step 3: Compute school enrollment from population change.
+
+    ΔEnrollment = -0.25 × ΔPop (contemporaneous)
+    School closure threshold: enrollment < 150 students.
