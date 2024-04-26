@@ -168,3 +168,13 @@ def compute_population_change(
     pop_trajectory = []
     current_pop = baseline_pop
 
+    for _, row in income_changes.sort_values('year').iterrows():
+        year = row['year']
+        # Fix D: delta income as share of baseline farm income (Feng et al. spec)
+        delta_income_pct = row['delta_farm_income'] / max(baseline_farm_income, 1)
+        # Clip to ±100% change per year to prevent runaway from extreme projections
+        delta_income_pct = np.clip(delta_income_pct, -1.0, 1.0)
+
+        # Lagged effect
+        delta_pop_pct = elasticity * delta_income_pct
+        current_pop = current_pop * (1 + delta_pop_pct)
