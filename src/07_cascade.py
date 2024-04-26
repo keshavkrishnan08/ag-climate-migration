@@ -198,3 +198,13 @@ def compute_school_enrollment(
 
     ΔEnrollment = -0.25 × ΔPop (contemporaneous)
     School closure threshold: enrollment < 150 students.
+
+    Args:
+        pop_trajectory: Projected population trajectory.
+        baseline_enrollment: Current K-12 enrollment.
+        baseline_pop: Baseline population.
+
+    Returns:
+        DataFrame with enrollment trajectory and closure flag.
+    """
+    elasticity = CASCADE['school_enrollment_elasticity']
