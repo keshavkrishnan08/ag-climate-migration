@@ -258,3 +258,13 @@ def compute_hospital_viability(
         else:
             prob_closure = 0 if not has_hospital else 1
 
+        hospital_traj.append({
+            'fips': row['fips'],
+            'year': row['year'],
+            'hospital_closure_prob': prob_closure,
+            'below_threshold': pop < threshold,
+        })
+
+    return pd.DataFrame(hospital_traj)
+
+
