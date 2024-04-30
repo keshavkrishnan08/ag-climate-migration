@@ -228,3 +228,13 @@ def compute_school_enrollment(
     return pd.DataFrame(enrollment_traj)
 
 
+def compute_hospital_viability(
+    pop_trajectory: pd.DataFrame,
+    has_hospital: bool = True
+) -> pd.DataFrame:
+    """Step 4: Compute hospital viability from population.
+
+    Closure threshold: county pop < 15,000.
+    Probability model: logistic regression on population + income.
+
+    Args:
