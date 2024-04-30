@@ -248,3 +248,13 @@ def compute_hospital_viability(
 
     hospital_traj = []
     for _, row in pop_trajectory.iterrows():
+        pop = row['projected_population']
+
+        # Logistic probability of closure
+        if has_hospital and pop > 0:
+            # Simple logistic: P(closure) increases as pop drops below threshold
+            z = (threshold - pop) / (threshold * 0.2)
+            prob_closure = 1 / (1 + np.exp(-z))
+        else:
+            prob_closure = 0 if not has_hospital else 1
+
