@@ -238,3 +238,13 @@ def compute_hospital_viability(
     Probability model: logistic regression on population + income.
 
     Args:
+        pop_trajectory: Projected population.
+        has_hospital: Whether county currently has a hospital.
+
+    Returns:
+        DataFrame with hospital closure probability by year.
+    """
+    threshold = CASCADE['hospital_threshold_population']
+
+    hospital_traj = []
+    for _, row in pop_trajectory.iterrows():
