@@ -268,3 +268,13 @@ def compute_hospital_viability(
     return pd.DataFrame(hospital_traj)
 
 
+def compute_tax_base_change(
+    income_changes: pd.DataFrame,
+    pop_trajectory: pd.DataFrame,
+    farm_property_tax_share: float = 0.35,
+    per_capita_tax: float = 2500
+) -> pd.DataFrame:
+    """Step 5: Compute county tax base change.
+
+    ΔTaxBase = ΔFarmIncome × 0.35 (farm property tax share)
+               + ΔPopulation × AvgPerCapitaTaxContribution
