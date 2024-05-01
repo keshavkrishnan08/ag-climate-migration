@@ -318,3 +318,13 @@ def compute_infrastructure_feedback(
 
     ΔRoadCondition = f(ΔTaxBase) lagged 5 years
     Feedback: 0.08 additional yield loss per σ decline in infrastructure
+
+    Args:
+        tax_trajectory: Tax base changes.
+        yield_projections: Base yield projections.
+        feedback_multiplier: Yield loss per σ infrastructure decline.
+        lag_years: Years between tax decline and infrastructure impact.
+
+    Returns:
+        DataFrame with feedback-adjusted yield projections.
+    """
