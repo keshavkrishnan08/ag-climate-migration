@@ -298,3 +298,13 @@ def compute_tax_base_change(
     for _, row in merged.iterrows():
         delta_tax_farm = row.get('delta_farm_income', 0) * farm_property_tax_share
         delta_tax_pop = row.get('delta_pop_pct', 0) * row.get('projected_population', 0) * per_capita_tax
+
+        tax_traj.append({
+            'fips': row['fips'],
+            'year': row['year'],
+            'delta_tax_base': delta_tax_farm + delta_tax_pop,
+        })
+
+    return pd.DataFrame(tax_traj)
+
+
