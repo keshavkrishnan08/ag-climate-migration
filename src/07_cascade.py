@@ -278,3 +278,13 @@ def compute_tax_base_change(
 
     ΔTaxBase = ΔFarmIncome × 0.35 (farm property tax share)
                + ΔPopulation × AvgPerCapitaTaxContribution
+
+    Args:
+        income_changes: Farm income changes.
+        pop_trajectory: Population trajectory.
+        farm_property_tax_share: Farm share of property tax base.
+        per_capita_tax: Average per-capita tax contribution.
+
+    Returns:
+        DataFrame with tax base trajectory.
+    """
