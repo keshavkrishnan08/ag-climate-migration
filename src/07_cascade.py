@@ -308,3 +308,13 @@ def compute_tax_base_change(
     return pd.DataFrame(tax_traj)
 
 
+def compute_infrastructure_feedback(
+    tax_trajectory: pd.DataFrame,
+    yield_projections: pd.DataFrame,
+    feedback_multiplier: float = 0.08,
+    lag_years: int = 5
+) -> pd.DataFrame:
+    """Step 6-7: Infrastructure decline → further yield loss (FEEDBACK LOOP).
+
+    ΔRoadCondition = f(ΔTaxBase) lagged 5 years
+    Feedback: 0.08 additional yield loss per σ decline in infrastructure
