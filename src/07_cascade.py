@@ -288,3 +288,13 @@ def compute_tax_base_change(
     Returns:
         DataFrame with tax base trajectory.
     """
+    merged = income_changes.merge(
+        pop_trajectory[['fips', 'year', 'projected_population', 'delta_pop_pct']],
+        on=['fips', 'year'],
+        how='outer'
+    ).sort_values('year')
+
+    tax_traj = []
+    for _, row in merged.iterrows():
+        delta_tax_farm = row.get('delta_farm_income', 0) * farm_property_tax_share
+        delta_tax_pop = row.get('delta_pop_pct', 0) * row.get('projected_population', 0) * per_capita_tax
