@@ -328,3 +328,13 @@ def compute_infrastructure_feedback(
     Returns:
         DataFrame with feedback-adjusted yield projections.
     """
+    feedback_effects = []
+
+    for _, row in tax_trajectory.iterrows():
+        delta_tax = row.get('delta_tax_base', 0)
+
+        # Infrastructure quality index (z-score of tax base change)
+        infra_decline = min(0, delta_tax) / max(abs(delta_tax), 1)
+
+        # Feedback yield loss (lagged)
+        yield_feedback = feedback_multiplier * abs(infra_decline)
