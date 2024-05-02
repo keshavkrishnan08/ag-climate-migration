@@ -348,3 +348,13 @@ def compute_infrastructure_feedback(
 
     return pd.DataFrame(feedback_effects)
 
+
+def find_cascade_tipping_point(
+    county_fips: str,
+    pop_trajectory: pd.DataFrame,
+    enrollment_trajectory: pd.DataFrame,
+    hospital_trajectory: pd.DataFrame,
+    feedback_effects: pd.DataFrame,
+    scenario: str = 'RCP45'
+) -> dict:
+    """Find the year when community cascade becomes self-reinforcing.
