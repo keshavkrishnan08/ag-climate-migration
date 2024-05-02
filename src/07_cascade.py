@@ -358,3 +358,13 @@ def find_cascade_tipping_point(
     scenario: str = 'RCP45'
 ) -> dict:
     """Find the year when community cascade becomes self-reinforcing.
+
+    A county has crossed the tipping point when:
+    1. Population has declined below hospital threshold
+    2. School enrollment below closure threshold
+    3. Infrastructure feedback is accelerating further yield loss
+    4. Outmigration rate exceeds in-migration rate by > 2x
+
+    Once all four conditions are met simultaneously, the cascade
+    is self-sustaining even if climate stabilizes.
+
