@@ -338,3 +338,13 @@ def compute_infrastructure_feedback(
 
         # Feedback yield loss (lagged)
         yield_feedback = feedback_multiplier * abs(infra_decline)
+
+        feedback_effects.append({
+            'fips': row['fips'],
+            'year': row['year'] + lag_years,
+            'infrastructure_decline': infra_decline,
+            'yield_feedback_loss': yield_feedback,
+        })
+
+    return pd.DataFrame(feedback_effects)
+
