@@ -378,3 +378,13 @@ def find_cascade_tipping_point(
 
     Returns:
         Dict with tipping_year (int or None), cascade_state_by_year.
+    """
+    state_by_year = {}
+    tipping_year = None
+
+    all_years = sorted(set(
+        pop_trajectory['year'].unique().tolist() +
+        enrollment_trajectory['year'].unique().tolist()
+    ))
+
+    for year in all_years:
