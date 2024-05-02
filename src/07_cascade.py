@@ -368,3 +368,13 @@ def find_cascade_tipping_point(
     Once all four conditions are met simultaneously, the cascade
     is self-sustaining even if climate stabilizes.
 
+    Args:
+        county_fips: 5-digit FIPS code.
+        pop_trajectory: Population projections.
+        enrollment_trajectory: School enrollment projections.
+        hospital_trajectory: Hospital viability.
+        feedback_effects: Infrastructure feedback on yields.
+        scenario: Climate scenario.
+
+    Returns:
+        Dict with tipping_year (int or None), cascade_state_by_year.
