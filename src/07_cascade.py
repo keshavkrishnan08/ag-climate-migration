@@ -398,3 +398,13 @@ def find_cascade_tipping_point(
                 hosp_row['below_threshold'].any() if not hosp_row.empty else False
             ),
             'school_closure_risk': bool(
+                enroll_row['school_closure_risk'].any() if not enroll_row.empty else False
+            ),
+            'infrastructure_feedback': bool(
+                feedback_row['yield_feedback_loss'].sum() > 0.02 if not feedback_row.empty else False
+            ),
+            'net_outmigration': bool(
+                # 0.5%/yr annual outflow — realistic for declining rural counties
+                # (original -0.02 = 2%/yr was too strict for the income effect magnitudes)
+                pop_row['delta_pop_pct'].min() < -0.005 if not pop_row.empty else False
+            ),
