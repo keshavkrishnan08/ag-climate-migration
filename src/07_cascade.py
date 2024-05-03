@@ -388,3 +388,13 @@ def find_cascade_tipping_point(
     ))
 
     for year in all_years:
+        pop_row = pop_trajectory[pop_trajectory['year'] == year]
+        enroll_row = enrollment_trajectory[enrollment_trajectory['year'] == year]
+        hosp_row = hospital_trajectory[hospital_trajectory['year'] == year]
+        feedback_row = feedback_effects[feedback_effects['year'] == year]
+
+        conditions = {
+            'below_hospital_threshold': bool(
+                hosp_row['below_threshold'].any() if not hosp_row.empty else False
+            ),
+            'school_closure_risk': bool(
