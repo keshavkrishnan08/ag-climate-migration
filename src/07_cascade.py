@@ -408,3 +408,13 @@ def find_cascade_tipping_point(
                 # (original -0.02 = 2%/yr was too strict for the income effect magnitudes)
                 pop_row['delta_pop_pct'].min() < -0.005 if not pop_row.empty else False
             ),
+        }
+
+        state_by_year[year] = conditions
+
+        # Fix C: require ANY THREE of four conditions — more realistic since
+        # infrastructure feedback is the hardest signal to trigger and
+        # requiring all four simultaneously makes tipping effectively impossible.
+        if sum(conditions.values()) >= 3 and tipping_year is None:
+            tipping_year = year
+
