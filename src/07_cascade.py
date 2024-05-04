@@ -438,3 +438,13 @@ def reestimate_migration_elasticity(
     """Re-estimate farm income → outmigration elasticity via IV on 2000-2020 data.
 
     Method: Instrumental Variables (same as Feng et al. 2010)
+    Instrument: weather-induced yield shocks (exogenous)
+    Sample: rural Corn Belt counties, 2000-2020
+    Outcome: net outmigration rate (Census ACS)
+    Treatment: farm income change (BEA)
+
+    IV Construction:
+    1. Regress county yield on county FE + year FE + weather vars
+    2. Residuals = weather component of yield (purged of tech trend)
+    3. Weather component × acres × price = weather-driven income shock
+    4. Use this as IV for actual income change
