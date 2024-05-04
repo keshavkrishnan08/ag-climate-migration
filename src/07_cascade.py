@@ -428,3 +428,13 @@ def find_cascade_tipping_point(
 
 # ---------------------------------------------------------------------------
 # Reviewer Fix 4: Re-estimate migration elasticity
+# ---------------------------------------------------------------------------
+def reestimate_migration_elasticity(
+    migration_data: pd.DataFrame,
+    income_data: pd.DataFrame,
+    yield_data: pd.DataFrame,
+    climate_data: pd.DataFrame
+) -> dict:
+    """Re-estimate farm income → outmigration elasticity via IV on 2000-2020 data.
+
+    Method: Instrumental Variables (same as Feng et al. 2010)
