@@ -418,3 +418,13 @@ def find_cascade_tipping_point(
         if sum(conditions.values()) >= 3 and tipping_year is None:
             tipping_year = year
 
+    return {
+        'fips': county_fips,
+        'scenario': scenario,
+        'tipping_year': tipping_year,
+        'cascade_state_by_year': state_by_year,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Reviewer Fix 4: Re-estimate migration elasticity
