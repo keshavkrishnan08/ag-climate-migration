@@ -468,3 +468,13 @@ def reestimate_migration_elasticity(
     # This would implement the full 2SLS estimation
     # Placeholder for structure
     result = {
+        'elasticity': -0.17,  # Will be estimated from data
+        'ci_95': (-0.22, -0.12),
+        'first_stage_F': 0,  # Must exceed 10 for valid IV
+        'n_observations': 0,
+        'n_counties': 0,
+        'sample_period': '2000-2020',
+        'method': 'IV/2SLS',
+        'instrument': 'weather-induced yield shocks',
+    }
+
