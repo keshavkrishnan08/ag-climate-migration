@@ -458,3 +458,13 @@ def reestimate_migration_elasticity(
         climate_data: PRISM temperature + precipitation.
 
     Returns:
+        Dict with elasticity, ci_95, first_stage_F.
+    """
+    logger.info("Re-estimating migration elasticity via IV (2000-2020)...")
+
+    # Corn Belt states
+    corn_belt = {'19', '17', '18', '39', '27', '55', '31', '29', '46', '38', '20'}
+
+    # This would implement the full 2SLS estimation
+    # Placeholder for structure
+    result = {
