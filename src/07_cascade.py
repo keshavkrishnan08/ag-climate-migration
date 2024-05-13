@@ -448,3 +448,13 @@ def reestimate_migration_elasticity(
     2. Residuals = weather component of yield (purged of tech trend)
     3. Weather component × acres × price = weather-driven income shock
     4. Use this as IV for actual income change
+
+    Expected result: elasticity between -0.10 and -0.20.
+
+    Args:
+        migration_data: County net migration from Census ACS (B07001).
+        income_data: County farm income from BEA (CAINC30).
+        yield_data: County yields from NASS.
+        climate_data: PRISM temperature + precipitation.
+
+    Returns:
