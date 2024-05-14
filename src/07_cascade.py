@@ -498,3 +498,13 @@ def _run_single_calibration(
     yield_baseline_expanded: pd.DataFrame,
     acres_data: pd.DataFrame,
     census_baseline: pd.DataFrame,
+    declining_fips: np.ndarray,
+    threshold: float,
+    output_dir: Path,
+) -> Tuple[pd.DataFrame, int]:
+    """Run the 7-step cascade for a single migration elasticity value.
+
+    Args:
+        calibration_label: Short label, e.g. 'A_own_IV' or 'B_feng2010'.
+        elasticity: Income-migration elasticity to use (e.g. -0.003 or -0.17).
+        yield_proj: Full yield projection DataFrame.
