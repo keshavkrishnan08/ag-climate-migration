@@ -488,3 +488,13 @@ def reestimate_migration_elasticity(
     return result
 
 
+# ---------------------------------------------------------------------------
+# Inner loop helper — runs cascade for a single elasticity calibration
+# ---------------------------------------------------------------------------
+def _run_single_calibration(
+    calibration_label: str,
+    elasticity: float,
+    yield_proj: pd.DataFrame,
+    yield_baseline_expanded: pd.DataFrame,
+    acres_data: pd.DataFrame,
+    census_baseline: pd.DataFrame,
