@@ -478,3 +478,13 @@ def reestimate_migration_elasticity(
         'instrument': 'weather-induced yield shocks',
     }
 
+    if result['first_stage_F'] > 10:
+        logger.info(f"IV estimate: elasticity = {result['elasticity']:.3f} "
+                    f"(95% CI: {result['ci_95']})")
+        logger.info(f"First-stage F = {result['first_stage_F']:.1f} (>10: valid IV)")
+    else:
+        logger.warning("Weak instrument (F < 10) — check first stage")
+
+    return result
+
+
