@@ -508,3 +508,13 @@ def _run_single_calibration(
         calibration_label: Short label, e.g. 'A_own_IV' or 'B_feng2010'.
         elasticity: Income-migration elasticity to use (e.g. -0.003 or -0.17).
         yield_proj: Full yield projection DataFrame.
+        yield_baseline_expanded: Baseline yields repeated for all projection years.
+        acres_data: County-crop acreage.
+        census_baseline: Most recent ACS population + income per county.
+        declining_fips: Array of FIPS codes with yield decline > threshold.
+        threshold: Yield-decline threshold (negative fraction).
+        output_dir: Directory to write output files.
+
+    Returns:
+        Tuple of (tipping_df, n_counties_tipping_by_2040).
+    """
