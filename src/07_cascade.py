@@ -518,3 +518,13 @@ def _run_single_calibration(
     Returns:
         Tuple of (tipping_df, n_counties_tipping_by_2040).
     """
+    scenario_label = 'SSP245'
+    tipping_results = []
+
+    for fips in declining_fips:
+        pop_row = census_baseline[census_baseline['fips'] == fips]
+        baseline_pop = float(pop_row['total_population'].iloc[0]) if not pop_row.empty else 10000.0
+        baseline_enrollment = baseline_pop * 0.15
+        if not pop_row.empty and not pd.isna(pop_row['median_household_income'].iloc[0]):
+            per_capita_income = float(pop_row['median_household_income'].iloc[0])
+        else:
