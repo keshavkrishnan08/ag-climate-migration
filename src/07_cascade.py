@@ -558,3 +558,13 @@ def _run_single_calibration(
         tipping_df.to_parquet(
             output_dir / f'tipping_points_{scenario_label}_{calibration_label}.parquet',
             index=False
+        )
+        if not tipped_before_2040.empty:
+            tipped_before_2040[['fips', 'scenario', 'tipping_year']].to_csv(
+                output_dir / f'tipping_counties_before_2040_{calibration_label}.csv',
+                index=False
+            )
+
+    return tipping_df, n_by_2040
+
+
