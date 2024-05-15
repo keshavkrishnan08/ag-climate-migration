@@ -538,3 +538,13 @@ def _run_single_calibration(
 
         pop = compute_population_change(income, baseline_pop, elasticity, per_capita_income=per_capita_income)
         enrollment = compute_school_enrollment(pop, baseline_enrollment, baseline_pop)
+        hospital = compute_hospital_viability(pop, has_hospital=(baseline_pop >= 15000))
+        tax = compute_tax_base_change(income, pop)
+        feedback = compute_infrastructure_feedback(tax, yield_proj)
+
+        tipping = find_cascade_tipping_point(
+            fips, pop, enrollment, hospital, feedback, scenario_label
+        )
+        tipping.pop('cascade_state_by_year', None)
+        tipping_results.append(tipping)
+
