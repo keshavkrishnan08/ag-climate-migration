@@ -528,3 +528,13 @@ def _run_single_calibration(
         if not pop_row.empty and not pd.isna(pop_row['median_household_income'].iloc[0]):
             per_capita_income = float(pop_row['median_household_income'].iloc[0])
         else:
+            per_capita_income = 35000.0
+
+        income = compute_farm_income_change(
+            yield_proj, yield_baseline_expanded, acres_data, fips
+        )
+        if income.empty:
+            continue
+
+        pop = compute_population_change(income, baseline_pop, elasticity, per_capita_income=per_capita_income)
+        enrollment = compute_school_enrollment(pop, baseline_enrollment, baseline_pop)
