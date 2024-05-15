@@ -548,3 +548,13 @@ def _run_single_calibration(
         tipping.pop('cascade_state_by_year', None)
         tipping_results.append(tipping)
 
+    tipping_df = pd.DataFrame(tipping_results)
+    n_by_2040 = 0
+    if not tipping_df.empty:
+        tipped = tipping_df[tipping_df['tipping_year'].notna()]
+        tipped_before_2040 = tipped[tipped['tipping_year'] <= 2040]
+        n_by_2040 = len(tipped_before_2040)
+
+        tipping_df.to_parquet(
+            output_dir / f'tipping_points_{scenario_label}_{calibration_label}.parquet',
+            index=False
