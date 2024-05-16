@@ -608,3 +608,13 @@ def run_cascade_analysis() -> dict:
     }
     if params_path.exists():
         with open(params_path) as f:
+            econ_params = json.load(f)
+        mig = econ_params.get('migration_elasticity', {})
+        reduced_form_p = float(mig.get('reduced_form_p', 1.0))
+        iv_estimate = float(mig.get('estimate', own_iv_elasticity))
+        own_iv_result.update({
+            'elasticity': iv_estimate,
+            'p_value': float(mig.get('iv_p_value', 0.019)),
+            'first_stage_F': float(mig.get('first_stage_F', 1184)),
+            'n_observations': int(mig.get('n_obs', 9681)),
+            'n_counties': int(mig.get('n_counties', 752)),
