@@ -578,3 +578,13 @@ def run_cascade_analysis() -> dict:
     57x gap between our IV estimate (β=-0.003) and Feng et al. (β=-0.17):
 
         Calibration A (PRIMARY): Own IV β=-0.003 (p=0.019, F=1,184)
+        Calibration B (SENSITIVITY): Feng et al. (2010) β=-0.17
+
+    Returns:
+        Dict with cascade results for both calibrations.
+    """
+    import json
+
+    logger.info("=" * 60)
+    logger.info("PHASE 5B: COMMUNITY COLLAPSE CASCADE (DUAL CALIBRATION)")
+    logger.info("=" * 60)
