@@ -588,3 +588,13 @@ def run_cascade_analysis() -> dict:
     logger.info("=" * 60)
     logger.info("PHASE 5B: COMMUNITY COLLAPSE CASCADE (DUAL CALIBRATION)")
     logger.info("=" * 60)
+
+    output_dir = RESULTS_DIR / 'cascade'
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # ---------------------------------------------------------------------------
+    # Load own IV elasticity from economic_params.json
+    # ---------------------------------------------------------------------------
+    params_path = PROJECT_ROOT / 'state' / 'economic_params.json'
+    own_iv_elasticity = -0.003  # Default from economic_params; overwritten below
+    own_iv_result = {
