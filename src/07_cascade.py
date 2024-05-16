@@ -598,3 +598,13 @@ def run_cascade_analysis() -> dict:
     params_path = PROJECT_ROOT / 'state' / 'economic_params.json'
     own_iv_elasticity = -0.003  # Default from economic_params; overwritten below
     own_iv_result = {
+        'elasticity': own_iv_elasticity,
+        'p_value': 0.019,
+        'first_stage_F': 1184,
+        'n_observations': 9681,
+        'n_counties': 752,
+        'sample_period': '2010-2023',
+        'method': 'IV/2SLS_own_estimate',
+    }
+    if params_path.exists():
+        with open(params_path) as f:
