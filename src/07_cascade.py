@@ -568,3 +568,13 @@ def _run_single_calibration(
     return tipping_df, n_by_2040
 
 
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+def run_cascade_analysis() -> dict:
+    """Execute community collapse cascade analysis.
+
+    Runs TWO calibrations in parallel to address reviewer concern about the
+    57x gap between our IV estimate (β=-0.003) and Feng et al. (β=-0.17):
+
+        Calibration A (PRIMARY): Own IV β=-0.003 (p=0.019, F=1,184)
