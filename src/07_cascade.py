@@ -648,3 +648,13 @@ def run_cascade_analysis() -> dict:
         logger.error("No yield projections found — aborting cascade")
         return {'tipping_results_A': pd.DataFrame(), 'tipping_results_B': pd.DataFrame(),
                 'own_iv': own_iv_result}
+
+    yield_baseline_df = (
+        yield_proj.groupby(['fips', 'crop'])['yield_baseline']
+        .first()
+        .reset_index()
+        .rename(columns={'yield_baseline': 'yield_projected'})
+    )
+    proj_years = sorted(yield_proj['year'].unique())
+    bl_rows = []
+    for yr in proj_years:
