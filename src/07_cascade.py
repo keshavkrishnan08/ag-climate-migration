@@ -628,3 +628,13 @@ def run_cascade_analysis() -> dict:
                 f"F={own_iv_result['first_stage_F']:.0f}"
             )
         else:
+            logger.warning(
+                f"IV reduced_form_p={reduced_form_p:.3f} > 0.05 — using raw IV estimate anyway "
+                f"(primary spec per paper); Feng et al. run as Calibration B"
+            )
+
+    feng_elasticity = CASCADE['income_elasticity_migration']  # -0.17 from config
+
+    logger.info(f"Calibration A (PRIMARY — own IV): β={own_iv_elasticity:.6f}")
+    logger.info(f"Calibration B (SENSITIVITY — Feng 2010): β={feng_elasticity:.6f}")
+
