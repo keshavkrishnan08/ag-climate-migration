@@ -618,3 +618,13 @@ def run_cascade_analysis() -> dict:
             'first_stage_F': float(mig.get('first_stage_F', 1184)),
             'n_observations': int(mig.get('n_obs', 9681)),
             'n_counties': int(mig.get('n_counties', 752)),
+            'sample_period': mig.get('sample_period', '2010-2023'),
+        })
+        if reduced_form_p <= 0.05:
+            own_iv_elasticity = iv_estimate
+            own_iv_result['method'] = 'IV/2SLS_own_estimate'
+            logger.info(
+                f"Own IV: β={own_iv_elasticity:.6f}, p={reduced_form_p:.4f}, "
+                f"F={own_iv_result['first_stage_F']:.0f}"
+            )
+        else:
