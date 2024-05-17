@@ -638,3 +638,13 @@ def run_cascade_analysis() -> dict:
     logger.info(f"Calibration A (PRIMARY — own IV): β={own_iv_elasticity:.6f}")
     logger.info(f"Calibration B (SENSITIVITY — Feng 2010): β={feng_elasticity:.6f}")
 
+    # ---------------------------------------------------------------------------
+    # Load shared data (loaded once, passed to both calibrations)
+    # ---------------------------------------------------------------------------
+    scenario_label = 'SSP245'
+    proj_path = PROJECTIONS_DIR / f'yield_projections_{scenario_label}.parquet'
+    yield_proj = pd.read_parquet(proj_path) if proj_path.exists() else pd.DataFrame()
+    if yield_proj.empty:
+        logger.error("No yield projections found — aborting cascade")
+        return {'tipping_results_A': pd.DataFrame(), 'tipping_results_B': pd.DataFrame(),
+                'own_iv': own_iv_result}
