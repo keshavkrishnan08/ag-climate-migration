@@ -658,3 +658,13 @@ def run_cascade_analysis() -> dict:
     proj_years = sorted(yield_proj['year'].unique())
     bl_rows = []
     for yr in proj_years:
+        tmp = yield_baseline_df.copy()
+        tmp['year'] = yr
+        bl_rows.append(tmp)
+    yield_baseline_expanded = pd.concat(bl_rows, ignore_index=True)
+
+    acres_data = yield_proj[['fips', 'crop', 'year', 'acres_harvested']].copy()
+
+    census_path = DATA_RAW / 'census' / 'acs_county_demographics.parquet'
+    census = pd.read_parquet(
+        census_path, columns=['fips', 'year', 'total_population', 'median_household_income']
