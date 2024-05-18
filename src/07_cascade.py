@@ -668,3 +668,13 @@ def run_cascade_analysis() -> dict:
     census_path = DATA_RAW / 'census' / 'acs_county_demographics.parquet'
     census = pd.read_parquet(
         census_path, columns=['fips', 'year', 'total_population', 'median_household_income']
+    ) if census_path.exists() else pd.DataFrame()
+
+    if not census.empty:
+        census_baseline = (
+            census.sort_values('year')
+            .groupby('fips')
+            .last()
+            .reset_index()[['fips', 'total_population', 'median_household_income']]
+        )
+    else:
