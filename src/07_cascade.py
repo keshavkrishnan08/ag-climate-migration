@@ -688,3 +688,13 @@ def run_cascade_analysis() -> dict:
     )
     impact_summary.columns = ['fips', 'mean_climate_fraction']
     threshold = -0.03
+    declining_fips = impact_summary[
+        impact_summary['mean_climate_fraction'] < threshold
+    ]['fips'].values
+    logger.info(f"Counties with >{abs(threshold):.0%} yield decline: {len(declining_fips)}")
+
+    # ---------------------------------------------------------------------------
+    # Calibration A: Own IV β=-0.003 (PRIMARY)
+    # ---------------------------------------------------------------------------
+    logger.info("\n--- CALIBRATION A: Own IV β={:.6f} ---".format(own_iv_elasticity))
+    tipping_df_A, n_2040_A = _run_single_calibration(
