@@ -678,3 +678,13 @@ def run_cascade_analysis() -> dict:
             .reset_index()[['fips', 'total_population', 'median_household_income']]
         )
     else:
+        census_baseline = pd.DataFrame(columns=['fips', 'total_population', 'median_household_income'])
+
+    # Identify declining counties (3% decline threshold)
+    impact_summary = (
+        yield_proj.groupby('fips')
+        .apply(lambda g: (g['climate_impact_bu'] / g['yield_baseline'].replace(0, np.nan)).mean())
+        .reset_index()
+    )
+    impact_summary.columns = ['fips', 'mean_climate_fraction']
+    threshold = -0.03
