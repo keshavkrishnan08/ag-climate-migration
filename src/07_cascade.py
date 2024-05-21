@@ -708,3 +708,13 @@ def run_cascade_analysis() -> dict:
         threshold=threshold,
         output_dir=output_dir,
     )
+    logger.info(f"  Calibration A counties tipping by 2040: {n_2040_A}")
+
+    # ---------------------------------------------------------------------------
+    # Calibration B: Feng et al. β=-0.17 (SENSITIVITY)
+    # ---------------------------------------------------------------------------
+    logger.info("\n--- CALIBRATION B: Feng et al. β={:.3f} ---".format(feng_elasticity))
+    tipping_df_B, n_2040_B = _run_single_calibration(
+        calibration_label='B_feng2010',
+        elasticity=feng_elasticity,
+        yield_proj=yield_proj,
