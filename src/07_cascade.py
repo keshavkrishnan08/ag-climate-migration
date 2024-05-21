@@ -738,3 +738,13 @@ def run_cascade_analysis() -> dict:
     logger.info(f"  Difference: {n_2040_B - n_2040_A} additional counties under Feng et al.")
     logger.info(f"  Note: Smaller β (our IV) = smaller migration response = fewer tipping counties.")
     logger.info(f"  Primary paper figure uses Calibration A (own IV, β=-0.003, p=0.019).")
+    logger.info("=" * 60)
+    logger.info("PHASE 5B COMPLETE")
+    logger.info("=" * 60)
+
+    # Write dual calibration summary JSON
+    summary_out = {
+        'calibration_A': {
+            'label': 'own_IV_primary',
+            'elasticity': own_iv_elasticity,
+            'p_value': own_iv_result.get('p_value', 0.019),
