@@ -728,3 +728,13 @@ def run_cascade_analysis() -> dict:
     logger.info(f"  Calibration B counties tipping by 2040: {n_2040_B}")
 
     # ---------------------------------------------------------------------------
+    # Summary
+    # ---------------------------------------------------------------------------
+    logger.info("\n" + "=" * 60)
+    logger.info("DUAL CALIBRATION SUMMARY")
+    logger.info("=" * 60)
+    logger.info(f"  Calibration A (own IV, β={own_iv_elasticity:.4f}): {n_2040_A} counties tip by 2040")
+    logger.info(f"  Calibration B (Feng 2010, β={feng_elasticity:.2f}):   {n_2040_B} counties tip by 2040")
+    logger.info(f"  Difference: {n_2040_B - n_2040_A} additional counties under Feng et al.")
+    logger.info(f"  Note: Smaller β (our IV) = smaller migration response = fewer tipping counties.")
+    logger.info(f"  Primary paper figure uses Calibration A (own IV, β=-0.003, p=0.019).")
