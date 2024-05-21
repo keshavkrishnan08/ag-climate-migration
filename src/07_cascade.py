@@ -758,3 +758,13 @@ def run_cascade_analysis() -> dict:
             'n_counties_tipping_by_2040': n_2040_B,
         },
         'note': (
+            'Reviewer concern: 57x gap between own IV (-0.003) and Feng (-0.17). '
+            'Calibration A is primary (own IV, p=0.019, F=1184). '
+            'Calibration B shows sensitivity. '
+            'Smaller β means smaller migration response to income shocks, '
+            'so fewer counties tip under own IV than under Feng et al.'
+        ),
+    }
+    import json as _json
+    with open(output_dir / 'dual_calibration_summary.json', 'w') as f:
+        _json.dump(summary_out, f, indent=2)
