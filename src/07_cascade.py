@@ -748,3 +748,13 @@ def run_cascade_analysis() -> dict:
             'label': 'own_IV_primary',
             'elasticity': own_iv_elasticity,
             'p_value': own_iv_result.get('p_value', 0.019),
+            'first_stage_F': own_iv_result.get('first_stage_F', 1184),
+            'n_counties_tipping_by_2040': n_2040_A,
+        },
+        'calibration_B': {
+            'label': 'feng2010_sensitivity',
+            'elasticity': feng_elasticity,
+            'source': 'Feng et al. (2010)',
+            'n_counties_tipping_by_2040': n_2040_B,
+        },
+        'note': (
