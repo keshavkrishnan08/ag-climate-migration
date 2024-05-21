@@ -768,3 +768,13 @@ def run_cascade_analysis() -> dict:
     import json as _json
     with open(output_dir / 'dual_calibration_summary.json', 'w') as f:
         _json.dump(summary_out, f, indent=2)
+
+    return {
+        'tipping_results_A': tipping_df_A,
+        'tipping_results_B': tipping_df_B,
+        'n_2040_A': n_2040_A,
+        'n_2040_B': n_2040_B,
+        'own_iv': own_iv_result,
+    }
+
+
