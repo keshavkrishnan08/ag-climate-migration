@@ -718,3 +718,13 @@ def run_cascade_analysis() -> dict:
         calibration_label='B_feng2010',
         elasticity=feng_elasticity,
         yield_proj=yield_proj,
+        yield_baseline_expanded=yield_baseline_expanded,
+        acres_data=acres_data,
+        census_baseline=census_baseline,
+        declining_fips=declining_fips,
+        threshold=threshold,
+        output_dir=output_dir,
+    )
+    logger.info(f"  Calibration B counties tipping by 2040: {n_2040_B}")
+
+    # ---------------------------------------------------------------------------
