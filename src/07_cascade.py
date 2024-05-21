@@ -698,3 +698,13 @@ def run_cascade_analysis() -> dict:
     # ---------------------------------------------------------------------------
     logger.info("\n--- CALIBRATION A: Own IV β={:.6f} ---".format(own_iv_elasticity))
     tipping_df_A, n_2040_A = _run_single_calibration(
+        calibration_label='A_own_IV',
+        elasticity=own_iv_elasticity,
+        yield_proj=yield_proj,
+        yield_baseline_expanded=yield_baseline_expanded,
+        acres_data=acres_data,
+        census_baseline=census_baseline,
+        declining_fips=declining_fips,
+        threshold=threshold,
+        output_dir=output_dir,
+    )
