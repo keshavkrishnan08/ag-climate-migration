@@ -778,3 +778,5 @@ def run_cascade_analysis() -> dict:
     }
 
 
+if __name__ == '__main__':
+    run_cascade_analysis()
