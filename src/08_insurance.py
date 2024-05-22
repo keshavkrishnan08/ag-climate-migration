@@ -18,3 +18,13 @@ Actuarial logic (PRD Section 7, Computation C):
     Negative = county is OVERPRICED (too expensive, farmer overpaying)
     Cross-subsidy = min(total_underpriced, total_overpriced) = risk pool transfer
 
+Method: expected indemnity computed via analytical put formula E[max(K-X,0)]
+with K = APH × 0.75 × price and X ~ N(mean, sigma²).
+Yield CV sourced from 15 years of NASS historical data (2008-2023) to capture
+true interannual variability, not climate-model ensemble spread.
+
+Target finding: $3-8B/yr total structural mispricing, $1-3B/yr cross-subsidy.
+"""
+
+import os
+import sys
