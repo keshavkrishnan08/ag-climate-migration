@@ -48,3 +48,13 @@ with open(PROJECT_ROOT / 'config.yaml') as f:
     CONFIG = yaml.safe_load(f)
 
 # RMA crop_name → model crop name mapping (after strip+upper)
+RMA_CROP_MAP = {
+    'CORN': 'corn',
+    'SOYBEANS': 'soybeans',
+    'WHEAT': 'wheat_winter',
+    'COTTON': 'cotton',
+    'GRAIN SORGHUM': 'sorghum',
+    'BARLEY': 'barley',
+    'OATS': 'oats',
+}
+
