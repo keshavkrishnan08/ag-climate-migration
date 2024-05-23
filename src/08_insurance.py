@@ -78,3 +78,13 @@ def compute_aph_premium(
 ) -> float:
     """Compute current RMA-style premium from Actual Production History.
 
+    APH uses the most recent 10 years of yields to set the guarantee
+    and estimate the loss distribution.
+
+    Args:
+        historical_yields: Array of last 10 years of yields (bu/acre).
+        price: Projected price for the crop year ($/bu).
+        coverage: Coverage level (0.50 to 0.85, standard is 0.75).
+        loading_factor: Administrative/operating expense load.
+
+    Returns:
