@@ -68,3 +68,13 @@ COMMODITY_PRICES = {
     'barley': 6.10,
     'oats': 3.80,
 }
+
+
+def compute_aph_premium(
+    historical_yields: np.ndarray,
+    price: float,
+    coverage: float = 0.75,
+    loading_factor: float = 1.15
+) -> float:
+    """Compute current RMA-style premium from Actual Production History.
+
