@@ -58,3 +58,13 @@ RMA_CROP_MAP = {
     'OATS': 'oats',
 }
 
+COMMODITY_PRICES = {
+    'corn': 5.50,
+    'soybeans': 12.80,
+    'wheat_winter': 7.20,
+    'wheat_spring': 8.10,
+    'cotton': 0.78,
+    'sorghum': 5.30,
+    'barley': 6.10,
+    'oats': 3.80,
+}
