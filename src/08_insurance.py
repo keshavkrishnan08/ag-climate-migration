@@ -88,3 +88,13 @@ def compute_aph_premium(
         loading_factor: Administrative/operating expense load.
 
     Returns:
+        Premium per acre in dollars.
+    """
+    if len(historical_yields) == 0:
+        return 0.0
+
+    aph_yield = np.mean(historical_yields)
+    guarantee = aph_yield * coverage * price
+
+    # Estimate loss distribution from historical variance
+    std = np.std(historical_yields)
