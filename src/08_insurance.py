@@ -108,3 +108,13 @@ def compute_aph_premium(
 
         # Monte Carlo estimate of expected indemnity
         np.random.seed(CONFIG['yield_model']['random_seed'])
+        simulated_yields = np.random.lognormal(mu, sigma, 10000)
+        simulated_revenue = simulated_yields * price
+        indemnities = np.maximum(guarantee - simulated_revenue, 0)
+        expected_indemnity = np.mean(indemnities)
+    else:
+        expected_indemnity = 0
+
+    premium = expected_indemnity * loading_factor
+    return float(premium)
+
