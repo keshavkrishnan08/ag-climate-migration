@@ -98,3 +98,13 @@ def compute_aph_premium(
 
     # Estimate loss distribution from historical variance
     std = np.std(historical_yields)
+    cv = std / aph_yield if aph_yield > 0 else 0.15
+
+    # Expected indemnity: E[max(guarantee - actual_yield × price, 0)]
+    # Using lognormal approximation
+    if cv > 0 and aph_yield > 0:
+        sigma = np.sqrt(np.log(1 + cv**2))
+        mu = np.log(aph_yield) - sigma**2 / 2
+
+        # Monte Carlo estimate of expected indemnity
+        np.random.seed(CONFIG['yield_model']['random_seed'])
