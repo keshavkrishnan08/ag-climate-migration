@@ -118,3 +118,13 @@ def compute_aph_premium(
     premium = expected_indemnity * loading_factor
     return float(premium)
 
+
+def compute_fair_premium(
+    projected_yield_dist: np.ndarray,
+    price: float,
+    coverage: float = 0.75,
+    loading_factor: float = 1.15
+) -> float:
+    """Compute actuarially fair premium from forward-looking yield distribution.
+
+    Uses projected yield distribution under climate scenario rather than
