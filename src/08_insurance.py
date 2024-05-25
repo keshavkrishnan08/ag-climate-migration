@@ -128,3 +128,13 @@ def compute_fair_premium(
     """Compute actuarially fair premium from forward-looking yield distribution.
 
     Uses projected yield distribution under climate scenario rather than
+    backward-looking APH.
+
+    Args:
+        projected_yield_dist: Array of simulated future yields (n=1000+).
+        price: Projected price ($/bu).
+        coverage: Coverage level.
+        loading_factor: Administrative load.
+
+    Returns:
+        Fair premium per acre in dollars.
