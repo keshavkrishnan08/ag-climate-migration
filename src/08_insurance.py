@@ -138,3 +138,13 @@ def compute_fair_premium(
 
     Returns:
         Fair premium per acre in dollars.
+    """
+    if len(projected_yield_dist) == 0:
+        return 0.0
+
+    expected_yield = np.mean(projected_yield_dist)
+    guarantee = expected_yield * coverage * price
+
+    # Expected indemnity under projected distribution
+    simulated_revenue = projected_yield_dist * price
+    indemnities = np.maximum(guarantee - simulated_revenue, 0)
