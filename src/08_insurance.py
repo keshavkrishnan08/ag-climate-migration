@@ -148,3 +148,13 @@ def compute_fair_premium(
     # Expected indemnity under projected distribution
     simulated_revenue = projected_yield_dist * price
     indemnities = np.maximum(guarantee - simulated_revenue, 0)
+    expected_indemnity = np.mean(indemnities)
+
+    fair_premium = expected_indemnity * loading_factor
+    return float(fair_premium)
+
+
+def simulate_yield_distribution(
+    county_fips: str,
+    crop: str,
+    yield_model,
