@@ -168,3 +168,13 @@ def simulate_yield_distribution(
         crop: Crop type.
         yield_model: Trained yield model.
         climate_scenario: Projected climate trajectory.
+        n: Number of simulations.
+
+    Returns:
+        Array of n simulated yields.
+    """
+    np.random.seed(CONFIG['yield_model']['random_seed'])
+
+    # Get projected mean yield and uncertainty
+    county_proj = climate_scenario[
+        (climate_scenario['fips'] == county_fips) &
