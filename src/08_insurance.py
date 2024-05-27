@@ -178,3 +178,13 @@ def simulate_yield_distribution(
     # Get projected mean yield and uncertainty
     county_proj = climate_scenario[
         (climate_scenario['fips'] == county_fips) &
+        (climate_scenario.get('crop', '') == crop)
+    ] if 'crop' in climate_scenario.columns else pd.DataFrame()
+
+    if county_proj.empty:
+        return np.array([])
+
+    mean_yield = county_proj['yield_projected'].mean()
+    yield_std = county_proj['yield_projected'].std()
+
+    if yield_std == 0:
