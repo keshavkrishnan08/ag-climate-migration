@@ -158,3 +158,13 @@ def simulate_yield_distribution(
     county_fips: str,
     crop: str,
     yield_model,
+    climate_scenario: pd.DataFrame,
+    n: int = 1000
+) -> np.ndarray:
+    """Simulate yield distribution under projected climate for a county.
+
+    Args:
+        county_fips: 5-digit FIPS.
+        crop: Crop type.
+        yield_model: Trained yield model.
+        climate_scenario: Projected climate trajectory.
