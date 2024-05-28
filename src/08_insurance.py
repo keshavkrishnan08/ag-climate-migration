@@ -238,3 +238,13 @@ def compute_insurance_mispricing(
         if np.isnan(current_premium):
             current_premium = 0.0
     else:
+        current_premium = 0.0
+
+    # Step 2: Compute fair premium from projected yield distribution
+    if not yield_projections.empty:
+        county_proj = yield_projections[
+            (yield_projections['fips'] == county_fips) &
+            (yield_projections['crop'] == crop)
+        ]
+    else:
+        county_proj = pd.DataFrame()
