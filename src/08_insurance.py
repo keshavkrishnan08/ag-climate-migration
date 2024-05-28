@@ -218,3 +218,13 @@ def compute_insurance_mispricing(
         crop: Crop type string (normalized, e.g. 'corn').
         rma_data: USDA RMA Summary of Business with normalized crop_name.
         yield_projections: Projected yields under scenario.
+        scenario: Climate scenario name.
+
+    Returns:
+        Dict with mispricing_per_acre, direction, annual_cross_subsidy.
+    """
+    # Step 1: Current RMA premium from actual data
+    # rma_data has been pre-filtered with normalized crop names in 'crop' column
+    if not rma_data.empty and 'fips' in rma_data.columns:
+        county_rma = rma_data[
+            (rma_data['fips'] == county_fips) &
