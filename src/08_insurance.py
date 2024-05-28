@@ -188,3 +188,13 @@ def simulate_yield_distribution(
     yield_std = county_proj['yield_projected'].std()
 
     if yield_std == 0:
+        yield_std = mean_yield * 0.15  # Default CV
+
+    # Simulate from lognormal (yields can't be negative)
+    if mean_yield > 0:
+        sigma = np.sqrt(np.log(1 + (yield_std / mean_yield)**2))
+        mu = np.log(mean_yield) - sigma**2 / 2
+        simulated = np.random.lognormal(mu, sigma, n)
+    else:
+        simulated = np.zeros(n)
+
