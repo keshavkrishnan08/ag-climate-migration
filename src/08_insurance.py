@@ -198,3 +198,13 @@ def simulate_yield_distribution(
     else:
         simulated = np.zeros(n)
 
+    return simulated
+
+
+def compute_insurance_mispricing(
+    county_fips: str,
+    crop: str,
+    rma_data: pd.DataFrame,
+    yield_projections: pd.DataFrame,
+    scenario: str = 'SSP245'
+) -> dict:
