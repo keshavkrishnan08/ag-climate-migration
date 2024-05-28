@@ -208,3 +208,13 @@ def compute_insurance_mispricing(
     yield_projections: pd.DataFrame,
     scenario: str = 'SSP245'
 ) -> dict:
+    """Compare current RMA premium to actuarially fair premium.
+
+    RMA data has fips as a proper column and crop_name already normalized
+    (stripped and lowercased to match model crop names) before being passed in.
+
+    Args:
+        county_fips: 5-digit FIPS code.
+        crop: Crop type string (normalized, e.g. 'corn').
+        rma_data: USDA RMA Summary of Business with normalized crop_name.
+        yield_projections: Projected yields under scenario.
