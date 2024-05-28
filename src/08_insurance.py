@@ -228,3 +228,13 @@ def compute_insurance_mispricing(
     if not rma_data.empty and 'fips' in rma_data.columns:
         county_rma = rma_data[
             (rma_data['fips'] == county_fips) &
+            (rma_data['crop'] == crop)
+        ]
+    else:
+        county_rma = pd.DataFrame()
+
+    if not county_rma.empty and 'premium_per_acre' in county_rma.columns:
+        current_premium = county_rma['premium_per_acre'].dropna().mean()
+        if np.isnan(current_premium):
+            current_premium = 0.0
+    else:
