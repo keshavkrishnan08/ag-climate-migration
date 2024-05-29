@@ -248,3 +248,13 @@ def compute_insurance_mispricing(
         ]
     else:
         county_proj = pd.DataFrame()
+
+    price = COMMODITY_PRICES.get(crop, 5.0)
+
+    if not county_proj.empty and 'yield_projected' in county_proj.columns:
+        projected_yields = county_proj['yield_projected'].dropna().values
+        if len(projected_yields) > 0:
+            mean_y = np.mean(projected_yields)
+            std_y = np.std(projected_yields) if len(projected_yields) > 1 else mean_y * 0.15
+            if mean_y > 0 and std_y > 0:
+                sigma = np.sqrt(np.log(1 + (std_y / mean_y) ** 2))
