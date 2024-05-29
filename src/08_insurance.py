@@ -268,3 +268,13 @@ def compute_insurance_mispricing(
             fair_premium = current_premium
     else:
         fair_premium = current_premium
+
+    # Step 3: Compute mispricing
+    mispricing = fair_premium - current_premium
+
+    # Step 4: Annual aggregate dollar flow — use 'acres' column (RMA has no 'liability_acres')
+    if not county_rma.empty and 'acres' in county_rma.columns:
+        insured_acres = county_rma['acres'].dropna().mean()
+        if np.isnan(insured_acres):
+            insured_acres = 0.0
+    else:
