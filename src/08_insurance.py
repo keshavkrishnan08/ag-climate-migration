@@ -278,3 +278,13 @@ def compute_insurance_mispricing(
         if np.isnan(insured_acres):
             insured_acres = 0.0
     else:
+        insured_acres = 0.0
+
+    annual_flow = mispricing * insured_acres
+
+    # Direction
+    if mispricing > 0:
+        direction = 'underpriced'   # Too cheap → taxpayer subsidy too large
+    elif mispricing < 0:
+        direction = 'overpriced'    # Too expensive → farmer overpaying
+    else:
