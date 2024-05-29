@@ -298,3 +298,13 @@ def compute_insurance_mispricing(
         'fair_premium_per_acre': float(fair_premium),
         'mispricing_per_acre': float(mispricing),
         'direction': direction,
+        'insured_acres': float(insured_acres),
+        'annual_cross_subsidy': float(annual_flow),
+    }
+
+
+def normalize_rma_crops(rma_data: pd.DataFrame) -> pd.DataFrame:
+    """Strip whitespace and map RMA crop_name to model crop names.
+
+    RMA crop_name values have trailing whitespace and uppercase text.
+    This normalizes them and adds a 'crop' column for joining with projections.
