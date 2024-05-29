@@ -288,3 +288,13 @@ def compute_insurance_mispricing(
     elif mispricing < 0:
         direction = 'overpriced'    # Too expensive → farmer overpaying
     else:
+        direction = 'fair'
+
+    return {
+        'fips': county_fips,
+        'crop': crop,
+        'scenario': scenario,
+        'current_premium_per_acre': float(current_premium),
+        'fair_premium_per_acre': float(fair_premium),
+        'mispricing_per_acre': float(mispricing),
+        'direction': direction,
