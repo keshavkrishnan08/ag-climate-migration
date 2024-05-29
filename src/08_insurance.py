@@ -258,3 +258,13 @@ def compute_insurance_mispricing(
             std_y = np.std(projected_yields) if len(projected_yields) > 1 else mean_y * 0.15
             if mean_y > 0 and std_y > 0:
                 sigma = np.sqrt(np.log(1 + (std_y / mean_y) ** 2))
+                mu = np.log(mean_y) - sigma ** 2 / 2
+                np.random.seed(CONFIG['yield_model']['random_seed'])
+                sim_yields = np.random.lognormal(mu, sigma, 1000)
+            else:
+                sim_yields = np.full(1000, max(mean_y, 0.0))
+            fair_premium = compute_fair_premium(sim_yields, price)
+        else:
+            fair_premium = current_premium
+    else:
+        fair_premium = current_premium
