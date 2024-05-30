@@ -368,3 +368,13 @@ def _compute_yield_cv_from_nass(nass_path: Path) -> pd.DataFrame:
     logger.info(
         f"Historical yield CV computed for {len(hist)} county-crop pairs "
         f"(median={hist['yield_cv'].median():.3f})"
+    )
+    return hist[['fips', 'crop', 'yield_cv']]
+
+
+def _expected_indemnity(K: float, mu: float, sigma: float) -> float:
+    """Expected indemnity for a revenue guarantee contract (analytical put formula).
+
+    Computes E[max(K - X, 0)] where X ~ N(mu, sigma^2), representing expected
+    indemnity payment per acre when the guarantee is K and revenue is normally
+    distributed.
