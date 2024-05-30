@@ -318,3 +318,13 @@ def normalize_rma_crops(rma_data: pd.DataFrame) -> pd.DataFrame:
     rma = rma_data.copy()
     rma['crop_name_clean'] = rma['crop_name'].str.strip().str.upper()
     rma['crop'] = rma['crop_name_clean'].map(RMA_CROP_MAP)
+    # Keep only rows that map to a known model crop
+    rma = rma[rma['crop'].notna()].copy()
+    logger.info(f"RMA rows after crop normalization: {len(rma)} ({rma['crop'].nunique()} crops)")
+    return rma
+
+
+def _compute_yield_cv_from_nass(nass_path: Path) -> pd.DataFrame:
+    """Compute county-crop yield coefficient of variation from NASS historical data.
+
+    Uses the last 15 years of observed yields (2008-2023) to estimate interannual
