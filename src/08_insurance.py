@@ -348,3 +348,13 @@ def _compute_yield_cv_from_nass(nass_path: Path) -> pd.DataFrame:
         logger.warning("Could not load NASS yields for CV estimation — using crop defaults")
         return pd.DataFrame(columns=['fips', 'crop', 'yield_cv'])
 
+    nass_recent = nass[
+        nass['year'].between(2008, 2023) & (nass['yield_bu_acre'] > 0)
+    ].copy()
+
+    hist = (
+        nass_recent
+        .groupby(['fips', 'crop'])
+        .agg(hist_mean=('yield_bu_acre', 'mean'),
+             hist_std=('yield_bu_acre', 'std'),
+             n_obs=('yield_bu_acre', 'count'))
