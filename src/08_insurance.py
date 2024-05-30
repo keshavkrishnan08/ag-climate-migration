@@ -338,3 +338,13 @@ def _compute_yield_cv_from_nass(nass_path: Path) -> pd.DataFrame:
     Returns:
         DataFrame with columns [fips, crop, yield_cv] where yield_cv is clipped
         to [0.05, 0.50] to prevent degenerate distributions.
+    """
+    try:
+        nass = pd.read_parquet(
+            nass_path,
+            columns=['fips', 'year', 'crop', 'yield_bu_acre']
+        )
+    except Exception:
+        logger.warning("Could not load NASS yields for CV estimation — using crop defaults")
+        return pd.DataFrame(columns=['fips', 'crop', 'yield_cv'])
+
