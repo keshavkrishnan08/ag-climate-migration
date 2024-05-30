@@ -358,3 +358,13 @@ def _compute_yield_cv_from_nass(nass_path: Path) -> pd.DataFrame:
         .agg(hist_mean=('yield_bu_acre', 'mean'),
              hist_std=('yield_bu_acre', 'std'),
              n_obs=('yield_bu_acre', 'count'))
+        .reset_index()
+    )
+    # Need at least 5 observations for a reliable CV estimate
+    hist = hist[hist['n_obs'] >= 5].copy()
+    hist['yield_cv'] = (hist['hist_std'] / hist['hist_mean']).clip(0.05, 0.50)
+    hist['yield_cv'] = hist['yield_cv'].fillna(0.20)
+
+    logger.info(
+        f"Historical yield CV computed for {len(hist)} county-crop pairs "
+        f"(median={hist['yield_cv'].median():.3f})"
