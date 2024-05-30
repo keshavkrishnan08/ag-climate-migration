@@ -308,3 +308,13 @@ def normalize_rma_crops(rma_data: pd.DataFrame) -> pd.DataFrame:
 
     RMA crop_name values have trailing whitespace and uppercase text.
     This normalizes them and adds a 'crop' column for joining with projections.
+
+    Args:
+        rma_data: Raw RMA DataFrame with crop_name column.
+
+    Returns:
+        RMA DataFrame with added 'crop' column (normalized), filtered to known crops.
+    """
+    rma = rma_data.copy()
+    rma['crop_name_clean'] = rma['crop_name'].str.strip().str.upper()
+    rma['crop'] = rma['crop_name_clean'].map(RMA_CROP_MAP)
