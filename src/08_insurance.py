@@ -328,3 +328,13 @@ def _compute_yield_cv_from_nass(nass_path: Path) -> pd.DataFrame:
     """Compute county-crop yield coefficient of variation from NASS historical data.
 
     Uses the last 15 years of observed yields (2008-2023) to estimate interannual
+    yield variability — the true actuarial risk parameter. The P10/P90 spread in
+    the climate projections represents model-ensemble uncertainty, not interannual
+    variability, so we anchor to observed historical data instead.
+
+    Args:
+        nass_path: Path to NASS county yields parquet.
+
+    Returns:
+        DataFrame with columns [fips, crop, yield_cv] where yield_cv is clipped
+        to [0.05, 0.50] to prevent degenerate distributions.
