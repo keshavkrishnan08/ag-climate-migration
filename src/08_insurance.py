@@ -378,3 +378,13 @@ def _expected_indemnity(K: float, mu: float, sigma: float) -> float:
     Computes E[max(K - X, 0)] where X ~ N(mu, sigma^2), representing expected
     indemnity payment per acre when the guarantee is K and revenue is normally
     distributed.
+
+    Args:
+        K: Guarantee level (= APH_yield × coverage × price), $/acre.
+        mu: Expected revenue under assumed yield distribution, $/acre.
+        sigma: Revenue standard deviation (yield_std × price), $/acre.
+
+    Returns:
+        Expected indemnity per acre in dollars (always >= 0).
+    """
+    sigma = max(sigma, 1.0)
