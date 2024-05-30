@@ -388,3 +388,13 @@ def _expected_indemnity(K: float, mu: float, sigma: float) -> float:
         Expected indemnity per acre in dollars (always >= 0).
     """
     sigma = max(sigma, 1.0)
+    z = (K - mu) / sigma
+    ei = (K - mu) * stats.norm.cdf(z) + sigma * stats.norm.pdf(z)
+    return float(max(ei, 0.0))
+
+
+def compute_national_mispricing(
+    rma_data: pd.DataFrame,
+    yield_projections: pd.DataFrame,
+    scenario: str = 'SSP245'
+) -> pd.DataFrame:
