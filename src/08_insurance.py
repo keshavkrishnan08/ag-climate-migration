@@ -398,3 +398,13 @@ def compute_national_mispricing(
     yield_projections: pd.DataFrame,
     scenario: str = 'SSP245'
 ) -> pd.DataFrame:
+    """Compute insurance mispricing for all county-crop pairs nationally.
+
+    Uses an actuarially grounded expected-indemnity approach:
+
+    1. APH yield = yield_baseline (backward-looking 10-year mean embedded in projections).
+    2. Future yield = mean projected yield 2040-2050 under the given climate scenario.
+    3. Yield variability = county-crop CV from 15 years of NASS historical data (2008-2023),
+       which captures true interannual risk rather than model-ensemble spread.
+    4. Expected indemnity ratio = EI(future) / EI(APH), computed via the analytical put
+       formula E[max(K - X, 0)] with K = APH × 0.75 × price and X ~ N(mean, sigma).
