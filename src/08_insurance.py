@@ -418,3 +418,13 @@ def compute_national_mispricing(
     - Minimum APH thresholds by crop to exclude fringe-production counties.
     - EI ratio capped at MAX_EI_RATIO (default 5×) to prevent tail outliers.
 
+    Args:
+        rma_data: RMA Summary of Business (raw, with crop_name column).
+        yield_projections: Projected yields DataFrame (columns: fips, year, crop,
+            yield_projected, yield_baseline, acres_harvested).
+        scenario: Climate scenario label.
+
+    Returns:
+        DataFrame with mispricing analysis per county-crop pair, including columns:
+        fips, crop, scenario, aph_yield, future_yield, yield_delta_pct, yield_cv,
+        direction, ei_ratio, mispricing_per_acre, insured_acres, annual_cross_subsidy.
