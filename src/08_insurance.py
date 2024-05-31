@@ -408,3 +408,13 @@ def compute_national_mispricing(
        which captures true interannual risk rather than model-ensemble spread.
     4. Expected indemnity ratio = EI(future) / EI(APH), computed via the analytical put
        formula E[max(K - X, 0)] with K = APH × 0.75 × price and X ~ N(mean, sigma).
+    5. Mispricing per acre = current_premium_per_acre × (EI_ratio - 1).
+       Positive = underpriced (county risk underweighted); negative = overpriced.
+    6. Cross-subsidy = total flow from overpriced counties to underpriced counties
+       through the shared federal risk pool = min(total_underpriced, total_overpriced).
+
+    Data quality filters applied:
+    - Future yield clipped at zero (projection artifacts).
+    - Minimum APH thresholds by crop to exclude fringe-production counties.
+    - EI ratio capped at MAX_EI_RATIO (default 5×) to prevent tail outliers.
+
