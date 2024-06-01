@@ -428,3 +428,13 @@ def compute_national_mispricing(
         DataFrame with mispricing analysis per county-crop pair, including columns:
         fips, crop, scenario, aph_yield, future_yield, yield_delta_pct, yield_cv,
         direction, ei_ratio, mispricing_per_acre, insured_acres, annual_cross_subsidy.
+    """
+    FUTURE_START = 2040
+    FUTURE_END = 2050
+    COVERAGE = 0.75          # Standard RP-HPE coverage level
+    MAX_EI_RATIO = 5.0       # Cap on EI ratio to prevent tail distortion
+    # Minimum APH by crop to exclude marginal/fringe production counties
+    CROP_MIN_APH = {
+        'corn': 50.0, 'soybeans': 10.0, 'wheat_winter': 5.0,
+        'cotton': 100.0, 'sorghum': 10.0, 'barley': 10.0, 'oats': 5.0,
+    }
