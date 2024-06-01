@@ -438,3 +438,13 @@ def compute_national_mispricing(
         'corn': 50.0, 'soybeans': 10.0, 'wheat_winter': 5.0,
         'cotton': 100.0, 'sorghum': 10.0, 'barley': 10.0, 'oats': 5.0,
     }
+
+    logger.info(f"Computing national insurance mispricing under {scenario} (EI-ratio method)...")
+
+    # ------------------------------------------------------------------ #
+    # 1. RMA: normalize crop names, aggregate to county-crop (last 10 yr) #
+    # ------------------------------------------------------------------ #
+    if not rma_data.empty:
+        rma_norm = normalize_rma_crops(rma_data)
+        rma_recent = rma_norm[rma_norm['year'] >= rma_norm['year'].max() - 10]
+
