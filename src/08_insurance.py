@@ -448,3 +448,13 @@ def compute_national_mispricing(
         rma_norm = normalize_rma_crops(rma_data)
         rma_recent = rma_norm[rma_norm['year'] >= rma_norm['year'].max() - 10]
 
+        # IMPORTANT: each county-crop-year has many rows (one per plan/coverage level).
+        # Sum acres and total_premium across all plans first, THEN average across years.
+        # Using mean(acres) directly would severely under-count insured acres.
+        rma_by_year = (
+            rma_recent
+            .groupby(['fips', 'crop', 'year'], as_index=False)
+            .agg(
+                acres_yr=('acres', 'sum'),
+                premium_total_yr=('total_premium', 'sum'),
+                indemnity_total_yr=('indemnity', 'sum'),
