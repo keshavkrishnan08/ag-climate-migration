@@ -488,3 +488,13 @@ def compute_national_mispricing(
     # 2. Historical yield CV from NASS (interannual variability)           #
     # ------------------------------------------------------------------ #
     nass_path = DATA_RAW / 'nass' / 'nass_county_yields.parquet'
+    yield_cv_df = _compute_yield_cv_from_nass(nass_path)
+    # Crop-level median CV as fallback for counties missing NASS data
+    crop_median_cv: dict = {}
+    if not yield_cv_df.empty:
+        crop_median_cv = yield_cv_df.groupby('crop')['yield_cv'].median().to_dict()
+
+    # ------------------------------------------------------------------ #
+    # 3. Projections: APH yield from baseline; future from 2040-2050 mean #
+    # ------------------------------------------------------------------ #
+    if yield_projections.empty:
