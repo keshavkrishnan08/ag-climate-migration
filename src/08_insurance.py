@@ -498,3 +498,13 @@ def compute_national_mispricing(
     # 3. Projections: APH yield from baseline; future from 2040-2050 mean #
     # ------------------------------------------------------------------ #
     if yield_projections.empty:
+        logger.error("No yield projections — cannot compute mispricing")
+        return pd.DataFrame()
+
+    # APH: yield_baseline is the backward-looking mean the model was anchored to.
+    aph = (
+        yield_projections
+        .groupby(['fips', 'crop'], as_index=False)
+        .agg(aph_yield=('yield_baseline', 'mean'))
+    )
+
