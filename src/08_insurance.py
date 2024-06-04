@@ -478,3 +478,13 @@ def compute_national_mispricing(
         logger.info(
             f"RMA county-crop pairs (last 10yr, >0 acres, summed across plans): {len(rma_agg)}"
         )
+    else:
+        rma_agg = pd.DataFrame(
+            columns=['fips', 'crop', 'premium_per_acre', 'insured_acres', 'avg_indemnity']
+        )
+        logger.warning("RMA data empty — mispricing magnitudes will be zero")
+
+    # ------------------------------------------------------------------ #
+    # 2. Historical yield CV from NASS (interannual variability)           #
+    # ------------------------------------------------------------------ #
+    nass_path = DATA_RAW / 'nass' / 'nass_county_yields.parquet'
