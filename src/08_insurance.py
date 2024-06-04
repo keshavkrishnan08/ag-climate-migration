@@ -518,3 +518,13 @@ def compute_national_mispricing(
     proj = aph.merge(future, on=['fips', 'crop'], how='inner')
     logger.info(f"County-crop pairs with APH + future projections: {len(proj)}")
 
+    # ------------------------------------------------------------------ #
+    # 4. Data quality filters                                              #
+    # ------------------------------------------------------------------ #
+    # Clip future yields at zero (model artifacts produce negative values in edge counties)
+    proj['future_yield'] = proj['future_yield'].clip(lower=0.0)
+
+    # Remove fringe-production counties with unreliably low APH yields
+    mask_valid = pd.Series(True, index=proj.index)
+    for crop, thresh in CROP_MIN_APH.items():
+        fringe = (proj['crop'] == crop) & (proj['aph_yield'] < thresh)
