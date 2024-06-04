@@ -458,3 +458,13 @@ def compute_national_mispricing(
                 acres_yr=('acres', 'sum'),
                 premium_total_yr=('total_premium', 'sum'),
                 indemnity_total_yr=('indemnity', 'sum'),
+            )
+        )
+        rma_agg = (
+            rma_by_year
+            .groupby(['fips', 'crop'], as_index=False)
+            .agg(
+                insured_acres=('acres_yr', 'mean'),
+                total_premium=('premium_total_yr', 'mean'),
+                avg_indemnity=('indemnity_total_yr', 'mean'),
+            )
