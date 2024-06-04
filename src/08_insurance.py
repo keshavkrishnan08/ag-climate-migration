@@ -468,3 +468,13 @@ def compute_national_mispricing(
                 total_premium=('premium_total_yr', 'mean'),
                 avg_indemnity=('indemnity_total_yr', 'mean'),
             )
+        )
+        # Derive premium_per_acre from totals to preserve weighting across plan types
+        rma_agg['premium_per_acre'] = (
+            rma_agg['total_premium'] / rma_agg['insured_acres'].replace(0, np.nan)
+        )
+        # Drop rows with zero or missing insured acres
+        rma_agg = rma_agg[rma_agg['insured_acres'] > 0].copy()
+        logger.info(
+            f"RMA county-crop pairs (last 10yr, >0 acres, summed across plans): {len(rma_agg)}"
+        )
