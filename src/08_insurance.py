@@ -508,3 +508,13 @@ def compute_national_mispricing(
         .agg(aph_yield=('yield_baseline', 'mean'))
     )
 
+    # Future: mean projected yield over 2040-2050
+    future = (
+        yield_projections[yield_projections['year'].between(FUTURE_START, FUTURE_END)]
+        .groupby(['fips', 'crop'], as_index=False)
+        .agg(future_yield=('yield_projected', 'mean'))
+    )
+
+    proj = aph.merge(future, on=['fips', 'crop'], how='inner')
+    logger.info(f"County-crop pairs with APH + future projections: {len(proj)}")
+
