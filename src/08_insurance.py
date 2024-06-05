@@ -558,3 +558,13 @@ def compute_national_mispricing(
     #   EI = E[max(K - revenue, 0)] via analytical put formula             #
     #   Ratio > 1 → county will incur more losses than premiums reflect    #
     #   Ratio < 1 → county will incur fewer losses (overpriced)            #
+    # ------------------------------------------------------------------ #
+    proj['price'] = proj['crop'].map(COMMODITY_PRICES).fillna(5.0)
+
+    # Revenue distribution parameters
+    # sigma uses APH-based absolute std (same interannual volatility, mean shifts)
+    proj['K'] = proj['aph_yield'] * COVERAGE * proj['price']
+    proj['sigma_rev'] = proj['aph_yield'] * proj['yield_cv'] * proj['price']
+    proj['mu_future'] = proj['future_yield'] * proj['price']
+    proj['mu_aph']    = proj['aph_yield']    * proj['price']
+
