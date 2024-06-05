@@ -548,3 +548,13 @@ def compute_national_mispricing(
         mask_crop = (proj['crop'] == crop) & proj['yield_cv'].isna()
         proj.loc[mask_crop, 'yield_cv'] = crop_median_cv.get(crop, 0.20)
     proj['yield_cv'] = proj['yield_cv'].fillna(0.20).clip(0.05, 0.50)
+
+    # ------------------------------------------------------------------ #
+    # 6. Expected indemnity ratio: EI(future) / EI(APH)                   #
+    #                                                                      #
+    # Actuarial logic:                                                     #
+    #   Guarantee K = APH_yield × COVERAGE × price (fixed by current APH) #
+    #   Revenue ~ N(yield_mean × price, (yield_mean × CV × price)^2)       #
+    #   EI = E[max(K - revenue, 0)] via analytical put formula             #
+    #   Ratio > 1 → county will incur more losses than premiums reflect    #
+    #   Ratio < 1 → county will incur fewer losses (overpriced)            #
