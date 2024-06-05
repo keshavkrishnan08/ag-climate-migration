@@ -618,3 +618,13 @@ def compute_national_mispricing(
     df['scenario'] = scenario
 
     # ------------------------------------------------------------------ #
+    # 9. Summary                                                           #
+    # ------------------------------------------------------------------ #
+    df_rma = df[df['insured_acres'] > 0].copy()
+
+    total_underpriced = df_rma.loc[
+        df_rma['direction'] == 'underpriced', 'annual_cross_subsidy'
+    ].sum()
+    total_overpriced = df_rma.loc[
+        df_rma['direction'] == 'overpriced', 'annual_cross_subsidy'
+    ].abs().sum()
