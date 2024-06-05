@@ -578,3 +578,13 @@ def compute_national_mispricing(
     # EI ratio: how much more (or less) expected indemnity under future climate?
     # When ei_aph is effectively zero (counties where yields never hit the trigger),
     # both ei_future and ei_aph approach zero and the ratio is unconstrained — cap at MAX_EI_RATIO.
+    proj['ei_ratio'] = (
+        proj['ei_future'] / proj['ei_aph'].replace(0, np.nan)
+    ).clip(0.0, MAX_EI_RATIO).fillna(1.0)
+
+    # ------------------------------------------------------------------ #
+    # 7. Compute mispricing per acre                                       #
+    #                                                                      #
+    # Mispricing = what the premium SHOULD be minus what it currently is.  #
+    # Fair premium = current_premium × EI_ratio (scales observed premium   #
+    # by the change in expected loss, anchoring to actual program costs).  #
