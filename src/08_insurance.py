@@ -608,3 +608,13 @@ def compute_national_mispricing(
     df['premium_per_acre'] = df['premium_per_acre'].fillna(0.0)
     df['avg_indemnity']   = df['avg_indemnity'].fillna(0.0)
 
+    # Mispricing per acre = current_premium × (EI_ratio - 1)
+    # Positive for underpriced (EI_ratio > 1); negative for overpriced (EI_ratio < 1)
+    df['mispricing_per_acre'] = df['premium_per_acre'] * (df['ei_ratio'] - 1.0)
+
+    # Annual cross-subsidy flow (positive = underpriced county is net recipient)
+    df['annual_cross_subsidy'] = df['mispricing_per_acre'] * df['insured_acres']
+
+    df['scenario'] = scenario
+
+    # ------------------------------------------------------------------ #
