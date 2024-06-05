@@ -528,3 +528,13 @@ def compute_national_mispricing(
     mask_valid = pd.Series(True, index=proj.index)
     for crop, thresh in CROP_MIN_APH.items():
         fringe = (proj['crop'] == crop) & (proj['aph_yield'] < thresh)
+        n_fringe = fringe.sum()
+        if n_fringe > 0:
+            logger.debug(f"Filtering {n_fringe} {crop} rows with APH < {thresh} bu/acre")
+        mask_valid &= ~fringe
+    proj = proj[mask_valid & (proj['aph_yield'] > 0)].copy()
+    logger.info(f"County-crop pairs after quality filters: {len(proj)}")
+
+    # ------------------------------------------------------------------ #
+    # 5. Attach yield CV (interannual variability)                         #
+    # ------------------------------------------------------------------ #
