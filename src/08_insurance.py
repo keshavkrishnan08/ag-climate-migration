@@ -538,3 +538,13 @@ def compute_national_mispricing(
     # ------------------------------------------------------------------ #
     # 5. Attach yield CV (interannual variability)                         #
     # ------------------------------------------------------------------ #
+    if not yield_cv_df.empty:
+        proj = proj.merge(yield_cv_df[['fips', 'crop', 'yield_cv']], on=['fips', 'crop'], how='left')
+    else:
+        proj['yield_cv'] = np.nan
+
+    # Fill missing CVs with crop median, then global fallback
+    for crop in proj['crop'].unique():
+        mask_crop = (proj['crop'] == crop) & proj['yield_cv'].isna()
+        proj.loc[mask_crop, 'yield_cv'] = crop_median_cv.get(crop, 0.20)
+    proj['yield_cv'] = proj['yield_cv'].fillna(0.20).clip(0.05, 0.50)
