@@ -588,3 +588,13 @@ def compute_national_mispricing(
     # Mispricing = what the premium SHOULD be minus what it currently is.  #
     # Fair premium = current_premium × EI_ratio (scales observed premium   #
     # by the change in expected loss, anchoring to actual program costs).  #
+    # Mispricing = current_premium × (EI_ratio - 1)                       #
+    # ------------------------------------------------------------------ #
+    proj['yield_delta'] = proj['future_yield'] - proj['aph_yield']
+    proj['yield_delta_pct'] = proj['yield_delta'] / proj['aph_yield']
+    proj['direction'] = np.where(
+        proj['yield_delta'] < 0, 'underpriced',
+        np.where(proj['yield_delta'] > 0, 'overpriced', 'fair')
+    )
+
+    # ------------------------------------------------------------------ #
