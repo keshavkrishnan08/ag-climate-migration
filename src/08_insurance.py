@@ -628,3 +628,13 @@ def compute_national_mispricing(
     total_overpriced = df_rma.loc[
         df_rma['direction'] == 'overpriced', 'annual_cross_subsidy'
     ].abs().sum()
+    # Cross-subsidy = amount flowing through shared risk pool from overpriced to underpriced
+    # = min(total_underpriced, total_overpriced) representing the actual transfer
+    cross_subsidy_flow = min(total_underpriced, total_overpriced)
+    total_mispricing   = total_underpriced + total_overpriced
+
+    logger.info(f"\nINSURANCE MISPRICING ({scenario}):")
+    logger.info(f"  County-crop pairs with RMA data: {len(df_rma)}")
+    logger.info(f"  Underpriced (warming/declining, premium too low): ${total_underpriced/1e9:.2f}B/year")
+    logger.info(f"  Overpriced  (gaining/northern, premium too high):  ${total_overpriced/1e9:.2f}B/year")
+    logger.info(f"  Cross-subsidy flow (risk pool transfer):           ${cross_subsidy_flow/1e9:.2f}B/year")
