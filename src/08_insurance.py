@@ -568,3 +568,13 @@ def compute_national_mispricing(
     proj['mu_future'] = proj['future_yield'] * proj['price']
     proj['mu_aph']    = proj['aph_yield']    * proj['price']
 
+    proj['ei_future'] = proj.apply(
+        lambda r: _expected_indemnity(r['K'], r['mu_future'], r['sigma_rev']), axis=1
+    )
+    proj['ei_aph'] = proj.apply(
+        lambda r: _expected_indemnity(r['K'], r['mu_aph'], r['sigma_rev']), axis=1
+    )
+
+    # EI ratio: how much more (or less) expected indemnity under future climate?
+    # When ei_aph is effectively zero (counties where yields never hit the trigger),
+    # both ei_future and ei_aph approach zero and the ratio is unconstrained — cap at MAX_EI_RATIO.
