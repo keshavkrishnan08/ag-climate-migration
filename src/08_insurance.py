@@ -598,3 +598,13 @@ def compute_national_mispricing(
     )
 
     # ------------------------------------------------------------------ #
+    # 8. Merge with RMA insured acres → annual dollar flow                 #
+    # ------------------------------------------------------------------ #
+    df = proj.merge(
+        rma_agg[['fips', 'crop', 'insured_acres', 'premium_per_acre', 'avg_indemnity']],
+        on=['fips', 'crop'], how='left'
+    )
+    df['insured_acres']   = df['insured_acres'].fillna(0.0)
+    df['premium_per_acre'] = df['premium_per_acre'].fillna(0.0)
+    df['avg_indemnity']   = df['avg_indemnity'].fillna(0.0)
+
