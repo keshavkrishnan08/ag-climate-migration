@@ -638,3 +638,13 @@ def compute_national_mispricing(
     logger.info(f"  Underpriced (warming/declining, premium too low): ${total_underpriced/1e9:.2f}B/year")
     logger.info(f"  Overpriced  (gaining/northern, premium too high):  ${total_overpriced/1e9:.2f}B/year")
     logger.info(f"  Cross-subsidy flow (risk pool transfer):           ${cross_subsidy_flow/1e9:.2f}B/year")
+    logger.info(f"  Total structural mispricing:                       ${total_mispricing/1e9:.2f}B/year")
+
+    # Per-crop breakdown
+    crop_summary = (
+        df_rma
+        .groupby(['crop', 'direction'])['annual_cross_subsidy']
+        .sum()
+        .abs()
+        .unstack(fill_value=0)
+    )
