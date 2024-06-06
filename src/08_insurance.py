@@ -648,3 +648,13 @@ def compute_national_mispricing(
         .abs()
         .unstack(fill_value=0)
     )
+    logger.info(f"\nPer-crop breakdown ($M):\n{(crop_summary / 1e6).round(1).to_string()}")
+
+    return df
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+def run_insurance_analysis() -> dict:
+    """Execute insurance mispricing analysis.
