@@ -668,3 +668,13 @@ def run_insurance_analysis() -> dict:
 
     output_dir = RESULTS_DIR / 'insurance'
     output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Load RMA data — crop_name has trailing whitespace and is uppercase
+    rma_path = DATA_RAW / 'rma' / 'rma_sob_all_years.parquet'
+    if rma_path.exists():
+        rma_data = pd.read_parquet(
+            rma_path,
+            columns=['year', 'fips', 'crop_name', 'acres', 'total_premium',
+                     'subsidy', 'indemnity', 'loss_ratio', 'premium_per_acre', 'liability']
+        )
+        logger.info(f"Loaded RMA data: {len(rma_data)} rows")
