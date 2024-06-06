@@ -658,3 +658,13 @@ def compute_national_mispricing(
 # ---------------------------------------------------------------------------
 def run_insurance_analysis() -> dict:
     """Execute insurance mispricing analysis.
+
+    Returns:
+        Dict with national mispricing results.
+    """
+    logger.info("=" * 60)
+    logger.info("PHASE 5C: INSURANCE MISPRICING")
+    logger.info("=" * 60)
+
+    output_dir = RESULTS_DIR / 'insurance'
+    output_dir.mkdir(parents=True, exist_ok=True)
