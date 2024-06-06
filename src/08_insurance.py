@@ -678,3 +678,13 @@ def run_insurance_analysis() -> dict:
                      'subsidy', 'indemnity', 'loss_ratio', 'premium_per_acre', 'liability']
         )
         logger.info(f"Loaded RMA data: {len(rma_data)} rows")
+    else:
+        rma_data = pd.DataFrame()
+        logger.warning("RMA data not found — mispricing will be zero everywhere")
+
+    # Load yield projections — SSP245 is the available scenario
+    scenario = 'SSP245'
+    proj_path = PROJECTIONS_DIR / f'yield_projections_{scenario}.parquet'
+    yield_proj = pd.read_parquet(proj_path) if proj_path.exists() else pd.DataFrame()
+    if yield_proj.empty:
+        logger.error("No yield projections found — aborting insurance analysis")
