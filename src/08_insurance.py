@@ -698,3 +698,13 @@ def run_insurance_analysis() -> dict:
         # Summary with RMA-backed pairs only
         summary = national[national['insured_acres'] > 0].copy()
         if not summary.empty:
+            summary.to_csv(output_dir / f'mispricing_summary_{scenario}.csv', index=False)
+            underpriced_B = summary[summary['direction'] == 'underpriced']['annual_cross_subsidy'].sum() / 1e9
+            overpriced_B  = summary[summary['direction'] == 'overpriced']['annual_cross_subsidy'].abs().sum() / 1e9
+            cross_subsidy_B = min(underpriced_B, overpriced_B)
+            total_B = underpriced_B + overpriced_B
+            logger.info("=== HEADLINE: Insurance mispricing (EI-ratio method) ===")
+            logger.info(f"  Underpriced (warming/declining counties): ${underpriced_B:.2f}B/year")
+            logger.info(f"  Overpriced  (gaining/northern counties):  ${overpriced_B:.2f}B/year")
+            logger.info(f"  Cross-subsidy (risk pool transfer):       ${cross_subsidy_B:.2f}B/year")
+            logger.info(f"  Total structural mispricing:              ${total_B:.2f}B/year")
