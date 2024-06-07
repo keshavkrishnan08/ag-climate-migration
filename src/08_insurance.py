@@ -688,3 +688,13 @@ def run_insurance_analysis() -> dict:
     yield_proj = pd.read_parquet(proj_path) if proj_path.exists() else pd.DataFrame()
     if yield_proj.empty:
         logger.error("No yield projections found — aborting insurance analysis")
+        return {'national_mispricing': pd.DataFrame()}
+
+    # Compute national mispricing
+    national = compute_national_mispricing(rma_data, yield_proj, scenario)
+
+    if not national.empty:
+        national.to_parquet(output_dir / f'mispricing_{scenario}.parquet', index=False)
+        # Summary with RMA-backed pairs only
+        summary = national[national['insured_acres'] > 0].copy()
+        if not summary.empty:
