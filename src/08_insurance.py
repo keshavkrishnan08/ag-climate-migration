@@ -708,3 +708,13 @@ def run_insurance_analysis() -> dict:
             logger.info(f"  Overpriced  (gaining/northern counties):  ${overpriced_B:.2f}B/year")
             logger.info(f"  Cross-subsidy (risk pool transfer):       ${cross_subsidy_B:.2f}B/year")
             logger.info(f"  Total structural mispricing:              ${total_B:.2f}B/year")
+
+    logger.info("=" * 60)
+    logger.info("PHASE 5C COMPLETE")
+    logger.info("=" * 60)
+
+    return {'national_mispricing': national}
+
+
+if __name__ == '__main__':
+    run_insurance_analysis()
