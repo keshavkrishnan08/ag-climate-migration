@@ -58,3 +58,13 @@ NORTHERN_STATES = {
 
 # Commodity prices (2023 USD/bushel)
 COMMODITY_PRICES = {
+    'corn': 5.50, 'soybeans': 12.80, 'wheat_winter': 7.20,
+    'wheat_spring': 8.10, 'cotton': 0.78, 'sorghum': 5.30,
+    'barley': 6.10, 'oats': 3.80,
+}
+
+# Low-value crops that could upgrade to high-value crops
+LOW_VALUE_CROPS = {'oats', 'barley'}
+
+# GDD base-10°C thresholds for SHORT-SEASON varieties suited to northern latitudes.
+# Full-season corn/soy need 2300/2000 GDD, but short-season varieties planted in
