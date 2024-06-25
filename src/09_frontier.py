@@ -18,3 +18,13 @@ Criteria for 'opportunity county':
     - Projected income gain > $5/acre (yield component), OR
     - Expansion potential > 20% of current harvested acres, OR
     - Crop upgrade viable (GDD threshold met for corn/soybeans)
+
+Target finding: ~200+ northern counties face a projected $50-150B aggregate
+income opportunity by 2040.  Infrastructure capacity covers only 40-60% of
+projected production.
+"""
+
+import json
+import os
+import sys
+from pathlib import Path
