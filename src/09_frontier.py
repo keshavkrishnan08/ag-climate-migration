@@ -48,3 +48,13 @@ with open(PROJECT_ROOT / 'config.yaml') as f:
 # Northern states that are potential opportunity zones
 NORTHERN_STATES = {
     '27': 'Minnesota', '55': 'Wisconsin', '38': 'North Dakota',
+    '46': 'South Dakota', '30': 'Montana', '23': 'Maine',
+    '50': 'Vermont', '33': 'New Hampshire', '26': 'Michigan',
+    '36': 'New York', '42': 'Pennsylvania',
+    # Northwest states: climate warming expanding viable growing season northward
+    # WA eastern dryland wheat; OR eastern dryland; ID expanding ag into higher elevations
+    '53': 'Washington', '41': 'Oregon', '16': 'Idaho',
+}
+
+# Commodity prices (2023 USD/bushel)
+COMMODITY_PRICES = {
