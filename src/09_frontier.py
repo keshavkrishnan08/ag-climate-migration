@@ -68,3 +68,13 @@ LOW_VALUE_CROPS = {'oats', 'barley'}
 
 # GDD base-10°C thresholds for SHORT-SEASON varieties suited to northern latitudes.
 # Full-season corn/soy need 2300/2000 GDD, but short-season varieties planted in
+# MN/ND/SD (80-90 day corn, maturity group 000-0 soybeans) need substantially less.
+# Sources: NDSU Extension (2023), Minnesota Corn Growers Assoc., Pioneer Seed guides.
+GDD_CORN_MIN = 1800.0   # short-season corn (85-day) needs ~1800 GDD base 10°C
+GDD_SOY_MIN = 1500.0    # short-season soy (MG 000-0) needs ~1500 GDD base 10°C
+
+# Infrastructure cost estimate: $500/acre (USDA standard for storage, roads, processing)
+INFRA_COST_PER_ACRE = 500.0
+
+# Current utilization rate for northern counties (harvested / cropland acres)
+# Used when Census of Ag data is unavailable
