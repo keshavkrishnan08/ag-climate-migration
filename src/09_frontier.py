@@ -168,3 +168,13 @@ def compute_income_gain(
         )
         if pd.isna(acres):
             acres = 0.0
+
+        price = COMMODITY_PRICES.get(crop, 5.0)
+        gain = (projected_yield - current_yield) * price * acres
+        total_gain += max(gain, 0.0)
+        total_acres += acres
+
+    gain_per_acre = total_gain / total_acres if total_acres > 0 else 0.0
+
+    return {
+        'fips': county_fips,
