@@ -88,3 +88,13 @@ STATE_CROPLAND_FRACTION: Dict[str, float] = {
     '27': 0.85,  # Minnesota  — corn belt, highly cultivated
     '55': 0.65,  # Wisconsin
     '38': 0.85,  # North Dakota
+    '46': 0.55,  # South Dakota — significant rangeland
+    '30': 0.30,  # Montana    — predominantly rangeland/pasture
+    '23': 0.25,  # Maine
+    '50': 0.20,  # Vermont
+    '33': 0.15,  # New Hampshire
+    '26': 0.70,  # Michigan
+    '36': 0.45,  # New York
+    '42': 0.55,  # Pennsylvania
+    '53': 0.55,  # Washington — eastern WA dryland wheat belt, ~55% cropland
+    '41': 0.40,  # Oregon     — eastern OR mixed dryland/range, ~40% cropland
