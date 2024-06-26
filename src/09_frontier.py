@@ -128,3 +128,13 @@ def compute_income_gain(
     """Compute projected income gain for a northern county (yield component only).
 
     This captures the benefit of higher yields on existing harvested acreage.
+    income_gain = (projected_yield - current_yield) × price × current_acres
+
+    Args:
+        county_fips: 5-digit FIPS code.
+        yield_projections: Projected yields under scenario (2035-2045 avg used as 2040 estimate).
+        yield_current: Current (2019-2023 avg) yields.
+        scenario: Climate scenario label for output tagging.
+
+    Returns:
+        Dict with annual_income_gain, income_gain_per_acre, total_acres, and per-crop breakdown.
