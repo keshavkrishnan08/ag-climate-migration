@@ -148,3 +148,13 @@ def compute_income_gain(
             'income_gain_per_acre': 0.0, 'total_acres': 0.0,
         }
 
+    total_gain = 0.0
+    total_acres = 0.0
+
+    for crop in proj['crop'].unique():
+        crop_proj = proj[proj['crop'] == crop]
+        crop_curr = curr[curr['crop'] == crop] if not curr.empty else pd.DataFrame()
+
+        projected_yield = float(crop_proj['yield_projected'].mean())
+        if pd.isna(projected_yield):
+            continue
