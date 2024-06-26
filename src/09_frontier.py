@@ -108,3 +108,13 @@ STATE_CROPLAND_FRACTION: Dict[str, float] = {
 # (USDA ERS 2023 heat-stress livestock report; Mauger et al. 2015 for PNW).
 # Over a 15-year horizon to 2040: $30B × (1.02^15 - 1) ≈ $30B × 0.35 = $10.5B
 # cumulative net growth, equivalent to ~$0.7B/yr ongoing. For the full 2040 stock
+# opportunity (new infrastructure + dairy herd expansion), use the lump-sum:
+# $30B × 0.30 = $9B. This is conservative (excludes beef/pork co-migration).
+DAIRY_LIVESTOCK_OPPORTUNITY_B: float = 9.0
+DAIRY_STATES = {'27', '55', '50', '36', '26', '53', '41', '16'}  # WI,MN,VT,NY,MI,WA,OR,ID
+
+
+def _fahrenheit_to_celsius(f: float) -> float:
+    """Convert Fahrenheit to Celsius."""
+    return (f - 32.0) * 5.0 / 9.0
+
