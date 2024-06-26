@@ -118,3 +118,13 @@ def _fahrenheit_to_celsius(f: float) -> float:
     """Convert Fahrenheit to Celsius."""
     return (f - 32.0) * 5.0 / 9.0
 
+
+def compute_income_gain(
+    county_fips: str,
+    yield_projections: pd.DataFrame,
+    yield_current: pd.DataFrame,
+    scenario: str = 'RCP45'
+) -> dict:
+    """Compute projected income gain for a northern county (yield component only).
+
+    This captures the benefit of higher yields on existing harvested acreage.
