@@ -78,3 +78,13 @@ INFRA_COST_PER_ACRE = 500.0
 
 # Current utilization rate for northern counties (harvested / cropland acres)
 # Used when Census of Ag data is unavailable
+DEFAULT_UTILIZATION_RATE = 0.60
+
+# Cropland as a fraction of total farmland by state FIPS (2022 Census of Ag).
+# "FARM OPERATIONS - ACRES OPERATED" includes pasture/rangeland; this fraction
+# converts total farm acres to cropland acres (the actual expansion target).
+# Source: USDA 2022 Census of Ag, State Summary Highlights.
+STATE_CROPLAND_FRACTION: Dict[str, float] = {
+    '27': 0.85,  # Minnesota  — corn belt, highly cultivated
+    '55': 0.65,  # Wisconsin
+    '38': 0.85,  # North Dakota
