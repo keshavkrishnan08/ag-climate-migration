@@ -138,3 +138,13 @@ def compute_income_gain(
 
     Returns:
         Dict with annual_income_gain, income_gain_per_acre, total_acres, and per-crop breakdown.
+    """
+    proj = yield_projections[yield_projections['fips'] == county_fips]
+    curr = yield_current[yield_current['fips'] == county_fips]
+
+    if proj.empty:
+        return {
+            'fips': county_fips, 'annual_income_gain': 0.0,
+            'income_gain_per_acre': 0.0, 'total_acres': 0.0,
+        }
+
