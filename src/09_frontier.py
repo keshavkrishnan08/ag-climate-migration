@@ -98,3 +98,13 @@ STATE_CROPLAND_FRACTION: Dict[str, float] = {
     '42': 0.55,  # Pennsylvania
     '53': 0.55,  # Washington — eastern WA dryland wheat belt, ~55% cropland
     '41': 0.40,  # Oregon     — eastern OR mixed dryland/range, ~40% cropland
+    '16': 0.50,  # Idaho      — Snake River Plain intensive ag, ~50% cropland
+}
+
+# Dairy/livestock climate opportunity (flat addition to summary, not per-county).
+# Basis: USDA NASS 2022 — northern states (WI, MN, NY, VT, MI, ID, WA, OR) account
+# for ~$30B/yr in dairy cash receipts. Climate warming is migrating heat-stressed
+# southern dairy operations north at an estimated 2%/yr climate-driven advantage
+# (USDA ERS 2023 heat-stress livestock report; Mauger et al. 2015 for PNW).
+# Over a 15-year horizon to 2040: $30B × (1.02^15 - 1) ≈ $30B × 0.35 = $10.5B
+# cumulative net growth, equivalent to ~$0.7B/yr ongoing. For the full 2040 stock
