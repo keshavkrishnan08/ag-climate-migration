@@ -158,3 +158,13 @@ def compute_income_gain(
         projected_yield = float(crop_proj['yield_projected'].mean())
         if pd.isna(projected_yield):
             continue
+        current_yield = float(crop_curr['yield_bu_acre'].mean()) if not crop_curr.empty else 0.0
+        if pd.isna(current_yield):
+            current_yield = 0.0
+        acres = (
+            float(crop_curr['acres_harvested'].mean())
+            if not crop_curr.empty and 'acres_harvested' in crop_curr.columns
+            else 0.0
+        )
+        if pd.isna(acres):
+            acres = 0.0
