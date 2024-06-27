@@ -188,3 +188,13 @@ def compute_income_gain(
 def compute_acreage_expansion(
     county_fips: str,
     yield_projections: pd.DataFrame,
+    yield_current: pd.DataFrame,
+    farm_ops: pd.DataFrame,
+) -> dict:
+    """Compute acreage expansion income potential for a northern county.
+
+    Warming makes currently marginal/idle cropland viable for major crops.
+    Approach:
+        total_farmland = Census of Ag 'FARM OPERATIONS - ACRES OPERATED' (most recent year)
+        cropland_acres = total_farmland × state_cropland_fraction
+            — corrects for the fact that 'ACRES OPERATED' includes rangeland/pasture
