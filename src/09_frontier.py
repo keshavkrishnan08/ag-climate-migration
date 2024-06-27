@@ -178,3 +178,13 @@ def compute_income_gain(
 
     return {
         'fips': county_fips,
+        'scenario': scenario,
+        'annual_income_gain': float(total_gain),
+        'income_gain_per_acre': float(gain_per_acre),
+        'total_acres': float(total_acres),
+    }
+
+
+def compute_acreage_expansion(
+    county_fips: str,
+    yield_projections: pd.DataFrame,
