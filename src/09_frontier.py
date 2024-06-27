@@ -218,3 +218,13 @@ def compute_acreage_expansion(
     # Total farmland from Census of Ag
     county_ops = farm_ops[
         (farm_ops['fips'] == county_fips) &
+        (farm_ops['short_desc'].str.contains('ACRES OPERATED', na=False))
+    ]
+
+    # Use most recent Census year; convert total farm acres to cropland acres
+    total_cropland = 0.0
+    if not county_ops.empty:
+        recent = county_ops.sort_values('year', ascending=False)
+        total_farmland = float(recent['value'].iloc[0])
+        total_cropland = total_farmland * cropland_frac
+
