@@ -208,3 +208,13 @@ def compute_acreage_expansion(
         yield_projections: Projected 2040 yields.
         yield_current: Current (2019-2023) yields.
         farm_ops: NASS farm operations data (total acres operated, Census of Ag).
+
+    Returns:
+        Dict with expansion_income, expandable_acres, utilization_rate.
+    """
+    state_code = str(county_fips).zfill(5)[:2]
+    cropland_frac = STATE_CROPLAND_FRACTION.get(state_code, 0.50)
+
+    # Total farmland from Census of Ag
+    county_ops = farm_ops[
+        (farm_ops['fips'] == county_fips) &
