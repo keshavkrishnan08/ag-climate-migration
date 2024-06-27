@@ -198,3 +198,13 @@ def compute_acreage_expansion(
         total_farmland = Census of Ag 'FARM OPERATIONS - ACRES OPERATED' (most recent year)
         cropland_acres = total_farmland × state_cropland_fraction
             — corrects for the fact that 'ACRES OPERATED' includes rangeland/pasture
+        current_utilization = harvested_acres / cropland_acres  (capped at 1)
+        expandable_acres = cropland_acres × (1 - utilization)
+        expansion_income = expandable_acres × projected_yield × price
+            — for the best (highest-value) crop with positive climate signal
+
+    Args:
+        county_fips: 5-digit FIPS code.
+        yield_projections: Projected 2040 yields.
+        yield_current: Current (2019-2023) yields.
+        farm_ops: NASS farm operations data (total acres operated, Census of Ag).
