@@ -258,3 +258,13 @@ def compute_acreage_expansion(
         return {
             'fips': county_fips,
             'expandable_acres': 0.0,
+            'utilization_rate': float(utilization),
+            'expansion_income': 0.0,
+            'expansion_crop': None,
+        }
+
+    # Find the best projected crop for expansion acres.
+    # For expansion on PREVIOUSLY IDLE land, the relevant baseline is zero production;
+    # any positive projected yield is a gain. We therefore do NOT filter on
+    # climate_impact_bu (which measures delta vs existing production, not vs zero).
+    # Instead, we require projected_yield > a minimum viability threshold to exclude
