@@ -238,3 +238,13 @@ def compute_acreage_expansion(
     else:
         current_harvested = 0.0
 
+    # If cropland unknown or implausibly small, infer from harvested acres
+    if total_cropland <= 0 or total_cropland < current_harvested:
+        total_cropland = current_harvested / DEFAULT_UTILIZATION_RATE if current_harvested > 0 else 0.0
+
+    if total_cropland <= 0:
+        return {
+            'fips': county_fips,
+            'expandable_acres': 0.0,
+            'utilization_rate': DEFAULT_UTILIZATION_RATE,
+            'expansion_income': 0.0,
