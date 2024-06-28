@@ -228,3 +228,13 @@ def compute_acreage_expansion(
         total_farmland = float(recent['value'].iloc[0])
         total_cropland = total_farmland * cropland_frac
 
+    # Harvested acres (current): mean per crop across years, then sum crops.
+    # Cannot do a raw .sum() because yield_current has one row per fips-year-crop.
+    curr = yield_current[yield_current['fips'] == county_fips]
+    if not curr.empty:
+        current_harvested = float(
+            curr.groupby('crop')['acres_harvested'].mean().sum()
+        )
+    else:
+        current_harvested = 0.0
+
