@@ -268,3 +268,13 @@ def compute_acreage_expansion(
     # any positive projected yield is a gain. We therefore do NOT filter on
     # climate_impact_bu (which measures delta vs existing production, not vs zero).
     # Instead, we require projected_yield > a minimum viability threshold to exclude
+    # counties where the model projects near-zero yields (effectively "won't grow there").
+    #
+    # Minimum viable yield thresholds (bu/acre) — roughly 50% of current northern state
+    # averages, meaning the new land would produce at least half as well as existing fields:
+    MIN_VIABLE_YIELD = {
+        'corn': 60.0, 'soybeans': 20.0, 'wheat_winter': 30.0,
+        'wheat_spring': 20.0, 'barley': 30.0, 'oats': 25.0,
+        'sorghum': 40.0,
+    }
+
