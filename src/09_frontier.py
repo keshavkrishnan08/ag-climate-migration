@@ -278,3 +278,13 @@ def compute_acreage_expansion(
         'sorghum': 40.0,
     }
 
+    proj = yield_projections[yield_projections['fips'] == county_fips]
+    if proj.empty:
+        return {
+            'fips': county_fips,
+            'expandable_acres': float(expandable_acres),
+            'utilization_rate': float(utilization),
+            'expansion_income': 0.0,
+            'expansion_crop': None,
+        }
+
