@@ -298,3 +298,13 @@ def compute_acreage_expansion(
         # Require minimum viable yield — excludes areas where the crop physically won't grow
         min_viable = MIN_VIABLE_YIELD.get(crop, 20.0)
         if projected_yield < min_viable:
+            continue
+
+        price = COMMODITY_PRICES.get(crop, 5.0)
+        income = expandable_acres * projected_yield * price
+        if income > best_income:
+            best_income = income
+            best_crop = crop
+
+    return {
+        'fips': county_fips,
