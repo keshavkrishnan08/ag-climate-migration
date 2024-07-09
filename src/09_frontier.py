@@ -288,3 +288,13 @@ def compute_acreage_expansion(
             'expansion_crop': None,
         }
 
+    best_income = 0.0
+    best_crop = None
+
+    for crop in proj['crop'].unique():
+        cp = proj[proj['crop'] == crop]
+        projected_yield = float(cp['yield_projected'].mean())
+
+        # Require minimum viable yield — excludes areas where the crop physically won't grow
+        min_viable = MIN_VIABLE_YIELD.get(crop, 20.0)
+        if projected_yield < min_viable:
