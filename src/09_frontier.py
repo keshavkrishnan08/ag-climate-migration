@@ -348,3 +348,13 @@ def compute_gdd_base10(
 
     if hist.empty:
         return 0.0
+
+    # Historical baseline GDD
+    gdd_hist = 0.0
+    for month, days in DAYS.items():
+        m_str = f'm{month:02d}'
+        tmax_col = f'tmax_{m_str}'
+        tmin_col = f'tmin_{m_str}'
+        if tmax_col not in hist.columns or tmin_col not in hist.columns:
+            continue
+        tmax_f = hist[tmax_col].mean()
