@@ -388,3 +388,13 @@ def compute_crop_upgrade(
     yield_projections: pd.DataFrame,
     yield_current: pd.DataFrame,
     gdd_projected: float,
+) -> dict:
+    """Compute crop-upgrade income for counties growing low-value crops.
+
+    If warming brings GDD above corn/soy thresholds, counties currently growing
+    oats or barley can switch to higher-value crops. The upgrade premium captures
+    the revenue gap between what could be grown vs what's currently grown.
+
+    upgrade_income = current_low_value_acres × (high_value_revenue_per_acre - low_value_revenue_per_acre)
+
+    Args:
