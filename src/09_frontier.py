@@ -358,3 +358,13 @@ def compute_gdd_base10(
         if tmax_col not in hist.columns or tmin_col not in hist.columns:
             continue
         tmax_f = hist[tmax_col].mean()
+        tmin_f = hist[tmin_col].mean()
+        tmax_c = _fahrenheit_to_celsius(tmax_f)
+        tmin_c = _fahrenheit_to_celsius(tmin_f)
+        t_avg_c = (tmax_c + tmin_c) / 2.0
+        gdd_hist += max(0.0, t_avg_c - 10.0) * days
+
+    # Projected warming delta for target year
+    proj_row = climate_proj[
+        (climate_proj['fips'] == county_fips) &
+        (climate_proj['year'] == target_year)
