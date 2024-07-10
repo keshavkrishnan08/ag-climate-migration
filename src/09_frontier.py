@@ -308,3 +308,13 @@ def compute_acreage_expansion(
 
     return {
         'fips': county_fips,
+        'expandable_acres': float(expandable_acres),
+        'utilization_rate': float(utilization),
+        'expansion_income': float(best_income),
+        'expansion_crop': best_crop,
+    }
+
+
+def compute_gdd_base10(
+    county_fips: str,
+    climate_monthly: pd.DataFrame,
