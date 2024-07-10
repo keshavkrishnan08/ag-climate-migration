@@ -368,3 +368,13 @@ def compute_gdd_base10(
     proj_row = climate_proj[
         (climate_proj['fips'] == county_fips) &
         (climate_proj['year'] == target_year)
+    ]
+    delta_c = 0.0
+    if not proj_row.empty and 'delta_tmax_growing' in proj_row.columns:
+        delta_f = float(proj_row['delta_tmax_growing'].iloc[0])
+        # delta_tmax_growing is stored in °F (raw PRISM delta)
+        delta_c = delta_f * 5.0 / 9.0
+
+    # Apply delta uniformly across growing months
+    growing_months = len(DAYS)
+    total_days = sum(DAYS.values())  # 183 days Apr-Sep
