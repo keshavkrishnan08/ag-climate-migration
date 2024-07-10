@@ -378,3 +378,13 @@ def compute_gdd_base10(
     # Apply delta uniformly across growing months
     growing_months = len(DAYS)
     total_days = sum(DAYS.values())  # 183 days Apr-Sep
+    gdd_projected = gdd_hist + delta_c * total_days
+
+    return max(0.0, gdd_projected)
+
+
+def compute_crop_upgrade(
+    county_fips: str,
+    yield_projections: pd.DataFrame,
+    yield_current: pd.DataFrame,
+    gdd_projected: float,
