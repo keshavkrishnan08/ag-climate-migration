@@ -328,3 +328,13 @@ def compute_gdd_base10(
 
     Monthly GDD contribution:
         gdd_month = max(0, T_avg_C - 10) × days_in_month
+    T_avg_C = (tmax_C + tmin_C) / 2
+
+    Args:
+        county_fips: 5-digit FIPS code.
+        climate_monthly: Historical monthly climate (°F tmax/tmin columns).
+        climate_proj: County climate projections with delta_tmax_growing.
+        target_year: Projection year for climate delta.
+
+    Returns:
+        Projected annual GDD (base 10°C) for the growing season.
