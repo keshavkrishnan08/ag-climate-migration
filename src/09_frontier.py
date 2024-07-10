@@ -318,3 +318,13 @@ def compute_acreage_expansion(
 def compute_gdd_base10(
     county_fips: str,
     climate_monthly: pd.DataFrame,
+    climate_proj: pd.DataFrame,
+    target_year: int = 2040,
+) -> float:
+    """Estimate growing-degree days (GDD, base 10°C) for a county in the target year.
+
+    Uses projected delta-T on top of the historical (2019-2023) baseline.
+    Growing season = April through September (months 4-9).
+
+    Monthly GDD contribution:
+        gdd_month = max(0, T_avg_C - 10) × days_in_month
