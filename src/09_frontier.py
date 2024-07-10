@@ -338,3 +338,13 @@ def compute_gdd_base10(
 
     Returns:
         Projected annual GDD (base 10°C) for the growing season.
+    """
+    DAYS = {4: 30, 5: 31, 6: 30, 7: 31, 8: 31, 9: 30}  # Apr-Sep
+
+    hist = climate_monthly[
+        (climate_monthly['fips'] == county_fips) &
+        (climate_monthly['year'].between(2019, 2023))
+    ]
+
+    if hist.empty:
+        return 0.0
