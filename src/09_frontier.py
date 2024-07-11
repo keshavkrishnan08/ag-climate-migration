@@ -418,3 +418,13 @@ def compute_crop_upgrade(
     low_val_curr = curr[curr['crop'].isin(LOW_VALUE_CROPS)]
     if low_val_curr.empty:
         return {
+            'fips': county_fips, 'upgrade_income': 0.0,
+            'upgrade_acres': 0.0, 'target_crop': None,
+            'gdd_projected': float(gdd_projected),
+        }
+
+    # Determine viable upgrade crop based on GDD
+    if gdd_projected >= GDD_CORN_MIN:
+        target_crop = 'corn'
+    elif gdd_projected >= GDD_SOY_MIN:
+        target_crop = 'soybeans'
