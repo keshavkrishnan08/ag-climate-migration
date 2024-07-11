@@ -438,3 +438,13 @@ def compute_crop_upgrade(
 
     proj = yield_projections[yield_projections['fips'] == county_fips]
     target_proj = proj[proj['crop'] == target_crop] if not proj.empty else pd.DataFrame()
+    target_yield = float(target_proj['yield_projected'].mean()) if not target_proj.empty else 0.0
+    target_price = COMMODITY_PRICES[target_crop]
+
+    total_upgrade_income = 0.0
+    total_upgrade_acres = 0.0
+
+    for crop in LOW_VALUE_CROPS:
+        crop_curr = low_val_curr[low_val_curr['crop'] == crop]
+        if crop_curr.empty:
+            continue
