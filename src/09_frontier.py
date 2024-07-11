@@ -398,3 +398,13 @@ def compute_crop_upgrade(
     upgrade_income = current_low_value_acres × (high_value_revenue_per_acre - low_value_revenue_per_acre)
 
     Args:
+        county_fips: 5-digit FIPS code.
+        yield_projections: Projected 2040 yields.
+        yield_current: Current (2019-2023) yields.
+        gdd_projected: Projected GDD base 10°C for 2040.
+
+    Returns:
+        Dict with upgrade_income, upgrade_acres, target_crop, and gdd info.
+    """
+    curr = yield_current[yield_current['fips'] == county_fips]
+    if curr.empty:
