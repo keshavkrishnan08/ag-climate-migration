@@ -408,3 +408,13 @@ def compute_crop_upgrade(
     """
     curr = yield_current[yield_current['fips'] == county_fips]
     if curr.empty:
+        return {
+            'fips': county_fips, 'upgrade_income': 0.0,
+            'upgrade_acres': 0.0, 'target_crop': None,
+            'gdd_projected': float(gdd_projected),
+        }
+
+    # Identify low-value acreage
+    low_val_curr = curr[curr['crop'].isin(LOW_VALUE_CROPS)]
+    if low_val_curr.empty:
+        return {
