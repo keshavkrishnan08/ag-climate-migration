@@ -428,3 +428,13 @@ def compute_crop_upgrade(
         target_crop = 'corn'
     elif gdd_projected >= GDD_SOY_MIN:
         target_crop = 'soybeans'
+    else:
+        # GDD not sufficient for high-value crop upgrade
+        return {
+            'fips': county_fips, 'upgrade_income': 0.0,
+            'upgrade_acres': 0.0, 'target_crop': None,
+            'gdd_projected': float(gdd_projected),
+        }
+
+    proj = yield_projections[yield_projections['fips'] == county_fips]
+    target_proj = proj[proj['crop'] == target_crop] if not proj.empty else pd.DataFrame()
