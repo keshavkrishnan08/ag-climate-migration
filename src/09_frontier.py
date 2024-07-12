@@ -488,3 +488,13 @@ def compute_infrastructure_capacity(
 
     Returns:
         Dict with capacity metrics.
+    """
+    county_elevators = elevator_data[elevator_data['fips'] == county_fips] if not elevator_data.empty else pd.DataFrame()
+
+    if not county_elevators.empty and 'storage_capacity_bushels' in county_elevators.columns:
+        elevator_capacity = county_elevators['storage_capacity_bushels'].sum()
+    else:
+        elevator_capacity = 0.0
+
+    if projected_production > 0:
+        capacity_ratio = min(elevator_capacity / projected_production, 1.0)
