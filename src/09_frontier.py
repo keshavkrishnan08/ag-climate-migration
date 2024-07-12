@@ -468,3 +468,13 @@ def compute_crop_upgrade(
         'gdd_projected': float(gdd_projected),
     }
 
+
+def compute_infrastructure_capacity(
+    county_fips: str,
+    elevator_data: pd.DataFrame,
+    projected_production: float
+) -> dict:
+    """Compute infrastructure capacity ratio for a county.
+
+    Infrastructure capacity ratio:
+        = min(grain_elevator_capacity, rail_capacity, processing_capacity)
