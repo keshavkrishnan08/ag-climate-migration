@@ -498,3 +498,13 @@ def compute_infrastructure_capacity(
 
     if projected_production > 0:
         capacity_ratio = min(elevator_capacity / projected_production, 1.0)
+    else:
+        capacity_ratio = 1.0
+
+    uncaptured = 1.0 - capacity_ratio
+
+    investment_per_bushel = 5.0
+    if projected_production > elevator_capacity:
+        investment_needed = (projected_production - elevator_capacity) * investment_per_bushel
+    else:
+        investment_needed = 0.0
