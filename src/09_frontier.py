@@ -458,3 +458,13 @@ def compute_crop_upgrade(
         premium = max(0.0, high_revenue_per_acre - low_revenue_per_acre)
 
         total_upgrade_income += premium * low_acres
+        total_upgrade_acres += low_acres
+
+    return {
+        'fips': county_fips,
+        'upgrade_income': float(total_upgrade_income),
+        'upgrade_acres': float(total_upgrade_acres),
+        'target_crop': target_crop,
+        'gdd_projected': float(gdd_projected),
+    }
+
