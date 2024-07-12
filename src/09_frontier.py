@@ -448,3 +448,13 @@ def compute_crop_upgrade(
         crop_curr = low_val_curr[low_val_curr['crop'] == crop]
         if crop_curr.empty:
             continue
+
+        low_acres = float(crop_curr['acres_harvested'].mean())
+        low_yield = float(crop_curr['yield_bu_acre'].mean())
+        low_price = COMMODITY_PRICES.get(crop, 4.0)
+
+        low_revenue_per_acre = low_yield * low_price
+        high_revenue_per_acre = target_yield * target_price
+        premium = max(0.0, high_revenue_per_acre - low_revenue_per_acre)
+
+        total_upgrade_income += premium * low_acres
