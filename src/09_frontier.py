@@ -478,3 +478,13 @@ def compute_infrastructure_capacity(
 
     Infrastructure capacity ratio:
         = min(grain_elevator_capacity, rail_capacity, processing_capacity)
+        / projected_production_2040
+    If < 1: infrastructure is the binding constraint.
+
+    Args:
+        county_fips: 5-digit FIPS code.
+        elevator_data: GIPSA grain elevator data.
+        projected_production: Projected total production (bushels).
+
+    Returns:
+        Dict with capacity metrics.
