@@ -508,3 +508,13 @@ def compute_infrastructure_capacity(
         investment_needed = (projected_production - elevator_capacity) * investment_per_bushel
     else:
         investment_needed = 0.0
+
+    return {
+        'fips': county_fips,
+        'elevator_capacity': float(elevator_capacity),
+        'projected_production': float(projected_production),
+        'infrastructure_capacity_ratio': float(capacity_ratio),
+        'uncaptured_fraction': float(uncaptured),
+        'infrastructure_investment_needed': float(investment_needed),
+    }
+
