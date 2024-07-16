@@ -538,3 +538,13 @@ def compute_northern_opportunity(
         3. Crop-upgrade premium for oat/barley counties crossing GDD thresholds.
 
     Also computes:
+        - Infrastructure investment needed (expansion_acres × $500/acre USDA estimate).
+        - Legacy infrastructure capacity ratio (grain elevator basis).
+
+    Args:
+        county_fips: 5-digit FIPS code.
+        yield_projections: Projected yields (all years; 2035-2045 window used for 2040 avg).
+        yield_current: Current (2019-2023) yields.
+        elevator_data: Grain elevator data.
+        farm_ops: NASS farm operations (Census of Ag total acres).
+        climate_monthly: Historical monthly climate °F.
