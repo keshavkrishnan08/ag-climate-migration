@@ -548,3 +548,13 @@ def compute_northern_opportunity(
         elevator_data: Grain elevator data.
         farm_ops: NASS farm operations (Census of Ag total acres).
         climate_monthly: Historical monthly climate °F.
+        climate_proj: County climate projections with delta_tmax_growing.
+        scenario: Climate scenario label.
+        target_year: Projection year (default 2040).
+
+    Returns:
+        Dict with full opportunity breakdown.
+    """
+    # Use 2035-2045 window as the 2040 estimate
+    proj_window = yield_projections[
+        yield_projections['year'].between(target_year - 5, target_year + 5)
