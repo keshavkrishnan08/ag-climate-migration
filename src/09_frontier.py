@@ -518,3 +518,13 @@ def compute_infrastructure_capacity(
         'infrastructure_investment_needed': float(investment_needed),
     }
 
+
+def compute_northern_opportunity(
+    county_fips: str,
+    yield_projections: pd.DataFrame,
+    yield_current: pd.DataFrame,
+    elevator_data: pd.DataFrame,
+    farm_ops: pd.DataFrame,
+    climate_monthly: pd.DataFrame,
+    climate_proj: pd.DataFrame,
+    scenario: str = 'RCP45',
