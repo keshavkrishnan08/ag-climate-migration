@@ -528,3 +528,13 @@ def compute_northern_opportunity(
     climate_monthly: pd.DataFrame,
     climate_proj: pd.DataFrame,
     scenario: str = 'RCP45',
+    target_year: int = 2040,
+) -> dict:
+    """Full northern opportunity decomposition for one county.
+
+    Aggregates three components:
+        1. Yield gain on existing harvested acres.
+        2. Acreage expansion into idle/marginal farmland.
+        3. Crop-upgrade premium for oat/barley counties crossing GDD thresholds.
+
+    Also computes:
