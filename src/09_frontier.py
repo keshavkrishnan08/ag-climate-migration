@@ -558,3 +558,13 @@ def compute_northern_opportunity(
     # Use 2035-2045 window as the 2040 estimate
     proj_window = yield_projections[
         yield_projections['year'].between(target_year - 5, target_year + 5)
+    ]
+
+    # 1. Yield gain component
+    income = compute_income_gain(county_fips, proj_window, yield_current, scenario)
+
+    # 2. Acreage expansion component
+    expansion = compute_acreage_expansion(county_fips, proj_window, yield_current, farm_ops)
+
+    # 3. GDD → crop upgrade component
+    gdd = compute_gdd_base10(county_fips, climate_monthly, climate_proj, target_year)
