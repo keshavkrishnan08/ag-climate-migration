@@ -588,3 +588,13 @@ def compute_northern_opportunity(
         + float(upgrade.get('upgrade_income') or 0.0)
     )
 
+    return {
+        'fips': county_fips,
+        'scenario': scenario,
+        # Component 1: yield gains
+        'yield_gain_income': income['annual_income_gain'],
+        'income_gain_per_acre': income['income_gain_per_acre'],
+        'current_harvested_acres': income['total_acres'],
+        # Component 2: acreage expansion
+        'expandable_acres': expansion['expandable_acres'],
+        'utilization_rate': expansion['utilization_rate'],
