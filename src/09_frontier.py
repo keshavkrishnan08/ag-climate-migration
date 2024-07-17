@@ -608,3 +608,13 @@ def compute_northern_opportunity(
         # Legacy infrastructure (grain elevator basis)
         'elevator_capacity': infra['elevator_capacity'],
         'projected_production': infra['projected_production'],
+        'infrastructure_capacity_ratio': infra['infrastructure_capacity_ratio'],
+        'uncaptured_fraction': infra['uncaptured_fraction'],
+        'infrastructure_investment_needed': infra['infrastructure_investment_needed'],
+        # Expansion infrastructure investment (USDA $500/acre)
+        'expansion_infra_investment': float(expansion_infra_investment),
+        # Aggregate
+        'total_annual_opportunity': float(total_opportunity),
+        'annual_income_gain': float(total_opportunity),  # backward-compat alias
+        'annual_opportunity_2023USD': float(total_opportunity),
+        'opportunity_with_gap': float(total_opportunity * infra['uncaptured_fraction']),
