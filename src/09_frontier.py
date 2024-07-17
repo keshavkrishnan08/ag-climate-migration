@@ -598,3 +598,13 @@ def compute_northern_opportunity(
         # Component 2: acreage expansion
         'expandable_acres': expansion['expandable_acres'],
         'utilization_rate': expansion['utilization_rate'],
+        'expansion_income': expansion['expansion_income'],
+        'expansion_crop': expansion['expansion_crop'],
+        # Component 3: crop upgrade
+        'upgrade_income': upgrade['upgrade_income'],
+        'upgrade_acres': upgrade['upgrade_acres'],
+        'target_crop': upgrade['target_crop'],
+        'gdd_projected': upgrade['gdd_projected'],
+        # Legacy infrastructure (grain elevator basis)
+        'elevator_capacity': infra['elevator_capacity'],
+        'projected_production': infra['projected_production'],
