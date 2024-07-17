@@ -578,3 +578,13 @@ def compute_northern_opportunity(
             proj_production += row.get('yield_projected', 0.0) * row.get('acres_harvested', 0.0)
     infra = compute_infrastructure_capacity(county_fips, elevator_data, proj_production)
 
+    # 5. Infrastructure investment for expansion (USDA $500/acre standard)
+    expansion_infra_investment = expansion['expandable_acres'] * INFRA_COST_PER_ACRE
+
+    # Totals — guard against NaN from missing NASS data
+    total_opportunity = (
+        float(income.get('annual_income_gain') or 0.0)
+        + float(expansion.get('expansion_income') or 0.0)
+        + float(upgrade.get('upgrade_income') or 0.0)
+    )
+
