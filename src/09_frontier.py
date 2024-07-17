@@ -568,3 +568,13 @@ def compute_northern_opportunity(
 
     # 3. GDD → crop upgrade component
     gdd = compute_gdd_base10(county_fips, climate_monthly, climate_proj, target_year)
+    upgrade = compute_crop_upgrade(county_fips, proj_window, yield_current, gdd)
+
+    # 4. Infrastructure capacity (grain elevator basis)
+    proj_production = 0.0
+    county_proj = proj_window[proj_window['fips'] == county_fips]
+    if not county_proj.empty and 'yield_projected' in county_proj.columns:
+        for _, row in county_proj.iterrows():
+            proj_production += row.get('yield_projected', 0.0) * row.get('acres_harvested', 0.0)
+    infra = compute_infrastructure_capacity(county_fips, elevator_data, proj_production)
+
