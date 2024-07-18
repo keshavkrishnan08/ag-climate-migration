@@ -618,3 +618,13 @@ def compute_northern_opportunity(
         'annual_income_gain': float(total_opportunity),  # backward-compat alias
         'annual_opportunity_2023USD': float(total_opportunity),
         'opportunity_with_gap': float(total_opportunity * infra['uncaptured_fraction']),
+    }
+
+
+def identify_opportunity_counties(
+    yield_projections: pd.DataFrame,
+    yield_current: pd.DataFrame,
+    elevator_data: pd.DataFrame,
+    farm_ops: pd.DataFrame,
+    climate_monthly: pd.DataFrame,
+    climate_proj: pd.DataFrame,
