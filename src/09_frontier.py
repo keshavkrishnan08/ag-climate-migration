@@ -648,3 +648,13 @@ def identify_opportunity_counties(
         climate_proj: County climate projections.
         income_threshold_per_acre: Minimum yield-gain per acre to qualify (yield component gate).
         scenario: Climate scenario label.
+        target_year: Projection year.
+
+    Returns:
+        DataFrame of opportunity counties ranked by total_annual_opportunity descending.
+    """
+    logger.info("Identifying northern opportunity counties (3-component model)...")
+
+    results = []
+    all_fips = yield_projections['fips'].unique() if not yield_projections.empty else []
+
