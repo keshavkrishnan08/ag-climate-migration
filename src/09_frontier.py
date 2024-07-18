@@ -638,3 +638,13 @@ def identify_opportunity_counties(
         - income_gain_per_acre > $5/acre (yield component), OR
         - expansion_income > 0 (idle farmland + positive climate signal), OR
         - upgrade_income > 0 (crop upgrade GDD threshold met)
+
+    Args:
+        yield_projections: Projected yields (all years).
+        yield_current: Current (2019-2023) yields.
+        elevator_data: Grain elevator data.
+        farm_ops: NASS farm operations (Census of Ag total acres).
+        climate_monthly: Historical monthly climate °F.
+        climate_proj: County climate projections.
+        income_threshold_per_acre: Minimum yield-gain per acre to qualify (yield component gate).
+        scenario: Climate scenario label.
