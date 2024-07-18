@@ -628,3 +628,13 @@ def identify_opportunity_counties(
     farm_ops: pd.DataFrame,
     climate_monthly: pd.DataFrame,
     climate_proj: pd.DataFrame,
+    income_threshold_per_acre: float = 5.0,
+    scenario: str = 'RCP45',
+    target_year: int = 2040,
+) -> pd.DataFrame:
+    """Identify and rank top northern opportunity counties.
+
+    A county qualifies if ANY of these hold:
+        - income_gain_per_acre > $5/acre (yield component), OR
+        - expansion_income > 0 (idle farmland + positive climate signal), OR
+        - upgrade_income > 0 (crop upgrade GDD threshold met)
