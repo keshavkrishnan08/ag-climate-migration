@@ -668,3 +668,13 @@ def identify_opportunity_counties(
             farm_ops, climate_monthly, climate_proj, scenario, target_year,
         )
         result['state'] = NORTHERN_STATES.get(state_code, 'Unknown')
+        results.append(result)
+
+    df = pd.DataFrame(results)
+
+    if df.empty:
+        return pd.DataFrame()
+
+    # Filter: county qualifies if any component is positive
+    opportunity = df[
+        (df['income_gain_per_acre'] > income_threshold_per_acre) |
