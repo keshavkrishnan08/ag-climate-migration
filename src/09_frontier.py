@@ -658,3 +658,13 @@ def identify_opportunity_counties(
     results = []
     all_fips = yield_projections['fips'].unique() if not yield_projections.empty else []
 
+    for fips in all_fips:
+        state_code = str(fips).zfill(5)[:2]
+        if state_code not in NORTHERN_STATES:
+            continue
+
+        result = compute_northern_opportunity(
+            fips, yield_projections, yield_current, elevator_data,
+            farm_ops, climate_monthly, climate_proj, scenario, target_year,
+        )
+        result['state'] = NORTHERN_STATES.get(state_code, 'Unknown')
