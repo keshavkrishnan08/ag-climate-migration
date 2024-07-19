@@ -678,3 +678,13 @@ def identify_opportunity_counties(
     # Filter: county qualifies if any component is positive
     opportunity = df[
         (df['income_gain_per_acre'] > income_threshold_per_acre) |
+        (df['expansion_income'] > 0) |
+        (df['upgrade_income'] > 0)
+    ].sort_values('total_annual_opportunity', ascending=False)
+
+    logger.info(f"\nNORTHERN OPPORTUNITY FRONTIER ({scenario}, target year {target_year}):")
+    logger.info(f"  Northern counties analyzed: {len(df)}")
+    logger.info(f"  Counties meeting opportunity criteria: {len(opportunity)}")
+
+    if not opportunity.empty:
+        yield_gain_B = opportunity['yield_gain_income'].sum() / 1e9
