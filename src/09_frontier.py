@@ -688,3 +688,13 @@ def identify_opportunity_counties(
 
     if not opportunity.empty:
         yield_gain_B = opportunity['yield_gain_income'].sum() / 1e9
+        expansion_B = opportunity['expansion_income'].sum() / 1e9
+        upgrade_B = opportunity['upgrade_income'].sum() / 1e9
+        total_B = opportunity['total_annual_opportunity'].sum() / 1e9
+        avg_capacity = opportunity['infrastructure_capacity_ratio'].mean()
+        total_elev_inv_B = opportunity['infrastructure_investment_needed'].sum() / 1e9
+        total_exp_inv_B = opportunity['expansion_infra_investment'].sum() / 1e9
+
+        logger.info(f"  --- Opportunity Components ---")
+        logger.info(f"  1. Yield gains (existing acres):    ${yield_gain_B:.1f}B/yr")
+        logger.info(f"  2. Acreage expansion (idle land):   ${expansion_B:.1f}B/yr")
