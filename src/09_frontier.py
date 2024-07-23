@@ -718,3 +718,13 @@ def run_frontier_analysis() -> dict:
     all northern counties, and writes results plus updates headline_numbers_preliminary.json.
 
     Returns:
+        Dict with opportunity county DataFrame and summary statistics.
+    """
+    logger.info("=" * 60)
+    logger.info("PHASE 5D: NORTHERN OPPORTUNITY FRONTIER (3-COMPONENT MODEL)")
+    logger.info("=" * 60)
+
+    output_dir = RESULTS_DIR / 'frontier'
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    scenario = 'SSP245'
