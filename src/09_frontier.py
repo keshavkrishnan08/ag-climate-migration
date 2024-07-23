@@ -698,3 +698,13 @@ def identify_opportunity_counties(
         logger.info(f"  --- Opportunity Components ---")
         logger.info(f"  1. Yield gains (existing acres):    ${yield_gain_B:.1f}B/yr")
         logger.info(f"  2. Acreage expansion (idle land):   ${expansion_B:.1f}B/yr")
+        logger.info(f"  3. Crop upgrading (oats/barley→):   ${upgrade_B:.1f}B/yr")
+        logger.info(f"  TOTAL annual opportunity:           ${total_B:.1f}B/yr")
+        logger.info(f"  --- Infrastructure ---")
+        logger.info(f"  Avg infrastructure capacity ratio:  {avg_capacity:.0%}")
+        logger.info(f"  Elevator investment needed:         ${total_elev_inv_B:.1f}B")
+        logger.info(f"  Expansion infrastructure needed:    ${total_exp_inv_B:.1f}B")
+
+    return opportunity
+
+
