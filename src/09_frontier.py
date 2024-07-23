@@ -708,3 +708,13 @@ def identify_opportunity_counties(
     return opportunity
 
 
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+def run_frontier_analysis() -> dict:
+    """Execute northern opportunity frontier analysis.
+
+    Loads all required data, runs the 3-component opportunity model across
+    all northern counties, and writes results plus updates headline_numbers_preliminary.json.
+
+    Returns:
