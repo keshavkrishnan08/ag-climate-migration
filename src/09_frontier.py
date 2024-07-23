@@ -728,3 +728,13 @@ def run_frontier_analysis() -> dict:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     scenario = 'SSP245'
+    target_year = 2040
+
+    # ----- Load yield projections -----
+    proj_path = PROJECTIONS_DIR / f'yield_projections_{scenario}.parquet'
+    if proj_path.exists():
+        all_proj = pd.read_parquet(proj_path)
+        northern_fips_prefix = set(NORTHERN_STATES.keys())
+        yield_proj = all_proj[
+            all_proj['fips'].str[:2].isin(northern_fips_prefix)
+        ].copy()
