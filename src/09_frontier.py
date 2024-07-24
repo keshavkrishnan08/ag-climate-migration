@@ -788,3 +788,13 @@ def run_frontier_analysis() -> dict:
         logger.info(f"Monthly climate (northern): {len(climate_monthly)} rows")
     else:
         climate_monthly = pd.DataFrame()
+        logger.warning("Monthly climate data not found — GDD-based crop upgrade component unavailable")
+
+    # ----- Load climate projections (for GDD delta) -----
+    clim_proj_path = PROJECTIONS_DIR / 'county_climate_projections.parquet'
+    if clim_proj_path.exists():
+        all_clim_proj = pd.read_parquet(clim_proj_path)
+        northern_fips_prefix = set(NORTHERN_STATES.keys())
+        climate_proj = all_clim_proj[
+            all_clim_proj['fips'].str[:2].isin(northern_fips_prefix)
+        ].copy()
