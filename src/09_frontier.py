@@ -778,3 +778,13 @@ def run_frontier_analysis() -> dict:
 
     # ----- Load monthly climate (for GDD calculation) -----
     monthly_path = DATA_RAW / 'prism' / 'county_climate_monthly.parquet'
+    if monthly_path.exists():
+        # Only load northern counties to keep memory lean
+        all_monthly = pd.read_parquet(monthly_path)
+        northern_fips_prefix = set(NORTHERN_STATES.keys())
+        climate_monthly = all_monthly[
+            all_monthly['fips'].str[:2].isin(northern_fips_prefix)
+        ].copy()
+        logger.info(f"Monthly climate (northern): {len(climate_monthly)} rows")
+    else:
+        climate_monthly = pd.DataFrame()
