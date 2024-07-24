@@ -738,3 +738,13 @@ def run_frontier_analysis() -> dict:
         yield_proj = all_proj[
             all_proj['fips'].str[:2].isin(northern_fips_prefix)
         ].copy()
+        logger.info(f"Northern yield projections: {len(yield_proj)} rows, "
+                    f"{yield_proj['fips'].nunique()} counties")
+    else:
+        logger.error("No yield projections found — aborting frontier analysis")
+        return {'opportunity_counties': pd.DataFrame()}
+
+    # ----- Load NASS yields (current baseline) -----
+    current_path = DATA_RAW / 'nass' / 'nass_county_yields.parquet'
+    if current_path.exists():
+        nass_raw = pd.read_parquet(
