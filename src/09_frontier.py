@@ -798,3 +798,13 @@ def run_frontier_analysis() -> dict:
         climate_proj = all_clim_proj[
             all_clim_proj['fips'].str[:2].isin(northern_fips_prefix)
         ].copy()
+        logger.info(f"Climate projections (northern): {len(climate_proj)} rows")
+    else:
+        climate_proj = pd.DataFrame()
+        logger.warning("Climate projections not found — GDD delta will be zero")
+
+    # ----- Grain elevator data -----
+    elevator_path = DATA_RAW / 'other' / 'gipsa_grain_elevators.parquet'
+    if elevator_path.exists():
+        elevators = pd.read_parquet(elevator_path)
+        logger.info(f"Elevator data: {len(elevators)} facilities")
