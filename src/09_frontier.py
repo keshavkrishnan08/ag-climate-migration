@@ -818,3 +818,13 @@ def run_frontier_analysis() -> dict:
         yield_proj, yield_current, elevators, farm_ops,
         climate_monthly, climate_proj,
         scenario=scenario, target_year=target_year,
+    )
+
+    # ----- Output -----
+    summary = {}
+    if not opportunity.empty:
+        opportunity.to_parquet(output_dir / f'opportunity_counties_{scenario}.parquet', index=False)
+        opportunity.to_csv(output_dir / f'opportunity_counties_{scenario}.csv', index=False)
+
+        n_counties = len(opportunity)
+        yield_gain_B = opportunity['yield_gain_income'].sum() / 1e9
