@@ -768,3 +768,13 @@ def run_frontier_analysis() -> dict:
 
     # ----- Load farm operations (Census of Ag total acres) -----
     farm_ops_path = DATA_RAW / 'nass' / 'nass_farm_operations.parquet'
+    if farm_ops_path.exists():
+        farm_ops = pd.read_parquet(farm_ops_path)
+        logger.info(f"Farm operations: {len(farm_ops)} rows")
+    else:
+        farm_ops = pd.DataFrame()
+        logger.info("Farm operations data not found — using default utilization rate "
+                    f"({DEFAULT_UTILIZATION_RATE:.0%}) for acreage expansion")
+
+    # ----- Load monthly climate (for GDD calculation) -----
+    monthly_path = DATA_RAW / 'prism' / 'county_climate_monthly.parquet'
