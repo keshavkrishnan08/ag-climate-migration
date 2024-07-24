@@ -808,3 +808,13 @@ def run_frontier_analysis() -> dict:
     if elevator_path.exists():
         elevators = pd.read_parquet(elevator_path)
         logger.info(f"Elevator data: {len(elevators)} facilities")
+    else:
+        elevators = pd.DataFrame()
+        logger.info("Elevator data not found — infrastructure capacity defaults to 0 "
+                    "(conservative: all opportunity counties show full gap)")
+
+    # ----- Run analysis -----
+    opportunity = identify_opportunity_counties(
+        yield_proj, yield_current, elevators, farm_ops,
+        climate_monthly, climate_proj,
+        scenario=scenario, target_year=target_year,
