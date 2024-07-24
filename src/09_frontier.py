@@ -748,3 +748,13 @@ def run_frontier_analysis() -> dict:
     current_path = DATA_RAW / 'nass' / 'nass_county_yields.parquet'
     if current_path.exists():
         nass_raw = pd.read_parquet(
+            current_path,
+            columns=['fips', 'year', 'crop', 'yield_bu_acre', 'acres_harvested']
+        )
+        # Per CLAUDE.md: dedup NASS with groupby(['fips','year','crop']).first()
+        # Filter out state-level aggregates (FIPS suffix 998/999)
+        nass_filt = nass_raw[
+            nass_raw['year'].between(2019, 2023) &
+            ~nass_raw['fips'].str[2:].isin(['998', '999'])
+        ]
+        yield_current = (
