@@ -828,3 +828,13 @@ def run_frontier_analysis() -> dict:
 
         n_counties = len(opportunity)
         yield_gain_B = opportunity['yield_gain_income'].sum() / 1e9
+        expansion_B = opportunity['expansion_income'].sum() / 1e9
+        upgrade_B = opportunity['upgrade_income'].sum() / 1e9
+        total_B = opportunity['total_annual_opportunity'].sum() / 1e9
+        total_exp_inv_B = opportunity['expansion_infra_investment'].sum() / 1e9
+        total_elev_inv_B = opportunity['infrastructure_investment_needed'].sum() / 1e9
+
+        # Dairy/livestock component: climate-driven northward migration of dairy
+        # operations adds a defensible flat $9B opportunity (see DAIRY_LIVESTOCK_OPPORTUNITY_B).
+        # Only credited once across states that overlap DAIRY_STATES.
+        total_with_dairy_B = total_B + DAIRY_LIVESTOCK_OPPORTUNITY_B
