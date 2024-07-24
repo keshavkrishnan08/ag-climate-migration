@@ -758,3 +758,13 @@ def run_frontier_analysis() -> dict:
             ~nass_raw['fips'].str[2:].isin(['998', '999'])
         ]
         yield_current = (
+            nass_filt.groupby(['fips', 'year', 'crop'], as_index=False).first()
+        )
+        logger.info(f"Current yields (2019-2023, deduped): {len(yield_current)} rows, "
+                    f"{yield_current['fips'].nunique()} counties")
+    else:
+        yield_current = pd.DataFrame()
+        logger.warning("NASS county yields not found — yield gain component will be zero")
+
+    # ----- Load farm operations (Census of Ag total acres) -----
+    farm_ops_path = DATA_RAW / 'nass' / 'nass_farm_operations.parquet'
