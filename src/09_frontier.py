@@ -848,3 +848,13 @@ def run_frontier_analysis() -> dict:
         logger.info(f"  TOTAL annual opportunity:          ${total_with_dairy_B:.1f}B/yr")
         logger.info(f"  Expansion infrastructure needed:   ${total_exp_inv_B:.1f}B (one-time)")
         logger.info(f"  Elevator investment needed:        ${total_elev_inv_B:.1f}B (one-time)")
+
+        summary = {
+            'n_opportunity_counties': int(n_counties),
+            'yield_gain_B_per_yr': round(yield_gain_B, 2),
+            'acreage_expansion_B_per_yr': round(expansion_B, 2),
+            'crop_upgrade_B_per_yr': round(upgrade_B, 2),
+            'dairy_livestock_opportunity_B': round(DAIRY_LIVESTOCK_OPPORTUNITY_B, 2),
+            'total_northern_opportunity_B_per_yr': round(total_with_dairy_B, 2),
+            'expansion_infra_investment_B': round(total_exp_inv_B, 2),
+            'elevator_investment_B': round(total_elev_inv_B, 2),
