@@ -858,3 +858,13 @@ def run_frontier_analysis() -> dict:
             'total_northern_opportunity_B_per_yr': round(total_with_dairy_B, 2),
             'expansion_infra_investment_B': round(total_exp_inv_B, 2),
             'elevator_investment_B': round(total_elev_inv_B, 2),
+        }
+
+        # Update headline_numbers_preliminary.json
+        hn_path = PROJECT_ROOT / 'state' / 'headline_numbers_preliminary.json'
+        if hn_path.exists():
+            with open(hn_path) as f:
+                hn = json.load(f)
+        else:
+            hn = {}
+
