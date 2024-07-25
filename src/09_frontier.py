@@ -838,3 +838,13 @@ def run_frontier_analysis() -> dict:
         # operations adds a defensible flat $9B opportunity (see DAIRY_LIVESTOCK_OPPORTUNITY_B).
         # Only credited once across states that overlap DAIRY_STATES.
         total_with_dairy_B = total_B + DAIRY_LIVESTOCK_OPPORTUNITY_B
+
+        logger.info(f"\nFINAL SUMMARY (4-Component Northern Opportunity):")
+        logger.info(f"  Opportunity counties:              {n_counties}")
+        logger.info(f"  Component 1 — Yield gains:         ${yield_gain_B:.1f}B/yr")
+        logger.info(f"  Component 2 — Acreage expansion:   ${expansion_B:.1f}B/yr")
+        logger.info(f"  Component 3 — Crop upgrading:      ${upgrade_B:.1f}B/yr")
+        logger.info(f"  Component 4 — Dairy/livestock:     ${DAIRY_LIVESTOCK_OPPORTUNITY_B:.1f}B")
+        logger.info(f"  TOTAL annual opportunity:          ${total_with_dairy_B:.1f}B/yr")
+        logger.info(f"  Expansion infrastructure needed:   ${total_exp_inv_B:.1f}B (one-time)")
+        logger.info(f"  Elevator investment needed:        ${total_elev_inv_B:.1f}B (one-time)")
