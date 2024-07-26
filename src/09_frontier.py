@@ -898,3 +898,7 @@ def run_frontier_analysis() -> dict:
     logger.info("=" * 60)
 
     return {'opportunity_counties': opportunity, 'summary': summary}
+
+
+if __name__ == '__main__':
+    run_frontier_analysis()
