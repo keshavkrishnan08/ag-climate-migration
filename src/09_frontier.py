@@ -888,3 +888,13 @@ def run_frontier_analysis() -> dict:
 
         with open(hn_path, 'w') as f:
             json.dump(hn, f, indent=2)
+        logger.info(f"Updated {hn_path}")
+
+    else:
+        logger.warning("No opportunity counties identified — check thresholds")
+
+    logger.info("=" * 60)
+    logger.info("PHASE 5D COMPLETE")
+    logger.info("=" * 60)
+
+    return {'opportunity_counties': opportunity, 'summary': summary}
