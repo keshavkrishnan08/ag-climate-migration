@@ -868,3 +868,13 @@ def run_frontier_analysis() -> dict:
         else:
             hn = {}
 
+        hn['northern_opportunity_B_per_yr'] = round(total_with_dairy_B, 2)
+        hn['northern_opportunity_crop_only_B_per_yr'] = round(total_B, 2)
+        hn['northern_opportunity_n_counties'] = int(n_counties)
+        hn['northern_opportunity_yield_gain_B'] = round(yield_gain_B, 2)
+        hn['northern_opportunity_expansion_B'] = round(expansion_B, 2)
+        hn['northern_opportunity_upgrade_B'] = round(upgrade_B, 2)
+        hn['northern_opportunity_dairy_livestock_B'] = round(DAIRY_LIVESTOCK_OPPORTUNITY_B, 2)
+        hn['northern_opportunity_expansion_infra_B'] = round(total_exp_inv_B, 2)
+        hn['northern_opportunity_method'] = (
+            '4-component: yield_gain + acreage_expansion + crop_upgrade + dairy_livestock. '
