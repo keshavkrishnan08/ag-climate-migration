@@ -878,3 +878,13 @@ def run_frontier_analysis() -> dict:
         hn['northern_opportunity_expansion_infra_B'] = round(total_exp_inv_B, 2)
         hn['northern_opportunity_method'] = (
             '4-component: yield_gain + acreage_expansion + crop_upgrade + dairy_livestock. '
+            f'Expansion uses Census of Ag utilization rates (default {DEFAULT_UTILIZATION_RATE:.0%}). '
+            f'Crop upgrade gated on GDD base-10C thresholds (corn>={GDD_CORN_MIN:.0f}, soy>={GDD_SOY_MIN:.0f}). '
+            f'Dairy/livestock: USDA NASS $30B northern dairy revenue × 30% climate-driven growth to 2040 '
+            f'(Mauger et al. 2015; USDA ERS heat-stress livestock 2023).'
+        )
+        hn['northern_opportunity_target_year'] = target_year
+        hn['northern_opportunity_scenario'] = scenario
+
+        with open(hn_path, 'w') as f:
+            json.dump(hn, f, indent=2)
