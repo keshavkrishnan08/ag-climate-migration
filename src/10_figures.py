@@ -8,3 +8,13 @@ Figure specifications from PRD Section 8.
 """
 
 import os
+import sys
+import pickle
+from pathlib import Path
+from typing import Optional
+
+import numpy as np
+import pandas as pd
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
