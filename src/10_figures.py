@@ -68,3 +68,13 @@ DOUBLE_COL = 180 / 25.4   # ~7.09 inches
 def save_figure(fig, name: str, output_dir: Path = None):
     """Save figure as both PDF and PNG at 300 DPI.
 
+    Args:
+        fig: matplotlib Figure object.
+        name: Figure name (without extension).
+        output_dir: Output directory.
+    """
+    if output_dir is None:
+        output_dir = RESULTS_DIR / 'figures'
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    fig.savefig(output_dir / f'{name}.pdf', format='pdf')
