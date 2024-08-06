@@ -48,3 +48,13 @@ with open(PROJECT_ROOT / 'config.yaml') as f:
 # Nature Food style
 plt.rcParams.update({
     'font.family': 'Arial',
+    'font.size': 7,
+    'axes.labelsize': 8,
+    'axes.titlesize': 9,
+    'xtick.labelsize': 7,
+    'ytick.labelsize': 7,
+    'legend.fontsize': 7,
+    'figure.dpi': 300,
+    'savefig.dpi': 300,
+    'savefig.bbox': 'tight',
+    'savefig.pad_inches': 0.05,
