@@ -28,3 +28,13 @@ import seaborn as sns
 from loguru import logger
 import yaml
 
+try:
+    import geopandas as gpd
+    HAS_GEOPANDAS = True
+except ImportError:
+    HAS_GEOPANDAS = False
+    logger.warning("geopandas not available — choropleth figures will use scatter fallback")
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT / 'src'))
+DATA_RAW = PROJECT_ROOT / 'data' / 'raw'
