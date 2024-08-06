@@ -58,3 +58,13 @@ plt.rcParams.update({
     'savefig.dpi': 300,
     'savefig.bbox': 'tight',
     'savefig.pad_inches': 0.05,
+})
+
+# Column widths in inches (from mm)
+SINGLE_COL = 88 / 25.4   # ~3.46 inches
+DOUBLE_COL = 180 / 25.4   # ~7.09 inches
+
+
+def save_figure(fig, name: str, output_dir: Path = None):
+    """Save figure as both PDF and PNG at 300 DPI.
+
