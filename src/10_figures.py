@@ -98,3 +98,13 @@ def _load_conus_counties() -> 'gpd.GeoDataFrame':
 
     Returns:
         GeoDataFrame with CONUS counties; column 'fips' = 5-digit GEOID.
+
+    Raises:
+        FileNotFoundError: if shapefile is missing and geopandas unavailable.
+    """
+    if not HAS_GEOPANDAS:
+        raise ImportError("geopandas required for choropleth maps")
+    counties = gpd.read_file(_COUNTY_SHP)
+    counties = counties.rename(columns={'GEOID': 'fips'})
+    counties = counties[~counties['STATEFP'].isin(_NON_CONUS_STATES)].copy()
+    counties['fips'] = counties['fips'].astype(str).str.zfill(5)
