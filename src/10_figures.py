@@ -88,3 +88,13 @@ def save_figure(fig, name: str, output_dir: Path = None):
 # ---------------------------------------------------------------------------
 
 # Path to county shapefile (downloaded from Census TIGER/Line)
+_COUNTY_SHP = DATA_RAW / 'census' / 'us_counties_20m.shp'
+# Excluded state FIPS (non-CONUS)
+_NON_CONUS_STATES = {'02', '15', '72', '78', '66', '60', '69'}
+
+
+def _load_conus_counties() -> 'gpd.GeoDataFrame':
+    """Load CONUS county shapefile from Census TIGER/Line.
+
+    Returns:
+        GeoDataFrame with CONUS counties; column 'fips' = 5-digit GEOID.
