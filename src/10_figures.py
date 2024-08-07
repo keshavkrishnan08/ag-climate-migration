@@ -78,3 +78,13 @@ def save_figure(fig, name: str, output_dir: Path = None):
     output_dir.mkdir(parents=True, exist_ok=True)
 
     fig.savefig(output_dir / f'{name}.pdf', format='pdf')
+    fig.savefig(output_dir / f'{name}.png', format='png')
+    plt.close(fig)
+    logger.info(f"Saved figure: {name} → {output_dir}")
+
+
+# ---------------------------------------------------------------------------
+# Shared choropleth utilities
+# ---------------------------------------------------------------------------
+
+# Path to county shapefile (downloaded from Census TIGER/Line)
