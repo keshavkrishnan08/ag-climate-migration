@@ -108,3 +108,13 @@ def _load_conus_counties() -> 'gpd.GeoDataFrame':
     counties = counties.rename(columns={'GEOID': 'fips'})
     counties = counties[~counties['STATEFP'].isin(_NON_CONUS_STATES)].copy()
     counties['fips'] = counties['fips'].astype(str).str.zfill(5)
+    return counties
+
+
+def _choropleth(ax, counties_geo: 'gpd.GeoDataFrame', col: str,
+                cmap: str, vmin: float, vmax: float,
+                title: str, unit: str,
+                missing_color: str = '#cccccc') -> None:
+    """Draw a county-level choropleth on *ax*.
+
+    Args:
