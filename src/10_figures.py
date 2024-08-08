@@ -128,3 +128,13 @@ def _choropleth(ax, counties_geo: 'gpd.GeoDataFrame', col: str,
         unit: Unit string for colorbar label.
         missing_color: Fill for counties without data.
     """
+    # Counties without data
+    mask_missing = counties_geo[col].isna()
+    counties_geo[mask_missing].plot(ax=ax, color=missing_color,
+                                    linewidth=0.05, edgecolor='white')
+    # Counties with data
+    counties_geo[~mask_missing].plot(
+        ax=ax, column=col, cmap=cmap, vmin=vmin, vmax=vmax,
+        linewidth=0.05, edgecolor='white', legend=False
+    )
+    sm = cm.ScalarMappable(cmap=cmap,
