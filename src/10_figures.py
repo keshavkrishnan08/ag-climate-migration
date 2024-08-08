@@ -118,3 +118,13 @@ def _choropleth(ax, counties_geo: 'gpd.GeoDataFrame', col: str,
     """Draw a county-level choropleth on *ax*.
 
     Args:
+        ax: Matplotlib axes.
+        counties_geo: GeoDataFrame with 'geometry' and *col* pre-joined.
+        col: Column to color-map.
+        cmap: Matplotlib colormap name.
+        vmin: Colormap minimum value.
+        vmax: Colormap maximum value.
+        title: Axes title.
+        unit: Unit string for colorbar label.
+        missing_color: Fill for counties without data.
+    """
