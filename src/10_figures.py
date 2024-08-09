@@ -198,3 +198,13 @@ def _compute_production_centroids(nass: pd.DataFrame,
 
 
 def _compute_frontier_latitude(nass: pd.DataFrame,
+                               centroids: pd.DataFrame,
+                               percentile: float = 90) -> pd.DataFrame:
+    """Compute the northern frontier latitude for each crop-year.
+
+    The frontier is the latitude below which `percentile`% of total
+    harvested acreage lies. A northward shift in this line means
+    production is expanding into higher latitudes.
+
+    Args:
+        nass: Deduplicated NASS yields with fips, year, crop, acres_harvested.
