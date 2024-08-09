@@ -188,3 +188,13 @@ def _compute_production_centroids(nass: pd.DataFrame,
     merged = merged.dropna(subset=['acres_harvested', 'lat'])
     merged = merged[merged['acres_harvested'] > 0]
 
+    merged['weighted_lat'] = merged['lat'] * merged['acres_harvested']
+    agg = merged.groupby(['year', 'crop']).agg(
+        total_weighted_lat=('weighted_lat', 'sum'),
+        total_acres=('acres_harvested', 'sum')
+    ).reset_index()
+    agg['centroid_lat'] = agg['total_weighted_lat'] / agg['total_acres']
+    return agg[['year', 'crop', 'centroid_lat']].copy()
+
+
+def _compute_frontier_latitude(nass: pd.DataFrame,
