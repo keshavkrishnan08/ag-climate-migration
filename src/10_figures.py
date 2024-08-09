@@ -168,3 +168,13 @@ def _load_county_centroids() -> pd.DataFrame:
     gaz = gaz[~gaz['fips'].str[:2].isin(excluded)]
     logger.info(f"Loaded {len(gaz)} CONUS county centroids from Gazetteer")
     return gaz[['fips', 'lat', 'lon']].copy()
+
+
+def _compute_production_centroids(nass: pd.DataFrame,
+                                  centroids: pd.DataFrame) -> pd.DataFrame:
+    """Compute production-weighted centroid latitude per crop-year.
+
+    For each crop and year, the centroid latitude is:
+        sum(county_lat * county_acres) / sum(county_acres)
+
+    Args:
