@@ -158,3 +158,13 @@ def _load_county_centroids() -> pd.DataFrame:
     """
     gaz_path = DATA_RAW / 'census' / '2023_Gaz_counties_national.txt'
     gaz = pd.read_csv(gaz_path, sep='\t', dtype=str)
+    gaz.columns = gaz.columns.str.strip()
+    gaz = gaz.rename(columns={'GEOID': 'fips', 'INTPTLAT': 'lat', 'INTPTLONG': 'lon'})
+    gaz['fips'] = gaz['fips'].str.zfill(5)
+    gaz['lat'] = pd.to_numeric(gaz['lat'].str.strip(), errors='coerce')
+    gaz['lon'] = pd.to_numeric(gaz['lon'].str.strip(), errors='coerce')
+    # CONUS only: exclude AK (02), HI (15), PR (72) and territories
+    excluded = {'02', '15', '72', '78', '66', '60', '69'}
+    gaz = gaz[~gaz['fips'].str[:2].isin(excluded)]
+    logger.info(f"Loaded {len(gaz)} CONUS county centroids from Gazetteer")
+    return gaz[['fips', 'lat', 'lon']].copy()
