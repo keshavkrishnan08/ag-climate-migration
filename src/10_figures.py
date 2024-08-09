@@ -148,3 +148,13 @@ def _choropleth(ax, counties_geo: 'gpd.GeoDataFrame', col: str,
 
 
 # ---------------------------------------------------------------------------
+# Figure 1: The Northward Migration Is Already Underway
+# ---------------------------------------------------------------------------
+def _load_county_centroids() -> pd.DataFrame:
+    """Load county centroids from Census Gazetteer file.
+
+    Returns:
+        DataFrame with columns: fips (str 5-digit), lat (float), lon (float).
+    """
+    gaz_path = DATA_RAW / 'census' / '2023_Gaz_counties_national.txt'
+    gaz = pd.read_csv(gaz_path, sep='\t', dtype=str)
