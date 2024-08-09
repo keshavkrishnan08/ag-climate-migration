@@ -138,3 +138,13 @@ def _choropleth(ax, counties_geo: 'gpd.GeoDataFrame', col: str,
         linewidth=0.05, edgecolor='white', legend=False
     )
     sm = cm.ScalarMappable(cmap=cmap,
+                           norm=mcolors.Normalize(vmin=vmin, vmax=vmax))
+    sm.set_array([])
+    cb = plt.colorbar(sm, ax=ax, fraction=0.025, pad=0.02, shrink=0.7)
+    cb.set_label(unit, fontsize=6)
+    cb.ax.tick_params(labelsize=5)
+    ax.set_title(title, fontweight='bold', fontsize=8)
+    ax.set_axis_off()
+
+
+# ---------------------------------------------------------------------------
