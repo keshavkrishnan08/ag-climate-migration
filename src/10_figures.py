@@ -178,3 +178,13 @@ def _compute_production_centroids(nass: pd.DataFrame,
         sum(county_lat * county_acres) / sum(county_acres)
 
     Args:
+        nass: Deduplicated NASS yields with fips, year, crop, acres_harvested.
+        centroids: County centroids with fips, lat.
+
+    Returns:
+        DataFrame with year, crop, centroid_lat columns.
+    """
+    merged = nass.merge(centroids[['fips', 'lat']], on='fips', how='inner')
+    merged = merged.dropna(subset=['acres_harvested', 'lat'])
+    merged = merged[merged['acres_harvested'] > 0]
+
