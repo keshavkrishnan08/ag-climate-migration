@@ -208,3 +208,13 @@ def _compute_frontier_latitude(nass: pd.DataFrame,
 
     Args:
         nass: Deduplicated NASS yields with fips, year, crop, acres_harvested.
+        centroids: County centroids with fips, lat.
+        percentile: Cumulative production percentile (default 90).
+
+    Returns:
+        DataFrame with year, crop, frontier_lat columns.
+    """
+    merged = nass.merge(centroids[['fips', 'lat']], on='fips', how='inner')
+    merged = merged.dropna(subset=['acres_harvested', 'lat'])
+    merged = merged[merged['acres_harvested'] > 0]
+
