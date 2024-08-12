@@ -218,3 +218,13 @@ def _compute_frontier_latitude(nass: pd.DataFrame,
     merged = merged.dropna(subset=['acres_harvested', 'lat'])
     merged = merged[merged['acres_harvested'] > 0]
 
+    records = []
+    for (yr, crop), grp in merged.groupby(['year', 'crop']):
+        sorted_grp = grp.sort_values('lat')
+        cum_acres = sorted_grp['acres_harvested'].cumsum()
+        total = cum_acres.iloc[-1]
+        threshold = total * (percentile / 100.0)
+        idx = (cum_acres >= threshold).idxmax()
+        records.append({
+            'year': yr,
+            'crop': crop,
