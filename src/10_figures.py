@@ -228,3 +228,13 @@ def _compute_frontier_latitude(nass: pd.DataFrame,
         records.append({
             'year': yr,
             'crop': crop,
+            'frontier_lat': sorted_grp.loc[idx, 'lat']
+        })
+    return pd.DataFrame(records)
+
+
+def _lat_to_miles(delta_lat_per_decade: float) -> float:
+    """Convert latitude degrees/decade to miles/decade.
+
+    Args:
+        delta_lat_per_decade: Trend slope in degrees latitude per decade.
