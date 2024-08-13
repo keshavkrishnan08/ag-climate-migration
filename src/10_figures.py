@@ -248,3 +248,13 @@ def _lat_to_miles(delta_lat_per_decade: float) -> float:
 def figure_01_northward_migration(
     yields: pd.DataFrame = None,
     output_dir: Path = None
+) -> plt.Figure:
+    """4-panel figure: production-weighted centroid + 90th-percentile northern
+    frontier for corn, soybeans, winter wheat, and cotton (1950-2023).
+
+    Uses actual county centroids from Census Gazetteer weighted by NASS
+    harvested acreage. Two lines per panel:
+      - Centroid (black): where the average acre sits. May drift south
+        if intensification in existing areas outpaces frontier expansion.
+      - 90th-percentile frontier (blue): the latitude below which 90%
+        of production occurs. Northward movement here is the clearest
