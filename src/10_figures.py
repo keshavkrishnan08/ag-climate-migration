@@ -238,3 +238,13 @@ def _lat_to_miles(delta_lat_per_decade: float) -> float:
 
     Args:
         delta_lat_per_decade: Trend slope in degrees latitude per decade.
+
+    Returns:
+        Equivalent distance in miles per decade (1 degree ~ 69 miles).
+    """
+    return delta_lat_per_decade * 69.0
+
+
+def figure_01_northward_migration(
+    yields: pd.DataFrame = None,
+    output_dir: Path = None
