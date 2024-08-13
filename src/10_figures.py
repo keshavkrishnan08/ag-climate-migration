@@ -258,3 +258,13 @@ def figure_01_northward_migration(
         if intensification in existing areas outpaces frontier expansion.
       - 90th-percentile frontier (blue): the latitude below which 90%
         of production occurs. Northward movement here is the clearest
+        signal of climate-driven range expansion.
+
+    Trend lines fitted by OLS; shift reported in miles/decade.
+
+    Args:
+        yields: NASS county yields with acreage. If None, loaded from disk.
+        output_dir: Where to save.
+
+    Returns:
+        matplotlib Figure.
