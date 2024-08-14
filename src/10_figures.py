@@ -298,3 +298,13 @@ def figure_01_northward_migration(
                 f"{nass['fips'].nunique()} counties")
 
     # Load county centroids
+    centroids = _load_county_centroids()
+
+    # ------------------------------------------------------------------
+    # 2. Compute metrics
+    # ------------------------------------------------------------------
+    centroid_df = _compute_production_centroids(nass, centroids)
+    frontier_df = _compute_frontier_latitude(nass, centroids, percentile=90)
+
+    # ------------------------------------------------------------------
+    # 3. Plot
