@@ -348,3 +348,13 @@ def figure_01_northward_migration(
         if len(f_data) > 0:
             yrs_f = f_data['year'].values
             lat_f = f_data['frontier_lat'].values
+            ax.plot(yrs_f, lat_f, color=frontier_color, linewidth=0.6,
+                    alpha=0.4, zorder=1)
+            if len(lat_f) > 11:
+                window = min(15, len(lat_f) // 2 * 2 + 1)
+                lat_f_smooth = savgol_filter(lat_f, window, 2)
+                ax.plot(yrs_f, lat_f_smooth, color=frontier_color,
+                        linewidth=1.5, label='90th pctl frontier', zorder=2)
+            # OLS trend
+            z_f = np.polyfit(yrs_f, lat_f, 1)
+            ax.plot(yrs_f, np.polyval(z_f, yrs_f), color=frontier_trend_color,
