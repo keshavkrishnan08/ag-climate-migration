@@ -328,3 +328,13 @@ def figure_01_northward_migration(
         if len(c_data) > 0:
             yrs_c = c_data['year'].values
             lat_c = c_data['centroid_lat'].values
+            ax.plot(yrs_c, lat_c, color=centroid_color, linewidth=0.6,
+                    alpha=0.5, zorder=1)
+            # Savitzky-Golay smoothing for readability
+            if len(lat_c) > 11:
+                window = min(15, len(lat_c) // 2 * 2 + 1)
+                lat_c_smooth = savgol_filter(lat_c, window, 2)
+                ax.plot(yrs_c, lat_c_smooth, color=centroid_color,
+                        linewidth=1.5, label='Centroid', zorder=2)
+            # OLS trend
+            z_c = np.polyfit(yrs_c, lat_c, 1)
