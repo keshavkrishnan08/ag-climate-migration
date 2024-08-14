@@ -278,3 +278,13 @@ def figure_01_northward_migration(
             columns=['fips', 'year', 'crop', 'yield_bu_acre', 'acres_harvested']
         )
     else:
+        nass = yields.copy()
+
+    # Filter crops and years
+    target_crops = ['corn', 'soybeans', 'wheat_winter', 'cotton']
+    nass = nass[nass['crop'].isin(target_crops)]
+    nass = nass[(nass['year'] >= 1950) & (nass['year'] <= 2023)]
+    nass['fips'] = nass['fips'].astype(str).str.zfill(5)
+
+    # Remove aggregate FIPS (ending in 998, 999)
+    nass = nass[~nass['fips'].str[-3:].isin(['998', '999'])]
