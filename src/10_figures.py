@@ -368,3 +368,13 @@ def figure_01_northward_migration(
                     f'Frontier: {abs(miles_f):.0f} mi/dec {direction_f}')
             ax.text(0.03, 0.97, text, transform=ax.transAxes,
                     va='top', ha='left', fontsize=6,
+                    bbox=dict(boxstyle='round,pad=0.3', facecolor='white',
+                              edgecolor='gray', alpha=0.85))
+
+        ax.set_ylabel('Latitude (°N)')
+        ax.legend(loc='lower right', framealpha=0.85, fontsize=6)
+
+    fig.suptitle('Fig. 1: Production Centroid & Northern Frontier, 1950–2023',
+                 fontsize=10, fontweight='bold', y=1.01)
+    plt.tight_layout()
+
