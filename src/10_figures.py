@@ -308,3 +308,13 @@ def figure_01_northward_migration(
 
     # ------------------------------------------------------------------
     # 3. Plot
+    # ------------------------------------------------------------------
+    fig, axes = plt.subplots(2, 2, figsize=(DOUBLE_COL, DOUBLE_COL * 0.85))
+    crops = ['corn', 'soybeans', 'wheat_winter', 'cotton']
+    titles = ['Corn', 'Soybeans', 'Winter Wheat', 'Cotton']
+
+    # Color palette
+    centroid_color = '#2d2d2d'   # near-black
+    frontier_color = '#1f77b4'   # muted blue
+    centroid_trend_color = '#d62728'   # red
+    frontier_trend_color = '#1a5276'   # dark teal
