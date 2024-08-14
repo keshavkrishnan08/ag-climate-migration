@@ -268,3 +268,13 @@ def figure_01_northward_migration(
 
     Returns:
         matplotlib Figure.
+    """
+    # ------------------------------------------------------------------
+    # 1. Load data
+    # ------------------------------------------------------------------
+    if yields is None:
+        nass = pd.read_parquet(
+            DATA_RAW / 'nass' / 'nass_county_yields.parquet',
+            columns=['fips', 'year', 'crop', 'yield_bu_acre', 'acres_harvested']
+        )
+    else:
