@@ -378,3 +378,13 @@ def figure_01_northward_migration(
                  fontsize=10, fontweight='bold', y=1.01)
     plt.tight_layout()
 
+    save_figure(fig, 'fig01_northward_migration', output_dir)
+
+    # Log summary statistics
+    for crop in crops:
+        c_data = centroid_df[centroid_df['crop'] == crop]
+        f_data = frontier_df[frontier_df['crop'] == crop]
+        if len(c_data) > 0:
+            z_c = np.polyfit(c_data['year'], c_data['centroid_lat'], 1)
+            miles_c = _lat_to_miles(z_c[0] * 10)
+        if len(f_data) > 0:
