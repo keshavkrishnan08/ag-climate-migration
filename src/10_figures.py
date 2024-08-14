@@ -358,3 +358,13 @@ def figure_01_northward_migration(
             # OLS trend
             z_f = np.polyfit(yrs_f, lat_f, 1)
             ax.plot(yrs_f, np.polyval(z_f, yrs_f), color=frontier_trend_color,
+                    linestyle='--', linewidth=0.9, zorder=3)
+            miles_f = _lat_to_miles(z_f[0] * 10)
+            direction_f = 'N' if miles_f > 0 else 'S'
+
+        # Annotation box
+        if len(c_data) > 0 and len(f_data) > 0:
+            text = (f'Centroid: {abs(miles_c):.0f} mi/dec {direction_c}\n'
+                    f'Frontier: {abs(miles_f):.0f} mi/dec {direction_f}')
+            ax.text(0.03, 0.97, text, transform=ax.transAxes,
+                    va='top', ha='left', fontsize=6,
