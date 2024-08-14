@@ -318,3 +318,13 @@ def figure_01_northward_migration(
     frontier_color = '#1f77b4'   # muted blue
     centroid_trend_color = '#d62728'   # red
     frontier_trend_color = '#1a5276'   # dark teal
+
+    for ax, crop, title in zip(axes.flat, crops, titles):
+        ax.set_title(title, fontweight='bold')
+        ax.set_xlabel('Year')
+
+        # --- Centroid ---
+        c_data = centroid_df[centroid_df['crop'] == crop].sort_values('year')
+        if len(c_data) > 0:
+            yrs_c = c_data['year'].values
+            lat_c = c_data['centroid_lat'].values
