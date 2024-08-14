@@ -338,3 +338,13 @@ def figure_01_northward_migration(
                         linewidth=1.5, label='Centroid', zorder=2)
             # OLS trend
             z_c = np.polyfit(yrs_c, lat_c, 1)
+            ax.plot(yrs_c, np.polyval(z_c, yrs_c), color=centroid_trend_color,
+                    linestyle='--', linewidth=0.9, zorder=3)
+            miles_c = _lat_to_miles(z_c[0] * 10)
+            direction_c = 'N' if miles_c > 0 else 'S'
+
+        # --- 90th percentile frontier ---
+        f_data = frontier_df[frontier_df['crop'] == crop].sort_values('year')
+        if len(f_data) > 0:
+            yrs_f = f_data['year'].values
+            lat_f = f_data['frontier_lat'].values
