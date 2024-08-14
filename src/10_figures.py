@@ -288,3 +288,13 @@ def figure_01_northward_migration(
 
     # Remove aggregate FIPS (ending in 998, 999)
     nass = nass[~nass['fips'].str[-3:].isin(['998', '999'])]
+
+    # Deduplicate: first record per fips-year-crop
+    nass = nass.groupby(['fips', 'year', 'crop'], as_index=False).agg(
+        yield_bu_acre=('yield_bu_acre', 'first'),
+        acres_harvested=('acres_harvested', 'first')
+    )
+    logger.info(f"NASS after dedup: {len(nass):,} rows, "
+                f"{nass['fips'].nunique()} counties")
+
+    # Load county centroids
