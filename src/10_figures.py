@@ -388,3 +388,13 @@ def figure_01_northward_migration(
             z_c = np.polyfit(c_data['year'], c_data['centroid_lat'], 1)
             miles_c = _lat_to_miles(z_c[0] * 10)
         if len(f_data) > 0:
+            z_f = np.polyfit(f_data['year'], f_data['frontier_lat'], 1)
+            miles_f = _lat_to_miles(z_f[0] * 10)
+        logger.info(f"  {crop:15s}  centroid={miles_c:+.1f} mi/dec  "
+                     f"frontier={miles_f:+.1f} mi/dec")
+
+    return fig
+
+
+# ---------------------------------------------------------------------------
+# Figure 2: Model Validation: Hindcast 2013-2023
