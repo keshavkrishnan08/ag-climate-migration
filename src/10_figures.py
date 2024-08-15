@@ -428,3 +428,13 @@ def figure_02_model_validation(
         'precip_growing', 'pdsi_growing', 'cdd_annual',
         'gdd_corn', 'gdd_soybeans', 'gdd_wheat_winter',
         'gdd_wheat_spring', 'gdd_cotton', 'gdd_sorghum',
+        'gdd_barley', 'gdd_oats',
+        'tmax_july_c_trend10', 'precip_growing_trend10', 'cdd_annual_trend10',
+        'tmax_july_c_anomaly', 'precip_growing_anomaly', 'pdsi_growing_anomaly',
+        'extreme_heat_months', 'switching_rate_proxy', 'switching_rate_5yr',
+        'log_population', 'log_median_income', 'poverty_rate',
+    ]
+    crop_dummies = ['barley', 'corn', 'cotton', 'oats',
+                    'sorghum', 'soybeans', 'wheat_spring', 'wheat_winter']
+
+    fm = pd.read_parquet(
