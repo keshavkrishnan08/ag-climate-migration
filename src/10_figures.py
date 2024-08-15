@@ -418,3 +418,13 @@ def figure_02_model_validation(
 
     Returns:
         matplotlib Figure.
+    """
+    # ------------------------------------------------------------------
+    # 1. Load feature matrix test split and run model inference
+    # ------------------------------------------------------------------
+    feature_base = [
+        'yield_trend_slope_15yr', 'yield_trend_intercept',
+        'tmax_july_c', 'tmax_growing_c', 'tmin_growing_c',
+        'precip_growing', 'pdsi_growing', 'cdd_annual',
+        'gdd_corn', 'gdd_soybeans', 'gdd_wheat_winter',
+        'gdd_wheat_spring', 'gdd_cotton', 'gdd_sorghum',
