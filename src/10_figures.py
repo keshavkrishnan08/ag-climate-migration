@@ -438,3 +438,13 @@ def figure_02_model_validation(
                     'sorghum', 'soybeans', 'wheat_spring', 'wheat_winter']
 
     fm = pd.read_parquet(
+        DATA_PROCESSED / 'feature_matrix.parquet',
+        columns=['fips', 'year', 'crop', 'yield_anomaly'] + feature_base
+    )
+    test = fm[fm['year'].between(2017, 2023)].copy()
+    for c in crop_dummies:
+        test[f'crop_{c}'] = (test['crop'] == c).astype(int)
+    all_feature_cols = feature_base + [f'crop_{c}' for c in crop_dummies]
+    test = test.dropna(subset=['yield_anomaly'] + all_feature_cols)
+
+    model_path = RESULTS_DIR / '20260317_192605' / 'yield_model.pkl'
