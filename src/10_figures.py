@@ -398,3 +398,13 @@ def figure_01_northward_migration(
 
 # ---------------------------------------------------------------------------
 # Figure 2: Model Validation: Hindcast 2013-2023
+# ---------------------------------------------------------------------------
+def figure_02_model_validation(
+    observed: pd.DataFrame = None,
+    predicted: pd.DataFrame = None,
+    output_dir: Path = None
+) -> plt.Figure:
+    """Scatter: Predicted vs observed yield anomaly on held-out test set (2017-2023).
+
+    Uses the trained LightGBM yield model from results/20260317_192605/yield_model.pkl
+    applied to the feature matrix test split (years 2017-2023, temporal holdout).
