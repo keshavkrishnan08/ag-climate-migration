@@ -478,3 +478,13 @@ def figure_02_model_validation(
         ax.set_ylim(-lim, lim)
 
         r2 = np.corrcoef(obs, pred)[0, 1] ** 2
+        rmse = np.sqrt(np.mean((obs - pred) ** 2))
+        sp, _ = spearmanr(obs, pred)
+
+        ax.text(0.05, 0.97,
+                f'n={len(obs):,}\nR²={r2:.2f}\nRMSE={rmse:.2f} σ\nSpearman={sp:.2f}',
+                transform=ax.transAxes, va='top', fontsize=5.5,
+                bbox=dict(boxstyle='round,pad=0.25', facecolor='white',
+                          edgecolor='gray', alpha=0.85))
+        ax.set_xlabel('Observed yield anomaly (σ)', fontsize=7)
+        ax.set_ylabel('Predicted yield anomaly (σ)', fontsize=7)
