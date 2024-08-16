@@ -468,3 +468,13 @@ def figure_02_model_validation(
         sub = test[test['crop'] == crop_key]
         obs = sub['yield_anomaly'].values
         pred = sub['predicted_anomaly'].values
+
+        ax.scatter(obs, pred, s=2, alpha=0.35, c=colors[crop_key], rasterized=True)
+
+        # 1:1 line
+        lim = max(abs(obs).max(), abs(pred).max()) * 1.05
+        ax.plot([-lim, lim], [-lim, lim], 'k--', linewidth=0.6, zorder=5)
+        ax.set_xlim(-lim, lim)
+        ax.set_ylim(-lim, lim)
+
+        r2 = np.corrcoef(obs, pred)[0, 1] ** 2
