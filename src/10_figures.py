@@ -448,3 +448,13 @@ def figure_02_model_validation(
     test = test.dropna(subset=['yield_anomaly'] + all_feature_cols)
 
     model_path = RESULTS_DIR / '20260317_192605' / 'yield_model.pkl'
+    with open(model_path, 'rb') as f:
+        model = pickle.load(f)
+
+    test['predicted_anomaly'] = model.predict(test[all_feature_cols])
+    logger.info(f"Fig02: predictions on {len(test):,} test rows "
+                f"(Spearman={spearmanr(test['yield_anomaly'], test['predicted_anomaly'])[0]:.3f})")
+
+    # ------------------------------------------------------------------
+    # 2. Plot per-crop scatter panels
+    # ------------------------------------------------------------------
