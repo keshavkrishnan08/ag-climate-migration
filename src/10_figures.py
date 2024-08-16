@@ -458,3 +458,13 @@ def figure_02_model_validation(
     # ------------------------------------------------------------------
     # 2. Plot per-crop scatter panels
     # ------------------------------------------------------------------
+    plot_crops = [('corn', 'Corn'), ('soybeans', 'Soybeans'),
+                  ('wheat_winter', 'Winter Wheat')]
+    colors = {'corn': '#e6a817', 'soybeans': '#5b9e45', 'wheat_winter': '#c27b3e'}
+
+    fig, axes = plt.subplots(1, 3, figsize=(DOUBLE_COL, DOUBLE_COL * 0.38))
+
+    for ax, (crop_key, crop_label) in zip(axes, plot_crops):
+        sub = test[test['crop'] == crop_key]
+        obs = sub['yield_anomaly'].values
+        pred = sub['predicted_anomaly'].values
