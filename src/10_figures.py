@@ -488,3 +488,13 @@ def figure_02_model_validation(
                           edgecolor='gray', alpha=0.85))
         ax.set_xlabel('Observed yield anomaly (σ)', fontsize=7)
         ax.set_ylabel('Predicted yield anomaly (σ)', fontsize=7)
+        ax.set_title(crop_label, fontweight='bold')
+
+    fig.suptitle('Fig. 2: Model Validation — Test Set 2017–2023',
+                 fontsize=10, fontweight='bold')
+    plt.tight_layout()
+
+    save_figure(fig, 'fig02_model_validation', output_dir)
+    return fig
+
+
