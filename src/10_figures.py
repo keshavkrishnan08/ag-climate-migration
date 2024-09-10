@@ -498,3 +498,13 @@ def figure_02_model_validation(
     return fig
 
 
+# ---------------------------------------------------------------------------
+# Figure 3: The Yield Cliff — Non-linear Temperature Thresholds
+# ---------------------------------------------------------------------------
+def figure_03_yield_cliff(
+    shap_values: np.ndarray = None,
+    features: pd.DataFrame = None,
+    output_dir: Path = None
+) -> plt.Figure:
+    """SHAP dependence plots: Corn yield vs July Tmax (shows cliff at ~32°C),
+    Wheat yield vs spring temperature (shows linear gain).
