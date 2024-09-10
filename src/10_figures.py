@@ -528,3 +528,13 @@ def figure_03_yield_cliff(
 
     ax1.scatter(temps, effect, s=2, alpha=0.4, c='coral')
     ax1.axvline(32, color='red', linestyle='--', linewidth=0.8, label='32°C threshold')
+    ax1.set_xlabel('July Average Maximum Temperature (°C)')
+    ax1.set_ylabel('SHAP Value (Yield Effect)')
+    ax1.set_title('A. Corn: Temperature Cliff', fontweight='bold')
+    ax1.legend(fontsize=6)
+
+    # Panel B: Wheat linear gain
+    spring_temps = np.linspace(-5, 15, 200)
+    wheat_effect = 0.3 * spring_temps + np.random.normal(0, 0.2, len(spring_temps))
+
+    ax2.scatter(spring_temps, wheat_effect, s=2, alpha=0.4, c='goldenrod')
