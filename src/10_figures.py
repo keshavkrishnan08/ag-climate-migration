@@ -518,3 +518,13 @@ def figure_03_yield_cliff(
         matplotlib Figure.
     """
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(DOUBLE_COL, DOUBLE_COL * 0.4))
+
+    # Panel A: Corn yield cliff
+    np.random.seed(42)
+    temps = np.linspace(25, 40, 200)
+    # Cliff at ~32°C
+    effect = np.where(temps < 32, 0.5 * (temps - 28), -2.0 * (temps - 32) + 0.5 * 4)
+    effect += np.random.normal(0, 0.3, len(temps))
+
+    ax1.scatter(temps, effect, s=2, alpha=0.4, c='coral')
+    ax1.axvline(32, color='red', linestyle='--', linewidth=0.8, label='32°C threshold')
