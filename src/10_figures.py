@@ -508,3 +508,13 @@ def figure_03_yield_cliff(
 ) -> plt.Figure:
     """SHAP dependence plots: Corn yield vs July Tmax (shows cliff at ~32°C),
     Wheat yield vs spring temperature (shows linear gain).
+
+    Args:
+        shap_values: SHAP values from model.
+        features: Feature matrix.
+        output_dir: Where to save.
+
+    Returns:
+        matplotlib Figure.
+    """
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(DOUBLE_COL, DOUBLE_COL * 0.4))
