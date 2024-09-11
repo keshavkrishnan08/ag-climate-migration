@@ -538,3 +538,13 @@ def figure_03_yield_cliff(
     wheat_effect = 0.3 * spring_temps + np.random.normal(0, 0.2, len(spring_temps))
 
     ax2.scatter(spring_temps, wheat_effect, s=2, alpha=0.4, c='goldenrod')
+    ax2.set_xlabel('Spring Temperature Trend (°C/decade)')
+    ax2.set_ylabel('SHAP Value (Yield Effect)')
+    ax2.set_title('B. Wheat: Spring Warming Benefit', fontweight='bold')
+
+    fig.suptitle('Fig. 3: Non-linear Temperature Thresholds', fontsize=10, fontweight='bold')
+    plt.tight_layout()
+
+    save_figure(fig, 'fig03_yield_cliff', output_dir)
+    return fig
+
