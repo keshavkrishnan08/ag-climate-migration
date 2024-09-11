@@ -578,3 +578,13 @@ def figure_04_crop_switching(output_dir: Path = None) -> plt.Figure:
     #             switch_cotton_to_soybeans, switch_wheat_winter_to_wheat_spring
     # ------------------------------------------------------------------
     sr = pd.read_parquet(DATA_PROCESSED / 'switching_rates.parquet')
+    sr['fips'] = sr['fips'].astype(str).str.zfill(5)
+    # Compute aggregate switching signal per county-year: mean of all
+    # switch columns (higher = more switching activity overall)
+    switch_cols = [c for c in sr.columns if c.startswith('switch_')]
+    sr['switch_signal'] = sr[switch_cols].mean(axis=1)
+
+    # Time period definitions
+    periods = [
+        ('2008-2012', 2008, 2012),
+        ('2013-2017', 2013, 2017),
