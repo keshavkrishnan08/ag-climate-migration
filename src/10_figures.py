@@ -558,3 +558,13 @@ def figure_04_crop_switching(output_dir: Path = None) -> plt.Figure:
     Three panels (2008-2012, 2013-2017, 2018-2022). Each panel shows the
     per-county average net switching signal: the mean of all pairwise
     CDL switching rates aggregated to county level via the lat_band proxy,
+    combined with NASS-derived acreage-share changes (switch_* columns).
+    Red = net loss (switching away), blue = net gain (switching toward).
+
+    Uses CDL switching rates (data/raw/cdl/cdl_switching_rates.parquet)
+    aggregated by lat_band × year period, merged to county centroids,
+    plus NASS switching signals per county from
+    data/processed/switching_rates.parquet.
+
+    Args:
+        output_dir: Where to save.
