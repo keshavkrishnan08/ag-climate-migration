@@ -588,3 +588,13 @@ def figure_04_crop_switching(output_dir: Path = None) -> plt.Figure:
     periods = [
         ('2008-2012', 2008, 2012),
         ('2013-2017', 2013, 2017),
+        ('2018-2022', 2018, 2022),
+    ]
+
+    # Per-county mean switch signal per period
+    period_data = {}
+    for label, yr_start, yr_end in periods:
+        sub = sr[(sr['year'] >= yr_start) & (sr['year'] <= yr_end)]
+        agg = sub.groupby('fips')['switch_signal'].mean().reset_index()
+        agg.columns = ['fips', 'switch_signal']
+        period_data[label] = agg
