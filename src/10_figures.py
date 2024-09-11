@@ -548,3 +548,13 @@ def figure_03_yield_cliff(
     save_figure(fig, 'fig03_yield_cliff', output_dir)
     return fig
 
+
+# ---------------------------------------------------------------------------
+# Figure 4: Crop Switching is Already Happening
+# ---------------------------------------------------------------------------
+def figure_04_crop_switching(output_dir: Path = None) -> plt.Figure:
+    """County choropleth × 3 time periods: CDL/NASS-derived switching rates.
+
+    Three panels (2008-2012, 2013-2017, 2018-2022). Each panel shows the
+    per-county average net switching signal: the mean of all pairwise
+    CDL switching rates aggregated to county level via the lat_band proxy,
