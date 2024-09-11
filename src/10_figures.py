@@ -568,3 +568,13 @@ def figure_04_crop_switching(output_dir: Path = None) -> plt.Figure:
 
     Args:
         output_dir: Where to save.
+
+    Returns:
+        matplotlib Figure.
+    """
+    # ------------------------------------------------------------------
+    # 1. Load NASS switching rates — per county, per year
+    #    Columns: fips, year, switch_corn_to_soybeans, switch_corn_to_sorghum,
+    #             switch_cotton_to_soybeans, switch_wheat_winter_to_wheat_spring
+    # ------------------------------------------------------------------
+    sr = pd.read_parquet(DATA_PROCESSED / 'switching_rates.parquet')
