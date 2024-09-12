@@ -638,3 +638,13 @@ def figure_04_crop_switching(output_dir: Path = None) -> plt.Figure:
         n_counties = merged['switch_signal'].notna().sum()
         ax.text(0.02, 0.02, f'n={n_counties} counties',
                 transform=ax.transAxes, fontsize=5, color='#555555')
+
+    fig.suptitle('Fig. 4: Crop Switching Is Already Happening (2008–2022)',
+                 fontsize=10, fontweight='bold')
+    plt.tight_layout()
+
+    save_figure(fig, 'fig04_crop_switching', output_dir)
+    return fig
+
+
+# ---------------------------------------------------------------------------
