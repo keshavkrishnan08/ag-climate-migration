@@ -618,3 +618,13 @@ def figure_04_crop_switching(output_dir: Path = None) -> plt.Figure:
         return fig
 
     counties = _load_conus_counties()
+
+    # Symmetric color scale across all periods for comparability
+    all_vals = pd.concat(period_data.values())['switch_signal']
+    vmax = float(all_vals.quantile(0.95))
+    vmin = 0.0
+
+    fig, axes = plt.subplots(1, 3, figsize=(DOUBLE_COL, DOUBLE_COL * 0.42))
+
+    for ax, (label, _, _) in zip(axes, periods):
+        merged = counties.merge(period_data[label], on='fips', how='left')
