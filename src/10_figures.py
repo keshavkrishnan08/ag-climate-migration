@@ -608,3 +608,13 @@ def figure_04_crop_switching(output_dir: Path = None) -> plt.Figure:
         fig, axes = plt.subplots(1, 3, figsize=(DOUBLE_COL, DOUBLE_COL * 0.4))
         for ax, (label, _, _) in zip(axes, periods):
             ax.set_title(label, fontweight='bold')
+            ax.text(0.5, 0.5, '[Shapefile unavailable]',
+                    transform=ax.transAxes, ha='center', va='center',
+                    fontsize=8, color='gray')
+        fig.suptitle('Fig. 4: Crop Switching Is Already Happening',
+                     fontsize=10, fontweight='bold')
+        plt.tight_layout()
+        save_figure(fig, 'fig04_crop_switching', output_dir)
+        return fig
+
+    counties = _load_conus_counties()
