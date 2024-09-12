@@ -598,3 +598,13 @@ def figure_04_crop_switching(output_dir: Path = None) -> plt.Figure:
         agg = sub.groupby('fips')['switch_signal'].mean().reset_index()
         agg.columns = ['fips', 'switch_signal']
         period_data[label] = agg
+        logger.info(f"Fig04 {label}: {len(agg)} counties, "
+                    f"mean signal={agg['switch_signal'].mean():.4f}")
+
+    # ------------------------------------------------------------------
+    # 2. Plot
+    # ------------------------------------------------------------------
+    if not HAS_GEOPANDAS or not _COUNTY_SHP.exists():
+        fig, axes = plt.subplots(1, 3, figsize=(DOUBLE_COL, DOUBLE_COL * 0.4))
+        for ax, (label, _, _) in zip(axes, periods):
+            ax.set_title(label, fontweight='bold')
