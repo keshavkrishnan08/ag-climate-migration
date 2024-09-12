@@ -648,3 +648,13 @@ def figure_04_crop_switching(output_dir: Path = None) -> plt.Figure:
 
 
 # ---------------------------------------------------------------------------
+# Figure 5: 2050 Projections: Three Scenarios
+# ---------------------------------------------------------------------------
+def figure_05_projections(output_dir: Path = None) -> plt.Figure:
+    """Three-panel choropleth: County-level climate yield impact at 2030, 2040, 2050
+    under SSP2-4.5 (the only scenario available). Color = percent change in yield
+    due to climate (climate_impact_bu / yield_baseline × 100). Red = decline,
+    green = gain. Full multi-scenario comparison requires additional CMIP6 downloads
+    (SSP1-2.6 and SSP5-8.5 not yet available in data/projections/).
+
+    Returns:
