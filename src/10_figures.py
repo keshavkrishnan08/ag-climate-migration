@@ -628,3 +628,13 @@ def figure_04_crop_switching(output_dir: Path = None) -> plt.Figure:
 
     for ax, (label, _, _) in zip(axes, periods):
         merged = counties.merge(period_data[label], on='fips', how='left')
+        merged['switch_signal'] = merged['switch_signal'].clip(vmin, vmax)
+        _choropleth(
+            ax=ax, counties_geo=merged, col='switch_signal',
+            cmap='RdBu_r', vmin=vmin, vmax=vmax,
+            title=label,
+            unit='Mean switching signal',
+        )
+        n_counties = merged['switch_signal'].notna().sum()
+        ax.text(0.02, 0.02, f'n={n_counties} counties',
+                transform=ax.transAxes, fontsize=5, color='#555555')
