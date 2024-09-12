@@ -658,3 +658,13 @@ def figure_05_projections(output_dir: Path = None) -> plt.Figure:
     (SSP1-2.6 and SSP5-8.5 not yet available in data/projections/).
 
     Returns:
+        matplotlib Figure.
+    """
+    # ------------------------------------------------------------------
+    # 1. Load and aggregate projections
+    # ------------------------------------------------------------------
+    yp = pd.read_parquet(
+        PROJECTIONS_DIR / 'yield_projections_SSP245.parquet',
+        columns=['fips', 'year', 'yield_baseline', 'climate_impact_bu', 'acres_harvested']
+    )
+    yp['fips'] = yp['fips'].astype(str).str.zfill(5)
