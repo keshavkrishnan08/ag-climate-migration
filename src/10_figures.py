@@ -688,3 +688,13 @@ def figure_05_projections(output_dir: Path = None) -> plt.Figure:
 
     # ------------------------------------------------------------------
     # 2. Merge with geometry
+    # ------------------------------------------------------------------
+    if not HAS_GEOPANDAS or not _COUNTY_SHP.exists():
+        # Fallback: scatter placeholder
+        fig, axes = plt.subplots(1, 3, figsize=(DOUBLE_COL, DOUBLE_COL * 0.4))
+        for ax, yr in zip(axes, time_slices):
+            ax.set_title(f'SSP2-4.5 — {yr}', fontweight='bold')
+            ax.text(0.5, 0.5, '[Shapefile unavailable]',
+                    transform=ax.transAxes, ha='center', va='center',
+                    fontsize=8, color='gray')
+        fig.suptitle('Fig. 5: Projected Climate Yield Impact — SSP2-4.5',
