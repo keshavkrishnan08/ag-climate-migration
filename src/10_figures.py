@@ -698,3 +698,13 @@ def figure_05_projections(output_dir: Path = None) -> plt.Figure:
                     transform=ax.transAxes, ha='center', va='center',
                     fontsize=8, color='gray')
         fig.suptitle('Fig. 5: Projected Climate Yield Impact — SSP2-4.5',
+                     fontsize=10, fontweight='bold')
+        plt.tight_layout()
+        save_figure(fig, 'fig05_projections', output_dir)
+        return fig
+
+    counties = _load_conus_counties()
+    vabs = 15   # symmetric color scale ±15%
+
+    fig, axes = plt.subplots(1, 3, figsize=(DOUBLE_COL, DOUBLE_COL * 0.42))
+
