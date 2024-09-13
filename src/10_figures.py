@@ -678,3 +678,13 @@ def figure_05_projections(output_dir: Path = None) -> plt.Figure:
 
     time_slices = [2030, 2040, 2050]
     county_slices = {}
+    for yr in time_slices:
+        sub = yp[yp['year'] == yr]
+        agg = sub.groupby('fips').agg(
+            wgt=('wgt', 'sum'), acres=('acres', 'sum')
+        ).reset_index()
+        agg['pct_change'] = agg['wgt'] / agg['acres']
+        county_slices[yr] = agg[['fips', 'pct_change']]
+
+    # ------------------------------------------------------------------
+    # 2. Merge with geometry
