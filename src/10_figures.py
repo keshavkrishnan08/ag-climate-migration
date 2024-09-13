@@ -668,3 +668,13 @@ def figure_05_projections(output_dir: Path = None) -> plt.Figure:
         columns=['fips', 'year', 'yield_baseline', 'climate_impact_bu', 'acres_harvested']
     )
     yp['fips'] = yp['fips'].astype(str).str.zfill(5)
+    # Exclude counties with zero baseline to avoid div-by-zero
+    yp = yp[yp['yield_baseline'].abs() > 1].copy()
+    yp['pct_change'] = yp['climate_impact_bu'] / yp['yield_baseline'] * 100
+
+    # Acreage-weighted percent change per county-year
+    yp['wgt'] = yp['pct_change'] * yp['acres_harvested'].fillna(1)
+    yp['acres'] = yp['acres_harvested'].fillna(1)
+
+    time_slices = [2030, 2040, 2050]
+    county_slices = {}
