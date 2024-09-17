@@ -758,3 +758,13 @@ def figure_06_stranded(output_dir: Path = None) -> plt.Figure:
 
     _sv = (
         sa[['fips']].merge(
+            pd.read_parquet(
+                RESULTS_DIR / 'stranded_assets' / 'stranded_national_SSP245.parquet',
+                columns=['fips', 'stranded_value_total']
+            ),
+            on='fips'
+        )
+    )
+    # Sum only counties with positive stranded value (climate losers).
+    # This matches the conservative DCF headline figure used throughout the paper.
+    total_stranded_b = _sv[_sv['stranded_value_total'] > 0]['stranded_value_total'].sum() / 1e9
