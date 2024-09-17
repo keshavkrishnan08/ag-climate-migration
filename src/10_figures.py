@@ -748,3 +748,13 @@ def figure_06_stranded(output_dir: Path = None) -> plt.Figure:
         matplotlib Figure.
     """
     # ------------------------------------------------------------------
+    # 1. Load data
+    # ------------------------------------------------------------------
+    sa = pd.read_parquet(
+        RESULTS_DIR / 'stranded_assets' / 'stranded_national_SSP245.parquet',
+        columns=['fips', 'stranded_value_per_acre', 'stranded_fraction', 'land_value_per_acre']
+    )
+    sa['fips'] = sa['fips'].astype(str).str.zfill(5)
+
+    _sv = (
+        sa[['fips']].merge(
