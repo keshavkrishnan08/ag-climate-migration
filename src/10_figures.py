@@ -768,3 +768,13 @@ def figure_06_stranded(output_dir: Path = None) -> plt.Figure:
     # Sum only counties with positive stranded value (climate losers).
     # This matches the conservative DCF headline figure used throughout the paper.
     total_stranded_b = _sv[_sv['stranded_value_total'] > 0]['stranded_value_total'].sum() / 1e9
+    logger.info(f"Fig06: total stranded = ${total_stranded_b:.1f}B (positive counties only), "
+                f"{len(sa)} counties total")
+
+    # ------------------------------------------------------------------
+    # 2. Choropleth map
+    # ------------------------------------------------------------------
+    fig = plt.figure(figsize=(DOUBLE_COL, DOUBLE_COL * 0.46))
+    gs = GridSpec(1, 2, width_ratios=[2.2, 1], figure=fig)
+    ax_map = fig.add_subplot(gs[0])
+    ax_hist = fig.add_subplot(gs[1])
