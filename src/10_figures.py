@@ -708,3 +708,13 @@ def figure_05_projections(output_dir: Path = None) -> plt.Figure:
 
     fig, axes = plt.subplots(1, 3, figsize=(DOUBLE_COL, DOUBLE_COL * 0.42))
 
+    for ax, yr in zip(axes, time_slices):
+        merged = counties.merge(county_slices[yr], on='fips', how='left')
+        # Clip extreme outliers for display
+        merged['pct_change'] = merged['pct_change'].clip(-vabs, vabs)
+        _choropleth(
+            ax=ax, counties_geo=merged, col='pct_change',
+            cmap='RdYlGn', vmin=-vabs, vmax=vabs,
+            title=f'SSP2-4.5 — {yr}',
+            unit='Climate yield impact (%)',
+        )
