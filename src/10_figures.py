@@ -718,3 +718,13 @@ def figure_05_projections(output_dir: Path = None) -> plt.Figure:
             title=f'SSP2-4.5 — {yr}',
             unit='Climate yield impact (%)',
         )
+        n_counties = merged['pct_change'].notna().sum()
+        ax.text(0.02, 0.02, f'n={n_counties} counties',
+                transform=ax.transAxes, fontsize=5, color='#555555')
+
+    # NOTE: RCP2.6 and RCP8.5 panels require SSP1-2.6 and SSP5-8.5 CMIP6
+    # downloads which are not yet available. See data/projections/ for status.
+    fig.suptitle('Fig. 5: Climate Yield Impact — SSP2-4.5 (2030 / 2040 / 2050)',
+                 fontsize=9, fontweight='bold')
+    plt.tight_layout()
+
