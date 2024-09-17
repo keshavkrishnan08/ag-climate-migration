@@ -728,3 +728,13 @@ def figure_05_projections(output_dir: Path = None) -> plt.Figure:
                  fontsize=9, fontweight='bold')
     plt.tight_layout()
 
+    save_figure(fig, 'fig05_projections', output_dir)
+    return fig
+
+
+# ---------------------------------------------------------------------------
+# Figure 6: Stranded Assets: $X Billion Already Gone
+# ---------------------------------------------------------------------------
+def figure_06_stranded(output_dir: Path = None) -> plt.Figure:
+    """Choropleth + histogram: County-level stranded agricultural asset value.
+
