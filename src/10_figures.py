@@ -738,3 +738,13 @@ def figure_05_projections(output_dir: Path = None) -> plt.Figure:
 def figure_06_stranded(output_dir: Path = None) -> plt.Figure:
     """Choropleth + histogram: County-level stranded agricultural asset value.
 
+    Panel A: County choropleth of stranded_value_per_acre from DCF model
+    (SSP2-4.5, 4% discount, 30-year horizon). Warm colors = higher stranded value.
+    Panel B: Histogram of stranded_fraction (stranded ÷ current land value per acre).
+
+    Data source: results/stranded_assets/stranded_national_SSP245.parquet
+
+    Returns:
+        matplotlib Figure.
+    """
+    # ------------------------------------------------------------------
