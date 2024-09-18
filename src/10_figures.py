@@ -788,3 +788,13 @@ def figure_06_stranded(output_dir: Path = None) -> plt.Figure:
         _choropleth(
             ax=ax_map, counties_geo=merged, col='stranded_value_per_acre',
             cmap='YlOrRd', vmin=vmin, vmax=vmax,
+            title='A. Stranded Value Per Acre',
+            unit='$/acre',
+        )
+        ax_map.text(
+            0.02, 0.02,
+            f'Total stranded: ${total_stranded_b:.0f}B (SSP2-4.5, 4%, 30yr)',
+            transform=ax_map.transAxes, fontsize=5, color='#333333',
+            bbox=dict(boxstyle='round,pad=0.2', facecolor='white', alpha=0.8)
+        )
+    else:
