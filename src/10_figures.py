@@ -808,3 +808,13 @@ def figure_06_stranded(output_dir: Path = None) -> plt.Figure:
     # ------------------------------------------------------------------
     fractions = sa['stranded_fraction'].dropna()
     # Clip for display: most < 1, some outliers > 1 (heavily impacted counties)
+    fractions_clipped = fractions.clip(0, 1)
+    ax_hist.hist(fractions_clipped, bins=40, color='#c0392b',
+                 edgecolor='white', linewidth=0.25, alpha=0.85)
+    ax_hist.axvline(fractions_clipped.median(), color='black', linewidth=0.8,
+                    linestyle='--', label=f'Median: {fractions_clipped.median():.2f}')
+    ax_hist.set_xlabel('Stranded fraction of land value', fontsize=7)
+    ax_hist.set_ylabel('Counties', fontsize=7)
+    ax_hist.set_title('B. Distribution of Stranded Fraction', fontweight='bold')
+    ax_hist.legend(fontsize=5)
+    n_above_half = (fractions_clipped >= 0.5).sum()
