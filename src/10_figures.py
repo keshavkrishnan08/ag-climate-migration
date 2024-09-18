@@ -778,3 +778,13 @@ def figure_06_stranded(output_dir: Path = None) -> plt.Figure:
     gs = GridSpec(1, 2, width_ratios=[2.2, 1], figure=fig)
     ax_map = fig.add_subplot(gs[0])
     ax_hist = fig.add_subplot(gs[1])
+
+    if HAS_GEOPANDAS and _COUNTY_SHP.exists():
+        counties = _load_conus_counties()
+        merged = counties.merge(sa, on='fips', how='left')
+        # Cap at 99th percentile so outlier counties don't dominate scale
+        vmax = sa['stranded_value_per_acre'].clip(lower=0).quantile(0.99)
+        vmin = 0
+        _choropleth(
+            ax=ax_map, counties_geo=merged, col='stranded_value_per_acre',
+            cmap='YlOrRd', vmin=vmin, vmax=vmax,
