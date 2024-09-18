@@ -798,3 +798,13 @@ def figure_06_stranded(output_dir: Path = None) -> plt.Figure:
             bbox=dict(boxstyle='round,pad=0.2', facecolor='white', alpha=0.8)
         )
     else:
+        ax_map.set_title('A. Stranded Value Per Acre', fontweight='bold')
+        ax_map.text(0.5, 0.5, '[Shapefile unavailable]',
+                    transform=ax_map.transAxes, ha='center', va='center',
+                    fontsize=8, color='gray')
+
+    # ------------------------------------------------------------------
+    # 3. Histogram of stranded fraction (real data)
+    # ------------------------------------------------------------------
+    fractions = sa['stranded_fraction'].dropna()
+    # Clip for display: most < 1, some outliers > 1 (heavily impacted counties)
