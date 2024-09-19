@@ -828,3 +828,13 @@ def figure_06_stranded(output_dir: Path = None) -> plt.Figure:
                  fontsize=10, fontweight='bold')
     plt.tight_layout()
 
+    save_figure(fig, 'fig06_stranded', output_dir)
+    return fig
+
+
+# ---------------------------------------------------------------------------
+# Figure 7: The Community Cascade: 300 Counties Before 2040
+# ---------------------------------------------------------------------------
+def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
+    """Two-panel cascade figure.
+
