@@ -858,3 +858,13 @@ def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
         columns=['fips', 'tipping_year']
     )
     tp['fips'] = tp['fips'].astype(str).str.zfill(5)
+    n_tipping_2040 = (tp['tipping_year'] <= 2040).sum()
+    n_tipping_total = tp['tipping_year'].notna().sum()
+    logger.info(f"Fig07: {n_tipping_total} counties tip under SSP2-4.5; "
+                f"{n_tipping_2040} before 2040")
+
+    # ------------------------------------------------------------------
+    # 2. Load historical cascade signal counts
+    # ------------------------------------------------------------------
+    hc = pd.read_parquet(
+        RESULTS_DIR / 'economic' / 'historical_cascade_2005_2023.parquet',
