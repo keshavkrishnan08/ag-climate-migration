@@ -868,3 +868,13 @@ def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
     # ------------------------------------------------------------------
     hc = pd.read_parquet(
         RESULTS_DIR / 'economic' / 'historical_cascade_2005_2023.parquet',
+        columns=[
+            'fips',
+            'signal_yield_decline', 'signal_pop_decline', 'signal_income_decline',
+            'signal_outmigration', 'signal_school_decline', 'signal_hospital_closure'
+        ]
+    )
+    signal_labels = [
+        'Yield decline', 'Population decline', 'Income decline',
+        'Out-migration', 'School closure', 'Hospital closure'
+    ]
