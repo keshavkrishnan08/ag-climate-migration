@@ -818,3 +818,13 @@ def figure_06_stranded(output_dir: Path = None) -> plt.Figure:
     ax_hist.set_title('B. Distribution of Stranded Fraction', fontweight='bold')
     ax_hist.legend(fontsize=5)
     n_above_half = (fractions_clipped >= 0.5).sum()
+    ax_hist.text(0.97, 0.97,
+                 f'n={len(fractions)} counties\n{n_above_half} with ≥50% stranded',
+                 transform=ax_hist.transAxes, va='top', ha='right', fontsize=5.5,
+                 bbox=dict(boxstyle='round,pad=0.25', facecolor='white',
+                           edgecolor='gray', alpha=0.85))
+
+    fig.suptitle('Fig. 6: Stranded Agricultural Assets — SSP2-4.5',
+                 fontsize=10, fontweight='bold')
+    plt.tight_layout()
+
