@@ -838,3 +838,13 @@ def figure_06_stranded(output_dir: Path = None) -> plt.Figure:
 def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
     """Two-panel cascade figure.
 
+    Panel A: Choropleth of counties colored by tipping year (2025-2053).
+             Counties with no projected tipping point shown in light grey.
+             Tipping = year when cascade score first reaches threshold in
+             the IV-cascade model.  Data: results/cascade/tipping_points_SSP245.parquet.
+
+    Panel B: Historical cascade signal bar chart from results/economic/
+             historical_cascade_2005_2023.parquet.  Shows how many of 1824 rural
+             agricultural counties already exhibit each cascade signal (2005-2023).
+
+    Returns:
