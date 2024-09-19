@@ -848,3 +848,13 @@ def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
              agricultural counties already exhibit each cascade signal (2005-2023).
 
     Returns:
+        matplotlib Figure.
+    """
+    # ------------------------------------------------------------------
+    # 1. Load tipping point data
+    # ------------------------------------------------------------------
+    tp = pd.read_parquet(
+        RESULTS_DIR / 'cascade' / 'tipping_points_SSP245.parquet',
+        columns=['fips', 'tipping_year']
+    )
+    tp['fips'] = tp['fips'].astype(str).str.zfill(5)
