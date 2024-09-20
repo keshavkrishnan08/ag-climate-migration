@@ -898,3 +898,13 @@ def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
         merged = counties.merge(tp, on='fips', how='left')
         # Numeric tipping year — NaN for no tipping
         _choropleth(
+            ax=ax_map, counties_geo=merged, col='tipping_year',
+            cmap='plasma_r',
+            vmin=tp['tipping_year'].min(),
+            vmax=tp['tipping_year'].max(),
+            title='A. Counties by Tipping Year (SSP2-4.5)',
+            unit='Tipping year',
+            missing_color='#e8e8e8',
+        )
+        ax_map.text(
+            0.02, 0.02,
