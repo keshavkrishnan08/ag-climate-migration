@@ -878,3 +878,13 @@ def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
         'Yield decline', 'Population decline', 'Income decline',
         'Out-migration', 'School closure', 'Hospital closure'
     ]
+    signal_cols = [
+        'signal_yield_decline', 'signal_pop_decline', 'signal_income_decline',
+        'signal_outmigration', 'signal_school_decline', 'signal_hospital_closure'
+    ]
+    signal_counts = [int(hc[c].sum()) for c in signal_cols]
+
+    # ------------------------------------------------------------------
+    # 3. Build figure
+    # ------------------------------------------------------------------
+    fig = plt.figure(figsize=(DOUBLE_COL, DOUBLE_COL * 0.46))
