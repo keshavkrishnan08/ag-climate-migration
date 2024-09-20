@@ -888,3 +888,13 @@ def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
     # 3. Build figure
     # ------------------------------------------------------------------
     fig = plt.figure(figsize=(DOUBLE_COL, DOUBLE_COL * 0.46))
+    gs = GridSpec(1, 2, width_ratios=[2.2, 1.1], figure=fig)
+    ax_map = fig.add_subplot(gs[0])
+    ax_bar = fig.add_subplot(gs[1])
+
+    # --- Panel A: choropleth ---
+    if HAS_GEOPANDAS and _COUNTY_SHP.exists():
+        counties = _load_conus_counties()
+        merged = counties.merge(tp, on='fips', how='left')
+        # Numeric tipping year — NaN for no tipping
+        _choropleth(
