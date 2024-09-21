@@ -918,3 +918,13 @@ def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
         ax_map.text(0.5, 0.5, '[Shapefile unavailable]',
                     transform=ax_map.transAxes, ha='center', va='center',
                     fontsize=8, color='gray')
+
+    # --- Panel B: historical cascade signal bar chart ---
+    y_pos = np.arange(len(signal_labels))
+    bar_colors = plt.cm.Reds(np.linspace(0.35, 0.85, len(signal_labels)))
+    bars = ax_bar.barh(y_pos, signal_counts, color=bar_colors,
+                       edgecolor='white', linewidth=0.3)
+    ax_bar.set_yticks(y_pos)
+    ax_bar.set_yticklabels(signal_labels, fontsize=6)
+    ax_bar.set_xlabel('Counties already affected\n(2005–2023)', fontsize=6)
+    ax_bar.set_title('B. Cascade Signals\n(Historical, n=1,824)', fontweight='bold', fontsize=7)
