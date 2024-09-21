@@ -908,3 +908,13 @@ def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
         )
         ax_map.text(
             0.02, 0.02,
+            f'{n_tipping_2040} counties tip before 2040\n'
+            f'{n_tipping_total} total with tipping point',
+            transform=ax_map.transAxes, fontsize=5.5, color='#333333',
+            bbox=dict(boxstyle='round,pad=0.25', facecolor='white', alpha=0.85)
+        )
+    else:
+        ax_map.set_title('A. Counties by Tipping Year', fontweight='bold')
+        ax_map.text(0.5, 0.5, '[Shapefile unavailable]',
+                    transform=ax_map.transAxes, ha='center', va='center',
+                    fontsize=8, color='gray')
