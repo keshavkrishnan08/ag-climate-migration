@@ -928,3 +928,13 @@ def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
     ax_bar.set_yticklabels(signal_labels, fontsize=6)
     ax_bar.set_xlabel('Counties already affected\n(2005–2023)', fontsize=6)
     ax_bar.set_title('B. Cascade Signals\n(Historical, n=1,824)', fontweight='bold', fontsize=7)
+    ax_bar.invert_yaxis()
+    # Label bars
+    for bar, count in zip(bars, signal_counts):
+        ax_bar.text(bar.get_width() + 5, bar.get_y() + bar.get_height() / 2,
+                    str(count), va='center', fontsize=5.5)
+    ax_bar.set_xlim(0, max(signal_counts) * 1.18)
+
+    fig.suptitle('Fig. 7: The Community Collapse Cascade',
+                 fontsize=10, fontweight='bold')
+    plt.tight_layout()
