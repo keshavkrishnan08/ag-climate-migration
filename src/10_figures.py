@@ -978,3 +978,13 @@ def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
     # Aggregate to county: acreage-weighted mean signed mispricing.
     # Use max(insured_acres, 1) as weight so counties with all-zero reported
     # acres still get equal weight (avoids np.average zero-sum error).
+    def _wtd_mean(g: pd.DataFrame) -> float:
+        wts = g['insured_acres'].fillna(0).clip(lower=1)
+        return float(np.average(g['signed_misprice'], weights=wts))
+
+    county_mi = mi.groupby('fips').apply(_wtd_mean).reset_index(name='signed_misprice')
+
+    total_cross_subsidy_b = mi['annual_cross_subsidy'].sum() / 1e9
+    logger.info(f"Fig08: {len(county_mi)} counties, "
+                f"net cross-subsidy ${total_cross_subsidy_b:.2f}B/yr")
+
