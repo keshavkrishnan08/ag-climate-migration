@@ -938,3 +938,13 @@ def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
     fig.suptitle('Fig. 7: The Community Collapse Cascade',
                  fontsize=10, fontweight='bold')
     plt.tight_layout()
+
+    save_figure(fig, 'fig07_cascade', output_dir)
+    return fig
+
+
+# ---------------------------------------------------------------------------
+# Figure 8: Insurance Mispricing: Subsidizing Retreat
+# ---------------------------------------------------------------------------
+def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
+    """Choropleth + regional bar: Insurance premium mispricing under SSP2-4.5.
