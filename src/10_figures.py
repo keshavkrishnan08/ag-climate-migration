@@ -958,3 +958,13 @@ def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
     Panel B: Mean signed mispricing per acre aggregated to 5 USDA Farm Resource
              Regions for context. Positive bars = net subsidy exporters.
 
+    Returns:
+        matplotlib Figure.
+    """
+    # ------------------------------------------------------------------
+    # 1. Load and prepare mispricing data
+    # ------------------------------------------------------------------
+    mi = pd.read_parquet(
+        RESULTS_DIR / 'insurance' / 'mispricing_SSP245.parquet',
+        columns=['fips', 'crop', 'mispricing_per_acre', 'direction',
+                 'insured_acres', 'annual_cross_subsidy']
