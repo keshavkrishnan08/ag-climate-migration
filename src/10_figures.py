@@ -988,3 +988,13 @@ def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
     logger.info(f"Fig08: {len(county_mi)} counties, "
                 f"net cross-subsidy ${total_cross_subsidy_b:.2f}B/yr")
 
+    # ------------------------------------------------------------------
+    # 2. Regional aggregation using state FIPS → region mapping
+    # ------------------------------------------------------------------
+    # USDA ERS Farm Resource Regions (simplified)
+    region_map = {
+        # Northern Plains: ND, SD, NE, KS
+        '38': 'Northern Plains', '46': 'Northern Plains',
+        '31': 'Northern Plains', '20': 'Northern Plains',
+        # Corn Belt: IL, IN, IA, MO, OH
+        '17': 'Corn Belt', '18': 'Corn Belt', '19': 'Corn Belt',
