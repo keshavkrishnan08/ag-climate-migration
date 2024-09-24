@@ -968,3 +968,13 @@ def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
         RESULTS_DIR / 'insurance' / 'mispricing_SSP245.parquet',
         columns=['fips', 'crop', 'mispricing_per_acre', 'direction',
                  'insured_acres', 'annual_cross_subsidy']
+    )
+    mi['fips'] = mi['fips'].astype(str).str.zfill(5)
+    # Signed mispricing: overpriced counties are net subsidy exporters (+)
+    mi['signed_misprice'] = mi['mispricing_per_acre'] * mi['direction'].map(
+        {'overpriced': 1.0, 'underpriced': -1.0, 'fair': 0.0}
+    )
+
+    # Aggregate to county: acreage-weighted mean signed mispricing.
+    # Use max(insured_acres, 1) as weight so counties with all-zero reported
+    # acres still get equal weight (avoids np.average zero-sum error).
