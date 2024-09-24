@@ -948,3 +948,13 @@ def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
 # ---------------------------------------------------------------------------
 def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
     """Choropleth + regional bar: Insurance premium mispricing under SSP2-4.5.
+
+    Panel A: County-level choropleth of signed mispricing per acre.
+             Positive (warm) = county is overpriced relative to forward climate
+             risk (i.e., the county is subsidising others through the risk pool).
+             Negative (cool) = county receives a climate subsidy.
+             Source: results/insurance/mispricing_SSP245.parquet.
+
+    Panel B: Mean signed mispricing per acre aggregated to 5 USDA Farm Resource
+             Regions for context. Positive bars = net subsidy exporters.
+
