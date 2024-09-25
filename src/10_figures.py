@@ -1038,3 +1038,13 @@ def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
             0.02, 0.02,
             f'Net cross-subsidy: ${total_cross_subsidy_b:.1f}B/yr',
             transform=ax_map.transAxes, fontsize=5.5,
+            bbox=dict(boxstyle='round,pad=0.25', facecolor='white', alpha=0.85)
+        )
+    else:
+        ax_map.set_title('A. Insurance Mispricing Per Acre', fontweight='bold')
+        ax_map.text(0.5, 0.5, '[Shapefile unavailable]',
+                    transform=ax_map.transAxes, ha='center', va='center',
+                    fontsize=8, color='gray')
+
+    # --- Panel B: regional bar chart ---
+    regions = region_agg.index.tolist()
