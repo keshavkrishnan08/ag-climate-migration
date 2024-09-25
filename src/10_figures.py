@@ -998,3 +998,13 @@ def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
         '31': 'Northern Plains', '20': 'Northern Plains',
         # Corn Belt: IL, IN, IA, MO, OH
         '17': 'Corn Belt', '18': 'Corn Belt', '19': 'Corn Belt',
+        '29': 'Corn Belt', '39': 'Corn Belt',
+        # Southern Plains: TX, OK
+        '48': 'Southern Plains', '40': 'Southern Plains',
+        # Delta: AR, LA, MS
+        '05': 'Delta', '22': 'Delta', '28': 'Delta',
+        # Southeast: AL, FL, GA, SC, NC
+        '01': 'Southeast', '12': 'Southeast', '13': 'Southeast',
+        '45': 'Southeast', '37': 'Southeast',
+    }
+    county_mi['state_fips'] = county_mi['fips'].str[:2]
