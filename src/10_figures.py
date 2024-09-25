@@ -1008,3 +1008,13 @@ def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
         '45': 'Southeast', '37': 'Southeast',
     }
     county_mi['state_fips'] = county_mi['fips'].str[:2]
+    county_mi['region'] = county_mi['state_fips'].map(region_map)
+    region_agg = (
+        county_mi.dropna(subset=['region'])
+        .groupby('region')['signed_misprice'].mean()
+        .reindex(['Northern Plains', 'Corn Belt', 'Southern Plains', 'Delta', 'Southeast'])
+    )
+
+    # ------------------------------------------------------------------
+    # 3. Build figure
+    # ------------------------------------------------------------------
