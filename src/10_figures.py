@@ -1028,3 +1028,13 @@ def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
         counties = _load_conus_counties()
         merged = counties.merge(county_mi, on='fips', how='left')
         vabs = county_mi['signed_misprice'].abs().quantile(0.95)
+        _choropleth(
+            ax=ax_map, counties_geo=merged, col='signed_misprice',
+            cmap='RdBu', vmin=-vabs, vmax=vabs,
+            title='A. Insurance Mispricing Per Acre',
+            unit='$/acre/yr  (+ = overpriced)',
+        )
+        ax_map.text(
+            0.02, 0.02,
+            f'Net cross-subsidy: ${total_cross_subsidy_b:.1f}B/yr',
+            transform=ax_map.transAxes, fontsize=5.5,
