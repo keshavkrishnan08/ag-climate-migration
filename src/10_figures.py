@@ -1018,3 +1018,13 @@ def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
     # ------------------------------------------------------------------
     # 3. Build figure
     # ------------------------------------------------------------------
+    fig = plt.figure(figsize=(DOUBLE_COL, DOUBLE_COL * 0.44))
+    gs = GridSpec(1, 2, width_ratios=[2.2, 1.0], figure=fig)
+    ax_map = fig.add_subplot(gs[0])
+    ax_bar = fig.add_subplot(gs[1])
+
+    # --- Panel A: choropleth ---
+    if HAS_GEOPANDAS and _COUNTY_SHP.exists():
+        counties = _load_conus_counties()
+        merged = counties.merge(county_mi, on='fips', how='left')
+        vabs = county_mi['signed_misprice'].abs().quantile(0.95)
