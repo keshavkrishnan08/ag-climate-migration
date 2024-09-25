@@ -1048,3 +1048,13 @@ def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
 
     # --- Panel B: regional bar chart ---
     regions = region_agg.index.tolist()
+    vals = region_agg.values
+    bar_colors = ['#2ecc71' if v > 0 else '#e74c3c' for v in vals]
+    ax_bar.bar(range(len(regions)), vals, color=bar_colors,
+               edgecolor='white', linewidth=0.4)
+    ax_bar.axhline(0, color='black', linewidth=0.5)
+    ax_bar.set_xticks(range(len(regions)))
+    ax_bar.set_xticklabels(
+        [r.replace(' ', '\n') for r in regions], fontsize=5.5
+    )
+    ax_bar.set_ylabel('Mean mispricing ($/acre/yr)', fontsize=6.5)
