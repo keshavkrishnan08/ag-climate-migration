@@ -1118,3 +1118,13 @@ def figure_09_frontier(output_dir: Path = None) -> plt.Figure:
         yp = pd.read_parquet(
             proj_path,
             columns=['fips', 'year', 'climate_impact_bu', 'acres_harvested']
+        )
+        yp['fips'] = yp['fips'].astype(str).str.zfill(5)
+        yp = yp[yp['year'] == 2040].copy()
+        yp['opportunity'] = (yp['climate_impact_bu'] * yp['acres_harvested'].fillna(0)).clip(lower=0)
+        opp = yp.groupby('fips')['opportunity'].sum().reset_index()
+        opp.columns = ['fips', 'total_annual_opportunity']
+        value_col = 'total_annual_opportunity'
+        unit_label = 'Climate gain (bu × acres, 2040)'
+        logger.info(f"Fig09: derived {len(opp)} counties from projections fallback")
+
