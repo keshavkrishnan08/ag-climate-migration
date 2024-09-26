@@ -1078,3 +1078,13 @@ def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
 # Figure 9: The Northern Frontier: Opportunity + Infrastructure Gap
 # ---------------------------------------------------------------------------
 # Northern state FIPS prefixes: MN=27, WI=55, ND=38, SD=46, MT=30,
+# ME=23, VT=50, NH=33, MI=26, NY=36, PA=42, WA=53, OR=41, ID=16
+_NORTHERN_STATE_FIPS = {
+    '27', '55', '38', '46', '30', '23', '50', '33', '26', '36', '42', '53', '41', '16'
+}
+
+
+def figure_09_frontier(output_dir: Path = None) -> plt.Figure:
+    """Choropleth: Northern frontier opportunity counties (SSP2-4.5).
+
+    Loads results/frontier/opportunity_counties_SSP245.parquet if it exists;
