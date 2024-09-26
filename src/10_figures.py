@@ -1068,3 +1068,13 @@ def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
 
     fig.suptitle('Fig. 8: Insurance Mispricing — Subsidizing Retreat (SSP2-4.5)',
                  fontsize=9, fontweight='bold')
+    plt.tight_layout()
+
+    save_figure(fig, 'fig08_insurance', output_dir)
+    return fig
+
+
+# ---------------------------------------------------------------------------
+# Figure 9: The Northern Frontier: Opportunity + Infrastructure Gap
+# ---------------------------------------------------------------------------
+# Northern state FIPS prefixes: MN=27, WI=55, ND=38, SD=46, MT=30,
