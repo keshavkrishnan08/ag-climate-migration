@@ -1138,3 +1138,13 @@ def figure_09_frontier(output_dir: Path = None) -> plt.Figure:
     # ------------------------------------------------------------------
     # 2. Plot
     # ------------------------------------------------------------------
+    if not HAS_GEOPANDAS or not _COUNTY_SHP.exists():
+        fig, ax = plt.subplots(1, 1, figsize=(DOUBLE_COL * 0.6, DOUBLE_COL * 0.5))
+        ax.set_title('Northern Opportunity (SSP2-4.5)', fontweight='bold')
+        ax.text(0.5, 0.5, '[Shapefile unavailable]',
+                transform=ax.transAxes, ha='center', va='center',
+                fontsize=8, color='gray')
+        fig.suptitle('Fig. 9: The Northern Frontier', fontsize=10, fontweight='bold')
+        plt.tight_layout()
+        save_figure(fig, 'fig09_frontier', output_dir)
+        return fig
