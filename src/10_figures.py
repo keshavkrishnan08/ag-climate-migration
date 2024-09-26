@@ -1098,3 +1098,13 @@ def figure_09_frontier(output_dir: Path = None) -> plt.Figure:
     Returns:
         matplotlib Figure.
     """
+    # ------------------------------------------------------------------
+    # 1. Load opportunity data
+    # ------------------------------------------------------------------
+    opp_path = RESULTS_DIR / 'frontier' / 'opportunity_counties_SSP245.parquet'
+    proj_path = PROJECTIONS_DIR / 'yield_projections_SSP245.parquet'
+
+    if opp_path.exists():
+        opp = pd.read_parquet(
+            opp_path,
+            columns=['fips', 'total_annual_opportunity']
