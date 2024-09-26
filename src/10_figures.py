@@ -1108,3 +1108,13 @@ def figure_09_frontier(output_dir: Path = None) -> plt.Figure:
         opp = pd.read_parquet(
             opp_path,
             columns=['fips', 'total_annual_opportunity']
+        )
+        opp['fips'] = opp['fips'].astype(str).str.zfill(5)
+        value_col = 'total_annual_opportunity'
+        unit_label = 'Annual opportunity ($)'
+        logger.info(f"Fig09: loaded {len(opp)} frontier counties from opportunity file")
+    else:
+        # Fallback: sum positive climate_impact_bu × acres_harvested per county
+        yp = pd.read_parquet(
+            proj_path,
+            columns=['fips', 'year', 'climate_impact_bu', 'acres_harvested']
