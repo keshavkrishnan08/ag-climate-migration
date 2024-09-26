@@ -1058,3 +1058,13 @@ def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
         [r.replace(' ', '\n') for r in regions], fontsize=5.5
     )
     ax_bar.set_ylabel('Mean mispricing ($/acre/yr)', fontsize=6.5)
+    ax_bar.set_title('B. Mispricing by Region', fontweight='bold', fontsize=7)
+    # Value labels on bars
+    for i, v in enumerate(vals):
+        if not np.isnan(v):
+            ax_bar.text(i, v + 0.5 * np.sign(v), f'{v:+.1f}',
+                        ha='center', fontsize=5.5,
+                        va='bottom' if v >= 0 else 'top')
+
+    fig.suptitle('Fig. 8: Insurance Mispricing — Subsidizing Retreat (SSP2-4.5)',
+                 fontsize=9, fontweight='bold')
