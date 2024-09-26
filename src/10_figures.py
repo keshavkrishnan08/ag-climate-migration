@@ -1128,3 +1128,13 @@ def figure_09_frontier(output_dir: Path = None) -> plt.Figure:
         unit_label = 'Climate gain (bu × acres, 2040)'
         logger.info(f"Fig09: derived {len(opp)} counties from projections fallback")
 
+    # Filter to northern states
+    opp = opp[opp['fips'].str[:2].isin(_NORTHERN_STATE_FIPS)].copy()
+    logger.info(f"Fig09: {len(opp)} northern counties with opportunity data")
+
+    # Convert to $M for readability
+    opp[value_col] = opp[value_col] / 1e6
+
+    # ------------------------------------------------------------------
+    # 2. Plot
+    # ------------------------------------------------------------------
