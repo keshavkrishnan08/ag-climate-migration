@@ -1088,3 +1088,13 @@ def figure_09_frontier(output_dir: Path = None) -> plt.Figure:
     """Choropleth: Northern frontier opportunity counties (SSP2-4.5).
 
     Loads results/frontier/opportunity_counties_SSP245.parquet if it exists;
+    otherwise falls back to data/projections/yield_projections_SSP245.parquet.
+    Filters to northern states (FIPS prefixes 27,55,38,46,30,23,50,33,26,36,
+    42,53,41,16). Colors counties by total_annual_opportunity (green gradient).
+
+    Args:
+        output_dir: Where to save.
+
+    Returns:
+        matplotlib Figure.
+    """
