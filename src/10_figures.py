@@ -1148,3 +1148,13 @@ def figure_09_frontier(output_dir: Path = None) -> plt.Figure:
         plt.tight_layout()
         save_figure(fig, 'fig09_frontier', output_dir)
         return fig
+
+    counties = _load_conus_counties()
+    # Keep only northern counties in the base geometry for a tighter map
+    counties_north = counties[counties['fips'].str[:2].isin(_NORTHERN_STATE_FIPS)].copy()
+    merged = counties_north.merge(opp[['fips', value_col]], on='fips', how='left')
+
+    vmax = float(opp[value_col].quantile(0.97))
+    vmin = 0.0
+
+    fig, ax = plt.subplots(1, 1, figsize=(DOUBLE_COL, DOUBLE_COL * 0.45))
