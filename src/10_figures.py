@@ -1178,3 +1178,13 @@ def figure_09_frontier(output_dir: Path = None) -> plt.Figure:
 
     save_figure(fig, 'fig09_frontier', output_dir)
     return fig
+
+
+# ---------------------------------------------------------------------------
+# Figure 10: Policy Scenarios: What If We Redirected the Cross-Subsidy?
+# ---------------------------------------------------------------------------
+# Insurance cross-subsidy investment assumed in counterfactual
+_CROSS_SUBSIDY_B = 2.8          # $2.8B/yr redirected
+_DELAY_PER_10M = 5              # years of delay per $10M invested
+_DELAY_PER_COUNTY = _CROSS_SUBSIDY_B * 1000 / 10 * _DELAY_PER_10M  # total delay-years/yr
+
