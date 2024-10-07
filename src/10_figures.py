@@ -1168,3 +1168,13 @@ def figure_09_frontier(output_dir: Path = None) -> plt.Figure:
     total_opp = opp[value_col].sum()
     ax.text(
         0.02, 0.02,
+        f'{n_opp} northern counties shown\nTotal opportunity: ${total_opp:.0f}M',
+        transform=ax.transAxes, fontsize=5.5, color='#333333',
+        bbox=dict(boxstyle='round,pad=0.25', facecolor='white', alpha=0.85)
+    )
+
+    fig.suptitle('Fig. 9: The Northern Frontier', fontsize=10, fontweight='bold')
+    plt.tight_layout()
+
+    save_figure(fig, 'fig09_frontier', output_dir)
+    return fig
