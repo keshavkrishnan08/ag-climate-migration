@@ -1158,3 +1158,13 @@ def figure_09_frontier(output_dir: Path = None) -> plt.Figure:
     vmin = 0.0
 
     fig, ax = plt.subplots(1, 1, figsize=(DOUBLE_COL, DOUBLE_COL * 0.45))
+    _choropleth(
+        ax=ax, counties_geo=merged, col=value_col,
+        cmap='YlGn', vmin=vmin, vmax=vmax,
+        title='Northern Frontier: Agricultural Opportunity (SSP2-4.5)',
+        unit=f'{unit_label} ($M)',
+    )
+    n_opp = merged[value_col].notna().sum()
+    total_opp = opp[value_col].sum()
+    ax.text(
+        0.02, 0.02,
