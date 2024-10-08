@@ -1198,3 +1198,13 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
     counties: each $10M delays one county's tipping point by 5 years,
     so $2.8B/yr generates 1,400 delay-county-years per year.
 
+    Panel A: Cumulative tipping county count under current policy (red) vs
+    redirected investment (blue dashed).
+    Panel B: Annual new tippings (histogram) for both scenarios.
+
+    Args:
+        output_dir: Where to save.
+
+    Returns:
+        matplotlib Figure.
+    """
