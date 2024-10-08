@@ -1188,3 +1188,13 @@ _CROSS_SUBSIDY_B = 2.8          # $2.8B/yr redirected
 _DELAY_PER_10M = 5              # years of delay per $10M invested
 _DELAY_PER_COUNTY = _CROSS_SUBSIDY_B * 1000 / 10 * _DELAY_PER_10M  # total delay-years/yr
 
+
+def figure_10_policy(output_dir: Path = None) -> plt.Figure:
+    """Line plot: Cumulative tipping counties 2025-2050 under two policy scenarios.
+
+    Loads results/cascade/tipping_points_SSP245.parquet to get the actual
+    cascade schedule (current trajectory). Then constructs a counterfactual
+    where the $2.8B/yr insurance cross-subsidy is redirected to at-risk
+    counties: each $10M delays one county's tipping point by 5 years,
+    so $2.8B/yr generates 1,400 delay-county-years per year.
+
