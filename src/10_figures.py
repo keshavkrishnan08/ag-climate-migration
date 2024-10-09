@@ -1218,3 +1218,13 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
     tp = tp.dropna(subset=['tipping_year']).copy()
     tp['tipping_year'] = tp['tipping_year'].astype(int)
     tp['fips'] = tp['fips'].astype(str).str.zfill(5)
+    logger.info(f"Fig10: {len(tp)} counties with tipping points, "
+                f"range {tp['tipping_year'].min()}-{tp['tipping_year'].max()}")
+
+    # ------------------------------------------------------------------
+    # 2. Build current trajectory: cumulative tippings per year 2025-2050
+    # ------------------------------------------------------------------
+    years = np.arange(2025, 2051)
+    current_cumulative = np.array([
+        int((tp['tipping_year'] <= yr).sum()) for yr in years
+    ])
