@@ -1228,3 +1228,13 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
     current_cumulative = np.array([
         int((tp['tipping_year'] <= yr).sum()) for yr in years
     ])
+
+    # ------------------------------------------------------------------
+    # 3. Build counterfactual: delay tipping via cross-subsidy investment.
+    #    $2.8B/yr → 280 counties delayed by 5 years each (2800 delay-county-yrs/yr).
+    #    Distribute delay to the soonest-tipping counties first (priority queue).
+    #    Each county's tipping year shifts out by its allocated delay.
+    # ------------------------------------------------------------------
+    investment_b_per_yr = _CROSS_SUBSIDY_B
+    counties_delayed_per_yr = int(investment_b_per_yr * 1000 / 10)  # 280/yr
+    years_per_delay = _DELAY_PER_10M                                  # 5 yr
