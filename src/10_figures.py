@@ -1248,3 +1248,13 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
     for policy_yr in range(2025, 2051):
         # Find counties tipping within next 5 years (most urgent)
         mask = cf_tipping <= (policy_yr + years_per_delay)
+        eligible_idx = np.where(mask)[0]
+        if len(eligible_idx) == 0:
+            continue
+        n_delay = min(counties_delayed_per_yr, len(eligible_idx))
+        # Take the earliest-tipping eligible counties
+        targets = eligible_idx[:n_delay]
+        cf_tipping[targets] = cf_tipping[targets] + years_per_delay
+
+    counterfactual_cumulative = np.array([
+        int((cf_tipping <= yr).sum()) for yr in years
