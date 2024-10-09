@@ -1238,3 +1238,13 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
     investment_b_per_yr = _CROSS_SUBSIDY_B
     counties_delayed_per_yr = int(investment_b_per_yr * 1000 / 10)  # 280/yr
     years_per_delay = _DELAY_PER_10M                                  # 5 yr
+
+    # Sort counties by tipping year (earliest first = highest priority)
+    tp_sorted = tp.sort_values('tipping_year').reset_index(drop=True)
+    cf_tipping = tp_sorted['tipping_year'].values.copy().astype(float)
+
+    # Apply cumulative delay: each year of policy, delay the next batch
+    # of soonest-tipping counties (those not yet delayed beyond 2050)
+    for policy_yr in range(2025, 2051):
+        # Find counties tipping within next 5 years (most urgent)
+        mask = cf_tipping <= (policy_yr + years_per_delay)
