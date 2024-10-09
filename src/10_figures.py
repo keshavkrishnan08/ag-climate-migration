@@ -1208,3 +1208,13 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
     Returns:
         matplotlib Figure.
     """
+    # ------------------------------------------------------------------
+    # 1. Load cascade tipping points
+    # ------------------------------------------------------------------
+    tp = pd.read_parquet(
+        RESULTS_DIR / 'cascade' / 'tipping_points_SSP245.parquet',
+        columns=['fips', 'tipping_year']
+    )
+    tp = tp.dropna(subset=['tipping_year']).copy()
+    tp['tipping_year'] = tp['tipping_year'].astype(int)
+    tp['fips'] = tp['fips'].astype(str).str.zfill(5)
