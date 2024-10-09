@@ -1258,3 +1258,13 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
 
     counterfactual_cumulative = np.array([
         int((cf_tipping <= yr).sum()) for yr in years
+    ])
+
+    # Annual new tippings
+    current_annual = np.diff(np.concatenate([[0], current_cumulative]))
+    cf_annual = np.diff(np.concatenate([[0], counterfactual_cumulative]))
+
+    logger.info(f"Fig10: Current — {current_cumulative[-1]} counties tip by 2050; "
+                f"Counterfactual — {counterfactual_cumulative[-1]}")
+
+    # ------------------------------------------------------------------
