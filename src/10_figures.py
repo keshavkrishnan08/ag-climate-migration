@@ -1268,3 +1268,13 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
                 f"Counterfactual — {counterfactual_cumulative[-1]}")
 
     # ------------------------------------------------------------------
+    # 4. Plot
+    # ------------------------------------------------------------------
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(DOUBLE_COL, DOUBLE_COL * 0.42))
+
+    # Panel A: Cumulative tipping counties
+    ax1.plot(years, current_cumulative, color='#c0392b', linewidth=1.8,
+             label='Current policy (actual cascade)', zorder=3)
+    ax1.plot(years, counterfactual_cumulative, color='#2980b9', linewidth=1.8,
+             linestyle='--', label=f'Redirected investment\n(${investment_b_per_yr:.1f}B/yr)', zorder=3)
+    ax1.fill_between(years, counterfactual_cumulative, current_cumulative,
