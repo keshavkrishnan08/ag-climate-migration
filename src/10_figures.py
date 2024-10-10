@@ -1298,3 +1298,13 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
     bar_w = 0.4
     x = np.arange(len(years))
     ax2.bar(x - bar_w / 2, current_annual, width=bar_w, color='#c0392b',
+            alpha=0.75, label='Current policy', edgecolor='white', linewidth=0.3)
+    ax2.bar(x + bar_w / 2, cf_annual, width=bar_w, color='#2980b9',
+            alpha=0.75, label='Redirected investment', edgecolor='white', linewidth=0.3)
+    # Tick every 5 years
+    tick_pos = x[::5]
+    ax2.set_xticks(tick_pos)
+    ax2.set_xticklabels(years[::5], fontsize=5.5)
+    ax2.set_xlabel('Year')
+    ax2.set_ylabel('New tippings per year')
+    ax2.set_title('B. Annual New Cascade Events', fontweight='bold')
