@@ -1288,3 +1288,13 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
              transform=ax1.transAxes, va='top', fontsize=6,
              bbox=dict(boxstyle='round,pad=0.3', facecolor='white',
                        edgecolor='gray', alpha=0.85))
+    ax1.set_xlabel('Year')
+    ax1.set_ylabel('Cumulative tipped counties')
+    ax1.set_title('A. Cumulative Cascade: Current vs Redirected', fontweight='bold')
+    ax1.legend(fontsize=5.5, loc='upper left')
+    ax1.set_xlim(2025, 2050)
+
+    # Panel B: Annual new tippings
+    bar_w = 0.4
+    x = np.arange(len(years))
+    ax2.bar(x - bar_w / 2, current_annual, width=bar_w, color='#c0392b',
