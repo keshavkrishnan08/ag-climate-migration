@@ -1278,3 +1278,13 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
     ax1.plot(years, counterfactual_cumulative, color='#2980b9', linewidth=1.8,
              linestyle='--', label=f'Redirected investment\n(${investment_b_per_yr:.1f}B/yr)', zorder=3)
     ax1.fill_between(years, counterfactual_cumulative, current_cumulative,
+                     alpha=0.15, color='#27ae60', label='Counties saved')
+    ax1.axvline(2040, color='gray', linewidth=0.6, linestyle=':', zorder=1)
+    ax1.text(2040.3, ax1.get_ylim()[0] if ax1.get_ylim()[0] > 0 else 5,
+             '2040', fontsize=5.5, color='gray')
+    counties_saved_2050 = int(current_cumulative[-1] - counterfactual_cumulative[-1])
+    ax1.text(0.03, 0.97,
+             f'{counties_saved_2050} fewer counties tip by 2050\nwith ${investment_b_per_yr:.1f}B/yr redirected',
+             transform=ax1.transAxes, va='top', fontsize=6,
+             bbox=dict(boxstyle='round,pad=0.3', facecolor='white',
+                       edgecolor='gray', alpha=0.85))
