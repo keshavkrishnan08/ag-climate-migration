@@ -1338,3 +1338,13 @@ def figure_11_uncertainty(output_dir: Path = None) -> plt.Figure:
         p90 = median + np.abs(np.random.normal(2, 0.5, len(years)))
 
         ax.fill_between(years, p10, p90, alpha=0.3, color='steelblue', label='10–90th pctl')
+        ax.plot(years, median, 'b-', linewidth=1, label='Median')
+        ax.axhline(0, color='black', linewidth=0.3)
+        ax.set_title(region, fontweight='bold')
+        ax.set_xlabel('Year')
+        ax.set_ylabel('Yield Change (%)')
+        if region == 'Corn Belt':
+            ax.legend(fontsize=5)
+
+    fig.suptitle('Fig. 11: GCM Ensemble Uncertainty', fontsize=10, fontweight='bold')
+    plt.tight_layout()
