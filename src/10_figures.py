@@ -1308,3 +1308,13 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
     ax2.set_xlabel('Year')
     ax2.set_ylabel('New tippings per year')
     ax2.set_title('B. Annual New Cascade Events', fontweight='bold')
+    ax2.legend(fontsize=5.5)
+
+    fig.suptitle('Fig. 10: Policy Scenarios — Redirecting the $2.8B/yr Cross-Subsidy',
+                 fontsize=9, fontweight='bold')
+    plt.tight_layout()
+
+    save_figure(fig, 'fig10_policy', output_dir)
+    return fig
+
+
