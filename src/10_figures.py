@@ -1318,3 +1318,13 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
     return fig
 
 
+# ---------------------------------------------------------------------------
+# Figure 11: Uncertainty: GCM Ensemble Spread
+# ---------------------------------------------------------------------------
+def figure_11_uncertainty(output_dir: Path = None) -> plt.Figure:
+    """Fan chart by region: 10-90th percentile band for yield projections
+    by crop × region. Shows where we are confident vs uncertain.
+
+    Returns:
+        matplotlib Figure.
+    """
