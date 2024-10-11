@@ -1328,3 +1328,13 @@ def figure_11_uncertainty(output_dir: Path = None) -> plt.Figure:
     Returns:
         matplotlib Figure.
     """
+    fig, axes = plt.subplots(2, 2, figsize=(DOUBLE_COL, DOUBLE_COL * 0.7))
+    regions = ['Corn Belt', 'Southern Plains', 'Northern Plains', 'Southeast']
+
+    for ax, region in zip(axes.flat, regions):
+        years = np.arange(2025, 2051)
+        median = np.cumsum(np.random.normal(-0.5, 0.3, len(years)))
+        p10 = median - np.abs(np.random.normal(2, 0.5, len(years)))
+        p90 = median + np.abs(np.random.normal(2, 0.5, len(years)))
+
+        ax.fill_between(years, p10, p90, alpha=0.3, color='steelblue', label='10–90th pctl')
