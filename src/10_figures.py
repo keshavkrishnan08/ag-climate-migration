@@ -1358,3 +1358,13 @@ def figure_11_uncertainty(output_dir: Path = None) -> plt.Figure:
 # ---------------------------------------------------------------------------
 # USDA long-run reference prices (2023 USD) used to convert yield to revenue
 # so dominant crop = highest projected yield × price per county-year.
+_CROP_PRICES = {
+    'corn':         3.70,   # $/bu
+    'soybeans':     8.40,   # $/bu
+    'wheat_winter': 5.50,   # $/bu
+    'wheat_spring': 5.50,   # $/bu
+    'sorghum':      3.35,   # $/bu
+    'cotton':      75.00,   # $/cwt ≈ cents/lb × 100; use $/acre proxy
+    'barley':       4.90,   # $/bu
+    'oats':         3.00,   # $/bu
+}
