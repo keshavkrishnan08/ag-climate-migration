@@ -1348,3 +1348,13 @@ def figure_11_uncertainty(output_dir: Path = None) -> plt.Figure:
 
     fig.suptitle('Fig. 11: GCM Ensemble Uncertainty', fontsize=10, fontweight='bold')
     plt.tight_layout()
+
+    save_figure(fig, 'fig11_uncertainty', output_dir)
+    return fig
+
+
+# ---------------------------------------------------------------------------
+# Figure 12: The Agricultural Transition Map: 2025, 2035, 2050
+# ---------------------------------------------------------------------------
+# USDA long-run reference prices (2023 USD) used to convert yield to revenue
+# so dominant crop = highest projected yield × price per county-year.
