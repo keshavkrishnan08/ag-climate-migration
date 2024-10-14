@@ -1368,3 +1368,13 @@ _CROP_PRICES = {
     'barley':       4.90,   # $/bu
     'oats':         3.00,   # $/bu
 }
+# Display-friendly labels and colors (per Nature Food palette)
+_CROP_COLORS = {
+    'corn':         '#e6b800',   # yellow
+    'soybeans':     '#4caf50',   # green
+    'wheat_winter': '#8d6e3d',   # brown
+    'wheat_spring': '#a0845c',   # lighter brown
+    'sorghum':      '#f57c00',   # orange
+    'cotton':       '#e0e0e0',   # near-white
+    'barley':       '#bcaaa4',   # tan
+    'oats':         '#90a4ae',   # blue-grey
