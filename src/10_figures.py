@@ -1388,3 +1388,13 @@ _CROP_LABELS = {
 
 
 def figure_12_transition_map(output_dir: Path = None) -> plt.Figure:
+    """3-panel choropleth: Dominant crop by county at 2025, 2035, 2050.
+
+    Uses data/projections/yield_projections_SSP245.parquet. For each county
+    and target year, the dominant crop is the one with the highest projected
+    revenue (yield_projected × reference price). Panels are colored by
+    dominant crop using Nature Food palette.
+
+    Args:
+        output_dir: Where to save.
+
