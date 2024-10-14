@@ -1378,3 +1378,13 @@ _CROP_COLORS = {
     'cotton':       '#e0e0e0',   # near-white
     'barley':       '#bcaaa4',   # tan
     'oats':         '#90a4ae',   # blue-grey
+}
+_CROP_LABELS = {
+    'corn': 'Corn', 'soybeans': 'Soybeans',
+    'wheat_winter': 'Winter Wheat', 'wheat_spring': 'Spring Wheat',
+    'sorghum': 'Sorghum', 'cotton': 'Cotton',
+    'barley': 'Barley', 'oats': 'Oats',
+}
+
+
+def figure_12_transition_map(output_dir: Path = None) -> plt.Figure:
