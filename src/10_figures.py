@@ -1398,3 +1398,13 @@ def figure_12_transition_map(output_dir: Path = None) -> plt.Figure:
     Args:
         output_dir: Where to save.
 
+    Returns:
+        matplotlib Figure.
+    """
+    # ------------------------------------------------------------------
+    # 1. Load projections and compute dominant crop per county × year
+    # ------------------------------------------------------------------
+    yp = pd.read_parquet(
+        PROJECTIONS_DIR / 'yield_projections_SSP245.parquet',
+        columns=['fips', 'year', 'crop', 'yield_projected', 'acres_harvested']
+    )
