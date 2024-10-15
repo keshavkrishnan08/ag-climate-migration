@@ -1408,3 +1408,13 @@ def figure_12_transition_map(output_dir: Path = None) -> plt.Figure:
         PROJECTIONS_DIR / 'yield_projections_SSP245.parquet',
         columns=['fips', 'year', 'crop', 'yield_projected', 'acres_harvested']
     )
+    yp['fips'] = yp['fips'].astype(str).str.zfill(5)
+    # Map reference prices
+    yp['price'] = yp['crop'].map(_CROP_PRICES).fillna(5.0)
+    yp['revenue'] = yp['yield_projected'] * yp['price']
+    # Weight by acres so large-acreage crops win appropriately
+    yp['weighted_revenue'] = yp['revenue'] * yp['acres_harvested'].fillna(1)
+
+    time_slices = [2025, 2035, 2050]
+    dominant = {}
+    for yr in time_slices:
