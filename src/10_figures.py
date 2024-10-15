@@ -1418,3 +1418,13 @@ def figure_12_transition_map(output_dir: Path = None) -> plt.Figure:
     time_slices = [2025, 2035, 2050]
     dominant = {}
     for yr in time_slices:
+        sub = yp[yp['year'] == yr].copy()
+        sub = sub.dropna(subset=['weighted_revenue'])
+        sub = sub[sub['weighted_revenue'] > 0]
+        # Dominant = crop with max weighted_revenue per county
+        idx = sub.groupby('fips')['weighted_revenue'].idxmax()
+        dom = sub.loc[idx, ['fips', 'crop']].rename(columns={'crop': 'dominant_crop'})
+        dominant[yr] = dom
+        crop_dist = dom['dominant_crop'].value_counts().to_dict()
+        logger.info(f"Fig12 {yr}: {len(dom)} counties, distribution: {crop_dist}")
+
