@@ -1488,3 +1488,13 @@ def figure_12_transition_map(output_dir: Path = None) -> plt.Figure:
 
     fig.suptitle('Fig. 12: The Agricultural Transition Map (SSP2-4.5)',
                  fontsize=10, fontweight='bold')
+    plt.tight_layout()
+
+    save_figure(fig, 'fig12_transition_map', output_dir)
+    return fig
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+def generate_all_figures() -> dict:
