@@ -1468,3 +1468,13 @@ def figure_12_transition_map(output_dir: Path = None) -> plt.Figure:
                 merged[mask].plot(ax=ax, color=color,
                                   linewidth=0.05, edgecolor='white')
 
+        ax.set_title(str(yr), fontweight='bold', fontsize=9)
+        ax.set_axis_off()
+        n_counties = (~mask_miss).sum()
+        ax.text(0.02, 0.02, f'n={n_counties}',
+                transform=ax.transAxes, fontsize=5, color='#555555')
+
+    # Shared legend
+    legend_elements = [
+        plt.Rectangle((0, 0), 1, 1, facecolor=_CROP_COLORS[c],
+                       edgecolor='gray', linewidth=0.3,
