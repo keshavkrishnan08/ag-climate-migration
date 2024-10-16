@@ -1448,3 +1448,13 @@ def figure_12_transition_map(output_dir: Path = None) -> plt.Figure:
     fig, axes = plt.subplots(1, 3, figsize=(DOUBLE_COL, DOUBLE_COL * 0.44))
 
     # Collect all crops present across all time slices for legend
+    all_crops_present: set = set()
+    for dom in dominant.values():
+        all_crops_present.update(dom['dominant_crop'].unique())
+
+    for ax, yr in zip(axes, time_slices):
+        merged = counties.merge(dominant[yr], on='fips', how='left')
+
+        # Plot counties with missing data first
+        mask_miss = merged['dominant_crop'].isna()
+        if mask_miss.any():
