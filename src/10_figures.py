@@ -1478,3 +1478,13 @@ def figure_12_transition_map(output_dir: Path = None) -> plt.Figure:
     legend_elements = [
         plt.Rectangle((0, 0), 1, 1, facecolor=_CROP_COLORS[c],
                        edgecolor='gray', linewidth=0.3,
+                       label=_CROP_LABELS[c])
+        for c in _CROP_COLORS if c in all_crops_present
+    ]
+    fig.legend(handles=legend_elements, loc='lower center',
+               ncol=min(len(legend_elements), 5),
+               fontsize=5.5, framealpha=0.9,
+               bbox_to_anchor=(0.5, -0.04))
+
+    fig.suptitle('Fig. 12: The Agricultural Transition Map (SSP2-4.5)',
+                 fontsize=10, fontweight='bold')
