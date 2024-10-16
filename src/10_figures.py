@@ -1458,3 +1458,13 @@ def figure_12_transition_map(output_dir: Path = None) -> plt.Figure:
         # Plot counties with missing data first
         mask_miss = merged['dominant_crop'].isna()
         if mask_miss.any():
+            merged[mask_miss].plot(ax=ax, color='#dddddd',
+                                   linewidth=0.05, edgecolor='white')
+
+        # Plot each crop group
+        for crop, color in _CROP_COLORS.items():
+            mask = merged['dominant_crop'] == crop
+            if mask.any():
+                merged[mask].plot(ax=ax, color=color,
+                                  linewidth=0.05, edgecolor='white')
+
