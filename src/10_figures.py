@@ -1518,3 +1518,13 @@ def generate_all_figures() -> dict:
         ('fig04', figure_04_crop_switching),
         ('fig05', figure_05_projections),
         ('fig06', figure_06_stranded),
+        ('fig07', figure_07_cascade),
+        ('fig08', figure_08_insurance),
+        ('fig09', figure_09_frontier),
+        ('fig10', figure_10_policy),
+        ('fig11', figure_11_uncertainty),
+        ('fig12', figure_12_transition_map),
+    ]
+
+    for name, func in figure_funcs:
+        try:
