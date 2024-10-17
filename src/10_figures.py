@@ -1498,3 +1498,13 @@ def figure_12_transition_map(output_dir: Path = None) -> plt.Figure:
 # Main
 # ---------------------------------------------------------------------------
 def generate_all_figures() -> dict:
+    """Generate all 12 publication figures.
+
+    Returns:
+        Dict mapping figure number to saved file paths.
+    """
+    logger.info("=" * 60)
+    logger.info("PHASE 6: GENERATING ALL 12 FIGURES")
+    logger.info("=" * 60)
+
+    output_dir = RESULTS_DIR / 'figures'
