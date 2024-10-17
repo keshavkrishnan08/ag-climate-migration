@@ -1538,3 +1538,13 @@ def generate_all_figures() -> dict:
     n_success = sum(1 for v in figures.values() if v is not None)
     logger.info(f"\nGenerated {n_success}/12 figures")
 
+    if n_success == 12:
+        logger.info("ALL 12 FIGURES GENERATED SUCCESSFULLY")
+    else:
+        logger.warning(f"MISSING {12 - n_success} FIGURES")
+
+    logger.info("=" * 60)
+    logger.info("PHASE 6 COMPLETE")
+    logger.info("=" * 60)
+
+    return figures
