@@ -1528,3 +1528,13 @@ def generate_all_figures() -> dict:
 
     for name, func in figure_funcs:
         try:
+            fig = func(output_dir=output_dir)
+            figures[name] = f"{output_dir}/{name}*.pdf"
+            logger.info(f"  ✓ {name}")
+        except Exception as e:
+            logger.error(f"  ✗ {name}: {e}")
+            figures[name] = None
+
+    n_success = sum(1 for v in figures.values() if v is not None)
+    logger.info(f"\nGenerated {n_success}/12 figures")
+
