@@ -1508,3 +1508,13 @@ def generate_all_figures() -> dict:
     logger.info("=" * 60)
 
     output_dir = RESULTS_DIR / 'figures'
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    figures = {}
+    figure_funcs = [
+        ('fig01', figure_01_northward_migration),
+        ('fig02', figure_02_model_validation),
+        ('fig03', figure_03_yield_cliff),
+        ('fig04', figure_04_crop_switching),
+        ('fig05', figure_05_projections),
+        ('fig06', figure_06_stranded),
