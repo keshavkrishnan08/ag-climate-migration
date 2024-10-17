@@ -1548,3 +1548,7 @@ def generate_all_figures() -> dict:
     logger.info("=" * 60)
 
     return figures
+
+
+if __name__ == '__main__':
+    generate_all_figures()
