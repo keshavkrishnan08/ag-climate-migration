@@ -18,3 +18,13 @@ Workflow:
   5. Delta method + ensemble stats at each rep year
   6. Linear interpolation to annual 2025-2050
   7. Save parquet + print summary
+"""
+
+import os
+import numpy as np
+import pandas as pd
+from pathlib import Path
+
+# ── Paths ──────────────────────────────────────────────────────────────────────
+BASE        = Path(__file__).resolve().parent.parent
+CMIP6_DIR   = BASE / "data/raw/cmip6"
