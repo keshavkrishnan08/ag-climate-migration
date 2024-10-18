@@ -28,3 +28,13 @@ from pathlib import Path
 # ── Paths ──────────────────────────────────────────────────────────────────────
 BASE        = Path(__file__).resolve().parent.parent
 CMIP6_DIR   = BASE / "data/raw/cmip6"
+PRISM_PATH  = BASE / "data/raw/prism/county_climate_monthly.parquet"
+GAZETTE_PATH= BASE / "data/raw/census/2023_Gaz_counties_national.txt"
+OUT_PATH    = BASE / "data/projections/county_climate_projections.parquet"
+OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+# ── Constants ──────────────────────────────────────────────────────────────────
+GCMS            = [
+    # Original 5 (r1i1p1f1, standard calendar)
+    "ACCESS-CM2", "GFDL-ESM4", "MIROC6", "MPI-ESM1-2-HR", "NorESM2-MM",
+    # New 5 (Pangeo Cloud via anonymous GCS zarr)
