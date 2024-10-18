@@ -58,3 +58,13 @@ EXCLUDE_STATES  = {"02", "15", "72", "78", "66", "60", "69"}  # AK HI PR VI GU A
 def k_delta_to_f(delta_k: np.ndarray) -> np.ndarray:
     """Temperature *difference* in K (≡°C) → °F.  No offset, just scale."""
     return delta_k * 9.0 / 5.0
+
+
+def pr_flux_to_mm_month(flux: np.ndarray) -> np.ndarray:
+    """kg m⁻² s⁻¹ → mm month⁻¹ (using 30.44-day month)."""
+    return flux * SECS_PER_MONTH
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 1. County centroids
+# ═══════════════════════════════════════════════════════════════════════════════
