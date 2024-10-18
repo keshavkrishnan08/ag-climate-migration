@@ -48,3 +48,13 @@ GCMS            = [
 REP_YEARS       = [2030, 2035, 2040, 2045, 2050]
 REF_YEARS       = list(range(2025, 2031))   # 2025–2030 GCM reference
 GROW_MONTHS     = [5, 6, 7, 8, 9]           # May–Sep
+JULY            = 7
+BASELINE_Y1, BASELINE_Y2 = 1981, 2010
+SCENARIO        = "SSP245"
+SECS_PER_MONTH  = 30.44 * 86400             # ≈ 2,630,016 s  (pr conversion)
+EXCLUDE_STATES  = {"02", "15", "72", "78", "66", "60", "69"}  # AK HI PR VI GU AS CNMI
+
+
+def k_delta_to_f(delta_k: np.ndarray) -> np.ndarray:
+    """Temperature *difference* in K (≡°C) → °F.  No offset, just scale."""
+    return delta_k * 9.0 / 5.0
