@@ -118,3 +118,13 @@ print(f"  Baseline for {len(baseline):,} counties  (PRISM = °F / mm/month)")
 # ═══════════════════════════════════════════════════════════════════════════════
 print("Step 3 — Building per-model CMIP6 grid → county lookups …")
 
+# Convert county lons to 0-360 for matching
+county_lons_360 = county_lons % 360         # wraps -180..0 → 180..360
+
+# Build a separate nearest-neighbour lookup for each GCM (they have different grids)
+_nn_keys_per_gcm = {}
+for gcm in GCMS:
+    ref_path = CMIP6_DIR / f"{gcm}_ssp245_tasmax_2025_conus_monthly.parquet"
+    if not ref_path.exists():
+        print(f"  {gcm}: reference file not found, skipping")
+        continue
