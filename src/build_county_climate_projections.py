@@ -108,3 +108,13 @@ baseline = (bl.groupby("fips")
                   precip_growing_bl= ("_precip_grow", "mean"),
                   tmin_growing_bl  = ("_tmin_grow",   "mean"),
               )
+              .reset_index())
+
+print(f"  Baseline for {len(baseline):,} counties  (PRISM = °F / mm/month)")
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 3. CMIP6 grid → county nearest-neighbour lookup
+# ═══════════════════════════════════════════════════════════════════════════════
+print("Step 3 — Building per-model CMIP6 grid → county lookups …")
+
