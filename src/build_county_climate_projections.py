@@ -78,3 +78,13 @@ gaz["lon"]  = pd.to_numeric(gaz["INTPTLONG"], errors="coerce")
 
 gaz = gaz[~gaz["fips"].str[:2].isin(EXCLUDE_STATES)].copy()
 gaz = gaz[["fips", "lat", "lon"]].dropna().reset_index(drop=True)
+print(f"  {len(gaz):,} CONUS counties")
+
+county_fips  = gaz["fips"].values
+county_lats  = gaz["lat"].values
+county_lons  = gaz["lon"].values       # negative for Western Hemisphere
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 2. PRISM 1981-2010 baseline
+# ═══════════════════════════════════════════════════════════════════════════════
