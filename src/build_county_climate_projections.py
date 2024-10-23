@@ -158,3 +158,13 @@ print("  Grid matching done.")
 def _load_county_gcm(gcm: str, var: str, year: int) -> dict:
     """
     Load a CMIP6 parquet file and extract county-level aggregates.
+
+    For temperature (tasmax, tasmin): growing-season mean (months 5-9) and July mean.
+    For precipitation (pr): growing-season mean flux [kg m⁻² s⁻¹], averaged over the
+    5 growing months (so each entry is the mean monthly flux; we convert later).
+
+    Returns:
+        dict with keys 'growing' (array len n_counties) and 'july' (array or None for pr).
+    """
+    path = CMIP6_DIR / f"{gcm}_ssp245_{var}_{year}_conus_monthly.parquet"
+    df   = pd.read_parquet(path)
