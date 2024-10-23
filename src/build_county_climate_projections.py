@@ -168,3 +168,13 @@ def _load_county_gcm(gcm: str, var: str, year: int) -> dict:
     """
     path = CMIP6_DIR / f"{gcm}_ssp245_{var}_{year}_conus_monthly.parquet"
     df   = pd.read_parquet(path)
+
+    # Use per-model grid lookup (different GCMs have different resolutions)
+    gcm_nn_keys = _nn_keys_per_gcm.get(gcm, nn_keys)
+
+    # Growing season subset
+    grow = df[df["month"].isin(GROW_MONTHS)].copy()
+    grow["_key"] = list(zip(grow["lat"].tolist(), grow["lon"].tolist()))
+
+    # Aggregate across months per grid point
+    # For temp: mean; for pr: mean (we keep it as mean flux for now)
