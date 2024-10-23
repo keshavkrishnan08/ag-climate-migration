@@ -128,3 +128,13 @@ for gcm in GCMS:
     if not ref_path.exists():
         print(f"  {gcm}: reference file not found, skipping")
         continue
+    _ref = pd.read_parquet(ref_path, columns=["lat", "lon"])
+    grid_pts = _ref[["lat", "lon"]].drop_duplicates().reset_index(drop=True)
+    grid_lats_gcm = grid_pts["lat"].values
+    grid_lons_gcm = grid_pts["lon"].values
+
+    BATCH = 300
+    idx = np.empty(len(county_fips), dtype=np.int64)
+    for s in range(0, len(county_fips), BATCH):
+        e = min(s + BATCH, len(county_fips))
+        dlat = county_lats[s:e, None] - grid_lats_gcm[None, :]
