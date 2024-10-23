@@ -148,3 +148,13 @@ for gcm in GCMS:
 
 # Default nn_keys for backward compatibility (used by _load_county_gcm)
 nn_keys = _nn_keys_per_gcm.get(GCMS[0], [])
+print("  Grid matching done.")
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Helper: load one CMIP6 file → county-level growing-season & July values
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def _load_county_gcm(gcm: str, var: str, year: int) -> dict:
+    """
+    Load a CMIP6 parquet file and extract county-level aggregates.
