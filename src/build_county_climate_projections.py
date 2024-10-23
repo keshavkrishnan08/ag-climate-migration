@@ -138,3 +138,13 @@ for gcm in GCMS:
     for s in range(0, len(county_fips), BATCH):
         e = min(s + BATCH, len(county_fips))
         dlat = county_lats[s:e, None] - grid_lats_gcm[None, :]
+        dlon = county_lons_360[s:e, None] - grid_lons_gcm[None, :]
+        idx[s:e] = np.argmin(dlat**2 + dlon**2, axis=1)
+
+    nn_lat_gcm = grid_lats_gcm[idx]
+    nn_lon_gcm = grid_lons_gcm[idx]
+    _nn_keys_per_gcm[gcm] = list(zip(nn_lat_gcm.tolist(), nn_lon_gcm.tolist()))
+    print(f"  {gcm}: {len(grid_pts):,} grid points matched to {len(county_fips):,} counties")
+
+# Default nn_keys for backward compatibility (used by _load_county_gcm)
+nn_keys = _nn_keys_per_gcm.get(GCMS[0], [])
