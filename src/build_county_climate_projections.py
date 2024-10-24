@@ -188,3 +188,13 @@ def _load_county_gcm(gcm: str, var: str, year: int) -> dict:
     # July for temperature variables
     july = df[df["month"] == JULY].copy()
     july["_key"] = list(zip(july["lat"].tolist(), july["lon"].tolist()))
+    july_agg  = july.groupby("_key")["value"].mean()
+    july_vals = july_agg.reindex(gcm_nn_keys).values.astype(float)
+
+    return {"growing": grow_vals, "july": july_vals}
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 4. Load GCM data — reference period (2025-2030) and 5 rep years
+# ═══════════════════════════════════════════════════════════════════════════════
+print("\nStep 4 — Loading CMIP6 files …")
