@@ -208,3 +208,13 @@ for gcm in GCMS:
     for var in ["tasmax", "tasmin", "pr"]:
         stacks_grow = []
         stacks_july = []
+        for yr in REF_YEARS:
+            res = _load_county_gcm(gcm, var, yr)
+            stacks_grow.append(res["growing"])
+            if res["july"] is not None:
+                stacks_july.append(res["july"])
+        ref_data[gcm][var] = {
+            "growing": np.nanmean(stacks_grow, axis=0),
+            "july":    np.nanmean(stacks_july, axis=0) if stacks_july else None,
+        }
+
