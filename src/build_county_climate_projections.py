@@ -198,3 +198,13 @@ def _load_county_gcm(gcm: str, var: str, year: int) -> dict:
 # 4. Load GCM data — reference period (2025-2030) and 5 rep years
 # ═══════════════════════════════════════════════════════════════════════════════
 print("\nStep 4 — Loading CMIP6 files …")
+print(f"  Reference period: {REF_YEARS[0]}–{REF_YEARS[-1]}")
+
+# ref_data[gcm][var] = {"growing": array(n_counties), "july": array or None}
+ref_data = {}
+for gcm in GCMS:
+    print(f"    {gcm} reference …")
+    ref_data[gcm] = {}
+    for var in ["tasmax", "tasmin", "pr"]:
+        stacks_grow = []
+        stacks_july = []
