@@ -178,3 +178,13 @@ def _load_county_gcm(gcm: str, var: str, year: int) -> dict:
 
     # Aggregate across months per grid point
     # For temp: mean; for pr: mean (we keep it as mean flux for now)
+    grow_agg = grow.groupby("_key")["value"].mean()
+
+    grow_vals = grow_agg.reindex(gcm_nn_keys).values.astype(float)
+
+    if var == "pr":
+        return {"growing": grow_vals, "july": None}
+
+    # July for temperature variables
+    july = df[df["month"] == JULY].copy()
+    july["_key"] = list(zip(july["lat"].tolist(), july["lon"].tolist()))
