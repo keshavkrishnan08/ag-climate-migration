@@ -228,3 +228,13 @@ for gcm in GCMS:
     for var in ["tasmax", "tasmin", "pr"]:
         rep_data[gcm][var] = {}
         for yr in REP_YEARS:
+            rep_data[gcm][var][yr] = _load_county_gcm(gcm, var, yr)
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 5. Delta method at each representative year
+# ═══════════════════════════════════════════════════════════════════════════════
+print("\nStep 5 — Delta method …")
+
+bl_idx = baseline.set_index("fips")
+
