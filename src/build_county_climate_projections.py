@@ -218,3 +218,13 @@ for gcm in GCMS:
             "july":    np.nanmean(stacks_july, axis=0) if stacks_july else None,
         }
 
+print(f"  Representative years: {REP_YEARS}")
+
+# rep_data[gcm][var][yr] = {"growing": array, "july": array or None}
+rep_data = {}
+for gcm in GCMS:
+    print(f"    {gcm} rep years …")
+    rep_data[gcm] = {}
+    for var in ["tasmax", "tasmin", "pr"]:
+        rep_data[gcm][var] = {}
+        for yr in REP_YEARS:
