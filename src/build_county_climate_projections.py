@@ -238,3 +238,13 @@ print("\nStep 5 — Delta method …")
 
 bl_idx = baseline.set_index("fips")
 
+# Build a DataFrame: one row per (county, rep_year)
+rep_records = []
+
+for yr in REP_YEARS:
+    # Collect per-GCM deltas — shape (n_gcms, n_counties)
+    D_tmax_july    = np.full((len(GCMS), len(county_fips)), np.nan)
+    D_tmax_grow    = np.full((len(GCMS), len(county_fips)), np.nan)
+    D_tmin_grow    = np.full((len(GCMS), len(county_fips)), np.nan)
+    D_pr_grow      = np.full((len(GCMS), len(county_fips)), np.nan)   # mm/month delta
+
