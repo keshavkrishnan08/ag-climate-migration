@@ -268,3 +268,13 @@ for yr in REP_YEARS:
         # Convert each to mm/month, then take delta
         ref_pr_mm = pr_flux_to_mm_month(ref_data[gcm]["pr"]["growing"])
         tgt_pr_mm = pr_flux_to_mm_month(rep_data[gcm]["pr"][yr]["growing"])
+        D_pr_grow[gi] = tgt_pr_mm - ref_pr_mm
+
+    # Ensemble statistics across GCMs (axis=0)
+    med_tmax_j = np.nanmedian(D_tmax_july, axis=0)
+    med_tmax_g = np.nanmedian(D_tmax_grow, axis=0)
+    med_tmin_g = np.nanmedian(D_tmin_grow, axis=0)
+    med_pr_g   = np.nanmedian(D_pr_grow,   axis=0)
+
+    p10_tmax_j = np.nanpercentile(D_tmax_july, 10, axis=0)
+    p90_tmax_j = np.nanpercentile(D_tmax_july, 90, axis=0)
