@@ -258,3 +258,13 @@ for yr in REP_YEARS:
         tgt_tx_g = rep_data[gcm]["tasmax"][yr]["growing"]
         D_tmax_grow[gi] = k_delta_to_f(tgt_tx_g - ref_tx_g)
 
+        # ---- tasmin ----
+        ref_tn_g = ref_data[gcm]["tasmin"]["growing"]
+        tgt_tn_g = rep_data[gcm]["tasmin"][yr]["growing"]
+        D_tmin_grow[gi] = k_delta_to_f(tgt_tn_g - ref_tn_g)
+
+        # ---- pr ----
+        # Both ref and tgt are mean monthly flux [kg m⁻² s⁻¹] averaged over grow months
+        # Convert each to mm/month, then take delta
+        ref_pr_mm = pr_flux_to_mm_month(ref_data[gcm]["pr"]["growing"])
+        tgt_pr_mm = pr_flux_to_mm_month(rep_data[gcm]["pr"][yr]["growing"])
