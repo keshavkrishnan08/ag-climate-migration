@@ -278,3 +278,13 @@ for yr in REP_YEARS:
 
     p10_tmax_j = np.nanpercentile(D_tmax_july, 10, axis=0)
     p90_tmax_j = np.nanpercentile(D_tmax_july, 90, axis=0)
+    n_gcms_arr = np.sum(~np.isnan(D_tmax_july), axis=0).astype(int)
+
+    for i, fips in enumerate(county_fips):
+        if fips not in bl_idx.index:
+            continue   # not in PRISM (tiny territories)
+        bl_row = bl_idx.loc[fips]
+
+        rep_records.append({
+            "fips":     fips,
+            "year":     yr,
