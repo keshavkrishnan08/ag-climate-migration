@@ -288,3 +288,13 @@ for yr in REP_YEARS:
         rep_records.append({
             "fips":     fips,
             "year":     yr,
+            "scenario": SCENARIO,
+            # Projected values (PRISM baseline + ensemble median delta)
+            "tmax_july_projected":    bl_row["tmax_july_bl"]     + med_tmax_j[i],
+            "tmax_growing_projected": bl_row["tmax_growing_bl"]  + med_tmax_g[i],
+            "precip_growing_projected": bl_row["precip_growing_bl"] + med_pr_g[i],
+            "tmin_growing_projected": bl_row["tmin_growing_bl"]  + med_tmin_g[i],
+            # Deltas
+            "delta_tmax_july":    med_tmax_j[i],
+            "delta_tmax_growing": med_tmax_g[i],
+            "delta_precip_growing": med_pr_g[i],
