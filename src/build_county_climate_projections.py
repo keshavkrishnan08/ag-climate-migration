@@ -338,3 +338,13 @@ for fips in proj_rep["fips"].unique():
     # At 2025: deltas = 0, projected = baseline, spread = 0 (all GCMs agree at ref)
     anchor_records.append({
         "fips":     fips,
+        "year":     2025,
+        "scenario": SCENARIO,
+        "tmax_july_projected":    bl_row["tmax_july_bl"],
+        "tmax_growing_projected": bl_row["tmax_growing_bl"],
+        "precip_growing_projected": bl_row["precip_growing_bl"],
+        "tmin_growing_projected": bl_row["tmin_growing_bl"],
+        "delta_tmax_july":    0.0,
+        "delta_tmax_growing": 0.0,
+        "delta_precip_growing": 0.0,
+        "delta_tmin_growing": 0.0,
