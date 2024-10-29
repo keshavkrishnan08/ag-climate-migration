@@ -318,3 +318,13 @@ ALL_YEARS = list(range(2025, 2051))
 
 INTERP_COLS = [
     "tmax_july_projected", "tmax_growing_projected",
+    "precip_growing_projected", "tmin_growing_projected",
+    "delta_tmax_july", "delta_tmax_growing",
+    "delta_precip_growing", "delta_tmin_growing",
+    "tmax_july_p10", "tmax_july_p90",
+]
+
+# At the GCM reference year (2025), delta = 0, so projected = baseline.
+# We anchor the interpolation there for years before 2030.
+# For 2025-2029: interpolate linearly between (2025, baseline) and (2030, rep).
+# For 2030-2050: interpolate between adjacent rep years.
