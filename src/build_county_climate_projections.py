@@ -308,3 +308,13 @@ for yr in REP_YEARS:
 proj_rep = pd.DataFrame(rep_records)
 print(f"  Rep-year table: {proj_rep.shape}")
 
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 6. Linear interpolation to annual 2025-2050
+# ═══════════════════════════════════════════════════════════════════════════════
+print("\nStep 6 — Interpolating to annual resolution …")
+
+ALL_YEARS = list(range(2025, 2051))
+
+INTERP_COLS = [
+    "tmax_july_projected", "tmax_growing_projected",
