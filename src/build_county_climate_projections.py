@@ -298,3 +298,13 @@ for yr in REP_YEARS:
             "delta_tmax_july":    med_tmax_j[i],
             "delta_tmax_growing": med_tmax_g[i],
             "delta_precip_growing": med_pr_g[i],
+            "delta_tmin_growing": med_tmin_g[i],
+            # Uncertainty spread on tmax_july
+            "tmax_july_p10": bl_row["tmax_july_bl"] + p10_tmax_j[i],
+            "tmax_july_p90": bl_row["tmax_july_bl"] + p90_tmax_j[i],
+            "n_gcms": int(n_gcms_arr[i]),
+        })
+
+proj_rep = pd.DataFrame(rep_records)
+print(f"  Rep-year table: {proj_rep.shape}")
+
