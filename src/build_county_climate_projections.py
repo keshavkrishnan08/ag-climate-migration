@@ -388,3 +388,13 @@ for fips in unique_fips:
                 out[col] = float(row_lo[col]) + alpha * (float(row_hi[col]) - float(row_lo[col]))
         all_records.append(out)
 
+result = pd.DataFrame(all_records)
+result["n_gcms"] = result["n_gcms"].astype(int)
+print(f"  Final table: {result.shape}")
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 7. Save
+# ═══════════════════════════════════════════════════════════════════════════════
+result.to_parquet(OUT_PATH, index=False)
+print(f"\nSaved → {OUT_PATH}")
