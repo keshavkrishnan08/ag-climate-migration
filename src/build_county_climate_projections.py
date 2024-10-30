@@ -398,3 +398,13 @@ print(f"  Final table: {result.shape}")
 # ═══════════════════════════════════════════════════════════════════════════════
 result.to_parquet(OUT_PATH, index=False)
 print(f"\nSaved → {OUT_PATH}")
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 8. Summary stats
+# ═══════════════════════════════════════════════════════════════════════════════
+print("\n" + "=" * 60)
+print("SUMMARY")
+print("=" * 60)
+print(f"Shape:      {result.shape}")
+print(f"Counties:   {result['fips'].nunique():,}")
