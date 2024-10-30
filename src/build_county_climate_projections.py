@@ -418,3 +418,5 @@ print("\nSample rows (2030, 2040, 2050 for first county):")
 sample_fips = result["fips"].iloc[0]
 print(result[(result["fips"] == sample_fips) & result["year"].isin([2030, 2040, 2050])]
       [["fips","year","tmax_july_projected","delta_tmax_july",
+        "precip_growing_projected","delta_precip_growing","n_gcms"]]
+      .to_string(index=False))
