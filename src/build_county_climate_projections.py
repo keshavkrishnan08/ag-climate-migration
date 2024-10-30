@@ -358,3 +358,13 @@ anchor_df = pd.DataFrame(anchor_records)
 # Combine anchor (2025) with rep years; sort so we can interpolate
 pivot_df = pd.concat([anchor_df, proj_rep[proj_rep["year"] > 2025]], ignore_index=True)
 pivot_df = pivot_df.sort_values(["fips", "year"]).reset_index(drop=True)
+
+# The "knot" years for interpolation are: 2025, 2030, 2035, 2040, 2045, 2050
+KNOT_YEARS = [2025] + REP_YEARS   # [2025, 2030, 2035, 2040, 2045, 2050]
+
+all_records = []
+unique_fips = pivot_df["fips"].unique()
+
+for fips in unique_fips:
+    sub = pivot_df[pivot_df["fips"] == fips].set_index("year")
+    n_gcms_val = int(sub["n_gcms"].max())
