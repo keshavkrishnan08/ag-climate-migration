@@ -408,3 +408,13 @@ print("SUMMARY")
 print("=" * 60)
 print(f"Shape:      {result.shape}")
 print(f"Counties:   {result['fips'].nunique():,}")
+print(f"Year range: {result['year'].min()}–{result['year'].max()}")
+
+for chk_yr in [2040, 2050]:
+    sub = result[result["year"] == chk_yr]
+    print(f"Median delta_tmax_july ({chk_yr}):  {sub['delta_tmax_july'].median():.2f} °F")
+
+print("\nSample rows (2030, 2040, 2050 for first county):")
+sample_fips = result["fips"].iloc[0]
+print(result[(result["fips"] == sample_fips) & result["year"].isin([2030, 2040, 2050])]
+      [["fips","year","tmax_july_projected","delta_tmax_july",
