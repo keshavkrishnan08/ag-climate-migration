@@ -378,3 +378,13 @@ for fips in unique_fips:
         else:
             # Find surrounding knot years
             lo = max(k for k in KNOT_YEARS if k <= yr)
+            hi = min(k for k in KNOT_YEARS if k >= yr)
+            # yr is strictly between lo and hi (both are in sub.index because we built them)
+            alpha = (yr - lo) / (hi - lo)
+            row_lo = sub.loc[lo]
+            row_hi = sub.loc[hi]
+            out = {"fips": fips, "year": yr, "scenario": SCENARIO, "n_gcms": n_gcms_val}
+            for col in INTERP_COLS:
+                out[col] = float(row_lo[col]) + alpha * (float(row_hi[col]) - float(row_lo[col]))
+        all_records.append(out)
+
