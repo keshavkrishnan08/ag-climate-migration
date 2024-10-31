@@ -18,3 +18,13 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 
+# Paths
+BASE        = Path(__file__).resolve().parent.parent
+CMIP6_DIR   = BASE / "data/raw/cmip6_ssp370"
+PRISM_PATH  = BASE / "data/raw/prism/county_climate_monthly.parquet"
+GAZETTE_PATH= BASE / "data/raw/census/2023_Gaz_counties_national.txt"
+OUT_PATH    = BASE / "data/projections/county_climate_projections_ssp370.parquet"
+OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+# Constants
+GCMS = [
