@@ -28,3 +28,13 @@ OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 # Constants
 GCMS = [
+    "ACCESS-CM2",
+    "GFDL-ESM4",
+    "MIROC6",
+    "MPI-ESM1-2-LR",
+    "CNRM-CM6-1",
+    "IPSL-CM6A-LR",
+    "MRI-ESM2-0",
+    "CESM2",
+    "UKESM1-0-LL",
+]
