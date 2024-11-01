@@ -48,3 +48,13 @@ SCENARIO        = "SSP370"
 SECS_PER_MONTH  = 30.44 * 86400
 EXCLUDE_STATES  = {"02", "15", "72", "78", "66", "60", "69"}
 
+
+def k_delta_to_f(delta_k):
+    """Temperature difference in K to F (scale only, no offset).
+
+    Args:
+        delta_k: ndarray of temperature deltas in K/degC.
+
+    Returns:
+        ndarray converted to Fahrenheit scale.
+    """
