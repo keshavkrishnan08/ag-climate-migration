@@ -38,3 +38,13 @@ GCMS = [
     "CESM2",
     "UKESM1-0-LL",
 ]
+
+REP_YEARS       = [2030, 2035, 2040, 2045, 2050]
+REF_YEARS       = list(range(2025, 2031))
+GROW_MONTHS     = [5, 6, 7, 8, 9]
+JULY            = 7
+BASELINE_Y1, BASELINE_Y2 = 1981, 2010
+SCENARIO        = "SSP370"
+SECS_PER_MONTH  = 30.44 * 86400
+EXCLUDE_STATES  = {"02", "15", "72", "78", "66", "60", "69"}
+
