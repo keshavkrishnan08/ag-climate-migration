@@ -68,3 +68,13 @@ def pr_flux_to_mm_month(flux):
         flux: ndarray of precipitation flux.
 
     Returns:
+        ndarray of monthly precipitation in mm.
+    """
+    return flux * SECS_PER_MONTH
+
+
+# Step 1: County centroids
+print("Step 1 - Loading county centroids ...")
+gaz = pd.read_csv(GAZETTE_PATH, sep="\t", dtype=str)
+gaz.columns = gaz.columns.str.strip()
+
