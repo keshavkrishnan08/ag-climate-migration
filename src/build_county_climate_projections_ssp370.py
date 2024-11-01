@@ -58,3 +58,13 @@ def k_delta_to_f(delta_k):
     Returns:
         ndarray converted to Fahrenheit scale.
     """
+    return delta_k * 9.0 / 5.0
+
+
+def pr_flux_to_mm_month(flux):
+    """Convert kg m^-2 s^-1 to mm/month using 30.44-day month.
+
+    Args:
+        flux: ndarray of precipitation flux.
+
+    Returns:
