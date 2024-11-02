@@ -88,3 +88,13 @@ print(f"  {len(gaz):,} CONUS counties")
 
 county_fips     = gaz["fips"].values
 county_lats     = gaz["lat"].values
+county_lons     = gaz["lon"].values
+
+
+# Step 2: PRISM 1981-2010 baseline
+print("Step 2 - Computing PRISM 1981-2010 baseline ...")
+prism = pd.read_parquet(PRISM_PATH)
+
+bl = prism[(prism["year"] >= BASELINE_Y1) & (prism["year"] <= BASELINE_Y2)].copy()
+
+tmax_g_cols   = [f"tmax_m{m:02d}"   for m in GROW_MONTHS]
