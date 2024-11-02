@@ -78,3 +78,13 @@ print("Step 1 - Loading county centroids ...")
 gaz = pd.read_csv(GAZETTE_PATH, sep="\t", dtype=str)
 gaz.columns = gaz.columns.str.strip()
 
+gaz["fips"] = gaz["GEOID"].str.zfill(5)
+gaz["lat"]  = pd.to_numeric(gaz["INTPTLAT"],  errors="coerce")
+gaz["lon"]  = pd.to_numeric(gaz["INTPTLONG"], errors="coerce")
+
+gaz = gaz[~gaz["fips"].str[:2].isin(EXCLUDE_STATES)].copy()
+gaz = gaz[["fips", "lat", "lon"]].dropna().reset_index(drop=True)
+print(f"  {len(gaz):,} CONUS counties")
+
+county_fips     = gaz["fips"].values
+county_lats     = gaz["lat"].values
