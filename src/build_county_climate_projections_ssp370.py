@@ -118,3 +118,13 @@ print(f"  Baseline for {len(baseline):,} counties")
 
 
 # Step 3: CMIP6 grid to county nearest-neighbour lookup
+print("Step 3 - Building per-model CMIP6 grid -> county lookups ...")
+
+county_lons_360 = county_lons % 360
+
+_nn_keys_per_gcm = {}
+for gcm in GCMS:
+    ref_path = CMIP6_DIR / f"{gcm}_ssp370_tasmax_2025_conus_monthly.parquet"
+    if not ref_path.exists():
+        print(f"  {gcm}: reference file not found, skipping")
+        continue
