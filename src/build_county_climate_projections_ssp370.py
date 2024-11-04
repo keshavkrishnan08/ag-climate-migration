@@ -108,3 +108,13 @@ bl["_precip_grow"] = bl[pr_g_cols].sum(axis=1)
 baseline = (bl.groupby("fips")
               .agg(
                   tmax_july_bl     = ("tmax_m07",     "mean"),
+                  tmax_growing_bl  = ("_tmax_grow",   "mean"),
+                  precip_growing_bl= ("_precip_grow", "mean"),
+                  tmin_growing_bl  = ("_tmin_grow",   "mean"),
+              )
+              .reset_index())
+
+print(f"  Baseline for {len(baseline):,} counties")
+
+
+# Step 3: CMIP6 grid to county nearest-neighbour lookup
