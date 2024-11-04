@@ -98,3 +98,13 @@ prism = pd.read_parquet(PRISM_PATH)
 bl = prism[(prism["year"] >= BASELINE_Y1) & (prism["year"] <= BASELINE_Y2)].copy()
 
 tmax_g_cols   = [f"tmax_m{m:02d}"   for m in GROW_MONTHS]
+tmin_g_cols   = [f"tmin_m{m:02d}"   for m in GROW_MONTHS]
+pr_g_cols     = [f"precip_m{m:02d}" for m in GROW_MONTHS]
+
+bl["_tmax_grow"]   = bl[tmax_g_cols].mean(axis=1)
+bl["_tmin_grow"]   = bl[tmin_g_cols].mean(axis=1)
+bl["_precip_grow"] = bl[pr_g_cols].sum(axis=1)
+
+baseline = (bl.groupby("fips")
+              .agg(
+                  tmax_july_bl     = ("tmax_m07",     "mean"),
