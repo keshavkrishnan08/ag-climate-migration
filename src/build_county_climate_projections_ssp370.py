@@ -148,3 +148,13 @@ for gcm in GCMS:
     print(f"  {gcm}: {len(grid_pts):,} grid points -> {len(county_fips):,} counties")
 
 nn_keys = _nn_keys_per_gcm.get(GCMS[0], [])
+print("  Grid matching done.")
+
+
+def _load_county_gcm(gcm, var, year):
+    """Load a CMIP6 SSP370 parquet file and extract county-level aggregates.
+
+    For temperature variables: growing-season mean (months 5-9) and July mean.
+    For precipitation: growing-season mean flux in kg/m2/s.
+
+    Args:
