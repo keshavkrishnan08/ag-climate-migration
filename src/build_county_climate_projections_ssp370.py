@@ -168,3 +168,13 @@ def _load_county_gcm(gcm, var, year):
     Raises:
         FileNotFoundError: If the parquet file does not exist.
     """
+    path = CMIP6_DIR / f"{gcm}_ssp370_{var}_{year}_conus_monthly.parquet"
+    df   = pd.read_parquet(path)
+
+    gcm_nn_keys = _nn_keys_per_gcm.get(gcm, nn_keys)
+
+    grow = df[df["month"].isin(GROW_MONTHS)].copy()
+    grow["_key"] = list(zip(grow["lat"].tolist(), grow["lon"].tolist()))
+    grow_agg  = grow.groupby("_key")["value"].mean()
+    grow_vals = grow_agg.reindex(gcm_nn_keys).values.astype(float)
+
