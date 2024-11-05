@@ -158,3 +158,13 @@ def _load_county_gcm(gcm, var, year):
     For precipitation: growing-season mean flux in kg/m2/s.
 
     Args:
+        gcm: GCM name matching the file prefix.
+        var: Variable name (tasmax, tasmin, or pr).
+        year: Target year (2025-2050).
+
+    Returns:
+        Dict with 'growing' array (len n_counties) and 'july' array or None for pr.
+
+    Raises:
+        FileNotFoundError: If the parquet file does not exist.
+    """
