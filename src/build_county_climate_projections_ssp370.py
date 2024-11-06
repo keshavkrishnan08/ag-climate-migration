@@ -178,3 +178,13 @@ def _load_county_gcm(gcm, var, year):
     grow_agg  = grow.groupby("_key")["value"].mean()
     grow_vals = grow_agg.reindex(gcm_nn_keys).values.astype(float)
 
+    if var == "pr":
+        return {"growing": grow_vals, "july": None}
+
+    july = df[df["month"] == JULY].copy()
+    july["_key"] = list(zip(july["lat"].tolist(), july["lon"].tolist()))
+    july_agg  = july.groupby("_key")["value"].mean()
+    july_vals = july_agg.reindex(gcm_nn_keys).values.astype(float)
+
+    return {"growing": grow_vals, "july": july_vals}
+
