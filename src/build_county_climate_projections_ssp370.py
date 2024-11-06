@@ -208,3 +208,13 @@ for gcm in GCMS:
             stacks_grow.append(res["growing"])
             if res["july"] is not None:
                 stacks_july.append(res["july"])
+        ref_data[gcm][var] = {
+            "growing": np.nanmean(stacks_grow, axis=0),
+            "july":    np.nanmean(stacks_july, axis=0) if stacks_july else None,
+        }
+
+print(f"  Representative years: {REP_YEARS}")
+
+rep_data = {}
+for gcm in GCMS:
+    if gcm not in _nn_keys_per_gcm:
