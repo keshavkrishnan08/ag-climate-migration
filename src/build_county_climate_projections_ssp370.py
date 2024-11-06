@@ -248,3 +248,13 @@ for yr in REP_YEARS:
         ref_tx_g = ref_data[gcm]["tasmax"]["growing"]
         tgt_tx_g = rep_data[gcm]["tasmax"][yr]["growing"]
         D_tmax_grow[gi] = k_delta_to_f(tgt_tx_g - ref_tx_g)
+
+        ref_tn_g = ref_data[gcm]["tasmin"]["growing"]
+        tgt_tn_g = rep_data[gcm]["tasmin"][yr]["growing"]
+        D_tmin_grow[gi] = k_delta_to_f(tgt_tn_g - ref_tn_g)
+
+        ref_pr_mm = pr_flux_to_mm_month(ref_data[gcm]["pr"]["growing"])
+        tgt_pr_mm = pr_flux_to_mm_month(rep_data[gcm]["pr"][yr]["growing"])
+        D_pr_grow[gi]   = tgt_pr_mm - ref_pr_mm
+
+    med_tmax_j = np.nanmedian(D_tmax_july, axis=0)
