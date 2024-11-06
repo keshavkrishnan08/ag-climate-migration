@@ -218,3 +218,13 @@ print(f"  Representative years: {REP_YEARS}")
 rep_data = {}
 for gcm in GCMS:
     if gcm not in _nn_keys_per_gcm:
+        continue
+    print(f"    {gcm} rep years ...")
+    rep_data[gcm] = {}
+    for var in ["tasmax", "tasmin", "pr"]:
+        rep_data[gcm][var] = {}
+        for yr in REP_YEARS:
+            rep_data[gcm][var][yr] = _load_county_gcm(gcm, var, yr)
+
+
+# Step 5: Delta method
