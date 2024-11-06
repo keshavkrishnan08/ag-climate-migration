@@ -238,3 +238,13 @@ for yr in REP_YEARS:
     D_tmax_july = np.full((len(ACTIVE_GCMS), len(county_fips)), np.nan)
     D_tmax_grow = np.full((len(ACTIVE_GCMS), len(county_fips)), np.nan)
     D_tmin_grow = np.full((len(ACTIVE_GCMS), len(county_fips)), np.nan)
+    D_pr_grow   = np.full((len(ACTIVE_GCMS), len(county_fips)), np.nan)
+
+    for gi, gcm in enumerate(ACTIVE_GCMS):
+        ref_tx_j = ref_data[gcm]["tasmax"]["july"]
+        tgt_tx_j = rep_data[gcm]["tasmax"][yr]["july"]
+        D_tmax_july[gi] = k_delta_to_f(tgt_tx_j - ref_tx_j)
+
+        ref_tx_g = ref_data[gcm]["tasmax"]["growing"]
+        tgt_tx_g = rep_data[gcm]["tasmax"][yr]["growing"]
+        D_tmax_grow[gi] = k_delta_to_f(tgt_tx_g - ref_tx_g)
