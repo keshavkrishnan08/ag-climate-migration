@@ -188,3 +188,13 @@ def _load_county_gcm(gcm, var, year):
 
     return {"growing": grow_vals, "july": july_vals}
 
+
+# Step 4: Load GCM data
+print("\nStep 4 - Loading CMIP6 SSP370 files ...")
+print(f"  Reference period: {REF_YEARS[0]}-{REF_YEARS[-1]}")
+
+ref_data = {}
+for gcm in GCMS:
+    if gcm not in _nn_keys_per_gcm:
+        print(f"    {gcm}: skipped (no grid lookup)")
+        continue
