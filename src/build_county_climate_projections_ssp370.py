@@ -228,3 +228,13 @@ for gcm in GCMS:
 
 
 # Step 5: Delta method
+print("\nStep 5 - Delta method ...")
+
+ACTIVE_GCMS = [g for g in GCMS if g in ref_data]
+bl_idx = baseline.set_index("fips")
+rep_records = []
+
+for yr in REP_YEARS:
+    D_tmax_july = np.full((len(ACTIVE_GCMS), len(county_fips)), np.nan)
+    D_tmax_grow = np.full((len(ACTIVE_GCMS), len(county_fips)), np.nan)
+    D_tmin_grow = np.full((len(ACTIVE_GCMS), len(county_fips)), np.nan)
