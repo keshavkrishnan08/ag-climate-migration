@@ -198,3 +198,13 @@ for gcm in GCMS:
     if gcm not in _nn_keys_per_gcm:
         print(f"    {gcm}: skipped (no grid lookup)")
         continue
+    print(f"    {gcm} reference ...")
+    ref_data[gcm] = {}
+    for var in ["tasmax", "tasmin", "pr"]:
+        stacks_grow = []
+        stacks_july = []
+        for yr in REF_YEARS:
+            res = _load_county_gcm(gcm, var, yr)
+            stacks_grow.append(res["growing"])
+            if res["july"] is not None:
+                stacks_july.append(res["july"])
