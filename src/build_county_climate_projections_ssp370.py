@@ -298,3 +298,13 @@ print("\nStep 6 - Interpolating to annual resolution ...")
 ALL_YEARS = list(range(2025, 2051))
 
 INTERP_COLS = [
+    "tmax_july_projected", "tmax_growing_projected",
+    "precip_growing_projected", "tmin_growing_projected",
+    "delta_tmax_july", "delta_tmax_growing",
+    "delta_precip_growing", "delta_tmin_growing",
+    "tmax_july_p10", "tmax_july_p90",
+]
+
+anchor_records = []
+for fips in proj_rep["fips"].unique():
+    if fips not in bl_idx.index:
