@@ -288,3 +288,13 @@ for yr in REP_YEARS:
             "n_gcms": int(n_gcms_arr[i]),
         })
 
+proj_rep = pd.DataFrame(rep_records)
+print(f"  Rep-year table: {proj_rep.shape}")
+
+
+# Step 6: Interpolate to annual 2025-2050
+print("\nStep 6 - Interpolating to annual resolution ...")
+
+ALL_YEARS = list(range(2025, 2051))
+
+INTERP_COLS = [
