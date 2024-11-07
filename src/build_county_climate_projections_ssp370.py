@@ -268,3 +268,13 @@ for yr in REP_YEARS:
 
     for i, fips in enumerate(county_fips):
         if fips not in bl_idx.index:
+            continue
+        bl_row = bl_idx.loc[fips]
+
+        rep_records.append({
+            "fips":     fips,
+            "year":     yr,
+            "scenario": SCENARIO,
+            "tmax_july_projected":      bl_row["tmax_july_bl"]      + med_tmax_j[i],
+            "tmax_growing_projected":   bl_row["tmax_growing_bl"]   + med_tmax_g[i],
+            "precip_growing_projected": bl_row["precip_growing_bl"] + med_pr_g[i],
