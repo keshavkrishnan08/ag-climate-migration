@@ -278,3 +278,13 @@ for yr in REP_YEARS:
             "tmax_july_projected":      bl_row["tmax_july_bl"]      + med_tmax_j[i],
             "tmax_growing_projected":   bl_row["tmax_growing_bl"]   + med_tmax_g[i],
             "precip_growing_projected": bl_row["precip_growing_bl"] + med_pr_g[i],
+            "tmin_growing_projected":   bl_row["tmin_growing_bl"]   + med_tmin_g[i],
+            "delta_tmax_july":          med_tmax_j[i],
+            "delta_tmax_growing":       med_tmax_g[i],
+            "delta_precip_growing":     med_pr_g[i],
+            "delta_tmin_growing":       med_tmin_g[i],
+            "tmax_july_p10": bl_row["tmax_july_bl"] + p10_tmax_j[i],
+            "tmax_july_p90": bl_row["tmax_july_bl"] + p90_tmax_j[i],
+            "n_gcms": int(n_gcms_arr[i]),
+        })
+
