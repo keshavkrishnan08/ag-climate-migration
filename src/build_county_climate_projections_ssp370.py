@@ -308,3 +308,13 @@ INTERP_COLS = [
 anchor_records = []
 for fips in proj_rep["fips"].unique():
     if fips not in bl_idx.index:
+        continue
+    bl_row = bl_idx.loc[fips]
+    anchor_records.append({
+        "fips":     fips,
+        "year":     2025,
+        "scenario": SCENARIO,
+        "tmax_july_projected":      bl_row["tmax_july_bl"],
+        "tmax_growing_projected":   bl_row["tmax_growing_bl"],
+        "precip_growing_projected": bl_row["precip_growing_bl"],
+        "tmin_growing_projected":   bl_row["tmin_growing_bl"],
