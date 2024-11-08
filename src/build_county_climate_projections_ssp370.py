@@ -338,3 +338,13 @@ unique_fips = pivot_df["fips"].unique()
 
 for fips in unique_fips:
     sub        = pivot_df[pivot_df["fips"] == fips].set_index("year")
+    n_gcms_val = int(sub["n_gcms"].max())
+
+    for yr in ALL_YEARS:
+        if yr in sub.index:
+            row = sub.loc[yr]
+            out = {"fips": fips, "year": yr, "scenario": SCENARIO, "n_gcms": n_gcms_val}
+            for col in INTERP_COLS:
+                out[col] = float(row[col])
+        else:
+            lo    = max(k for k in KNOT_YEARS if k <= yr)
