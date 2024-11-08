@@ -328,3 +328,13 @@ for fips in proj_rep["fips"].unique():
     })
 
 anchor_df = pd.DataFrame(anchor_records)
+pivot_df  = pd.concat([anchor_df, proj_rep[proj_rep["year"] > 2025]], ignore_index=True)
+pivot_df  = pivot_df.sort_values(["fips", "year"]).reset_index(drop=True)
+
+KNOT_YEARS = [2025] + REP_YEARS
+
+all_records = []
+unique_fips = pivot_df["fips"].unique()
+
+for fips in unique_fips:
+    sub        = pivot_df[pivot_df["fips"] == fips].set_index("year")
