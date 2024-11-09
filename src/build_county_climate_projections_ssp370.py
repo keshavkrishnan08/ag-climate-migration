@@ -348,3 +348,13 @@ for fips in unique_fips:
                 out[col] = float(row[col])
         else:
             lo    = max(k for k in KNOT_YEARS if k <= yr)
+            hi    = min(k for k in KNOT_YEARS if k >= yr)
+            alpha = (yr - lo) / (hi - lo)
+            row_lo= sub.loc[lo]
+            row_hi= sub.loc[hi]
+            out   = {"fips": fips, "year": yr, "scenario": SCENARIO, "n_gcms": n_gcms_val}
+            for col in INTERP_COLS:
+                out[col] = float(row_lo[col]) + alpha * (float(row_hi[col]) - float(row_lo[col]))
+        all_records.append(out)
+
+result = pd.DataFrame(all_records)
