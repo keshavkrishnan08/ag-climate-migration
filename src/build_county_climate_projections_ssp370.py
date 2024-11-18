@@ -358,3 +358,13 @@ for fips in unique_fips:
         all_records.append(out)
 
 result = pd.DataFrame(all_records)
+result["n_gcms"] = result["n_gcms"].astype(int)
+print(f"  Final table: {result.shape}")
+
+
+# Step 7: Save
+result.to_parquet(OUT_PATH, index=False)
+print(f"\nSaved -> {OUT_PATH}")
+
+
+# Step 8: Summary
