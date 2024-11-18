@@ -368,3 +368,13 @@ print(f"\nSaved -> {OUT_PATH}")
 
 
 # Step 8: Summary
+print("\n" + "=" * 60)
+print("SSP370 COUNTY PROJECTIONS SUMMARY")
+print("=" * 60)
+print(f"Shape:      {result.shape}")
+print(f"Counties:   {result['fips'].nunique():,}")
+print(f"Year range: {result['year'].min()}-{result['year'].max()}")
+print(f"GCMs ({len(ACTIVE_GCMS)}): {', '.join(ACTIVE_GCMS)}")
+
+for chk_yr in [2040, 2050]:
+    sub = result[result["year"] == chk_yr]
