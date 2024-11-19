@@ -28,3 +28,13 @@ import numpy as np
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_PROJ = os.path.join(ROOT, "data", "projections")
 DATA_RAW = os.path.join(ROOT, "data", "raw")
+RESULTS = os.path.join(ROOT, "results")
+OUT_DIR = os.path.join(ROOT, "data", "published_dataset")
+
+os.makedirs(OUT_DIR, exist_ok=True)
+
+
+# ---------------------------------------------------------------------------
+# County name lookup
+# ---------------------------------------------------------------------------
+
