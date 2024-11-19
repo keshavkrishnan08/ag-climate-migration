@@ -378,3 +378,13 @@ print(f"GCMs ({len(ACTIVE_GCMS)}): {', '.join(ACTIVE_GCMS)}")
 
 for chk_yr in [2040, 2050]:
     sub = result[result["year"] == chk_yr]
+    print(f"\nYear {chk_yr}:")
+    print(f"  Median delta_tmax_july:    {sub['delta_tmax_july'].median():.2f} F")
+    print(f"  Median delta_tmax_growing: {sub['delta_tmax_growing'].median():.2f} F")
+    print(f"  Median delta_precip:       {sub['delta_precip_growing'].median():.2f} mm/mo")
+
+print("\nSample (2030, 2040, 2050 for first county):")
+sample_fips = result["fips"].iloc[0]
+print(result[(result["fips"] == sample_fips) & result["year"].isin([2030, 2040, 2050])]
+      [["fips","year","tmax_july_projected","delta_tmax_july",
+        "precip_growing_projected","delta_precip_growing","n_gcms"]]
