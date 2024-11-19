@@ -18,3 +18,13 @@ Outputs (data/published_dataset/):
 """
 
 import os
+import sys
+import pandas as pd
+import numpy as np
+
+# ---------------------------------------------------------------------------
+# Paths
+# ---------------------------------------------------------------------------
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_PROJ = os.path.join(ROOT, "data", "projections")
+DATA_RAW = os.path.join(ROOT, "data", "raw")
