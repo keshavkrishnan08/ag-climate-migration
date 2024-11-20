@@ -78,3 +78,13 @@ def add_county_info(df: pd.DataFrame, lookup: pd.DataFrame) -> pd.DataFrame:
 def build_yield_projections(lookup: pd.DataFrame) -> pd.DataFrame:
     """
     Combine SSP245 and SSP370 yield projections with county identifiers.
+
+    Args:
+        lookup: County name/state lookup from build_county_lookup().
+
+    Returns:
+        Clean DataFrame ready for CSV export.
+
+    Raises:
+        FileNotFoundError: If either parquet source is missing.
+    """
