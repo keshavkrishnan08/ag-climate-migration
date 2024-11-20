@@ -68,3 +68,13 @@ def add_county_info(df: pd.DataFrame, lookup: pd.DataFrame) -> pd.DataFrame:
     merged = df.merge(lookup, on="fips", how="left")
     # Re-order so fips, county_name, state come first
     other_cols = [c for c in merged.columns if c not in ("fips", "county_name", "state")]
+    return merged[["fips", "county_name", "state"] + other_cols]
+
+
+# ---------------------------------------------------------------------------
+# File 1: county_yield_projections.csv
+# ---------------------------------------------------------------------------
+
+def build_yield_projections(lookup: pd.DataFrame) -> pd.DataFrame:
+    """
+    Combine SSP245 and SSP370 yield projections with county identifiers.
