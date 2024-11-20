@@ -88,3 +88,13 @@ def build_yield_projections(lookup: pd.DataFrame) -> pd.DataFrame:
     Raises:
         FileNotFoundError: If either parquet source is missing.
     """
+    cols_in = [
+        "fips", "year", "crop", "scenario",
+        "yield_projected", "yield_baseline", "climate_impact_bu",
+        "yield_p10", "yield_p90", "acres_harvested",
+    ]
+    df245 = pd.read_parquet(
+        os.path.join(DATA_PROJ, "yield_projections_SSP245.parquet"),
+        columns=cols_in,
+    )
+    df370 = pd.read_parquet(
