@@ -48,3 +48,13 @@ def build_county_lookup() -> pd.DataFrame:
     gaz_path = os.path.join(DATA_RAW, "census", "2023_Gaz_counties_national.txt")
     gaz = pd.read_csv(gaz_path, sep="\t", dtype={"GEOID": str}, usecols=["GEOID", "NAME", "USPS"])
     gaz = gaz.rename(columns={"GEOID": "fips", "NAME": "county_name", "USPS": "state"})
+    gaz["fips"] = gaz["fips"].str.zfill(5)
+    return gaz[["fips", "county_name", "state"]].drop_duplicates("fips")
+
+
+def add_county_info(df: pd.DataFrame, lookup: pd.DataFrame) -> pd.DataFrame:
+    """
+    Left-join county_name and state onto df using fips.
+
+    Args:
+        df: DataFrame with a 'fips' column (5-digit string).
