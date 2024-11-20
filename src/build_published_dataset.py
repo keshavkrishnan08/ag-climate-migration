@@ -98,3 +98,13 @@ def build_yield_projections(lookup: pd.DataFrame) -> pd.DataFrame:
         columns=cols_in,
     )
     df370 = pd.read_parquet(
+        os.path.join(DATA_PROJ, "yield_projections_SSP370.parquet"),
+        columns=cols_in,
+    )
+    df = pd.concat([df245, df370], ignore_index=True)
+
+    df = df.rename(columns={
+        "yield_projected": "yield_projected_bu_acre",
+        "yield_baseline": "yield_baseline_bu_acre",
+        "climate_impact_bu": "climate_impact_bu_acre",
+    })
