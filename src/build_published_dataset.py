@@ -38,3 +38,13 @@ os.makedirs(OUT_DIR, exist_ok=True)
 # County name lookup
 # ---------------------------------------------------------------------------
 
+def build_county_lookup() -> pd.DataFrame:
+    """
+    Build a FIPS → (county_name, state) lookup from the Census Gazetteer.
+
+    Returns:
+        DataFrame with columns: fips, county_name, state
+    """
+    gaz_path = os.path.join(DATA_RAW, "census", "2023_Gaz_counties_national.txt")
+    gaz = pd.read_csv(gaz_path, sep="\t", dtype={"GEOID": str}, usecols=["GEOID", "NAME", "USPS"])
+    gaz = gaz.rename(columns={"GEOID": "fips", "NAME": "county_name", "USPS": "state"})
