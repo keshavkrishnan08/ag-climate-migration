@@ -58,3 +58,13 @@ def add_county_info(df: pd.DataFrame, lookup: pd.DataFrame) -> pd.DataFrame:
 
     Args:
         df: DataFrame with a 'fips' column (5-digit string).
+        lookup: Output of build_county_lookup().
+
+    Returns:
+        df with county_name and state columns inserted after fips.
+    """
+    df = df.copy()
+    df["fips"] = df["fips"].astype(str).str.zfill(5)
+    merged = df.merge(lookup, on="fips", how="left")
+    # Re-order so fips, county_name, state come first
+    other_cols = [c for c in merged.columns if c not in ("fips", "county_name", "state")]
