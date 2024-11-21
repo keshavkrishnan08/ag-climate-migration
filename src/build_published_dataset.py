@@ -138,3 +138,13 @@ def build_climate_projections(lookup: pd.DataFrame) -> pd.DataFrame:
     df245 = pd.read_parquet(
         os.path.join(DATA_PROJ, "county_climate_projections.parquet"),
         columns=keep,
+    )
+    df370 = pd.read_parquet(
+        os.path.join(DATA_PROJ, "county_climate_projections_ssp370.parquet"),
+        columns=keep,
+    )
+    df = pd.concat([df245, df370], ignore_index=True)
+
+    df = df.rename(columns={
+        "tmax_july_projected": "tmax_july_projected_F",
+        "delta_tmax_july": "delta_tmax_july_F",
