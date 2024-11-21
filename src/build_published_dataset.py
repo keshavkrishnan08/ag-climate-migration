@@ -108,3 +108,13 @@ def build_yield_projections(lookup: pd.DataFrame) -> pd.DataFrame:
         "yield_baseline": "yield_baseline_bu_acre",
         "climate_impact_bu": "climate_impact_bu_acre",
     })
+
+    df = add_county_info(df, lookup)
+    df = df.sort_values(["fips", "crop", "scenario", "year"]).reset_index(drop=True)
+    return df
+
+
+# ---------------------------------------------------------------------------
+# File 2: county_climate_projections.csv
+# ---------------------------------------------------------------------------
+
