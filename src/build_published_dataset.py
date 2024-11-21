@@ -168,3 +168,13 @@ def build_stranded_assets(lookup: pd.DataFrame) -> pd.DataFrame:
     into a single county-level table.
 
     Args:
+        lookup: County name/state lookup.
+
+    Returns:
+        One row per county with stranded asset valuations.
+    """
+    sa_dir = os.path.join(RESULTS, "stranded_assets")
+
+    # DCF conservative = SSP245 central discount (4%)
+    dcf_cons = pd.read_parquet(
+        os.path.join(sa_dir, "stranded_national_SSP245.parquet"),
