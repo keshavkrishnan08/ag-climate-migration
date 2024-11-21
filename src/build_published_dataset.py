@@ -118,3 +118,13 @@ def build_yield_projections(lookup: pd.DataFrame) -> pd.DataFrame:
 # File 2: county_climate_projections.csv
 # ---------------------------------------------------------------------------
 
+def build_climate_projections(lookup: pd.DataFrame) -> pd.DataFrame:
+    """
+    Combine SSP245 and SSP370 county-level climate projections.
+    Temperatures stored as °F (tmax columns) consistent with source data.
+
+    Args:
+        lookup: County name/state lookup.
+
+    Returns:
+        Clean DataFrame ready for CSV export.
