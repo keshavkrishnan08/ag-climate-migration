@@ -158,3 +158,13 @@ def build_climate_projections(lookup: pd.DataFrame) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------
+# File 3: county_stranded_assets.csv
+# ---------------------------------------------------------------------------
+
+def build_stranded_assets(lookup: pd.DataFrame) -> pd.DataFrame:
+    """
+    Merge DCF stranded values (conservative=SSP245 4%, central=SSP370 4%),
+    hedonic stranded values (2050 horizon), and cap-rate overvaluation
+    into a single county-level table.
+
+    Args:
