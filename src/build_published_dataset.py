@@ -178,3 +178,13 @@ def build_stranded_assets(lookup: pd.DataFrame) -> pd.DataFrame:
     # DCF conservative = SSP245 central discount (4%)
     dcf_cons = pd.read_parquet(
         os.path.join(sa_dir, "stranded_national_SSP245.parquet"),
+        columns=["fips", "stranded_value_total", "stranded_value_per_acre",
+                 "land_value_per_acre", "stranded_fraction", "total_acres"],
+    ).rename(columns={
+        "stranded_value_total": "stranded_dcf_conservative_usd",
+        "stranded_value_per_acre": "stranded_dcf_conservative_per_acre_usd",
+    })
+
+    # DCF central = SSP370 (higher warming)
+    dcf_cent = pd.read_parquet(
+        os.path.join(sa_dir, "stranded_national_SSP370.parquet"),
