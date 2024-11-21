@@ -188,3 +188,13 @@ def build_stranded_assets(lookup: pd.DataFrame) -> pd.DataFrame:
     # DCF central = SSP370 (higher warming)
     dcf_cent = pd.read_parquet(
         os.path.join(sa_dir, "stranded_national_SSP370.parquet"),
+        columns=["fips", "stranded_value_total"],
+    ).rename(columns={"stranded_value_total": "stranded_dcf_central_usd"})
+
+    # Hedonic (2050 horizon, SSP245)
+    hedonic = pd.read_parquet(
+        os.path.join(sa_dir, "hedonic_stranded.parquet"),
+        columns=["fips", "stranded_total", "target_year", "scenario"],
+    )
+    hedonic_2050 = (
+        hedonic[hedonic["target_year"] == 2050]
