@@ -148,3 +148,13 @@ def build_climate_projections(lookup: pd.DataFrame) -> pd.DataFrame:
     df = df.rename(columns={
         "tmax_july_projected": "tmax_july_projected_F",
         "delta_tmax_july": "delta_tmax_july_F",
+        "precip_growing_projected": "precip_growing_projected_mm",
+        "delta_precip_growing": "delta_precip_mm",
+    })
+
+    df = add_county_info(df, lookup)
+    df = df.sort_values(["fips", "scenario", "year"]).reset_index(drop=True)
+    return df
+
+
+# ---------------------------------------------------------------------------
