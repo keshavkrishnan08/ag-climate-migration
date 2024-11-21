@@ -128,3 +128,13 @@ def build_climate_projections(lookup: pd.DataFrame) -> pd.DataFrame:
 
     Returns:
         Clean DataFrame ready for CSV export.
+    """
+    keep = [
+        "fips", "year", "scenario", "n_gcms",
+        "tmax_july_projected", "delta_tmax_july",
+        "precip_growing_projected", "delta_precip_growing",
+        "tmax_july_p10", "tmax_july_p90",
+    ]
+    df245 = pd.read_parquet(
+        os.path.join(DATA_PROJ, "county_climate_projections.parquet"),
+        columns=keep,
