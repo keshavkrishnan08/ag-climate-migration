@@ -208,3 +208,13 @@ def build_stranded_assets(lookup: pd.DataFrame) -> pd.DataFrame:
         dcf_cons
         .merge(dcf_cent, on="fips", how="left")
         .merge(hedonic_2050, on="fips", how="left")
+    )
+
+    df = df.rename(columns={
+        "stranded_dcf_conservative_per_acre_usd": "stranded_per_acre_usd",
+        "total_acres": "total_farm_acres",
+    })
+
+    # Select and order columns
+    # Rename land value col before column selection (source has no _usd suffix)
+    df = df.rename(columns={"land_value_per_acre": "land_value_per_acre_usd"})
