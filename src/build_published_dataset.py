@@ -218,3 +218,13 @@ def build_stranded_assets(lookup: pd.DataFrame) -> pd.DataFrame:
     # Select and order columns
     # Rename land value col before column selection (source has no _usd suffix)
     df = df.rename(columns={"land_value_per_acre": "land_value_per_acre_usd"})
+
+    df = df[
+        [
+            "fips",
+            "stranded_dcf_conservative_usd",
+            "stranded_dcf_central_usd",
+            "stranded_hedonic_usd",
+            "stranded_per_acre_usd",
+            "stranded_fraction",
+            "land_value_per_acre_usd",
