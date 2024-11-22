@@ -198,3 +198,13 @@ def build_stranded_assets(lookup: pd.DataFrame) -> pd.DataFrame:
     )
     hedonic_2050 = (
         hedonic[hedonic["target_year"] == 2050]
+        .query("scenario == 'SSP245'")
+        [["fips", "stranded_total"]]
+        .rename(columns={"stranded_total": "stranded_hedonic_usd"})
+    )
+
+    # Merge
+    df = (
+        dcf_cons
+        .merge(dcf_cent, on="fips", how="left")
+        .merge(hedonic_2050, on="fips", how="left")
