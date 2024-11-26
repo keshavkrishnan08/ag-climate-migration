@@ -228,3 +228,13 @@ def build_stranded_assets(lookup: pd.DataFrame) -> pd.DataFrame:
             "stranded_per_acre_usd",
             "stranded_fraction",
             "land_value_per_acre_usd",
+            "total_farm_acres",
+        ]
+    ].copy()
+
+    df = add_county_info(df, lookup)
+    df = df.sort_values("fips").reset_index(drop=True)
+    return df
+
+
+# ---------------------------------------------------------------------------
