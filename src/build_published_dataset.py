@@ -238,3 +238,13 @@ def build_stranded_assets(lookup: pd.DataFrame) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------
+# File 4: county_decline_indicators.csv
+# ---------------------------------------------------------------------------
+
+def build_decline_indicators(lookup: pd.DataFrame) -> pd.DataFrame:
+    """
+    Combine historical cascade decline signals (2005-2023) with tipping-year
+    estimates from two independent methods (own IV, Feng et al. 2010).
+
+    Args:
+        lookup: County name/state lookup.
