@@ -248,3 +248,13 @@ def build_decline_indicators(lookup: pd.DataFrame) -> pd.DataFrame:
 
     Args:
         lookup: County name/state lookup.
+
+    Returns:
+        One row per county with decline indicator counts and tipping years.
+    """
+    cas_path = os.path.join(RESULTS, "economic", "historical_cascade_2005_2023.parquet")
+    cascade = pd.read_parquet(
+        cas_path,
+        columns=[
+            "fips",
+            "signal_yield_decline", "signal_pop_decline",
