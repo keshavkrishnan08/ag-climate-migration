@@ -288,3 +288,13 @@ def build_decline_indicators(lookup: pd.DataFrame) -> pd.DataFrame:
         cascade
         .merge(tp_a, on="fips", how="left")
         .merge(tp_b, on="fips", how="left")
+    )
+
+    col_order = [
+        "fips",
+        "n_decline_indicators",
+        "yield_decline", "pop_decline", "income_decline",
+        "outmigration", "school_decline", "hospital_closure",
+        "tipping_year_own_iv", "tipping_year_feng",
+    ]
+    df = df[col_order]
