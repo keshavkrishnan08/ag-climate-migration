@@ -298,3 +298,13 @@ def build_decline_indicators(lookup: pd.DataFrame) -> pd.DataFrame:
         "tipping_year_own_iv", "tipping_year_feng",
     ]
     df = df[col_order]
+    df = add_county_info(df, lookup)
+    df = df.sort_values("fips").reset_index(drop=True)
+    return df
+
+
+# ---------------------------------------------------------------------------
+# File 5: county_insurance_mispricing.csv
+# ---------------------------------------------------------------------------
+
+def build_insurance_mispricing(lookup: pd.DataFrame) -> pd.DataFrame:
