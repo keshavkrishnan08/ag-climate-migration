@@ -278,3 +278,13 @@ def build_decline_indicators(lookup: pd.DataFrame) -> pd.DataFrame:
         os.path.join(RESULTS, "cascade", "tipping_points_SSP245_A_own_IV.parquet"),
         columns=["fips", "tipping_year"],
     ).rename(columns={"tipping_year": "tipping_year_own_iv"})
+
+    tp_b = pd.read_parquet(
+        os.path.join(RESULTS, "cascade", "tipping_points_SSP245_B_feng2010.parquet"),
+        columns=["fips", "tipping_year"],
+    ).rename(columns={"tipping_year": "tipping_year_feng"})
+
+    df = (
+        cascade
+        .merge(tp_a, on="fips", how="left")
+        .merge(tp_b, on="fips", how="left")
