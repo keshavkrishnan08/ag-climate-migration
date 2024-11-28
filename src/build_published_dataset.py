@@ -268,3 +268,13 @@ def build_decline_indicators(lookup: pd.DataFrame) -> pd.DataFrame:
         "signal_yield_decline": "yield_decline",
         "signal_pop_decline": "pop_decline",
         "signal_income_decline": "income_decline",
+        "signal_outmigration": "outmigration",
+        "signal_school_decline": "school_decline",
+        "signal_hospital_closure": "hospital_closure",
+        "cascade_score": "n_decline_indicators",
+    })
+
+    tp_a = pd.read_parquet(
+        os.path.join(RESULTS, "cascade", "tipping_points_SSP245_A_own_IV.parquet"),
+        columns=["fips", "tipping_year"],
+    ).rename(columns={"tipping_year": "tipping_year_own_iv"})
