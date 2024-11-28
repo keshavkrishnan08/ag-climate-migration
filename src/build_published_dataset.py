@@ -258,3 +258,13 @@ def build_decline_indicators(lookup: pd.DataFrame) -> pd.DataFrame:
         columns=[
             "fips",
             "signal_yield_decline", "signal_pop_decline",
+            "signal_income_decline", "signal_outmigration",
+            "signal_school_decline", "signal_hospital_closure",
+            "cascade_score",
+        ],
+    )
+
+    cascade = cascade.rename(columns={
+        "signal_yield_decline": "yield_decline",
+        "signal_pop_decline": "pop_decline",
+        "signal_income_decline": "income_decline",
