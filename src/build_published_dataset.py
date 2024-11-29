@@ -308,3 +308,13 @@ def build_decline_indicators(lookup: pd.DataFrame) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 
 def build_insurance_mispricing(lookup: pd.DataFrame) -> pd.DataFrame:
+    """
+    County-crop level insurance mispricing under forward-looking vs APH
+    actuarial frameworks (SSP245).
+
+    Args:
+        lookup: County name/state lookup.
+
+    Returns:
+        One row per county-crop with mispricing direction and magnitude.
+    """
