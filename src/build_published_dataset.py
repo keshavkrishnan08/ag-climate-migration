@@ -318,3 +318,13 @@ def build_insurance_mispricing(lookup: pd.DataFrame) -> pd.DataFrame:
     Returns:
         One row per county-crop with mispricing direction and magnitude.
     """
+    ins = pd.read_parquet(
+        os.path.join(RESULTS, "insurance", "mispricing_SSP245.parquet"),
+        columns=[
+            "fips", "crop", "direction",
+            "insured_acres", "mispricing_per_acre", "annual_cross_subsidy",
+        ],
+    )
+
+    ins = ins.rename(columns={
+        "mispricing_per_acre": "mispricing_per_acre_usd",
