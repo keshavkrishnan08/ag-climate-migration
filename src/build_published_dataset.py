@@ -338,3 +338,13 @@ def build_insurance_mispricing(lookup: pd.DataFrame) -> pd.DataFrame:
 
 # ---------------------------------------------------------------------------
 # File 6: county_opportunity_frontier.csv
+# ---------------------------------------------------------------------------
+
+def build_opportunity_frontier(lookup: pd.DataFrame) -> pd.DataFrame:
+    """
+    Northern counties with projected agricultural opportunity and
+    infrastructure capacity constraints (SSP245).
+
+    Args:
+        lookup: County name/state lookup.
+
