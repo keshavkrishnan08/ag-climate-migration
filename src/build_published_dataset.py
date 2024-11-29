@@ -328,3 +328,13 @@ def build_insurance_mispricing(lookup: pd.DataFrame) -> pd.DataFrame:
 
     ins = ins.rename(columns={
         "mispricing_per_acre": "mispricing_per_acre_usd",
+        "annual_cross_subsidy": "annual_flow_usd",
+    })
+
+    ins = add_county_info(ins, lookup)
+    ins = ins.sort_values(["fips", "crop"]).reset_index(drop=True)
+    return ins
+
+
+# ---------------------------------------------------------------------------
+# File 6: county_opportunity_frontier.csv
