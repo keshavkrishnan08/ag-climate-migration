@@ -348,3 +348,13 @@ def build_opportunity_frontier(lookup: pd.DataFrame) -> pd.DataFrame:
     Args:
         lookup: County name/state lookup.
 
+    Returns:
+        One row per opportunity county.
+    """
+    opp = pd.read_parquet(
+        os.path.join(RESULTS, "frontier", "opportunity_counties_SSP245.parquet"),
+        columns=[
+            "fips",
+            "annual_opportunity_2023USD",
+            "yield_gain_income",
+            "expansion_income",
