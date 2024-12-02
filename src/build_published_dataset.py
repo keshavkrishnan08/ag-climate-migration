@@ -358,3 +358,13 @@ def build_opportunity_frontier(lookup: pd.DataFrame) -> pd.DataFrame:
             "annual_opportunity_2023USD",
             "yield_gain_income",
             "expansion_income",
+            "infrastructure_investment_needed",
+            "infrastructure_capacity_ratio",
+        ],
+    )
+
+    opp = opp.rename(columns={
+        "annual_opportunity_2023USD": "annual_opportunity_usd",
+        "yield_gain_income": "yield_gain_usd",
+        "expansion_income": "expansion_usd",
+        "infrastructure_investment_needed": "infrastructure_gap_usd",
