@@ -368,3 +368,13 @@ def build_opportunity_frontier(lookup: pd.DataFrame) -> pd.DataFrame:
         "yield_gain_income": "yield_gain_usd",
         "expansion_income": "expansion_usd",
         "infrastructure_investment_needed": "infrastructure_gap_usd",
+    })
+
+    opp = add_county_info(opp, lookup)
+    opp = opp.sort_values("annual_opportunity_usd", ascending=False).reset_index(drop=True)
+    return opp
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
