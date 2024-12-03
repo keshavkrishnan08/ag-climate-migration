@@ -388,3 +388,13 @@ def main():
     files = [
         ("county_yield_projections.csv", build_yield_projections),
         ("county_climate_projections.csv", build_climate_projections),
+        ("county_stranded_assets.csv", build_stranded_assets),
+        ("county_decline_indicators.csv", build_decline_indicators),
+        ("county_insurance_mispricing.csv", build_insurance_mispricing),
+        ("county_opportunity_frontier.csv", build_opportunity_frontier),
+    ]
+
+    results = []
+    for fname, builder in files:
+        print(f"\nBuilding {fname}...")
+        try:
