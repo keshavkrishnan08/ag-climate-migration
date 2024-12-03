@@ -418,3 +418,6 @@ def main():
     print(f"\n  Total size: {total_kb / 1024:.2f} MB")
     print(f"  Output dir: {OUT_DIR}")
 
+
+if __name__ == "__main__":
+    main()
