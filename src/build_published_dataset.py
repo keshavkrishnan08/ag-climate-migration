@@ -408,3 +408,13 @@ def main():
             print(f"  ERROR: {exc}", file=sys.stderr)
             raise
 
+    print("\n" + "=" * 60)
+    print("Published dataset summary")
+    print("=" * 60)
+    total_kb = 0
+    for fname, rows, cols, size_kb in results:
+        print(f"  {fname:<42}  {rows:>8,} rows  {size_kb:>8,.1f} KB")
+        total_kb += size_kb
+    print(f"\n  Total size: {total_kb / 1024:.2f} MB")
+    print(f"  Output dir: {OUT_DIR}")
+
