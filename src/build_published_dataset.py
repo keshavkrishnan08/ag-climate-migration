@@ -378,3 +378,13 @@ def build_opportunity_frontier(lookup: pd.DataFrame) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
+
+def main():
+    """Build all 6 published dataset CSVs and report row counts and file sizes."""
+    print("Building county name/state lookup...")
+    lookup = build_county_lookup()
+    print(f"  {len(lookup):,} counties in lookup")
+
+    files = [
+        ("county_yield_projections.csv", build_yield_projections),
+        ("county_climate_projections.csv", build_climate_projections),
