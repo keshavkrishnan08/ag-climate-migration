@@ -8,3 +8,13 @@ Output: data/processed/switching_rates.parquet
 Columns:
     fips                          (str, 5-digit zero-padded)
     year                          (int)
+    switch_corn_to_soybeans       (float, 0-1)
+    switch_corn_to_sorghum        (float, 0-1)
+    switch_cotton_to_soybeans     (float, 0-1)
+    switch_wheat_winter_to_wheat_spring (float, 0-1)
+"""
+
+import sys
+from pathlib import Path
+
+import numpy as np
