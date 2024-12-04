@@ -118,3 +118,13 @@ def compute_pair_switching(
         - If delta_from < -threshold_pp AND delta_to > 0:
               switching_rate = delta_to   (bounded to [0, 1])
           else 0.
+
+    Args:
+        shares_wide: Wide DataFrame indexed by (fips, year) with one column
+            per crop containing the crop's share. Missing crops have NaN.
+        from_crop: Name of the source crop (e.g. "corn").
+        to_crop: Name of the destination crop (e.g. "soybeans").
+        threshold_pp: Minimum drop in from_crop share (in fraction, not pct)
+            to signal a potential switch.
+
+    Returns:
