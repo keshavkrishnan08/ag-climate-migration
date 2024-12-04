@@ -78,3 +78,13 @@ def load_nass(path: Path) -> pd.DataFrame:
 
     # Drop rows with null acreage (can't compute shares)
     df = df.dropna(subset=["acres_harvested"])
+    # Drop negative/zero acreage
+    df = df[df["acres_harvested"] > 0]
+
+    return df
+
+
+def compute_county_shares(df: pd.DataFrame) -> pd.DataFrame:
+    """Compute each crop's share of total harvested acres per county-year.
+
+    Args:
