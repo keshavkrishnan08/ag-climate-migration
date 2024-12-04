@@ -38,3 +38,13 @@ PAIRS = [
     ("cotton",       "soybeans"),
     ("wheat_winter", "wheat_spring"),
 ]
+
+# Threshold: A's share must drop by at least this many percentage points
+THRESHOLD_PP = 0.05
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+def load_nass(path: Path) -> pd.DataFrame:
+    """Load NASS yields, apply CONUS/year/aggregate filters, dedup.
