@@ -28,3 +28,13 @@ RAW_NASS = PROJECT_ROOT / "data" / "raw" / "nass" / "nass_county_yields.parquet"
 OUT_PATH = PROJECT_ROOT / "data" / "processed" / "switching_rates.parquet"
 OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
+# Seed (for reproducibility; no stochastic ops here, kept for consistency)
+RNG = np.random.default_rng(42)
+
+# Switching pairs
+PAIRS = [
+    ("corn",         "soybeans"),
+    ("corn",         "sorghum"),
+    ("cotton",       "soybeans"),
+    ("wheat_winter", "wheat_spring"),
+]
