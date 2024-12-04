@@ -88,3 +88,13 @@ def compute_county_shares(df: pd.DataFrame) -> pd.DataFrame:
     """Compute each crop's share of total harvested acres per county-year.
 
     Args:
+        df: Filtered NASS DataFrame with [fips, year, crop, acres_harvested].
+
+    Returns:
+        DataFrame with added column `share` (0–1).
+    """
+    total = (
+        df.groupby(["fips", "year"])["acres_harvested"]
+        .sum()
+        .rename("total_acres")
+        .reset_index()
