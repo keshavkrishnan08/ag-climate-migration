@@ -48,3 +48,13 @@ THRESHOLD_PP = 0.05
 # ---------------------------------------------------------------------------
 def load_nass(path: Path) -> pd.DataFrame:
     """Load NASS yields, apply CONUS/year/aggregate filters, dedup.
+
+    Args:
+        path: Path to nass_county_yields.parquet.
+
+    Returns:
+        Filtered, deduped DataFrame with columns [fips, year, crop,
+        acres_harvested].
+    """
+    df = pd.read_parquet(path, columns=["fips", "year", "crop", "acres_harvested"])
+
