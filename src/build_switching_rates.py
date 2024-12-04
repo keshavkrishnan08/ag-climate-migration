@@ -108,3 +108,13 @@ def compute_pair_switching(
     shares_wide: pd.DataFrame,
     from_crop: str,
     to_crop: str,
+    threshold_pp: float = THRESHOLD_PP,
+) -> pd.Series:
+    """Compute switching rate for one (from→to) pair across all county-years.
+
+    Logic:
+        - Year-over-year change in `from_crop` share: delta_from = share_from[t] - share_from[t-1]
+        - Year-over-year change in `to_crop` share:   delta_to   = share_to[t]   - share_to[t-1]
+        - If delta_from < -threshold_pp AND delta_to > 0:
+              switching_rate = delta_to   (bounded to [0, 1])
+          else 0.
