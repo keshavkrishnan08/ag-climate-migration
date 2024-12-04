@@ -18,3 +18,13 @@ import sys
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
+
+# ---------------------------------------------------------------------------
+# Paths
+# ---------------------------------------------------------------------------
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+RAW_NASS = PROJECT_ROOT / "data" / "raw" / "nass" / "nass_county_yields.parquet"
+OUT_PATH = PROJECT_ROOT / "data" / "processed" / "switching_rates.parquet"
+OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
