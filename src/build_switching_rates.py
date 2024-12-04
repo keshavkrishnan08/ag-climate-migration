@@ -58,3 +58,13 @@ def load_nass(path: Path) -> pd.DataFrame:
     """
     df = pd.read_parquet(path, columns=["fips", "year", "crop", "acres_harvested"])
 
+    # --- Filter ---
+    # Year >= 1950
+    df = df[df["year"] >= 1950]
+    # CONUS only: exclude AK (02), HI (15), PR (72)
+    df = df[~df["fips"].str[:2].isin(["02", "15", "72"])]
+    # Remove state-level aggregates (998) and national/other aggregates (999)
+    df = df[~df["fips"].str.endswith(("998", "999"))]
+
+    # Ensure 5-digit zero-padded FIPS
+    df["fips"] = df["fips"].str.zfill(5)
