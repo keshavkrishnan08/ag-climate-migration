@@ -98,3 +98,13 @@ def compute_county_shares(df: pd.DataFrame) -> pd.DataFrame:
         .sum()
         .rename("total_acres")
         .reset_index()
+    )
+    df = df.merge(total, on=["fips", "year"], how="left")
+    df["share"] = df["acres_harvested"] / df["total_acres"]
+    return df
+
+
+def compute_pair_switching(
+    shares_wide: pd.DataFrame,
+    from_crop: str,
+    to_crop: str,
