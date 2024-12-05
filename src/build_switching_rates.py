@@ -148,3 +148,13 @@ def compute_pair_switching(
 
     # Year-over-year delta within each county
     # groupby on level 0 = fips, then diff on year-sorted data
+    delta_from = (
+        from_share
+        .groupby(level="fips", sort=True)
+        .diff()
+    )
+    delta_to = (
+        to_share
+        .groupby(level="fips", sort=True)
+        .diff()
+    )
