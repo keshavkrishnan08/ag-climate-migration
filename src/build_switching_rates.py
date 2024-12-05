@@ -138,3 +138,13 @@ def compute_pair_switching(
     to_share   = shares_wide[to_crop]   if to_crop   in shares_wide.columns else None
 
     if from_share is None or to_share is None:
+        # One of the crops has no data at all — return zeros
+        result = pd.Series(0.0, index=shares_wide.index, name=col_name)
+        return result
+
+    # Fill NaN with 0 (county-year had 0 acres of that crop)
+    from_share = from_share.fillna(0.0)
+    to_share   = to_share.fillna(0.0)
+
+    # Year-over-year delta within each county
+    # groupby on level 0 = fips, then diff on year-sorted data
