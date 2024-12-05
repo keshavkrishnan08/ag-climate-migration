@@ -158,3 +158,13 @@ def compute_pair_switching(
         .groupby(level="fips", sort=True)
         .diff()
     )
+
+    # Switching condition
+    switched = (delta_from < -threshold_pp) & (delta_to > 0)
+
+    rate = pd.Series(0.0, index=shares_wide.index, name=col_name)
+    rate[switched] = delta_to[switched].clip(lower=0.0, upper=1.0)
+
+    return rate
+
+
