@@ -168,3 +168,13 @@ def compute_pair_switching(
     return rate
 
 
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+def main() -> None:
+    """Build switching_rates.parquet and print diagnostics."""
+    print("Loading NASS data …")
+    df = load_nass(RAW_NASS)
+    print(f"  Loaded {len(df):,} rows | {df['fips'].nunique():,} counties | "
+          f"years {df['year'].min()}–{df['year'].max()}")
+
