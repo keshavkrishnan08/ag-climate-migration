@@ -128,3 +128,13 @@ def compute_pair_switching(
             to signal a potential switch.
 
     Returns:
+        Series of switching rates indexed by (fips, year), name =
+        f"switch_{from_crop}_to_{to_crop}".
+    """
+    col_name = f"switch_{from_crop}_to_{to_crop}"
+
+    # Extract the two share columns; fill missing with 0 (crop not present)
+    from_share = shares_wide[from_crop] if from_crop in shares_wide.columns else None
+    to_share   = shares_wide[to_crop]   if to_crop   in shares_wide.columns else None
+
+    if from_share is None or to_share is None:
