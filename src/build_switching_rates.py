@@ -178,3 +178,13 @@ def main() -> None:
     print(f"  Loaded {len(df):,} rows | {df['fips'].nunique():,} counties | "
           f"years {df['year'].min()}–{df['year'].max()}")
 
+    print("Computing county-year acreage shares …")
+    df = compute_county_shares(df)
+
+    # Pivot to wide: index=(fips,year), columns=crop, values=share
+    print("Pivoting to wide format …")
+    shares_wide = (
+        df.pivot_table(
+            index=["fips", "year"],
+            columns="crop",
+            values="share",
