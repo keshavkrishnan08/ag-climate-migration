@@ -188,3 +188,13 @@ def main() -> None:
             index=["fips", "year"],
             columns="crop",
             values="share",
+            aggfunc="first",
+        )
+        .sort_index()
+    )
+    shares_wide.columns.name = None  # tidy up
+
+    print(f"  Wide shape: {shares_wide.shape}  (counties×years × crops)")
+
+    # Compute each pair's switching rate
+    switch_cols = {}
