@@ -198,3 +198,13 @@ def main() -> None:
 
     # Compute each pair's switching rate
     switch_cols = {}
+    for from_crop, to_crop in PAIRS:
+        col = f"switch_{from_crop}_to_{to_crop}"
+        print(f"  Computing {col} …")
+        switch_cols[col] = compute_pair_switching(shares_wide, from_crop, to_crop)
+
+    # Assemble output
+    out = pd.DataFrame(switch_cols, index=shares_wide.index).reset_index()
+    out["fips"] = out["fips"].str.zfill(5)
+    out["year"] = out["year"].astype(int)
+
