@@ -218,3 +218,13 @@ def main() -> None:
     # --- Diagnostics ---
     print(f"\nShape: {out.shape}")
     print("\nSample rows (first 8):")
+    print(out.head(8).to_string(index=False))
+
+    switch_pair_cols = [c for c in out.columns if c.startswith("switch_")]
+    print("\nFraction of non-zero values per switch column:")
+    for col in switch_pair_cols:
+        nonzero = (out[col] > 0).mean()
+        print(f"  {col}: {nonzero:.4f}  ({(out[col] > 0).sum():,} / {len(out):,})")
+
+    print("\nDescriptive stats (non-zero only):")
+    for col in switch_pair_cols:
