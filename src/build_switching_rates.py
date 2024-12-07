@@ -208,3 +208,13 @@ def main() -> None:
     out["fips"] = out["fips"].str.zfill(5)
     out["year"] = out["year"].astype(int)
 
+    # Sort for reproducibility
+    out = out.sort_values(["fips", "year"]).reset_index(drop=True)
+
+    # Save
+    out.to_parquet(OUT_PATH, index=False)
+    print(f"\nSaved → {OUT_PATH}")
+
+    # --- Diagnostics ---
+    print(f"\nShape: {out.shape}")
+    print("\nSample rows (first 8):")
