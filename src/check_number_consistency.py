@@ -8,3 +8,13 @@ Args:
 Returns:
     Exit code 0 if all checks pass, 1 if any warnings found.
 Raises:
+    FileNotFoundError if any required file is missing.
+"""
+
+import json
+import re
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
