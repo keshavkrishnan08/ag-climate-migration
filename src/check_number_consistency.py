@@ -38,3 +38,13 @@ TEX_FILES = [
 REQUIRED = {
     "hedonic $168B": r"\\\$168",
     "DCF conservative $56B": r"\\\$5[56][^0-9]",
+    "DCF upper $140B": r"\\\$140",
+    "insurance $5.9B": r"\\\$5\.9",
+    "cross-subsidy $2.8B": r"\\\$2\.8",
+    "cascade 473 counties": r"473",
+    "IV p=0.019": r"0\.019",
+    "market test p=0.027": r"0\.027",
+    "Spearman 0.45": r"0\.45",
+    "drought -0.85": r"-0\.85",
+    "cotton decline 0.59": r"0\.59",
+    "northern opportunity $51B": r"\\\$51",
