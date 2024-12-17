@@ -228,3 +228,10 @@ def main() -> None:
 
     print("\nDescriptive stats (non-zero only):")
     for col in switch_pair_cols:
+        nz = out.loc[out[col] > 0, col]
+        if len(nz):
+            print(f"  {col}: median={nz.median():.4f}  p95={nz.quantile(0.95):.4f}  max={nz.max():.4f}")
+
+
+if __name__ == "__main__":
+    main()
