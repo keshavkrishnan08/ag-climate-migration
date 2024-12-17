@@ -48,3 +48,13 @@ REQUIRED = {
     "drought -0.85": r"-0\.85",
     "cotton decline 0.59": r"0\.59",
     "northern opportunity $51B": r"\\\$51",
+    "514 counties": r"514",
+}
+
+# (label, regex pattern that must NOT appear — stale values)
+STALE = {
+    "$76B (ML only)": r"\\\$76B \(ML only\)\.",
+    "$172B": r"\\\$172B",
+    "$156B": r"\\\$156B",
+    "$223B": r"\\\$223B",
+    "$190 million": r"\\\$190 million",
