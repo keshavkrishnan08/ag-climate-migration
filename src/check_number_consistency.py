@@ -18,3 +18,13 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
+# ---------------------------------------------------------------------------
+# Load headline numbers
+# ---------------------------------------------------------------------------
+HEADLINE_JSON = PROJECT_ROOT / "state/headline_numbers_preliminary.json"
+with open(HEADLINE_JSON) as f:
+    h = json.load(f)
+
+# ---------------------------------------------------------------------------
+# Define checks
+# ---------------------------------------------------------------------------
