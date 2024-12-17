@@ -28,3 +28,13 @@ with open(HEADLINE_JSON) as f:
 # ---------------------------------------------------------------------------
 # Define checks
 # ---------------------------------------------------------------------------
+TEX_FILES = [
+    PROJECT_ROOT / "paper/main.tex",
+    PROJECT_ROOT / "paper/extended_data.tex",
+    PROJECT_ROOT / "paper/supplementary_information.tex",
+]
+
+# (label, regex pattern that MUST appear in the file)
+REQUIRED = {
+    "hedonic $168B": r"\\\$168",
+    "DCF conservative $56B": r"\\\$5[56][^0-9]",
