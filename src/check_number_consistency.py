@@ -58,3 +58,13 @@ STALE = {
     "$156B": r"\\\$156B",
     "$223B": r"\\\$223B",
     "$190 million": r"\\\$190 million",
+    "$30 million": r"\\\$30 million",
+    "old rho 0.426 (overall)": r"\\textbf\{0\.426\}",
+    "old cascade 298-337": r"298--337",
+    "old northern $65B as headline in main": r"\\\$65 billion per year",
+    "old forward cascade 2-253 in main": r"2--253 additional",
+}
+
+# Patterns that must NOT appear in main.tex specifically (forward cascade numbers)
+STALE_MAIN_ONLY = {
+    "forward 2-253 counties in main caption": r"2--253 counties tip",
