@@ -68,3 +68,13 @@ STALE = {
 # Patterns that must NOT appear in main.tex specifically (forward cascade numbers)
 STALE_MAIN_ONLY = {
     "forward 2-253 counties in main caption": r"2--253 counties tip",
+    "tipping by 2040 in main": r"tip(?:ping)? by 2040",
+    "dual calibration forward number in main": r"dual calibration [AB]",
+}
+
+# ---------------------------------------------------------------------------
+# Main check
+# ---------------------------------------------------------------------------
+
+def check_file(tex_path: Path) -> list:
+    """Run all checks against a single TeX file.
