@@ -78,3 +78,13 @@ STALE_MAIN_ONLY = {
 
 def check_file(tex_path: Path) -> list:
     """Run all checks against a single TeX file.
+
+    Args:
+        tex_path: Path to TeX file.
+
+    Returns:
+        List of warning strings (empty if all checks pass).
+    """
+    warnings = []
+    with open(tex_path) as f:
+        content = f.read()
