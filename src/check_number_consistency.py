@@ -88,3 +88,13 @@ def check_file(tex_path: Path) -> list:
     warnings = []
     with open(tex_path) as f:
         content = f.read()
+    fname = tex_path.name
+
+    # Required checks
+    for label, pattern in REQUIRED.items():
+        if not re.search(pattern, content):
+            warnings.append(f"MISSING  [{fname}] {label} (pattern: {pattern})")
+
+    # Stale checks (all files)
+    for label, pattern in STALE.items():
+        if re.search(pattern, content):
