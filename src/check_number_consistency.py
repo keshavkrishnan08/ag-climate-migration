@@ -118,3 +118,13 @@ def main() -> int:
     all_warnings = []
     for tex_file in TEX_FILES:
         if not tex_file.exists():
+            print(f"SKIPPED (not found): {tex_file.name}")
+            continue
+        w = check_file(tex_file)
+        all_warnings.extend(w)
+
+    if all_warnings:
+        print("\n=== Number Consistency Warnings ===")
+        for w in all_warnings:
+            print(f"  {w}")
+        print(f"\nTotal: {len(all_warnings)} warning(s)")
