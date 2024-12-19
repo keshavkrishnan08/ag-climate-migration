@@ -98,3 +98,13 @@ def check_file(tex_path: Path) -> list:
     # Stale checks (all files)
     for label, pattern in STALE.items():
         if re.search(pattern, content):
+            warnings.append(f"STALE    [{fname}] {label} (pattern: {pattern})")
+
+    # Stale checks (main.tex only — forward cascade numbers must not appear there)
+    if fname == "main.tex":
+        for label, pattern in STALE_MAIN_ONLY.items():
+            if re.search(pattern, content):
+                warnings.append(f"STALE    [{fname}] {label} (pattern: {pattern})")
+
+    return warnings
+
