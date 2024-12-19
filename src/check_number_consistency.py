@@ -128,3 +128,11 @@ def main() -> int:
         for w in all_warnings:
             print(f"  {w}")
         print(f"\nTotal: {len(all_warnings)} warning(s)")
+        return 1
+    else:
+        print("=== Number Consistency: ALL CHECKS PASSED ===")
+        return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
