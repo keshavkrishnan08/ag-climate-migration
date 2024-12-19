@@ -108,3 +108,13 @@ def check_file(tex_path: Path) -> list:
 
     return warnings
 
+
+def main() -> int:
+    """Run consistency checks across all TeX files.
+
+    Returns:
+        Exit code (0 = pass, 1 = warnings found).
+    """
+    all_warnings = []
+    for tex_file in TEX_FILES:
+        if not tex_file.exists():
