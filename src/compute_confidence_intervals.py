@@ -18,3 +18,13 @@ log = logging.getLogger(__name__)
 
 RNG = np.random.default_rng(42)
 N_BOOT = 1000
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+RESULTS = PROJECT_ROOT / "results"
+STATE = PROJECT_ROOT / "state"
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def bootstrap_stat(values: np.ndarray, stat_fn, n_boot: int = N_BOOT, rng=RNG):
