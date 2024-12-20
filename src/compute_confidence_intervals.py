@@ -28,3 +28,13 @@ STATE = PROJECT_ROOT / "state"
 # ---------------------------------------------------------------------------
 
 def bootstrap_stat(values: np.ndarray, stat_fn, n_boot: int = N_BOOT, rng=RNG):
+    """Draw n_boot bootstrap samples and apply stat_fn to each.
+
+    Args:
+        values: 1-D array of per-unit values to resample.
+        stat_fn: callable that reduces an array to a scalar.
+        n_boot: number of bootstrap iterations.
+        rng: numpy Generator instance.
+
+    Returns:
+        Tuple (mean, ci_lo, ci_hi) where ci_lo/hi are 2.5th/97.5th percentiles.
