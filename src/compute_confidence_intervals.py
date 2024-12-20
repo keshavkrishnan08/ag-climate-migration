@@ -48,3 +48,13 @@ def bootstrap_stat(values: np.ndarray, stat_fn, n_boot: int = N_BOOT, rng=RNG):
     boot_stats = np.array([
         stat_fn(rng.choice(values, size=len(values), replace=True))
         for _ in range(n_boot)
+    ])
+    return float(boot_stats.mean()), float(np.percentile(boot_stats, 2.5)), float(np.percentile(boot_stats, 97.5))
+
+
+def to_billions(x: float) -> float:
+    """Convert raw dollar value to billions USD."""
+    return round(x / 1e9, 4)
+
+
+# ---------------------------------------------------------------------------
