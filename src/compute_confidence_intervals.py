@@ -38,3 +38,13 @@ def bootstrap_stat(values: np.ndarray, stat_fn, n_boot: int = N_BOOT, rng=RNG):
 
     Returns:
         Tuple (mean, ci_lo, ci_hi) where ci_lo/hi are 2.5th/97.5th percentiles.
+
+    Raises:
+        ValueError: if values is empty.
+    """
+    if len(values) == 0:
+        raise ValueError("bootstrap_stat received an empty array")
+
+    boot_stats = np.array([
+        stat_fn(rng.choice(values, size=len(values), replace=True))
+        for _ in range(n_boot)
