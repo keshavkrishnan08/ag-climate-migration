@@ -58,3 +58,13 @@ def to_billions(x: float) -> float:
 
 
 # ---------------------------------------------------------------------------
+# 1. Stranded assets — DCF
+# ---------------------------------------------------------------------------
+
+def ci_stranded_dcf() -> dict:
+    """Bootstrap CI for total stranded DCF value across counties under SSP2-4.5.
+
+    Resamples counties (rows) with replacement. Statistic: sum of
+    stranded_value_total across the sample (then scaled to full-population
+    total by preserving the per-county distribution).
+
