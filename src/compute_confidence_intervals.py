@@ -68,3 +68,13 @@ def ci_stranded_dcf() -> dict:
     stranded_value_total across the sample (then scaled to full-population
     total by preserving the per-county distribution).
 
+    Returns:
+        dict with mean, ci_lo, ci_hi in billions USD.
+    """
+    path = RESULTS / "stranded_assets" / "stranded_national_SSP245.parquet"
+    df = pd.read_parquet(path, columns=["fips", "stranded_value_total"])
+
+    # One row per county; take the per-county total directly
+    county_vals = df.groupby("fips")["stranded_value_total"].sum().values
+
+    mean_b, lo_b, hi_b = bootstrap_stat(county_vals, np.sum)
