@@ -88,3 +88,13 @@ def ci_stranded_dcf() -> dict:
         "method": "bootstrap_sum_county_DCF_SSP245",
     }
 
+
+# ---------------------------------------------------------------------------
+# 2. Stranded assets — Hedonic (2050)
+# ---------------------------------------------------------------------------
+
+def ci_stranded_hedonic() -> dict:
+    """Bootstrap CI for hedonic stranded value filtered to target_year == 2050.
+
+    Args: none (reads file directly).
+    Returns:
