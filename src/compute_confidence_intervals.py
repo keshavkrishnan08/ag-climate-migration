@@ -98,3 +98,13 @@ def ci_stranded_hedonic() -> dict:
 
     Args: none (reads file directly).
     Returns:
+        dict with mean, ci_lo, ci_hi in billions USD.
+
+    Raises:
+        ValueError: if no 2050 rows found.
+    """
+    path = RESULTS / "stranded_assets" / "hedonic_stranded.parquet"
+    df = pd.read_parquet(path, columns=["fips", "stranded_total", "target_year"])
+    df2050 = df[df["target_year"] == 2050].copy()
+
+    if df2050.empty:
