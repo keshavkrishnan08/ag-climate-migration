@@ -148,3 +148,13 @@ def ci_cascade() -> dict:
     log.info("Cascade <=2040: mean=%.0f  95CI=[%.0f, %.0f]",
              mean_c, lo_c, hi_c)
     return {
+        "mean_counties": round(mean_c, 1),
+        "ci_lo_counties": round(lo_c, 1),
+        "ci_hi_counties": round(hi_c, 1),
+        "n_counties_total": int(len(tip_flag)),
+        "n_counties_tip_2040_raw": int((county_df["tipping_year"] <= 2040).sum()),
+        "method": "bootstrap_count_tipping_year_le_2040_SSP245",
+    }
+
+
+# ---------------------------------------------------------------------------
