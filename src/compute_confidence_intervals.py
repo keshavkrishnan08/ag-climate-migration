@@ -128,3 +128,13 @@ def ci_stranded_hedonic() -> dict:
 # ---------------------------------------------------------------------------
 # 3. Cascade counties — tipping before 2040
 # ---------------------------------------------------------------------------
+
+def ci_cascade() -> dict:
+    """Bootstrap CI for count of counties tipping before 2040 under SSP2-4.5.
+
+    Resamples counties; statistic is count of tipping_year <= 2040.
+
+    Returns:
+        dict with mean, ci_lo, ci_hi as county counts.
+    """
+    path = RESULTS / "cascade" / "tipping_points_SSP245.parquet"
