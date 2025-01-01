@@ -138,3 +138,13 @@ def ci_cascade() -> dict:
         dict with mean, ci_lo, ci_hi as county counts.
     """
     path = RESULTS / "cascade" / "tipping_points_SSP245.parquet"
+    df = pd.read_parquet(path, columns=["fips", "tipping_year"])
+
+    # One row per county; binary flag for tipping before 2040
+    county_df = df.groupby("fips")["tipping_year"].min().reset_index()
+    tip_flag = (county_df["tipping_year"] <= 2040).astype(float).values
+
+    mean_c, lo_c, hi_c = bootstrap_stat(tip_flag, np.sum)
+    log.info("Cascade <=2040: mean=%.0f  95CI=[%.0f, %.0f]",
+             mean_c, lo_c, hi_c)
+    return {
