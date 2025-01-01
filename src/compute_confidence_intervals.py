@@ -108,3 +108,13 @@ def ci_stranded_hedonic() -> dict:
     df2050 = df[df["target_year"] == 2050].copy()
 
     if df2050.empty:
+        raise ValueError("No rows with target_year == 2050 in hedonic_stranded.parquet")
+
+    county_vals = df2050.groupby("fips")["stranded_total"].sum().values
+
+    mean_b, lo_b, hi_b = bootstrap_stat(county_vals, np.sum)
+    log.info("Hedonic stranded 2050: mean=$%.1fB  95CI=[$%.1fB, $%.1fB]",
+             to_billions(mean_b), to_billions(lo_b), to_billions(hi_b))
+    return {
+        "mean_B": to_billions(mean_b),
+        "ci_lo_B": to_billions(lo_b),
