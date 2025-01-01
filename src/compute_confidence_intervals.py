@@ -118,3 +118,13 @@ def ci_stranded_hedonic() -> dict:
     return {
         "mean_B": to_billions(mean_b),
         "ci_lo_B": to_billions(lo_b),
+        "ci_hi_B": to_billions(hi_b),
+        "n_counties": int(len(county_vals)),
+        "target_year": 2050,
+        "method": "bootstrap_sum_county_hedonic_2050",
+    }
+
+
+# ---------------------------------------------------------------------------
+# 3. Cascade counties — tipping before 2040
+# ---------------------------------------------------------------------------
