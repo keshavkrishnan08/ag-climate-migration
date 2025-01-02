@@ -178,3 +178,13 @@ def ci_insurance() -> dict:
     df = pd.read_parquet(path, columns=["fips", "crop", "annual_cross_subsidy", "direction"])
 
     # Resample at the county × crop level
+    cross_subsidy = df["annual_cross_subsidy"].values
+
+    # Total absolute mispricing
+    mean_tot, lo_tot, hi_tot = bootstrap_stat(cross_subsidy, lambda x: np.abs(x).sum())
+    log.info("Total |mispricing|: mean=$%.2fB/yr  95CI=[$%.2fB, $%.2fB]",
+             to_billions(mean_tot), to_billions(lo_tot), to_billions(hi_tot))
+
+    # Underpriced (negative cross_subsidy by convention → net draw from pool)
+    underpriced_vals = df.loc[df["annual_cross_subsidy"] < 0, "annual_cross_subsidy"].values
+    mean_u, lo_u, hi_u = bootstrap_stat(underpriced_vals, lambda x: np.abs(x).sum())
