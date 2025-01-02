@@ -158,3 +158,13 @@ def ci_cascade() -> dict:
 
 
 # ---------------------------------------------------------------------------
+# 4. Insurance mispricing
+# ---------------------------------------------------------------------------
+
+def ci_insurance() -> dict:
+    """Bootstrap CI for total mispricing and cross-subsidy under SSP2-4.5.
+
+    Resamples county × crop rows (the natural unit of observation for mispricing).
+    Statistics:
+      - total_mispricing: |sum of annual_cross_subsidy| across all rows
+      - underpriced_total: sum where direction == 'underpriced' (cross_subsidy < 0)
