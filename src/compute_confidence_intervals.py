@@ -188,3 +188,13 @@ def ci_insurance() -> dict:
     # Underpriced (negative cross_subsidy by convention → net draw from pool)
     underpriced_vals = df.loc[df["annual_cross_subsidy"] < 0, "annual_cross_subsidy"].values
     mean_u, lo_u, hi_u = bootstrap_stat(underpriced_vals, lambda x: np.abs(x).sum())
+    log.info("Underpriced counties: mean=$%.2fB/yr  95CI=[$%.2fB, $%.2fB]",
+             to_billions(mean_u), to_billions(lo_u), to_billions(hi_u))
+
+    # Overpriced (positive cross_subsidy → overpaying into pool)
+    overpriced_vals = df.loc[df["annual_cross_subsidy"] > 0, "annual_cross_subsidy"].values
+    mean_o, lo_o, hi_o = bootstrap_stat(overpriced_vals, np.sum)
+    log.info("Overpriced counties: mean=$%.2fB/yr  95CI=[$%.2fB, $%.2fB]",
+             to_billions(mean_o), to_billions(lo_o), to_billions(hi_o))
+
+    # Net cross-subsidy flow (min of under/over — money that actually transfers)
