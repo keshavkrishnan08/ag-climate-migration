@@ -258,3 +258,13 @@ def ci_northern_opportunity() -> dict:
         "n_counties": int(len(county_vals)),
         "method": "bootstrap_sum_annual_opportunity_2023USD_SSP245",
     }
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+def main():
+    """Run all four headline CI computations and save to state/confidence_intervals.json."""
+    log.info("Starting bootstrap CI computation — %d iterations, seed=42", N_BOOT)
+
