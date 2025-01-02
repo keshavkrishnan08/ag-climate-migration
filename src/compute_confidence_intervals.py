@@ -218,3 +218,13 @@ def ci_insurance() -> dict:
         "overpriced": {
             "mean_B_yr": to_billions(mean_o),
             "ci_lo_B_yr": to_billions(lo_o),
+            "ci_hi_B_yr": to_billions(hi_o),
+        },
+        "cross_subsidy_flow": {
+            "mean_B_yr": to_billions(mean_xsub),
+            "ci_lo_B_yr": to_billions(lo_xsub),
+            "ci_hi_B_yr": to_billions(hi_xsub),
+        },
+        "n_county_crop_rows": int(len(cross_subsidy)),
+        "method": "bootstrap_sum_annual_cross_subsidy_SSP245",
+    }
