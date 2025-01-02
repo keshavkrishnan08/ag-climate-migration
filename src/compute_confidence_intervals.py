@@ -168,3 +168,13 @@ def ci_insurance() -> dict:
     Statistics:
       - total_mispricing: |sum of annual_cross_subsidy| across all rows
       - underpriced_total: sum where direction == 'underpriced' (cross_subsidy < 0)
+      - overpriced_total: sum where direction == 'overpriced' (cross_subsidy > 0)
+      - cross_subsidy: sum of absolute values in each direction (symmetric measure)
+
+    Returns:
+        dict with per-category mean, ci_lo, ci_hi in billions USD/yr.
+    """
+    path = RESULTS / "insurance" / "mispricing_SSP245.parquet"
+    df = pd.read_parquet(path, columns=["fips", "crop", "annual_cross_subsidy", "direction"])
+
+    # Resample at the county × crop level
