@@ -228,3 +228,13 @@ def ci_insurance() -> dict:
         "n_county_crop_rows": int(len(cross_subsidy)),
         "method": "bootstrap_sum_annual_cross_subsidy_SSP245",
     }
+
+
+# ---------------------------------------------------------------------------
+# 5. Northern opportunity
+# ---------------------------------------------------------------------------
+
+def ci_northern_opportunity() -> dict:
+    """Bootstrap CI for total annual northern agricultural opportunity.
+
+    Uses annual_opportunity_2023USD as the per-county opportunity value.
