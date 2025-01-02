@@ -238,3 +238,13 @@ def ci_northern_opportunity() -> dict:
     """Bootstrap CI for total annual northern agricultural opportunity.
 
     Uses annual_opportunity_2023USD as the per-county opportunity value.
+    Resamples counties with replacement; statistic is sum.
+
+    Returns:
+        dict with mean, ci_lo, ci_hi in billions USD/yr.
+    """
+    path = RESULTS / "frontier" / "opportunity_counties_SSP245.parquet"
+    df = pd.read_parquet(path, columns=["fips", "annual_opportunity_2023USD"])
+
+    county_vals = df.groupby("fips")["annual_opportunity_2023USD"].sum().values
+
