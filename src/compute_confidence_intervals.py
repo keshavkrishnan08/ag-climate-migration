@@ -278,3 +278,13 @@ def main():
         },
         "stranded_assets_dcf": ci_stranded_dcf(),
         "stranded_assets_hedonic_2050": ci_stranded_hedonic(),
+        "cascade_counties_2040": ci_cascade(),
+        "insurance_mispricing": ci_insurance(),
+        "northern_opportunity": ci_northern_opportunity(),
+    }
+
+    out_path = STATE / "confidence_intervals.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_path, "w") as f:
+        json.dump(results, f, indent=2)
+
