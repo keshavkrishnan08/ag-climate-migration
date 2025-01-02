@@ -248,3 +248,13 @@ def ci_northern_opportunity() -> dict:
 
     county_vals = df.groupby("fips")["annual_opportunity_2023USD"].sum().values
 
+    mean_b, lo_b, hi_b = bootstrap_stat(county_vals, np.sum)
+    log.info("Northern opportunity: mean=$%.1fB/yr  95CI=[$%.1fB, $%.1fB]",
+             to_billions(mean_b), to_billions(lo_b), to_billions(hi_b))
+    return {
+        "mean_B_yr": to_billions(mean_b),
+        "ci_lo_B_yr": to_billions(lo_b),
+        "ci_hi_B_yr": to_billions(hi_b),
+        "n_counties": int(len(county_vals)),
+        "method": "bootstrap_sum_annual_opportunity_2023USD_SSP245",
+    }
