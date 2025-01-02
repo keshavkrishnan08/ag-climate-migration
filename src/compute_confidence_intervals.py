@@ -268,3 +268,13 @@ def main():
     """Run all four headline CI computations and save to state/confidence_intervals.json."""
     log.info("Starting bootstrap CI computation — %d iterations, seed=42", N_BOOT)
 
+    results = {
+        "meta": {
+            "n_bootstrap": N_BOOT,
+            "seed": 42,
+            "ci_percentiles": [2.5, 97.5],
+            "currency": "2023 USD",
+            "scenario": "SSP2-4.5",
+        },
+        "stranded_assets_dcf": ci_stranded_dcf(),
+        "stranded_assets_hedonic_2050": ci_stranded_hedonic(),
