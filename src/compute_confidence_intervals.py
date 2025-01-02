@@ -208,3 +208,13 @@ def ci_insurance() -> dict:
         "total_mispricing": {
             "mean_B_yr": to_billions(mean_tot),
             "ci_lo_B_yr": to_billions(lo_tot),
+            "ci_hi_B_yr": to_billions(hi_tot),
+        },
+        "underpriced": {
+            "mean_B_yr": to_billions(mean_u),
+            "ci_lo_B_yr": to_billions(lo_u),
+            "ci_hi_B_yr": to_billions(hi_u),
+        },
+        "overpriced": {
+            "mean_B_yr": to_billions(mean_o),
+            "ci_lo_B_yr": to_billions(lo_o),
