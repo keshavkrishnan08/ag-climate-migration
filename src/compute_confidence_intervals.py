@@ -198,3 +198,13 @@ def ci_insurance() -> dict:
              to_billions(mean_o), to_billions(lo_o), to_billions(hi_o))
 
     # Net cross-subsidy flow (min of under/over — money that actually transfers)
+    mean_xsub = min(mean_u, mean_o)
+    lo_xsub = min(lo_u, lo_o)
+    hi_xsub = min(hi_u, hi_o)
+    log.info("Cross-subsidy flow: mean=$%.2fB/yr  95CI=[$%.2fB, $%.2fB]",
+             to_billions(mean_xsub), to_billions(lo_xsub), to_billions(hi_xsub))
+
+    return {
+        "total_mispricing": {
+            "mean_B_yr": to_billions(mean_tot),
+            "ci_lo_B_yr": to_billions(lo_tot),
