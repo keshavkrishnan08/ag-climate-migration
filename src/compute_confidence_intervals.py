@@ -308,3 +308,13 @@ def main():
     print(f"   Mean: {c['mean_counties']:.0f}  95CI: [{c['ci_lo_counties']:.0f}, {c['ci_hi_counties']:.0f}]")
     print(f"   (Raw count in data: {c['n_counties_tip_2040_raw']})")
 
+    ins = results["insurance_mispricing"]
+    print(f"\n4. Insurance mispricing (total |mispricing|):")
+    t = ins["total_mispricing"]
+    print(f"   Mean: ${t['mean_B_yr']:.2f}B/yr  95CI: [${t['ci_lo_B_yr']:.2f}B/yr, ${t['ci_hi_B_yr']:.2f}B/yr]")
+    xs = ins["cross_subsidy_flow"]
+    print(f"   Cross-subsidy flow:")
+    print(f"   Mean: ${xs['mean_B_yr']:.2f}B/yr  95CI: [${xs['ci_lo_B_yr']:.2f}B/yr, ${xs['ci_hi_B_yr']:.2f}B/yr]")
+
+    opp = results["northern_opportunity"]
+    print(f"\n5. Northern opportunity:")
