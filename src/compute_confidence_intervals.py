@@ -288,3 +288,13 @@ def main():
     with open(out_path, "w") as f:
         json.dump(results, f, indent=2)
 
+    log.info("Saved to %s", out_path)
+
+    # Print summary table
+    print("\n" + "=" * 60)
+    print("HEADLINE FINDINGS — Bootstrap 95% CIs")
+    print("=" * 60)
+
+    d = results["stranded_assets_dcf"]
+    print(f"\n1. Stranded assets (DCF, SSP2-4.5):")
+    print(f"   Mean: ${d['mean_B']:.1f}B  95CI: [${d['ci_lo_B']:.1f}B, ${d['ci_hi_B']:.1f}B]")
