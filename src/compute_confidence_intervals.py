@@ -318,3 +318,11 @@ def main():
 
     opp = results["northern_opportunity"]
     print(f"\n5. Northern opportunity:")
+    print(f"   Mean: ${opp['mean_B_yr']:.1f}B/yr  95CI: [${opp['ci_lo_B_yr']:.1f}B/yr, ${opp['ci_hi_B_yr']:.1f}B/yr]")
+
+    print("\n" + "=" * 60)
+    print(f"Full results saved to: {out_path}")
+
+
+if __name__ == "__main__":
+    main()
