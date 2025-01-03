@@ -298,3 +298,13 @@ def main():
     d = results["stranded_assets_dcf"]
     print(f"\n1. Stranded assets (DCF, SSP2-4.5):")
     print(f"   Mean: ${d['mean_B']:.1f}B  95CI: [${d['ci_lo_B']:.1f}B, ${d['ci_hi_B']:.1f}B]")
+
+    h = results["stranded_assets_hedonic_2050"]
+    print(f"\n2. Stranded assets (Hedonic, 2050):")
+    print(f"   Mean: ${h['mean_B']:.1f}B  95CI: [${h['ci_lo_B']:.1f}B, ${h['ci_hi_B']:.1f}B]")
+
+    c = results["cascade_counties_2040"]
+    print(f"\n3. Cascade counties (tipping ≤ 2040):")
+    print(f"   Mean: {c['mean_counties']:.0f}  95CI: [{c['ci_lo_counties']:.0f}, {c['ci_hi_counties']:.0f}]")
+    print(f"   (Raw count in data: {c['n_counties_tip_2040_raw']})")
+
