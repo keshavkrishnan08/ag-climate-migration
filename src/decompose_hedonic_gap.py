@@ -18,3 +18,13 @@ Method:
        and a LaTeX table fragment to paper/si_section6_decomposition.tex.
 
 Args:
+    None (reads from canonical paths).
+Returns:
+    Dict with decomposition results.
+Raises:
+    FileNotFoundError if input parquets are missing.
+"""
+
+import json
+import sys
+from pathlib import Path
