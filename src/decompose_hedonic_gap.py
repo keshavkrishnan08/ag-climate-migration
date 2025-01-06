@@ -38,3 +38,13 @@ sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 # ---------------------------------------------------------------------------
 # Configuration
+# ---------------------------------------------------------------------------
+HEDONIC_PARQUET = PROJECT_ROOT / "results/stranded_assets/hedonic_stranded_2050.parquet"
+DCF_PARQUET = PROJECT_ROOT / "results/stranded_assets/stranded_national_SR_SSP245.parquet"
+CLIMATE_PROJ = PROJECT_ROOT / "data/projections/county_climate_projections.parquet"
+LAND_VALUES = PROJECT_ROOT / "data/raw/nass/nass_land_values.parquet"
+CASH_RENT = PROJECT_ROOT / "data/raw/nass/nass_cash_rent.parquet"
+RMA_PARQUET = PROJECT_ROOT / "data/raw/rma/rma_sob_all_years.parquet"
+ACS_DEMO = PROJECT_ROOT / "data/raw/census/acs_county_demographics.parquet"
+
+OUTPUT_DIR = PROJECT_ROOT / "results/decomposition"
