@@ -48,3 +48,13 @@ RMA_PARQUET = PROJECT_ROOT / "data/raw/rma/rma_sob_all_years.parquet"
 ACS_DEMO = PROJECT_ROOT / "data/raw/census/acs_county_demographics.parquet"
 
 OUTPUT_DIR = PROJECT_ROOT / "results/decomposition"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+# Headline totals (in billions, from headline_numbers_preliminary.json)
+HEDONIC_TOTAL_B = 168.0   # Hedonic 2050 SSP245 (rounded from ~163B + CI adjustment)
+DCF_CENTRAL_B = 105.1     # DCF central (SR + indirect 1.30x, r=3%, h=35yr)
+GAP_B = HEDONIC_TOTAL_B - DCF_CENTRAL_B  # $62.9B ≈ $63B
+
+# Northern dairy states (benefit from reduced heat stress under warming)
+NORTHERN_DAIRY_STATE_FIPS = {
+    "05": "WI", "06": "MN", "07": "IA", "08": "NY",
