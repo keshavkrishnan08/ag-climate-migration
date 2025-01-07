@@ -118,3 +118,13 @@ def load_dcf_central() -> pd.DataFrame:
     """
     d = pd.read_parquet(
         DCF_PARQUET,
+        columns=["fips", "stranded_value_total", "discount_rate", "horizon"],
+    )
+    d["fips"] = d["fips"].astype(str).str.zfill(5)
+    # Central tier: r=3%, h=35
+    d = d[(d["discount_rate"] == 0.03) & (d["horizon"] == 35)].copy()
+    print(f"  DCF central: {len(d)} counties, total={d['stranded_value_total'].sum()/1e9:.2f}B")
+    return d
+
+
+def load_climate_precip(target_year: int = 2050) -> pd.DataFrame:
