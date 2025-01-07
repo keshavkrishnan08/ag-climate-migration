@@ -108,3 +108,13 @@ def load_hedonic() -> pd.DataFrame:
     return h
 
 
+def load_dcf_central() -> pd.DataFrame:
+    """Load DCF central stranded-value estimates (SR, r=3%, h=35yr, indirect 1.30x).
+
+    Returns:
+        DataFrame with fips, stranded_value_total columns.
+    Raises:
+        FileNotFoundError if the parquet is missing.
+    """
+    d = pd.read_parquet(
+        DCF_PARQUET,
