@@ -78,3 +78,13 @@ def safe_merge(left: pd.DataFrame, right: pd.DataFrame, on: str, how: str = "inn
         right: Right DataFrame.
         on: Column name to join on.
         how: Merge type (default 'inner').
+
+    Returns:
+        Merged DataFrame.
+    """
+    left = left.copy()
+    right = right.copy()
+    left[on] = left[on].astype(str).str.zfill(5)
+    right[on] = right[on].astype(str).str.zfill(5)
+    return pd.merge(left, right, on=on, how=how)
+
