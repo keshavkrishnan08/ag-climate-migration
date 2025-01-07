@@ -68,3 +68,13 @@ SPECIALTY_STATE_FIPS = {"06", "12", "53", "41", "26"}
 
 # ---------------------------------------------------------------------------
 # Helpers
+# ---------------------------------------------------------------------------
+
+def safe_merge(left: pd.DataFrame, right: pd.DataFrame, on: str, how: str = "inner") -> pd.DataFrame:
+    """Merge two DataFrames, coercing FIPS to string.
+
+    Args:
+        left: Left DataFrame.
+        right: Right DataFrame.
+        on: Column name to join on.
+        how: Merge type (default 'inner').
