@@ -88,3 +88,13 @@ def safe_merge(left: pd.DataFrame, right: pd.DataFrame, on: str, how: str = "inn
     right[on] = right[on].astype(str).str.zfill(5)
     return pd.merge(left, right, on=on, how=how)
 
+
+def load_hedonic() -> pd.DataFrame:
+    """Load hedonic stranded-value estimates for 2050 SSP245.
+
+    Returns:
+        DataFrame with fips, farm_acres, delta_tmax_july, stranded_total columns.
+    Raises:
+        FileNotFoundError if the parquet is missing.
+    """
+    h = pd.read_parquet(
