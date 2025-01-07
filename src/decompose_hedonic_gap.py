@@ -58,3 +58,13 @@ GAP_B = HEDONIC_TOTAL_B - DCF_CENTRAL_B  # $62.9B ≈ $63B
 # Northern dairy states (benefit from reduced heat stress under warming)
 NORTHERN_DAIRY_STATE_FIPS = {
     "05": "WI", "06": "MN", "07": "IA", "08": "NY",
+    "38": "ND", "46": "SD", "23": "ME", "33": "NH",
+    "50": "VT", "25": "MA",
+}
+
+# Specialty-crop-heavy states (CA, FL, WA, OR, MI)
+SPECIALTY_STATE_FIPS = {"06", "12", "53", "41", "26"}
+
+
+# ---------------------------------------------------------------------------
+# Helpers
