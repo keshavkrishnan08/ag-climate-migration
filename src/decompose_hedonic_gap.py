@@ -98,3 +98,13 @@ def load_hedonic() -> pd.DataFrame:
         FileNotFoundError if the parquet is missing.
     """
     h = pd.read_parquet(
+        HEDONIC_PARQUET,
+        columns=["fips", "farm_acres", "delta_tmax_july", "stranded_total"],
+    )
+    h["fips"] = h["fips"].astype(str).str.zfill(5)
+    # Keep only counties with a stranded-value estimate (positive gap counties)
+    h = h[h["stranded_total"] > 0].copy()
+    print(f"  Hedonic: {len(h)} counties, total={h['stranded_total'].sum()/1e9:.2f}B")
+    return h
+
+
