@@ -128,3 +128,13 @@ def load_dcf_central() -> pd.DataFrame:
 
 
 def load_climate_precip(target_year: int = 2050) -> pd.DataFrame:
+    """Load precipitation delta for target year under SSP245.
+
+    Args:
+        target_year: Projection year to use.
+
+    Returns:
+        DataFrame with fips, delta_precip_growing columns.
+    """
+    proj = pd.read_parquet(
+        CLIMATE_PROJ,
