@@ -138,3 +138,13 @@ def load_climate_precip(target_year: int = 2050) -> pd.DataFrame:
     """
     proj = pd.read_parquet(
         CLIMATE_PROJ,
+        columns=["fips", "year", "scenario", "delta_precip_growing"],
+    )
+    proj = proj[(proj["year"] == target_year) & (proj["scenario"] == "SSP245")].copy()
+    proj["fips"] = proj["fips"].astype(str).str.zfill(5)
+    return proj[["fips", "delta_precip_growing"]]
+
+
+def build_livestock_proxy(h: pd.DataFrame) -> pd.DataFrame:
+    """Build a livestock/dairy heat-stress proxy from the hedonic warming signal.
+
