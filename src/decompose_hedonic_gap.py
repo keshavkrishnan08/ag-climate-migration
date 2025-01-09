@@ -178,3 +178,13 @@ def build_livestock_proxy(h: pd.DataFrame) -> pd.DataFrame:
     mx = h["livestock_proxy"].max()
     if mx > 0:
         h["livestock_proxy"] = h["livestock_proxy"] / mx
+    return h
+
+
+def build_water_proxy(h: pd.DataFrame, precip: pd.DataFrame) -> pd.DataFrame:
+    """Build water-availability proxy from precipitation decline.
+
+    Irrigation-dependent western counties where precip declines >10% face
+    water-channel losses captured by the hedonic but not the DCF.
+
+    Args:
