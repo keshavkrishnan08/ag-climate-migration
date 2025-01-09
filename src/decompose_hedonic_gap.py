@@ -208,3 +208,13 @@ def build_water_proxy(h: pd.DataFrame, precip: pd.DataFrame) -> pd.DataFrame:
     if mx > 0:
         h["water_proxy"] = h["water_proxy"] / mx
     return h
+
+
+def build_amenity_proxy(h: pd.DataFrame) -> pd.DataFrame:
+    """Build amenity/rural quality-of-life proxy.
+
+    High-amenity counties carry a land-value premium beyond productive value.
+    We proxy amenity using median home value relative to cash rent income
+    (the "amenity premium" over agricultural income).
+
+    Args:
