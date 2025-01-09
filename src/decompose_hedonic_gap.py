@@ -188,3 +188,13 @@ def build_water_proxy(h: pd.DataFrame, precip: pd.DataFrame) -> pd.DataFrame:
     water-channel losses captured by the hedonic but not the DCF.
 
     Args:
+        h: Hedonic DataFrame.
+        precip: DataFrame with fips, delta_precip_growing.
+
+    Returns:
+        h merged with water_proxy column.
+    """
+    h = safe_merge(h, precip, on="fips", how="left")
+    h["delta_precip_growing"] = h["delta_precip_growing"].fillna(0.0)
+    # Western states: irrigation-dependent
+    western_states = {"04", "06", "08", "16", "30", "32", "35", "41", "49", "53"}
