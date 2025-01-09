@@ -168,3 +168,13 @@ def build_livestock_proxy(h: pd.DataFrame) -> pd.DataFrame:
     dairy_states = {"55", "27", "19", "36", "38", "46", "23", "33", "50"}  # WI,MN,IA,NY,ND,SD,ME,NH,VT
     h["in_dairy_state"] = h["state_fips"].isin(dairy_states).astype(float)
     # Warming magnitude proxy: more warming = more heat stress impact
+    h["warming_magnitude"] = h["delta_tmax_july"].abs()
+    warming_std = h["warming_magnitude"].std()
+    if warming_std > 0:
+        h["livestock_proxy"] = h["in_dairy_state"] * (h["warming_magnitude"] / warming_std)
+    else:
+        h["livestock_proxy"] = h["in_dairy_state"]
+    # Normalize to 0-1
+    mx = h["livestock_proxy"].max()
+    if mx > 0:
+        h["livestock_proxy"] = h["livestock_proxy"] / mx
