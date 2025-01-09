@@ -158,3 +158,13 @@ def build_livestock_proxy(h: pd.DataFrame) -> pd.DataFrame:
 
     Returns:
         h with added livestock_proxy column (0-1 scale).
+    Raises:
+        None.
+    """
+    h = h.copy()
+    # State FIPS is first two digits of county FIPS
+    h["state_fips"] = h["fips"].str[:2]
+    # Dairy benefit: northern dairy states AND positive warming delta (heat stress relief)
+    dairy_states = {"55", "27", "19", "36", "38", "46", "23", "33", "50"}  # WI,MN,IA,NY,ND,SD,ME,NH,VT
+    h["in_dairy_state"] = h["state_fips"].isin(dairy_states).astype(float)
+    # Warming magnitude proxy: more warming = more heat stress impact
