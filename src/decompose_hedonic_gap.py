@@ -198,3 +198,13 @@ def build_water_proxy(h: pd.DataFrame, precip: pd.DataFrame) -> pd.DataFrame:
     h["delta_precip_growing"] = h["delta_precip_growing"].fillna(0.0)
     # Western states: irrigation-dependent
     western_states = {"04", "06", "08", "16", "30", "32", "35", "41", "49", "53"}
+    h["in_western_state"] = h["state_fips"].isin(western_states).astype(float)
+    # Precip decline > 10% of baseline (proxy: absolute decline > threshold)
+    # delta_precip_growing is in mm/month
+    h["precip_decline"] = (-h["delta_precip_growing"]).clip(lower=0)
+    # Water proxy: western AND meaningful precip decline
+    h["water_proxy"] = h["in_western_state"] * h["precip_decline"]
+    mx = h["water_proxy"].max()
+    if mx > 0:
+        h["water_proxy"] = h["water_proxy"] / mx
+    return h
