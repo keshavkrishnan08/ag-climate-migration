@@ -228,3 +228,13 @@ def build_amenity_proxy(h: pd.DataFrame) -> pd.DataFrame:
     acs["fips"] = acs["fips"].astype(str).str.zfill(5)
     # Use most recent year
     acs_recent = acs.sort_values("year").groupby("fips").last().reset_index()
+    acs_recent = acs_recent[["fips", "median_home_value"]]
+
+    # Load cash rent for agricultural income baseline
+    rent = pd.read_parquet(CASH_RENT, columns=["fips", "year", "cash_rent_per_acre"])
+    rent["fips"] = rent["fips"].astype(str).str.zfill(5)
+    rent_recent = rent.sort_values("year").groupby("fips").last().reset_index()
+    rent_recent = rent_recent[["fips", "cash_rent_per_acre"]]
+
+    h = safe_merge(h, acs_recent, on="fips", how="left")
+    h = safe_merge(h, rent_recent, on="fips", how="left")
