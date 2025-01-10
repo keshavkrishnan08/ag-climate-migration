@@ -218,3 +218,13 @@ def build_amenity_proxy(h: pd.DataFrame) -> pd.DataFrame:
     (the "amenity premium" over agricultural income).
 
     Args:
+        h: Hedonic DataFrame with fips column.
+
+    Returns:
+        h with amenity_proxy column added.
+    """
+    # Load ACS home values as amenity signal
+    acs = pd.read_parquet(ACS_DEMO, columns=["fips", "year", "median_home_value"])
+    acs["fips"] = acs["fips"].astype(str).str.zfill(5)
+    # Use most recent year
+    acs_recent = acs.sort_values("year").groupby("fips").last().reset_index()
