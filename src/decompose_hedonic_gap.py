@@ -258,3 +258,13 @@ def build_amenity_proxy(h: pd.DataFrame) -> pd.DataFrame:
     amin = h["amenity_proxy"].min()
     amax = h["amenity_proxy"].max()
     if amax > amin:
+        h["amenity_proxy"] = (h["amenity_proxy"] - amin) / (amax - amin)
+    return h
+
+
+def build_specialty_proxy(h: pd.DataFrame) -> pd.DataFrame:
+    """Build specialty-crop-share proxy from RMA insured acreage.
+
+    Specialty crops (fruits, nuts, vegetables) have different climate
+    sensitivities than field crops. The hedonic captures their value;
+    the DCF covers only NASS field crops (corn, soy, wheat, etc.).
