@@ -248,3 +248,13 @@ def build_amenity_proxy(h: pd.DataFrame) -> pd.DataFrame:
     cr_std = h["cash_rent_per_acre"].std()
     if hv_std > 0 and cr_std > 0:
         hv_norm = (h["median_home_value"] - h["median_home_value"].mean()) / hv_std
+        cr_norm = (h["cash_rent_per_acre"] - h["cash_rent_per_acre"].mean()) / cr_std
+        # High amenity = high home value + low cash rent ratio
+        h["amenity_proxy"] = hv_norm - cr_norm
+    else:
+        h["amenity_proxy"] = h["median_home_value"].fillna(0.0)
+
+    # Normalize to 0-1
+    amin = h["amenity_proxy"].min()
+    amax = h["amenity_proxy"].max()
+    if amax > amin:
