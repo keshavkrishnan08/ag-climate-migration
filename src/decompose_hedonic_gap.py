@@ -238,3 +238,13 @@ def build_amenity_proxy(h: pd.DataFrame) -> pd.DataFrame:
 
     h = safe_merge(h, acs_recent, on="fips", how="left")
     h = safe_merge(h, rent_recent, on="fips", how="left")
+
+    h["median_home_value"] = h["median_home_value"].fillna(h["median_home_value"].median())
+    h["cash_rent_per_acre"] = h["cash_rent_per_acre"].fillna(h["cash_rent_per_acre"].median())
+
+    # Amenity proxy: high home value relative to agricultural cash rent
+    # Normalize each to 0-1
+    hv_std = h["median_home_value"].std()
+    cr_std = h["cash_rent_per_acre"].std()
+    if hv_std > 0 and cr_std > 0:
+        hv_norm = (h["median_home_value"] - h["median_home_value"].mean()) / hv_std
