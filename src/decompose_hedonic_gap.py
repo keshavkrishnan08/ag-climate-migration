@@ -318,3 +318,13 @@ def build_specialty_proxy(h: pd.DataFrame) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------
+# Main decomposition
+# ---------------------------------------------------------------------------
+
+def run_decomposition() -> dict:
+    """Execute the hedonic-DCF gap decomposition.
+
+    Returns:
+        Dict with channel estimates, correlations, and percentage shares.
+    Raises:
+        FileNotFoundError if any required input file is missing.
