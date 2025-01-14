@@ -288,3 +288,13 @@ def build_specialty_proxy(h: pd.DataFrame) -> pd.DataFrame:
     # Label specialty
     rma["is_specialty"] = ~rma["crop_upper"].apply(
         lambda c: any(fc in c for fc in field_crops)
+    )
+
+    # Most recent 5 years
+    max_yr = rma["year"].max()
+    rma_recent = rma[rma["year"] >= max_yr - 4].copy()
+    rma_recent["acres"] = pd.to_numeric(rma_recent["acres"], errors="coerce").fillna(0.0)
+
+    total_acres = rma_recent.groupby("fips")["acres"].sum().rename("total_rma_acres")
+    specialty_acres = (
+        rma_recent[rma_recent["is_specialty"]]
