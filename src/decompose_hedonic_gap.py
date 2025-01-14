@@ -268,3 +268,13 @@ def build_specialty_proxy(h: pd.DataFrame) -> pd.DataFrame:
     Specialty crops (fruits, nuts, vegetables) have different climate
     sensitivities than field crops. The hedonic captures their value;
     the DCF covers only NASS field crops (corn, soy, wheat, etc.).
+
+    Args:
+        h: Hedonic DataFrame with fips column.
+
+    Returns:
+        h with specialty_proxy column added.
+    """
+    # Define specialty crops (anything not in the 8 NASS field crops)
+    field_crops = {
+        "CORN", "SOYBEANS", "WHEAT", "SORGHUM", "BARLEY",
