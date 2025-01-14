@@ -298,3 +298,13 @@ def build_specialty_proxy(h: pd.DataFrame) -> pd.DataFrame:
     total_acres = rma_recent.groupby("fips")["acres"].sum().rename("total_rma_acres")
     specialty_acres = (
         rma_recent[rma_recent["is_specialty"]]
+        .groupby("fips")["acres"]
+        .sum()
+        .rename("specialty_acres")
+    )
+
+    share = pd.concat([total_acres, specialty_acres], axis=1).fillna(0)
+    share["specialty_share"] = np.where(
+        share["total_rma_acres"] > 0,
+        share["specialty_acres"] / share["total_rma_acres"],
+        0.0,
