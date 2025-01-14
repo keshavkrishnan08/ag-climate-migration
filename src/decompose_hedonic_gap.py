@@ -278,3 +278,13 @@ def build_specialty_proxy(h: pd.DataFrame) -> pd.DataFrame:
     # Define specialty crops (anything not in the 8 NASS field crops)
     field_crops = {
         "CORN", "SOYBEANS", "WHEAT", "SORGHUM", "BARLEY",
+        "OATS", "COTTON", "RICE", "SUNFLOWER",
+    }
+
+    rma = pd.read_parquet(RMA_PARQUET, columns=["fips", "year", "crop_name", "acres"])
+    rma["fips"] = rma["fips"].astype(str).str.zfill(5)
+    rma["crop_upper"] = rma["crop_name"].str.strip().str.upper()
+
+    # Label specialty
+    rma["is_specialty"] = ~rma["crop_upper"].apply(
+        lambda c: any(fc in c for fc in field_crops)
