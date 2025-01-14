@@ -308,3 +308,13 @@ def build_specialty_proxy(h: pd.DataFrame) -> pd.DataFrame:
         share["total_rma_acres"] > 0,
         share["specialty_acres"] / share["total_rma_acres"],
         0.0,
+    )
+    share = share[["specialty_share"]].reset_index()
+
+    h = safe_merge(h, share, on="fips", how="left")
+    h["specialty_share"] = h["specialty_share"].fillna(0.0)
+    h["specialty_proxy"] = h["specialty_share"]
+    return h
+
+
+# ---------------------------------------------------------------------------
