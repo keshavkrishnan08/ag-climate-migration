@@ -338,3 +338,13 @@ def run_decomposition() -> dict:
     print("Loading data...")
     h = load_hedonic()
     d = load_dcf_central()
+
+    merged = safe_merge(h, d[["fips", "stranded_value_total"]], on="fips", how="inner")
+    merged.rename(columns={"stranded_total": "hedonic_stranded", "stranded_value_total": "dcf_stranded"}, inplace=True)
+    merged["gap"] = merged["hedonic_stranded"] - merged["dcf_stranded"]
+    print(f"\n  Merged counties: {len(merged)}")
+    print(f"  In-sample hedonic total: {merged['hedonic_stranded'].sum()/1e9:.2f}B")
+    print(f"  In-sample DCF central total: {merged['dcf_stranded'].sum()/1e9:.2f}B")
+    print(f"  In-sample gap: {merged['gap'].sum()/1e9:.2f}B")
+
+    # --- Build proxies ---
