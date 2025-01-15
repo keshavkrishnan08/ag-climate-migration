@@ -388,3 +388,13 @@ def run_decomposition() -> dict:
     X_with_const = np.column_stack([np.ones(len(X)), X])
     valid_mask = np.isfinite(X_with_const).all(axis=1) & np.isfinite(y)
     X_clean = X_with_const[valid_mask]
+    y_clean = y[valid_mask]
+
+    coeffs, residuals, rank, sv = np.linalg.lstsq(X_clean, y_clean, rcond=None)
+    y_pred = X_clean @ coeffs
+    ss_res = np.sum((y_clean - y_pred) ** 2)
+    ss_tot = np.sum((y_clean - y_clean.mean()) ** 2)
+    r2 = 1 - ss_res / ss_tot if ss_tot > 0 else 0.0
+
+    print(f"\n  OLS R² of proxies on county gap: {r2:.3f}")
+
