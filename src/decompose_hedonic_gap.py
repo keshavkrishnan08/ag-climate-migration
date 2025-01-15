@@ -378,3 +378,13 @@ def run_decomposition() -> dict:
     proxy_data = merged[proxies].copy()
     for p in proxies:
         std = proxy_data[p].std()
+        if std > 0:
+            proxy_data[p] = (proxy_data[p] - proxy_data[p].mean()) / std
+
+    y = merged["gap"].values
+    X = proxy_data[proxies].values
+
+    # Fit OLS via numpy for robustness
+    X_with_const = np.column_stack([np.ones(len(X)), X])
+    valid_mask = np.isfinite(X_with_const).all(axis=1) & np.isfinite(y)
+    X_clean = X_with_const[valid_mask]
