@@ -358,3 +358,13 @@ def run_decomposition() -> dict:
     proxies = ["livestock_proxy", "water_proxy", "amenity_proxy", "specialty_proxy"]
     proxy_labels = {
         "livestock_proxy": "Livestock/dairy heat stress",
+        "water_proxy": "Water availability",
+        "amenity_proxy": "Amenity/rural quality of life",
+        "specialty_proxy": "Specialty crops",
+    }
+
+    # --- Correlations with the per-county gap ---
+    print("\nCorrelations of proxies with per-county gap:")
+    correlations = {}
+    for p in proxies:
+        valid = merged[[p, "gap"]].dropna()
