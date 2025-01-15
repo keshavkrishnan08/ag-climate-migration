@@ -368,3 +368,13 @@ def run_decomposition() -> dict:
     correlations = {}
     for p in proxies:
         valid = merged[[p, "gap"]].dropna()
+        if len(valid) > 10:
+            r, pval = stats.spearmanr(valid[p], valid["gap"])
+            correlations[p] = {"spearman_r": float(r), "p_value": float(pval)}
+            print(f"  {proxy_labels[p]:40s}: r={r:+.3f}, p={pval:.3f}")
+
+    # --- OLS decomposition (regress gap on proxies, extract R² attribution) ---
+    # Standardize proxies for comparability
+    proxy_data = merged[proxies].copy()
+    for p in proxies:
+        std = proxy_data[p].std()
