@@ -328,3 +328,13 @@ def run_decomposition() -> dict:
         Dict with channel estimates, correlations, and percentage shares.
     Raises:
         FileNotFoundError if any required input file is missing.
+    """
+    print("\n=== Hedonic-DCF Gap Decomposition ===")
+    print(f"  Hedonic total (2050 SSP245): ${HEDONIC_TOTAL_B:.1f}B")
+    print(f"  DCF central (SR, r=3%, h=35): ${DCF_CENTRAL_B:.1f}B")
+    print(f"  Gap to explain: ${GAP_B:.1f}B\n")
+
+    # --- Load and merge ---
+    print("Loading data...")
+    h = load_hedonic()
+    d = load_dcf_central()
