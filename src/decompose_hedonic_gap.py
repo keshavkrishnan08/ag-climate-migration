@@ -348,3 +348,13 @@ def run_decomposition() -> dict:
     print(f"  In-sample gap: {merged['gap'].sum()/1e9:.2f}B")
 
     # --- Build proxies ---
+    print("\nBuilding channel proxies...")
+    precip = load_climate_precip(target_year=2050)
+    merged = build_livestock_proxy(merged)
+    merged = build_water_proxy(merged, precip)
+    merged = build_amenity_proxy(merged)
+    merged = build_specialty_proxy(merged)
+
+    proxies = ["livestock_proxy", "water_proxy", "amenity_proxy", "specialty_proxy"]
+    proxy_labels = {
+        "livestock_proxy": "Livestock/dairy heat stress",
