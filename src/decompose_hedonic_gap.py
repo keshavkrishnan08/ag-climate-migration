@@ -498,3 +498,13 @@ def write_latex_table(result: dict) -> None:
     attr = result["attribution"]
     lines = []
     lines.append(r"\subsection*{SI Section 6: Decomposition of the Hedonic-DCF Gap}")
+    lines.append("")
+    lines.append(
+        r"The hedonic regression captures all channels affecting farmland value---livestock, "
+        r"water supply, amenity, and specialty crops---while the DCF captures only field-crop "
+        r"income. The \$63 billion gap between our hedonic estimate (\$168B) and the DCF central "
+        r"estimate (\$105B) decomposes into four economic channels (Table~\ref{tab:s10_decomp})."
+    )
+    lines.append("")
+    lines.append(
+        r"We measure each channel by correlating the per-county hedonic-DCF gap with four proxy "
