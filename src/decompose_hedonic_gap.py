@@ -488,3 +488,13 @@ def run_decomposition() -> dict:
 
 def write_latex_table(result: dict) -> None:
     """Write SI Section 6 LaTeX fragment.
+
+    Args:
+        result: Output dict from run_decomposition().
+
+    Returns:
+        None. Writes to paper/si_section6_decomposition.tex.
+    """
+    attr = result["attribution"]
+    lines = []
+    lines.append(r"\subsection*{SI Section 6: Decomposition of the Hedonic-DCF Gap}")
