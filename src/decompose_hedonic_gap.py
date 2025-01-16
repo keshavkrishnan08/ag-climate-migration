@@ -508,3 +508,13 @@ def write_latex_table(result: dict) -> None:
     lines.append("")
     lines.append(
         r"We measure each channel by correlating the per-county hedonic-DCF gap with four proxy "
+        r"indicators: (a) livestock/dairy heat-stress relief in northern dairy states, weighted by "
+        r"county warming magnitude; (b) precipitation decline in irrigation-dependent western "
+        r"counties; (c) an amenity premium---the excess of median home value over agricultural "
+        r"cash-rent income---that the hedonic captures but the DCF ignores; and (d) specialty-crop "
+        r"share from RMA insured acreage (fruits, nuts, vegetables). OLS of the county-level gap "
+        r"on these four proxies explains "
+        + f"{result['ols_r2']*100:.0f}\\%"
+        + r" of cross-county variation ($R^2 = "
+        + f"{result['ols_r2']:.2f}$)."
+    )
