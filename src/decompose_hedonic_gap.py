@@ -458,3 +458,13 @@ def run_decomposition() -> dict:
 
     # --- Summary ---
     result = {
+        "hedonic_total_B": HEDONIC_TOTAL_B,
+        "dcf_central_B": DCF_CENTRAL_B,
+        "gap_B": round(GAP_B, 1),
+        "merged_counties": int(len(merged)),
+        "ols_r2": round(r2, 3),
+        "correlations": {p: correlations.get(p, {}) for p in proxies},
+        "attribution": final_attribution,
+        "note": (
+            "Gap decomposition uses OLS of per-county gap on four proxy indicators "
+            "(livestock presence, precipitation decline, amenity premium, specialty-crop share). "
