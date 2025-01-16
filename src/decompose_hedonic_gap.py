@@ -408,3 +408,13 @@ def run_decomposition() -> dict:
         weights = np.ones(len(proxies)) / len(proxies)
 
     print(f"\n  Proxy weights (OLS |beta| normalized):")
+    for p, w in zip(proxies, weights):
+        print(f"    {proxy_labels[p]:40s}: {w:.3f} ({w*100:.1f}%)")
+
+    # --- Dollar attribution ---
+    # The gap includes counties in both hedonic and DCF.
+    # We also account for the hedonic-only counties (hedonic covers ~2992, DCF covers ~2023).
+    # Total gap = $63B, distributed by proxy weights.
+    channel_shares = {}
+    channel_B = {}
+    channel_ranges = {
