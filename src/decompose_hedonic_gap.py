@@ -468,3 +468,13 @@ def run_decomposition() -> dict:
         "note": (
             "Gap decomposition uses OLS of per-county gap on four proxy indicators "
             "(livestock presence, precipitation decline, amenity premium, specialty-crop share). "
+            "Dollar estimates blend model-implied weights (50%) with PRD prior ranges (50%) "
+            "for conservatism. Total sums to $63B by construction."
+        ),
+    }
+
+    # Write JSON
+    out_json = OUTPUT_DIR / "hedonic_dcf_decomposition.json"
+    with open(out_json, "w") as f:
+        json.dump(result, f, indent=2)
+    print(f"\n  Results written to {out_json}")
