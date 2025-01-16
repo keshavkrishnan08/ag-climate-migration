@@ -478,3 +478,13 @@ def run_decomposition() -> dict:
     with open(out_json, "w") as f:
         json.dump(result, f, indent=2)
     print(f"\n  Results written to {out_json}")
+
+    return result
+
+
+# ---------------------------------------------------------------------------
+# LaTeX table generation
+# ---------------------------------------------------------------------------
+
+def write_latex_table(result: dict) -> None:
+    """Write SI Section 6 LaTeX fragment.
