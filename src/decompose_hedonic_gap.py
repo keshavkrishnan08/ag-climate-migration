@@ -448,3 +448,13 @@ def run_decomposition() -> dict:
         print(f"    {proxy_labels[p]:40s}: model=${model_val:.1f}B, prior=${prior_mid:.1f}B, blended=${blended:.1f}B")
 
     # Normalize so blended sums to exactly GAP_B
+    total_blended = sum(v["blended_B"] for v in final_attribution.values())
+    scale = GAP_B / total_blended if total_blended > 0 else 1.0
+    for p in final_attribution:
+        final_attribution[p]["blended_B"] = round(final_attribution[p]["blended_B"] * scale, 2)
+        final_attribution[p]["share_pct"] = round(final_attribution[p]["blended_B"] / GAP_B * 100, 1)
+
+    print(f"\n  Scaled blended total: ${sum(v['blended_B'] for v in final_attribution.values()):.1f}B (target ${GAP_B:.1f}B)")
+
+    # --- Summary ---
+    result = {
