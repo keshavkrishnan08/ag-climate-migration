@@ -398,3 +398,13 @@ def run_decomposition() -> dict:
 
     print(f"\n  OLS R² of proxies on county gap: {r2:.3f}")
 
+    # Attribution: proportion of gap explained by each proxy
+    # Use |coeff| × std of proxy × 1/(sum of all |coeff|×std) weighting
+    betas = np.abs(coeffs[1:])  # exclude intercept
+    total_beta = betas.sum()
+    if total_beta > 0:
+        weights = betas / total_beta
+    else:
+        weights = np.ones(len(proxies)) / len(proxies)
+
+    print(f"\n  Proxy weights (OLS |beta| normalized):")
