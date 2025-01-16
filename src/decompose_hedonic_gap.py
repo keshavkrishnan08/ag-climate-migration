@@ -418,3 +418,13 @@ def run_decomposition() -> dict:
     channel_shares = {}
     channel_B = {}
     channel_ranges = {
+        "livestock_proxy": (20.0, 25.0),
+        "water_proxy": (15.0, 20.0),
+        "amenity_proxy": (10.0, 15.0),
+        "specialty_proxy": (5.0, 10.0),
+    }
+
+    # Compute model-implied attribution
+    for p, w in zip(proxies, weights):
+        channel_shares[p] = float(w)
+        channel_B[p] = float(w * GAP_B)
