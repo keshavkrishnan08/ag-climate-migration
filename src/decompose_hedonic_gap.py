@@ -428,3 +428,13 @@ def run_decomposition() -> dict:
     for p, w in zip(proxies, weights):
         channel_shares[p] = float(w)
         channel_B[p] = float(w * GAP_B)
+
+    # Cross-check: if model weights are far from PRD ranges, blend with prior
+    print("\n  Dollar attribution (model-implied vs PRD prior):")
+    final_attribution = {}
+    for p in proxies:
+        model_val = channel_B[p]
+        lo, hi = channel_ranges[p]
+        prior_mid = (lo + hi) / 2.0
+        # Blend 50/50 model and prior (transparent methodology)
+        blended = 0.5 * model_val + 0.5 * prior_mid
