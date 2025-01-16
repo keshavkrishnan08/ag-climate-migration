@@ -438,3 +438,13 @@ def run_decomposition() -> dict:
         prior_mid = (lo + hi) / 2.0
         # Blend 50/50 model and prior (transparent methodology)
         blended = 0.5 * model_val + 0.5 * prior_mid
+        final_attribution[p] = {
+            "label": proxy_labels[p],
+            "model_implied_B": round(model_val, 2),
+            "prior_range_B": [lo, hi],
+            "blended_B": round(blended, 2),
+            "share_pct": round(blended / GAP_B * 100, 1),
+        }
+        print(f"    {proxy_labels[p]:40s}: model=${model_val:.1f}B, prior=${prior_mid:.1f}B, blended=${blended:.1f}B")
+
+    # Normalize so blended sums to exactly GAP_B
