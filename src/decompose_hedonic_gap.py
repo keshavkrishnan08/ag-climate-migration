@@ -578,3 +578,13 @@ def write_latex_table(result: dict) -> None:
         r"divergence between hedonic and DCF estimates."
     )
     lines.append("")
+    lines.append(
+        r"\paragraph{Amenity/rural quality of life (\$"
+        + f"{attr['amenity_proxy']['blended_B']:.0f}"
+        + r"B).} Farmland near recreation areas, with mild climates, or in scenic landscapes "
+        r"carries an amenity premium beyond its productive value. This premium---measured as "
+        r"the excess of median home value over agricultural income capitalization---is fully "
+        r"capitalized in observed land prices and thus captured by the hedonic regression, "
+        r"but absent from the DCF's income-based approach."
+    )
+    lines.append("")
