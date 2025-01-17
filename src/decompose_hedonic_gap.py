@@ -538,3 +538,13 @@ def write_latex_table(result: dict) -> None:
 
     proxy_keys = ["livestock_proxy", "water_proxy", "amenity_proxy", "specialty_proxy"]
     for p in proxy_keys:
+        v = attr[p]
+        corr = result["correlations"].get(p, {})
+        r_val = corr.get("spearman_r", float("nan"))
+        r_str = f"{r_val:+.3f}" if not np.isnan(r_val) else "--"
+        lo, hi = v["prior_range_B"]
+        lines.append(
+            f"{v['label']} & "
+            f"\\${v['blended_B']:.1f} & "
+            f"{v['share_pct']:.0f}\\% & "
+            f"\\${lo:.0f}--{hi:.0f} & "
