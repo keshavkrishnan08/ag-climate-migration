@@ -588,3 +588,13 @@ def write_latex_table(result: dict) -> None:
         r"but absent from the DCF's income-based approach."
     )
     lines.append("")
+    lines.append(
+        r"\paragraph{Specialty crops (\$"
+        + f"{attr['specialty_proxy']['blended_B']:.0f}"
+        + r"B).} Fruits, nuts, and vegetables respond to climate differently than field crops "
+        r"and are not included in the NASS yield panel that drives the DCF. Counties with high "
+        r"specialty-crop RMA acreage shares show systematically larger hedonic-DCF gaps, "
+        r"consistent with this channel."
+    )
+
+    out_tex = PROJECT_ROOT / "paper/si_section6_decomposition.tex"
