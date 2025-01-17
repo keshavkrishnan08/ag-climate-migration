@@ -528,3 +528,13 @@ def write_latex_table(result: dict) -> None:
         + f"{result['gap_B']:.0f}"
         + r"B).} Blended estimates combine OLS model-implied weights (50\%) with PRD prior "
         r"ranges (50\%). Dollar totals sum to \$63B by construction. Spearman correlations "
+        r"are between the per-county gap and each proxy indicator.}"
+    )
+    lines.append(r"\label{tab:s10_decomp}")
+    lines.append(r"\begin{tabular}{lcccc}")
+    lines.append(r"\toprule")
+    lines.append(r"\textbf{Channel} & \textbf{Estimate (\$B)} & \textbf{Share (\%)} & \textbf{Prior Range (\$B)} & \textbf{Spearman $r$} \\")
+    lines.append(r"\midrule")
+
+    proxy_keys = ["livestock_proxy", "water_proxy", "amenity_proxy", "specialty_proxy"]
+    for p in proxy_keys:
