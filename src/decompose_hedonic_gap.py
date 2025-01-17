@@ -568,3 +568,13 @@ def write_latex_table(result: dict) -> None:
         r"captures this through the temperature-squared term; the DCF's field-crop focus misses it."
     )
     lines.append("")
+    lines.append(
+        r"\paragraph{Water availability (\$"
+        + f"{attr['water_proxy']['blended_B']:.0f}"
+        + r"B).} Irrigation-dependent western counties face water-supply changes as precipitation "
+        r"patterns shift. The hedonic captures this through the precipitation coefficient; the "
+        r"DCF uses only yield projections from rain-fed models. Counties where growing-season "
+        r"precipitation declines exceed 10\% and irrigation dependency is high show the largest "
+        r"divergence between hedonic and DCF estimates."
+    )
+    lines.append("")
