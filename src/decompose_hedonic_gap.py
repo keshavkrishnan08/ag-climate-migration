@@ -518,3 +518,13 @@ def write_latex_table(result: dict) -> None:
         + r" of cross-county variation ($R^2 = "
         + f"{result['ols_r2']:.2f}$)."
     )
+    lines.append("")
+
+    # Table
+    lines.append(r"\begin{table}[H]")
+    lines.append(r"\centering")
+    lines.append(
+        r"\caption{\textbf{SI Table S10. Decomposition of the Hedonic-DCF gap (\$"
+        + f"{result['gap_B']:.0f}"
+        + r"B).} Blended estimates combine OLS model-implied weights (50\%) with PRD prior "
+        r"ranges (50\%). Dollar totals sum to \$63B by construction. Spearman correlations "
