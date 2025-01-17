@@ -548,3 +548,13 @@ def write_latex_table(result: dict) -> None:
             f"\\${v['blended_B']:.1f} & "
             f"{v['share_pct']:.0f}\\% & "
             f"\\${lo:.0f}--{hi:.0f} & "
+            f"{r_str} \\\\"
+        )
+
+    lines.append(r"\midrule")
+    total_B = sum(v["blended_B"] for v in attr.values())
+    lines.append(f"\\textbf{{Total}} & \\${total_B:.0f} & 100\\% & & \\\\")
+    lines.append(r"\bottomrule")
+    lines.append(r"\end{tabular}")
+    lines.append(r"\end{table}")
+    lines.append("")
