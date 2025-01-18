@@ -608,3 +608,12 @@ def write_latex_table(result: dict) -> None:
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
+    result = run_decomposition()
+
+    print("\n=== Final Attribution ===")
+    for p, v in result["attribution"].items():
+        print(f"  {v['label']:40s}: ${v['blended_B']:.1f}B ({v['share_pct']:.0f}%)")
+    print(f"  {'TOTAL':40s}: ${result['gap_B']:.1f}B (100%)")
+
+    write_latex_table(result)
+    print("\nDone. Decomposition complete.")
