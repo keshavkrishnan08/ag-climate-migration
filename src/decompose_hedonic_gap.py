@@ -598,3 +598,13 @@ def write_latex_table(result: dict) -> None:
     )
 
     out_tex = PROJECT_ROOT / "paper/si_section6_decomposition.tex"
+    with open(out_tex, "w") as f:
+        f.write("\n".join(lines) + "\n")
+    print(f"  LaTeX table written to {out_tex}")
+
+
+# ---------------------------------------------------------------------------
+# Entry point
+# ---------------------------------------------------------------------------
+
+if __name__ == "__main__":
