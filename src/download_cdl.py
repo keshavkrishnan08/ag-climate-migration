@@ -58,3 +58,13 @@ LATITUDE_BANDS = {
     'northern': (0, 24200),       # ~45N and above
     'upper_midwest': (24200, 38400),  # ~41N to ~45N
     'central': (38400, 52600),    # ~37N to ~41N
+    'lower_midwest': (52600, 66800),  # ~33N to ~37N
+    'southern': (66800, 100000),  # below ~33N
+}
+
+
+def _row_to_lat_band(rows: np.ndarray) -> np.ndarray:
+    """Map pixel row indices to latitude band labels.
+
+    Args:
+        rows: Array of row indices.
