@@ -48,3 +48,13 @@ PRIMARY_CROPS = {1, 5, 24, 23, 2, 4, 21, 28}
 # Latitude band definitions (approximate row boundaries for EPSG:5070 CDL)
 # Based on the transform: row -> lat mapping is roughly linear over CONUS
 # Row 0 ~ 51.6N, Row 96522 ~ 25.5N
+# We define 5 latitude bands:
+#   Northern:  lat >= 45   (rows 0 - ~24000)
+#   Upper Mid: 41 <= lat < 45 (rows ~24000 - ~38000)
+#   Central:   37 <= lat < 41 (rows ~38000 - ~52000)
+#   Lower Mid: 33 <= lat < 37 (rows ~52000 - ~66000)
+#   Southern:  lat < 33    (rows ~66000+)
+LATITUDE_BANDS = {
+    'northern': (0, 24200),       # ~45N and above
+    'upper_midwest': (24200, 38400),  # ~41N to ~45N
+    'central': (38400, 52600),    # ~37N to ~41N
