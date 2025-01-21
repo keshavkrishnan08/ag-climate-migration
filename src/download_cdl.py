@@ -28,3 +28,13 @@ CDL_DIR.mkdir(parents=True, exist_ok=True)
 
 CDL_BASE = "https://www.nass.usda.gov/Research_and_Science/Cropland/Release/datasets"
 
+# CDL crop codes -> our crop names
+CDL_CROP_CODES = {
+    1: 'corn',
+    5: 'soybeans',
+    21: 'barley',
+    22: 'durum_wheat',
+    23: 'wheat_spring',
+    24: 'wheat_winter',
+    2: 'cotton',
+    4: 'sorghum',
