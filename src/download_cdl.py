@@ -18,3 +18,13 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import requests
+from loguru import logger
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+DATA_RAW = PROJECT_ROOT / 'data' / 'raw'
+CDL_DIR = DATA_RAW / 'cdl'
+CDL_DIR.mkdir(parents=True, exist_ok=True)
+
+CDL_BASE = "https://www.nass.usda.gov/Research_and_Science/Cropland/Release/datasets"
+
