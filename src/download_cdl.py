@@ -38,3 +38,13 @@ CDL_CROP_CODES = {
     24: 'wheat_winter',
     2: 'cotton',
     4: 'sorghum',
+    28: 'oats',
+    6: 'sunflower',
+}
+
+# Primary crops we track for switching
+PRIMARY_CROPS = {1, 5, 24, 23, 2, 4, 21, 28}
+
+# Latitude band definitions (approximate row boundaries for EPSG:5070 CDL)
+# Based on the transform: row -> lat mapping is roughly linear over CONUS
+# Row 0 ~ 51.6N, Row 96522 ~ 25.5N
