@@ -68,3 +68,13 @@ def _row_to_lat_band(rows: np.ndarray) -> np.ndarray:
 
     Args:
         rows: Array of row indices.
+
+    Returns:
+        Array of string labels for each row's latitude band.
+    """
+    bands = np.empty(len(rows), dtype='U15')
+    bands[:] = 'southern'  # default
+    for band_name, (row_start, row_end) in LATITUDE_BANDS.items():
+        mask = (rows >= row_start) & (rows < row_end)
+        bands[mask] = band_name
+    return bands
