@@ -78,3 +78,13 @@ def _row_to_lat_band(rows: np.ndarray) -> np.ndarray:
         mask = (rows >= row_start) & (rows < row_end)
         bands[mask] = band_name
     return bands
+
+
+def download_cdl_year(year: int) -> str:
+    """Download CDL zip for one year.
+
+    Args:
+        year: CDL year to download.
+
+    Returns:
+        Path to extracted TIF file, or empty string on failure.
