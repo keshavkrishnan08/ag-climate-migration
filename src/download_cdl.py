@@ -98,3 +98,13 @@ def download_cdl_year(year: int) -> str:
     if tif_candidates:
         logger.debug(f"  CDL {year}: already extracted -> {tif_candidates[0].name}")
         return str(tif_candidates[0])
+
+    # Download
+    logger.info(f"  Downloading CDL {year} (~2 GB)...")
+    try:
+        resp = requests.get(url, stream=True, timeout=1800)
+        if resp.status_code != 200:
+            logger.error(f"  HTTP {resp.status_code} for CDL {year}")
+            return ""
+
+        total = int(resp.headers.get('Content-Length', 0))
