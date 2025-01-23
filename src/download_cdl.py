@@ -108,3 +108,13 @@ def download_cdl_year(year: int) -> str:
             return ""
 
         total = int(resp.headers.get('Content-Length', 0))
+        downloaded = 0
+        with open(zip_path, 'wb') as f:
+            for chunk in resp.iter_content(chunk_size=4 * 1024 * 1024):
+                f.write(chunk)
+                downloaded += len(chunk)
+                if downloaded % (500 * 1024 * 1024) == 0:
+                    pct = downloaded / total * 100 if total else 0
+                    logger.info(f"    {downloaded/1e9:.1f} GB / {total/1e9:.1f} GB ({pct:.0f}%)")
+
+    except Exception as e:
