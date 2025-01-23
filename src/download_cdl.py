@@ -118,3 +118,13 @@ def download_cdl_year(year: int) -> str:
                     logger.info(f"    {downloaded/1e9:.1f} GB / {total/1e9:.1f} GB ({pct:.0f}%)")
 
     except Exception as e:
+        logger.error(f"  CDL {year} download failed: {e}")
+        if zip_path.exists():
+            zip_path.unlink()
+        return ""
+
+    # Extract TIF
+    logger.info(f"  Extracting CDL {year}...")
+    try:
+        with zipfile.ZipFile(zip_path) as zf:
+            tif_files = [n for n in zf.namelist() if n.lower().endswith('.tif')]
