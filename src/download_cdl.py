@@ -148,3 +148,13 @@ def compute_county_crop_summary_simple(tif_path: str, year: int) -> pd.DataFrame
     """Compute crop pixel counts by latitude band from CDL raster.
 
     Reads the raster in horizontal strips to avoid loading the full
+    ~14 GB array into memory. Counts pixels of each primary crop within
+    each latitude band, providing a spatial breakdown of crop acreage.
+
+    Each 30m pixel = 0.9 hectares = ~2.224 acres.
+
+    Args:
+        tif_path: Path to CDL GeoTIFF.
+        year: CDL year.
+
+    Returns:
