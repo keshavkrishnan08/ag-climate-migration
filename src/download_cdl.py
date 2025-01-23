@@ -128,3 +128,13 @@ def download_cdl_year(year: int) -> str:
     try:
         with zipfile.ZipFile(zip_path) as zf:
             tif_files = [n for n in zf.namelist() if n.lower().endswith('.tif')]
+            if not tif_files:
+                logger.error(f"  No TIF found in CDL {year} zip")
+                return ""
+            zf.extract(tif_files[0], CDL_DIR)
+            tif_path = CDL_DIR / tif_files[0]
+
+        # Delete zip to save space
+        zip_path.unlink()
+        logger.info(f"  Extracted: {tif_path.name}")
+        return str(tif_path)
