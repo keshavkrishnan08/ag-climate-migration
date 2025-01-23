@@ -88,3 +88,13 @@ def download_cdl_year(year: int) -> str:
 
     Returns:
         Path to extracted TIF file, or empty string on failure.
+    """
+    zip_name = f"{year}_30m_cdls.zip"
+    url = f"{CDL_BASE}/{zip_name}"
+    zip_path = CDL_DIR / zip_name
+
+    # Check if already extracted
+    tif_candidates = list(CDL_DIR.glob(f"*{year}*cdl*.tif")) + list(CDL_DIR.glob(f"*{year}*CDL*.tif"))
+    if tif_candidates:
+        logger.debug(f"  CDL {year}: already extracted -> {tif_candidates[0].name}")
+        return str(tif_candidates[0])
