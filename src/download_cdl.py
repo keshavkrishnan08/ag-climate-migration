@@ -138,3 +138,13 @@ def download_cdl_year(year: int) -> str:
         zip_path.unlink()
         logger.info(f"  Extracted: {tif_path.name}")
         return str(tif_path)
+
+    except Exception as e:
+        logger.error(f"  CDL {year} extract failed: {e}")
+        return ""
+
+
+def compute_county_crop_summary_simple(tif_path: str, year: int) -> pd.DataFrame:
+    """Compute crop pixel counts by latitude band from CDL raster.
+
+    Reads the raster in horizontal strips to avoid loading the full
