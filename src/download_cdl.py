@@ -178,3 +178,13 @@ def compute_county_crop_summary_simple(tif_path: str, year: int) -> pd.DataFrame
     # Initialize count matrix: bands x crops
     counts = {band: np.zeros(256, dtype=np.int64) for band in band_names}
 
+    strip_height = 512  # match the raster block size
+
+    with rasterio.open(tif_path) as src:
+        h, w = src.height, src.width
+        logger.info(f"    Raster: {w} x {h}, reading in {strip_height}-row strips")
+
+        for row_start in range(0, h, strip_height):
+            row_end = min(row_start + strip_height, h)
+            actual_height = row_end - row_start
+
