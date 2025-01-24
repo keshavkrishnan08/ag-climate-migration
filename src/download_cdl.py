@@ -158,3 +158,13 @@ def compute_county_crop_summary_simple(tif_path: str, year: int) -> pd.DataFrame
         year: CDL year.
 
     Returns:
+        DataFrame with columns: lat_band, year, crop_code, crop_name,
+        pixel_count, est_acres.
+    """
+    try:
+        import rasterio
+    except ImportError:
+        logger.warning("rasterio not installed -- cannot read CDL raster")
+        return pd.DataFrame(columns=[
+            'lat_band', 'year', 'crop_code', 'crop_name',
+            'pixel_count', 'est_acres'
