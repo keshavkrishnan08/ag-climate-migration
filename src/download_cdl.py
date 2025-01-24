@@ -168,3 +168,13 @@ def compute_county_crop_summary_simple(tif_path: str, year: int) -> pd.DataFrame
         return pd.DataFrame(columns=[
             'lat_band', 'year', 'crop_code', 'crop_name',
             'pixel_count', 'est_acres'
+        ])
+
+    logger.info(f"  Computing crop summary for CDL {year}...")
+
+    # We'll accumulate counts per (lat_band, crop_code)
+    primary_list = sorted(PRIMARY_CROPS)
+    band_names = list(LATITUDE_BANDS.keys())
+    # Initialize count matrix: bands x crops
+    counts = {band: np.zeros(256, dtype=np.int64) for band in band_names}
+
