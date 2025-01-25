@@ -198,3 +198,13 @@ def compute_county_crop_summary_simple(tif_path: str, year: int) -> pd.DataFrame
             for bn, (rs, re) in LATITUDE_BANDS.items():
                 if rs <= strip_mid_row < re:
                     band_name = bn
+                    break
+
+            # Count crop pixels using bincount (fast for uint8)
+            flat = data.ravel()
+            bc = np.bincount(flat, minlength=256)
+            counts[band_name] += bc
+
+            if row_start % (strip_height * 50) == 0 and row_start > 0:
+                logger.debug(f"    Processed {row_start}/{h} rows")
+
