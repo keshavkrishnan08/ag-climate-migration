@@ -208,3 +208,13 @@ def compute_county_crop_summary_simple(tif_path: str, year: int) -> pd.DataFrame
             if row_start % (strip_height * 50) == 0 and row_start > 0:
                 logger.debug(f"    Processed {row_start}/{h} rows")
 
+    # Build result DataFrame
+    rows = []
+    acres_per_pixel = 30.0 * 30.0 / 4046.86  # 30m pixel -> acres
+
+    for band_name in band_names:
+        for crop_code in primary_list:
+            pc = int(counts[band_name][crop_code])
+            if pc > 0:
+                rows.append({
+                    'lat_band': band_name,
