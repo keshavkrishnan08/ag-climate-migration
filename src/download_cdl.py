@@ -188,3 +188,13 @@ def compute_county_crop_summary_simple(tif_path: str, year: int) -> pd.DataFrame
             row_end = min(row_start + strip_height, h)
             actual_height = row_end - row_start
 
+            # Read strip
+            window = rasterio.windows.Window(0, row_start, w, actual_height)
+            data = src.read(1, window=window)  # shape: (actual_height, w), dtype uint8
+
+            # Determine which lat band this strip falls in
+            strip_mid_row = row_start + actual_height // 2
+            band_name = 'southern'
+            for bn, (rs, re) in LATITUDE_BANDS.items():
+                if rs <= strip_mid_row < re:
+                    band_name = bn
