@@ -218,3 +218,13 @@ def compute_county_crop_summary_simple(tif_path: str, year: int) -> pd.DataFrame
             if pc > 0:
                 rows.append({
                     'lat_band': band_name,
+                    'year': year,
+                    'crop_code': crop_code,
+                    'crop_name': CDL_CROP_CODES.get(crop_code, f'code_{crop_code}'),
+                    'pixel_count': pc,
+                    'est_acres': round(pc * acres_per_pixel, 1),
+                })
+
+    df = pd.DataFrame(rows)
+    if not df.empty:
+        total_crop_px = df['pixel_count'].sum()
