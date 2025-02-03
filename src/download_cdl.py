@@ -228,3 +228,13 @@ def compute_county_crop_summary_simple(tif_path: str, year: int) -> pd.DataFrame
     df = pd.DataFrame(rows)
     if not df.empty:
         total_crop_px = df['pixel_count'].sum()
+        logger.info(
+            f"    CDL {year}: {total_crop_px:,.0f} primary crop pixels "
+            f"({total_crop_px * acres_per_pixel / 1e6:.1f}M acres)"
+        )
+    return df
+
+
+def compute_switching_from_cdl_pair(
+    tif_year_t: str,
+    tif_year_t1: str,
