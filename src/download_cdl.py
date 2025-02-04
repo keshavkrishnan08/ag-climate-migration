@@ -248,3 +248,13 @@ def compute_switching_from_cdl_pair(
     of 5M individual pixel reads.
 
     The approach:
+    1. Generate all random (row, col) sample coordinates upfront.
+    2. Sort by row and group into strip buckets (512-row tall strips).
+    3. For each strip that contains sample points, read the strip from
+       both rasters, extract sample values from the in-memory array.
+    4. Tally switching counts by (from_crop, to_crop, lat_band).
+
+    Args:
+        tif_year_t: CDL TIF for year t (previous).
+        tif_year_t1: CDL TIF for year t+1 (current).
+        year: The transition year (t to t+1).
