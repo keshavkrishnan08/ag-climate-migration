@@ -278,3 +278,13 @@ def compute_switching_from_cdl_pair(
         logger.error(f"  TIF not found: {tif_year_t1}")
         return pd.DataFrame()
 
+    logger.info(f"  Computing switching {year}->{year+1} from CDL pixels...")
+    t_start = time.time()
+
+    with rasterio.open(tif_year_t) as src_t, rasterio.open(tif_year_t1) as src_t1:
+        h, w = src_t.height, src_t.width
+        h1, w1 = src_t1.height, src_t1.width
+
+        if h != h1 or w != w1:
+            logger.warning(
+                f"  Raster dimensions differ: {w}x{h} vs {w1}x{h1}. "
