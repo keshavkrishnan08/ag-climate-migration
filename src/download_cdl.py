@@ -238,3 +238,13 @@ def compute_county_crop_summary_simple(tif_path: str, year: int) -> pd.DataFrame
 def compute_switching_from_cdl_pair(
     tif_year_t: str,
     tif_year_t1: str,
+    year: int,
+    sample_size: int = 5_000_000
+) -> pd.DataFrame:
+    """Compute crop switching rates from two consecutive CDL years.
+
+    Reads both rasters in aligned horizontal strips and samples random
+    pixels from the in-memory arrays. This avoids the astronomical cost
+    of 5M individual pixel reads.
+
+    The approach:
