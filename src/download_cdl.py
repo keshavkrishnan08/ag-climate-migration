@@ -288,3 +288,13 @@ def compute_switching_from_cdl_pair(
         if h != h1 or w != w1:
             logger.warning(
                 f"  Raster dimensions differ: {w}x{h} vs {w1}x{h1}. "
+                f"Using minimum overlap."
+            )
+            h = min(h, h1)
+            w = min(w, w1)
+
+        # Generate random sample coordinates
+        np.random.seed(42)
+        sample_rows = np.random.randint(0, h, sample_size)
+        sample_cols = np.random.randint(0, w, sample_size)
+
