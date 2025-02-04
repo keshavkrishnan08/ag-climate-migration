@@ -258,3 +258,13 @@ def compute_switching_from_cdl_pair(
         tif_year_t: CDL TIF for year t (previous).
         tif_year_t1: CDL TIF for year t+1 (current).
         year: The transition year (t to t+1).
+        sample_size: Number of pixels to sample.
+
+    Returns:
+        DataFrame with columns: from_code, to_code, from_crop, to_crop,
+        lat_band, pixel_count, from_total, switching_rate, year.
+    """
+    try:
+        import rasterio
+    except ImportError:
+        logger.warning("rasterio not available -- skipping CDL pixel analysis")
