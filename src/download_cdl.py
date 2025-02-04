@@ -268,3 +268,13 @@ def compute_switching_from_cdl_pair(
         import rasterio
     except ImportError:
         logger.warning("rasterio not available -- skipping CDL pixel analysis")
+        return pd.DataFrame()
+
+    # Validate that both TIF files exist before opening
+    if not Path(tif_year_t).exists():
+        logger.error(f"  TIF not found: {tif_year_t}")
+        return pd.DataFrame()
+    if not Path(tif_year_t1).exists():
+        logger.error(f"  TIF not found: {tif_year_t1}")
+        return pd.DataFrame()
+
