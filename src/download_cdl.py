@@ -328,3 +328,13 @@ def compute_switching_from_cdl_pair(
 
             actual_height = row_end - row_start
             window = rasterio.windows.Window(0, row_start, w, actual_height)
+
+            # Read both rasters for this strip
+            strip_t = src_t.read(1, window=window)   # (actual_height, w)
+            strip_t1 = src_t1.read(1, window=window)  # (actual_height, w)
+
+            # Extract values for samples in this strip
+            local_rows = sample_rows[idx_lo:idx_hi] - row_start
+            local_cols = sample_cols[idx_lo:idx_hi]
+            vals_t[idx_lo:idx_hi] = strip_t[local_rows, local_cols]
+            vals_t1[idx_lo:idx_hi] = strip_t1[local_rows, local_cols]
