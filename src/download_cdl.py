@@ -308,3 +308,13 @@ def compute_switching_from_cdl_pair(
         sample_bands = sample_bands[sort_idx]
 
         # Allocate arrays for sampled values
+        vals_t = np.zeros(sample_size, dtype=np.uint8)
+        vals_t1 = np.zeros(sample_size, dtype=np.uint8)
+
+        # Read strips and extract sample values
+        strip_height = 512  # match raster block size
+        strips_read = 0
+
+        for row_start in range(0, h, strip_height):
+            row_end = min(row_start + strip_height, h)
+
