@@ -318,3 +318,13 @@ def compute_switching_from_cdl_pair(
         for row_start in range(0, h, strip_height):
             row_end = min(row_start + strip_height, h)
 
+            # Find samples in this strip using binary search
+            idx_lo = np.searchsorted(sample_rows, row_start, side='left')
+            idx_hi = np.searchsorted(sample_rows, row_end, side='left')
+
+            if idx_lo == idx_hi:
+                # No samples in this strip -- skip the read entirely
+                continue
+
+            actual_height = row_end - row_start
+            window = rasterio.windows.Window(0, row_start, w, actual_height)
