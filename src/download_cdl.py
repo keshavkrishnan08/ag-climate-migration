@@ -298,3 +298,13 @@ def compute_switching_from_cdl_pair(
         sample_rows = np.random.randint(0, h, sample_size)
         sample_cols = np.random.randint(0, w, sample_size)
 
+        # Assign latitude bands to all samples
+        sample_bands = _row_to_lat_band(sample_rows)
+
+        # Sort samples by row for sequential strip reads
+        sort_idx = np.argsort(sample_rows)
+        sample_rows = sample_rows[sort_idx]
+        sample_cols = sample_cols[sort_idx]
+        sample_bands = sample_bands[sort_idx]
+
+        # Allocate arrays for sampled values
