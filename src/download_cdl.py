@@ -338,3 +338,13 @@ def compute_switching_from_cdl_pair(
             local_cols = sample_cols[idx_lo:idx_hi]
             vals_t[idx_lo:idx_hi] = strip_t[local_rows, local_cols]
             vals_t1[idx_lo:idx_hi] = strip_t1[local_rows, local_cols]
+
+            strips_read += 1
+
+        elapsed = time.time() - t_start
+        logger.info(
+            f"    Read {strips_read} strips, extracted {sample_size:,} sample values "
+            f"in {elapsed:.1f}s"
+        )
+
+    # Compute switching tallies by (from_crop, to_crop, lat_band)
