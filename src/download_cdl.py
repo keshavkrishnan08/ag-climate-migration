@@ -348,3 +348,13 @@ def compute_switching_from_cdl_pair(
         )
 
     # Compute switching tallies by (from_crop, to_crop, lat_band)
+    primary_arr = np.array(sorted(PRIMARY_CROPS), dtype=np.uint8)
+    valid = np.isin(vals_t, primary_arr) & np.isin(vals_t1, primary_arr)
+
+    # Apply validity mask
+    v_t = vals_t[valid]
+    v_t1 = vals_t1[valid]
+    v_bands = sample_bands[valid]
+    logger.info(
+        f"    {valid.sum():,} of {sample_size:,} samples are primary crop "
+        f"in both years ({valid.sum()/sample_size*100:.1f}%)"
