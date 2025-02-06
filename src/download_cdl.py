@@ -358,3 +358,13 @@ def compute_switching_from_cdl_pair(
     logger.info(
         f"    {valid.sum():,} of {sample_size:,} samples are primary crop "
         f"in both years ({valid.sum()/sample_size*100:.1f}%)"
+    )
+
+    all_switches = []
+    band_names = list(LATITUDE_BANDS.keys()) + ['all']
+
+    for band_name in band_names:
+        if band_name == 'all':
+            b_t = v_t
+            b_t1 = v_t1
+        else:
