@@ -368,3 +368,13 @@ def compute_switching_from_cdl_pair(
             b_t = v_t
             b_t1 = v_t1
         else:
+            band_mask = v_bands == band_name
+            b_t = v_t[band_mask]
+            b_t1 = v_t1[band_mask]
+
+        if len(b_t) == 0:
+            continue
+
+        for from_code in PRIMARY_CROPS:
+            mask_from = b_t == from_code
+            from_total = int(mask_from.sum())
