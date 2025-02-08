@@ -378,3 +378,13 @@ def compute_switching_from_cdl_pair(
         for from_code in PRIMARY_CROPS:
             mask_from = b_t == from_code
             from_total = int(mask_from.sum())
+            if from_total == 0:
+                continue
+
+            to_vals = b_t1[mask_from]
+
+            for to_code in PRIMARY_CROPS:
+                if from_code == to_code:
+                    continue
+                switched = int((to_vals == to_code).sum())
+                if switched > 0:
