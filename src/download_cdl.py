@@ -398,3 +398,13 @@ def compute_switching_from_cdl_pair(
                         'from_total': from_total,
                     })
 
+    if all_switches:
+        df = pd.DataFrame(all_switches)
+        df['switching_rate'] = df['pixel_count'] / df['from_total']
+        df['year'] = year
+
+        n_pairs = len(df[df['lat_band'] == 'all'])
+        logger.info(f"  Switching {year}->{year+1}: {n_pairs} crop pairs detected")
+        return df
+
+    return pd.DataFrame()
