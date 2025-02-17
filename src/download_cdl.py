@@ -388,3 +388,13 @@ def compute_switching_from_cdl_pair(
                     continue
                 switched = int((to_vals == to_code).sum())
                 if switched > 0:
+                    all_switches.append({
+                        'from_code': from_code,
+                        'to_code': to_code,
+                        'from_crop': CDL_CROP_CODES.get(from_code, f'code_{from_code}'),
+                        'to_crop': CDL_CROP_CODES.get(to_code, f'code_{to_code}'),
+                        'lat_band': band_name,
+                        'pixel_count': switched,
+                        'from_total': from_total,
+                    })
+
