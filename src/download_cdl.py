@@ -408,3 +408,13 @@ def compute_switching_from_cdl_pair(
         return df
 
     return pd.DataFrame()
+
+
+def download_cdl_pipeline(years: range = None, skip_summary: bool = False):
+    """Run full CDL download-and-process pipeline.
+
+    Downloads CDL rasters (or finds existing ones), computes crop
+    switching matrices for consecutive year pairs, and saves results
+    to parquet.
+
+    Args:
