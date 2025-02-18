@@ -438,3 +438,13 @@ def download_cdl_pipeline(years: range = None, skip_summary: bool = False):
         else:
             logger.warning(f"CDL {year} unavailable -- skipping")
 
+    # Phase 1b: Compute per-year crop summaries by lat band
+    if not skip_summary:
+        summary_results = []
+        for year, tif_path in sorted(tif_paths.items()):
+            summary = compute_county_crop_summary_simple(tif_path, year)
+            if not summary.empty:
+                summary_results.append(summary)
+
+        if summary_results:
+            combined_summary = pd.concat(summary_results, ignore_index=True)
