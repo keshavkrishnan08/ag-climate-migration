@@ -458,3 +458,13 @@ def download_cdl_pipeline(years: range = None, skip_summary: bool = False):
     switching_results = []
     sorted_years = sorted(tif_paths.keys())
 
+    for i in range(len(sorted_years) - 1):
+        y_t = sorted_years[i]
+        y_t1 = sorted_years[i + 1]
+
+        if y_t1 - y_t != 1:
+            logger.warning(f"Non-consecutive years {y_t}->{y_t1} -- skipping pair")
+            continue
+
+        result = compute_switching_from_cdl_pair(tif_paths[y_t], tif_paths[y_t1], y_t)
+        if not result.empty:
