@@ -428,3 +428,13 @@ def download_cdl_pipeline(years: range = None, skip_summary: bool = False):
     logger.info(f"Peak disk: ~4 GB (zip + extracted TIF)")
     logger.info(f"Final output: switching rates parquet (~few MB)")
 
+    tif_paths = {}
+
+    # Phase 1: Download all years (or find existing TIFs)
+    for year in years:
+        tif_path = download_cdl_year(year)
+        if tif_path:
+            tif_paths[year] = tif_path
+        else:
+            logger.warning(f"CDL {year} unavailable -- skipping")
+
