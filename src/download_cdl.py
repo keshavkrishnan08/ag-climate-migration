@@ -418,3 +418,13 @@ def download_cdl_pipeline(years: range = None, skip_summary: bool = False):
     to parquet.
 
     Args:
+        years: Year range for CDL download.
+        skip_summary: If True, skip per-year crop summary computation.
+    """
+    if years is None:
+        years = range(2018, 2024)  # Recent 6 years for switching
+
+    logger.info(f"CDL download pipeline: years {years.start}-{years.stop - 1}")
+    logger.info(f"Peak disk: ~4 GB (zip + extracted TIF)")
+    logger.info(f"Final output: switching rates parquet (~few MB)")
+
