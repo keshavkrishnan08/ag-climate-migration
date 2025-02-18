@@ -448,3 +448,13 @@ def download_cdl_pipeline(years: range = None, skip_summary: bool = False):
 
         if summary_results:
             combined_summary = pd.concat(summary_results, ignore_index=True)
+            summary_path = CDL_DIR / 'cdl_crop_summary_by_band.parquet'
+            combined_summary.to_parquet(summary_path, index=False)
+            logger.info(f"  Crop summary saved: {len(combined_summary)} rows -> {summary_path}")
+    else:
+        logger.info("  Skipping crop summary (--skip-summary)")
+
+    # Phase 2: Compute switching for consecutive year pairs
+    switching_results = []
+    sorted_years = sorted(tif_paths.keys())
+
