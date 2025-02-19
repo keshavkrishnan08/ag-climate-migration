@@ -508,3 +508,13 @@ def download_cdl_pipeline(years: range = None, skip_summary: bool = False):
     total_tif_gb = sum(os.path.getsize(p) for p in existing_tifs) / 1e9
     logger.info(f"\nRaw TIF files: {total_tif_gb:.1f} GB on disk")
     logger.info(f"Run with --cleanup to delete TIFs after processing")
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--years', type=str, default='2018-2023',
+                        help='Year range, e.g. 2018-2023')
+    parser.add_argument('--cleanup', action='store_true',
+                        help='Delete raw TIF files after processing')
+    parser.add_argument('--skip-summary', action='store_true',
+                        help='Skip per-year crop summary (faster)')
