@@ -498,3 +498,13 @@ def download_cdl_pipeline(years: range = None, skip_summary: bool = False):
                 (combined['to_crop'] == top_to) &
                 (combined['lat_band'] != 'all')
             ]
+            if not regional.empty:
+                logger.info(f"\n  Regional breakdown for {top_from} -> {top_to}:")
+                for _, row in regional.groupby('lat_band')['switching_rate'].mean().items():
+                    logger.info(f"    {_}: {row:.3%}")
+
+    # Phase 3: Clean up raw TIFs (optional -- they're huge)
+    existing_tifs = [p for p in tif_paths.values() if Path(p).exists()]
+    total_tif_gb = sum(os.path.getsize(p) for p in existing_tifs) / 1e9
+    logger.info(f"\nRaw TIF files: {total_tif_gb:.1f} GB on disk")
+    logger.info(f"Run with --cleanup to delete TIFs after processing")
