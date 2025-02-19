@@ -468,3 +468,13 @@ def download_cdl_pipeline(years: range = None, skip_summary: bool = False):
 
         result = compute_switching_from_cdl_pair(tif_paths[y_t], tif_paths[y_t1], y_t)
         if not result.empty:
+            switching_results.append(result)
+
+    # Save combined switching data
+    if switching_results:
+        combined = pd.concat(switching_results, ignore_index=True)
+        output_path = CDL_DIR / 'cdl_switching_rates.parquet'
+        combined.to_parquet(output_path, index=False)
+        logger.info(f"\nSwitching rates saved: {len(combined)} rows -> {output_path}")
+        logger.info(f"Years covered: {combined['year'].min()}-{combined['year'].max()}")
+
