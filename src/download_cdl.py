@@ -478,3 +478,13 @@ def download_cdl_pipeline(years: range = None, skip_summary: bool = False):
         logger.info(f"\nSwitching rates saved: {len(combined)} rows -> {output_path}")
         logger.info(f"Years covered: {combined['year'].min()}-{combined['year'].max()}")
 
+        # Show top switching pairs (national level only)
+        national = combined[combined['lat_band'] == 'all']
+        logger.info(f"\nTop switching pairs (national):")
+        top = (
+            national
+            .groupby(['from_crop', 'to_crop'])['switching_rate']
+            .mean()
+            .sort_values(ascending=False)
+        )
+        for (fc, tc), rate in top.head(10).items():
