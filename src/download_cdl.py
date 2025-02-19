@@ -488,3 +488,13 @@ def download_cdl_pipeline(years: range = None, skip_summary: bool = False):
             .sort_values(ascending=False)
         )
         for (fc, tc), rate in top.head(10).items():
+            logger.info(f"  {fc} -> {tc}: {rate:.3%}")
+
+        # Show regional breakdown for top pair
+        if not top.empty:
+            top_from, top_to = top.index[0]
+            regional = combined[
+                (combined['from_crop'] == top_from) &
+                (combined['to_crop'] == top_to) &
+                (combined['lat_band'] != 'all')
+            ]
