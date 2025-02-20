@@ -518,3 +518,13 @@ if __name__ == '__main__':
                         help='Delete raw TIF files after processing')
     parser.add_argument('--skip-summary', action='store_true',
                         help='Skip per-year crop summary (faster)')
+    args = parser.parse_args()
+
+    start, end = map(int, args.years.split('-'))
+    years = range(start, end + 1)
+
+    download_cdl_pipeline(years=years, skip_summary=args.skip_summary)
+
+    if args.cleanup:
+        for f in CDL_DIR.glob('*.tif'):
+            logger.info(f"Deleting {f.name}...")
