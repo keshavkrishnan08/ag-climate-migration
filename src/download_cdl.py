@@ -528,3 +528,5 @@ if __name__ == '__main__':
     if args.cleanup:
         for f in CDL_DIR.glob('*.tif'):
             logger.info(f"Deleting {f.name}...")
+            f.unlink()
+        logger.info("Cleanup complete")
