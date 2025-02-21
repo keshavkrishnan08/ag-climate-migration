@@ -68,3 +68,13 @@ def load_county_grid() -> pd.DataFrame:
                               columns=['fips'])
     counties = climate['fips'].unique()
 
+    # Use ERS Atlas for county centroids if available, otherwise assign
+    # from FIPS state codes to approximate lat/lon bands
+    # For now, we'll do nearest-grid-cell assignment when processing
+    return pd.DataFrame({'fips': counties})
+
+
+def download_file(url: str, dest: str, max_retries: int = 3) -> bool:
+    """Download a file with progress and retry.
+
+    Args:
