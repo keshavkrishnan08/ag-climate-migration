@@ -38,3 +38,13 @@ MODELS = [
 MODEL_VARIANTS = {
     'ACCESS-CM2':       {'variant': 'r1i1p1f1', 'grid': 'gn'},
     'CNRM-CM6-1':       {'variant': 'r1i1p1f2', 'grid': 'gr'},
+    'GFDL-ESM4':        {'variant': 'r1i1p1f1', 'grid': 'gr1'},
+    'HadGEM3-GC31-LL':  {'variant': 'r1i1p1f3', 'grid': 'gn'},
+    'IPSL-CM6A-LR':     {'variant': 'r1i1p1f1', 'grid': 'gr'},
+    'MIROC6':           {'variant': 'r1i1p1f1', 'grid': 'gn'},
+    'MPI-ESM1-2-HR':    {'variant': 'r1i1p1f1', 'grid': 'gn'},
+    'MRI-ESM2-0':       {'variant': 'r1i1p1f1', 'grid': 'gn'},
+    'NorESM2-MM':       {'variant': 'r1i1p1f1', 'grid': 'gn'},
+}
+
+VARIABLES = ['tasmax', 'tasmin', 'pr']
