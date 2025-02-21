@@ -48,3 +48,13 @@ MODEL_VARIANTS = {
 }
 
 VARIABLES = ['tasmax', 'tasmin', 'pr']
+
+# CONUS bounding box (0-360 longitude convention)
+CONUS_LAT = (24.0, 50.0)
+CONUS_LON = (235.0, 295.0)  # -125 + 360 = 235, -65 + 360 = 295
+
+# County centroids for spatial aggregation (built from climate data)
+def load_county_grid() -> pd.DataFrame:
+    """Load county FIPS with approximate grid cell assignments.
+
+    Uses the nClimDiv county climate data we already have to identify
