@@ -28,3 +28,13 @@ CMIP6_DIR.mkdir(parents=True, exist_ok=True)
 S3_BASE = "https://nex-gddp-cmip6.s3.us-west-2.amazonaws.com/NEX-GDDP-CMIP6"
 
 MODELS = [
+    'ACCESS-CM2', 'CNRM-CM6-1', 'GFDL-ESM4',
+    'HadGEM3-GC31-LL', 'IPSL-CM6A-LR', 'MIROC6',
+    'MPI-ESM1-2-HR', 'MRI-ESM2-0', 'NorESM2-MM'
+]
+
+# Model-specific variant labels and grid labels for NASA NEX-GDDP-CMIP6.
+# Discovered by querying the S3 bucket — not all models use r1i1p1f1 / gn.
+MODEL_VARIANTS = {
+    'ACCESS-CM2':       {'variant': 'r1i1p1f1', 'grid': 'gn'},
+    'CNRM-CM6-1':       {'variant': 'r1i1p1f2', 'grid': 'gr'},
