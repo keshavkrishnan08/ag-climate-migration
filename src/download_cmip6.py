@@ -58,3 +58,13 @@ def load_county_grid() -> pd.DataFrame:
     """Load county FIPS with approximate grid cell assignments.
 
     Uses the nClimDiv county climate data we already have to identify
+    which 0.25 deg grid cells map to which counties. Approximate but
+    sufficient for delta-downscaling.
+
+    Returns:
+        DataFrame: fips, lat_idx, lon_idx for nearest grid cell.
+    """
+    climate = pd.read_parquet(DATA_RAW / 'prism' / 'county_climate_annual.parquet',
+                              columns=['fips'])
+    counties = climate['fips'].unique()
+
