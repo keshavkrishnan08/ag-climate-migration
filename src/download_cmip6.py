@@ -78,3 +78,13 @@ def download_file(url: str, dest: str, max_retries: int = 3) -> bool:
     """Download a file with progress and retry.
 
     Args:
+        url: Source URL.
+        dest: Destination file path.
+        max_retries: Number of retry attempts.
+
+    Returns:
+        True if download succeeded.
+    """
+    for attempt in range(max_retries):
+        try:
+            resp = requests.get(url, stream=True, timeout=600)
