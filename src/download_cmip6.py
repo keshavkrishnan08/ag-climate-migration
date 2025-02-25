@@ -88,3 +88,13 @@ def download_file(url: str, dest: str, max_retries: int = 3) -> bool:
     for attempt in range(max_retries):
         try:
             resp = requests.get(url, stream=True, timeout=600)
+            if resp.status_code != 200:
+                logger.warning(f"  HTTP {resp.status_code} for {url}")
+                return False
+
+            total = int(resp.headers.get('Content-Length', 0))
+            downloaded = 0
+
+            with open(dest, 'wb') as f:
+                for chunk in resp.iter_content(chunk_size=1024 * 1024):
+                    f.write(chunk)
