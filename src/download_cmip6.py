@@ -108,3 +108,13 @@ def download_file(url: str, dest: str, max_retries: int = 3) -> bool:
             return True
 
         except Exception as e:
+            logger.warning(f"  Download attempt {attempt + 1} failed: {e}")
+            if os.path.exists(dest):
+                os.remove(dest)
+            time.sleep(5 * (attempt + 1))
+
+    return False
+
+
+def extract_conus_monthly(nc_path: str, variable: str) -> pd.DataFrame:
+    """Extract CONUS grid cells and compute monthly means from daily NetCDF.
