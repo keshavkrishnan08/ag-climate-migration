@@ -128,3 +128,13 @@ def extract_conus_monthly(nc_path: str, variable: str) -> pd.DataFrame:
     """
     ds = Dataset(nc_path, 'r')
 
+    lats = ds.variables['lat'][:]
+    lons = ds.variables['lon'][:]
+    times = ds.variables['time']
+
+    # CONUS mask
+    lat_mask = (lats >= CONUS_LAT[0]) & (lats <= CONUS_LAT[1])
+    lon_mask = (lons >= CONUS_LON[0]) & (lons <= CONUS_LON[1])
+
+    lat_idx = np.where(lat_mask)[0]
+    lon_idx = np.where(lon_mask)[0]
