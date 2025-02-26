@@ -138,3 +138,13 @@ def extract_conus_monthly(nc_path: str, variable: str) -> pd.DataFrame:
 
     lat_idx = np.where(lat_mask)[0]
     lon_idx = np.where(lon_mask)[0]
+
+    conus_lats = lats[lat_idx]
+    conus_lons = lons[lon_idx]
+
+    # Read CONUS subset of data
+    # NetCDF indexing: [time, lat, lon]
+    data = ds.variables[variable][:, lat_idx[0]:lat_idx[-1]+1, lon_idx[0]:lon_idx[-1]+1]
+
+    # Convert time to month
+    import cftime
