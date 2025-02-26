@@ -148,3 +148,13 @@ def extract_conus_monthly(nc_path: str, variable: str) -> pd.DataFrame:
 
     # Convert time to month
     import cftime
+    time_vals = ds.variables['time'][:]
+    time_units = ds.variables['time'].units
+    time_cal = getattr(ds.variables['time'], 'calendar', 'standard')
+    dates = cftime.num2date(time_vals, time_units, calendar=time_cal)
+    months = np.array([d.month for d in dates])
+
+    # Compute monthly means
+    records = []
+    for m in range(1, 13):
+        month_mask = months == m
