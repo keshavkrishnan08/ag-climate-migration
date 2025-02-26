@@ -98,3 +98,13 @@ def download_file(url: str, dest: str, max_retries: int = 3) -> bool:
             with open(dest, 'wb') as f:
                 for chunk in resp.iter_content(chunk_size=1024 * 1024):
                     f.write(chunk)
+                    downloaded += len(chunk)
+
+            if total > 0 and downloaded < total * 0.95:
+                logger.warning(f"  Incomplete download: {downloaded}/{total} bytes")
+                os.remove(dest)
+                continue
+
+            return True
+
+        except Exception as e:
