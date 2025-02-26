@@ -118,3 +118,13 @@ def download_file(url: str, dest: str, max_retries: int = 3) -> bool:
 
 def extract_conus_monthly(nc_path: str, variable: str) -> pd.DataFrame:
     """Extract CONUS grid cells and compute monthly means from daily NetCDF.
+
+    Args:
+        nc_path: Path to downloaded NetCDF file.
+        variable: Variable name (tasmax, tasmin, pr).
+
+    Returns:
+        DataFrame: lat, lon, month (1-12), value (monthly mean).
+    """
+    ds = Dataset(nc_path, 'r')
+
