@@ -218,3 +218,13 @@ def process_one_file(model: str, scenario: str, variable: str, year: int,
         variable: Climate variable (tasmax, tasmin, pr).
         year: Target year.
         variant: Ensemble variant label (e.g. r1i1p1f1). If None, looks up
+                 from MODEL_VARIANTS or defaults to r1i1p1f1.
+        grid: Grid label (e.g. gn, gr, gr1). If None, looks up from
+              MODEL_VARIANTS or defaults to gn.
+
+    Returns:
+        DataFrame with CONUS grid monthly means.
+    """
+    # Look up model-specific variant and grid labels
+    model_info = MODEL_VARIANTS.get(model, {})
+    if variant is None:
