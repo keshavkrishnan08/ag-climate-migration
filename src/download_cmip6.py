@@ -158,3 +158,13 @@ def extract_conus_monthly(nc_path: str, variable: str) -> pd.DataFrame:
     records = []
     for m in range(1, 13):
         month_mask = months == m
+        if month_mask.sum() == 0:
+            continue
+        monthly_mean = np.nanmean(data[month_mask, :, :], axis=0)
+
+        for i, lat in enumerate(conus_lats):
+            for j, lon in enumerate(conus_lons):
+                val = float(monthly_mean[i, j])
+                if not np.isnan(val):
+                    records.append({
+                        'lat': float(lat),
