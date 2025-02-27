@@ -188,3 +188,13 @@ def assign_grid_to_counties(grid_df: pd.DataFrame, county_climate: pd.DataFrame)
 
     Args:
         grid_df: DataFrame with lat, lon, month, value columns.
+        county_climate: Existing county climate data for FIPS list.
+
+    Returns:
+        DataFrame with fips, month, value (county means).
+    """
+    # Simple approach: average all CONUS grid cells by latitude band
+    # and assign to counties by state latitude ranges
+    # This is approximate but works for delta-downscaling since
+    # we're applying CHANGES, not absolute values
+
