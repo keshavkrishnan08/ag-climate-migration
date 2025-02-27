@@ -228,3 +228,13 @@ def process_one_file(model: str, scenario: str, variable: str, year: int,
     # Look up model-specific variant and grid labels
     model_info = MODEL_VARIANTS.get(model, {})
     if variant is None:
+        variant = model_info.get('variant', 'r1i1p1f1')
+    if grid is None:
+        grid = model_info.get('grid', 'gn')
+
+    filename = f"{variable}_day_{model}_{scenario}_{variant}_{grid}_{year}.nc"
+    url = f"{S3_BASE}/{model}/{scenario}/{variant}/{variable}/{filename}"
+    tmp_path = str(CMIP6_DIR / f"_tmp_{filename}")
+
+    # Check if already processed
+    output_path = CMIP6_DIR / f"{model}_{scenario}_{variable}_{year}_conus_monthly.parquet"
