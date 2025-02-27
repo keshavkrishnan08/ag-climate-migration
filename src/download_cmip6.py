@@ -168,3 +168,13 @@ def extract_conus_monthly(nc_path: str, variable: str) -> pd.DataFrame:
                 if not np.isnan(val):
                     records.append({
                         'lat': float(lat),
+                        'lon': float(lon),
+                        'month': m,
+                        'value': val,
+                    })
+
+    ds.close()
+    return pd.DataFrame(records)
+
+
+def assign_grid_to_counties(grid_df: pd.DataFrame, county_climate: pd.DataFrame) -> pd.DataFrame:
