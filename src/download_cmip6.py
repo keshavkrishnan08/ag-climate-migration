@@ -178,3 +178,13 @@ def extract_conus_monthly(nc_path: str, variable: str) -> pd.DataFrame:
 
 
 def assign_grid_to_counties(grid_df: pd.DataFrame, county_climate: pd.DataFrame) -> pd.DataFrame:
+    """Map 0.25 deg grid cells to counties using nearest-neighbor from nClimDiv.
+
+    Since nClimDiv already has county-level data, we use it to build
+    a mapping from (lat, lon) grid cells to FIPS codes.
+
+    For simplicity, we assign each grid cell to the nearest county centroid
+    derived from state FIPS codes and county indices.
+
+    Args:
+        grid_df: DataFrame with lat, lon, month, value columns.
