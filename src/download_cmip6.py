@@ -198,3 +198,13 @@ def assign_grid_to_counties(grid_df: pd.DataFrame, county_climate: pd.DataFrame)
     # This is approximate but works for delta-downscaling since
     # we're applying CHANGES, not absolute values
 
+    # Group grid by 1 deg lat x 2 deg lon cells (coarser but sufficient for deltas)
+    grid_df = grid_df.copy()
+    grid_df['lat_bin'] = (grid_df['lat'] // 1).astype(int)
+    grid_df['lon_bin'] = (grid_df['lon'] // 2).astype(int)
+
+    coarse = grid_df.groupby(['lat_bin', 'lon_bin', 'month'])['value'].mean().reset_index()
+
+    return coarse
+
+
