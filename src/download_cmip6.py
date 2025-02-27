@@ -208,3 +208,13 @@ def assign_grid_to_counties(grid_df: pd.DataFrame, county_climate: pd.DataFrame)
     return coarse
 
 
+def process_one_file(model: str, scenario: str, variable: str, year: int,
+                     variant: str = None, grid: str = None) -> pd.DataFrame:
+    """Download, extract CONUS, aggregate, delete raw file.
+
+    Args:
+        model: GCM model name.
+        scenario: SSP scenario (ssp126, ssp245, ssp585).
+        variable: Climate variable (tasmax, tasmin, pr).
+        year: Target year.
+        variant: Ensemble variant label (e.g. r1i1p1f1). If None, looks up
