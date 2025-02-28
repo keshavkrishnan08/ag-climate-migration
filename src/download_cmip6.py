@@ -288,3 +288,13 @@ def download_cmip6_pipeline(scenarios: list = None, years: range = None):
     logger.info(f"CMIP6 download pipeline: {len(MODELS)} models x {len(scenarios)} scenarios "
                 f"x {len(VARIABLES)} vars x {len(years)} years = {total_files} files")
     logger.info(f"Peak disk: ~250 MB | Final output: ~{total_files * 0.15:.0f} MB")
+
+    processed = 0
+    skipped = 0
+    failed = 0
+    t0 = time.time()
+
+    for model in MODELS:
+        for scenario in scenarios:
+            for variable in VARIABLES:
+                for year in years:
