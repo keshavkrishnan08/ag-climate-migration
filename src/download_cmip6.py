@@ -248,3 +248,13 @@ def process_one_file(model: str, scenario: str, variable: str, year: int,
         logger.error(f"  FAILED to download {filename}")
         return pd.DataFrame()
 
+    # Extract CONUS monthly means
+    try:
+        grid_monthly = extract_conus_monthly(tmp_path, variable)
+        grid_monthly['model'] = model
+        grid_monthly['scenario'] = scenario
+        grid_monthly['variable'] = variable
+        grid_monthly['year'] = year
+
+        # Save processed data
+        grid_monthly.to_parquet(output_path, index=False)
