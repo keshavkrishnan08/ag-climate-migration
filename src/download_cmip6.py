@@ -278,3 +278,13 @@ def download_cmip6_pipeline(scenarios: list = None, years: range = None):
     Args:
         scenarios: List of SSP scenarios. Default: ['ssp245'].
         years: Year range. Default: 2025-2050.
+    """
+    if scenarios is None:
+        scenarios = ['ssp245']
+    if years is None:
+        years = range(2025, 2051)
+
+    total_files = len(MODELS) * len(scenarios) * len(VARIABLES) * len(years)
+    logger.info(f"CMIP6 download pipeline: {len(MODELS)} models x {len(scenarios)} scenarios "
+                f"x {len(VARIABLES)} vars x {len(years)} years = {total_files} files")
+    logger.info(f"Peak disk: ~250 MB | Final output: ~{total_files * 0.15:.0f} MB")
