@@ -268,3 +268,13 @@ def process_one_file(model: str, scenario: str, variable: str, year: int,
     if os.path.exists(tmp_path):
         os.remove(tmp_path)
         logger.debug(f"  Deleted raw: {tmp_path}")
+
+    return grid_monthly
+
+
+def download_cmip6_pipeline(scenarios: list = None, years: range = None):
+    """Run full CMIP6 download-and-aggregate pipeline.
+
+    Args:
+        scenarios: List of SSP scenarios. Default: ['ssp245'].
+        years: Year range. Default: 2025-2050.
