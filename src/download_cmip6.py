@@ -258,3 +258,13 @@ def process_one_file(model: str, scenario: str, variable: str, year: int,
 
         # Save processed data
         grid_monthly.to_parquet(output_path, index=False)
+        logger.info(f"  Extracted: {len(grid_monthly)} CONUS grid-month records -> {output_path.name}")
+
+    except Exception as e:
+        logger.error(f"  Extract failed for {filename}: {e}")
+        grid_monthly = pd.DataFrame()
+
+    # Delete raw file
+    if os.path.exists(tmp_path):
+        os.remove(tmp_path)
+        logger.debug(f"  Deleted raw: {tmp_path}")
