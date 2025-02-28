@@ -238,3 +238,13 @@ def process_one_file(model: str, scenario: str, variable: str, year: int,
 
     # Check if already processed
     output_path = CMIP6_DIR / f"{model}_{scenario}_{variable}_{year}_conus_monthly.parquet"
+    if output_path.exists():
+        logger.debug(f"  Already processed: {output_path.name}")
+        return pd.read_parquet(output_path)
+
+    # Download
+    logger.info(f"  Downloading {filename}...")
+    if not download_file(url, tmp_path):
+        logger.error(f"  FAILED to download {filename}")
+        return pd.DataFrame()
+
