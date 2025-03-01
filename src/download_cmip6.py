@@ -308,3 +308,13 @@ def download_cmip6_pipeline(scenarios: list = None, years: range = None):
                         processed += 1
                     else:
                         failed += 1
+
+                    # Progress
+                    done = processed + skipped + failed
+                    elapsed = time.time() - t0
+                    rate = done / elapsed if elapsed > 0 else 0
+                    remaining = (total_files - done) / rate if rate > 0 else 0
+                    if done % 10 == 0:
+                        logger.info(f"Progress: {done}/{total_files} "
+                                    f"({processed} new, {skipped} cached, {failed} failed) "
+                                    f"ETA: {remaining/60:.0f} min")
