@@ -298,3 +298,13 @@ def download_cmip6_pipeline(scenarios: list = None, years: range = None):
         for scenario in scenarios:
             for variable in VARIABLES:
                 for year in years:
+                    output_path = CMIP6_DIR / f"{model}_{scenario}_{variable}_{year}_conus_monthly.parquet"
+                    if output_path.exists():
+                        skipped += 1
+                        continue
+
+                    result = process_one_file(model, scenario, variable, year)
+                    if not result.empty:
+                        processed += 1
+                    else:
+                        failed += 1
