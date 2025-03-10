@@ -328,3 +328,13 @@ def download_cmip6_pipeline(scenarios: list = None, years: range = None):
         combined.to_parquet(CMIP6_DIR / 'cmip6_conus_monthly_all.parquet', index=False)
         total_mb = os.path.getsize(CMIP6_DIR / 'cmip6_conus_monthly_all.parquet') / 1e6
         logger.info(f"Combined: {len(combined):,} rows, {total_mb:.1f} MB")
+
+    elapsed_total = time.time() - t0
+    logger.info(f"\nCMIP6 pipeline complete in {elapsed_total/60:.0f} min")
+    logger.info(f"  Processed: {processed} | Cached: {skipped} | Failed: {failed}")
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--all-scenarios', action='store_true',
+                        help='Download ssp126 + ssp245 + ssp585 (default: ssp245 only)')
