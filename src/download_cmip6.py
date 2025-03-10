@@ -318,3 +318,13 @@ def download_cmip6_pipeline(scenarios: list = None, years: range = None):
                         logger.info(f"Progress: {done}/{total_files} "
                                     f"({processed} new, {skipped} cached, {failed} failed) "
                                     f"ETA: {remaining/60:.0f} min")
+
+    # Combine all processed files into one panel
+    logger.info("Combining all CMIP6 data into single panel...")
+    all_files = list(CMIP6_DIR.glob("*_conus_monthly.parquet"))
+    if all_files:
+        dfs = [pd.read_parquet(f) for f in all_files]
+        combined = pd.concat(dfs, ignore_index=True)
+        combined.to_parquet(CMIP6_DIR / 'cmip6_conus_monthly_all.parquet', index=False)
+        total_mb = os.path.getsize(CMIP6_DIR / 'cmip6_conus_monthly_all.parquet') / 1e6
+        logger.info(f"Combined: {len(combined):,} rows, {total_mb:.1f} MB")
