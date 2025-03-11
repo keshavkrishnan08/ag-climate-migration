@@ -31,3 +31,14 @@ YEARS = list(range(2025, 2051))
 SCENARIO = "ssp245"
 
 MODEL_CONFIG = {
+    "CESM2": {
+        "member": "r10i1p1f1",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/NCAR/CESM2/ssp245/r10i1p1f1/Amon",
+        "vars": {
+            "tasmax": "tasmax/gn/v20200528",
+            "tasmin": "tasmin/gn/v20200528",
+            "pr":     "pr/gn/v20200528",
+        },
+    },
+    "HadGEM3-GC31-LL": {
+        "member": "r1i1p1f3",
