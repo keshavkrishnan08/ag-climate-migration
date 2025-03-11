@@ -42,3 +42,14 @@ MODEL_CONFIG = {
     },
     "HadGEM3-GC31-LL": {
         "member": "r1i1p1f3",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/MOHC/HadGEM3-GC31-LL/ssp245/r1i1p1f3/Amon",
+        "vars": {
+            "tasmax": "tasmax/gn/v20190908",
+            "tasmin": "tasmin/gn/v20190908",
+            "pr":     "pr/gn/v20190908",
+        },
+    },
+}
+
+print("Initializing anonymous GCS filesystem...")
+fs = gcsfs.GCSFileSystem(token="anon")
