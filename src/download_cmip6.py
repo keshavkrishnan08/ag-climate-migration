@@ -338,3 +338,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--all-scenarios', action='store_true',
                         help='Download ssp126 + ssp245 + ssp585 (default: ssp245 only)')
+    parser.add_argument('--years', type=str, default='2025-2050',
+                        help='Year range, e.g. 2025-2050')
+    args = parser.parse_args()
+
+    scenarios = ['ssp126', 'ssp245', 'ssp585'] if args.all_scenarios else ['ssp245']
+    start, end = map(int, args.years.split('-'))
+    years = range(start, end + 1)
+
+    download_cmip6_pipeline(scenarios=scenarios, years=years)
