@@ -9,3 +9,14 @@ Outputs same parquet format as download_cmip6_pangeo.py.
 
 import warnings
 warnings.filterwarnings("ignore")
+
+import numpy as np
+import pandas as pd
+import xarray as xr
+import gcsfs
+import cftime
+from pathlib import Path
+import time
+
+# ── Paths ──────────────────────────────────────────────────────────────────────
+BASE       = Path(__file__).resolve().parent.parent
