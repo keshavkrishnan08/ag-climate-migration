@@ -53,3 +53,14 @@ MODEL_CONFIG = {
 
 print("Initializing anonymous GCS filesystem...")
 fs = gcsfs.GCSFileSystem(token="anon")
+
+
+def get_year_from_cftime(t) -> int:
+    """Extract year from any cftime or numpy datetime object."""
+    if hasattr(t, "year"):
+        return t.year
+    # numpy datetime64
+    return pd.Timestamp(t).year
+
+
+def get_month_from_cftime(t) -> int:
