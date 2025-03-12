@@ -130,3 +130,14 @@ def da_to_annual_parquets_cftime(
     """
     # Extract year/month from cftime objects directly
     time_vals = da.time.values   # array of cftime objects
+    years_arr  = np.array([get_year_from_cftime(t) for t in time_vals])
+    months_arr = np.array([get_month_from_cftime(t) for t in time_vals])
+
+    lats = da.lat.values
+    lons = da.lon.values
+    written = []
+
+    for year in YEARS:
+        out_path = out_dir / f"{model}_ssp245_{var}_{year}_conus_monthly.parquet"
+        if out_path.exists():
+            print(f"    [skip] {out_path.name} already exists")
