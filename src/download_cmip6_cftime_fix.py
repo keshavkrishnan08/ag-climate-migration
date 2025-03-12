@@ -75,3 +75,14 @@ def load_zarr_cftime(zarr_path: str, var: str) -> xr.DataArray:
     Load a CMIP6 zarr store that uses a non-standard calendar.
     Uses xr.open_zarr with use_cftime=True and avoids pd.DatetimeIndex conversion.
 
+    Args:
+        zarr_path: GCS path to zarr store
+        var: Variable name
+
+    Returns:
+        DataArray sliced to CONUS lat/lon and 2025-2050.
+    """
+    store = fs.get_mapper(zarr_path)
+    ds = xr.open_zarr(store, consolidated=True)
+    da = ds[var]
+
