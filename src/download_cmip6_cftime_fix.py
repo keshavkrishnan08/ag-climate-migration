@@ -86,3 +86,14 @@ def load_zarr_cftime(zarr_path: str, var: str) -> xr.DataArray:
     ds = xr.open_zarr(store, consolidated=True)
     da = ds[var]
 
+    # Decode time to cftime objects (safe for non-standard calendars)
+    # xarray does this automatically; we just can't call pd.DatetimeIndex on it
+
+    # Subset time using xarray's cftime-aware selection
+    da = da.sel(time=slice("2025", "2050"))
+
+    # Standardize lon to 0-360
+    lons = da.lon.values
+    if lons.min() < 0:
+        da = da.assign_coords(lon=(da.lon % 360))
+        da = da.sortby("lon")
