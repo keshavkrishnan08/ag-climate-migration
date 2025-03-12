@@ -141,3 +141,14 @@ def da_to_annual_parquets_cftime(
         out_path = out_dir / f"{model}_ssp245_{var}_{year}_conus_monthly.parquet"
         if out_path.exists():
             print(f"    [skip] {out_path.name} already exists")
+            written.append(out_path)
+            continue
+
+        yr_mask = years_arr == year
+        if not yr_mask.any():
+            print(f"    [warn] No data for {model}/{var}/{year}")
+            continue
+
+        da_yr = da.isel(time=yr_mask)
+        months_yr = months_arr[yr_mask]
+
