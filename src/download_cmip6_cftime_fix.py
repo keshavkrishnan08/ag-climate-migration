@@ -64,3 +64,14 @@ def get_year_from_cftime(t) -> int:
 
 
 def get_month_from_cftime(t) -> int:
+    """Extract month from any cftime or numpy datetime object."""
+    if hasattr(t, "month"):
+        return t.month
+    return pd.Timestamp(t).month
+
+
+def load_zarr_cftime(zarr_path: str, var: str) -> xr.DataArray:
+    """
+    Load a CMIP6 zarr store that uses a non-standard calendar.
+    Uses xr.open_zarr with use_cftime=True and avoids pd.DatetimeIndex conversion.
+
