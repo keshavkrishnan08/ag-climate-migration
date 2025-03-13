@@ -185,3 +185,14 @@ def da_to_annual_parquets_cftime(
 # Main loop
 # ══════════════════════════════════════════════════════════════════════════════
 
+results_log = {}
+
+for model, cfg in MODEL_CONFIG.items():
+    print(f"\n{'='*60}")
+    print(f"Model: {model}  (member: {cfg['member']}, cftime mode)")
+    print(f"{'='*60}")
+    results_log[model] = {}
+
+    for var in ["tasmax", "tasmin", "pr"]:
+        zarr_path = f"{cfg['zarr_root']}/{cfg['vars'][var]}"
+        print(f"\n  Variable: {var}")
