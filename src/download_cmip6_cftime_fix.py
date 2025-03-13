@@ -218,3 +218,14 @@ for model, cfg in MODEL_CONFIG.items():
             results_log[model][var] = msg
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# Summary
+# ══════════════════════════════════════════════════════════════════════════════
+print("\n\n" + "="*60)
+print("CFTIME FIX DOWNLOAD SUMMARY")
+print("="*60)
+
+total_ok = 0
+total_err = 0
+
+for model, var_results in results_log.items():
