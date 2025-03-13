@@ -163,3 +163,14 @@ def da_to_annual_parquets_cftime(
                 "lat":   lat_grid.ravel(),
                 "lon":   lon_grid.ravel(),
                 "month": int(months_yr[mi]),
+                "value": flat_vals,
+            })
+            rows.append(month_df)
+
+        df = pd.concat(rows, ignore_index=True)
+        df["model"]    = model
+        df["scenario"] = SCENARIO
+        df["variable"] = var
+        df["year"]     = year
+        df = df.dropna(subset=["value"])
+
