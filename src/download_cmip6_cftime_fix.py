@@ -174,3 +174,14 @@ def da_to_annual_parquets_cftime(
         df["year"]     = year
         df = df.dropna(subset=["value"])
 
+        df.to_parquet(out_path, index=False)
+        written.append(out_path)
+        print(f"    Saved {out_path.name}  ({len(df):,} rows)")
+
+    return written
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Main loop
+# ══════════════════════════════════════════════════════════════════════════════
+
