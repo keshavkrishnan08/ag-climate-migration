@@ -229,3 +229,13 @@ total_ok = 0
 total_err = 0
 
 for model, var_results in results_log.items():
+    print(f"\n{model}:")
+    for var, status in var_results.items():
+        icon = "OK" if status.startswith("ok") else "FAIL"
+        print(f"  [{icon}] {var}: {status}")
+        if status.startswith("ok"):
+            total_ok += 1
+        else:
+            total_err += 1
+
+print(f"\nTotal: {total_ok} OK, {total_err} FAILED")
