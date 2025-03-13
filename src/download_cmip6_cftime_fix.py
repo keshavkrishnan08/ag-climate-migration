@@ -152,3 +152,14 @@ def da_to_annual_parquets_cftime(
         da_yr = da.isel(time=yr_mask)
         months_yr = months_arr[yr_mask]
 
+        # Load into memory
+        arr = da_yr.values   # shape: (n_months_this_year, nlat, nlon)
+
+        rows = []
+        for mi in range(arr.shape[0]):
+            flat_vals = arr[mi].ravel()
+            lat_grid, lon_grid = np.meshgrid(lats, lons, indexing="ij")
+            month_df = pd.DataFrame({
+                "lat":   lat_grid.ravel(),
+                "lon":   lon_grid.ravel(),
+                "month": int(months_yr[mi]),
