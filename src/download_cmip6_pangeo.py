@@ -48,3 +48,13 @@ MODEL_CONFIG = {
         "institution": "NCAR",
         "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/NCAR/CESM2/ssp245/r10i1p1f1/Amon",
         "vars": {
+            "tasmax": "tasmax/gn/v20200528",
+            "tasmin": "tasmin/gn/v20200528",
+            "pr":     "pr/gn/v20200528",
+        },
+    },
+    "CNRM-CM6-1": {
+        "member": "r1i1p1f2",
+        "institution": "CNRM-CERFACS",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/CNRM-CERFACS/CNRM-CM6-1/ssp245/r1i1p1f2/Amon",
+        "vars": {
