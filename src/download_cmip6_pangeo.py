@@ -28,3 +28,13 @@ import gcsfs
 from pathlib import Path
 import time
 
+# ── Paths ──────────────────────────────────────────────────────────────────────
+BASE       = Path(__file__).resolve().parent.parent
+CMIP6_DIR  = BASE / "data/raw/cmip6"
+CMIP6_DIR.mkdir(parents=True, exist_ok=True)
+
+# ── Config ─────────────────────────────────────────────────────────────────────
+# CONUS bounding box in 0-360 lon convention
+LAT_MIN, LAT_MAX = 24.0, 50.0
+LON_MIN, LON_MAX = 235.0, 295.0   # 115W-65W in 0-360
+
