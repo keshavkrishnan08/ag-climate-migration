@@ -18,3 +18,13 @@ Notes:
     - IPSL and MRI use r1i1p1f1 (standard)
 """
 
+import warnings
+warnings.filterwarnings("ignore")
+
+import numpy as np
+import pandas as pd
+import xarray as xr
+import gcsfs
+from pathlib import Path
+import time
+
