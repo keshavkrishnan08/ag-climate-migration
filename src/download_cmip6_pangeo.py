@@ -58,3 +58,13 @@ MODEL_CONFIG = {
         "institution": "CNRM-CERFACS",
         "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/CNRM-CERFACS/CNRM-CM6-1/ssp245/r1i1p1f2/Amon",
         "vars": {
+            "tasmax": "tasmax/gr/v20190219",
+            "tasmin": "tasmin/gr/v20190219",
+            "pr":     "pr/gr/v20190219",
+        },
+    },
+    "HadGEM3-GC31-LL": {
+        "member": "r1i1p1f3",
+        "institution": "MOHC",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/MOHC/HadGEM3-GC31-LL/ssp245/r1i1p1f3/Amon",
+        "vars": {
