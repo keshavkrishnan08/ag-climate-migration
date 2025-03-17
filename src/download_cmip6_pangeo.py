@@ -68,3 +68,13 @@ MODEL_CONFIG = {
         "institution": "MOHC",
         "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/MOHC/HadGEM3-GC31-LL/ssp245/r1i1p1f3/Amon",
         "vars": {
+            "tasmax": "tasmax/gn/v20190908",
+            "tasmin": "tasmin/gn/v20190908",
+            "pr":     "pr/gn/v20190908",
+        },
+    },
+    "IPSL-CM6A-LR": {
+        "member": "r1i1p1f1",
+        "institution": "IPSL",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/IPSL/IPSL-CM6A-LR/ssp245/r1i1p1f1/Amon",
+        "vars": {
