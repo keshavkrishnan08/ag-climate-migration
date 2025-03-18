@@ -78,3 +78,13 @@ MODEL_CONFIG = {
         "institution": "IPSL",
         "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/IPSL/IPSL-CM6A-LR/ssp245/r1i1p1f1/Amon",
         "vars": {
+            "tasmax": "tasmax/gr/v20190119",
+            "tasmin": "tasmin/gr/v20190119",
+            "pr":     "pr/gr/v20190119",
+        },
+    },
+    "MRI-ESM2-0": {
+        "member": "r1i1p1f1",
+        "institution": "MRI",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/MRI/MRI-ESM2-0/ssp245/r1i1p1f1/Amon",
+        "vars": {
