@@ -88,3 +88,13 @@ MODEL_CONFIG = {
         "institution": "MRI",
         "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/MRI/MRI-ESM2-0/ssp245/r1i1p1f1/Amon",
         "vars": {
+            "tasmax": "tasmax/gn/v20190222",
+            "tasmin": "tasmin/gn/v20190222",
+            "pr":     "pr/gn/v20190222",
+        },
+    },
+}
+
+# ── GCS filesystem (anonymous) ─────────────────────────────────────────────────
+print("Initializing anonymous GCS filesystem...")
+fs = gcsfs.GCSFileSystem(token="anon")
