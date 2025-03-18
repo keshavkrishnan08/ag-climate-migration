@@ -98,3 +98,13 @@ MODEL_CONFIG = {
 # ── GCS filesystem (anonymous) ─────────────────────────────────────────────────
 print("Initializing anonymous GCS filesystem...")
 fs = gcsfs.GCSFileSystem(token="anon")
+
+
+def load_zarr_variable(zarr_path: str, var: str) -> xr.DataArray:
+    """
+    Load a CMIP6 variable from a GCS zarr store, subset to CONUS.
+
+    Args:
+        zarr_path: GCS path like 'gs://cmip6/CMIP6/...'
+        var: Variable name ('tasmax', 'tasmin', or 'pr')
+
