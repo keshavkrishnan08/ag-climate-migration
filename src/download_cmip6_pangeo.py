@@ -108,3 +108,13 @@ def load_zarr_variable(zarr_path: str, var: str) -> xr.DataArray:
         zarr_path: GCS path like 'gs://cmip6/CMIP6/...'
         var: Variable name ('tasmax', 'tasmin', or 'pr')
 
+    Returns:
+        DataArray sliced to CONUS lat/lon and 2025-2050.
+
+    Raises:
+        Exception: If zarr store is unreachable or variable missing.
+    """
+    store = fs.get_mapper(zarr_path)
+    ds = xr.open_zarr(store, consolidated=True)
+
+    da = ds[var]
