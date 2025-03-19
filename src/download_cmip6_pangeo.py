@@ -138,3 +138,13 @@ def load_zarr_variable(zarr_path: str, var: str) -> xr.DataArray:
         lat=slice(LAT_MIN, LAT_MAX),
         lon=slice(LON_MIN, LON_MAX)
     )
+
+    return da
+
+
+def da_to_annual_parquets(
+    da: xr.DataArray,
+    model: str,
+    var: str,
+    out_dir: Path
+) -> list[Path]:
