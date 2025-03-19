@@ -118,3 +118,13 @@ def load_zarr_variable(zarr_path: str, var: str) -> xr.DataArray:
     ds = xr.open_zarr(store, consolidated=True)
 
     da = ds[var]
+
+    # Handle 360-day calendars by converting to standard time index
+    times = pd.DatetimeIndex(da.time.values)
+
+    # Subset time to 2025-2050
+    mask_time = (times.year >= 2025) & (times.year <= 2050)
+    da = da.isel(time=mask_time)
+
+    # Standardize lon to 0-360 if needed
+    lons = da.lon.values
