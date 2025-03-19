@@ -128,3 +128,13 @@ def load_zarr_variable(zarr_path: str, var: str) -> xr.DataArray:
 
     # Standardize lon to 0-360 if needed
     lons = da.lon.values
+    if lons.min() < 0:
+        # -180..180 → 0..360
+        da = da.assign_coords(lon=(da.lon % 360))
+        da = da.sortby("lon")
+
+    # Subset to CONUS
+    da = da.sel(
+        lat=slice(LAT_MIN, LAT_MAX),
+        lon=slice(LON_MIN, LON_MAX)
+    )
