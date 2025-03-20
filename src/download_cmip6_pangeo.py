@@ -198,3 +198,13 @@ def da_to_annual_parquets(
             lon_flat = lon_grid.ravel()
 
             month_df = pd.DataFrame({
+                "lat":      lat_flat,
+                "lon":      lon_flat,
+                "month":    month,
+                "value":    flat_vals,
+            })
+            rows.append(month_df)
+
+        df = pd.concat(rows, ignore_index=True)
+        df["model"]    = model
+        df["scenario"] = SCENARIO
