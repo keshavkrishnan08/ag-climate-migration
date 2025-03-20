@@ -178,3 +178,13 @@ def da_to_annual_parquets(
             print(f"    [warn] No data for {model}/{var}/{year}")
             continue
 
+        da_yr = da.isel(time=yr_mask)
+
+        # Load into memory and reshape to long format
+        arr = da_yr.values          # shape: (12, nlat, nlon)
+        lats = da_yr.lat.values
+        lons = da_yr.lon.values
+
+        # months: 1..12 (inferred from time index)
+        year_times = pd.DatetimeIndex(da_yr.time.values)
+        months = year_times.month.values   # array of month ints
