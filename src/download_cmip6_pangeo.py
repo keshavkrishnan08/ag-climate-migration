@@ -158,3 +158,13 @@ def da_to_annual_parquets(
         out_dir: Directory to write parquet files
 
     Returns:
+        List of Path objects for written files.
+
+    Raises:
+        ValueError: If DataArray has unexpected dimensions.
+    """
+    times = pd.DatetimeIndex(da.time.values)
+    written = []
+
+    for year in YEARS:
+        out_path = out_dir / f"{model}_ssp245_{var}_{year}_conus_monthly.parquet"
