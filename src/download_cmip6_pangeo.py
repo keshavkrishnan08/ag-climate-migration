@@ -188,3 +188,13 @@ def da_to_annual_parquets(
         # months: 1..12 (inferred from time index)
         year_times = pd.DatetimeIndex(da_yr.time.values)
         months = year_times.month.values   # array of month ints
+
+        # Build long-format dataframe
+        rows = []
+        for mi, month in enumerate(months):
+            flat_vals = arr[mi].ravel()          # (nlat*nlon,)
+            lat_grid, lon_grid = np.meshgrid(lats, lons, indexing="ij")
+            lat_flat = lat_grid.ravel()
+            lon_flat = lon_grid.ravel()
+
+            month_df = pd.DataFrame({
