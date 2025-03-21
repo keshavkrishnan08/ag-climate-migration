@@ -208,3 +208,13 @@ def da_to_annual_parquets(
         df = pd.concat(rows, ignore_index=True)
         df["model"]    = model
         df["scenario"] = SCENARIO
+        df["variable"] = var
+        df["year"]     = year
+
+        # Drop NaN grid cells (ocean, out-of-bounds)
+        df = df.dropna(subset=["value"])
+
+        df.to_parquet(out_path, index=False)
+        written.append(out_path)
+        print(f"    Saved {out_path.name}  ({len(df):,} rows)")
+
