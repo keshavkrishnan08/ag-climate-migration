@@ -218,3 +218,13 @@ def da_to_annual_parquets(
         written.append(out_path)
         print(f"    Saved {out_path.name}  ({len(df):,} rows)")
 
+    return written
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Main download loop
+# ══════════════════════════════════════════════════════════════════════════════
+
+results_log = {}   # model → {var: "ok" | "error: ..."}
+
+for model, cfg in MODEL_CONFIG.items():
