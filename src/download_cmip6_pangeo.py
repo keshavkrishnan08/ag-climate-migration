@@ -228,3 +228,13 @@ def da_to_annual_parquets(
 results_log = {}   # model → {var: "ok" | "error: ..."}
 
 for model, cfg in MODEL_CONFIG.items():
+    print(f"\n{'='*60}")
+    print(f"Model: {model}  (member: {cfg['member']})")
+    print(f"{'='*60}")
+    results_log[model] = {}
+
+    for var in ["tasmax", "tasmin", "pr"]:
+        zarr_path = f"{cfg['zarr_root']}/{cfg['vars'][var]}"
+        print(f"\n  Variable: {var}")
+        print(f"  Zarr: {zarr_path}")
+
