@@ -258,3 +258,13 @@ for model, cfg in MODEL_CONFIG.items():
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Summary
+# ══════════════════════════════════════════════════════════════════════════════
+print("\n\n" + "="*60)
+print("DOWNLOAD SUMMARY")
+print("="*60)
+
+total_ok = 0
+total_err = 0
+
+for model, var_results in results_log.items():
+    print(f"\n{model}:")
