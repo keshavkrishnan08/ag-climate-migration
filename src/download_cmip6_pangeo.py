@@ -288,3 +288,5 @@ for f in written_files:
     model_counts[m] = model_counts.get(m, 0) + 1
 
 print(f"\nFiles in {CMIP6_DIR.name}/ by model:")
+for m in sorted(model_counts):
+    print(f"  {m}: {model_counts[m]} files")
