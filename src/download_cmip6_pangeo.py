@@ -278,3 +278,13 @@ for model, var_results in results_log.items():
 
 print(f"\nTotal variable combos: {total_ok} OK, {total_err} FAILED")
 print(f"Expected parquet files per combo: {len(YEARS)} years")
+print(f"Total parquet files expected (if all OK): {total_ok * len(YEARS)}")
+
+# Count actual files written
+written_files = list(CMIP6_DIR.glob("*_ssp245_*_conus_monthly.parquet"))
+model_counts = {}
+for f in written_files:
+    m = f.name.split("_ssp245_")[0]
+    model_counts[m] = model_counts.get(m, 0) + 1
+
+print(f"\nFiles in {CMIP6_DIR.name}/ by model:")
