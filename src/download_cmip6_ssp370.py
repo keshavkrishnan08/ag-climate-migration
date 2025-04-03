@@ -18,3 +18,13 @@ Calendar notes:
 
 Outputs:
     data/raw/cmip6_ssp370/{MODEL}_ssp370_{VAR}_{YEAR}_conus_monthly.parquet
+    Columns: lat, lon, month, value, model, scenario, variable, year
+    Coordinates: lat 24-50 N, lon 235-295 (0-360 convention)
+"""
+
+import warnings
+warnings.filterwarnings("ignore")
+
+import numpy as np
+import pandas as pd
+import xarray as xr
