@@ -38,3 +38,13 @@ BASE      = Path(__file__).resolve().parent.parent
 OUT_DIR   = BASE / "data/raw/cmip6_ssp370"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
+# ── Config ─────────────────────────────────────────────────────────────────────
+LAT_MIN, LAT_MAX = 24.0, 50.0
+LON_MIN, LON_MAX = 235.0, 295.0   # 115W–65W in 0-360 convention
+
+YEARS    = list(range(2025, 2051))
+SCENARIO = "ssp370"
+
+# Models with standard calendars (pd.DatetimeIndex safe)
+MODEL_CONFIG_STANDARD = {
+    "ACCESS-CM2": {
