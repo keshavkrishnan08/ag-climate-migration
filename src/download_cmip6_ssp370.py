@@ -58,3 +58,13 @@ MODEL_CONFIG_STANDARD = {
     },
     "GFDL-ESM4": {
         # ssp370 uses NoLeap calendar (unlike ssp245 which was standard gregorian);
+        # moved to MODEL_CONFIG_CFTIME below.
+        # Kept here as a placeholder so the dict ordering is preserved.
+        # See MODEL_CONFIG_CFTIME for the actual download config.
+        "_skip": True,
+        "member":   "r1i1p1f1",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/NOAA-GFDL/GFDL-ESM4/ssp370/r1i1p1f1/Amon",
+        "vars": {
+            "tasmax": "tasmax/gr1/v20180701",
+            "tasmin": "tasmin/gr1/v20180701",
+            "pr":     "pr/gr1/v20180701",
