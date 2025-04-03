@@ -48,3 +48,13 @@ SCENARIO = "ssp370"
 # Models with standard calendars (pd.DatetimeIndex safe)
 MODEL_CONFIG_STANDARD = {
     "ACCESS-CM2": {
+        "member":   "r1i1p1f1",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/CSIRO-ARCCSS/ACCESS-CM2/ssp370/r1i1p1f1/Amon",
+        "vars": {
+            "tasmax": "tasmax/gn/v20191108",
+            "tasmin": "tasmin/gn/v20191108",
+            "pr":     "pr/gn/v20191108",
+        },
+    },
+    "GFDL-ESM4": {
+        # ssp370 uses NoLeap calendar (unlike ssp245 which was standard gregorian);
