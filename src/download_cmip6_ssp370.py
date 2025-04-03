@@ -28,3 +28,13 @@ warnings.filterwarnings("ignore")
 import numpy as np
 import pandas as pd
 import xarray as xr
+import gcsfs
+import cftime
+from pathlib import Path
+import time
+
+# ── Paths ──────────────────────────────────────────────────────────────────────
+BASE      = Path(__file__).resolve().parent.parent
+OUT_DIR   = BASE / "data/raw/cmip6_ssp370"
+OUT_DIR.mkdir(parents=True, exist_ok=True)
+
