@@ -88,3 +88,13 @@ MODEL_CONFIG_STANDARD = {
             "tasmax": "tasmax/gn/v20190710",
             "tasmin": "tasmin/gn/v20190710",
             "pr":     "pr/gn/v20190710",
+        },
+    },
+    "CNRM-CM6-1": {
+        "member":   "r1i1p1f2",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/CNRM-CERFACS/CNRM-CM6-1/ssp370/r1i1p1f2/Amon",
+        "vars": {
+            "tasmax": "tasmax/gr/v20190219",
+            "tasmin": "tasmin/gr/v20190219",
+            "pr":     "pr/gr/v20190219",
+        },
