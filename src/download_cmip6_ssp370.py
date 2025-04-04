@@ -118,3 +118,13 @@ MODEL_CONFIG_STANDARD = {
         },
     },
 }
+
+# Models with non-standard calendars (cftime approach required)
+MODEL_CONFIG_CFTIME = {
+    "GFDL-ESM4": {
+        # NoLeap calendar in ssp370 (verified from Pangeo zarr)
+        "member":   "r1i1p1f1",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/NOAA-GFDL/GFDL-ESM4/ssp370/r1i1p1f1/Amon",
+        "vars": {
+            "tasmax": "tasmax/gr1/v20180701",
+            "tasmin": "tasmin/gr1/v20180701",
