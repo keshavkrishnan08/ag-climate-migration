@@ -78,3 +78,13 @@ MODEL_CONFIG_STANDARD = {
             "tasmin": "tasmin/gn/v20190627",
             "pr":     "pr/gn/v20190627",
         },
+    },
+    "MPI-ESM1-2-LR": {
+        # MPI-ESM1-2-HR not available in Pangeo ssp370; LR is same institution,
+        # same model family, and suitable for ensemble spread characterisation.
+        "member":   "r1i1p1f1",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/MPI-M/MPI-ESM1-2-LR/ssp370/r1i1p1f1/Amon",
+        "vars": {
+            "tasmax": "tasmax/gn/v20190710",
+            "tasmin": "tasmin/gn/v20190710",
+            "pr":     "pr/gn/v20190710",
