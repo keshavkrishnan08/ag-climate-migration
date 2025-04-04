@@ -108,3 +108,13 @@ MODEL_CONFIG_STANDARD = {
             "pr":     "pr/gr/v20190119",
         },
     },
+    "MRI-ESM2-0": {
+        "member":   "r1i1p1f1",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/MRI/MRI-ESM2-0/ssp370/r1i1p1f1/Amon",
+        "vars": {
+            "tasmax": "tasmax/gn/v20190222",
+            "tasmin": "tasmin/gn/v20190222",
+            "pr":     "pr/gn/v20190222",
+        },
+    },
+}
