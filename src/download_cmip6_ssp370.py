@@ -98,3 +98,13 @@ MODEL_CONFIG_STANDARD = {
             "tasmin": "tasmin/gr/v20190219",
             "pr":     "pr/gr/v20190219",
         },
+    },
+    "IPSL-CM6A-LR": {
+        "member":   "r1i1p1f1",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/IPSL/IPSL-CM6A-LR/ssp370/r1i1p1f1/Amon",
+        "vars": {
+            "tasmax": "tasmax/gr/v20190119",
+            "tasmin": "tasmin/gr/v20190119",
+            "pr":     "pr/gr/v20190119",
+        },
+    },
