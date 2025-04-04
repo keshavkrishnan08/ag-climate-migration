@@ -68,3 +68,13 @@ MODEL_CONFIG_STANDARD = {
             "tasmax": "tasmax/gr1/v20180701",
             "tasmin": "tasmin/gr1/v20180701",
             "pr":     "pr/gr1/v20180701",
+        },
+    },
+    "MIROC6": {
+        "member":   "r1i1p1f1",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/MIROC/MIROC6/ssp370/r1i1p1f1/Amon",
+        "vars": {
+            "tasmax": "tasmax/gn/v20190627",
+            "tasmin": "tasmin/gn/v20190627",
+            "pr":     "pr/gn/v20190627",
+        },
