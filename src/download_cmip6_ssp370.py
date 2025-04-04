@@ -128,3 +128,13 @@ MODEL_CONFIG_CFTIME = {
         "vars": {
             "tasmax": "tasmax/gr1/v20180701",
             "tasmin": "tasmin/gr1/v20180701",
+            "pr":     "pr/gr1/v20180701",
+        },
+    },
+    "CESM2": {
+        # NoLeap calendar
+        "member":   "r10i1p1f1",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/NCAR/CESM2/ssp370/r10i1p1f1/Amon",
+        "vars": {
+            "tasmax": "tasmax/gn/v20200528",
+            "tasmin": "tasmin/gn/v20200528",
