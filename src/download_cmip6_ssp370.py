@@ -138,3 +138,13 @@ MODEL_CONFIG_CFTIME = {
         "vars": {
             "tasmax": "tasmax/gn/v20200528",
             "tasmin": "tasmin/gn/v20200528",
+            "pr":     "pr/gn/v20200528",
+        },
+    },
+    "UKESM1-0-LL": {
+        # 360-day calendar; substitutes for HadGEM3-GC31-LL (same Met Office family)
+        # and fills the NorESM2-MM gap. r1i1p1f2 is MOHC's standard ScenarioMIP member.
+        "member":   "r1i1p1f2",
+        "zarr_root": "gs://cmip6/CMIP6/ScenarioMIP/MOHC/UKESM1-0-LL/ssp370/r1i1p1f2/Amon",
+        "vars": {
+            "tasmax": "tasmax/gn/v20190726",
