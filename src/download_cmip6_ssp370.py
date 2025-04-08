@@ -158,3 +158,13 @@ MODEL_CONFIG_CFTIME = {
 print("Initializing anonymous GCS filesystem...")
 fs = gcsfs.GCSFileSystem(token="anon")
 
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Standard-calendar helpers
+# ══════════════════════════════════════════════════════════════════════════════
+
+def load_zarr_standard(zarr_path: str, var: str) -> xr.DataArray:
+    """
+    Load a CMIP6 zarr store with a proleptic_gregorian calendar.
+
+    Subsets to CONUS bounding box and 2025-2050 using pd.DatetimeIndex.
