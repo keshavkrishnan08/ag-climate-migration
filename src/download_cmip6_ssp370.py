@@ -188,3 +188,13 @@ def load_zarr_standard(zarr_path: str, var: str) -> xr.DataArray:
     mask     = (times.year >= 2025) & (times.year <= 2050)
     da       = da.isel(time=mask)
 
+    # Standardize lon to 0-360
+    if da.lon.values.min() < 0:
+        da = da.assign_coords(lon=(da.lon % 360)).sortby("lon")
+
+    # Spatial subset
+    da = da.sel(lat=slice(LAT_MIN, LAT_MAX), lon=slice(LON_MIN, LON_MAX))
+    return da
+
+
+def da_to_annual_parquets(
