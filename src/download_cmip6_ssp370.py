@@ -178,3 +178,13 @@ def load_zarr_standard(zarr_path: str, var: str) -> xr.DataArray:
 
     Raises:
         Exception: If store is unreachable or calendar is non-standard.
+    """
+    store = fs.get_mapper(zarr_path)
+    ds    = xr.open_zarr(store, consolidated=True)
+    da    = ds[var]
+
+    # Time subset via pd.DatetimeIndex
+    times    = pd.DatetimeIndex(da.time.values)
+    mask     = (times.year >= 2025) & (times.year <= 2050)
+    da       = da.isel(time=mask)
+
