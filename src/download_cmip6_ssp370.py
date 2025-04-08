@@ -168,3 +168,13 @@ def load_zarr_standard(zarr_path: str, var: str) -> xr.DataArray:
     Load a CMIP6 zarr store with a proleptic_gregorian calendar.
 
     Subsets to CONUS bounding box and 2025-2050 using pd.DatetimeIndex.
+
+    Args:
+        zarr_path: GCS path (gs://...) to the zarr store.
+        var: Variable name ('tasmax', 'tasmin', or 'pr').
+
+    Returns:
+        DataArray with dims (time, lat, lon) sliced to CONUS, 2025-2050.
+
+    Raises:
+        Exception: If store is unreachable or calendar is non-standard.
