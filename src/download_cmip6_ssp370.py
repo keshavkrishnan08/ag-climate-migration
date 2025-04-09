@@ -248,3 +248,13 @@ def da_to_annual_parquets(
             rows.append(pd.DataFrame({
                 "lat":   lat_flat,
                 "lon":   lon_flat,
+                "month": int(month),
+                "value": arr[mi].ravel(),
+            }))
+
+        df = pd.concat(rows, ignore_index=True)
+        df["model"]    = model
+        df["scenario"] = SCENARIO
+        df["variable"] = var
+        df["year"]     = year
+        df = df.dropna(subset=["value"])
