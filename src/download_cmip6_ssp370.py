@@ -228,3 +228,13 @@ def da_to_annual_parquets(
             written.append(out_path)
             continue
 
+        yr_mask = times.year == year
+        if not yr_mask.any():
+            print(f"    [warn] No data for {model}/{var}/{year}")
+            continue
+
+        da_yr  = da.isel(time=yr_mask)
+        arr    = da_yr.values                   # (n_months, nlat, nlon)
+        lats   = da_yr.lat.values
+        lons   = da_yr.lon.values
+        months = pd.DatetimeIndex(da_yr.time.values).month.values
