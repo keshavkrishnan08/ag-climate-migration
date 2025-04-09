@@ -208,3 +208,13 @@ def da_to_annual_parquets(
 
     Args:
         da: DataArray (time, lat, lon) already subsetted to 2025-2050.
+        model: Model name for file naming and metadata column.
+        var: Variable name.
+        out_dir: Directory to write parquet files.
+
+    Returns:
+        List of written Path objects.
+
+    Raises:
+        ValueError: If the DataArray has unexpected dimension order.
+    """
