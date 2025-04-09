@@ -198,3 +198,13 @@ def load_zarr_standard(zarr_path: str, var: str) -> xr.DataArray:
 
 
 def da_to_annual_parquets(
+    da: xr.DataArray,
+    model: str,
+    var: str,
+    out_dir: Path,
+) -> list:
+    """
+    Convert a standard-calendar DataArray to per-year parquet files.
+
+    Args:
+        da: DataArray (time, lat, lon) already subsetted to 2025-2050.
