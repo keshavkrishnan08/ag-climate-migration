@@ -218,3 +218,13 @@ def da_to_annual_parquets(
     Raises:
         ValueError: If the DataArray has unexpected dimension order.
     """
+    times   = pd.DatetimeIndex(da.time.values)
+    written = []
+
+    for year in YEARS:
+        out_path = out_dir / f"{model}_{SCENARIO}_{var}_{year}_conus_monthly.parquet"
+        if out_path.exists():
+            print(f"    [skip] {out_path.name}")
+            written.append(out_path)
+            continue
+
