@@ -238,3 +238,13 @@ def da_to_annual_parquets(
         lats   = da_yr.lat.values
         lons   = da_yr.lon.values
         months = pd.DatetimeIndex(da_yr.time.values).month.values
+
+        rows = []
+        lat_grid, lon_grid = np.meshgrid(lats, lons, indexing="ij")
+        lat_flat = lat_grid.ravel()
+        lon_flat = lon_grid.ravel()
+
+        for mi, month in enumerate(months):
+            rows.append(pd.DataFrame({
+                "lat":   lat_flat,
+                "lon":   lon_flat,
