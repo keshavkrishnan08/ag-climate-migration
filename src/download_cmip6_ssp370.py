@@ -288,3 +288,13 @@ def load_zarr_cftime(zarr_path: str, var: str) -> xr.DataArray:
     """
     Load a CMIP6 zarr store with a non-standard calendar (NoLeap or 360-day).
 
+    Uses xarray's string-based time slicing, which works with cftime objects.
+
+    Args:
+        zarr_path: GCS path (gs://...) to the zarr store.
+        var: Variable name.
+
+    Returns:
+        DataArray with dims (time, lat, lon) sliced to CONUS, 2025-2050.
+
+    Raises:
