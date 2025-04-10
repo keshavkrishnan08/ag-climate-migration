@@ -268,3 +268,13 @@ def da_to_annual_parquets(
 
 # ══════════════════════════════════════════════════════════════════════════════
 # cftime helpers (non-standard calendars: NoLeap, 360-day)
+# ══════════════════════════════════════════════════════════════════════════════
+
+def _year_of(t) -> int:
+    """Extract year from cftime or numpy datetime object."""
+    if hasattr(t, "year"):
+        return t.year
+    return pd.Timestamp(t).year
+
+
+def _month_of(t) -> int:
