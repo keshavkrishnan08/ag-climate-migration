@@ -298,3 +298,13 @@ def load_zarr_cftime(zarr_path: str, var: str) -> xr.DataArray:
         DataArray with dims (time, lat, lon) sliced to CONUS, 2025-2050.
 
     Raises:
+        Exception: If store is unreachable.
+    """
+    store = fs.get_mapper(zarr_path)
+    ds    = xr.open_zarr(store, consolidated=True)
+    da    = ds[var]
+
+    # String-based slicing — works for all cftime calendar types
+    da = da.sel(time=slice("2025", "2050"))
+
+    # Standardize lon to 0-360
