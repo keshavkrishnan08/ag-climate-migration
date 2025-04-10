@@ -328,3 +328,13 @@ def da_to_annual_parquets_cftime(
     Handles non-standard calendars by reading .year / .month from cftime objects
     directly instead of going through pd.DatetimeIndex.
 
+    Args:
+        da: DataArray (time, lat, lon), cftime time coordinates.
+        model: Model name.
+        var: Variable name.
+        out_dir: Output directory.
+
+    Returns:
+        List of written Path objects.
+    """
+    time_vals  = da.time.values
