@@ -278,3 +278,13 @@ def _year_of(t) -> int:
 
 
 def _month_of(t) -> int:
+    """Extract month from cftime or numpy datetime object."""
+    if hasattr(t, "month"):
+        return t.month
+    return pd.Timestamp(t).month
+
+
+def load_zarr_cftime(zarr_path: str, var: str) -> xr.DataArray:
+    """
+    Load a CMIP6 zarr store with a non-standard calendar (NoLeap or 360-day).
+
