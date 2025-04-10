@@ -318,3 +318,13 @@ def load_zarr_cftime(zarr_path: str, var: str) -> xr.DataArray:
 
 def da_to_annual_parquets_cftime(
     da: xr.DataArray,
+    model: str,
+    var: str,
+    out_dir: Path,
+) -> list:
+    """
+    Convert a cftime DataArray to per-year parquet files.
+
+    Handles non-standard calendars by reading .year / .month from cftime objects
+    directly instead of going through pd.DatetimeIndex.
+
