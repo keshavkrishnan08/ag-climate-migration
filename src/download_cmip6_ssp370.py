@@ -338,3 +338,13 @@ def da_to_annual_parquets_cftime(
         List of written Path objects.
     """
     time_vals  = da.time.values
+    years_arr  = np.array([_year_of(t)  for t in time_vals])
+    months_arr = np.array([_month_of(t) for t in time_vals])
+
+    lats    = da.lat.values
+    lons    = da.lon.values
+    written = []
+
+    lat_grid, lon_grid = np.meshgrid(lats, lons, indexing="ij")
+    lat_flat = lat_grid.ravel()
+    lon_flat = lon_grid.ravel()
