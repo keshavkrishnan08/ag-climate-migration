@@ -348,3 +348,13 @@ def da_to_annual_parquets_cftime(
     lat_grid, lon_grid = np.meshgrid(lats, lons, indexing="ij")
     lat_flat = lat_grid.ravel()
     lon_flat = lon_grid.ravel()
+
+    for year in YEARS:
+        out_path = out_dir / f"{model}_{SCENARIO}_{var}_{year}_conus_monthly.parquet"
+        if out_path.exists():
+            print(f"    [skip] {out_path.name}")
+            written.append(out_path)
+            continue
+
+        yr_mask = years_arr == year
+        if not yr_mask.any():
