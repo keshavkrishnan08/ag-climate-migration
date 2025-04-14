@@ -358,3 +358,13 @@ def da_to_annual_parquets_cftime(
 
         yr_mask = years_arr == year
         if not yr_mask.any():
+            print(f"    [warn] No data for {model}/{var}/{year}")
+            continue
+
+        da_yr     = da.isel(time=yr_mask)
+        months_yr = months_arr[yr_mask]
+        arr       = da_yr.values    # (n_months, nlat, nlon)
+
+        rows = []
+        for mi in range(arr.shape[0]):
+            rows.append(pd.DataFrame({
