@@ -418,3 +418,13 @@ for model, cfg in MODEL_CONFIG_STANDARD.items():
             written = da_to_annual_parquets(da, model, var, OUT_DIR)
             elapsed = time.time() - t0
             results_log[model][var] = f"ok ({len(written)} files, {elapsed:.0f}s)"
+        except Exception as e:
+            import traceback
+            elapsed = time.time() - t0
+            msg = f"error: {type(e).__name__}: {e}"
+            print(f"  ERROR: {msg}")
+            traceback.print_exc()
+            results_log[model][var] = msg
+
+
+# ══════════════════════════════════════════════════════════════════════════════
