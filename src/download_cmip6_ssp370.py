@@ -388,3 +388,13 @@ def da_to_annual_parquets_cftime(
     return written
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# Main download loop — standard-calendar models
+# ══════════════════════════════════════════════════════════════════════════════
+results_log = {}
+
+print("\n" + "="*60)
+print("STANDARD-CALENDAR MODELS")
+print("="*60)
+
+for model, cfg in MODEL_CONFIG_STANDARD.items():
