@@ -398,3 +398,13 @@ print("STANDARD-CALENDAR MODELS")
 print("="*60)
 
 for model, cfg in MODEL_CONFIG_STANDARD.items():
+    if cfg.get("_skip"):
+        continue
+    print(f"\n{'='*60}")
+    print(f"Model: {model}  (member: {cfg['member']})")
+    print(f"{'='*60}")
+    results_log[model] = {}
+
+    for var in ["tasmax", "tasmin", "pr"]:
+        zarr_path = f"{cfg['zarr_root']}/{cfg['vars'][var]}"
+        print(f"\n  Variable: {var}")
