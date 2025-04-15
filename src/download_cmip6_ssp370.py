@@ -368,3 +368,13 @@ def da_to_annual_parquets_cftime(
         rows = []
         for mi in range(arr.shape[0]):
             rows.append(pd.DataFrame({
+                "lat":   lat_flat,
+                "lon":   lon_flat,
+                "month": int(months_yr[mi]),
+                "value": arr[mi].ravel(),
+            }))
+
+        df = pd.concat(rows, ignore_index=True)
+        df["model"]    = model
+        df["scenario"] = SCENARIO
+        df["variable"] = var
