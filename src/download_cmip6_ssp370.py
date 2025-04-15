@@ -408,3 +408,13 @@ for model, cfg in MODEL_CONFIG_STANDARD.items():
     for var in ["tasmax", "tasmin", "pr"]:
         zarr_path = f"{cfg['zarr_root']}/{cfg['vars'][var]}"
         print(f"\n  Variable: {var}")
+        print(f"  Zarr: {zarr_path}")
+        t0 = time.time()
+        try:
+            da = load_zarr_standard(zarr_path, var)
+            print(f"  Loaded: shape={da.shape}, "
+                  f"lat=[{float(da.lat.min()):.1f},{float(da.lat.max()):.1f}], "
+                  f"lon=[{float(da.lon.min()):.1f},{float(da.lon.max()):.1f}]")
+            written = da_to_annual_parquets(da, model, var, OUT_DIR)
+            elapsed = time.time() - t0
+            results_log[model][var] = f"ok ({len(written)} files, {elapsed:.0f}s)"
