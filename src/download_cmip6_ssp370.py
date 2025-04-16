@@ -438,3 +438,13 @@ for model, cfg in MODEL_CONFIG_CFTIME.items():
     print(f"\n{'='*60}")
     print(f"Model: {model}  (member: {cfg['member']}, cftime mode)")
     print(f"{'='*60}")
+    results_log[model] = {}
+
+    for var in ["tasmax", "tasmin", "pr"]:
+        zarr_path = f"{cfg['zarr_root']}/{cfg['vars'][var]}"
+        print(f"\n  Variable: {var}")
+        print(f"  Zarr: {zarr_path}")
+        t0 = time.time()
+        try:
+            da = load_zarr_cftime(zarr_path, var)
+            print(f"  Loaded: shape={da.shape}, "
