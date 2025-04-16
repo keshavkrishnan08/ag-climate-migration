@@ -488,3 +488,13 @@ for model, var_results in results_log.items():
 
 print(f"\nGCMs fully downloaded: {len(gcms_fully_downloaded)}/9")
 print(f"GCMs: {gcms_fully_downloaded}")
+print(f"\nVariable combos: {total_ok} OK, {total_err} FAILED")
+print(f"Expected parquet files per combo: {len(YEARS)} years")
+
+# Count actual files
+written_files = list(OUT_DIR.glob(f"*_{SCENARIO}_*_conus_monthly.parquet"))
+model_counts  = {}
+for f in written_files:
+    m = f.name.split(f"_{SCENARIO}_")[0]
+    model_counts[m] = model_counts.get(m, 0) + 1
+
