@@ -478,3 +478,13 @@ for model, var_results in results_log.items():
     for var, status in var_results.items():
         icon = "OK" if status.startswith("ok") else "FAIL"
         print(f"  [{icon}] {var}: {status}")
+        if status.startswith("ok"):
+            total_ok += 1
+        else:
+            total_err += 1
+            model_ok = False
+    if model_ok:
+        gcms_fully_downloaded.append(model)
+
+print(f"\nGCMs fully downloaded: {len(gcms_fully_downloaded)}/9")
+print(f"GCMs: {gcms_fully_downloaded}")
