@@ -468,3 +468,13 @@ for model, cfg in MODEL_CONFIG_CFTIME.items():
 print("\n\n" + "="*60)
 print("SSP370 DOWNLOAD SUMMARY")
 print("="*60)
+
+total_ok, total_err = 0, 0
+gcms_fully_downloaded = []
+
+for model, var_results in results_log.items():
+    print(f"\n{model}:")
+    model_ok = True
+    for var, status in var_results.items():
+        icon = "OK" if status.startswith("ok") else "FAIL"
+        print(f"  [{icon}] {var}: {status}")
