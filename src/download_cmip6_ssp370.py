@@ -448,3 +448,13 @@ for model, cfg in MODEL_CONFIG_CFTIME.items():
         try:
             da = load_zarr_cftime(zarr_path, var)
             print(f"  Loaded: shape={da.shape}, "
+                  f"lat=[{float(da.lat.min()):.1f},{float(da.lat.max()):.1f}], "
+                  f"lon=[{float(da.lon.min()):.1f},{float(da.lon.max()):.1f}]")
+            written = da_to_annual_parquets_cftime(da, model, var, OUT_DIR)
+            elapsed = time.time() - t0
+            results_log[model][var] = f"ok ({len(written)} files, {elapsed:.0f}s)"
+        except Exception as e:
+            import traceback
+            elapsed = time.time() - t0
+            msg = f"error: {type(e).__name__}: {e}"
+            print(f"  ERROR: {msg}")
