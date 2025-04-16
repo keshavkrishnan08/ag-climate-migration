@@ -458,3 +458,13 @@ for model, cfg in MODEL_CONFIG_CFTIME.items():
             elapsed = time.time() - t0
             msg = f"error: {type(e).__name__}: {e}"
             print(f"  ERROR: {msg}")
+            traceback.print_exc()
+            results_log[model][var] = msg
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Summary
+# ══════════════════════════════════════════════════════════════════════════════
+print("\n\n" + "="*60)
+print("SSP370 DOWNLOAD SUMMARY")
+print("="*60)
