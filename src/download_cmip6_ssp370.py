@@ -428,3 +428,13 @@ for model, cfg in MODEL_CONFIG_STANDARD.items():
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# cftime-calendar models
+# ══════════════════════════════════════════════════════════════════════════════
+print("\n" + "="*60)
+print("CFTIME-CALENDAR MODELS (NoLeap / 360-day)")
+print("="*60)
+
+for model, cfg in MODEL_CONFIG_CFTIME.items():
+    print(f"\n{'='*60}")
+    print(f"Model: {model}  (member: {cfg['member']}, cftime mode)")
+    print(f"{'='*60}")
