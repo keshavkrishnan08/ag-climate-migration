@@ -38,3 +38,13 @@ def download_targeted():
     """Download only the priority models x milestone years.
 
     Uses model-specific variant labels and grid labels from MODEL_VARIANTS
+    to construct the correct S3 URLs for each GCM.
+    """
+    total = len(PRIORITY_MODELS) * len(VARIABLES) * len(MILESTONE_YEARS)
+    logger.info(f"Targeted CMIP6: {len(PRIORITY_MODELS)} models x {len(VARIABLES)} vars "
+                f"x {len(MILESTONE_YEARS)} years = {total} files")
+
+    # Log the variant/grid info for each model
+    for model in PRIORITY_MODELS:
+        info = MODEL_VARIANTS.get(model, {})
+        logger.info(f"  {model}: variant={info.get('variant', '???')}, "
