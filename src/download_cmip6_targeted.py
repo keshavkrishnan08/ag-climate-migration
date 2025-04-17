@@ -28,3 +28,13 @@ PRIORITY_MODELS = [
     'MIROC6',           # warm (Japan)               — r1i1p1f1, gn
     'MPI-ESM1-2-HR',    # moderate/cool (Germany)    — r1i1p1f1, gn
     'NorESM2-MM',       # moderate (Norway)          — r1i1p1f1, gn
+]
+
+# Milestone years — enough for interpolation + key decadal snapshots
+MILESTONE_YEARS = [2025, 2030, 2035, 2040, 2045, 2050]
+
+
+def download_targeted():
+    """Download only the priority models x milestone years.
+
+    Uses model-specific variant labels and grid labels from MODEL_VARIANTS
