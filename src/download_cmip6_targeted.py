@@ -48,3 +48,13 @@ def download_targeted():
     for model in PRIORITY_MODELS:
         info = MODEL_VARIANTS.get(model, {})
         logger.info(f"  {model}: variant={info.get('variant', '???')}, "
+                    f"grid={info.get('grid', '???')}")
+
+    processed = 0
+    skipped = 0
+    failed = 0
+    t0 = time.time()
+
+    for model in PRIORITY_MODELS:
+        model_info = MODEL_VARIANTS.get(model, {})
+        variant = model_info.get('variant', 'r1i1p1f1')
