@@ -498,3 +498,7 @@ for f in written_files:
     m = f.name.split(f"_{SCENARIO}_")[0]
     model_counts[m] = model_counts.get(m, 0) + 1
 
+print(f"\nFiles in {OUT_DIR.name}/ by model:")
+for m in sorted(model_counts):
+    print(f"  {m}: {model_counts[m]} files")
+print(f"\nTotal files: {len(written_files)}")
