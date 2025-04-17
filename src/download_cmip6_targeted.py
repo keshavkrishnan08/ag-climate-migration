@@ -8,3 +8,13 @@ Usage:
 """
 
 import sys
+from pathlib import Path
+
+# Reuse the main download machinery
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from download_cmip6 import process_one_file, CMIP6_DIR, VARIABLES, MODEL_VARIANTS
+from loguru import logger
+import time
+import pandas as pd
+import numpy as np
+import os
