@@ -58,3 +58,13 @@ def download_targeted():
     for model in PRIORITY_MODELS:
         model_info = MODEL_VARIANTS.get(model, {})
         variant = model_info.get('variant', 'r1i1p1f1')
+        grid = model_info.get('grid', 'gn')
+
+        for variable in VARIABLES:
+            for year in MILESTONE_YEARS:
+                output_path = CMIP6_DIR / f"{model}_ssp245_{variable}_{year}_conus_monthly.parquet"
+                if output_path.exists():
+                    skipped += 1
+                    continue
+
+                result = process_one_file(model, 'ssp245', variable, year,
