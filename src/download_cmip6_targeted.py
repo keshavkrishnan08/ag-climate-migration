@@ -78,3 +78,13 @@ def download_targeted():
                 elapsed = time.time() - t0
                 rate = done / elapsed if elapsed > 0 else 0
                 remaining = (total - done) / rate if rate > 0 else 0
+                logger.info(f"  [{done}/{total}] {model}/{variable}/{year} "
+                            f"({processed} new, {skipped} cached, {failed} failed) "
+                            f"ETA: {remaining/60:.0f} min")
+
+    elapsed = time.time() - t0
+    logger.info(f"\nTargeted download complete in {elapsed/60:.0f} min")
+    logger.info(f"  Processed: {processed} | Cached: {skipped} | Failed: {failed}")
+
+    # Interpolate annual values from milestones
+    interpolate_annual()
