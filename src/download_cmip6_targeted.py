@@ -68,3 +68,13 @@ def download_targeted():
                     continue
 
                 result = process_one_file(model, 'ssp245', variable, year,
+                                          variant=variant, grid=grid)
+                if not result.empty:
+                    processed += 1
+                else:
+                    failed += 1
+
+                done = processed + skipped + failed
+                elapsed = time.time() - t0
+                rate = done / elapsed if elapsed > 0 else 0
+                remaining = (total - done) / rate if rate > 0 else 0
