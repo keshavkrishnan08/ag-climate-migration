@@ -118,3 +118,13 @@ def interpolate_annual():
                 df_start = milestones[y_start]
                 df_end = milestones[y_end]
 
+                for y in range(y_start + 1, y_end):
+                    out_path = CMIP6_DIR / f"{model}_ssp245_{variable}_{y}_conus_monthly.parquet"
+                    if out_path.exists():
+                        continue
+
+                    # Linear interpolation weight
+                    w = (y - y_start) / (y_end - y_start)
+
+                    # Interpolate the value column
+                    df_interp = df_start.copy()
