@@ -88,3 +88,13 @@ def download_targeted():
 
     # Interpolate annual values from milestones
     interpolate_annual()
+
+
+def interpolate_annual():
+    """Create annual interpolated files from milestone years.
+
+    For each model x variable, linearly interpolates between milestone years
+    to produce annual parquets needed by 05_project.py.
+    """
+    logger.info("\nInterpolating annual values from milestones...")
+
