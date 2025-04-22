@@ -98,3 +98,13 @@ def interpolate_annual():
     """
     logger.info("\nInterpolating annual values from milestones...")
 
+    for model in PRIORITY_MODELS:
+        for variable in VARIABLES:
+            milestones = {}
+            for year in MILESTONE_YEARS:
+                path = CMIP6_DIR / f"{model}_ssp245_{variable}_{year}_conus_monthly.parquet"
+                if path.exists():
+                    milestones[year] = pd.read_parquet(path)
+
+            if len(milestones) < 2:
+                logger.warning(f"  {model}/{variable}: <2 milestones, skipping interpolation")
