@@ -128,3 +128,13 @@ def interpolate_annual():
 
                     # Interpolate the value column
                     df_interp = df_start.copy()
+                    if 'value' in df_interp.columns and 'value' in df_end.columns:
+                        df_interp['value'] = df_start['value'] * (1 - w) + df_end['value'] * w
+                    df_interp['year'] = y
+
+                    df_interp.to_parquet(out_path, index=False)
+
+                logger.debug(f"  {model}/{variable}: interpolated {y_start+1}-{y_end-1}")
+
+    # Count total files
+    all_files = list(CMIP6_DIR.glob("*_ssp245_*_conus_monthly.parquet"))
