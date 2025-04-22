@@ -108,3 +108,13 @@ def interpolate_annual():
 
             if len(milestones) < 2:
                 logger.warning(f"  {model}/{variable}: <2 milestones, skipping interpolation")
+                continue
+
+            sorted_years = sorted(milestones.keys())
+
+            for i in range(len(sorted_years) - 1):
+                y_start = sorted_years[i]
+                y_end = sorted_years[i + 1]
+                df_start = milestones[y_start]
+                df_end = milestones[y_end]
+
