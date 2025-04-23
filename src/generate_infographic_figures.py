@@ -58,3 +58,13 @@ os.makedirs(OUT_DIR, exist_ok=True)
 
 DATA_DIR = "/Users/keshavkrishnan/Claude/Current/AgProject/ag_migration/data"
 
+# Colour palette
+C_BLUE   = "#2166AC"
+C_GREEN  = "#1B7837"
+C_RED    = "#D6604D"
+C_ORANGE = "#F4A582"
+C_YELLOW = "#FFFFBF"
+C_LBLUE  = "#92C5DE"
+C_LGREEN = "#A6DBA0"
+C_GRAY   = "#636363"
+C_DARK   = "#252525"
