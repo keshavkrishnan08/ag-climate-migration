@@ -28,3 +28,13 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import matplotlib.patches as patches
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, ArrowStyle
+from matplotlib.gridspec import GridSpec
+import matplotlib.patheffects as pe
+from matplotlib.colors import LinearSegmentedColormap
+import matplotlib.ticker as mticker
+
+# ── Typography & style ─────────────────────────────────────────────────────────
+plt.rcParams.update({
+    "font.family": "Arial",
+    "font.size": 7,
+    "axes.titlesize": 8,
