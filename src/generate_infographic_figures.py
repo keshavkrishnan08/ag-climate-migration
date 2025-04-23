@@ -18,3 +18,13 @@ Figures generated:
 import warnings
 warnings.filterwarnings("ignore")
 
+import sys
+import os
+import numpy as np
+import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import matplotlib.patches as patches
+from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, ArrowStyle
