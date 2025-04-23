@@ -138,3 +138,8 @@ def interpolate_annual():
 
     # Count total files
     all_files = list(CMIP6_DIR.glob("*_ssp245_*_conus_monthly.parquet"))
+    logger.info(f"Total CMIP6 parquets: {len(all_files)}")
+
+
+if __name__ == '__main__':
+    download_targeted()
