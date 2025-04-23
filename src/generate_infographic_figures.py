@@ -38,3 +38,13 @@ plt.rcParams.update({
     "font.family": "Arial",
     "font.size": 7,
     "axes.titlesize": 8,
+    "axes.labelsize": 7,
+    "xtick.labelsize": 6,
+    "ytick.labelsize": 6,
+    "legend.fontsize": 6,
+    "figure.dpi": 300,
+    "savefig.dpi": 300,
+    "savefig.bbox": "tight",
+    "axes.spines.top": False,
+    "axes.spines.right": False,
+})
