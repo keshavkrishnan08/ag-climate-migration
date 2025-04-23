@@ -48,3 +48,13 @@ plt.rcParams.update({
     "axes.spines.top": False,
     "axes.spines.right": False,
 })
+
+DPI = 300
+DOUBLE_COL = 7.09   # inches
+SINGLE_COL = 3.46   # inches
+
+OUT_DIR = "/Users/keshavkrishnan/Claude/Current/AgProject/ag_migration/results/figures"
+os.makedirs(OUT_DIR, exist_ok=True)
+
+DATA_DIR = "/Users/keshavkrishnan/Claude/Current/AgProject/ag_migration/data"
+
