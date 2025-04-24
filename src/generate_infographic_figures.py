@@ -88,3 +88,13 @@ def fig_methods_pipeline():
                                linewidth=0.8, zorder=3)
         ax.add_patch(rect)
         weight = "bold" if bold else "normal"
+        ax.text(x, y + (0.12 if sublabel else 0), label, ha="center", va="center",
+                fontsize=fontsize, fontweight=weight, color=C_DARK, zorder=4)
+        if sublabel:
+            ax.text(x, y - 0.2, sublabel, ha="center", va="center",
+                    fontsize=5.5, color=C_GRAY, zorder=4, style="italic")
+
+    def arrow(ax, x1, y1, x2, y2, color=C_GRAY, lw=0.8, style="->"):
+        ax.annotate("", xy=(x2, y2), xytext=(x1, y1),
+                    arrowprops=dict(arrowstyle=style, color=color,
+                                   lw=lw, connectionstyle="arc3,rad=0"))
