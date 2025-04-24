@@ -138,3 +138,13 @@ def fig_methods_pipeline():
         arrow(ax, 5.0, y_top, 5.0, y_bot, color=C_GREEN, lw=1.2)
 
     # Arrows from data to pipeline
+    data_y   = [7.9, 6.7, 5.5, 4.3, 3.1, 1.9]
+    pipe_y   = [7.9, 6.5, 5.1, 3.7, 3.7, 2.3]
+    for dy, py in zip(data_y, pipe_y):
+        arrow(ax, 2.65, dy, 3.3, py, color="#9ECAE1", lw=0.6, style="-|>")
+
+    # ── Findings output boxes (right column) ──
+    findings = [
+        ("Stranded Assets",   "$56–168B\nland value at risk",   7.4, C_RED),
+        ("Cascade Effects",   "337 counties\ntipping by 2040",  5.9, C_RED),
+        ("Insurance Mispricing", "$5.9B/yr\ncross-subsidy",     4.4, C_RED),
