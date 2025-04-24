@@ -128,3 +128,13 @@ def fig_methods_pipeline():
         (5.0, 6.5, "County Yield Model",   "Fixed-FX + climate quadratics","#E8F5E9", C_GREEN),
         (5.0, 5.1, "Crop Switching Model", "Multinomial logit, 2902 FIPS", "#E8F5E9", C_GREEN),
         (5.0, 3.7, "GCM Projections",      "10 GCMs × 4 SSPs, 2025–2100",  "#E8F5E9", C_GREEN),
+        (5.0, 2.3, "Impact Quantification","Monte Carlo, n=1000",           "#E8F5E9", C_GREEN),
+    ]
+    for x, y, label, sub, col, edge in pipe_steps:
+        box(ax, x, y, 3.4, 0.75, label, sub, color=col, edgecolor=edge, bold=True)
+
+    # Arrows between pipeline stages
+    for y_top, y_bot in [(7.53, 6.87), (6.13, 5.47), (4.73, 4.07), (3.33, 2.67)]:
+        arrow(ax, 5.0, y_top, 5.0, y_bot, color=C_GREEN, lw=1.2)
+
+    # Arrows from data to pipeline
