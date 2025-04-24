@@ -98,3 +98,13 @@ def fig_methods_pipeline():
         ax.annotate("", xy=(x2, y2), xytext=(x1, y1),
                     arrowprops=dict(arrowstyle=style, color=color,
                                    lw=lw, connectionstyle="arc3,rad=0"))
+
+    # ── Section headers ──
+    ax.text(1.4, 8.6, "DATA INPUTS", ha="center", va="center",
+            fontsize=7, fontweight="bold", color=C_BLUE)
+    ax.text(5.0, 8.6, "ANALYTICAL PIPELINE", ha="center", va="center",
+            fontsize=7, fontweight="bold", color=C_GREEN)
+    ax.text(8.7, 8.6, "FINDINGS", ha="center", va="center",
+            fontsize=7, fontweight="bold", color=C_RED)
+
+    ax.axvline(2.9, 0.02, 0.97, color="#DDDDDD", lw=0.5, zorder=0)
