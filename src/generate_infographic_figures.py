@@ -68,3 +68,13 @@ C_LBLUE  = "#92C5DE"
 C_LGREEN = "#A6DBA0"
 C_GRAY   = "#636363"
 C_DARK   = "#252525"
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  FIGURE A — Methods Pipeline
+# ══════════════════════════════════════════════════════════════════════════════
+def fig_methods_pipeline():
+    fig = plt.figure(figsize=(DOUBLE_COL, 4.5))
+    ax = fig.add_axes([0, 0, 1, 1])
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 9)
