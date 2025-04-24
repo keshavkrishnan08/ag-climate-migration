@@ -108,3 +108,13 @@ def fig_methods_pipeline():
             fontsize=7, fontweight="bold", color=C_RED)
 
     ax.axvline(2.9, 0.02, 0.97, color="#DDDDDD", lw=0.5, zorder=0)
+    ax.axvline(7.1, 0.02, 0.97, color="#DDDDDD", lw=0.5, zorder=0)
+
+    # ── Data input boxes (left column) ──
+    data_inputs = [
+        ("NASS", "638K obs\n1950–2023", 7.9),
+        ("PRISM", "4 km daily\nclimate grid", 6.7),
+        ("CMIP6", "10 GCMs\n4 scenarios", 5.5),
+        ("RMA/FCIC", "Insurance\npremiums & losses", 4.3),
+        ("ACS/Census", "Demographics\n2902 counties", 3.1),
+        ("USDA CDL", "Land cover\n2008–2023", 1.9),
