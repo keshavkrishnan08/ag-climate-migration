@@ -118,3 +118,13 @@ def fig_methods_pipeline():
         ("RMA/FCIC", "Insurance\npremiums & losses", 4.3),
         ("ACS/Census", "Demographics\n2902 counties", 3.1),
         ("USDA CDL", "Land cover\n2008–2023", 1.9),
+    ]
+    for label, sub, y in data_inputs:
+        box(ax, 1.4, y, 2.4, 0.7, label, sub, color="#E8F4FD", edgecolor=C_BLUE)
+
+    # ── Pipeline center boxes ──
+    pipe_steps = [
+        (5.0, 7.9, "Feature Engineering",  "638,808 obs × 34 features",   "#E8F5E9", C_GREEN),
+        (5.0, 6.5, "County Yield Model",   "Fixed-FX + climate quadratics","#E8F5E9", C_GREEN),
+        (5.0, 5.1, "Crop Switching Model", "Multinomial logit, 2902 FIPS", "#E8F5E9", C_GREEN),
+        (5.0, 3.7, "GCM Projections",      "10 GCMs × 4 SSPs, 2025–2100",  "#E8F5E9", C_GREEN),
