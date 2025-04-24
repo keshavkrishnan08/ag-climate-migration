@@ -78,3 +78,13 @@ def fig_methods_pipeline():
     ax = fig.add_axes([0, 0, 1, 1])
     ax.set_xlim(0, 10)
     ax.set_ylim(0, 9)
+    ax.axis("off")
+
+    def box(ax, x, y, w, h, label, sublabel="", color="#FFFFFF", edgecolor=C_BLUE,
+            fontsize=6.5, bold=False):
+        rect = FancyBboxPatch((x - w/2, y - h/2), w, h,
+                               boxstyle="round,pad=0.08",
+                               facecolor=color, edgecolor=edgecolor,
+                               linewidth=0.8, zorder=3)
+        ax.add_patch(rect)
+        weight = "bold" if bold else "normal"
