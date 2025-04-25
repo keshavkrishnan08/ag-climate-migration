@@ -168,3 +168,13 @@ def fig_methods_pipeline():
     for ext in ["pdf", "png"]:
         fig.savefig(f"{OUT_DIR}/fig_methods_pipeline.{ext}", dpi=DPI)
     plt.close(fig)
+    print("  [A] fig_methods_pipeline — done")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  FIGURE B — Northward Shift Summary
+# ══════════════════════════════════════════════════════════════════════════════
+def fig_northward_summary():
+    # Load data
+    yields = pd.read_parquet(f"{DATA_DIR}/raw/nass/nass_county_yields.parquet")
+    gaz    = pd.read_csv(f"{DATA_DIR}/raw/census/2023_Gaz_counties_national.txt",
