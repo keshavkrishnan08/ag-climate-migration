@@ -148,3 +148,13 @@ def fig_methods_pipeline():
         ("Stranded Assets",   "$56–168B\nland value at risk",   7.4, C_RED),
         ("Cascade Effects",   "337 counties\ntipping by 2040",  5.9, C_RED),
         ("Insurance Mispricing", "$5.9B/yr\ncross-subsidy",     4.4, C_RED),
+        ("Opportunity Zones", "$51B\nnorthern gains",           2.9, "#7B2D8B"),
+    ]
+    for label, sub, y, edge in findings:
+        box(ax, 8.7, y, 2.3, 0.82, label, sub, color="#FEE5D9", edgecolor=edge)
+
+    # Arrows from impact quantification to findings
+    for fy in [7.4, 5.9, 4.4, 2.9]:
+        arrow(ax, 6.7, 2.3, 7.55, fy, color=C_RED, lw=0.6, style="-|>")
+
+    # ── N-count annotations ──
