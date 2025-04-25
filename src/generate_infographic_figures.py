@@ -188,3 +188,13 @@ def fig_northward_summary():
     lon_col  = [c for c in gaz.columns if "INTPTLONG" in c][0]
     gaz      = gaz[["GEOID", lat_col, lon_col]].rename(
         columns={"GEOID": "fips", lat_col: "lat", lon_col: "lon"})
+    gaz["lon"] = pd.to_numeric(gaz["lon"], errors="coerce")
+    gaz["lat"] = pd.to_numeric(gaz["lat"], errors="coerce")
+
+    merged = yields.merge(gaz, on="fips", how="inner")
+    merged = merged[merged["acres_harvested"] > 0]
+
+    crops_of_interest = {
+        "corn":         ("#E6550D", "Corn"),
+        "soybeans":     ("#31A354", "Soybeans"),
+        "wheat_winter": ("#756BB1", "Winter Wheat"),
