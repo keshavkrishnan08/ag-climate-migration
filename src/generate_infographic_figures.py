@@ -178,3 +178,13 @@ def fig_northward_summary():
     # Load data
     yields = pd.read_parquet(f"{DATA_DIR}/raw/nass/nass_county_yields.parquet")
     gaz    = pd.read_csv(f"{DATA_DIR}/raw/census/2023_Gaz_counties_national.txt",
+                         sep="\t", encoding="latin-1")
+
+    gaz.columns = gaz.columns.str.strip()
+    gaz["GEOID"] = gaz["GEOID"].astype(str).str.zfill(5)
+    yields["fips"] = yields["fips"].astype(str).str.zfill(5)
+
+    lat_col  = "INTPTLAT"
+    lon_col  = [c for c in gaz.columns if "INTPTLONG" in c][0]
+    gaz      = gaz[["GEOID", lat_col, lon_col]].rename(
+        columns={"GEOID": "fips", lat_col: "lat", lon_col: "lon"})
