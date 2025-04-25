@@ -208,3 +208,13 @@ def fig_northward_summary():
     rates     = {}
     for crop in crops_of_interest:
         sub = merged[merged["crop"] == crop].copy()
+        early  = sub[sub["year"].between(*early_yr)].groupby("fips").agg(
+            acres=("acres_harvested", "mean"), lat=("lat", "first"), lon=("lon", "first")).reset_index()
+        recent = sub[sub["year"].between(*recent_yr)].groupby("fips").agg(
+            acres=("acres_harvested", "mean"), lat=("lat", "first"), lon=("lon", "first")).reset_index()
+
+        def wcent(df):
+            w = df["acres"].clip(lower=0)
+            if w.sum() == 0:
+                return df["lat"].mean(), df["lon"].mean()
+            return (df["lat"] * w).sum() / w.sum(), (df["lon"] * w).sum() / w.sum()
