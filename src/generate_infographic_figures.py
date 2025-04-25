@@ -158,3 +158,13 @@ def fig_methods_pipeline():
         arrow(ax, 6.7, 2.3, 7.55, fy, color=C_RED, lw=0.6, style="-|>")
 
     # ── N-count annotations ──
+    ax.text(5.0, 1.5, "n = 638,808 obs  |  2,902 counties  |  10 GCMs  |  4 SSPs  |  1,000 Monte Carlo draws",
+            ha="center", va="center", fontsize=5.5, color=C_GRAY,
+            bbox=dict(boxstyle="round,pad=0.2", facecolor="#F7F7F7", edgecolor="#CCCCCC", lw=0.5))
+
+    ax.text(5.0, 0.6, "Figure A — Full Analytical Pipeline",
+            ha="center", va="center", fontsize=6, color=C_GRAY, style="italic")
+
+    for ext in ["pdf", "png"]:
+        fig.savefig(f"{OUT_DIR}/fig_methods_pipeline.{ext}", dpi=DPI)
+    plt.close(fig)
