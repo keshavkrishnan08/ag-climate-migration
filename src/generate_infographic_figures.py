@@ -198,3 +198,13 @@ def fig_northward_summary():
         "corn":         ("#E6550D", "Corn"),
         "soybeans":     ("#31A354", "Soybeans"),
         "wheat_winter": ("#756BB1", "Winter Wheat"),
+        "cotton":       ("#3182BD", "Cotton"),
+    }
+
+    early_yr  = (1960, 1970)
+    recent_yr = (2013, 2023)
+
+    centroids = {}
+    rates     = {}
+    for crop in crops_of_interest:
+        sub = merged[merged["crop"] == crop].copy()
