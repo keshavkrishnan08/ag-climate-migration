@@ -228,3 +228,13 @@ def fig_northward_summary():
             shift_mi  = shift_deg * 69.0
             n_decades = (np.mean(recent_yr) - np.mean(early_yr)) / 10.0
             rates[crop] = shift_mi / n_decades if n_decades > 0 else 0.0
+
+    # ── Figure layout ──
+    fig = plt.figure(figsize=(DOUBLE_COL, 3.8))
+    gs  = GridSpec(1, 2, figure=fig, width_ratios=[1.3, 1], wspace=0.35,
+                   left=0.06, right=0.97, top=0.88, bottom=0.15)
+
+    ax_map = fig.add_subplot(gs[0])
+    ax_bar = fig.add_subplot(gs[1])
+
+    # ── Simple CONUS bounding box map ──
