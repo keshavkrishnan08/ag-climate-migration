@@ -218,3 +218,13 @@ def fig_northward_summary():
             if w.sum() == 0:
                 return df["lat"].mean(), df["lon"].mean()
             return (df["lat"] * w).sum() / w.sum(), (df["lon"] * w).sum() / w.sum()
+
+        if len(early) > 10 and len(recent) > 10:
+            lat_e, lon_e = wcent(early)
+            lat_r, lon_r = wcent(recent)
+            centroids[crop] = (lat_e, lon_e, lat_r, lon_r)
+            # miles/decade: ~69 miles per degree lat; span ~60 years = 6 decades
+            shift_deg = lat_r - lat_e
+            shift_mi  = shift_deg * 69.0
+            n_decades = (np.mean(recent_yr) - np.mean(early_yr)) / 10.0
+            rates[crop] = shift_mi / n_decades if n_decades > 0 else 0.0
