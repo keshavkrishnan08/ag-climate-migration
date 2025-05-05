@@ -238,3 +238,13 @@ def fig_northward_summary():
     ax_bar = fig.add_subplot(gs[1])
 
     # ── Simple CONUS bounding box map ──
+    # Draw a simple rectangular CONUS outline
+    conus_lon = (-125, -66)
+    conus_lat = (24, 50)
+
+    # Light background for land
+    land_rect = patches.Rectangle(
+        (conus_lon[0], conus_lat[0]),
+        conus_lon[1] - conus_lon[0],
+        conus_lat[1] - conus_lat[0],
+        linewidth=1, edgecolor="#999999", facecolor="#F0EFE5", zorder=0)
