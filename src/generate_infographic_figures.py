@@ -258,3 +258,13 @@ def fig_northward_summary():
 
     # Draw state-approximate boundaries (simple horizontal dividers for visual)
     # Major geographic feature lines
+    ax_map.axhline(37, color="#CCCCCC", lw=0.4, ls="--", zorder=1)  # ~Mason-Dixon
+    ax_map.axvline(-100, color="#CCCCCC", lw=0.4, ls="--", zorder=1)  # 100th meridian
+
+    ax_map.text(-100, 37.5, "100°W", fontsize=4, color="#AAAAAA", ha="center")
+
+    # Plot centroid arrows
+    for crop, (color, label) in crops_of_interest.items():
+        if crop not in centroids:
+            continue
+        lat_e, lon_e, lat_r, lon_r = centroids[crop]
