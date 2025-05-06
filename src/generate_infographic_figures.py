@@ -278,3 +278,13 @@ def fig_northward_summary():
                             mutation_scale=7,
                             connectionstyle="arc3,rad=0.15"),
             zorder=6)
+
+    ax_map.set_xlim(-126, -65)
+    ax_map.set_ylim(23, 51)
+    ax_map.set_aspect("equal")
+    ax_map.set_xlabel("Longitude", fontsize=6)
+    ax_map.set_ylabel("Latitude", fontsize=6)
+    ax_map.tick_params(labelsize=5)
+    ax_map.set_title("Production Centroid Shift\n1960s → 2013–2023", fontsize=7, fontweight="bold")
+
+    # Legend for map
