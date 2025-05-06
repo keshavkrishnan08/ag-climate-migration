@@ -248,3 +248,13 @@ def fig_northward_summary():
         conus_lon[1] - conus_lon[0],
         conus_lat[1] - conus_lat[0],
         linewidth=1, edgecolor="#999999", facecolor="#F0EFE5", zorder=0)
+    ax_map.add_patch(land_rect)
+
+    # Rough state grid lines (horizontal/vertical for texture)
+    for lat in np.arange(25, 50, 5):
+        ax_map.axhline(lat, color="#E0E0E0", lw=0.3, zorder=1)
+    for lon in np.arange(-125, -66, 10):
+        ax_map.axvline(lon, color="#E0E0E0", lw=0.3, zorder=1)
+
+    # Draw state-approximate boundaries (simple horizontal dividers for visual)
+    # Major geographic feature lines
