@@ -268,3 +268,13 @@ def fig_northward_summary():
         if crop not in centroids:
             continue
         lat_e, lon_e, lat_r, lon_r = centroids[crop]
+        ax_map.plot(lon_e, lat_e, "o", color=color, ms=4, zorder=5,
+                    markeredgecolor="white", markeredgewidth=0.4)
+        ax_map.plot(lon_r, lat_r, "^", color=color, ms=4, zorder=5,
+                    markeredgecolor="white", markeredgewidth=0.4)
+        ax_map.annotate("",
+            xy=(lon_r, lat_r), xytext=(lon_e, lat_e),
+            arrowprops=dict(arrowstyle="-|>", color=color, lw=1.2,
+                            mutation_scale=7,
+                            connectionstyle="arc3,rad=0.15"),
+            zorder=6)
