@@ -298,3 +298,13 @@ def fig_northward_summary():
     # Annotation
     ax_map.annotate("▲ = 2013–2023\n● = 1960s", xy=(-68, 24.5),
                     fontsize=4.5, ha="right", color=C_GRAY)
+
+    # ── Bar chart of shift rates ──
+    crop_labels = []
+    shift_values = []
+    bar_colors   = []
+    for crop, (color, label) in crops_of_interest.items():
+        if crop in rates:
+            crop_labels.append(label)
+            shift_values.append(rates[crop])
+            bar_colors.append(color)
