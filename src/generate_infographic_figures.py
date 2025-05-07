@@ -308,3 +308,13 @@ def fig_northward_summary():
             crop_labels.append(label)
             shift_values.append(rates[crop])
             bar_colors.append(color)
+
+    y_pos = np.arange(len(crop_labels))
+    bars  = ax_bar.barh(y_pos, shift_values, color=bar_colors,
+                        height=0.55, edgecolor="white", linewidth=0.5)
+
+    for i, (bar, val) in enumerate(zip(bars, shift_values)):
+        sign = "+" if val >= 0 else ""
+        ax_bar.text(max(val, 0) + 0.3, i, f"{sign}{val:.1f} mi/decade",
+                    va="center", fontsize=5.5, color=C_DARK)
+
