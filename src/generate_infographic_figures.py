@@ -288,3 +288,13 @@ def fig_northward_summary():
     ax_map.set_title("Production Centroid Shift\n1960s → 2013–2023", fontsize=7, fontweight="bold")
 
     # Legend for map
+    handles = []
+    for crop, (color, label) in crops_of_interest.items():
+        if crop in centroids:
+            handles.append(mpatches.Patch(color=color, label=label))
+    ax_map.legend(handles=handles, fontsize=5, loc="lower left",
+                  framealpha=0.85, edgecolor="#CCCCCC", handlelength=1)
+
+    # Annotation
+    ax_map.annotate("▲ = 2013–2023\n● = 1960s", xy=(-68, 24.5),
+                    fontsize=4.5, ha="right", color=C_GRAY)
