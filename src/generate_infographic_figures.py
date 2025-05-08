@@ -348,3 +348,13 @@ def fig_northward_summary():
 #  FIGURE C — Temperature-Yield Response Curves
 # ══════════════════════════════════════════════════════════════════════════════
 def fig_temp_response():
+    fm = pd.read_parquet(f"{DATA_DIR}/processed/feature_matrix.parquet")
+
+    crops_cfg = {
+        "corn":         ("#E6550D", "Corn",         32, 34),
+        "soybeans":     ("#31A354", "Soybeans",      30, 32),
+        "wheat_winter": ("#756BB1", "Winter Wheat",  26, 28),
+        "sorghum":      ("#3182BD", "Sorghum",       34, 36),
+    }
+
+    fig, axes = plt.subplots(2, 2, figsize=(DOUBLE_COL, 4.5),
