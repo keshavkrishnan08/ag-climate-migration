@@ -318,3 +318,13 @@ def fig_northward_summary():
         ax_bar.text(max(val, 0) + 0.3, i, f"{sign}{val:.1f} mi/decade",
                     va="center", fontsize=5.5, color=C_DARK)
 
+    ax_bar.set_yticks(y_pos)
+    ax_bar.set_yticklabels(crop_labels, fontsize=6)
+    ax_bar.axvline(0, color="#999999", lw=0.6)
+    ax_bar.set_xlabel("Shift rate (miles per decade)", fontsize=6)
+    ax_bar.set_title("Northward Shift Rate\n(production-weighted centroid)", fontsize=7, fontweight="bold")
+    ax_bar.tick_params(labelsize=5)
+    ax_bar.spines["top"].set_visible(False)
+    ax_bar.spines["right"].set_visible(False)
+
+    # Bottom annotation
