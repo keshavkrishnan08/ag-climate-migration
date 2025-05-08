@@ -368,3 +368,13 @@ def fig_temp_response():
 
         agg = sub.groupby("bin").agg(
             mean_y  = ("yield_anomaly", "mean"),
+            se_y    = ("yield_anomaly", lambda x: x.std() / np.sqrt(len(x))),
+            n       = ("yield_anomaly", "count"),
+        ).reset_index()
+        agg = agg[agg["n"] >= 20]  # at least 20 obs per bin
+
+        # Empirical dots + error bars
+        ax.errorbar(agg["bin"] + 0.5, agg["mean_y"], yerr=agg["se_y"],
+                    fmt="o", color=color, ms=3, lw=0.7, capsize=2,
+                    capthick=0.7, markeredgecolor="white", markeredgewidth=0.4,
+                    label="Observed (±1 SE)", zorder=5)
