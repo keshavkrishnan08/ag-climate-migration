@@ -378,3 +378,13 @@ def fig_temp_response():
                     fmt="o", color=color, ms=3, lw=0.7, capsize=2,
                     capthick=0.7, markeredgecolor="white", markeredgewidth=0.4,
                     label="Observed (±1 SE)", zorder=5)
+
+        # Connect dots
+        ax.plot(agg["bin"] + 0.5, agg["mean_y"], "-", color=color,
+                lw=0.8, alpha=0.6, zorder=4)
+
+        # Schlenker-Roberts damage function overlay
+        x_sr = np.linspace(agg["bin"].min(), agg["bin"].max() + 1, 200)
+        # Simplified quadratic damage function matching empirical range
+        y_peak = agg["mean_y"].max()
+        x_opt  = agg.loc[agg["mean_y"].idxmax(), "bin"] + 0.5
