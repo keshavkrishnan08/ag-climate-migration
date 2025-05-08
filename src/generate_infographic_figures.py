@@ -338,3 +338,13 @@ def fig_northward_summary():
     fig.suptitle("Figure B — Northward Migration of U.S. Crop Production Centroids",
                  fontsize=7.5, fontweight="bold", y=0.98)
 
+    for ext in ["pdf", "png"]:
+        fig.savefig(f"{OUT_DIR}/fig_northward_summary.{ext}", dpi=DPI)
+    plt.close(fig)
+    print("  [B] fig_northward_summary — done")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  FIGURE C — Temperature-Yield Response Curves
+# ══════════════════════════════════════════════════════════════════════════════
+def fig_temp_response():
