@@ -358,3 +358,13 @@ def fig_temp_response():
     }
 
     fig, axes = plt.subplots(2, 2, figsize=(DOUBLE_COL, 4.5),
+                             gridspec_kw={"hspace": 0.45, "wspace": 0.35})
+    axes = axes.flatten()
+
+    for idx, (crop, (color, label, cliff_lo, cliff_hi)) in enumerate(crops_cfg.items()):
+        ax = axes[idx]
+        sub = fm[(fm["crop"] == crop) & fm["tmax_july_c"].notna()].copy()
+        sub["bin"] = (sub["tmax_july_c"] // 1).astype(int)
+
+        agg = sub.groupby("bin").agg(
+            mean_y  = ("yield_anomaly", "mean"),
