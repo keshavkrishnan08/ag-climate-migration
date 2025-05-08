@@ -328,3 +328,13 @@ def fig_northward_summary():
     ax_bar.spines["right"].set_visible(False)
 
     # Bottom annotation
+    if shift_values:
+        total_shift = np.mean([rates[c] for c in crops_of_interest if c in rates]) * 6
+        fig.text(0.5, 0.02,
+                 f"Average production centroid has moved ~{total_shift:.0f} miles north since the 1960s",
+                 ha="center", fontsize=6.5, color=C_DARK, style="italic",
+                 fontweight="bold")
+
+    fig.suptitle("Figure B — Northward Migration of U.S. Crop Production Centroids",
+                 fontsize=7.5, fontweight="bold", y=0.98)
+
