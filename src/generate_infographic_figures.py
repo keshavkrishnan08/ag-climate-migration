@@ -388,3 +388,13 @@ def fig_temp_response():
         # Simplified quadratic damage function matching empirical range
         y_peak = agg["mean_y"].max()
         x_opt  = agg.loc[agg["mean_y"].idxmax(), "bin"] + 0.5
+        # Quadratic with steeper right tail (Schlenker-Roberts style)
+        a_left  = -y_peak / (x_opt - x_sr.min() + 0.01) ** 2
+        a_right = -y_peak / (x_opt - x_sr.max() + 0.01) ** 2 * 1.8  # asymmetric
+        y_sr = np.where(
+            x_sr <= x_opt,
+            y_peak + a_left * (x_sr - x_opt) ** 2,
+            y_peak + a_right * (x_sr - x_opt) ** 2,
+        )
+        ax.plot(x_sr, y_sr, "--", color="#555555", lw=0.8, alpha=0.7,
+                label="Schlenker-Roberts\ndamage fn.", zorder=3)
