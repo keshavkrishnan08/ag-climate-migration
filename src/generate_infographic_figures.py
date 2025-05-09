@@ -428,3 +428,13 @@ def fig_temp_response():
 # ══════════════════════════════════════════════════════════════════════════════
 #  FIGURE D — Cascade Mechanism Diagram
 # ══════════════════════════════════════════════════════════════════════════════
+def fig_cascade_mechanism():
+    fig = plt.figure(figsize=(SINGLE_COL + 0.3, 6.5))
+    ax  = fig.add_axes([0, 0, 1, 1])
+    ax.set_xlim(0, 4)
+    ax.set_ylim(0, 10)
+    ax.axis("off")
+
+    ax.set_facecolor("#FAFAFA")
+    fig.patch.set_facecolor("#FAFAFA")
+
