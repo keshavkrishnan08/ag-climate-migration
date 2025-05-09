@@ -418,3 +418,13 @@ def fig_temp_response():
 
     fig.suptitle("Figure C — Empirical Temperature–Yield Response (binned means ± 1 SE)",
                  fontsize=7.5, fontweight="bold")
+
+    for ext in ["pdf", "png"]:
+        fig.savefig(f"{OUT_DIR}/fig_temp_response.{ext}", dpi=DPI)
+    plt.close(fig)
+    print("  [C] fig_temp_response — done")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  FIGURE D — Cascade Mechanism Diagram
+# ══════════════════════════════════════════════════════════════════════════════
