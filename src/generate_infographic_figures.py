@@ -408,3 +408,13 @@ def fig_temp_response():
                 fontsize=4.5, color=C_RED, ha="center", va="bottom", zorder=6)
 
         ax.axhline(0, color="#CCCCCC", lw=0.5)
+        ax.set_title(label, fontsize=7.5, fontweight="bold", color=color)
+        ax.set_xlabel("July Tmax (°C)", fontsize=6)
+        ax.set_ylabel("Yield anomaly (bu/ac)", fontsize=6)
+        ax.tick_params(labelsize=5)
+        if idx == 0:
+            ax.legend(fontsize=4.5, loc="upper left", framealpha=0.85,
+                      edgecolor="#CCCCCC", handlelength=1.5)
+
+    fig.suptitle("Figure C — Empirical Temperature–Yield Response (binned means ± 1 SE)",
+                 fontsize=7.5, fontweight="bold")
