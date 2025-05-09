@@ -398,3 +398,13 @@ def fig_temp_response():
         )
         ax.plot(x_sr, y_sr, "--", color="#555555", lw=0.8, alpha=0.7,
                 label="Schlenker-Roberts\ndamage fn.", zorder=3)
+
+        # Cliff shading
+        ax.axvspan(cliff_lo, cliff_hi, alpha=0.15, color=C_RED, zorder=1)
+        ax.axvline((cliff_lo + cliff_hi) / 2, color=C_RED, lw=0.6,
+                   ls=":", zorder=2)
+        ax.text((cliff_lo + cliff_hi) / 2, ax.get_ylim()[0] if idx < 2 else ax.get_ylim()[0],
+                f"Cliff\n~{int((cliff_lo+cliff_hi)/2)}°C",
+                fontsize=4.5, color=C_RED, ha="center", va="bottom", zorder=6)
+
+        ax.axhline(0, color="#CCCCCC", lw=0.5)
