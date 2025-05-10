@@ -448,3 +448,13 @@ def fig_cascade_mechanism():
         ("7. Infrastructure ↓",     "Feedback intensity: 0.08/σ\n→ amplifies yield shock",  "#A63603"),
     ]
 
+    n     = len(steps)
+    y_top = 9.2
+    y_bot = 0.9
+    step_h= (y_top - y_bot) / n
+    box_h = step_h * 0.72
+    cx    = 2.0
+
+    # Color gradient (yellow → dark red)
+    grad_cmap = LinearSegmentedColormap.from_list(
+        "cascade", ["#FFF5EB", "#A63603"], N=n)
