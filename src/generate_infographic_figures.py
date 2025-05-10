@@ -438,3 +438,13 @@ def fig_cascade_mechanism():
     ax.set_facecolor("#FAFAFA")
     fig.patch.set_facecolor("#FAFAFA")
 
+    steps = [
+        ("1. Yield Decline",        "Climate shock\n+1°C above threshold",      "#FFF5EB"),
+        ("2. Farm Income ↓",        "Revenue = yield × price × acres\nElasticity: −0.42",   "#FEE6CE"),
+        ("3. Rural Outmigration",   "β = −0.003 per income unit\nIV estimate, 2SLS",        "#FDD0A2"),
+        ("4. School Closure",       "Threshold: <150 students\n(600 districts at risk)",     "#FDAE6B"),
+        ("5. Hospital Closure",     "Threshold: <15,000 pop\n(213 rural hospitals)",         "#FD8D3C"),
+        ("6. Tax Base Erosion",     "Property values ↓ → budget cuts\nFiscal multiplier: −0.6", "#E6550D"),
+        ("7. Infrastructure ↓",     "Feedback intensity: 0.08/σ\n→ amplifies yield shock",  "#A63603"),
+    ]
+
