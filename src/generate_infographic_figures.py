@@ -458,3 +458,13 @@ def fig_cascade_mechanism():
     # Color gradient (yellow → dark red)
     grad_cmap = LinearSegmentedColormap.from_list(
         "cascade", ["#FFF5EB", "#A63603"], N=n)
+    grad_colors = [grad_cmap(i / (n - 1)) for i in range(n)]
+
+    for i, (title, detail, _) in enumerate(steps):
+        y_center = y_top - i * step_h - step_h / 2
+        col = grad_colors[i]
+        txt_col = "white" if i >= 5 else C_DARK
+
+        rect = FancyBboxPatch((cx - 1.55, y_center - box_h/2),
+                               3.1, box_h,
+                               boxstyle="round,pad=0.06",
