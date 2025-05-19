@@ -478,3 +478,13 @@ def fig_cascade_mechanism():
 
         # Downward arrow (except last)
         if i < n - 1:
+            y_arrow_top = y_center - box_h/2
+            y_arrow_bot = y_top - (i + 1) * step_h - step_h/2 + box_h/2
+            ax.annotate("", xy=(cx, y_arrow_bot), xytext=(cx, y_arrow_top),
+                        arrowprops=dict(arrowstyle="-|>", color="#C0392B",
+                                        lw=1.0, mutation_scale=8))
+
+    # Feedback arrow from step 7 back to step 1
+    # Right side curved arrow
+    ax_ybot = y_top - (n - 1) * step_h - step_h/2   # center of step 7
+    ax_ytop = y_top - step_h/2                          # center of step 1
