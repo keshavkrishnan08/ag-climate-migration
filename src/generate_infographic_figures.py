@@ -468,3 +468,13 @@ def fig_cascade_mechanism():
         rect = FancyBboxPatch((cx - 1.55, y_center - box_h/2),
                                3.1, box_h,
                                boxstyle="round,pad=0.06",
+                               facecolor=col,
+                               edgecolor="white", linewidth=0.8, zorder=3)
+        ax.add_patch(rect)
+        ax.text(cx, y_center + 0.1, title, ha="center", va="center",
+                fontsize=6.5, fontweight="bold", color=txt_col, zorder=4)
+        ax.text(cx, y_center - 0.15, detail, ha="center", va="center",
+                fontsize=5, color=txt_col, alpha=0.9, zorder=4)
+
+        # Downward arrow (except last)
+        if i < n - 1:
