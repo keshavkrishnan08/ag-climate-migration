@@ -498,3 +498,13 @@ def fig_cascade_mechanism():
             fontweight="bold",
             bbox=dict(boxstyle="round,pad=0.15", facecolor="white",
                       edgecolor="#7B2D8B", lw=0.5))
+
+    # Key annotation
+    ax.text(cx, 0.45,
+            "337 counties projected to reach tipping point by 2040",
+            ha="center", va="center", fontsize=6, color="#A63603",
+            fontweight="bold",
+            bbox=dict(boxstyle="round,pad=0.25", facecolor="#FFF5EB",
+                      edgecolor="#A63603", lw=0.8))
+
+    ax.text(cx, 9.7, "Figure D — Seven-Step Rural Cascade Mechanism",
