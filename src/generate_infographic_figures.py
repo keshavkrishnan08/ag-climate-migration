@@ -538,3 +538,13 @@ def fig_insurance_flow():
     frame_rect = patches.Rectangle((-125, 24), 60, 27,
                                     facecolor="none", edgecolor="#999999",
                                     lw=0.8, zorder=2)
+
+    for r in [north_rect, south_rect, frame_rect]:
+        ax_map.add_patch(r)
+
+    ax_map.text(-95, 46.5, "GAINING REGIONS\n(North)",
+                ha="center", va="center", fontsize=6.5,
+                fontweight="bold", color=C_BLUE, zorder=4)
+    ax_map.text(-95, 28.5, "DECLINING REGIONS\n(South/Plains)",
+                ha="center", va="center", fontsize=6.5,
+                fontweight="bold", color=C_RED, zorder=4)
