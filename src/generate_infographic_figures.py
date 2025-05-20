@@ -528,3 +528,13 @@ def fig_insurance_flow():
     ax_side = fig.add_subplot(gs[1])
 
     # ── Simplified US map (CONUS bounding box with shaded regions) ──
+    # North region = gaining (blue), South = declining (red)
+    north_rect = patches.Rectangle((-125, 40), 60, 11,
+                                    facecolor="#DEEBF7", edgecolor="#9ECAE1",
+                                    lw=0.5, zorder=1, alpha=0.85)
+    south_rect = patches.Rectangle((-125, 24), 60, 16,
+                                    facecolor="#FEE0D2", edgecolor="#FC9272",
+                                    lw=0.5, zorder=1, alpha=0.85)
+    frame_rect = patches.Rectangle((-125, 24), 60, 27,
+                                    facecolor="none", edgecolor="#999999",
+                                    lw=0.8, zorder=2)
