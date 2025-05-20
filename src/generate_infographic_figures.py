@@ -488,3 +488,13 @@ def fig_cascade_mechanism():
     # Right side curved arrow
     ax_ybot = y_top - (n - 1) * step_h - step_h/2   # center of step 7
     ax_ytop = y_top - step_h/2                          # center of step 1
+    ax.annotate("", xy=(cx + 1.55 + 0.08, ax_ytop),
+                xytext=(cx + 1.55 + 0.08, ax_ybot),
+                arrowprops=dict(arrowstyle="-|>", color="#7B2D8B",
+                                lw=1.2, mutation_scale=8,
+                                connectionstyle="arc3,rad=0.0"))
+    ax.text(3.88, (ax_ytop + ax_ybot) / 2, "Feedback\nloop",
+            ha="center", va="center", fontsize=5, color="#7B2D8B",
+            fontweight="bold",
+            bbox=dict(boxstyle="round,pad=0.15", facecolor="white",
+                      edgecolor="#7B2D8B", lw=0.5))
