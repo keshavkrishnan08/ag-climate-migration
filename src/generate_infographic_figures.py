@@ -508,3 +508,13 @@ def fig_cascade_mechanism():
                       edgecolor="#A63603", lw=0.8))
 
     ax.text(cx, 9.7, "Figure D — Seven-Step Rural Cascade Mechanism",
+            ha="center", va="center", fontsize=7, fontweight="bold", color=C_DARK)
+
+    for ext in ["pdf", "png"]:
+        fig.savefig(f"{OUT_DIR}/fig_cascade_mechanism.{ext}", dpi=DPI)
+    plt.close(fig)
+    print("  [D] fig_cascade_mechanism — done")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  FIGURE E — Insurance Cross-Subsidy Flow
