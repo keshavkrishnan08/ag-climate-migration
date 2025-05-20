@@ -518,3 +518,13 @@ def fig_cascade_mechanism():
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  FIGURE E — Insurance Cross-Subsidy Flow
+# ══════════════════════════════════════════════════════════════════════════════
+def fig_insurance_flow():
+    fig = plt.figure(figsize=(DOUBLE_COL, 4.2))
+    gs  = GridSpec(1, 2, figure=fig, width_ratios=[1.4, 1],
+                   wspace=0.3, left=0.04, right=0.97, top=0.88, bottom=0.12)
+
+    ax_map  = fig.add_subplot(gs[0])
+    ax_side = fig.add_subplot(gs[1])
+
+    # ── Simplified US map (CONUS bounding box with shaded regions) ──
