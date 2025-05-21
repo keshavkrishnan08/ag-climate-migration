@@ -598,3 +598,13 @@ def fig_insurance_flow():
         ax.add_patch(rect)
         if h > 0.3:
             ax.text(x + w/2, y + h/2, f"{label}\n{val_str}",
+                    ha="center", va="center", fontsize=5,
+                    fontweight="bold", color=txt_color, zorder=4)
+
+    bar_x = 1.0
+    bar_w = 2.2
+
+    # Bottom: fairly priced portion
+    y0 = 1.0
+    h_fair = (18 - 5.9) * scale
+    bar_segment(ax_side, bar_x, y0, bar_w, h_fair,
