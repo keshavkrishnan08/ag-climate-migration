@@ -578,3 +578,13 @@ def fig_insurance_flow():
     ax_map.set_xlabel("Longitude", fontsize=6)
     ax_map.set_ylabel("Latitude",  fontsize=6)
     ax_map.tick_params(labelsize=5)
+    ax_map.set_title("Geographic Cross-Subsidy Flow\nin Federal Crop Insurance", fontsize=7, fontweight="bold")
+
+    # ── Stacked bar + before/after panel ──
+    ax_side.set_xlim(0, 10)
+    ax_side.set_ylim(0, 10)
+    ax_side.axis("off")
+
+    ax_side.set_title("Premium Decomposition\n& Mispricing", fontsize=7, fontweight="bold")
+
+    # Total program breakdown
