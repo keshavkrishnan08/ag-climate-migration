@@ -558,3 +558,13 @@ def fig_insurance_flow():
                 ha="left", va="center", fontsize=6.5,
                 fontweight="bold", color="#7B2D8B",
                 bbox=dict(boxstyle="round,pad=0.2", facecolor="white",
+                          edgecolor="#7B2D8B", lw=0.6))
+
+    # Key regional labels
+    regions_north = [("Corn Belt N.", -92, 44.5), ("Great Lakes", -84, 44),
+                     ("Pacific NW",  -120, 46)]
+    regions_south = [("Delta/SE",   -90, 31), ("High Plains", -102, 32),
+                     ("Coastal SE",  -83, 26.5)]
+    for label, x, y in regions_north:
+        ax_map.text(x, y, label, ha="center", va="center",
+                    fontsize=4.5, color="#2166AC", alpha=0.8)
