@@ -568,3 +568,13 @@ def fig_insurance_flow():
     for label, x, y in regions_north:
         ax_map.text(x, y, label, ha="center", va="center",
                     fontsize=4.5, color="#2166AC", alpha=0.8)
+    for label, x, y in regions_south:
+        ax_map.text(x, y, label, ha="center", va="center",
+                    fontsize=4.5, color=C_RED, alpha=0.8)
+
+    ax_map.set_xlim(-126, -65)
+    ax_map.set_ylim(23, 52)
+    ax_map.set_aspect("equal")
+    ax_map.set_xlabel("Longitude", fontsize=6)
+    ax_map.set_ylabel("Latitude",  fontsize=6)
+    ax_map.tick_params(labelsize=5)
