@@ -588,3 +588,13 @@ def fig_insurance_flow():
     ax_side.set_title("Premium Decomposition\n& Mispricing", fontsize=7, fontweight="bold")
 
     # Total program breakdown
+    total_h = 4.5
+    scale   = total_h / 18.0  # 18B total
+
+    def bar_segment(ax, x, y, w, h, color, label, val_str, txt_color="white"):
+        rect = patches.Rectangle((x, y), w, h,
+                                   facecolor=color, edgecolor="white",
+                                   lw=0.5, zorder=3)
+        ax.add_patch(rect)
+        if h > 0.3:
+            ax.text(x + w/2, y + h/2, f"{label}\n{val_str}",
