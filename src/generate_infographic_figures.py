@@ -548,3 +548,13 @@ def fig_insurance_flow():
     ax_map.text(-95, 28.5, "DECLINING REGIONS\n(South/Plains)",
                 ha="center", va="center", fontsize=6.5,
                 fontweight="bold", color=C_RED, zorder=4)
+
+    # Large cross-subsidy arrow
+    ax_map.annotate("",
+        xy=(-95, 39.5), xytext=(-95, 40.5),
+        arrowprops=dict(arrowstyle="-|>", color="#7B2D8B",
+                        lw=3, mutation_scale=14))
+    ax_map.text(-93, 40.0, "$2.8B/yr\nsubsidy flow",
+                ha="left", va="center", fontsize=6.5,
+                fontweight="bold", color="#7B2D8B",
+                bbox=dict(boxstyle="round,pad=0.2", facecolor="white",
