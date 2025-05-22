@@ -668,3 +668,13 @@ def fig_insurance_flow():
     print("  [E] fig_insurance_flow — done")
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+#  FIGURE F — Three-Method Valuation Comparison
+# ══════════════════════════════════════════════════════════════════════════════
+def fig_valuation_methods():
+    fig = plt.figure(figsize=(DOUBLE_COL, 4.0))
+    gs  = GridSpec(2, 1, figure=fig, height_ratios=[3, 1],
+                   hspace=0.35, left=0.32, right=0.96, top=0.88, bottom=0.10)
+
+    ax_main = fig.add_subplot(gs[0])
+    ax_tail = fig.add_subplot(gs[1])
