@@ -628,3 +628,13 @@ def fig_insurance_flow():
     y_comp = 6.8
     ax_side.text(5.0, y_comp, "Before/After Actuarial Reform",
                  ha="center", va="center", fontsize=6.5, fontweight="bold",
+                 color=C_DARK)
+
+    labels = ["APH (current)", "Forward-looking"]
+    vals   = [1.0, 1.47]
+    colors = [C_ORANGE, C_BLUE]
+    for i, (label, val, col) in enumerate(zip(labels, vals, colors)):
+        bx    = 3.5 + i * 2.8
+        bar_h = val * 1.4
+        rect  = patches.FancyBboxPatch((bx - 0.6, y_comp - 3.2),
+                                        1.2, bar_h,
