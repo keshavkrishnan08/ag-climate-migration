@@ -678,3 +678,13 @@ def fig_valuation_methods():
 
     ax_main = fig.add_subplot(gs[0])
     ax_tail = fig.add_subplot(gs[1])
+
+    # ── Main: horizontal bars for each method ──
+    methods  = ["Cap Rate\n(overvalued counties)", "Hedonic\n(land price gradient)", "DCF\n(income-based)"]
+    lo_vals  = [0,   150, 56]
+    hi_vals  = [89,  176, 168]   # for cap rate, lo=0, hi=n_counties
+    pt_vals  = [None, 168, None]
+    colors   = [C_GREEN, C_GREEN, C_GREEN]
+    # Use dollar axis for DCF and Hedonic; county count for Cap Rate
+    # We'll normalize to billions for display and annotate separately
+
