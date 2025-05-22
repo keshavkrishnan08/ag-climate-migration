@@ -648,3 +648,13 @@ def fig_insurance_flow():
         ax_side.text(bx, y_comp - 3.3, label, ha="center", va="top",
                      fontsize=4.8, color=C_DARK, style="italic")
 
+    ax_side.text(5.0, 3.7,
+                 "+47% underpricing\nexposed by climate trend",
+                 ha="center", va="center", fontsize=5.5,
+                 color=C_RED, fontweight="bold")
+
+    ax_side.text(5.0, 0.4, "$2.8B/yr flows from\nnorthern to southern counties",
+                 ha="center", va="center", fontsize=5.5, color="#7B2D8B",
+                 fontweight="bold",
+                 bbox=dict(boxstyle="round,pad=0.2", facecolor="#F2E8F7",
+                           edgecolor="#7B2D8B", lw=0.5))
