@@ -608,3 +608,13 @@ def fig_insurance_flow():
     y0 = 1.0
     h_fair = (18 - 5.9) * scale
     bar_segment(ax_side, bar_x, y0, bar_w, h_fair,
+                "#DEEBF7", "Fairly priced", "$12.1B", "#2166AC")
+
+    # Top: mispriced portion
+    y1 = y0 + h_fair
+    h_mis = 5.9 * scale
+    bar_segment(ax_side, bar_x, y1, bar_w, h_mis,
+                "#FC9272", "Mispriced", "$5.9B", "white")
+
+    # Bracket + label
+    ax_side.annotate("", xy=(bar_x + bar_w + 0.15, y1 + h_mis),
