@@ -658,3 +658,13 @@ def fig_insurance_flow():
                  fontweight="bold",
                  bbox=dict(boxstyle="round,pad=0.2", facecolor="#F2E8F7",
                            edgecolor="#7B2D8B", lw=0.5))
+
+    fig.suptitle("Figure E — Federal Crop Insurance Cross-Subsidy and Mispricing",
+                 fontsize=7.5, fontweight="bold")
+
+    for ext in ["pdf", "png"]:
+        fig.savefig(f"{OUT_DIR}/fig_insurance_flow.{ext}", dpi=DPI)
+    plt.close(fig)
+    print("  [E] fig_insurance_flow — done")
+
+
