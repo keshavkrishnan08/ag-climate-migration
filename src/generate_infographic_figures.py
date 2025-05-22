@@ -638,3 +638,13 @@ def fig_insurance_flow():
         bar_h = val * 1.4
         rect  = patches.FancyBboxPatch((bx - 0.6, y_comp - 3.2),
                                         1.2, bar_h,
+                                        boxstyle="round,pad=0.04",
+                                        facecolor=col, edgecolor="white",
+                                        lw=0.5, zorder=3)
+        ax_side.add_patch(rect)
+        ax_side.text(bx, y_comp - 3.2 + bar_h + 0.12,
+                     f"Loss ratio\n{val:.2f}", ha="center", va="bottom",
+                     fontsize=5, color=C_DARK)
+        ax_side.text(bx, y_comp - 3.3, label, ha="center", va="top",
+                     fontsize=4.8, color=C_DARK, style="italic")
+
