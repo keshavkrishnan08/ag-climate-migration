@@ -618,3 +618,13 @@ def fig_insurance_flow():
 
     # Bracket + label
     ax_side.annotate("", xy=(bar_x + bar_w + 0.15, y1 + h_mis),
+                     xytext=(bar_x + bar_w + 0.15, y0),
+                     arrowprops=dict(arrowstyle="<->", color=C_DARK, lw=0.8))
+    ax_side.text(bar_x + bar_w + 0.5, (y0 + y1 + h_mis)/2,
+                 "Total\n$18B\nProgram", ha="left", va="center",
+                 fontsize=5, color=C_DARK)
+
+    # APH vs forward-looking comparison
+    y_comp = 6.8
+    ax_side.text(5.0, y_comp, "Before/After Actuarial Reform",
+                 ha="center", va="center", fontsize=6.5, fontweight="bold",
