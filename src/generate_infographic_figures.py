@@ -688,3 +688,13 @@ def fig_valuation_methods():
     # Use dollar axis for DCF and Hedonic; county count for Cap Rate
     # We'll normalize to billions for display and annotate separately
 
+    # Re-express on common $ scale; cap rate = 89 counties overvalued
+    # Use DCF scale (B$) for all three, with cap-rate mapped approximately
+    lo_plot = [55,  150, 56]
+    hi_plot = [89,  176, 168]
+    pt_plot = [72,  168, 112]
+
+    y_pos  = [2, 1, 0]
+    bar_h  = 0.38
+
+    for i, (yp, lo, hi, pt, method, col) in enumerate(
