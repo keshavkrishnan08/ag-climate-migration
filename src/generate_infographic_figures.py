@@ -698,3 +698,13 @@ def fig_valuation_methods():
     bar_h  = 0.38
 
     for i, (yp, lo, hi, pt, method, col) in enumerate(
+            zip(y_pos, lo_plot, hi_plot, pt_plot, methods, colors)):
+        # Range bar
+        ax_main.barh(yp, hi - lo, left=lo, height=bar_h,
+                     color=col, alpha=0.30, edgecolor=col, lw=0.8)
+        # Point estimate / midpoint
+        if pt is not None:
+            ax_main.plot(pt, yp, "D", color=col, ms=5, zorder=5,
+                         markeredgecolor="white", markeredgewidth=0.5)
+        # Annotation
+        if i == 0:  # cap rate
