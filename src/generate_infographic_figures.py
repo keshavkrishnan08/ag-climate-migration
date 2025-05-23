@@ -708,3 +708,13 @@ def fig_valuation_methods():
                          markeredgecolor="white", markeredgewidth=0.5)
         # Annotation
         if i == 0:  # cap rate
+            ax_main.text(hi + 2, yp, f"89 counties overvalued\n(~${pt}B implied)",
+                         va="center", fontsize=5.5, color=C_DARK)
+        elif i == 1:  # hedonic
+            ax_main.text(hi + 2, yp, f"${pt}B  [${lo}–${hi}B]",
+                         va="center", fontsize=5.5, color=C_DARK)
+        else:  # DCF
+            ax_main.text(hi + 2, yp, f"${lo}–${hi}B",
+                         va="center", fontsize=5.5, color=C_DARK)
+
+    # Overlap / agreement region
