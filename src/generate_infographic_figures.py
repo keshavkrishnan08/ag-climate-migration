@@ -718,3 +718,13 @@ def fig_valuation_methods():
                          va="center", fontsize=5.5, color=C_DARK)
 
     # Overlap / agreement region
+    agree_lo = max(lo_plot[0], lo_plot[1], lo_plot[2])
+    agree_hi = min(hi_plot[0], hi_plot[1], hi_plot[2])
+    if agree_hi > agree_lo:
+        ax_main.axvspan(agree_lo, agree_hi, alpha=0.12, color=C_GREEN, zorder=0)
+        ax_main.text((agree_lo + agree_hi) / 2, 2.55, "Methods\nagree",
+                     ha="center", va="center", fontsize=5, color=C_GREEN,
+                     fontweight="bold")
+
+    ax_main.set_yticks(y_pos)
+    ax_main.set_yticklabels(methods, fontsize=6.5)
