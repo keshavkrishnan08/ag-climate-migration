@@ -738,3 +738,13 @@ def fig_valuation_methods():
                       fontsize=7.5, fontweight="bold")
 
     # Method description annotations on left
+    descriptions = [
+        "Cap Rate method:\nlocal cap rate vs\nforward yield",
+        "Hedonic regression:\nprice gradient\nshift (2SLS)",
+        "DCF method:\ndiscounted income\nstream (r=5–8%)",
+    ]
+    for yp, desc in zip(y_pos, descriptions):
+        ax_main.text(-2, yp, desc, ha="right", va="center",
+                     fontsize=4.5, color=C_GRAY)
+
+    # ── Tail risk bar ──
