@@ -728,3 +728,13 @@ def fig_valuation_methods():
 
     ax_main.set_yticks(y_pos)
     ax_main.set_yticklabels(methods, fontsize=6.5)
+    ax_main.set_xlabel("Asset value at risk (Billion USD)", fontsize=6)
+    ax_main.set_xlim(0, 220)
+    ax_main.set_ylim(-0.5, 2.8)
+    ax_main.tick_params(labelsize=5.5)
+    ax_main.spines["top"].set_visible(False)
+    ax_main.spines["right"].set_visible(False)
+    ax_main.set_title("Three-Method Triangulation of Stranded Agricultural Land Value",
+                      fontsize=7.5, fontweight="bold")
+
+    # Method description annotations on left
