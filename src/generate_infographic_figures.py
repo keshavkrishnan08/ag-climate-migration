@@ -748,3 +748,13 @@ def fig_valuation_methods():
                      fontsize=4.5, color=C_GRAY)
 
     # ── Tail risk bar ──
+    ax_tail.set_xlim(0, 220)
+    ax_tail.set_ylim(-0.5, 1.5)
+    ax_tail.axis("off")
+
+    # Tail risk visual
+    main_rect = patches.FancyBboxPatch((0, 0.2), 168, 0.8,
+                                        boxstyle="round,pad=0.04",
+                                        facecolor=C_GREEN, edgecolor="none",
+                                        alpha=0.5, zorder=2)
+    tail_rect = patches.FancyBboxPatch((168, 0.2), 200 - 168, 0.8,
