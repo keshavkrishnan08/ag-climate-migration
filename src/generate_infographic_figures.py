@@ -758,3 +758,13 @@ def fig_valuation_methods():
                                         facecolor=C_GREEN, edgecolor="none",
                                         alpha=0.5, zorder=2)
     tail_rect = patches.FancyBboxPatch((168, 0.2), 200 - 168, 0.8,
+                                        boxstyle="square,pad=0",
+                                        facecolor=C_RED, edgecolor="none",
+                                        alpha=0.25, zorder=2)
+    ax_tail.add_patch(main_rect)
+    ax_tail.add_patch(tail_rect)
+
+    # Arrow indicating tail extension
+    ax_tail.annotate("", xy=(215, 0.6), xytext=(200, 0.6),
+                     arrowprops=dict(arrowstyle="-|>", color=C_RED, lw=0.8))
+    ax_tail.text(86, 0.6, "Central estimate: $56–168B",
