@@ -768,3 +768,13 @@ def fig_valuation_methods():
     ax_tail.annotate("", xy=(215, 0.6), xytext=(200, 0.6),
                      arrowprops=dict(arrowstyle="-|>", color=C_RED, lw=0.8))
     ax_tail.text(86, 0.6, "Central estimate: $56–168B",
+                 ha="center", va="center", fontsize=6, fontweight="bold",
+                 color="white", zorder=5)
+    ax_tail.text(190, 1.2, "Tail risk: >$500B\n(4°C scenario)",
+                 ha="center", va="center", fontsize=5, color=C_RED,
+                 fontweight="bold")
+    ax_tail.text(110, -0.15, "Asset value at risk (Billion USD)",
+                 ha="center", va="center", fontsize=6, color=C_GRAY)
+    ax_tail.axvline(168, color=C_RED, lw=0.8, ls="--", zorder=3)
+
+    fig.suptitle("Figure F — Stranded Asset Valuation: Three Independent Methods",
