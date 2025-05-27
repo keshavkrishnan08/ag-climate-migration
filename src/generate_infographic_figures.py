@@ -788,3 +788,13 @@ def fig_valuation_methods():
 
 # ══════════════════════════════════════════════════════════════════════════════
 #  MAIN
+# ══════════════════════════════════════════════════════════════════════════════
+if __name__ == "__main__":
+    print("Generating infographic figures for AgMigration paper...")
+    print(f"Output dir: {OUT_DIR}\n")
+
+    errors = []
+
+    for name, fn in [
+        ("A — Methods Pipeline",        fig_methods_pipeline),
+        ("B — Northward Shift Summary",  fig_northward_summary),
