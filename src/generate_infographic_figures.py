@@ -778,3 +778,13 @@ def fig_valuation_methods():
     ax_tail.axvline(168, color=C_RED, lw=0.8, ls="--", zorder=3)
 
     fig.suptitle("Figure F — Stranded Asset Valuation: Three Independent Methods",
+                 fontsize=7.5, fontweight="bold")
+
+    for ext in ["pdf", "png"]:
+        fig.savefig(f"{OUT_DIR}/fig_valuation_methods.{ext}", dpi=DPI)
+    plt.close(fig)
+    print("  [F] fig_valuation_methods — done")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  MAIN
