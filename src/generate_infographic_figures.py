@@ -798,3 +798,13 @@ if __name__ == "__main__":
     for name, fn in [
         ("A — Methods Pipeline",        fig_methods_pipeline),
         ("B — Northward Shift Summary",  fig_northward_summary),
+        ("C — Temperature Response",     fig_temp_response),
+        ("D — Cascade Mechanism",        fig_cascade_mechanism),
+        ("E — Insurance Flow",           fig_insurance_flow),
+        ("F — Valuation Methods",        fig_valuation_methods),
+    ]:
+        try:
+            fn()
+        except Exception as e:
+            print(f"  [ERROR] Figure {name}: {e}")
+            import traceback; traceback.print_exc()
