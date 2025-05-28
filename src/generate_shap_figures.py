@@ -18,3 +18,13 @@ Args (via CLI or direct run):
 Returns:
     Saves PDF + PNG for each figure; prints SHAP summary stats to stdout.
 
+Raises:
+    FileNotFoundError: if any input path does not exist.
+    ValueError: if expected features are missing from feature matrix.
+"""
+
+import warnings
+warnings.filterwarnings("ignore")
+
+import os
+import pickle
