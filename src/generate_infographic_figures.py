@@ -808,3 +808,13 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"  [ERROR] Figure {name}: {e}")
             import traceback; traceback.print_exc()
+            errors.append((name, str(e)))
+
+    print("\n── File sizes ──────────────────────────────────────────────")
+    import glob, os
+    for fpath in sorted(glob.glob(f"{OUT_DIR}/fig_*.pdf")):
+        sz = os.path.getsize(fpath) / 1024
+        print(f"  {os.path.basename(fpath):45s}  {sz:7.1f} KB")
+    print()
+    for fpath in sorted(glob.glob(f"{OUT_DIR}/fig_*.png")):
+        sz = os.path.getsize(fpath) / 1024
