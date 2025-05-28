@@ -818,3 +818,12 @@ if __name__ == "__main__":
     print()
     for fpath in sorted(glob.glob(f"{OUT_DIR}/fig_*.png")):
         sz = os.path.getsize(fpath) / 1024
+        print(f"  {os.path.basename(fpath):45s}  {sz:7.1f} KB")
+
+    if errors:
+        print(f"\n{len(errors)} figure(s) failed:")
+        for name, err in errors:
+            print(f"  {name}: {err}")
+        sys.exit(1)
+    else:
+        print(f"\nAll 6 figures generated successfully.")
