@@ -8,3 +8,13 @@ Produces:
                                    10th-90th percentile uncertainty bands
 
 Nature Food formatting: Arial 7pt, 300 DPI, double-column 180mm = 7.09 in.
+
+Args (via CLI or direct run):
+    model_path: path to yield_model.pkl
+    feature_matrix_path: path to feature_matrix.parquet
+    projections_path: path to yield_projections_SSP245.parquet
+    output_dir: directory to write figures
+
+Returns:
+    Saves PDF + PNG for each figure; prints SHAP summary stats to stdout.
+
