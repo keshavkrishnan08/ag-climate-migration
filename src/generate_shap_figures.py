@@ -58,3 +58,13 @@ FONTSIZE_TICK = 6
 FONTSIZE_LABEL = 7
 
 NATURE_RC = {
+    "font.family":       "sans-serif",
+    "font.sans-serif":   ["Arial", "Helvetica", "DejaVu Sans"],
+    "font.size":         FONTSIZE_BASE,
+    "axes.labelsize":    FONTSIZE_LABEL,
+    "axes.titlesize":    FONTSIZE_LABEL,
+    "xtick.labelsize":   FONTSIZE_TICK,
+    "ytick.labelsize":   FONTSIZE_TICK,
+    "legend.fontsize":   FONTSIZE_TICK,
+    "lines.linewidth":   0.8,
+    "axes.linewidth":    0.5,
