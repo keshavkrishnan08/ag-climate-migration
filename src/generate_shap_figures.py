@@ -48,3 +48,13 @@ OUT_DIR          = os.path.join(BASE_DIR, "results/figures")
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # ---------------------------------------------------------------------------
+# Nature Food style constants
+# ---------------------------------------------------------------------------
+DOUBLE_COL_IN = 7.09        # 180 mm
+SINGLE_COL_IN = 3.43        # 87  mm
+DPI           = 300
+FONTSIZE_BASE = 7
+FONTSIZE_TICK = 6
+FONTSIZE_LABEL = 7
+
+NATURE_RC = {
