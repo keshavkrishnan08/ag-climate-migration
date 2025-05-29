@@ -38,3 +38,13 @@ from matplotlib.patches import Patch
 import shap
 
 # ---------------------------------------------------------------------------
+# Paths
+# ---------------------------------------------------------------------------
+BASE_DIR = "/Users/keshavkrishnan/Claude/Current/AgProject/ag_migration"
+MODEL_PATH       = os.path.join(BASE_DIR, "results/20260317_192605/yield_model.pkl")
+FEATURE_MATRIX   = os.path.join(BASE_DIR, "data/processed/feature_matrix.parquet")
+PROJECTIONS_PATH = os.path.join(BASE_DIR, "data/projections/yield_projections_SSP245.parquet")
+OUT_DIR          = os.path.join(BASE_DIR, "results/figures")
+os.makedirs(OUT_DIR, exist_ok=True)
+
+# ---------------------------------------------------------------------------
