@@ -68,3 +68,13 @@ NATURE_RC = {
     "legend.fontsize":   FONTSIZE_TICK,
     "lines.linewidth":   0.8,
     "axes.linewidth":    0.5,
+    "xtick.major.width": 0.5,
+    "ytick.major.width": 0.5,
+    "xtick.major.size":  2.0,
+    "ytick.major.size":  2.0,
+    "pdf.fonttype":      42,    # TrueType in PDF
+    "ps.fonttype":       42,
+}
+plt.rcParams.update(NATURE_RC)
+
+# Colorblind-safe palette (Wong 2011)
