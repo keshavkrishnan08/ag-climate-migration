@@ -78,3 +78,13 @@ NATURE_RC = {
 plt.rcParams.update(NATURE_RC)
 
 # Colorblind-safe palette (Wong 2011)
+BLUE   = "#0072B2"
+ORANGE = "#E69F00"
+GREEN  = "#009E73"
+RED    = "#D55E00"
+PURPLE = "#CC79A7"
+LBLUE  = "#56B4E9"
+YELLOW = "#F0E442"
+BLACK  = "#000000"
+
+REGION_COLORS = {
