@@ -88,3 +88,13 @@ YELLOW = "#F0E442"
 BLACK  = "#000000"
 
 REGION_COLORS = {
+    "Corn Belt":       BLUE,
+    "Southern Plains": ORANGE,
+    "Northern Plains": GREEN,
+    "Southeast":       RED,
+}
+
+# State FIPS for each region
+REGION_STATE_FIPS = {
+    "Corn Belt":       ["17", "18", "19", "39"],   # IL, IN, IA, OH
+    "Southern Plains": ["48", "40", "20"],           # TX, OK, KS
