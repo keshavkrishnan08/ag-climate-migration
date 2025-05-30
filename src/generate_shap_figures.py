@@ -98,3 +98,13 @@ REGION_COLORS = {
 REGION_STATE_FIPS = {
     "Corn Belt":       ["17", "18", "19", "39"],   # IL, IN, IA, OH
     "Southern Plains": ["48", "40", "20"],           # TX, OK, KS
+    "Northern Plains": ["38", "46", "31", "27"],    # ND, SD, NE, MN
+    "Southeast":       ["13", "01", "28", "45", "37"],  # GA, AL, MS, SC, NC
+}
+
+# Model features in order
+MODEL_FEATURES = [
+    "yield_trend_slope_15yr", "yield_trend_intercept",
+    "tmax_july_c", "tmax_growing_c", "tmin_growing_c",
+    "precip_growing", "pdsi_growing", "cdd_annual",
+    "gdd_corn", "gdd_soybeans", "gdd_wheat_winter", "gdd_wheat_spring",
