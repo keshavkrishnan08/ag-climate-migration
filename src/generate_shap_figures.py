@@ -108,3 +108,13 @@ MODEL_FEATURES = [
     "tmax_july_c", "tmax_growing_c", "tmin_growing_c",
     "precip_growing", "pdsi_growing", "cdd_annual",
     "gdd_corn", "gdd_soybeans", "gdd_wheat_winter", "gdd_wheat_spring",
+    "gdd_cotton", "gdd_sorghum", "gdd_barley", "gdd_oats",
+    "tmax_july_c_trend10", "precip_growing_trend10", "cdd_annual_trend10",
+    "tmax_july_c_anomaly", "precip_growing_anomaly", "pdsi_growing_anomaly",
+    "extreme_heat_months", "switching_rate_proxy", "switching_rate_5yr",
+    "log_population", "log_median_income", "poverty_rate",
+    "crop_barley", "crop_corn", "crop_cotton", "crop_oats",
+    "crop_sorghum", "crop_soybeans", "crop_wheat_spring", "crop_wheat_winter",
+]
+CROP_DUMMIES = [f for f in MODEL_FEATURES if f.startswith("crop_")]
+CROP_NAMES   = [c.replace("crop_", "") for c in CROP_DUMMIES]
