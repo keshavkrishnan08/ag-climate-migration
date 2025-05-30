@@ -128,3 +128,13 @@ def add_crop_dummies(df: pd.DataFrame) -> pd.DataFrame:
     Add binary crop dummy columns to match the 36-feature model schema.
 
     Args:
+        df: DataFrame with a 'crop' string column.
+
+    Returns:
+        df with new columns crop_barley, crop_corn, crop_cotton, etc.
+
+    Raises:
+        ValueError: if 'crop' column is absent.
+    """
+    if "crop" not in df.columns:
+        raise ValueError("DataFrame must have a 'crop' column")
