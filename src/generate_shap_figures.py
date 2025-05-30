@@ -118,3 +118,13 @@ MODEL_FEATURES = [
 ]
 CROP_DUMMIES = [f for f in MODEL_FEATURES if f.startswith("crop_")]
 CROP_NAMES   = [c.replace("crop_", "") for c in CROP_DUMMIES]
+
+
+# ---------------------------------------------------------------------------
+# Helper: one-hot encode crop column
+# ---------------------------------------------------------------------------
+def add_crop_dummies(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Add binary crop dummy columns to match the 36-feature model schema.
+
+    Args:
