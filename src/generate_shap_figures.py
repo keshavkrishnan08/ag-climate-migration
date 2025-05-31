@@ -138,3 +138,13 @@ def add_crop_dummies(df: pd.DataFrame) -> pd.DataFrame:
     """
     if "crop" not in df.columns:
         raise ValueError("DataFrame must have a 'crop' column")
+    for name in CROP_NAMES:
+        df[f"crop_{name}"] = (df["crop"] == name).astype(np.float32)
+    return df
+
+
+# ---------------------------------------------------------------------------
+# Load model + feature matrix; build test-set sample
+# ---------------------------------------------------------------------------
+def load_test_sample(n_per_crop: int = 500, seed: int = 42) -> tuple:
+    """
