@@ -148,3 +148,13 @@ def add_crop_dummies(df: pd.DataFrame) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 def load_test_sample(n_per_crop: int = 500, seed: int = 42) -> tuple:
     """
+    Load trained model and sample n_per_crop rows per crop from the test set.
+
+    Args:
+        n_per_crop: number of observations to sample per crop.
+        seed: random seed for reproducibility.
+
+    Returns:
+        (model, X_sample, df_sample) where X_sample is the 36-column numpy
+        array and df_sample retains all metadata columns.
+
