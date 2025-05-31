@@ -158,3 +158,13 @@ def load_test_sample(n_per_crop: int = 500, seed: int = 42) -> tuple:
         (model, X_sample, df_sample) where X_sample is the 36-column numpy
         array and df_sample retains all metadata columns.
 
+    Raises:
+        FileNotFoundError: if model or feature matrix path is missing.
+        ValueError: if MODEL_FEATURES columns are absent after encoding.
+    """
+    print("Loading model …")
+    with open(MODEL_PATH, "rb") as fh:
+        model = pickle.load(fh)
+
+    print("Loading feature matrix …")
+    fm = pd.read_parquet(FEATURE_MATRIX)
