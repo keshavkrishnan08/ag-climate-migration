@@ -168,3 +168,13 @@ def load_test_sample(n_per_crop: int = 500, seed: int = 42) -> tuple:
 
     print("Loading feature matrix …")
     fm = pd.read_parquet(FEATURE_MATRIX)
+
+    # Test split: 2017–2023 per CLAUDE.md temporal rules
+    test = fm[fm["year"].between(2017, 2023)].copy()
+
+    # Keep only the three focal crops
+    focal_crops = ["corn", "soybeans", "wheat_winter"]
+    test = test[test["crop"].isin(focal_crops)]
+
+    # One-hot encode
+    test = add_crop_dummies(test)
