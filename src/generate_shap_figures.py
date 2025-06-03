@@ -188,3 +188,13 @@ def load_test_sample(n_per_crop: int = 500, seed: int = 42) -> tuple:
         idx = rng.choice(sub.index, size=n, replace=False)
         parts.append(sub.loc[idx])
     df_sample = pd.concat(parts, ignore_index=True)
+
+    # Validate all features present
+    missing = [f for f in MODEL_FEATURES if f not in df_sample.columns]
+    if missing:
+        raise ValueError(f"Missing features after encoding: {missing}")
+
+    X_sample = df_sample[MODEL_FEATURES].values.astype(np.float32)
+    print(f"  Sample: {len(df_sample)} rows  ({n_per_crop}/crop × {len(focal_crops)} crops)")
+    return model, X_sample, df_sample
+
