@@ -198,3 +198,13 @@ def load_test_sample(n_per_crop: int = 500, seed: int = 42) -> tuple:
     print(f"  Sample: {len(df_sample)} rows  ({n_per_crop}/crop × {len(focal_crops)} crops)")
     return model, X_sample, df_sample
 
+
+# ---------------------------------------------------------------------------
+# Compute SHAP values
+# ---------------------------------------------------------------------------
+def compute_shap(model, X: np.ndarray) -> np.ndarray:
+    """
+    Compute SHAP values for X using TreeExplainer.
+
+    Args:
+        model: trained LightGBM regressor.
