@@ -178,3 +178,13 @@ def load_test_sample(n_per_crop: int = 500, seed: int = 42) -> tuple:
 
     # One-hot encode
     test = add_crop_dummies(test)
+
+    # Sample n_per_crop per crop (with replacement if needed)
+    rng = np.random.default_rng(seed)
+    parts = []
+    for crop in focal_crops:
+        sub = test[test["crop"] == crop]
+        n   = min(n_per_crop, len(sub))
+        idx = rng.choice(sub.index, size=n, replace=False)
+        parts.append(sub.loc[idx])
+    df_sample = pd.concat(parts, ignore_index=True)
