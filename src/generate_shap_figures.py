@@ -228,3 +228,13 @@ def compute_shap(model, X: np.ndarray) -> np.ndarray:
 # ---------------------------------------------------------------------------
 def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.ndarray):
     """
+    Plot SHAP dependence plots for tmax_july_c (corn) and precip_growing (soybeans).
+
+    Panel A: tmax_july_c vs corn yield anomaly SHAP. Should reveal a non-linear
+             cliff around 30–32°C where heat stress sharply cuts yield.
+    Panel B: precip_growing vs soybeans yield anomaly SHAP.
+
+    Args:
+        df_sample: metadata DataFrame (crop column, etc.).
+        shap_values: (n, 36) SHAP values.
+        X_sample: (n, 36) raw feature values.
