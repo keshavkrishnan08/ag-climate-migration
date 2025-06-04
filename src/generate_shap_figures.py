@@ -248,3 +248,13 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
     prec_idx    = feat_idx["precip_growing"]
     cdd_idx     = feat_idx["cdd_annual"]
     pdsi_idx    = feat_idx["pdsi_growing"]
+
+    # Masks for each crop
+    is_corn = (df_sample["crop"] == "corn").values
+    is_soy  = (df_sample["crop"] == "soybeans").values
+
+    # Panel A uses tmax_july_c_anomaly — the feature that most cleanly captures
+    # the yield cliff. The model splits heat-stress signal across absolute tmax
+    # and tmax anomaly; the anomaly feature shows the strongest negative-SHAP
+    # response to above-normal heat (>+1 °C anomaly → large SHAP loss).
+    corn_tmax_abs = X_sample[is_corn, tmax_idx]      # absolute T for x-axis label
