@@ -218,3 +218,13 @@ def compute_shap(model, X: np.ndarray) -> np.ndarray:
     """
     print("Computing SHAP values …")
     explainer   = shap.TreeExplainer(model)
+    shap_values = explainer.shap_values(X)
+    print(f"  SHAP array shape: {shap_values.shape}")
+    return shap_values
+
+
+# ---------------------------------------------------------------------------
+# Figure 3 — Yield cliff
+# ---------------------------------------------------------------------------
+def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.ndarray):
+    """
