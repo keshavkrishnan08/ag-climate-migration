@@ -238,3 +238,13 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
         df_sample: metadata DataFrame (crop column, etc.).
         shap_values: (n, 36) SHAP values.
         X_sample: (n, 36) raw feature values.
+
+    Returns:
+        None — saves PDF and PNG to OUT_DIR.
+    """
+    feat_idx    = {f: i for i, f in enumerate(MODEL_FEATURES)}
+    tmax_idx    = feat_idx["tmax_july_c"]
+    tanom_idx   = feat_idx["tmax_july_c_anomaly"]
+    prec_idx    = feat_idx["precip_growing"]
+    cdd_idx     = feat_idx["cdd_annual"]
+    pdsi_idx    = feat_idx["pdsi_growing"]
