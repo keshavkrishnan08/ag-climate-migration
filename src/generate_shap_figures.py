@@ -208,3 +208,13 @@ def compute_shap(model, X: np.ndarray) -> np.ndarray:
 
     Args:
         model: trained LightGBM regressor.
+        X: (n, 36) feature matrix.
+
+    Returns:
+        shap_values: (n, 36) numpy array of SHAP values.
+
+    Raises:
+        RuntimeError: if SHAP computation fails.
+    """
+    print("Computing SHAP values …")
+    explainer   = shap.TreeExplainer(model)
