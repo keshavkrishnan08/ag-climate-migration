@@ -258,3 +258,13 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
     # and tmax anomaly; the anomaly feature shows the strongest negative-SHAP
     # response to above-normal heat (>+1 °C anomaly → large SHAP loss).
     corn_tmax_abs = X_sample[is_corn, tmax_idx]      # absolute T for x-axis label
+    corn_tanom    = X_sample[is_corn, tanom_idx]      # anomaly for the main axis
+    corn_shap_abs = shap_values[is_corn, tmax_idx]    # SHAP for absolute tmax
+    corn_shap_an  = shap_values[is_corn, tanom_idx]   # SHAP for anomaly
+    corn_cdd      = X_sample[is_corn, cdd_idx]        # colour-by for panel A
+
+    soy_prec    = X_sample[is_soy, prec_idx]
+    soy_shap    = shap_values[is_soy, prec_idx]
+    soy_pdsi    = X_sample[is_soy, pdsi_idx]   # colour-by for panel B
+
+    # Print full cliff analysis
