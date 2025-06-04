@@ -268,3 +268,13 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
     soy_pdsi    = X_sample[is_soy, pdsi_idx]   # colour-by for panel B
 
     # Print full cliff analysis
+    print(f"\n--- Temperature cliff analysis (corn) ---")
+    print(f"  Absolute tmax range: {corn_tmax_abs.min():.1f}–{corn_tmax_abs.max():.1f}°C")
+    print(f"  Anomaly range: {corn_tanom.min():.2f}–{corn_tanom.max():.2f}°C")
+    # Absolute tmax SHAP by bin
+    for lo, hi, label in [(23,29,"<29"), (29,31,"29-31"), (31,33,"31-33"), (33,50,">33")]:
+        m = (corn_tmax_abs >= lo) & (corn_tmax_abs < hi)
+        if m.sum() > 2:
+            print(f"  Absolute tmax {label}°C: mean SHAP(tmax_abs) = {corn_shap_abs[m].mean():+.4f}  "
+                  f"mean SHAP(tmax_anom) = {corn_shap_an[m].mean():+.4f}  (n={m.sum()})")
+    # Anomaly SHAP: the real cliff signal
