@@ -288,3 +288,13 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
 
     # --- Figure layout ---
     fig, axes = plt.subplots(
+        1, 2,
+        figsize=(DOUBLE_COL_IN, DOUBLE_COL_IN * 0.42),
+        constrained_layout=True,
+    )
+
+    # ── Panel A: tmax_july_c_anomaly vs corn SHAP ────────────────────────
+    # We plot the anomaly feature because the model splits heat-stress signal
+    # across absolute tmax and anomaly. The anomaly feature captures the yield
+    # cliff most clearly: strongly negative SHAP when tmax is >+1°C above normal.
+    # The x-axis also shows equivalent absolute temperature (adding mean ~30.7°C).
