@@ -318,3 +318,13 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
     window      = max(5, len(xs) // 20)
     ys_smooth   = pd.Series(ys).rolling(window, center=True, min_periods=3).median().values
     ax.plot(xs, ys_smooth, color=RED, lw=1.4, zorder=5, label="Smoothed median")
+
+    # Reference lines at key anomaly thresholds
+    ax.axhline(0, color="black", lw=0.5, ls="--", alpha=0.5)
+    ax.axvline(0, color=PURPLE, lw=0.7, ls=":", alpha=0.8, label="Normal (anomaly = 0)")
+    ax.axvline(1.0, color=RED, lw=0.7, ls=":", alpha=0.8, label="+1°C anomaly cliff")
+
+    ax.set_xlabel("July Tmax anomaly from 10-yr mean (°C)", fontsize=FONTSIZE_LABEL)
+    ax.set_ylabel("SHAP value\n(contribution to yield anomaly)", fontsize=FONTSIZE_LABEL)
+    ax.set_title("A  Heat stress — corn yield", fontsize=FONTSIZE_LABEL, fontweight="bold", loc="left")
+    ax.legend(fontsize=FONTSIZE_TICK - 0.5, handlelength=1.2, frameon=False)
