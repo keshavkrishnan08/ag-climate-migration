@@ -298,3 +298,13 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
     # across absolute tmax and anomaly. The anomaly feature captures the yield
     # cliff most clearly: strongly negative SHAP when tmax is >+1°C above normal.
     # The x-axis also shows equivalent absolute temperature (adding mean ~30.7°C).
+    corn_tmax_abs_mean = corn_tmax_abs.mean()
+
+    ax = axes[0]
+    sc = ax.scatter(
+        corn_tanom, corn_shap_an,
+        c=corn_tmax_abs, cmap="YlOrRd",
+        s=5, alpha=0.55, linewidths=0, rasterized=True,
+        vmin=25, vmax=38,
+    )
+    cb = fig.colorbar(sc, ax=ax, pad=0.02, shrink=0.85)
