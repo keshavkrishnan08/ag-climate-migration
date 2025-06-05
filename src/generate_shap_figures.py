@@ -308,3 +308,13 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
         vmin=25, vmax=38,
     )
     cb = fig.colorbar(sc, ax=ax, pad=0.02, shrink=0.85)
+    cb.set_label("July Tmax absolute (°C)", fontsize=FONTSIZE_TICK)
+    cb.ax.tick_params(labelsize=FONTSIZE_TICK)
+
+    # Smoothed trend line (rolling median on sorted anomaly)
+    sort_idx    = np.argsort(corn_tanom)
+    xs          = corn_tanom[sort_idx]
+    ys          = corn_shap_an[sort_idx]
+    window      = max(5, len(xs) // 20)
+    ys_smooth   = pd.Series(ys).rolling(window, center=True, min_periods=3).median().values
+    ax.plot(xs, ys_smooth, color=RED, lw=1.4, zorder=5, label="Smoothed median")
