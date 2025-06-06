@@ -338,3 +338,13 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
         vmin=-3, vmax=3,
     )
     cb2 = fig.colorbar(sc2, ax=ax, pad=0.02, shrink=0.85)
+    cb2.set_label("PDSI (growing season)", fontsize=FONTSIZE_TICK)
+    cb2.ax.tick_params(labelsize=FONTSIZE_TICK)
+
+    sort_idx2  = np.argsort(soy_prec)
+    xs2        = soy_prec[sort_idx2]
+    ys2        = soy_shap[sort_idx2]
+    window2    = max(5, len(xs2) // 20)
+    ys_smooth2 = pd.Series(ys2).rolling(window2, center=True, min_periods=3).median().values
+    ax.plot(xs2, ys_smooth2, color=BLUE, lw=1.4, zorder=5, label="Smoothed median")
+
