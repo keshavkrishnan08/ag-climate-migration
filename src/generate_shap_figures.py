@@ -328,3 +328,13 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
     ax.set_ylabel("SHAP value\n(contribution to yield anomaly)", fontsize=FONTSIZE_LABEL)
     ax.set_title("A  Heat stress — corn yield", fontsize=FONTSIZE_LABEL, fontweight="bold", loc="left")
     ax.legend(fontsize=FONTSIZE_TICK - 0.5, handlelength=1.2, frameon=False)
+
+    # ── Panel B: precip_growing vs soybeans ──────────────────────────────
+    ax = axes[1]
+    sc2 = ax.scatter(
+        soy_prec, soy_shap,
+        c=soy_pdsi, cmap="RdYlBu",
+        s=5, alpha=0.55, linewidths=0, rasterized=True,
+        vmin=-3, vmax=3,
+    )
+    cb2 = fig.colorbar(sc2, ax=ax, pad=0.02, shrink=0.85)
