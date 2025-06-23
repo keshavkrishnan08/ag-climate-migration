@@ -368,3 +368,13 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
 
 
 # ---------------------------------------------------------------------------
+# Figure 11 — Regional uncertainty
+# ---------------------------------------------------------------------------
+def plot_fig11():
+    """
+    Plot yield projection trajectories 2025–2050 for four regions with
+    10th–90th percentile uncertainty bands.
+
+    Reads yield_projections_SSP245.parquet, aggregates by region using
+    area-weighted means, and expresses change as percent from 2025 baseline.
+
