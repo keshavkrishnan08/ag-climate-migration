@@ -378,3 +378,13 @@ def plot_fig11():
     Reads yield_projections_SSP245.parquet, aggregates by region using
     area-weighted means, and expresses change as percent from 2025 baseline.
 
+    Args:
+        None
+
+    Returns:
+        None — saves PDF and PNG to OUT_DIR.
+
+    Raises:
+        FileNotFoundError: if projections path is missing.
+    """
+    print("\nBuilding Figure 11 (uncertainty bands) …")
