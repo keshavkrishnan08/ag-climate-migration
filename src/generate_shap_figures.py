@@ -348,3 +348,13 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
     ys_smooth2 = pd.Series(ys2).rolling(window2, center=True, min_periods=3).median().values
     ax.plot(xs2, ys_smooth2, color=BLUE, lw=1.4, zorder=5, label="Smoothed median")
 
+    ax.axhline(0, color="black", lw=0.5, ls="--", alpha=0.5)
+    ax.set_xlabel("Growing-season precipitation (mm)", fontsize=FONTSIZE_LABEL)
+    ax.set_ylabel("SHAP value\n(contribution to yield anomaly)", fontsize=FONTSIZE_LABEL)
+    ax.set_title("B  Drought stress — soybean yield", fontsize=FONTSIZE_LABEL, fontweight="bold", loc="left")
+    ax.legend(fontsize=FONTSIZE_TICK - 0.5, handlelength=1.2, frameon=False)
+
+    for ax_ in axes:
+        ax_.tick_params(axis="both", which="major", labelsize=FONTSIZE_TICK)
+        for spine in ax_.spines.values():
+            spine.set_linewidth(0.5)
