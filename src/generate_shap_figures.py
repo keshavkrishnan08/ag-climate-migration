@@ -358,3 +358,13 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
         ax_.tick_params(axis="both", which="major", labelsize=FONTSIZE_TICK)
         for spine in ax_.spines.values():
             spine.set_linewidth(0.5)
+
+    # Save
+    base = os.path.join(OUT_DIR, "fig03_yield_cliff")
+    fig.savefig(base + ".pdf", dpi=DPI, bbox_inches="tight")
+    fig.savefig(base + ".png", dpi=DPI, bbox_inches="tight")
+    plt.close(fig)
+    print(f"\nSaved: {base}.pdf / .png")
+
+
+# ---------------------------------------------------------------------------
