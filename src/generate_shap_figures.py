@@ -428,3 +428,13 @@ def plot_fig11():
             w = grp_clean["acres_harvested"].fillna(1.0).clip(lower=1.0)
             ymed   = np.average(grp_clean["yield_projected"], weights=w)
             ybase  = np.average(grp_clean["yield_baseline"], weights=w)
+            yp10   = np.average(grp_clean["yield_p10"], weights=w)
+            yp90   = np.average(grp_clean["yield_p90"], weights=w)
+            records.append({"year": yr, "yield_med": ymed, "yield_base": ybase,
+                            "yield_p10": yp10, "yield_p90": yp90})
+        ts = pd.DataFrame(records).sort_values("year")
+
+        # Baseline = 2025 mean projected yield for this region
+        baseline_yield = ts.loc[ts["year"] == ts["year"].min(), "yield_med"].values
+        if len(baseline_yield) == 0:
+            baseline_yield = ts["yield_med"].iloc[0]
