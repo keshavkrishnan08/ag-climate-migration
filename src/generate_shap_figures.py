@@ -388,3 +388,13 @@ def plot_fig11():
         FileNotFoundError: if projections path is missing.
     """
     print("\nBuilding Figure 11 (uncertainty bands) …")
+    proj = pd.read_parquet(PROJECTIONS_PATH)
+
+    # Derive state FIPS from 5-digit county FIPS
+    proj["state_fips"] = proj["fips"].astype(str).str.zfill(5).str[:2]
+
+    # Focus on corn for comparability with Fig 3
+    proj_corn = proj[proj["crop"] == "corn"].copy()
+
+    years = sorted(proj_corn["year"].unique())
+
