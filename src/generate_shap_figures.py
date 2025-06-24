@@ -408,3 +408,13 @@ def plot_fig11():
 
     region_names = list(REGION_STATE_FIPS.keys())
 
+    for panel_i, region in enumerate(region_names):
+        ax = axes_flat[panel_i]
+        color = REGION_COLORS[region]
+        state_list = REGION_STATE_FIPS[region]
+
+        sub = proj_corn[proj_corn["state_fips"].isin(state_list)]
+
+        if sub.empty:
+            ax.set_title(f"{region} (no data)", fontsize=FONTSIZE_LABEL)
+            continue
