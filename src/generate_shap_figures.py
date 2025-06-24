@@ -398,3 +398,13 @@ def plot_fig11():
 
     years = sorted(proj_corn["year"].unique())
 
+    fig, axes = plt.subplots(
+        2, 2,
+        figsize=(DOUBLE_COL_IN, DOUBLE_COL_IN * 0.75),
+        constrained_layout=True,
+        sharey=False,
+    )
+    axes_flat = axes.flatten()
+
+    region_names = list(REGION_STATE_FIPS.keys())
+
