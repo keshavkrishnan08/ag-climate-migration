@@ -418,3 +418,13 @@ def plot_fig11():
         if sub.empty:
             ax.set_title(f"{region} (no data)", fontsize=FONTSIZE_LABEL)
             continue
+
+        # Area-weighted aggregation per year; drop NaN projected values first
+        records = []
+        for yr, grp in sub.groupby("year"):
+            grp_clean = grp.dropna(subset=["yield_projected", "yield_p10", "yield_p90"])
+            if len(grp_clean) == 0:
+                continue
+            w = grp_clean["acres_harvested"].fillna(1.0).clip(lower=1.0)
+            ymed   = np.average(grp_clean["yield_projected"], weights=w)
+            ybase  = np.average(grp_clean["yield_baseline"], weights=w)
