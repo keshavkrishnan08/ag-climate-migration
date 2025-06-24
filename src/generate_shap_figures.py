@@ -448,3 +448,13 @@ def plot_fig11():
 
         ax.fill_between(
             ts["year"], ts["pct_p10"], ts["pct_p90"],
+            color=color, alpha=0.20, label="10th–90th pct.",
+        )
+        ax.plot(ts["year"], ts["pct_med"], color=color, lw=1.2,
+                label="Median (SSP2-4.5)")
+        ax.axhline(0, color="black", lw=0.5, ls="--", alpha=0.6)
+
+        ax.set_title(
+            f"{'ABCD'[panel_i]}  {region}",
+            fontsize=FONTSIZE_LABEL, fontweight="bold", loc="left",
+        )
