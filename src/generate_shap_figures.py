@@ -438,3 +438,13 @@ def plot_fig11():
         baseline_yield = ts.loc[ts["year"] == ts["year"].min(), "yield_med"].values
         if len(baseline_yield) == 0:
             baseline_yield = ts["yield_med"].iloc[0]
+        else:
+            baseline_yield = baseline_yield[0]
+
+        # Express as % change from 2025
+        ts["pct_med"] = (ts["yield_med"] - baseline_yield) / baseline_yield * 100
+        ts["pct_p10"] = (ts["yield_p10"] - baseline_yield) / baseline_yield * 100
+        ts["pct_p90"] = (ts["yield_p90"] - baseline_yield) / baseline_yield * 100
+
+        ax.fill_between(
+            ts["year"], ts["pct_p10"], ts["pct_p90"],
