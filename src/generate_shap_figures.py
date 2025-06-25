@@ -478,3 +478,13 @@ def plot_fig11():
             ax.legend(handles, ["Median (SSP2-4.5)", "10–90th pct."],
                       fontsize=FONTSIZE_TICK - 0.5, frameon=False)
 
+        for spine in ax.spines.values():
+            spine.set_linewidth(0.5)
+
+    # Save
+    base = os.path.join(OUT_DIR, "fig11_uncertainty")
+    fig.savefig(base + ".pdf", dpi=DPI, bbox_inches="tight")
+    fig.savefig(base + ".png", dpi=DPI, bbox_inches="tight")
+    plt.close(fig)
+    print(f"\nSaved: {base}.pdf / .png")
+
