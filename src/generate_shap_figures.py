@@ -498,3 +498,13 @@ def main():
     model, X_sample, df_sample = load_test_sample(n_per_crop=500, seed=42)
     shap_values = compute_shap(model, X_sample)
 
+    # Print top-10 global feature importances from SHAP
+    mean_abs = np.abs(shap_values).mean(axis=0)
+    feat_imp = sorted(zip(MODEL_FEATURES, mean_abs), key=lambda x: -x[1])
+    print("\n--- Top 10 global SHAP importances ---")
+    for f, v in feat_imp[:10]:
+        print(f"  {f:<35s}: {v:.4f}")
+
+    plot_fig03(df_sample, shap_values, X_sample)
+
+    # --- Fig 11 (projections) ---
