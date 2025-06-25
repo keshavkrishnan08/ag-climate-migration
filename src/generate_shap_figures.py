@@ -488,3 +488,13 @@ def plot_fig11():
     plt.close(fig)
     print(f"\nSaved: {base}.pdf / .png")
 
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+def main():
+    """Load model, compute SHAP, generate figures 3 and 11."""
+    # --- Fig 3 (SHAP dependence) ---
+    model, X_sample, df_sample = load_test_sample(n_per_crop=500, seed=42)
+    shap_values = compute_shap(model, X_sample)
+
