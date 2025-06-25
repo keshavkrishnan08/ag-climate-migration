@@ -468,3 +468,13 @@ def plot_fig11():
         final = ts[ts["year"] == ts["year"].max()].iloc[0]
         print(f"  {region}: 2050 median {final['pct_med']:+.1f}%  "
               f"[{final['pct_p10']:+.1f}%, {final['pct_p90']:+.1f}%]")
+
+        # Legend only on first panel
+        if panel_i == 0:
+            handles = [
+                plt.Line2D([0], [0], color=color, lw=1.2),
+                Patch(facecolor=color, alpha=0.25, label="10–90th pct."),
+            ]
+            ax.legend(handles, ["Median (SSP2-4.5)", "10–90th pct."],
+                      fontsize=FONTSIZE_TICK - 0.5, frameon=False)
+
