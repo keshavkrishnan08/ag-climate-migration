@@ -508,3 +508,10 @@ def main():
     plot_fig03(df_sample, shap_values, X_sample)
 
     # --- Fig 11 (projections) ---
+    plot_fig11()
+
+    print("\nAll figures written to:", OUT_DIR)
+
+
+if __name__ == "__main__":
+    main()
