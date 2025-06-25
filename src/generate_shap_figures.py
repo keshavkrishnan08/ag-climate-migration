@@ -458,3 +458,13 @@ def plot_fig11():
             f"{'ABCD'[panel_i]}  {region}",
             fontsize=FONTSIZE_LABEL, fontweight="bold", loc="left",
         )
+        ax.set_xlabel("Year", fontsize=FONTSIZE_LABEL)
+        ax.set_ylabel("Yield change from 2025 (%)", fontsize=FONTSIZE_LABEL)
+        ax.tick_params(axis="both", which="major", labelsize=FONTSIZE_TICK)
+        ax.yaxis.set_major_formatter(mticker.FormatStrFormatter("%+.0f%%"))
+        ax.set_xlim(2025, 2050)
+
+        # Print stats
+        final = ts[ts["year"] == ts["year"].max()].iloc[0]
+        print(f"  {region}: 2050 median {final['pct_med']:+.1f}%  "
+              f"[{final['pct_p10']:+.1f}%, {final['pct_p90']:+.1f}%]")
