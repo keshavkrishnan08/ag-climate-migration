@@ -1,0 +1,10 @@
+"""Incremental hedonic decomposition of stranded farmland value.
+
+Decomposes the hedonic stranded estimate by adding channels incrementally:
+  Model 1: Climate only (tmax_july + tmax_july^2 + precip_growing + state FE)
+  Model 2: + Demographics (log_pop + log_income)
+  Model 3: + Soil proxy (max historical yield, normalized by crop)
+
+Each model's stranded estimate is computed by applying CMIP6 SSP2-4.5 warming
+deltas to the fitted model. Channel contributions = stranded_N - stranded_{N-1}.
+The gap between Model 3 and DCF central ($105B) is the 'unmodeled channels' gap.
