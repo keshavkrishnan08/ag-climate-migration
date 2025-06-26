@@ -8,3 +8,13 @@ Decomposes the hedonic stranded estimate by adding channels incrementally:
 Each model's stranded estimate is computed by applying CMIP6 SSP2-4.5 warming
 deltas to the fitted model. Channel contributions = stranded_N - stranded_{N-1}.
 The gap between Model 3 and DCF central ($105B) is the 'unmodeled channels' gap.
+
+Output:
+    results/decomposition/incremental_hedonic.json
+
+Author: Keshav Krishnan | 2026-03-19
+"""
+
+import json
+import sys
+from pathlib import Path
