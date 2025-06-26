@@ -38,3 +38,13 @@ GROWING_MONTHS = [4, 5, 6, 7, 8, 9]
 CPI_2022 = 296.8
 CPI_2023 = 304.7
 DEFLATOR_2022 = CPI_2023 / CPI_2022
+
+# Winsorize land values at 1st/99th pctile
+LAND_VALUE_UPPER_PCTILE = 99
+LAND_VALUE_LOWER_PCTILE = 1
+
+# DCF central estimate (from state/headline_numbers.json)
+DCF_CENTRAL_B = 105.1
+
+# USDA Census of Agriculture 2022: total acres in farms by state FIPS
+USDA_STATE_FARM_ACRES_2022 = {
