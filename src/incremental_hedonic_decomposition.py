@@ -58,3 +58,13 @@ USDA_STATE_FARM_ACRES_2022 = {
     '36': 6_900_000, '37': 8_500_000,  '38': 38_800_000, '39': 13_800_000,
     '40': 33_800_000, '41': 16_400_000, '42': 7_300_000, '44': 70_000,
     '45': 4_700_000, '46': 43_200_000, '47': 10_900_000, '48': 127_000_000,
+    '49': 11_000_000, '50': 1_300_000, '51': 7_900_000,  '53': 15_100_000,
+    '54': 3_600_000, '55': 14_200_000, '56': 29_500_000,
+}
+
+
+def build_soil_proxy(nass_yields: pd.DataFrame) -> pd.DataFrame:
+    """Build soil quality proxy from max historical (pre-2010) yield by county.
+
+    For each county, compute the crop-normalized maximum yield across all
+    crops in the pre-2010 training period. This captures inherent soil
