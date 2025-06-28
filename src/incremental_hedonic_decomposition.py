@@ -68,3 +68,13 @@ def build_soil_proxy(nass_yields: pd.DataFrame) -> pd.DataFrame:
 
     For each county, compute the crop-normalized maximum yield across all
     crops in the pre-2010 training period. This captures inherent soil
+    productivity that's correlated with land value but not captured by
+    climate or demographic controls.
+
+    Strategy:
+      1. Filter NASS to 1990-2009 (historical, training-split era).
+      2. Max yield per county-crop (peak capacity, not average).
+      3. Z-score each crop's max yield across counties (removes unit differences
+         between corn bu/ac, cotton lb/ac, etc.).
+      4. Take the mean z-score across crops for each county → single soil index.
+
