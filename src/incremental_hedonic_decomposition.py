@@ -78,3 +78,13 @@ def build_soil_proxy(nass_yields: pd.DataFrame) -> pd.DataFrame:
          between corn bu/ac, cotton lb/ac, etc.).
       4. Take the mean z-score across crops for each county → single soil index.
 
+    Args:
+        nass_yields: NASS county yields (fips, year, crop, yield_bu_acre).
+
+    Returns:
+        DataFrame with fips and soil_index (z-scored, mean 0, std ~1).
+    """
+    logger.info("Building soil quality proxy from historical yields...")
+
+    hist = nass_yields[nass_yields['year'].between(1990, 2009)].copy()
+    hist = hist.dropna(subset=['yield_bu_acre'])
