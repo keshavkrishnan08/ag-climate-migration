@@ -88,3 +88,13 @@ def build_soil_proxy(nass_yields: pd.DataFrame) -> pd.DataFrame:
 
     hist = nass_yields[nass_yields['year'].between(1990, 2009)].copy()
     hist = hist.dropna(subset=['yield_bu_acre'])
+
+    # Max yield per county-crop
+    max_yield = (
+        hist.groupby(['fips', 'crop'])['yield_bu_acre']
+        .max()
+        .reset_index()
+        .rename(columns={'yield_bu_acre': 'max_yield'})
+    )
+
+    # Z-score within each crop (across counties)
