@@ -108,3 +108,13 @@ def build_soil_proxy(nass_yields: pd.DataFrame) -> pd.DataFrame:
 
     max_yield['yield_z'] = max_yield.groupby('crop')['max_yield'].transform(zscore)
 
+    # County-level mean z-score across crops (soil index)
+    soil = (
+        max_yield.groupby('fips')['yield_z']
+        .mean()
+        .reset_index()
+        .rename(columns={'yield_z': 'soil_index'})
+    )
+
+    logger.info(
+        f"  Soil proxy: {len(soil)} counties, "
