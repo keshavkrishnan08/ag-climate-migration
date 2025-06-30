@@ -98,3 +98,13 @@ def build_soil_proxy(nass_yields: pd.DataFrame) -> pd.DataFrame:
     )
 
     # Z-score within each crop (across counties)
+    def zscore(x):
+        """Z-score a series, return NaN if std is 0."""
+        mu = x.mean()
+        sd = x.std()
+        if sd == 0 or np.isnan(sd):
+            return x * 0
+        return (x - mu) / sd
+
+    max_yield['yield_z'] = max_yield.groupby('crop')['max_yield'].transform(zscore)
+
