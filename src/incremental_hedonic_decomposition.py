@@ -118,3 +118,13 @@ def build_soil_proxy(nass_yields: pd.DataFrame) -> pd.DataFrame:
 
     logger.info(
         f"  Soil proxy: {len(soil)} counties, "
+        f"mean={soil['soil_index'].mean():.3f}, "
+        f"std={soil['soil_index'].std():.3f}"
+    )
+    return soil
+
+
+def build_cross_section(
+    land_values: pd.DataFrame,
+    climate_monthly: pd.DataFrame,
+    acs: pd.DataFrame,
