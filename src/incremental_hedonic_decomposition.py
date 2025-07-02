@@ -158,3 +158,13 @@ def build_cross_section(
         .mean()
         .reset_index()
     )
+    lo = np.percentile(lv_cs['land_value_per_acre'], LAND_VALUE_LOWER_PCTILE)
+    hi = np.percentile(lv_cs['land_value_per_acre'], LAND_VALUE_UPPER_PCTILE)
+    lv_cs = lv_cs[lv_cs['land_value_per_acre'].between(lo, hi)].copy()
+    logger.info(f"  Land values: {len(lv_cs)} counties (winsorized [{lo:.0f}, {hi:.0f}])")
+
+    # --- Climate: 2019-2023 average ---
+    clim = climate_monthly[climate_monthly['year'].between(2019, 2023)].copy()
+    precip_cols = [f'precip_m{m:02d}' for m in GROWING_MONTHS]
+    clim['precip_growing'] = clim[precip_cols].sum(axis=1)
+    clim['tmax_july'] = clim['tmax_m07']
