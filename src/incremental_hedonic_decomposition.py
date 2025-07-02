@@ -138,3 +138,13 @@ def build_cross_section(
     Args:
         land_values: NASS land values (fips, year, land_value_per_acre).
         climate_monthly: PRISM monthly climate (fips, year, tmax_m*, precip_m*).
+        acs: ACS demographics (fips, year, total_population,
+             median_household_income).
+        nass_yields: NASS county yields (fips, year, crop, yield_bu_acre,
+                     acres_harvested).
+
+    Returns:
+        DataFrame with one row per county: fips, state_fips, log_land_value,
+        tmax_july, tmax_july_sq, precip_growing, log_pop, log_income,
+        soil_index, farm_acres, land_value_per_acre.
+    """
