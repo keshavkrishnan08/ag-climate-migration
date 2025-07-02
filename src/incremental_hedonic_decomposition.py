@@ -188,3 +188,13 @@ def build_cross_section(
     nass_r = nass_yields[nass_yields['year'].between(2017, 2022)].copy()
     max_by = nass_r.groupby(['fips', 'year'])['acres_harvested'].max()
     farm_df = (
+        max_by.groupby('fips').mean().reset_index()
+        .rename(columns={'acres_harvested': 'max_crop_acres'})
+    )
+    farm_df['state'] = farm_df['fips'].str[:2]
+    state_totals = farm_df.groupby('state')['max_crop_acres'].sum()
+    calib = {}
+    for st, usda in USDA_STATE_FARM_ACRES_2022.items():
+        our = state_totals.get(st, 0)
+        calib[st] = usda / our if our > 0 else 5.0
+    farm_df['farm_acres'] = farm_df['max_crop_acres'] * farm_df['state'].map(calib).fillna(5.0)
