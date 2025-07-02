@@ -168,3 +168,13 @@ def build_cross_section(
     precip_cols = [f'precip_m{m:02d}' for m in GROWING_MONTHS]
     clim['precip_growing'] = clim[precip_cols].sum(axis=1)
     clim['tmax_july'] = clim['tmax_m07']
+    clim_cs = (
+        clim.groupby('fips')[['tmax_july', 'precip_growing']]
+        .mean()
+        .reset_index()
+    )
+    logger.info(f"  Climate: {len(clim_cs)} counties (2019-2023 avg)")
+
+    # --- ACS: 2019-2023 average ---
+    acs_w = acs[acs['year'].between(2019, 2023)].copy()
+    acs_cs = (
