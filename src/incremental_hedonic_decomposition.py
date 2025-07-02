@@ -128,3 +128,13 @@ def build_cross_section(
     land_values: pd.DataFrame,
     climate_monthly: pd.DataFrame,
     acs: pd.DataFrame,
+    nass_yields: pd.DataFrame,
+) -> pd.DataFrame:
+    """Build county-level cross-section for incremental hedonic regression.
+
+    Uses 2017/2022 land values (2023 USD), 2019-2023 climate averages,
+    2019-2023 ACS demographics, and pre-2010 historical yield soil proxy.
+
+    Args:
+        land_values: NASS land values (fips, year, land_value_per_acre).
+        climate_monthly: PRISM monthly climate (fips, year, tmax_m*, precip_m*).
