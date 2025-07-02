@@ -148,3 +148,13 @@ def build_cross_section(
         tmax_july, tmax_july_sq, precip_growing, log_pop, log_income,
         soil_index, farm_acres, land_value_per_acre.
     """
+    logger.info("Building cross-section for incremental hedonic...")
+
+    # --- Land value: 2017 and 2022, deflated to 2023 USD ---
+    lv = land_values[land_values['year'].isin([2017, 2022])].copy()
+    lv.loc[lv['year'] == 2022, 'land_value_per_acre'] *= DEFLATOR_2022
+    lv_cs = (
+        lv.groupby('fips')['land_value_per_acre']
+        .mean()
+        .reset_index()
+    )
