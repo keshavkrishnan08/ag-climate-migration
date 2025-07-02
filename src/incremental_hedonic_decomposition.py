@@ -178,3 +178,13 @@ def build_cross_section(
     # --- ACS: 2019-2023 average ---
     acs_w = acs[acs['year'].between(2019, 2023)].copy()
     acs_cs = (
+        acs_w.groupby('fips')[['total_population', 'median_household_income']]
+        .mean()
+        .reset_index()
+    )
+    logger.info(f"  ACS: {len(acs_cs)} counties (2019-2023 avg)")
+
+    # --- Farm acres: calibrated to USDA 2022 state totals ---
+    nass_r = nass_yields[nass_yields['year'].between(2017, 2022)].copy()
+    max_by = nass_r.groupby(['fips', 'year'])['acres_harvested'].max()
+    farm_df = (
