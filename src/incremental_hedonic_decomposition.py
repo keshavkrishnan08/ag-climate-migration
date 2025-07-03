@@ -238,3 +238,13 @@ def compute_stranded_from_model(
     target_year: int = 2050,
 ) -> float:
     """Apply projected warming to a fitted hedonic model and compute stranded value.
+
+    Holds all non-climate variables constant. Only propagates the temperature
+    effect (tmax_july + tmax_july_sq) through the fitted coefficients.
+
+    Args:
+        df: Cross-section DataFrame with land values and farm acres.
+        result: Fitted OLS result (statsmodels).
+        climate_proj: CMIP6 projections with delta_tmax_july for target_year.
+        formula_vars: List of variable names in the model (to filter fips).
+        target_year: Year of warming delta to apply (2040 or 2050).
