@@ -258,3 +258,13 @@ def compute_stranded_from_model(
         return float('nan')
 
     df_proj = df.merge(
+        proj_yr[['fips', 'delta_tmax_july', 'delta_precip_growing']],
+        on='fips',
+        how='inner',
+    ).copy()
+
+    if df_proj.empty:
+        logger.warning("No matched counties for stranded calculation")
+        return float('nan')
+
+    # Only propagate temperature through the climate coefficients
