@@ -228,3 +228,13 @@ def build_cross_section(
 
     logger.info(f"  Final cross-section: {len(df)} counties")
     return df
+
+
+def compute_stranded_from_model(
+    df: pd.DataFrame,
+    result,
+    climate_proj: pd.DataFrame,
+    formula_vars: list,
+    target_year: int = 2050,
+) -> float:
+    """Apply projected warming to a fitted hedonic model and compute stranded value.
