@@ -208,3 +208,13 @@ def build_cross_section(
 
     # --- Merge ---
     df = lv_cs.merge(clim_cs, on='fips', how='inner')
+    df = df.merge(acs_cs, on='fips', how='inner')
+    df = df.merge(farm_df[['fips', 'farm_acres']], on='fips', how='left')
+    df = df.merge(soil, on='fips', how='left')
+
+    # --- Derived variables ---
+    df['tmax_july_sq'] = df['tmax_july'] ** 2
+    df['log_land_value'] = np.log(df['land_value_per_acre'])
+    df['log_pop'] = np.log(df['total_population'].clip(lower=1))
+    df['log_income'] = np.log(df['median_household_income'].clip(lower=1))
+    df['state_fips'] = df['fips'].str[:2]
