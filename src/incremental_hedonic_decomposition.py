@@ -248,3 +248,13 @@ def compute_stranded_from_model(
         climate_proj: CMIP6 projections with delta_tmax_july for target_year.
         formula_vars: List of variable names in the model (to filter fips).
         target_year: Year of warming delta to apply (2040 or 2050).
+
+    Returns:
+        Total stranded value in $B (losses only, gains not netted out).
+    """
+    proj_yr = climate_proj[climate_proj['year'] == target_year].copy()
+    if proj_yr.empty:
+        logger.warning(f"No projections for {target_year}")
+        return float('nan')
+
+    df_proj = df.merge(
