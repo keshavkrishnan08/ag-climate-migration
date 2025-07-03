@@ -278,3 +278,13 @@ def compute_stranded_from_model(
     # (holds precip, demographics, soil constant)
     df_proj['climate_hat_current'] = (
         b_T * df_proj['tmax_july'] +
+        b_T2 * df_proj['tmax_july_sq']
+    )
+    df_proj['climate_hat_proj'] = (
+        b_T * df_proj['tmax_july_proj'] +
+        b_T2 * df_proj['tmax_july_sq_proj']
+    )
+
+    df_proj['delta_log_lv'] = df_proj['climate_hat_current'] - df_proj['climate_hat_proj']
+    df_proj['delta_lv_per_acre'] = (
+        df_proj['land_value_per_acre'] * (1 - np.exp(-df_proj['delta_log_lv']))
