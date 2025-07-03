@@ -218,3 +218,13 @@ def build_cross_section(
     df['log_pop'] = np.log(df['total_population'].clip(lower=1))
     df['log_income'] = np.log(df['median_household_income'].clip(lower=1))
     df['state_fips'] = df['fips'].str[:2]
+
+    # Filters
+    df = df.dropna(subset=['log_land_value', 'tmax_july', 'precip_growing'])
+    df = df[df['total_population'] > 0]
+    df = df[df['median_household_income'] > 0]
+    df = df[df['tmax_july'] > 30]
+    df = df[df['precip_growing'] >= 0]
+
+    logger.info(f"  Final cross-section: {len(df)} counties")
+    return df
