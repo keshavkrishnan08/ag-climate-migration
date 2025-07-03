@@ -268,3 +268,13 @@ def compute_stranded_from_model(
         return float('nan')
 
     # Only propagate temperature through the climate coefficients
+    b_T = result.params.get('tmax_july', 0.0)
+    b_T2 = result.params.get('tmax_july_sq', 0.0)
+
+    df_proj['tmax_july_proj'] = df_proj['tmax_july'] + df_proj['delta_tmax_july']
+    df_proj['tmax_july_sq_proj'] = df_proj['tmax_july_proj'] ** 2
+
+    # Delta in log-land-value from temperature change only
+    # (holds precip, demographics, soil constant)
+    df_proj['climate_hat_current'] = (
+        b_T * df_proj['tmax_july'] +
