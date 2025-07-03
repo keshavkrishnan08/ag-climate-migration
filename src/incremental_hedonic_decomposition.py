@@ -198,3 +198,13 @@ def build_cross_section(
         our = state_totals.get(st, 0)
         calib[st] = usda / our if our > 0 else 5.0
     farm_df['farm_acres'] = farm_df['max_crop_acres'] * farm_df['state'].map(calib).fillna(5.0)
+    logger.info(
+        f"  Farm acres: {len(farm_df)} counties, "
+        f"total={farm_df['farm_acres'].sum()/1e9:.2f}B acres"
+    )
+
+    # --- Soil proxy ---
+    soil = build_soil_proxy(nass_yields)
+
+    # --- Merge ---
+    df = lv_cs.merge(clim_cs, on='fips', how='inner')
