@@ -318,3 +318,13 @@ def run_incremental_hedonic() -> dict:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # --- Load data ---
+    logger.info("Loading data...")
+
+    land_values = pd.read_parquet(
+        DATA_RAW / 'nass' / 'nass_land_values.parquet',
+        columns=['fips', 'year', 'land_value_per_acre'],
+    )
+    climate_monthly = pd.read_parquet(
+        DATA_RAW / 'prism' / 'county_climate_monthly.parquet',
+        columns=(
+            ['fips', 'year', 'tmax_m07'] +
