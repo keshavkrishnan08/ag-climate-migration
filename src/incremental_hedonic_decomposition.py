@@ -288,3 +288,13 @@ def compute_stranded_from_model(
     df_proj['delta_log_lv'] = df_proj['climate_hat_current'] - df_proj['climate_hat_proj']
     df_proj['delta_lv_per_acre'] = (
         df_proj['land_value_per_acre'] * (1 - np.exp(-df_proj['delta_log_lv']))
+    )
+
+    df_proj['farm_acres'] = df_proj['farm_acres'].fillna(0)
+    df_proj['stranded_total'] = df_proj['delta_lv_per_acre'] * df_proj['farm_acres']
+
+    stranded_B = df_proj[df_proj['stranded_total'] > 0]['stranded_total'].sum() / 1e9
+    n_counties = len(df_proj)
+    n_stranded = (df_proj['stranded_total'] > 0).sum()
+
+    logger.info(
