@@ -308,3 +308,13 @@ def run_incremental_hedonic() -> dict:
     """Run three incremental hedonic regressions and compute channel decomposition.
 
     Returns:
+        Dict with results for each model and channel contributions.
+    """
+    logger.info("=" * 60)
+    logger.info("INCREMENTAL HEDONIC DECOMPOSITION")
+    logger.info("=" * 60)
+
+    output_dir = RESULTS_DIR / 'decomposition'
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # --- Load data ---
