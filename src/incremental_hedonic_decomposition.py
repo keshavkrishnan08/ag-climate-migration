@@ -298,3 +298,13 @@ def compute_stranded_from_model(
     n_stranded = (df_proj['stranded_total'] > 0).sum()
 
     logger.info(
+        f"    Counties: {n_counties} matched, {n_stranded} stranded, "
+        f"total stranded=${stranded_B:.1f}B"
+    )
+    return float(stranded_B)
+
+
+def run_incremental_hedonic() -> dict:
+    """Run three incremental hedonic regressions and compute channel decomposition.
+
+    Returns:
