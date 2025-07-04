@@ -328,3 +328,13 @@ def run_incremental_hedonic() -> dict:
         DATA_RAW / 'prism' / 'county_climate_monthly.parquet',
         columns=(
             ['fips', 'year', 'tmax_m07'] +
+            [f'precip_m{m:02d}' for m in GROWING_MONTHS]
+        ),
+    )
+    acs = pd.read_parquet(
+        DATA_RAW / 'census' / 'acs_county_demographics.parquet',
+        columns=['fips', 'year', 'total_population', 'median_household_income'],
+    )
+    nass_yields = pd.read_parquet(
+        DATA_RAW / 'nass' / 'nass_county_yields.parquet',
+        columns=['fips', 'year', 'crop', 'yield_bu_acre', 'acres_harvested'],
