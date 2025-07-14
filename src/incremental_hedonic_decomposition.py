@@ -378,3 +378,13 @@ def run_incremental_hedonic() -> dict:
         3: {
             'label': 'Climate + Demographics + Soil',
             'formula': (
+                'log_land_value ~ tmax_july + tmax_july_sq + precip_growing '
+                '+ log_pop + log_income + soil_index + C(state_fips)'
+            ),
+            'channels': ['tmax_july', 'tmax_july_sq', 'precip_growing', 'log_pop', 'log_income', 'soil_index'],
+        },
+    }
+
+    results = {}
+
+    for model_num, spec in models.items():
