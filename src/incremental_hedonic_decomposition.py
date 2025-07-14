@@ -368,3 +368,13 @@ def run_incremental_hedonic() -> dict:
             'channels': ['tmax_july', 'tmax_july_sq', 'precip_growing'],
         },
         2: {
+            'label': 'Climate + Demographics',
+            'formula': (
+                'log_land_value ~ tmax_july + tmax_july_sq + precip_growing '
+                '+ log_pop + log_income + C(state_fips)'
+            ),
+            'channels': ['tmax_july', 'tmax_july_sq', 'precip_growing', 'log_pop', 'log_income'],
+        },
+        3: {
+            'label': 'Climate + Demographics + Soil',
+            'formula': (
