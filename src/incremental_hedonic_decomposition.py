@@ -348,3 +348,13 @@ def run_incremental_hedonic() -> dict:
     logger.info(
         f"  Loaded: {len(land_values)} land value rows, "
         f"{len(climate_monthly)} climate rows, "
+        f"{len(acs)} ACS rows, "
+        f"{len(nass_yields)} NASS rows, "
+        f"{len(climate_proj)} projection rows"
+    )
+
+    # --- Build cross-section ---
+    df = build_cross_section(land_values, climate_monthly, acs, nass_yields)
+    n_full = len(df)
+
+    # --- Define models ---
