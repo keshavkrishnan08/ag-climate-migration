@@ -358,3 +358,13 @@ def run_incremental_hedonic() -> dict:
     n_full = len(df)
 
     # --- Define models ---
+    models = {
+        1: {
+            'label': 'Climate only',
+            'formula': (
+                'log_land_value ~ tmax_july + tmax_july_sq + precip_growing '
+                '+ C(state_fips)'
+            ),
+            'channels': ['tmax_july', 'tmax_july_sq', 'precip_growing'],
+        },
+        2: {
