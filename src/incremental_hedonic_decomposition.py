@@ -388,3 +388,13 @@ def run_incremental_hedonic() -> dict:
     results = {}
 
     for model_num, spec in models.items():
+        logger.info(f"\n{'='*40}")
+        logger.info(f"Model {model_num}: {spec['label']}")
+        logger.info(f"{'='*40}")
+
+        # Use only counties with complete data for this model's variables
+        # (soil_index may be NaN for some counties)
+        needed_cols = ['log_land_value', 'tmax_july', 'precip_growing', 'land_value_per_acre', 'farm_acres']
+        if 'log_pop' in spec['formula']:
+            needed_cols += ['log_pop', 'log_income']
+        if 'soil_index' in spec['formula']:
