@@ -418,3 +418,13 @@ def run_incremental_hedonic() -> dict:
         for var in ['tmax_july', 'tmax_july_sq', 'precip_growing', 'log_pop', 'log_income', 'soil_index']:
             if var in res.params:
                 coef = res.params[var]
+                se = res.bse[var]
+                pval = res.pvalues[var]
+                stars = '***' if pval < 0.01 else ('**' if pval < 0.05 else ('*' if pval < 0.1 else ''))
+                logger.info(f"  {var:22s}: coef={coef:+.5f}  SE={se:.5f}  p={pval:.4f}{stars}")
+
+        # Compute stranded value for 2050 SSP245
+        logger.info(f"  Computing stranded value (2050, SSP245)...")
+        stranded_B = compute_stranded_from_model(df_m, res, climate_proj, spec['channels'], target_year=2050)
+        logger.info(f"  Stranded value (Model {model_num}): ${stranded_B:.1f}B")
+
