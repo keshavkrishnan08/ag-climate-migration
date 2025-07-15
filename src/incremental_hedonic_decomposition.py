@@ -408,3 +408,13 @@ def run_incremental_hedonic() -> dict:
         model = smf.ols(formula=spec['formula'], data=df_m)
         res = model.fit(cov_type='HC3')
 
+        r2 = float(res.rsquared)
+        r2_adj = float(res.rsquared_adj)
+        n_obs = int(res.nobs)
+
+        logger.info(f"  R² = {r2:.4f}  |  Adj R² = {r2_adj:.4f}  |  N = {n_obs}")
+
+        # Log key coefficients
+        for var in ['tmax_july', 'tmax_july_sq', 'precip_growing', 'log_pop', 'log_income', 'soil_index']:
+            if var in res.params:
+                coef = res.params[var]
