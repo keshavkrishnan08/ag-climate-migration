@@ -398,3 +398,13 @@ def run_incremental_hedonic() -> dict:
         if 'log_pop' in spec['formula']:
             needed_cols += ['log_pop', 'log_income']
         if 'soil_index' in spec['formula']:
+            needed_cols += ['soil_index']
+
+        df_m = df.dropna(subset=needed_cols).copy()
+        n_m = len(df_m)
+        logger.info(f"  Sample: {n_m} counties")
+
+        # Fit OLS with HC3 standard errors
+        model = smf.ols(formula=spec['formula'], data=df_m)
+        res = model.fit(cov_type='HC3')
+
