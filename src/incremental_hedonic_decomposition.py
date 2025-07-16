@@ -458,3 +458,13 @@ def run_incremental_hedonic() -> dict:
     soil_contribution_B = s3 - s2
     unmodeled_gap_B = s3 - DCF_CENTRAL_B
 
+    logger.info("\n" + "=" * 60)
+    logger.info("INCREMENTAL DECOMPOSITION SUMMARY")
+    logger.info("=" * 60)
+    logger.info(f"  Model 1 (climate only):       R²={results[1]['r2']:.3f}, stranded=${s1:.1f}B")
+    logger.info(f"  Model 2 (+ demographics):     R²={results[2]['r2']:.3f}, stranded=${s2:.1f}B")
+    logger.info(f"    → Demographic contribution: ${demographic_contribution_B:+.1f}B")
+    logger.info(f"  Model 3 (+ soil):             R²={results[3]['r2']:.3f}, stranded=${s3:.1f}B")
+    logger.info(f"    → Soil contribution:        ${soil_contribution_B:+.1f}B")
+    logger.info(f"  DCF central:                  ${DCF_CENTRAL_B:.1f}B")
+    logger.info(f"  Unmodeled gap (Model3 - DCF): ${unmodeled_gap_B:+.1f}B")
