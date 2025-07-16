@@ -478,3 +478,13 @@ def run_incremental_hedonic() -> dict:
             'HC3 heteroskedasticity-robust standard errors throughout.'
         ),
         'dcf_central_B': DCF_CENTRAL_B,
+        'models': {
+            'model_1': results[1],
+            'model_2': results[2],
+            'model_3': results[3],
+        },
+        'channel_contributions': {
+            'climate_channel_B': float(s1),
+            'demographic_channel_B': float(demographic_contribution_B),
+            'soil_channel_B': float(soil_contribution_B),
+            'model3_total_B': float(s3),
