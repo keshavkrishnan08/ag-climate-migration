@@ -468,3 +468,13 @@ def run_incremental_hedonic() -> dict:
     logger.info(f"    → Soil contribution:        ${soil_contribution_B:+.1f}B")
     logger.info(f"  DCF central:                  ${DCF_CENTRAL_B:.1f}B")
     logger.info(f"  Unmodeled gap (Model3 - DCF): ${unmodeled_gap_B:+.1f}B")
+
+    # --- Save results ---
+    output = {
+        'method': (
+            'Incremental hedonic regression — each model adds one channel group. '
+            'Stranded value computed by applying CMIP6 SSP2-4.5 2050 warming deltas '
+            'to the temperature coefficients only (holding other variables constant). '
+            'HC3 heteroskedasticity-robust standard errors throughout.'
+        ),
+        'dcf_central_B': DCF_CENTRAL_B,
