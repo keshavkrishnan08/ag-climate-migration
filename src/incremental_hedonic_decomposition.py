@@ -428,3 +428,13 @@ def run_incremental_hedonic() -> dict:
         stranded_B = compute_stranded_from_model(df_m, res, climate_proj, spec['channels'], target_year=2050)
         logger.info(f"  Stranded value (Model {model_num}): ${stranded_B:.1f}B")
 
+        # Store coefficients
+        coef_dict = {}
+        for var in ['tmax_july', 'tmax_july_sq', 'precip_growing', 'log_pop', 'log_income', 'soil_index']:
+            if var in res.params:
+                coef_dict[var] = {
+                    'coef': float(res.params[var]),
+                    'se': float(res.bse[var]),
+                    'pvalue': float(res.pvalues[var]),
+                }
+
