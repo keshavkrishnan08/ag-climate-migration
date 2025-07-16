@@ -448,3 +448,13 @@ def run_incremental_hedonic() -> dict:
             'stranded_2050_B': stranded_B,
             'coefficients': coef_dict,
         }
+
+    # --- Compute channel contributions ---
+    s1 = results[1]['stranded_2050_B']
+    s2 = results[2]['stranded_2050_B']
+    s3 = results[3]['stranded_2050_B']
+
+    demographic_contribution_B = s2 - s1
+    soil_contribution_B = s3 - s2
+    unmodeled_gap_B = s3 - DCF_CENTRAL_B
+
