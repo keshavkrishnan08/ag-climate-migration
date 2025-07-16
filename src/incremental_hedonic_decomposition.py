@@ -438,3 +438,13 @@ def run_incremental_hedonic() -> dict:
                     'pvalue': float(res.pvalues[var]),
                 }
 
+        results[model_num] = {
+            'label': spec['label'],
+            'formula': spec['formula'],
+            'n_counties': n_m,
+            'r2': r2,
+            'r2_adj': r2_adj,
+            'n_obs': n_obs,
+            'stranded_2050_B': stranded_B,
+            'coefficients': coef_dict,
+        }
