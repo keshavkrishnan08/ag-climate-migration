@@ -488,3 +488,13 @@ def run_incremental_hedonic() -> dict:
             'demographic_channel_B': float(demographic_contribution_B),
             'soil_channel_B': float(soil_contribution_B),
             'model3_total_B': float(s3),
+            'unmodeled_gap_B': float(unmodeled_gap_B),
+        },
+        'r2_by_model': {
+            'model_1_climate_only': float(results[1]['r2']),
+            'model_2_plus_demographics': float(results[2]['r2']),
+            'model_3_plus_soil': float(results[3]['r2']),
+        },
+        'interpretation': {
+            'model_1_note': (
+                'Climate only (tmax_july, tmax_july^2, precip_growing + state FE). '
