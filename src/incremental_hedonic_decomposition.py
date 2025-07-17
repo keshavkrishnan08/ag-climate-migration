@@ -498,3 +498,13 @@ def run_incremental_hedonic() -> dict:
         'interpretation': {
             'model_1_note': (
                 'Climate only (tmax_july, tmax_july^2, precip_growing + state FE). '
+                'Pure climate signal in land value.'
+            ),
+            'model_2_note': (
+                'Adding log_pop and log_income. Demographic controls absorb '
+                'urban proximity and income effects, isolating agricultural climate response.'
+            ),
+            'model_3_note': (
+                'Adding soil_index (mean z-scored max historical yield 1990-2009). '
+                'Controls for inherent soil productivity correlated with land value.'
+            ),
