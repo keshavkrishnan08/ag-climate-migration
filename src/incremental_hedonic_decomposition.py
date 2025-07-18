@@ -508,3 +508,13 @@ def run_incremental_hedonic() -> dict:
                 'Adding soil_index (mean z-scored max historical yield 1990-2009). '
                 'Controls for inherent soil productivity correlated with land value.'
             ),
+            'unmodeled_gap_note': (
+                f'Model 3 stranded (${s3:.1f}B) vs DCF central (${DCF_CENTRAL_B:.1f}B). '
+                'Remaining gap reflects channels not captured by either model: '
+                'livestock/dairy heat stress, water availability, amenity premia, '
+                'and specialty crops — consistent with prior literature estimates.'
+            ),
+        },
+    }
+
+    out_path = output_dir / 'incremental_hedonic.json'
