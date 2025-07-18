@@ -518,3 +518,12 @@ def run_incremental_hedonic() -> dict:
     }
 
     out_path = output_dir / 'incremental_hedonic.json'
+    with open(out_path, 'w') as f:
+        json.dump(output, f, indent=2)
+    logger.info(f"\nSaved: {out_path}")
+
+    return output
+
+
+if __name__ == '__main__':
+    run_incremental_hedonic()
