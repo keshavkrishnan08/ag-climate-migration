@@ -28,3 +28,13 @@ import statsmodels.formula.api as smf
 
 warnings.filterwarnings("ignore")
 
+# ---------------------------------------------------------------------------
+# Paths
+# ---------------------------------------------------------------------------
+ROOT = Path(__file__).resolve().parents[1]
+RESULTS_DIR = ROOT / "results" / "stranded_assets"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_PATH = RESULTS_DIR / "market_efficiency_test.json"
+
+LV_PATH = ROOT / "data" / "raw" / "nass" / "nass_land_values.parquet"
+CP_PATH = ROOT / "data" / "projections" / "county_climate_projections.parquet"
