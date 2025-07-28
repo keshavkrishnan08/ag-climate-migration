@@ -38,3 +38,13 @@ OUTPUT_PATH = RESULTS_DIR / "market_efficiency_test.json"
 
 LV_PATH = ROOT / "data" / "raw" / "nass" / "nass_land_values.parquet"
 CP_PATH = ROOT / "data" / "projections" / "county_climate_projections.parquet"
+ACS_PATH = ROOT / "data" / "raw" / "census" / "acs_county_demographics.parquet"
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def load_land_value_change(
+    path: Path,
+    year_early: int = 2012,
