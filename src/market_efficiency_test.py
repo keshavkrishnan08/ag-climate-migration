@@ -48,3 +48,13 @@ ACS_PATH = ROOT / "data" / "raw" / "census" / "acs_county_demographics.parquet"
 def load_land_value_change(
     path: Path,
     year_early: int = 2012,
+    year_late: int = 2022,
+) -> pd.DataFrame:
+    """Compute county-level change in log farmland value per acre.
+
+    Uses the two Census-of-Agriculture years that bracket ~2015 to ~2023.
+    NASS land-value surveys are conducted every 5 years; 2012 and 2022 are
+    the closest available years to the requested window.
+
+    Args:
+        path: Path to nass_land_values.parquet.
