@@ -58,3 +58,13 @@ def load_land_value_change(
 
     Args:
         path: Path to nass_land_values.parquet.
+        year_early: Starting year for change (default 2012).
+        year_late: Ending year for change (default 2022).
+
+    Returns:
+        DataFrame with columns [fips, dlog_land_value, lv_early, lv_late].
+
+    Raises:
+        FileNotFoundError: If the parquet file is missing.
+        ValueError: If requested years are absent in the data.
+    """
