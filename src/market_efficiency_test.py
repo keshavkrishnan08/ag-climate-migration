@@ -108,3 +108,13 @@ def load_climate_warming(
     scenario: str = "SSP245",
     year: int = 2040,
 ) -> pd.DataFrame:
+    """Load projected July Tmax warming by county for a target year.
+
+    Args:
+        path: Path to county_climate_projections.parquet.
+        scenario: Climate scenario string (default 'SSP245').
+        year: Projection year for forward-looking warming signal (default 2040).
+
+    Returns:
+        DataFrame with columns [fips, delta_tmax_july_2040].
+
