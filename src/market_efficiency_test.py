@@ -88,3 +88,13 @@ def load_land_value_change(
         lv[lv["year"] == year_early]
         .set_index("fips")["land_value_per_acre"]
         .rename("lv_early")
+    )
+    late = (
+        lv[lv["year"] == year_late]
+        .set_index("fips")["land_value_per_acre"]
+        .rename("lv_late")
+    )
+
+    df = pd.concat([early, late], axis=1).dropna()
+    # Require strictly positive values to take logs
+    df = df[(df["lv_early"] > 0) & (df["lv_late"] > 0)]
