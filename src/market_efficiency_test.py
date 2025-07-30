@@ -128,3 +128,13 @@ def load_climate_warming(
     cp = cp[(cp["year"] == year) & (cp["scenario"] == scenario)].copy()
     cp = cp.rename(columns={"delta_tmax_july": f"delta_tmax_july_{year}"})
     return cp[["fips", f"delta_tmax_july_{year}"]].drop_duplicates("fips")
+
+
+def load_acs_changes(
+    path: Path,
+    year_early: int = 2015,
+    year_late: int = 2023,
+) -> pd.DataFrame:
+    """Compute county-level changes in log population and log income.
+
+    Args:
