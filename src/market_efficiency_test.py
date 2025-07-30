@@ -78,3 +78,13 @@ def load_land_value_change(
     if year_early not in available_years:
         raise ValueError(
             f"year_early={year_early} not in data; available: {available_years}"
+        )
+    if year_late not in available_years:
+        raise ValueError(
+            f"year_late={year_late} not in data; available: {available_years}"
+        )
+
+    early = (
+        lv[lv["year"] == year_early]
+        .set_index("fips")["land_value_per_acre"]
+        .rename("lv_early")
