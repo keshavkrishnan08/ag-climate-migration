@@ -148,3 +148,13 @@ def load_acs_changes(
     Raises:
         FileNotFoundError: If the parquet file is missing.
         ValueError: If requested years are absent.
+    """
+    acs = pd.read_parquet(
+        path,
+        columns=["fips", "year", "total_population", "median_household_income"],
+    )
+    available = sorted(acs["year"].unique())
+    if year_early not in available:
+        raise ValueError(f"year_early={year_early} not in ACS; available: {available}")
+    if year_late not in available:
+        raise ValueError(f"year_late={year_late} not in ACS; available: {available}")
