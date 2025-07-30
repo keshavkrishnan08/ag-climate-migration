@@ -138,3 +138,13 @@ def load_acs_changes(
     """Compute county-level changes in log population and log income.
 
     Args:
+        path: Path to acs_county_demographics.parquet.
+        year_early: Starting ACS year (default 2015).
+        year_late: Ending ACS year (default 2023).
+
+    Returns:
+        DataFrame with columns [fips, dlog_pop, dlog_income].
+
+    Raises:
+        FileNotFoundError: If the parquet file is missing.
+        ValueError: If requested years are absent.
