@@ -118,3 +118,13 @@ def load_climate_warming(
     Returns:
         DataFrame with columns [fips, delta_tmax_july_2040].
 
+    Raises:
+        FileNotFoundError: If the parquet file is missing.
+    """
+    cp = pd.read_parquet(
+        path,
+        columns=["fips", "year", "scenario", "delta_tmax_july"],
+    )
+    cp = cp[(cp["year"] == year) & (cp["scenario"] == scenario)].copy()
+    cp = cp.rename(columns={"delta_tmax_july": f"delta_tmax_july_{year}"})
+    return cp[["fips", f"delta_tmax_july_{year}"]].drop_duplicates("fips")
