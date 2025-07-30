@@ -98,3 +98,13 @@ def load_land_value_change(
     df = pd.concat([early, late], axis=1).dropna()
     # Require strictly positive values to take logs
     df = df[(df["lv_early"] > 0) & (df["lv_late"] > 0)]
+    df["dlog_land_value"] = np.log(df["lv_late"]) - np.log(df["lv_early"])
+    df = df.reset_index().rename(columns={"index": "fips"})
+    return df[["fips", "dlog_land_value", "lv_early", "lv_late"]]
+
+
+def load_climate_warming(
+    path: Path,
+    scenario: str = "SSP245",
+    year: int = 2040,
+) -> pd.DataFrame:
