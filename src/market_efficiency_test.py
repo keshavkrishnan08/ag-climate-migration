@@ -68,3 +68,13 @@ def load_land_value_change(
         FileNotFoundError: If the parquet file is missing.
         ValueError: If requested years are absent in the data.
     """
+    lv = pd.read_parquet(path, columns=["fips", "year", "land_value_per_acre"])
+    # Filter county-level rows only (exclude state aggregates)
+    lv = lv[lv["fips"].str.len() == 5].copy()
+    # Drop FIPS ending in 998/999 (NASS sub-state aggregates)
+    lv = lv[~lv["fips"].str[-3:].isin(["998", "999"])]
+
+    available_years = sorted(lv["year"].unique())
+    if year_early not in available_years:
+        raise ValueError(
+            f"year_early={year_early} not in data; available: {available_years}"
