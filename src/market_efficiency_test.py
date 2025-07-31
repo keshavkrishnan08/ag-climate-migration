@@ -188,3 +188,13 @@ def build_state_fips(fips_series: pd.Series) -> pd.Series:
     Returns:
         Series of 2-digit state FIPS strings.
     """
+    return fips_series.str[:2]
+
+
+def interpret_result(beta: float, pvalue: float, alpha: float = 0.05) -> str:
+    """Map regression coefficient and p-value to an economic interpretation.
+
+    Args:
+        beta: OLS coefficient on delta_tmax_july_2040.
+        pvalue: Two-sided p-value for the coefficient.
+        alpha: Significance threshold (default 0.05).
