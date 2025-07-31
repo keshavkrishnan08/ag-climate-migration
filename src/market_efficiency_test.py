@@ -218,3 +218,13 @@ def interpret_result(beta: float, pvalue: float, alpha: float = 0.05) -> str:
             "the degree of market anticipation already embedded in prices."
         )
     # beta > 0 and significant
+    return (
+        f"Markets are moving AGAINST climate signals (β₁={beta:.4f}, "
+        f"p={pvalue:.4f}). Counties facing more warming show HIGHER appreciation. "
+        "This implies even greater stranding than our baseline estimates."
+    )
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
