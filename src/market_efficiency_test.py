@@ -208,3 +208,13 @@ def interpret_result(beta: float, pvalue: float, alpha: float = 0.05) -> str:
             "Markets are NOT pricing climate risk (β₁ not significant). "
             "Land values have appreciated independently of projected warming. "
             "This validates the 'stranded asset' framing: current prices do not "
+            "reflect forward-looking climate exposure."
+        )
+    if beta < 0:
+        return (
+            f"Markets are PARTIALLY pricing climate risk (β₁={beta:.4f}, "
+            f"p={pvalue:.4f}). Counties with greater projected warming show "
+            "lower appreciation. Stranded-value estimates should be reduced by "
+            "the degree of market anticipation already embedded in prices."
+        )
+    # beta > 0 and significant
