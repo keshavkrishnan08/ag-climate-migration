@@ -178,3 +178,13 @@ def load_acs_changes(
     df["dlog_income"] = np.log(df[f"inc_{year_late}"]) - np.log(df[f"inc_{year_early}"])
     return df.reset_index()[["fips", "dlog_pop", "dlog_income"]]
 
+
+def build_state_fips(fips_series: pd.Series) -> pd.Series:
+    """Extract 2-digit state FIPS from 5-digit county FIPS.
+
+    Args:
+        fips_series: Series of 5-digit county FIPS strings.
+
+    Returns:
+        Series of 2-digit state FIPS strings.
+    """
