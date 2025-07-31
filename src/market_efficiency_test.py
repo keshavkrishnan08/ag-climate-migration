@@ -158,3 +158,13 @@ def load_acs_changes(
         raise ValueError(f"year_early={year_early} not in ACS; available: {available}")
     if year_late not in available:
         raise ValueError(f"year_late={year_late} not in ACS; available: {available}")
+
+    def _slice(y: int) -> pd.DataFrame:
+        return (
+            acs[acs["year"] == y]
+            .set_index("fips")[["total_population", "median_household_income"]]
+            .rename(columns={
+                "total_population": f"pop_{y}",
+                "median_household_income": f"inc_{y}",
+            })
+        )
