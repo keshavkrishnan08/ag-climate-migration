@@ -198,3 +198,13 @@ def interpret_result(beta: float, pvalue: float, alpha: float = 0.05) -> str:
         beta: OLS coefficient on delta_tmax_july_2040.
         pvalue: Two-sided p-value for the coefficient.
         alpha: Significance threshold (default 0.05).
+
+    Returns:
+        String interpretation for the paper.
+    """
+    significant = pvalue < alpha
+    if not significant:
+        return (
+            "Markets are NOT pricing climate risk (β₁ not significant). "
+            "Land values have appreciated independently of projected warming. "
+            "This validates the 'stranded asset' framing: current prices do not "
