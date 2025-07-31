@@ -168,3 +168,13 @@ def load_acs_changes(
                 "median_household_income": f"inc_{y}",
             })
         )
+
+    early = _slice(year_early)
+    late = _slice(year_late)
+    df = pd.concat([early, late], axis=1).dropna()
+    df = df[(df[f"pop_{year_early}"] > 0) & (df[f"pop_{year_late}"] > 0)]
+    df = df[(df[f"inc_{year_early}"] > 0) & (df[f"inc_{year_late}"] > 0)]
+    df["dlog_pop"] = np.log(df[f"pop_{year_late}"]) - np.log(df[f"pop_{year_early}"])
+    df["dlog_income"] = np.log(df[f"inc_{year_late}"]) - np.log(df[f"inc_{year_early}"])
+    return df.reset_index()[["fips", "dlog_pop", "dlog_income"]]
+
