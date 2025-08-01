@@ -238,3 +238,13 @@ def run_market_efficiency_test() -> dict:
     Raises:
         FileNotFoundError: If any required data file is missing.
     """
+    print("Loading land values (2012 → 2022)...")
+    lv_df = load_land_value_change(LV_PATH, year_early=2012, year_late=2022)
+    print(f"  Land value counties: {len(lv_df):,}")
+
+    print("Loading climate projections (SSP245, 2040)...")
+    cp_df = load_climate_warming(CP_PATH, scenario="SSP245", year=2040)
+    print(f"  Climate counties: {len(cp_df):,}")
+
+    print("Loading ACS demographics (2015 → 2023)...")
+    acs_df = load_acs_changes(ACS_PATH, year_early=2015, year_late=2023)
