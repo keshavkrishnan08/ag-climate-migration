@@ -248,3 +248,13 @@ def run_market_efficiency_test() -> dict:
 
     print("Loading ACS demographics (2015 → 2023)...")
     acs_df = load_acs_changes(ACS_PATH, year_early=2015, year_late=2023)
+    print(f"  ACS counties: {len(acs_df):,}")
+
+    # ------------------------------------------------------------------
+    # Merge
+    # ------------------------------------------------------------------
+    print("Merging datasets on FIPS...")
+    df = (
+        lv_df
+        .merge(cp_df, on="fips", how="inner")
+        .merge(acs_df, on="fips", how="inner")
