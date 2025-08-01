@@ -258,3 +258,13 @@ def run_market_efficiency_test() -> dict:
         lv_df
         .merge(cp_df, on="fips", how="inner")
         .merge(acs_df, on="fips", how="inner")
+    )
+    print(f"  Post-merge counties: {len(df):,}")
+
+    # State fixed effects
+    df["state_fips"] = build_state_fips(df["fips"])
+    n_states = df["state_fips"].nunique()
+    print(f"  States represented: {n_states}")
+
+    # Drop counties with extreme outliers (>10 SD) in dependent variable
+    mu = df["dlog_land_value"].mean()
