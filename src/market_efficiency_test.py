@@ -228,3 +228,13 @@ def interpret_result(beta: float, pvalue: float, alpha: float = 0.05) -> str:
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
+
+def run_market_efficiency_test() -> dict:
+    """Run the full market efficiency test and return results as a dict.
+
+    Returns:
+        Dict with regression statistics, interpretation, and metadata.
+
+    Raises:
+        FileNotFoundError: If any required data file is missing.
+    """
