@@ -268,3 +268,13 @@ def run_market_efficiency_test() -> dict:
 
     # Drop counties with extreme outliers (>10 SD) in dependent variable
     mu = df["dlog_land_value"].mean()
+    sd = df["dlog_land_value"].std()
+    outlier_mask = (df["dlog_land_value"] - mu).abs() > 10 * sd
+    n_outliers = outlier_mask.sum()
+    if n_outliers > 0:
+        print(f"  Dropping {n_outliers} extreme outliers in dlog_land_value")
+        df = df[~outlier_mask].copy()
+
+    N = len(df)
+    print(f"  Final N = {N:,}")
+
