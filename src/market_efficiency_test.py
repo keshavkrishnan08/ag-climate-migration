@@ -278,3 +278,13 @@ def run_market_efficiency_test() -> dict:
     N = len(df)
     print(f"  Final N = {N:,}")
 
+    # ------------------------------------------------------------------
+    # OLS with state fixed effects and HC3 robust SEs
+    # ------------------------------------------------------------------
+    print("Running OLS regression...")
+    formula = (
+        "dlog_land_value ~ delta_tmax_july_2040 + dlog_income + dlog_pop "
+        "+ C(state_fips)"
+    )
+    model = smf.ols(formula, data=df)
+    result = model.fit(cov_type="HC3")
