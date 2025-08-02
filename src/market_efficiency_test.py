@@ -288,3 +288,13 @@ def run_market_efficiency_test() -> dict:
     )
     model = smf.ols(formula, data=df)
     result = model.fit(cov_type="HC3")
+
+    # Extract key statistics
+    b_climate = float(result.params["delta_tmax_july_2040"])
+    se_climate = float(result.bse["delta_tmax_july_2040"])
+    t_climate = float(result.tvalues["delta_tmax_july_2040"])
+    p_climate = float(result.pvalues["delta_tmax_july_2040"])
+    ci_lo, ci_hi = [float(x) for x in result.conf_int().loc["delta_tmax_july_2040"]]
+
+    b_income = float(result.params["dlog_income"])
+    b_pop = float(result.params["dlog_pop"])
