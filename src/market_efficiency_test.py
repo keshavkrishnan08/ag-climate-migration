@@ -298,3 +298,13 @@ def run_market_efficiency_test() -> dict:
 
     b_income = float(result.params["dlog_income"])
     b_pop = float(result.params["dlog_pop"])
+    r2 = float(result.rsquared)
+    r2_adj = float(result.rsquared_adj)
+    f_stat = float(result.fvalue) if not np.isnan(result.fvalue) else None
+
+    interp = interpret_result(b_climate, p_climate)
+
+    print()
+    print("=" * 60)
+    print("MARKET EFFICIENCY TEST — RESULTS")
+    print("=" * 60)
