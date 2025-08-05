@@ -328,3 +328,13 @@ def run_market_efficiency_test() -> dict:
     print(f"  {interp}")
     print("=" * 60)
 
+    # ------------------------------------------------------------------
+    # Descriptive stats on the climate variable
+    # ------------------------------------------------------------------
+    warming_stats = {
+        "mean": float(df["delta_tmax_july_2040"].mean()),
+        "std": float(df["delta_tmax_july_2040"].std()),
+        "min": float(df["delta_tmax_july_2040"].min()),
+        "p25": float(df["delta_tmax_july_2040"].quantile(0.25)),
+        "median": float(df["delta_tmax_july_2040"].median()),
+        "p75": float(df["delta_tmax_july_2040"].quantile(0.75)),
