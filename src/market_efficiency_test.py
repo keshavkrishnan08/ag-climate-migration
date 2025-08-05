@@ -318,3 +318,13 @@ def run_market_efficiency_test() -> dict:
     print(f"  Robust SE:                  {se_climate:.4f}")
     print(f"  t-stat:                     {t_climate:+.3f}")
     print(f"  p-value:                    {p_climate:.4f}")
+    print(f"  95% CI:                     [{ci_lo:+.4f}, {ci_hi:+.4f}]")
+    print()
+    print("Controls:")
+    print(f"  β (Δlog income):  {b_income:+.4f}")
+    print(f"  β (Δlog pop):     {b_pop:+.4f}")
+    print()
+    print("Interpretation:")
+    print(f"  {interp}")
+    print("=" * 60)
+
