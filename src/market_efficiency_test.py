@@ -338,3 +338,13 @@ def run_market_efficiency_test() -> dict:
         "p25": float(df["delta_tmax_july_2040"].quantile(0.25)),
         "median": float(df["delta_tmax_july_2040"].median()),
         "p75": float(df["delta_tmax_july_2040"].quantile(0.75)),
+        "max": float(df["delta_tmax_july_2040"].max()),
+    }
+
+    lv_change_stats = {
+        "mean": float(df["dlog_land_value"].mean()),
+        "std": float(df["dlog_land_value"].std()),
+        "min": float(df["dlog_land_value"].min()),
+        "p25": float(df["dlog_land_value"].quantile(0.25)),
+        "median": float(df["dlog_land_value"].median()),
+        "p75": float(df["dlog_land_value"].quantile(0.75)),
