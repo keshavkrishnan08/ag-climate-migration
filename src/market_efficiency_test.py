@@ -408,3 +408,13 @@ def run_market_efficiency_test() -> dict:
         },
         "descriptive_stats": {
             "delta_tmax_july_2040_degF": warming_stats,
+            "dlog_land_value_2012_2022": lv_change_stats,
+        },
+    }
+
+    return output
+
+
+if __name__ == "__main__":
+    results = run_market_efficiency_test()
+
