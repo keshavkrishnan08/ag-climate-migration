@@ -418,3 +418,7 @@ def run_market_efficiency_test() -> dict:
 if __name__ == "__main__":
     results = run_market_efficiency_test()
 
+    with open(OUTPUT_PATH, "w") as f:
+        json.dump(results, f, indent=2)
+
+    print(f"\nResults saved to: {OUTPUT_PATH}")
