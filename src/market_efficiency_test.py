@@ -388,3 +388,13 @@ def run_market_efficiency_test() -> dict:
         "interpretation": interp,
         "implication_for_paper": (
             "β₁ not significant → markets are NOT pricing forward climate risk "
+            "→ stranded asset framing is validated. "
+            if p_climate >= 0.05
+            else (
+                "β₁ significant and negative → partial market anticipation. "
+                "Headline stranded-value estimate should be discounted by the "
+                "share of climate risk already capitalized into prices."
+                if b_climate < 0
+                else (
+                    "β₁ significant and positive → markets moving against climate "
+                    "signals. Stranded value is a lower bound."
