@@ -358,3 +358,13 @@ def run_market_efficiency_test() -> dict:
         "test": "market_efficiency_climate_pricing",
         "regression": {
             "specification": (
+                "Δlog(land_value)_{2012-2022} = α + β₁·delta_tmax_july_2040 "
+                "+ β₂·Δlog(income_{2015-2023}) + β₃·Δlog(pop_{2015-2023}) "
+                "+ state_FE + ε"
+            ),
+            "se_type": "HC3 (heteroskedasticity-robust)",
+            "N_counties": N,
+            "N_states": n_states,
+            "r2": round(r2, 6),
+            "r2_adj": round(r2_adj, 6),
+            "f_stat": round(f_stat, 4) if f_stat is not None else None,
