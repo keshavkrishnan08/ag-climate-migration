@@ -378,3 +378,13 @@ def run_market_efficiency_test() -> dict:
             "p_value": round(p_climate, 6),
             "ci_95_lower": round(ci_lo, 6),
             "ci_95_upper": round(ci_hi, 6),
+            "significant_at_5pct": bool(p_climate < 0.05),
+            "significant_at_10pct": bool(p_climate < 0.10),
+        },
+        "controls": {
+            "beta_dlog_income": round(b_income, 6),
+            "beta_dlog_pop": round(b_pop, 6),
+        },
+        "interpretation": interp,
+        "implication_for_paper": (
+            "β₁ not significant → markets are NOT pricing forward climate risk "
