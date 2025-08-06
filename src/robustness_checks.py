@@ -18,3 +18,13 @@ import sys
 import warnings
 from pathlib import Path
 
+import numpy as np
+import pandas as pd
+import statsmodels.formula.api as smf
+from loguru import logger
+from scipy import stats as scipy_stats
+
+warnings.filterwarnings("ignore", category=FutureWarning)
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+DATA_RAW     = PROJECT_ROOT / "data" / "raw"
