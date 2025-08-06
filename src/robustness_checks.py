@@ -8,3 +8,13 @@ Six checks addressing the top reviewer concerns:
   5. Temporal stability of the hedonic regression (2010-2015 vs 2015-2022)
   6. Insurance mispricing under alternative coverage levels (65% and 85%)
 
+Each check saves results to results/robustness/ and prints a one-line verdict:
+  ROBUST   — result is insensitive to the specification change
+  SENSITIVE — result changes materially; report both
+"""
+
+import json
+import sys
+import warnings
+from pathlib import Path
+
