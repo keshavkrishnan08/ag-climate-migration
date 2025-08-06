@@ -398,3 +398,13 @@ def run_market_efficiency_test() -> dict:
                 else (
                     "β₁ significant and positive → markets moving against climate "
                     "signals. Stranded value is a lower bound."
+                )
+            )
+        ),
+        "data_sources": {
+            "land_values": "NASS Census of Agriculture 2012 and 2022",
+            "climate_projections": "CMIP6 SSP2-4.5 10-GCM ensemble, county-level delta_tmax_july 2040",
+            "demographics": "ACS 5-year estimates 2015 and 2023",
+        },
+        "descriptive_stats": {
+            "delta_tmax_july_2040_degF": warming_stats,
