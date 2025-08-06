@@ -348,3 +348,13 @@ def run_market_efficiency_test() -> dict:
         "p25": float(df["dlog_land_value"].quantile(0.25)),
         "median": float(df["dlog_land_value"].median()),
         "p75": float(df["dlog_land_value"].quantile(0.75)),
+        "max": float(df["dlog_land_value"].max()),
+    }
+
+    # ------------------------------------------------------------------
+    # Build output dict
+    # ------------------------------------------------------------------
+    output = {
+        "test": "market_efficiency_climate_pricing",
+        "regression": {
+            "specification": (
