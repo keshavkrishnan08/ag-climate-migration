@@ -368,3 +368,13 @@ def run_market_efficiency_test() -> dict:
             "r2": round(r2, 6),
             "r2_adj": round(r2_adj, 6),
             "f_stat": round(f_stat, 4) if f_stat is not None else None,
+        },
+        "key_coefficient": {
+            "variable": "delta_tmax_july_2040",
+            "description": "Projected July Tmax warming by 2040 (SSP2-4.5, °F, 10-GCM ensemble)",
+            "beta": round(b_climate, 6),
+            "robust_se": round(se_climate, 6),
+            "t_stat": round(t_climate, 4),
+            "p_value": round(p_climate, 6),
+            "ci_95_lower": round(ci_lo, 6),
+            "ci_95_upper": round(ci_hi, 6),
