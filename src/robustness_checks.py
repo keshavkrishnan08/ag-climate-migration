@@ -38,3 +38,13 @@ logger.add(sys.stderr, format="{time:HH:mm:ss} | {level} | {message}", level="IN
 CPI_2023 = 304.7
 CPI_2022 = 296.8
 DEFLATOR_2022 = CPI_2023 / CPI_2022
+SEED = 42
+np.random.seed(SEED)
+
+GROWING_MONTHS = [4, 5, 6, 7, 8, 9]
+
+COMMODITY_PRICES = {
+    "corn": 5.50, "soybeans": 12.80, "wheat_winter": 7.20,
+    "wheat_spring": 8.10, "cotton": 0.78, "sorghum": 5.30,
+    "barley": 6.10, "oats": 3.80,
+}
