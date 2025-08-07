@@ -48,3 +48,13 @@ COMMODITY_PRICES = {
     "wheat_spring": 8.10, "cotton": 0.78, "sorghum": 5.30,
     "barley": 6.10, "oats": 3.80,
 }
+
+# From the main hedonic run — reference coefficients for stability comparison
+BASELINE_BETA_TMAX     = None   # filled in at runtime from check 1 baseline run
+BASELINE_STRANDED_B    = 168.0  # hedonic $168B from headline_numbers_preliminary.json
+DCF_CONSERVATIVE_B     = 76.0   # DCF conservative from same file
+
+VERDICTS: list[dict] = []
+
+
+# ──────────────────────────────────────────────────────────────────────────────
