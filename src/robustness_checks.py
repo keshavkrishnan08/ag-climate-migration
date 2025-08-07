@@ -108,3 +108,13 @@ def load_shared_data() -> dict:
     ) if rma_path.exists() else pd.DataFrame()
 
     tipping_df = pd.read_parquet(
+        PROJECT_ROOT / "results" / "cascade" / "tipping_points_SSP245.parquet"
+    )
+
+    logger.info(
+        f"  land_values={len(land_values)}, climate_monthly={len(climate_monthly)}, "
+        f"nass_yields={len(nass_yields)}, yield_proj={len(yield_proj)}, "
+        f"tipping_df={len(tipping_df)}"
+    )
+    return dict(
+        land_values=land_values,
