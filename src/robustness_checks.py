@@ -88,3 +88,13 @@ def load_shared_data() -> dict:
         columns=["fips", "year", "crop", "yield_bu_acre", "acres_harvested"],
     )
     climate_proj = pd.read_parquet(
+        DATA_PROJ / "county_climate_projections.parquet",
+        columns=["fips", "year", "scenario", "delta_tmax_july", "delta_precip_growing"],
+    )
+    climate_proj = climate_proj[climate_proj["scenario"] == "SSP245"].copy()
+
+    yield_proj = pd.read_parquet(
+        DATA_PROJ / "yield_projections_SSP245.parquet",
+        columns=["fips", "year", "crop", "scenario",
+                 "yield_projected", "yield_baseline",
+                 "climate_impact_bu", "acres_harvested"],
