@@ -68,3 +68,13 @@ def load_shared_data() -> dict:
         Dict with keys: land_values, climate_monthly, acs, nass_yields,
         climate_proj, yield_proj, rma_data, tipping_df.
     """
+    logger.info("Loading shared datasets…")
+
+    land_values = pd.read_parquet(
+        DATA_RAW / "nass" / "nass_land_values.parquet",
+        columns=["fips", "year", "land_value_per_acre"],
+    )
+    climate_monthly = pd.read_parquet(
+        DATA_RAW / "prism" / "county_climate_monthly.parquet",
+        columns=(["fips", "year", "tmax_m07"] +
+                 [f"precip_m{m:02d}" for m in GROWING_MONTHS]),
