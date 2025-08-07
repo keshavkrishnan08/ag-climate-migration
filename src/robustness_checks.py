@@ -98,3 +98,13 @@ def load_shared_data() -> dict:
         columns=["fips", "year", "crop", "scenario",
                  "yield_projected", "yield_baseline",
                  "climate_impact_bu", "acres_harvested"],
+    )
+
+    rma_path = DATA_RAW / "rma" / "rma_sob_all_years.parquet"
+    rma_data = pd.read_parquet(
+        rma_path,
+        columns=["year", "fips", "crop_name", "acres", "total_premium",
+                 "indemnity", "premium_per_acre"],
+    ) if rma_path.exists() else pd.DataFrame()
+
+    tipping_df = pd.read_parquet(
