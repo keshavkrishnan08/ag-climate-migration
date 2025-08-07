@@ -28,3 +28,13 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_RAW     = PROJECT_ROOT / "data" / "raw"
+DATA_PROJ    = PROJECT_ROOT / "data" / "projections"
+RESULTS_DIR  = PROJECT_ROOT / "results" / "robustness"
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+
+logger.remove()
+logger.add(sys.stderr, format="{time:HH:mm:ss} | {level} | {message}", level="INFO")
+
+CPI_2023 = 304.7
+CPI_2022 = 296.8
+DEFLATOR_2022 = CPI_2023 / CPI_2022
