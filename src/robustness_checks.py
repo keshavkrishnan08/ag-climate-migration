@@ -58,3 +58,13 @@ VERDICTS: list[dict] = []
 
 
 # ──────────────────────────────────────────────────────────────────────────────
+# Shared data loader (load once, pass around)
+# ──────────────────────────────────────────────────────────────────────────────
+
+def load_shared_data() -> dict:
+    """Load all datasets needed by robustness checks.
+
+    Returns:
+        Dict with keys: land_values, climate_monthly, acs, nass_yields,
+        climate_proj, yield_proj, rma_data, tipping_df.
+    """
