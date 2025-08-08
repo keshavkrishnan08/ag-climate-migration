@@ -168,3 +168,13 @@ def _build_cross_section(
     # Climate
     clim_w = climate_monthly[
         climate_monthly["year"].between(*clim_years)
+    ].copy()
+    precip_cols = [f"precip_m{m:02d}" for m in GROWING_MONTHS]
+    clim_w["precip_growing"] = clim_w[precip_cols].sum(axis=1)
+    clim_w["tmax_july"] = clim_w["tmax_m07"]
+    clim_cs = (
+        clim_w.groupby("fips")[["tmax_july", "precip_growing"]]
+        .mean().reset_index()
+    )
+
+    # ACS
