@@ -128,3 +128,13 @@ def load_shared_data() -> dict:
     )
 
 
+# ──────────────────────────────────────────────────────────────────────────────
+# Hedonic helper — reused across checks 1 and 5
+# ──────────────────────────────────────────────────────────────────────────────
+
+def _build_cross_section(
+    land_values: pd.DataFrame,
+    climate_monthly: pd.DataFrame,
+    acs: pd.DataFrame,
+    nass_yields: pd.DataFrame,
+    lv_years: list[int],
