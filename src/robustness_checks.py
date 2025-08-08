@@ -118,3 +118,13 @@ def load_shared_data() -> dict:
     )
     return dict(
         land_values=land_values,
+        climate_monthly=climate_monthly,
+        acs=acs,
+        nass_yields=nass_yields,
+        climate_proj=climate_proj,
+        yield_proj=yield_proj,
+        rma_data=rma_data,
+        tipping_df=tipping_df,
+    )
+
+
