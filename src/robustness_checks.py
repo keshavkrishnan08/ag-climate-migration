@@ -148,3 +148,13 @@ def _build_cross_section(
         climate_monthly: PRISM monthly climate panel.
         acs: ACS demographics panel.
         nass_yields: NASS county yields (for farm-acres calibration).
+        lv_years: Census of Ag years to average for land value (e.g. [2017, 2022]).
+        clim_years: (start, end) inclusive for climate window average.
+        acs_years: (start, end) inclusive for ACS window average.
+
+    Returns:
+        Cross-section DataFrame with one row per county.
+    """
+    # Land value
+    lv = land_values[land_values["year"].isin(lv_years)].copy()
+    if 2022 in lv_years:
