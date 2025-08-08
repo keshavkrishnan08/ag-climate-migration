@@ -158,3 +158,13 @@ def _build_cross_section(
     # Land value
     lv = land_values[land_values["year"].isin(lv_years)].copy()
     if 2022 in lv_years:
+        lv.loc[lv["year"] == 2022, "land_value_per_acre"] *= DEFLATOR_2022
+    lv_cs = lv.groupby("fips")["land_value_per_acre"].mean().reset_index()
+
+    lo = np.percentile(lv_cs["land_value_per_acre"], 1)
+    hi = np.percentile(lv_cs["land_value_per_acre"], 99)
+    lv_cs = lv_cs[lv_cs["land_value_per_acre"].between(lo, hi)].copy()
+
+    # Climate
+    clim_w = climate_monthly[
+        climate_monthly["year"].between(*clim_years)
