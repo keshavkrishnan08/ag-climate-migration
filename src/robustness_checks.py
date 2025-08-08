@@ -138,3 +138,13 @@ def _build_cross_section(
     acs: pd.DataFrame,
     nass_yields: pd.DataFrame,
     lv_years: list[int],
+    clim_years: tuple[int, int],
+    acs_years: tuple[int, int],
+) -> pd.DataFrame:
+    """Build hedonic cross-section for a given temporal window.
+
+    Args:
+        land_values: NASS land value panel.
+        climate_monthly: PRISM monthly climate panel.
+        acs: ACS demographics panel.
+        nass_yields: NASS county yields (for farm-acres calibration).
