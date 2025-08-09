@@ -178,3 +178,13 @@ def _build_cross_section(
     )
 
     # ACS
+    acs_w = acs[acs["year"].between(*acs_years)].copy()
+    acs_cs = (
+        acs_w.groupby("fips")[["total_population", "median_household_income"]]
+        .mean().reset_index()
+    )
+
+    # Farm acres (use 2012-2022 NASS as best available)
+    ny = nass_yields[nass_yields["year"].between(2012, 2022)].copy()
+    max_by = ny.groupby(["fips", "year"])["acres_harvested"].max()
+    fa = max_by.groupby("fips").mean().reset_index().rename(
