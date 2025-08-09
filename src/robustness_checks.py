@@ -188,3 +188,13 @@ def _build_cross_section(
     ny = nass_yields[nass_yields["year"].between(2012, 2022)].copy()
     max_by = ny.groupby(["fips", "year"])["acres_harvested"].max()
     fa = max_by.groupby("fips").mean().reset_index().rename(
+        columns={"acres_harvested": "farm_acres"}
+    )
+
+    df = (
+        lv_cs
+        .merge(clim_cs, on="fips", how="inner")
+        .merge(acs_cs,  on="fips", how="inner")
+        .merge(fa,      on="fips", how="left")
+    )
+    df["tmax_july_sq"]   = df["tmax_july"] ** 2
