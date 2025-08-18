@@ -208,3 +208,13 @@ def _build_cross_section(
             (df["median_household_income"] > 0) &
             (df["tmax_july"] > 30) &
             (df["precip_growing"] >= 0)]
+    return df
+
+
+def _run_hedonic_ols(df: pd.DataFrame, extra_vars: str = "") -> smf.ols:
+    """Fit hedonic OLS with optional extra RHS variables.
+
+    Args:
+        df: Cross-section DataFrame from _build_cross_section.
+        extra_vars: Additional formula terms, e.g. '+ log_yield_baseline'.
+
