@@ -288,3 +288,13 @@ RMA_CROP_MAP = {
 }
 
 CROP_MIN_APH = {
+    "corn": 50.0, "soybeans": 10.0, "wheat_winter": 5.0,
+    "cotton": 100.0, "sorghum": 10.0, "barley": 10.0, "oats": 5.0,
+}
+
+
+def _expected_indemnity(K: float, mu: float, sigma: float) -> float:
+    """Analytical put formula: E[max(K - X, 0)] where X ~ N(mu, sigma²).
+
+    Args:
+        K: Revenue guarantee level ($/acre).
