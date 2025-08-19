@@ -248,3 +248,13 @@ def _hedonic_stranded(
         Total stranded value in $B (losses only, counties where warming hurts).
     """
     proj_yr = climate_proj[climate_proj["year"] == target_year].copy()
+    df2 = df.merge(
+        proj_yr[["fips", "delta_tmax_july", "delta_precip_growing"]],
+        on="fips", how="inner",
+    )
+
+    b_T  = result.params.get("tmax_july",    0)
+    b_T2 = result.params.get("tmax_july_sq", 0)
+    b_P  = result.params.get("precip_growing", 0)
+
+    df2["climate_hat_curr"] = (
