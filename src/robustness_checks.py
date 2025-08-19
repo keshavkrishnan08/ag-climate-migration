@@ -278,3 +278,13 @@ def _hedonic_stranded(
 
 
 # ──────────────────────────────────────────────────────────────────────────────
+# Insurance helper — reused for check 6
+# ──────────────────────────────────────────────────────────────────────────────
+
+RMA_CROP_MAP = {
+    "CORN": "corn", "SOYBEANS": "soybeans", "WHEAT": "wheat_winter",
+    "COTTON": "cotton", "GRAIN SORGHUM": "sorghum",
+    "BARLEY": "barley", "OATS": "oats",
+}
+
+CROP_MIN_APH = {
