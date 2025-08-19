@@ -268,3 +268,13 @@ def _hedonic_stranded(
         b_T2 * tmax_proj**2 +
         b_P  * df2["precip_growing"]   # precip held constant (conservative)
     )
+    df2["delta_log_lv"] = df2["climate_hat_curr"] - df2["climate_hat_proj"]
+    df2["delta_lv_per_acre"] = (
+        df2["land_value_per_acre"] * (1 - np.exp(-df2["delta_log_lv"]))
+    )
+    df2["farm_acres"] = df2["farm_acres"].fillna(0)
+    df2["stranded"] = df2["delta_lv_per_acre"] * df2["farm_acres"]
+    return float(df2[df2["stranded"] > 0]["stranded"].sum() / 1e9)
+
+
+# ──────────────────────────────────────────────────────────────────────────────
