@@ -308,3 +308,13 @@ def _expected_indemnity(K: float, mu: float, sigma: float) -> float:
     z = (K - mu) / sigma
     return float(max((K - mu) * scipy_stats.norm.cdf(z) +
                      sigma * scipy_stats.norm.pdf(z), 0.0))
+
+
+def _compute_insurance_at_coverage(
+    rma_data: pd.DataFrame,
+    yield_proj: pd.DataFrame,
+    nass_yields: pd.DataFrame,
+    coverage: float = 0.75,
+) -> dict:
+    """Compute national insurance mispricing at a given coverage level.
+
