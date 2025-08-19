@@ -258,3 +258,13 @@ def _hedonic_stranded(
     b_P  = result.params.get("precip_growing", 0)
 
     df2["climate_hat_curr"] = (
+        b_T  * df2["tmax_july"] +
+        b_T2 * df2["tmax_july_sq"] +
+        b_P  * df2["precip_growing"]
+    )
+    tmax_proj = df2["tmax_july"] + df2["delta_tmax_july"]
+    df2["climate_hat_proj"] = (
+        b_T  * tmax_proj +
+        b_T2 * tmax_proj**2 +
+        b_P  * df2["precip_growing"]   # precip held constant (conservative)
+    )
