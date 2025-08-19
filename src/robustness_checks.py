@@ -238,3 +238,13 @@ def _hedonic_stranded(
 
     Args:
         df: Cross-section DataFrame (must include farm_acres, land_value_per_acre,
+            tmax_july, tmax_july_sq, precip_growing).
+        result: Fitted OLS results.
+        climate_proj: Projection DataFrame (fips, year, delta_tmax_july,
+            delta_precip_growing).
+        target_year: Projection year.
+
+    Returns:
+        Total stranded value in $B (losses only, counties where warming hurts).
+    """
+    proj_yr = climate_proj[climate_proj["year"] == target_year].copy()
