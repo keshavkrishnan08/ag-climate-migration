@@ -228,3 +228,13 @@ def _run_hedonic_ols(df: pd.DataFrame, extra_vars: str = "") -> smf.ols:
     return smf.ols(formula=formula, data=df).fit(cov_type="HC3")
 
 
+def _hedonic_stranded(
+    df: pd.DataFrame,
+    result,
+    climate_proj: pd.DataFrame,
+    target_year: int = 2050,
+) -> float:
+    """Compute total stranded value ($B) from a fitted hedonic and projections.
+
+    Args:
+        df: Cross-section DataFrame (must include farm_acres, land_value_per_acre,
