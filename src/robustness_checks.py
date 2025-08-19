@@ -298,3 +298,13 @@ def _expected_indemnity(K: float, mu: float, sigma: float) -> float:
 
     Args:
         K: Revenue guarantee level ($/acre).
+        mu: Expected revenue ($/acre).
+        sigma: Revenue standard deviation ($/acre).
+
+    Returns:
+        Expected indemnity per acre ($).
+    """
+    sigma = max(sigma, 1.0)
+    z = (K - mu) / sigma
+    return float(max((K - mu) * scipy_stats.norm.cdf(z) +
+                     sigma * scipy_stats.norm.pdf(z), 0.0))
