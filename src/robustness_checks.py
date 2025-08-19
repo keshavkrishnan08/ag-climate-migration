@@ -218,3 +218,13 @@ def _run_hedonic_ols(df: pd.DataFrame, extra_vars: str = "") -> smf.ols:
         df: Cross-section DataFrame from _build_cross_section.
         extra_vars: Additional formula terms, e.g. '+ log_yield_baseline'.
 
+    Returns:
+        Fitted OLS results wrapper.
+    """
+    formula = (
+        "log_land_value ~ tmax_july + tmax_july_sq + precip_growing "
+        f"+ log_pop + log_income {extra_vars} + C(state_fips)"
+    )
+    return smf.ols(formula=formula, data=df).fit(cov_type="HC3")
+
+
