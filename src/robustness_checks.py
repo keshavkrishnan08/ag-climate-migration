@@ -338,3 +338,13 @@ def _compute_insurance_at_coverage(
     rma_recent = rma[rma["year"] >= rma["year"].max() - 10]
     rma_by_yr = (
         rma_recent
+        .groupby(["fips", "crop", "year"], as_index=False)
+        .agg(acres_yr=("acres", "sum"),
+             premium_total_yr=("total_premium", "sum"))
+    )
+    rma_agg = (
+        rma_by_yr
+        .groupby(["fips", "crop"], as_index=False)
+        .agg(insured_acres=("acres_yr", "mean"),
+             total_premium=("premium_total_yr", "mean"))
+    )
