@@ -388,3 +388,13 @@ def _compute_insurance_at_coverage(
     proj = proj[mask & (proj["aph_yield"] > 0)].copy()
 
     # Attach CV
+    proj = proj.merge(cv_df[["fips", "crop", "yield_cv"]], on=["fips", "crop"], how="left")
+    for crop in proj["crop"].unique():
+        fill_mask = (proj["crop"] == crop) & proj["yield_cv"].isna()
+        proj.loc[fill_mask, "yield_cv"] = crop_med_cv.get(crop, 0.20)
+    proj["yield_cv"] = proj["yield_cv"].fillna(0.20).clip(0.05, 0.50)
+
+    # EI ratio at requested coverage level
+    proj["price"] = proj["crop"].map(COMMODITY_PRICES).fillna(5.0)
+    proj["K"]         = proj["aph_yield"] * coverage * proj["price"]
+    proj["sigma_rev"] = proj["aph_yield"] * proj["yield_cv"] * proj["price"]
