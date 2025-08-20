@@ -368,3 +368,13 @@ def _compute_insurance_at_coverage(
     cv_df = cv_df[cv_df["n_obs"] >= 5].copy()
     cv_df["yield_cv"] = (cv_df["hist_std"] / cv_df["hist_mean"]).clip(0.05, 0.50).fillna(0.20)
     crop_med_cv = cv_df.groupby("crop")["yield_cv"].median().to_dict()
+
+    # APH and future yields
+    aph = yield_proj.groupby(["fips", "crop"], as_index=False).agg(
+        aph_yield=("yield_baseline", "mean")
+    )
+    future = (
+        yield_proj[yield_proj["year"].between(FUTURE_START, FUTURE_END)]
+        .groupby(["fips", "crop"], as_index=False)
+        .agg(future_yield=("yield_projected", "mean"))
+    )
