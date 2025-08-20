@@ -318,3 +318,13 @@ def _compute_insurance_at_coverage(
 ) -> dict:
     """Compute national insurance mispricing at a given coverage level.
 
+    Args:
+        rma_data: RMA Summary of Business raw data.
+        yield_proj: Yield projections DataFrame.
+        nass_yields: NASS historical yields for CV computation.
+        coverage: Coverage level (e.g. 0.65, 0.75, 0.85).
+
+    Returns:
+        Dict with total_mispricing_B, cross_subsidy_B, underpriced_B, overpriced_B.
+    """
+    MAX_EI_RATIO = 5.0
