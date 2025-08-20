@@ -378,3 +378,13 @@ def _compute_insurance_at_coverage(
         .groupby(["fips", "crop"], as_index=False)
         .agg(future_yield=("yield_projected", "mean"))
     )
+    proj = aph.merge(future, on=["fips", "crop"], how="inner")
+    proj["future_yield"] = proj["future_yield"].clip(lower=0.0)
+
+    # Filter fringe counties
+    mask = pd.Series(True, index=proj.index)
+    for crop, thresh in CROP_MIN_APH.items():
+        mask &= ~((proj["crop"] == crop) & (proj["aph_yield"] < thresh))
+    proj = proj[mask & (proj["aph_yield"] > 0)].copy()
+
+    # Attach CV
