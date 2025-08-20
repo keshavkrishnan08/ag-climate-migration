@@ -398,3 +398,13 @@ def _compute_insurance_at_coverage(
     proj["price"] = proj["crop"].map(COMMODITY_PRICES).fillna(5.0)
     proj["K"]         = proj["aph_yield"] * coverage * proj["price"]
     proj["sigma_rev"] = proj["aph_yield"] * proj["yield_cv"] * proj["price"]
+    proj["mu_future"] = proj["future_yield"] * proj["price"]
+    proj["mu_aph"]    = proj["aph_yield"]    * proj["price"]
+
+    proj["ei_future"] = proj.apply(
+        lambda r: _expected_indemnity(r["K"], r["mu_future"], r["sigma_rev"]), axis=1
+    )
+    proj["ei_aph"] = proj.apply(
+        lambda r: _expected_indemnity(r["K"], r["mu_aph"], r["sigma_rev"]), axis=1
+    )
+    proj["ei_ratio"] = (
