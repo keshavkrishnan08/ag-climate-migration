@@ -348,3 +348,13 @@ def _compute_insurance_at_coverage(
         .agg(insured_acres=("acres_yr", "mean"),
              total_premium=("premium_total_yr", "mean"))
     )
+    rma_agg["premium_per_acre"] = (
+        rma_agg["total_premium"] / rma_agg["insured_acres"].replace(0, np.nan)
+    )
+    rma_agg = rma_agg[rma_agg["insured_acres"] > 0].copy()
+
+    # Yield CV from NASS
+    nass_recent = nass_yields[
+        nass_yields["year"].between(2008, 2023) & (nass_yields["yield_bu_acre"] > 0)
+    ]
+    cv_df = (
