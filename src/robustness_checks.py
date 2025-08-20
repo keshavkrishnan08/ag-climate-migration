@@ -328,3 +328,13 @@ def _compute_insurance_at_coverage(
         Dict with total_mispricing_B, cross_subsidy_B, underpriced_B, overpriced_B.
     """
     MAX_EI_RATIO = 5.0
+    FUTURE_START, FUTURE_END = 2040, 2050
+
+    # RMA aggregation
+    rma = rma_data.copy()
+    rma["crop_name_clean"] = rma["crop_name"].str.strip().str.upper()
+    rma["crop"] = rma["crop_name_clean"].map(RMA_CROP_MAP)
+    rma = rma[rma["crop"].notna()].copy()
+    rma_recent = rma[rma["year"] >= rma["year"].max() - 10]
+    rma_by_yr = (
+        rma_recent
