@@ -358,3 +358,13 @@ def _compute_insurance_at_coverage(
         nass_yields["year"].between(2008, 2023) & (nass_yields["yield_bu_acre"] > 0)
     ]
     cv_df = (
+        nass_recent
+        .groupby(["fips", "crop"])
+        .agg(hist_mean=("yield_bu_acre", "mean"),
+             hist_std=("yield_bu_acre", "std"),
+             n_obs=("yield_bu_acre", "count"))
+        .reset_index()
+    )
+    cv_df = cv_df[cv_df["n_obs"] >= 5].copy()
+    cv_df["yield_cv"] = (cv_df["hist_std"] / cv_df["hist_mean"]).clip(0.05, 0.50).fillna(0.20)
+    crop_med_cv = cv_df.groupby("crop")["yield_cv"].median().to_dict()
