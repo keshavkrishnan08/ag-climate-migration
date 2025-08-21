@@ -408,3 +408,13 @@ def _compute_insurance_at_coverage(
         lambda r: _expected_indemnity(r["K"], r["mu_aph"], r["sigma_rev"]), axis=1
     )
     proj["ei_ratio"] = (
+        proj["ei_future"] / proj["ei_aph"].replace(0, np.nan)
+    ).clip(0.0, MAX_EI_RATIO).fillna(1.0)
+
+    proj["yield_delta"]  = proj["future_yield"] - proj["aph_yield"]
+    proj["direction"] = np.where(proj["yield_delta"] < 0, "underpriced",
+                         np.where(proj["yield_delta"] > 0, "overpriced", "fair"))
+
+    df = proj.merge(
+        rma_agg[["fips", "crop", "insured_acres", "premium_per_acre"]],
+        on=["fips", "crop"], how="left"
