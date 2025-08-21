@@ -428,3 +428,13 @@ def _compute_insurance_at_coverage(
     under_B = df_rma.loc[df_rma["direction"] == "underpriced", "annual_cross_subsidy"].sum() / 1e9
     over_B  = df_rma.loc[df_rma["direction"] == "overpriced",  "annual_cross_subsidy"].abs().sum() / 1e9
     xsub_B  = min(under_B, over_B)
+    total_B = under_B + over_B
+
+    return dict(
+        coverage=coverage,
+        underpriced_B=round(under_B, 2),
+        overpriced_B=round(over_B, 2),
+        cross_subsidy_B=round(xsub_B, 2),
+        total_mispricing_B=round(total_B, 2),
+    )
+
