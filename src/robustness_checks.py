@@ -418,3 +418,13 @@ def _compute_insurance_at_coverage(
     df = proj.merge(
         rma_agg[["fips", "crop", "insured_acres", "premium_per_acre"]],
         on=["fips", "crop"], how="left"
+    )
+    df["insured_acres"]    = df["insured_acres"].fillna(0.0)
+    df["premium_per_acre"] = df["premium_per_acre"].fillna(0.0)
+    df["mispricing_per_acre"] = df["premium_per_acre"] * (df["ei_ratio"] - 1.0)
+    df["annual_cross_subsidy"] = df["mispricing_per_acre"] * df["insured_acres"]
+
+    df_rma = df[df["insured_acres"] > 0].copy()
+    under_B = df_rma.loc[df_rma["direction"] == "underpriced", "annual_cross_subsidy"].sum() / 1e9
+    over_B  = df_rma.loc[df_rma["direction"] == "overpriced",  "annual_cross_subsidy"].abs().sum() / 1e9
+    xsub_B  = min(under_B, over_B)
