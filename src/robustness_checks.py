@@ -468,3 +468,13 @@ def check1_hedonic_soil_proxy(data: dict) -> dict:
     cp = data["climate_proj"]
 
     # Build baseline cross-section (same as main hedonic)
+    df_base = _build_cross_section(
+        lv, cm, acs, ny,
+        lv_years=[2017, 2022],
+        clim_years=(2019, 2023),
+        acs_years=(2019, 2023),
+    )
+
+    # Compute soil proxy: mean yield 1990-2005 per county, across all crops, weighted by acres
+    early = ny[ny["year"].between(1990, 2005) & (ny["yield_bu_acre"] > 0)].copy()
+    # Standardize yields within crop (different unit scales across crops)
