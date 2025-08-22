@@ -448,3 +448,13 @@ def check1_hedonic_soil_proxy(data: dict) -> dict:
 
     Rationale: Counties with high historical yields have better soil (drainage,
     organic matter, pH). Without a soil control, climate coefficients could be
+    capturing soil quality variation correlated with climate. If coefficients
+    are stable with and without this proxy, the hedonic is robust.
+
+    Args:
+        data: Shared data dict from load_shared_data().
+
+    Returns:
+        Result dict with coefficients and stranded values for both specs.
+    """
+    logger.info("=" * 60)
