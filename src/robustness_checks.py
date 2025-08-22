@@ -458,3 +458,13 @@ def check1_hedonic_soil_proxy(data: dict) -> dict:
         Result dict with coefficients and stranded values for both specs.
     """
     logger.info("=" * 60)
+    logger.info("CHECK 1: Hedonic with soil quality proxy (yield_baseline 1990-2005)")
+    logger.info("=" * 60)
+
+    lv = data["land_values"]
+    cm = data["climate_monthly"]
+    acs = data["acs"]
+    ny = data["nass_yields"]
+    cp = data["climate_proj"]
+
+    # Build baseline cross-section (same as main hedonic)
