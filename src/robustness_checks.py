@@ -508,3 +508,13 @@ def check1_hedonic_soil_proxy(data: dict) -> dict:
     coef_comparison = {}
     for v in vars_of_interest:
         b0 = res_base.params.get(v, np.nan)
+        b1 = res_soil.params.get(v, np.nan)
+        pct_chg = abs(b1 - b0) / max(abs(b0), 1e-10) * 100
+        coef_comparison[v] = {
+            "baseline":    round(b0, 6),
+            "with_soil":   round(b1, 6),
+            "pct_change":  round(pct_chg, 1),
+            "p_baseline":  round(res_base.pvalues.get(v, np.nan), 4),
+            "p_with_soil": round(res_soil.pvalues.get(v, np.nan), 4),
+        }
+
