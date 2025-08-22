@@ -478,3 +478,13 @@ def check1_hedonic_soil_proxy(data: dict) -> dict:
     # Compute soil proxy: mean yield 1990-2005 per county, across all crops, weighted by acres
     early = ny[ny["year"].between(1990, 2005) & (ny["yield_bu_acre"] > 0)].copy()
     # Standardize yields within crop (different unit scales across crops)
+    crop_stats = early.groupby("crop")["yield_bu_acre"].agg(["mean", "std"]).reset_index()
+    crop_stats.columns = ["crop", "crop_mean", "crop_std"]
+    early = early.merge(crop_stats, on="crop", how="left")
+    early["yield_z"] = (early["yield_bu_acre"] - early["crop_mean"]) / early["crop_std"].replace(0, 1)
+
+    # County mean standardized yield (soil signal), weighted by acres
+    soil_proxy = (
+        early.groupby("fips")
+        .apply(lambda g: np.average(g["yield_z"], weights=g["acres_harvested"].clip(lower=0.01)))
+        .reset_index()
