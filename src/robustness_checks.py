@@ -438,3 +438,13 @@ def _compute_insurance_at_coverage(
         total_mispricing_B=round(total_B, 2),
     )
 
+
+# ──────────────────────────────────────────────────────────────────────────────
+# CHECK 1: Hedonic with soil quality proxy
+# ──────────────────────────────────────────────────────────────────────────────
+
+def check1_hedonic_soil_proxy(data: dict) -> dict:
+    """Add yield_baseline_proxy (mean yield 1990-2005) as soil quality control.
+
+    Rationale: Counties with high historical yields have better soil (drainage,
+    organic matter, pH). Without a soil control, climate coefficients could be
