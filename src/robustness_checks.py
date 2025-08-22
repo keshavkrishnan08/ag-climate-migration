@@ -488,3 +488,13 @@ def check1_hedonic_soil_proxy(data: dict) -> dict:
         early.groupby("fips")
         .apply(lambda g: np.average(g["yield_z"], weights=g["acres_harvested"].clip(lower=0.01)))
         .reset_index()
+        .rename(columns={0: "yield_baseline_z"})
+    )
+
+    logger.info(f"  Soil proxy computed for {len(soil_proxy)} counties")
+
+    # Merge into cross-section
+    df_soil = df_base.merge(soil_proxy, on="fips", how="inner")
+    df_soil["log_yield_baseline"] = df_soil["yield_baseline_z"]  # already z-scored
+    logger.info(f"  Matched counties (base + soil proxy): {len(df_soil)}, base only: {len(df_base)}")
+
