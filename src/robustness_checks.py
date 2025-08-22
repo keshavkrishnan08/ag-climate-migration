@@ -498,3 +498,13 @@ def check1_hedonic_soil_proxy(data: dict) -> dict:
     df_soil["log_yield_baseline"] = df_soil["yield_baseline_z"]  # already z-scored
     logger.info(f"  Matched counties (base + soil proxy): {len(df_soil)}, base only: {len(df_base)}")
 
+    # Run baseline (without soil proxy)
+    res_base = _run_hedonic_ols(df_base)
+    # Run with soil proxy
+    res_soil = _run_hedonic_ols(df_soil, extra_vars="+ log_yield_baseline")
+
+    # Extract key coefficients
+    vars_of_interest = ["tmax_july", "tmax_july_sq", "precip_growing", "log_pop", "log_income"]
+    coef_comparison = {}
+    for v in vars_of_interest:
+        b0 = res_base.params.get(v, np.nan)
