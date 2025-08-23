@@ -538,3 +538,13 @@ def check1_hedonic_soil_proxy(data: dict) -> dict:
         f"w/soil={res_soil.params.get('tmax_july', np.nan):.5f}); "
         f"stranded ${stranded_base:.1f}B → ${stranded_soil:.1f}B "
         f"({stranded_chg_pct:.1f}% change); "
+        f"soil proxy p={soil_p:.4f}"
+    )
+    logger.info(f"  VERDICT: {summary}")
+
+    result = {
+        "check": "hedonic_soil_proxy",
+        "verdict": verdict,
+        "summary": summary,
+        "coefficients": coef_comparison,
+        "soil_proxy_coef": float(soil_coef),
