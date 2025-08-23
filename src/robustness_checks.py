@@ -528,3 +528,13 @@ def check1_hedonic_soil_proxy(data: dict) -> dict:
 
     # Stability threshold: tmax_july coefficient changes <20% → ROBUST
     tmax_chg = coef_comparison["tmax_july"]["pct_change"]
+    stranded_chg_pct = abs(stranded_soil - stranded_base) / max(stranded_base, 0.1) * 100
+
+    verdict = "ROBUST" if (tmax_chg < 20 and stranded_chg_pct < 20) else "SENSITIVE"
+
+    summary = (
+        f"{verdict} | Soil proxy: tmax_july coef changes {tmax_chg:.1f}% "
+        f"(baseline={res_base.params.get('tmax_july', np.nan):.5f}, "
+        f"w/soil={res_soil.params.get('tmax_july', np.nan):.5f}); "
+        f"stranded ${stranded_base:.1f}B → ${stranded_soil:.1f}B "
+        f"({stranded_chg_pct:.1f}% change); "
