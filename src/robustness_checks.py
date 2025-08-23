@@ -518,3 +518,13 @@ def check1_hedonic_soil_proxy(data: dict) -> dict:
             "p_with_soil": round(res_soil.pvalues.get(v, np.nan), 4),
         }
 
+    soil_coef = res_soil.params.get("log_yield_baseline", np.nan)
+    soil_p    = res_soil.pvalues.get("log_yield_baseline", np.nan)
+    logger.info(f"  Soil proxy coef: {soil_coef:+.4f} (p={soil_p:.4f})")
+
+    # Stranded value under both specs (2050 target)
+    stranded_base = _hedonic_stranded(df_base, res_base, cp, target_year=2050)
+    stranded_soil = _hedonic_stranded(df_soil, res_soil, cp, target_year=2050)
+
+    # Stability threshold: tmax_july coefficient changes <20% → ROBUST
+    tmax_chg = coef_comparison["tmax_july"]["pct_change"]
