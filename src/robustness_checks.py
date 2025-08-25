@@ -548,3 +548,13 @@ def check1_hedonic_soil_proxy(data: dict) -> dict:
         "summary": summary,
         "coefficients": coef_comparison,
         "soil_proxy_coef": float(soil_coef),
+        "soil_proxy_p":    float(soil_p),
+        "stranded_baseline_B": float(stranded_base),
+        "stranded_with_soil_B": float(stranded_soil),
+        "stranded_change_pct": float(stranded_chg_pct),
+        "r2_baseline":  float(res_base.rsquared),
+        "r2_with_soil": float(res_soil.rsquared),
+        "n_baseline":   int(res_base.nobs),
+        "n_with_soil":  int(res_soil.nobs),
+    }
+    return result
