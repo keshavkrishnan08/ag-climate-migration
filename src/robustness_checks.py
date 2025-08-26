@@ -558,3 +558,13 @@ def check1_hedonic_soil_proxy(data: dict) -> dict:
         "n_with_soil":  int(res_soil.nobs),
     }
     return result
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# CHECK 2: Leave-one-crop-out sensitivity
+# ──────────────────────────────────────────────────────────────────────────────
+
+def check2_leave_one_crop_out(data: dict) -> dict:
+    """Drop each crop and recompute DCF stranded asset.
+
+    Uses yield_proj climate_impact_bu × acres × price as a proxy for each
