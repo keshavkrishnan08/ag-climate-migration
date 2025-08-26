@@ -568,3 +568,13 @@ def check2_leave_one_crop_out(data: dict) -> dict:
     """Drop each crop and recompute DCF stranded asset.
 
     Uses yield_proj climate_impact_bu × acres × price as a proxy for each
+    crop's contribution to total stranded value. The DCF conservative estimate
+    of $76B is recomputed after dropping each crop from the income stream.
+
+    Args:
+        data: Shared data dict.
+
+    Returns:
+        Result dict with per-crop stranded values and verdict.
+    """
+    logger.info("=" * 60)
