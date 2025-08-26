@@ -578,3 +578,13 @@ def check2_leave_one_crop_out(data: dict) -> dict:
         Result dict with per-crop stranded values and verdict.
     """
     logger.info("=" * 60)
+    logger.info("CHECK 2: Leave-one-crop-out sensitivity on stranded assets")
+    logger.info("=" * 60)
+
+    yp = data["yield_proj"]
+
+    # Climate damage per county-crop-year: negative climate_impact_bu = yield loss
+    # Total damage per crop = sum(|loss| × acres × price) for counties with negative impact
+    future = yp[yp["year"].between(2040, 2050)].copy()
+    future["price"] = future["crop"].map(COMMODITY_PRICES).fillna(5.0)
+    future["climate_damage"] = (
