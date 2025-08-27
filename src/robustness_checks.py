@@ -628,3 +628,13 @@ def check2_leave_one_crop_out(data: dict) -> dict:
     verdict   = "SENSITIVE" if max_share > 40 else "ROBUST"
 
     summary = (
+        f"{verdict} | Leave-one-crop-out: baseline=${baseline_stranded:.1f}B (cap rate 4%); "
+        f"largest single-crop share={max_share:.1f}% ({max_crop}); "
+        f"range without any one crop: "
+        f"${min(v['stranded_without_B'] for v in loo_results.values()):.1f}B"
+        f"–${max(v['stranded_without_B'] for v in loo_results.values()):.1f}B"
+    )
+    logger.info(f"  VERDICT: {summary}")
+    for crop, r in sorted(loo_results.items(), key=lambda x: -x[1]["crop_share_pct"]):
+        logger.info(
+            f"    Drop {crop:15s}: ${r['stranded_without_B']:.1f}B "
