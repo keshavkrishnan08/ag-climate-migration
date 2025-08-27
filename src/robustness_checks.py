@@ -598,3 +598,13 @@ def check2_leave_one_crop_out(data: dict) -> dict:
     crop_damage = (
         future.groupby(["year", "crop"])["climate_damage"].sum()
         .groupby("crop").mean()
+        .sort_values(ascending=False)
+    )
+
+    # Cap rate approach: stranded = annual_damage / cap_rate
+    # DCF conservative uses r=4%, H=30yr → annuity factor ≈ 17.3
+    # We use simple perpetuity at 4% for comparability: stranded ≈ annual_damage / 0.04
+    # (consistent with DCF conservative $76B / annual ~$4.4B ≈ factor ~17)
+    cap_rate = 0.04
+    baseline_stranded = total_annual_damage / cap_rate / 1e9
+
