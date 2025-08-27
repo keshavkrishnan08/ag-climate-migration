@@ -648,3 +648,13 @@ def check2_leave_one_crop_out(data: dict) -> dict:
         "summary": summary,
         "baseline_stranded_B": round(baseline_stranded, 2),
         "max_crop_share_pct": round(max_share, 1),
+        "dominant_crop": max_crop,
+        "per_crop": loo_results,
+    }
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# CHECK 3: Leave-one-GCM-out sensitivity
+# ──────────────────────────────────────────────────────────────────────────────
+
+def check3_leave_one_gcm_out(data: dict) -> dict:
