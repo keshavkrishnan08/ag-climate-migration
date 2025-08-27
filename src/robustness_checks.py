@@ -638,3 +638,13 @@ def check2_leave_one_crop_out(data: dict) -> dict:
     for crop, r in sorted(loo_results.items(), key=lambda x: -x[1]["crop_share_pct"]):
         logger.info(
             f"    Drop {crop:15s}: ${r['stranded_without_B']:.1f}B "
+            f"(crop share {r['crop_share_pct']:.1f}%, "
+            f"Δ={r['stranded_change_B']:+.2f}B)"
+        )
+
+    return {
+        "check": "leave_one_crop_out",
+        "verdict": verdict,
+        "summary": summary,
+        "baseline_stranded_B": round(baseline_stranded, 2),
+        "max_crop_share_pct": round(max_share, 1),
