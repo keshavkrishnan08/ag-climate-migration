@@ -618,3 +618,13 @@ def check2_leave_one_crop_out(data: dict) -> dict:
         crop_share = crop_damage.get(drop_crop, 0) / total_annual_damage * 100
         loo_results[drop_crop] = {
             "stranded_without_B": round(stranded_loo, 2),
+            "stranded_change_B":  round(baseline_stranded - stranded_loo, 2),
+            "crop_share_pct":     round(crop_share, 1),
+        }
+
+    # Verdict: if any single crop accounts for >40% of stranded value → SENSITIVE
+    max_share = max(v["crop_share_pct"] for v in loo_results.values())
+    max_crop  = max(loo_results, key=lambda c: loo_results[c]["crop_share_pct"])
+    verdict   = "SENSITIVE" if max_share > 40 else "ROBUST"
+
+    summary = (
