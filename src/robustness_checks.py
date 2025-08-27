@@ -608,3 +608,13 @@ def check2_leave_one_crop_out(data: dict) -> dict:
     cap_rate = 0.04
     baseline_stranded = total_annual_damage / cap_rate / 1e9
 
+    # Leave-one-crop-out
+    crops = yp["crop"].unique().tolist()
+    loo_results = {}
+    for drop_crop in crops:
+        remaining = future[future["crop"] != drop_crop]
+        annual_dmg = remaining.groupby("year")["climate_damage"].sum().mean()
+        stranded_loo = annual_dmg / cap_rate / 1e9
+        crop_share = crop_damage.get(drop_crop, 0) / total_annual_damage * 100
+        loo_results[drop_crop] = {
+            "stranded_without_B": round(stranded_loo, 2),
