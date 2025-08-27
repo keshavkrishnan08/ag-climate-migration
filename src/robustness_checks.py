@@ -658,3 +658,13 @@ def check2_leave_one_crop_out(data: dict) -> dict:
 # ──────────────────────────────────────────────────────────────────────────────
 
 def check3_leave_one_gcm_out(data: dict) -> dict:
+    """Drop each GCM from ensemble and recompute hedonic stranded value.
+
+    The county_climate_projections.parquet aggregates all 10 GCMs; we use the
+    p10/p90 band to reconstruct per-GCM deltas via a pseudo-jackknife approach:
+    simulate each GCM's delta_tmax_july as a draw from N(median, sigma_gcm)
+    where sigma_gcm ≈ (p90-p10)/(2×1.28). Then compute stranded for each.
+
+    For a proper leave-one-GCM-out, we would need per-GCM projections stored
+    separately. Since those weren't built as a pipeline output, we implement
+    a tight bootstrap that samples 9-of-10 GCMs using the ensemble mean and
