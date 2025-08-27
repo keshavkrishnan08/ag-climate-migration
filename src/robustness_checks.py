@@ -588,3 +588,13 @@ def check2_leave_one_crop_out(data: dict) -> dict:
     future = yp[yp["year"].between(2040, 2050)].copy()
     future["price"] = future["crop"].map(COMMODITY_PRICES).fillna(5.0)
     future["climate_damage"] = (
+        -future["climate_impact_bu"].clip(upper=0) * future["acres_harvested"] * future["price"]
+    )  # positive = annual damage in $/yr
+
+    # Total baseline (all crops, mean over 2040-2050)
+    total_annual_damage = future.groupby("year")["climate_damage"].sum().mean()
+
+    # Per-crop contribution
+    crop_damage = (
+        future.groupby(["year", "crop"])["climate_damage"].sum()
+        .groupby("crop").mean()
