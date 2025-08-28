@@ -678,3 +678,13 @@ def check3_leave_one_gcm_out(data: dict) -> dict:
     """
     logger.info("=" * 60)
     logger.info("CHECK 3: Leave-one-GCM-out sensitivity (ensemble jackknife)")
+    logger.info("=" * 60)
+
+    # Load full projections with p10/p90 (for sigma_gcm reconstruction)
+    proj_full = pd.read_parquet(
+        DATA_PROJ / "county_climate_projections.parquet",
+        columns=["fips", "year", "scenario",
+                 "delta_tmax_july", "tmax_july_p10", "tmax_july_p90"],
+    )
+    proj_ssp = proj_full[proj_full["scenario"] == "SSP245"].copy()
+
