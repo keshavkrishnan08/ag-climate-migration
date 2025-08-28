@@ -698,3 +698,13 @@ def check3_leave_one_gcm_out(data: dict) -> dict:
         lv_years=[2017, 2022],
         clim_years=(2019, 2023),
         acs_years=(2019, 2023),
+    )
+    res_base = _run_hedonic_ols(df_base)
+
+    # Reconstruct per-GCM spread: sigma_gcm ~ (p90 - p10) / (2 × 1.28)
+    # where 1.28 = z-score for 10th/90th percentile of normal
+    proj2050 = proj_ssp[proj_ssp["year"] == 2050].copy()
+    proj2050["sigma_gcm"] = (
+        (proj2050["tmax_july_p90"] - proj2050["tmax_july_p10"]) / (2 * 1.28)
+    ).clip(lower=0.01)
+
