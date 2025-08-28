@@ -688,3 +688,13 @@ def check3_leave_one_gcm_out(data: dict) -> dict:
     )
     proj_ssp = proj_full[proj_full["scenario"] == "SSP245"].copy()
 
+    lv = data["land_values"]
+    cm = data["climate_monthly"]
+    acs = data["acs"]
+    ny = data["nass_yields"]
+
+    df_base = _build_cross_section(
+        lv, cm, acs, ny,
+        lv_years=[2017, 2022],
+        clim_years=(2019, 2023),
+        acs_years=(2019, 2023),
