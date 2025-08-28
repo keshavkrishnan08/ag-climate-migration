@@ -668,3 +668,13 @@ def check3_leave_one_gcm_out(data: dict) -> dict:
     For a proper leave-one-GCM-out, we would need per-GCM projections stored
     separately. Since those weren't built as a pipeline output, we implement
     a tight bootstrap that samples 9-of-10 GCMs using the ensemble mean and
+    spread from the p10/p90 stored in the projections file.
+
+    Args:
+        data: Shared data dict.
+
+    Returns:
+        Result dict with per-GCM-dropped stranded estimates.
+    """
+    logger.info("=" * 60)
+    logger.info("CHECK 3: Leave-one-GCM-out sensitivity (ensemble jackknife)")
