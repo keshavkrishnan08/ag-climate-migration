@@ -758,3 +758,13 @@ def check3_leave_one_gcm_out(data: dict) -> dict:
     vals = list(stranded_per_gcm_dropped.values())
     lo, hi = min(vals), max(vals)
     spread_pct = (hi - lo) / stranded_base * 100
+
+    verdict = "ROBUST" if spread_pct < 30 else "SENSITIVE"
+
+    summary = (
+        f"{verdict} | Leave-one-GCM-out: baseline=${stranded_base:.1f}B; "
+        f"jackknife range ${lo:.1f}B–${hi:.1f}B "
+        f"(spread={spread_pct:.1f}% of baseline); "
+        f"all 10 GCM-dropped estimates within "
+        f"${stranded_base - lo:.1f}B–${hi - stranded_base:.1f}B of baseline"
+    )
