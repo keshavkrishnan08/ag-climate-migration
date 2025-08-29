@@ -778,3 +778,13 @@ def check3_leave_one_gcm_out(data: dict) -> dict:
         "summary": summary,
         "baseline_stranded_B": round(stranded_base, 2),
         "jackknife_min_B": round(lo, 2),
+        "jackknife_max_B": round(hi, 2),
+        "spread_pct": round(spread_pct, 1),
+        "per_gcm_dropped": stranded_per_gcm_dropped,
+    }
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# CHECK 4: Placebo test — cascade on LEAST climate-affected counties
+# ──────────────────────────────────────────────────────────────────────────────
+
