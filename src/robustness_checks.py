@@ -748,3 +748,13 @@ def check3_leave_one_gcm_out(data: dict) -> dict:
         if "delta_precip_growing" not in proj_loo.columns:
             proj_loo["delta_precip_growing"] = 0.0
         proj_loo["year"] = 2050
+
+        stranded_loo = _hedonic_stranded(df_base, res_base, proj_loo, target_year=2050)
+        stranded_per_gcm_dropped[dropped_gcm] = round(stranded_loo, 1)
+
+    # Baseline
+    stranded_base = _hedonic_stranded(df_base, res_base, data["climate_proj"], target_year=2050)
+
+    vals = list(stranded_per_gcm_dropped.values())
+    lo, hi = min(vals), max(vals)
+    spread_pct = (hi - lo) / stranded_base * 100
