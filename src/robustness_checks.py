@@ -728,3 +728,13 @@ def check3_leave_one_gcm_out(data: dict) -> dict:
         # aren't stored as a structured output.
         proj_loo = proj2050[["fips", "delta_tmax_july", "sigma_gcm",
                               "delta_precip_growing"]].copy() if "delta_precip_growing" in proj2050.columns else proj2050[["fips", "delta_tmax_july", "sigma_gcm"]].copy()
+
+        # Draw N_GCMS realizations per county, drop the one most like GCM i
+        n_counties = len(proj_loo)
+        draws = rng.normal(
+            loc=proj_loo["delta_tmax_july"].values[:, None],
+            scale=proj_loo["sigma_gcm"].values[:, None],
+            size=(n_counties, N_GCMS),
+        )
+        # Drop the i-th sorted draw (approximates dropping the i-th GCM)
+        draws_sorted = np.sort(draws, axis=1)
