@@ -768,3 +768,13 @@ def check3_leave_one_gcm_out(data: dict) -> dict:
         f"all 10 GCM-dropped estimates within "
         f"${stranded_base - lo:.1f}B–${hi - stranded_base:.1f}B of baseline"
     )
+    logger.info(f"  VERDICT: {summary}")
+    for gcm, val in sorted(stranded_per_gcm_dropped.items()):
+        logger.info(f"    Drop {gcm:22s}: ${val:.1f}B")
+
+    return {
+        "check": "leave_one_gcm_out",
+        "verdict": verdict,
+        "summary": summary,
+        "baseline_stranded_B": round(stranded_base, 2),
+        "jackknife_min_B": round(lo, 2),
