@@ -788,3 +788,13 @@ def check3_leave_one_gcm_out(data: dict) -> dict:
 # CHECK 4: Placebo test — cascade on LEAST climate-affected counties
 # ──────────────────────────────────────────────────────────────────────────────
 
+def check4_cascade_placebo(data: dict) -> dict:
+    """Run cascade tipping-point detection on least climate-affected counties.
+
+    If the cascade model finds tipping counties among counties that BENEFIT from
+    climate change (top quartile of positive climate impact by 2040-2050), it's
+    detecting general rural decline, not climate-driven collapse.
+
+    Strategy:
+      1. Identify top-quartile counties by mean climate_impact_bu 2040-2050
+         (least harmed or benefiting from warming).
