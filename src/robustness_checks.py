@@ -738,3 +738,13 @@ def check3_leave_one_gcm_out(data: dict) -> dict:
         )
         # Drop the i-th sorted draw (approximates dropping the i-th GCM)
         draws_sorted = np.sort(draws, axis=1)
+        # Remove column i (low to high order)
+        keep_mask = np.ones(N_GCMS, dtype=bool)
+        keep_mask[i % N_GCMS] = False
+        sub_ensemble_mean = draws_sorted[:, keep_mask].mean(axis=1)
+
+        proj_loo = proj_loo.copy()
+        proj_loo["delta_tmax_july"] = sub_ensemble_mean
+        if "delta_precip_growing" not in proj_loo.columns:
+            proj_loo["delta_precip_growing"] = 0.0
+        proj_loo["year"] = 2050
