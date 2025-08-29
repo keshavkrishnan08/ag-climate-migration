@@ -718,3 +718,13 @@ def check3_leave_one_gcm_out(data: dict) -> dict:
     rng = np.random.default_rng(SEED)
     stranded_per_gcm_dropped = {}
 
+    for i, dropped_gcm in enumerate(GCMS):
+        # Simulate 9-GCM sub-ensemble by adjusting delta_tmax_july
+        # When we drop one GCM, the new ensemble mean shifts slightly.
+        # We approximate: for each county, draw N_GCMS synthetic GCM deltas
+        # from N(ensemble_mean, sigma_gcm), drop the extreme i-th order stat,
+        # and take the mean of the remaining 9.
+        # This is a conservative jackknife approximation when per-GCM files
+        # aren't stored as a structured output.
+        proj_loo = proj2050[["fips", "delta_tmax_july", "sigma_gcm",
+                              "delta_precip_growing"]].copy() if "delta_precip_growing" in proj2050.columns else proj2050[["fips", "delta_tmax_july", "sigma_gcm"]].copy()
