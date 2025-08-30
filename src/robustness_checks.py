@@ -798,3 +798,13 @@ def check4_cascade_placebo(data: dict) -> dict:
     Strategy:
       1. Identify top-quartile counties by mean climate_impact_bu 2040-2050
          (least harmed or benefiting from warming).
+      2. Count how many of those counties appear in the tipping-point list.
+      3. Compare cascade detection rate in this group vs the overall sample.
+
+    Args:
+        data: Shared data dict.
+
+    Returns:
+        Result dict with placebo detection rate and verdict.
+    """
+    logger.info("=" * 60)
