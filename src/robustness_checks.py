@@ -808,3 +808,13 @@ def check4_cascade_placebo(data: dict) -> dict:
         Result dict with placebo detection rate and verdict.
     """
     logger.info("=" * 60)
+    logger.info("CHECK 4: Cascade placebo test (least climate-affected counties)")
+    logger.info("=" * 60)
+
+    yp  = data["yield_proj"]
+    tp  = data["tipping_df"]
+
+    # Mean climate impact per county, 2040-2050
+    ci = (
+        yp[yp["year"].between(2040, 2050)]
+        .groupby("fips")["climate_impact_bu"]
