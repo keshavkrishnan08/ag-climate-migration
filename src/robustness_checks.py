@@ -818,3 +818,13 @@ def check4_cascade_placebo(data: dict) -> dict:
     ci = (
         yp[yp["year"].between(2040, 2050)]
         .groupby("fips")["climate_impact_bu"]
+        .mean()
+        .reset_index()
+        .rename(columns={"climate_impact_bu": "mean_ci"})
+    )
+
+    # Top quartile = least negatively affected (highest = least harm or gaining)
+    q75 = ci["mean_ci"].quantile(0.75)
+    placebo_counties = set(ci[ci["mean_ci"] >= q75]["fips"].tolist())
+    n_placebo = len(placebo_counties)
+
