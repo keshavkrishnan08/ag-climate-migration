@@ -828,3 +828,13 @@ def check4_cascade_placebo(data: dict) -> dict:
     placebo_counties = set(ci[ci["mean_ci"] >= q75]["fips"].tolist())
     n_placebo = len(placebo_counties)
 
+    # Tipping counties before 2040
+    tp_before_2040 = set(
+        tp[tp["tipping_year"] <= 2040]["fips"].tolist()
+    )
+    n_tipping = len(tp_before_2040)
+    n_total   = ci["fips"].nunique()
+
+    # Overlap
+    placebo_tipping = placebo_counties & tp_before_2040
+    n_overlap = len(placebo_tipping)
