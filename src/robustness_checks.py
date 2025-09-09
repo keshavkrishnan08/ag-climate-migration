@@ -878,3 +878,13 @@ def check4_cascade_placebo(data: dict) -> dict:
         "q75_climate_impact": round(q75, 3),
         "n_placebo_counties": n_placebo,
         "n_placebo_tipping": n_overlap,
+        "placebo_tipping_rate": round(placebo_rate, 4),
+        "n_treatment_tipping": len(treatment_counties),
+        "treatment_tipping_rate": round(treatment_rate, 4),
+        "rate_ratio": round(rate_ratio, 3),
+        "fisher_p": round(float(p_fisher), 4),
+        "overall_tipping_rate": round(overall_rate, 4),
+        "n_total_counties": n_total,
+        "n_tipping_before_2040": n_tipping,
+    }
+
