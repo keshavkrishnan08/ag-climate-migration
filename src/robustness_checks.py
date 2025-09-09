@@ -848,3 +848,13 @@ def check4_cascade_placebo(data: dict) -> dict:
     # Fisher exact test: is placebo detection rate significantly lower?
     # 2×2 table: [tipping | not_tipping] × [placebo | treatment]
     a = n_overlap          # placebo + tipping
+    b = n_placebo - a      # placebo + not tipping
+    c = len(treatment_counties)
+    d = (n_total - n_placebo) - c
+    _, p_fisher = scipy_stats.fisher_exact([[a, b], [c, d]], alternative="greater")
+
+    # Verdict: if placebo rate << treatment rate → model is capturing climate effect
+    rate_ratio = placebo_rate / max(treatment_rate, 1e-6)
+    verdict = "ROBUST" if (rate_ratio < 0.4 and p_fisher < 0.05) else "SENSITIVE"
+
+    summary = (
