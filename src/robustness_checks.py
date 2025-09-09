@@ -888,3 +888,13 @@ def check4_cascade_placebo(data: dict) -> dict:
         "n_tipping_before_2040": n_tipping,
     }
 
+
+# ──────────────────────────────────────────────────────────────────────────────
+# CHECK 5: Temporal stability of the hedonic
+# ──────────────────────────────────────────────────────────────────────────────
+
+def check5_hedonic_temporal_stability(data: dict) -> dict:
+    """Compare hedonic climate coefficients across two time windows.
+
+    Window A: 2010-2015 land values (Census 2012), climate 2010-2015
+    Window B: 2015-2022 land values (Census 2017/2022), climate 2015-2023
