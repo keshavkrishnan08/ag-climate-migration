@@ -898,3 +898,13 @@ def check5_hedonic_temporal_stability(data: dict) -> dict:
 
     Window A: 2010-2015 land values (Census 2012), climate 2010-2015
     Window B: 2015-2022 land values (Census 2017/2022), climate 2015-2023
+
+    If the tmax_july coefficient is stable across these windows, the hedonic
+    relationship is structural, not a period artifact.
+
+    Args:
+        data: Shared data dict.
+
+    Returns:
+        Result dict with coefficients for both windows and stability assessment.
+    """
