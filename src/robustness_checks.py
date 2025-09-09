@@ -868,3 +868,13 @@ def check4_cascade_placebo(data: dict) -> dict:
     logger.info(f"  VERDICT: {summary}")
     logger.info(f"  Climate impact q75 threshold: {q75:.2f} bu/acre")
     logger.info(f"  Placebo counties (top quartile climate impact): {n_placebo}")
+    logger.info(f"  Placebo that tip by 2040: {n_overlap}")
+    logger.info(f"  Treatment counties that tip by 2040: {len(treatment_counties)}")
+
+    return {
+        "check": "cascade_placebo",
+        "verdict": verdict,
+        "summary": summary,
+        "q75_climate_impact": round(q75, 3),
+        "n_placebo_counties": n_placebo,
+        "n_placebo_tipping": n_overlap,
