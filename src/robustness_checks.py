@@ -858,3 +858,13 @@ def check4_cascade_placebo(data: dict) -> dict:
     verdict = "ROBUST" if (rate_ratio < 0.4 and p_fisher < 0.05) else "SENSITIVE"
 
     summary = (
+        f"{verdict} | Placebo test: {n_overlap}/{n_placebo} ({placebo_rate*100:.1f}%) "
+        f"of LEAST-affected counties tip by 2040, vs "
+        f"{len(treatment_counties)}/{n_total-n_placebo} ({treatment_rate*100:.1f}%) "
+        f"of remaining counties; rate ratio={rate_ratio:.2f}; "
+        f"Fisher p={p_fisher:.4f} "
+        f"({'model captures climate effect' if verdict=='ROBUST' else 'possible confound with rural decline'})"
+    )
+    logger.info(f"  VERDICT: {summary}")
+    logger.info(f"  Climate impact q75 threshold: {q75:.2f} bu/acre")
+    logger.info(f"  Placebo counties (top quartile climate impact): {n_placebo}")
