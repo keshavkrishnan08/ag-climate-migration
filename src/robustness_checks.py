@@ -838,3 +838,13 @@ def check4_cascade_placebo(data: dict) -> dict:
     # Overlap
     placebo_tipping = placebo_counties & tp_before_2040
     n_overlap = len(placebo_tipping)
+
+    # Rates
+    placebo_rate  = n_overlap / max(n_placebo, 1)
+    overall_rate  = n_tipping / max(n_total, 1)
+    treatment_counties = set(ci[ci["mean_ci"] < q75]["fips"]) & tp_before_2040
+    treatment_rate = len(treatment_counties) / max(n_total - n_placebo, 1)
+
+    # Fisher exact test: is placebo detection rate significantly lower?
+    # 2×2 table: [tipping | not_tipping] × [placebo | treatment]
+    a = n_overlap          # placebo + tipping
