@@ -908,3 +908,13 @@ def check5_hedonic_temporal_stability(data: dict) -> dict:
     Returns:
         Result dict with coefficients for both windows and stability assessment.
     """
+    logger.info("=" * 60)
+    logger.info("CHECK 5: Temporal stability of hedonic (2010-2015 vs 2015-2022)")
+    logger.info("=" * 60)
+
+    lv = data["land_values"]
+    cm = data["climate_monthly"]
+    acs = data["acs"]
+    ny = data["nass_yields"]
+
+    # --- Window A: 2012 Census land values, 2010-2015 climate ---
