@@ -948,3 +948,13 @@ def check5_hedonic_temporal_stability(data: dict) -> dict:
     res_A = _run_hedonic_ols(df_A)
     res_B = _run_hedonic_ols(df_B)
 
+    vars_key = ["tmax_july", "tmax_july_sq", "precip_growing", "log_pop", "log_income"]
+    coef_compare = {}
+    for v in vars_key:
+        bA = res_A.params.get(v, np.nan)
+        bB = res_B.params.get(v, np.nan)
+        pA = res_A.pvalues.get(v, np.nan)
+        pB = res_B.pvalues.get(v, np.nan)
+        se_A = res_A.bse.get(v, np.nan)
+        se_B = res_B.bse.get(v, np.nan)
+
