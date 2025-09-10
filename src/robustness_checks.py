@@ -978,3 +978,13 @@ def check5_hedonic_temporal_stability(data: dict) -> dict:
 
     # Verdict based on tmax_july stability
     tmax_pct = coef_compare["tmax_july"]["pct_change"]
+    tmax_p   = coef_compare["tmax_july"]["p_stability"]
+
+    is_stable = (tmax_pct is not None and tmax_pct < 25 and
+                 (tmax_p is None or tmax_p > 0.10))
+    verdict   = "ROBUST" if is_stable else "SENSITIVE"
+
+    p_str = f"{tmax_p:.4f}" if tmax_p is not None else "N/A"
+    summary = (
+        f"{verdict} | Temporal stability: tmax_july coef "
+        f"A={res_A.params.get('tmax_july', np.nan):.5f} (p={res_A.pvalues.get('tmax_july', np.nan):.4f}) "
