@@ -938,3 +938,13 @@ def check5_hedonic_temporal_stability(data: dict) -> dict:
     logger.info(f"  Window B (2017-22/2015-23): {len(df_B)} counties")
 
     if len(df_A) < 100 or len(df_B) < 100:
+        logger.warning("  Insufficient counties for one or both windows — skipping")
+        return {
+            "check": "hedonic_temporal_stability",
+            "verdict": "SKIP",
+            "summary": "SKIP | Insufficient land value data for 2012 window",
+        }
+
+    res_A = _run_hedonic_ols(df_A)
+    res_B = _run_hedonic_ols(df_B)
+
