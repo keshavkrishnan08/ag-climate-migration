@@ -918,3 +918,13 @@ def check5_hedonic_temporal_stability(data: dict) -> dict:
     ny = data["nass_yields"]
 
     # --- Window A: 2012 Census land values, 2010-2015 climate ---
+    # Land value years available: 1997, 2002, 2007, 2012, 2017, 2022
+    df_A = _build_cross_section(
+        lv, cm, acs, ny,
+        lv_years=[2012],       # Census of Ag 2012 (only year available ~2012)
+        clim_years=(2010, 2015),
+        acs_years=(2010, 2015),
+    )
+
+    # --- Window B: 2017/2022 Census land values, 2015-2023 climate ---
+    df_B = _build_cross_section(
