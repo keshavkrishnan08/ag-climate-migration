@@ -928,3 +928,13 @@ def check5_hedonic_temporal_stability(data: dict) -> dict:
 
     # --- Window B: 2017/2022 Census land values, 2015-2023 climate ---
     df_B = _build_cross_section(
+        lv, cm, acs, ny,
+        lv_years=[2017, 2022],
+        clim_years=(2015, 2023),
+        acs_years=(2015, 2023),
+    )
+
+    logger.info(f"  Window A (2012/2010-2015): {len(df_A)} counties")
+    logger.info(f"  Window B (2017-22/2015-23): {len(df_B)} counties")
+
+    if len(df_A) < 100 or len(df_B) < 100:
