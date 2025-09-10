@@ -968,3 +968,13 @@ def check5_hedonic_temporal_stability(data: dict) -> dict:
 
         coef_compare[v] = {
             "coef_A":  round(bA, 6),
+            "coef_B":  round(bB, 6),
+            "p_A":     round(pA, 4),
+            "p_B":     round(pB, 4),
+            "pct_change": round(pct_chg, 1) if not np.isnan(pct_chg) else None,
+            "z_stability": round(z_diff, 3) if not np.isnan(z_diff) else None,
+            "p_stability": round(p_diff, 4) if not np.isnan(p_diff) else None,
+        }
+
+    # Verdict based on tmax_july stability
+    tmax_pct = coef_compare["tmax_july"]["pct_change"]
