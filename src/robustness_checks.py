@@ -958,3 +958,13 @@ def check5_hedonic_temporal_stability(data: dict) -> dict:
         se_A = res_A.bse.get(v, np.nan)
         se_B = res_B.bse.get(v, np.nan)
 
+        # Test if coefficients differ significantly
+        # Chow-style: z = (bA - bB) / sqrt(se_A^2 + se_B^2)
+        se_diff = np.sqrt(se_A**2 + se_B**2) if not (np.isnan(se_A) or np.isnan(se_B)) else np.nan
+        z_diff  = (bA - bB) / se_diff if se_diff and se_diff > 0 else np.nan
+        p_diff  = 2 * (1 - scipy_stats.norm.cdf(abs(z_diff))) if not np.isnan(z_diff) else np.nan
+
+        pct_chg = abs(bB - bA) / max(abs(bA), 1e-10) * 100 if not np.isnan(bA) else np.nan
+
+        coef_compare[v] = {
+            "coef_A":  round(bA, 6),
