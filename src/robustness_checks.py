@@ -988,3 +988,13 @@ def check5_hedonic_temporal_stability(data: dict) -> dict:
     summary = (
         f"{verdict} | Temporal stability: tmax_july coef "
         f"A={res_A.params.get('tmax_july', np.nan):.5f} (p={res_A.pvalues.get('tmax_july', np.nan):.4f}) "
+        f"→ B={res_B.params.get('tmax_july', np.nan):.5f} (p={res_B.pvalues.get('tmax_july', np.nan):.4f}); "
+        f"change={tmax_pct:.1f}%; "
+        f"stability test p={p_str}"
+    )
+    logger.info(f"  VERDICT: {summary}")
+
+    return {
+        "check": "hedonic_temporal_stability",
+        "verdict": verdict,
+        "summary": summary,
