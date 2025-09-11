@@ -998,3 +998,13 @@ def check5_hedonic_temporal_stability(data: dict) -> dict:
         "check": "hedonic_temporal_stability",
         "verdict": verdict,
         "summary": summary,
+        "window_A_years": "Census2012/climate2010-2015",
+        "window_B_years": "Census2017-22/climate2015-23",
+        "n_A": int(res_A.nobs),
+        "n_B": int(res_B.nobs),
+        "r2_A": round(res_A.rsquared, 4),
+        "r2_B": round(res_B.rsquared, 4),
+        "coefficients": coef_compare,
+    }
+
+
