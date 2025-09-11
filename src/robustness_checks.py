@@ -1008,3 +1008,13 @@ def check5_hedonic_temporal_stability(data: dict) -> dict:
     }
 
 
+# ──────────────────────────────────────────────────────────────────────────────
+# CHECK 6: Insurance mispricing under alternative coverage levels
+# ──────────────────────────────────────────────────────────────────────────────
+
+def check6_insurance_coverage_sensitivity(data: dict) -> dict:
+    """Re-run insurance mispricing at 65% and 85% coverage levels.
+
+    Baseline: 75% coverage → $5.9B/yr total mispricing, $2.8B/yr cross-subsidy.
+    This checks whether the finding is an artifact of the 75% coverage assumption.
+
