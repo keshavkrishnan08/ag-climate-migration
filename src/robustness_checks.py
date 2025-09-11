@@ -1028,3 +1028,13 @@ def check6_insurance_coverage_sensitivity(data: dict) -> dict:
     logger.info("CHECK 6: Insurance mispricing sensitivity to coverage level")
     logger.info("=" * 60)
 
+    rma  = data["rma_data"]
+    yp   = data["yield_proj"]
+    ny   = data["nass_yields"]
+
+    if rma.empty:
+        logger.error("  RMA data empty — skipping check 6")
+        return {
+            "check": "insurance_coverage_sensitivity",
+            "verdict": "SKIP",
+            "summary": "SKIP | RMA data unavailable",
