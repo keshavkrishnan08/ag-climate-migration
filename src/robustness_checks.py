@@ -1038,3 +1038,13 @@ def check6_insurance_coverage_sensitivity(data: dict) -> dict:
             "check": "insurance_coverage_sensitivity",
             "verdict": "SKIP",
             "summary": "SKIP | RMA data unavailable",
+        }
+
+    results_by_cov = {}
+    for cov in [0.65, 0.75, 0.85]:
+        logger.info(f"  Running coverage={cov*100:.0f}%…")
+        res = _compute_insurance_at_coverage(rma, yp, ny, coverage=cov)
+        results_by_cov[cov] = res
+        logger.info(
+            f"    Coverage {cov*100:.0f}%: total=${res['total_mispricing_B']:.2f}B, "
+            f"cross-subsidy=${res['cross_subsidy_B']:.2f}B"
