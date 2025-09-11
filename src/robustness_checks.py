@@ -1018,3 +1018,13 @@ def check6_insurance_coverage_sensitivity(data: dict) -> dict:
     Baseline: 75% coverage → $5.9B/yr total mispricing, $2.8B/yr cross-subsidy.
     This checks whether the finding is an artifact of the 75% coverage assumption.
 
+    Args:
+        data: Shared data dict.
+
+    Returns:
+        Result dict with mispricing at all three coverage levels.
+    """
+    logger.info("=" * 60)
+    logger.info("CHECK 6: Insurance mispricing sensitivity to coverage level")
+    logger.info("=" * 60)
+
