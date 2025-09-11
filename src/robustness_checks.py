@@ -1048,3 +1048,13 @@ def check6_insurance_coverage_sensitivity(data: dict) -> dict:
         logger.info(
             f"    Coverage {cov*100:.0f}%: total=${res['total_mispricing_B']:.2f}B, "
             f"cross-subsidy=${res['cross_subsidy_B']:.2f}B"
+        )
+
+    baseline = results_by_cov[0.75]
+    lo_cov   = results_by_cov[0.65]
+    hi_cov   = results_by_cov[0.85]
+
+    # Range of cross-subsidy estimates
+    xsub_vals = [lo_cov["cross_subsidy_B"], baseline["cross_subsidy_B"], hi_cov["cross_subsidy_B"]]
+    xsub_lo, xsub_hi = min(xsub_vals), max(xsub_vals)
+    xsub_range_pct = (xsub_hi - xsub_lo) / max(baseline["cross_subsidy_B"], 0.01) * 100
