@@ -1058,3 +1058,13 @@ def check6_insurance_coverage_sensitivity(data: dict) -> dict:
     xsub_vals = [lo_cov["cross_subsidy_B"], baseline["cross_subsidy_B"], hi_cov["cross_subsidy_B"]]
     xsub_lo, xsub_hi = min(xsub_vals), max(xsub_vals)
     xsub_range_pct = (xsub_hi - xsub_lo) / max(baseline["cross_subsidy_B"], 0.01) * 100
+
+    total_vals = [lo_cov["total_mispricing_B"], baseline["total_mispricing_B"], hi_cov["total_mispricing_B"]]
+    total_range_pct = (max(total_vals) - min(total_vals)) / max(baseline["total_mispricing_B"], 0.01) * 100
+
+    # Verdict: robust if direction consistent AND cross-subsidy range < 50%
+    verdict = "ROBUST" if xsub_range_pct < 50 else "SENSITIVE"
+
+    summary = (
+        f"{verdict} | Coverage sensitivity: cross-subsidy at "
+        f"65%=${lo_cov['cross_subsidy_B']:.2f}B, "
