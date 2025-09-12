@@ -1098,3 +1098,13 @@ def main() -> None:
         None. Saves JSON results to results/robustness/ and prints summary table.
     """
     logger.info("=" * 70)
+    logger.info("NATURE FOOD ROBUSTNESS CHECKS — 6 checks")
+    logger.info("=" * 70)
+
+    data = load_shared_data()
+    checks = []
+
+    # 1. Soil proxy
+    r1 = check1_hedonic_soil_proxy(data)
+    checks.append(r1)
+
