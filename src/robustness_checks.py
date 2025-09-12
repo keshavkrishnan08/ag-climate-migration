@@ -1078,3 +1078,13 @@ def check6_insurance_coverage_sensitivity(data: dict) -> dict:
     return {
         "check": "insurance_coverage_sensitivity",
         "verdict": verdict,
+        "summary": summary,
+        "coverage_65pct": lo_cov,
+        "coverage_75pct": baseline,
+        "coverage_85pct": hi_cov,
+        "cross_subsidy_range_pct": round(xsub_range_pct, 1),
+        "total_mispricing_range_pct": round(total_range_pct, 1),
+    }
+
+
+# ──────────────────────────────────────────────────────────────────────────────
