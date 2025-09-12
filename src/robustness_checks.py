@@ -1088,3 +1088,13 @@ def check6_insurance_coverage_sensitivity(data: dict) -> dict:
 
 
 # ──────────────────────────────────────────────────────────────────────────────
+# Main
+# ──────────────────────────────────────────────────────────────────────────────
+
+def main() -> None:
+    """Run all six robustness checks and save results.
+
+    Returns:
+        None. Saves JSON results to results/robustness/ and prints summary table.
+    """
+    logger.info("=" * 70)
