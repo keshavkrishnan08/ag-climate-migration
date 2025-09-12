@@ -1068,3 +1068,13 @@ def check6_insurance_coverage_sensitivity(data: dict) -> dict:
     summary = (
         f"{verdict} | Coverage sensitivity: cross-subsidy at "
         f"65%=${lo_cov['cross_subsidy_B']:.2f}B, "
+        f"75%=${baseline['cross_subsidy_B']:.2f}B (baseline), "
+        f"85%=${hi_cov['cross_subsidy_B']:.2f}B; "
+        f"cross-subsidy range={xsub_range_pct:.1f}%; "
+        f"total mispricing range={total_range_pct:.1f}%"
+    )
+    logger.info(f"  VERDICT: {summary}")
+
+    return {
+        "check": "insurance_coverage_sensitivity",
+        "verdict": verdict,
