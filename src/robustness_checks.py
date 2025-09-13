@@ -1108,3 +1108,13 @@ def main() -> None:
     r1 = check1_hedonic_soil_proxy(data)
     checks.append(r1)
 
+    # 2. Leave-one-crop-out
+    r2 = check2_leave_one_crop_out(data)
+    checks.append(r2)
+
+    # 3. Leave-one-GCM-out
+    r3 = check3_leave_one_gcm_out(data)
+    checks.append(r3)
+
+    # 4. Cascade placebo
+    r4 = check4_cascade_placebo(data)
