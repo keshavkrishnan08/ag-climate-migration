@@ -1118,3 +1118,13 @@ def main() -> None:
 
     # 4. Cascade placebo
     r4 = check4_cascade_placebo(data)
+    checks.append(r4)
+
+    # 5. Temporal stability
+    r5 = check5_hedonic_temporal_stability(data)
+    checks.append(r5)
+
+    # 6. Insurance coverage sensitivity
+    r6 = check6_insurance_coverage_sensitivity(data)
+    checks.append(r6)
+
