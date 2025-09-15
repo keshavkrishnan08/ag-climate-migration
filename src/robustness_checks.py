@@ -1138,3 +1138,13 @@ def main() -> None:
     # Save combined
     combined_path = RESULTS_DIR / "robustness_summary.json"
     with open(combined_path, "w") as f:
+        json.dump({"checks": checks}, f, indent=2, default=str)
+
+    # Print summary table
+    print("\n" + "=" * 78)
+    print("ROBUSTNESS CHECK SUMMARY — Nature Food Submission")
+    print("=" * 78)
+    header = f"{'#':<3} {'Check':<35} {'Verdict':<12} Key Numbers"
+    print(header)
+    print("-" * 78)
+    labels = {
