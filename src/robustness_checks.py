@@ -1128,3 +1128,13 @@ def main() -> None:
     r6 = check6_insurance_coverage_sensitivity(data)
     checks.append(r6)
 
+    # Save individual results
+    for r in checks:
+        out_path = RESULTS_DIR / f"{r['check']}.json"
+        with open(out_path, "w") as f:
+            json.dump(r, f, indent=2, default=str)
+        logger.info(f"Saved: {out_path}")
+
+    # Save combined
+    combined_path = RESULTS_DIR / "robustness_summary.json"
+    with open(combined_path, "w") as f:
