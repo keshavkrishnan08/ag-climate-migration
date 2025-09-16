@@ -1178,3 +1178,12 @@ def main() -> None:
 
     # Count robust vs sensitive
     verdicts = [r.get("verdict", "?") for r in checks]
+    n_robust    = sum(v == "ROBUST"    for v in verdicts)
+    n_sensitive = sum(v == "SENSITIVE" for v in verdicts)
+    n_skip      = sum(v == "SKIP"      for v in verdicts)
+    print(f"\nSummary: {n_robust} ROBUST | {n_sensitive} SENSITIVE | {n_skip} SKIPPED")
+    print(f"Results saved to: {RESULTS_DIR}")
+
+
+if __name__ == "__main__":
+    main()
