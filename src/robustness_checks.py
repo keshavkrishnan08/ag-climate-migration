@@ -1158,3 +1158,13 @@ def main() -> None:
     for i, r in enumerate(checks, 1):
         name    = labels.get(r["check"], r["check"])
         verdict = r.get("verdict", "?")
+        # Extract the key numbers from the summary (everything after verdict |)
+        summary = r.get("summary", "")
+        key_nums = summary.split(" | ", 1)[-1] if " | " in summary else summary
+        # Wrap at 60 chars
+        if len(key_nums) > 58:
+            key_nums = key_nums[:55] + "…"
+        print(f"{i:<3} {name:<35} {verdict:<12} {key_nums}")
+    print("=" * 78)
+
+    # One-line summary per check (plain text file)
