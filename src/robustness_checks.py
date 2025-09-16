@@ -1168,3 +1168,13 @@ def main() -> None:
     print("=" * 78)
 
     # One-line summary per check (plain text file)
+    txt_path = RESULTS_DIR / "verdicts.txt"
+    with open(txt_path, "w") as f:
+        f.write("NATURE FOOD ROBUSTNESS VERDICTS\n")
+        f.write("=" * 70 + "\n")
+        for r in checks:
+            f.write(r.get("summary", "") + "\n")
+    logger.info(f"Verdicts saved: {txt_path}")
+
+    # Count robust vs sensitive
+    verdicts = [r.get("verdict", "?") for r in checks]
