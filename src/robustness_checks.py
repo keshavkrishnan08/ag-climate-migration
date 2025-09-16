@@ -1148,3 +1148,13 @@ def main() -> None:
     print(header)
     print("-" * 78)
     labels = {
+        "hedonic_soil_proxy":           "1. Hedonic + soil quality proxy",
+        "leave_one_crop_out":           "2. Leave-one-crop-out",
+        "leave_one_gcm_out":            "3. Leave-one-GCM-out",
+        "cascade_placebo":              "4. Cascade placebo test",
+        "hedonic_temporal_stability":   "5. Hedonic temporal stability",
+        "insurance_coverage_sensitivity": "6. Insurance coverage sensitivity",
+    }
+    for i, r in enumerate(checks, 1):
+        name    = labels.get(r["check"], r["check"])
+        verdict = r.get("verdict", "?")
