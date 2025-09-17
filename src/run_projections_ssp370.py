@@ -38,3 +38,13 @@ def load_yield_model():
     results_dirs = sorted(RESULTS_DIR.glob('20*'))
     for d in reversed(results_dirs):
         yield_path = d / 'yield_model.pkl'
+        if yield_path.exists():
+            with open(yield_path, 'rb') as f:
+                model = pickle.load(f)
+            logger.info(f"Loaded yield model from {yield_path}")
+            return model
+    raise FileNotFoundError("No yield model found — run Phase 3 first")
+
+
+def project_yields_ssp370(yield_model, climate_proj, panel):
+    """Project county-crop yields under SSP3-7.0.
