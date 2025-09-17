@@ -28,3 +28,13 @@ SCENARIO = 'SSP370'
 
 def load_yield_model():
     """Load the most recent yield model from results directories.
+
+    Returns:
+        Trained LGBMRegressor.
+
+    Raises:
+        FileNotFoundError: If no yield model exists.
+    """
+    results_dirs = sorted(RESULTS_DIR.glob('20*'))
+    for d in reversed(results_dirs):
+        yield_path = d / 'yield_model.pkl'
