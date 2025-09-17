@@ -48,3 +48,13 @@ def load_yield_model():
 
 def project_yields_ssp370(yield_model, climate_proj, panel):
     """Project county-crop yields under SSP3-7.0.
+
+    Applies climate deltas from SSP370 projections to the trained yield model.
+    Logic mirrors src/05_project.py::project_yields() exactly.
+
+    Args:
+        yield_model: Trained LGBMRegressor from Phase 3.
+        climate_proj: SSP370 county climate projections DataFrame.
+        panel: Feature matrix (training data with all engineered features).
+
+    Returns:
