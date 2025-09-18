@@ -68,3 +68,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
     # Per-crop detrended yield std for z-score → bu/acre conversion
     crop_detrended_std = {}
     for crop in crops:
+        cp = panel[panel['crop'] == crop]
+        if cp.empty:
+            continue
+        detrended = cp['yield_bu_acre'] - (
+            cp['yield_trend_intercept'] + cp['yield_trend_slope_15yr'] * cp['year']
+        )
+        crop_detrended_std[crop] = detrended.std()
+    logger.info("  Detrended yield std: " +
+                ", ".join(f"{c}={v:.1f}" for c, v in sorted(crop_detrended_std.items())))
+
