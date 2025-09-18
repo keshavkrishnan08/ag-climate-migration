@@ -58,3 +58,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
         panel: Feature matrix (training data with all engineered features).
 
     Returns:
+        DataFrame with projected yields by county-crop-year.
+    """
+    logger.info(f"Projecting yields under {SCENARIO}...")
+
+    crops = CONFIG['crops']['primary']
+    feature_cols = yield_model.feature_name_
+
+    # Per-crop detrended yield std for z-score → bu/acre conversion
+    crop_detrended_std = {}
+    for crop in crops:
