@@ -118,3 +118,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
             merged['tmax_growing_c'] = merged['tmax_growing_c'] + delta_tmax_grow_c
             merged['tmin_growing_c'] = merged['tmin_growing_c'] + delta_tmin_grow_c
             merged['precip_growing'] = merged['precip_growing'] + delta_precip
+            merged['tmax_july_c_trend10'] = merged['tmax_july_c_trend10'] + delta_tmax_c * 0.1
+            merged['tmax_july_c_anomaly'] = delta_tmax_c
+            merged['cdd_annual'] = merged['cdd_annual'] + delta_tmax_c * 100
+
+            for gdd_crop in crops:
+                gdd_col = f'gdd_{gdd_crop}'
+                if gdd_col in merged.columns:
+                    merged[gdd_col] = merged[gdd_col] + delta_tmax_grow_c * 50
+
+            merged['extreme_heat_months'] = merged['extreme_heat_months'] + np.maximum(delta_tmax_c * 0.5, 0)
