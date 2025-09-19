@@ -108,3 +108,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
             merged = merged.loc[common_fips].copy()
             deltas = year_climate.loc[common_fips]
 
+            # Climate deltas °F → ΔC for model (trained in °C)
+            delta_tmax_c      = deltas['delta_tmax_july'] * 5 / 9
+            delta_tmax_grow_c = deltas['delta_tmax_growing'] * 5 / 9
+            delta_tmin_grow_c = deltas.get('delta_tmin_growing', 0) * 5 / 9
+            delta_precip      = deltas['delta_precip_growing']
+
+            merged['tmax_july_c']    = merged['tmax_july_c']    + delta_tmax_c
+            merged['tmax_growing_c'] = merged['tmax_growing_c'] + delta_tmax_grow_c
+            merged['tmin_growing_c'] = merged['tmin_growing_c'] + delta_tmin_grow_c
+            merged['precip_growing'] = merged['precip_growing'] + delta_precip
