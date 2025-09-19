@@ -98,3 +98,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
 
         for crop in crops:
             crop_base = baseline[baseline['crop'] == crop].copy()
+            if crop_base.empty:
+                continue
+
+            merged = crop_base.set_index('fips')
+            common_fips = merged.index.intersection(year_climate.index)
+            if len(common_fips) == 0:
+                continue
+            merged = merged.loc[common_fips].copy()
+            deltas = year_climate.loc[common_fips]
+
