@@ -88,3 +88,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
         col = f'crop_{c}'
         if col not in baseline.columns:
             baseline[col] = (baseline['crop'] == c).astype(float)
+
+    all_projections = []
+    projection_years = sorted(climate_proj['year'].unique())
+
+    for year in projection_years:
+        year_climate = climate_proj[climate_proj['year'] == year].set_index('fips')
+        years_ahead = year - max_year
+
+        for crop in crops:
+            crop_base = baseline[baseline['crop'] == crop].copy()
