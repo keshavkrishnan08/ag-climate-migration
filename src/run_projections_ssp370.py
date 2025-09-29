@@ -138,3 +138,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
             if 'precip_jja' in merged.columns:
                 merged['precip_jja'] = merged['precip_jja'] + delta_precip * 0.5
             if 'precip_jja_anomaly' in merged.columns:
+                merged['precip_jja_anomaly'] = merged['precip_jja_anomaly'] + delta_precip * 0.5
+            if 'pdsi_peak_drought' in merged.columns:
+                merged['pdsi_peak_drought'] = merged['pdsi_peak_drought'] - delta_tmax_c * 0.5
+            if 'pdsi_peak_drought_anomaly' in merged.columns:
+                merged['pdsi_peak_drought_anomaly'] = merged['pdsi_peak_drought_anomaly'] - delta_tmax_c * 0.5
+            if 'edd_months_c' in merged.columns:
+                merged['edd_months_c'] = np.maximum(0, merged['edd_months_c'] + delta_tmax_c * 0.3)
+            if 'edd_months_c_anomaly' in merged.columns:
+                merged['edd_months_c_anomaly'] = merged['edd_months_c_anomaly'] + delta_tmax_c * 0.3
+            if 'heat_x_drought' in merged.columns:
