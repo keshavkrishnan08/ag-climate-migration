@@ -158,3 +158,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
             if 'extreme_compound' in merged.columns:
                 merged['extreme_compound'] = (
                     (merged['tmax_july_c_anomaly'] > 1.0) &
+                    (merged['pdsi_growing_anomaly'] < -1.0)
+                ).astype(float)
+            if 'tmax_july_sq' in merged.columns:
+                merged['tmax_july_sq'] = merged['tmax_july_c_anomaly'] ** 2
+            if 'edd_x_pdsi' in merged.columns:
+                merged['edd_x_pdsi'] = (
+                    merged.get('edd_months_c', 0) * (-merged.get('pdsi_peak_drought', 0))
+                )
+
+            # Technology trend
