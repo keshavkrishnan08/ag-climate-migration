@@ -148,3 +148,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
             if 'edd_months_c_anomaly' in merged.columns:
                 merged['edd_months_c_anomaly'] = merged['edd_months_c_anomaly'] + delta_tmax_c * 0.3
             if 'heat_x_drought' in merged.columns:
+                merged['heat_x_drought'] = (
+                    merged['tmax_july_c_anomaly'] * (-merged['pdsi_growing_anomaly'])
+                )
+            if 'heat_x_precip' in merged.columns:
+                merged['heat_x_precip'] = (
+                    merged['tmax_july_c_anomaly'] * (-merged['precip_growing_anomaly'])
+                )
+            if 'extreme_compound' in merged.columns:
+                merged['extreme_compound'] = (
+                    (merged['tmax_july_c_anomaly'] > 1.0) &
