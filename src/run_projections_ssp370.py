@@ -178,3 +178,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
             X_baseline = crop_base.set_index('fips').loc[common_fips].copy()
             for c_name in crops:
                 col = f'crop_{c_name}'
+                if col not in X_baseline.columns:
+                    X_baseline[col] = (crop == c_name) * 1.0
+            X_base_feat = X_baseline.reindex(columns=feature_cols).fillna(0)
+            baseline_anomaly = yield_model.predict(X_base_feat)
+
+            anomaly_delta = pred_anomaly - baseline_anomaly
+            detrended_std = crop_detrended_std.get(crop, 15.0)
+            climate_impact = anomaly_delta * detrended_std
+            yield_projected = tech_yield + climate_impact
+
