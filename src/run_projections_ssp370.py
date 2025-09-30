@@ -168,3 +168,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
                 )
 
             # Technology trend
+            tech_yield = merged['yield_bu_acre'] + merged['yield_trend_slope_15yr'] * years_ahead
+            tech_yield = np.maximum(tech_yield, 0)
+
+            X = merged.reindex(columns=feature_cols).fillna(0)
+            pred_anomaly = yield_model.predict(X)
+
+            # Baseline anomaly (no climate change)
+            X_baseline = crop_base.set_index('fips').loc[common_fips].copy()
+            for c_name in crops:
+                col = f'crop_{c_name}'
