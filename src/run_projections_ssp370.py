@@ -198,3 +198,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
             result_df = pd.DataFrame({
                 'fips': common_fips,
                 'year': year,
+                'crop': crop,
+                'scenario': SCENARIO,
+                'yield_projected': np.asarray(yield_projected),
+                'yield_baseline': np.asarray(merged['yield_bu_acre']),
+                'yield_tech_trend': np.asarray(tech_yield),
+                'climate_impact_bu': np.asarray(climate_impact),
+                'yield_p10': np.asarray(yield_projected * (1 - uncertainty_pct)),
+                'yield_p90': np.asarray(yield_projected * (1 + uncertainty_pct)),
+                'acres_harvested': np.asarray(merged['acres_harvested']),
+            })
