@@ -188,3 +188,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
             climate_impact = anomaly_delta * detrended_std
             yield_projected = tech_yield + climate_impact
 
+            if 'tmax_july_p10' in year_climate.columns and 'tmax_july_p90' in year_climate.columns:
+                spread = (year_climate.loc[common_fips, 'tmax_july_p90'] -
+                          year_climate.loc[common_fips, 'tmax_july_p10']) * 5 / 9
+                uncertainty_pct = np.clip(spread * 0.03, 0.05, 0.25)
+            else:
+                uncertainty_pct = 0.10
+
+            result_df = pd.DataFrame({
+                'fips': common_fips,
+                'year': year,
