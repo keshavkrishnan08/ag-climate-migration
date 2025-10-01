@@ -278,3 +278,13 @@ def main():
     if yield_proj.empty:
         logger.error("No projections produced — check input data")
         return
+
+    # Save
+    out_path = PROJECTIONS_DIR / f'yield_projections_{SCENARIO}.parquet'
+    yield_proj.to_parquet(out_path, index=False)
+    logger.info(f"Saved → {out_path}")
+
+    # Summary
+    logger.info("\n" + "=" * 60)
+    logger.info("SSP370 YIELD PROJECTION SUMMARY")
+    logger.info("=" * 60)
