@@ -218,3 +218,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
 
 def main():
     """Execute SSP370 yield projection pipeline."""
+    logger.info("=" * 60)
+    logger.info("SSP370 YIELD PROJECTIONS")
+    logger.info("=" * 60)
+
+    # Load yield model
+    yield_model = load_yield_model()
+
+    # Load feature matrix
+    panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
+    panel = pd.read_parquet(panel_path)
