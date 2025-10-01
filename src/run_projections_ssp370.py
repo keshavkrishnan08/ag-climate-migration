@@ -268,3 +268,13 @@ def main():
 
     # Load SSP370 climate projections
     clim_path = PROJECTIONS_DIR / 'county_climate_projections_ssp370.parquet'
+    climate_proj = pd.read_parquet(clim_path)
+    logger.info(f"Loaded SSP370 climate: {len(climate_proj)} rows, "
+                f"{climate_proj['year'].min()}-{climate_proj['year'].max()}")
+
+    # Run projections
+    yield_proj = project_yields_ssp370(yield_model, climate_proj, panel)
+
+    if yield_proj.empty:
+        logger.error("No projections produced — check input data")
+        return
