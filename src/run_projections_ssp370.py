@@ -228,3 +228,13 @@ def main():
     # Load feature matrix
     panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
     panel = pd.read_parquet(panel_path)
+    panel['fips'] = panel['fips'].astype(str)
+    logger.info(f"Loaded panel: {len(panel)} rows, {panel['fips'].nunique()} counties")
+
+    # Enrich panel with v2 interaction features if needed
+    model_features = set(yield_model.feature_name_) if hasattr(yield_model, 'feature_name_') else set()
+    if 'heat_x_drought' in model_features:
+        logger.info("v2 model detected — enriching panel with compound drought features")
+        crops = CONFIG['crops']['primary']
+        monthly_path = DATA_RAW / 'prism' / 'county_climate_monthly.parquet'
+        if monthly_path.exists():
