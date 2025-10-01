@@ -208,3 +208,13 @@ def project_yields_ssp370(yield_model, climate_proj, panel):
                 'yield_p90': np.asarray(yield_projected * (1 + uncertainty_pct)),
                 'acres_harvested': np.asarray(merged['acres_harvested']),
             })
+            all_projections.append(result_df)
+
+    result = pd.concat(all_projections, ignore_index=True) if all_projections else pd.DataFrame()
+    logger.info(f"  {SCENARIO}: {len(result)} county-crop-year projections "
+                f"({result['fips'].nunique() if not result.empty else 0} counties)")
+    return result
+
+
+def main():
+    """Execute SSP370 yield projection pipeline."""
