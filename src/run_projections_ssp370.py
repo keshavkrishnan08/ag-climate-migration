@@ -248,3 +248,13 @@ def main():
                 monthly[['tmax_m06_c', 'tmax_m07_c', 'tmax_m08_c']] > 33.5
             ).sum(axis=1).astype(float)
             monthly_feats = monthly[['fips', 'year', 'tmax_peak_c', 'precip_jja',
+                                     'pdsi_peak_drought', 'edd_months_c']].copy()
+            monthly_feats['fips'] = monthly_feats['fips'].astype(str)
+            panel = panel.merge(monthly_feats, on=['fips', 'year'], how='left')
+            for col in ['tmax_peak_c', 'precip_jja', 'pdsi_peak_drought', 'edd_months_c']:
+                county_mean = panel.groupby('fips')[col].transform('mean')
+                panel[f'{col}_anomaly'] = panel[col] - county_mean
+            panel['edd_x_pdsi'] = panel['edd_months_c'] * (-panel['pdsi_peak_drought'])
+
+        panel['heat_x_drought'] = panel['tmax_july_c_anomaly'] * (-panel['pdsi_growing_anomaly'])
+        panel['heat_x_precip']  = panel['tmax_july_c_anomaly'] * (-panel['precip_growing_anomaly'])
