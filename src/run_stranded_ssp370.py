@@ -18,3 +18,13 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / 'src'))
 DATA_RAW = PROJECT_ROOT / 'data' / 'raw'
 PROJECTIONS_DIR = PROJECT_ROOT / 'data' / 'projections'
+RESULTS_DIR = PROJECT_ROOT / 'results'
+OUTPUT_DIR = RESULTS_DIR / 'stranded_assets'
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+with open(PROJECT_ROOT / 'config.yaml') as f:
+    CONFIG = yaml.safe_load(f)
+
+SCENARIO = 'SSP370'
+
+# ── Inline helper functions (mirrors 06_stranded.py) ─────────────────────────
