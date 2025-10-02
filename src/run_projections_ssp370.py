@@ -288,3 +288,13 @@ def main():
     logger.info("\n" + "=" * 60)
     logger.info("SSP370 YIELD PROJECTION SUMMARY")
     logger.info("=" * 60)
+    logger.info(f"Total rows:        {len(yield_proj):,}")
+    logger.info(f"Counties:          {yield_proj['fips'].nunique():,}")
+    logger.info(f"Crops:             {sorted(yield_proj['crop'].unique())}")
+    logger.info(f"Year range:        {yield_proj['year'].min()}–{yield_proj['year'].max()}")
+
+    mean_impact = yield_proj['climate_impact_bu'].mean()
+    decline_pct = (yield_proj['climate_impact_bu'] < 0).mean() * 100
+    logger.info(f"Mean climate impact: {mean_impact:+.2f} bu/acre")
+    logger.info(f"Counties with decline: {decline_pct:.0f}%")
+
