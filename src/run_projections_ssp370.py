@@ -298,3 +298,10 @@ def main():
     logger.info(f"Mean climate impact: {mean_impact:+.2f} bu/acre")
     logger.info(f"Counties with decline: {decline_pct:.0f}%")
 
+    for yr in [2040, 2050]:
+        sub = yield_proj[yield_proj['year'] == yr]
+        logger.info(f"  {yr}: mean climate_impact = {sub['climate_impact_bu'].mean():+.2f} bu/acre")
+
+
+if __name__ == '__main__':
+    main()
