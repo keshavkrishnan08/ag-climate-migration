@@ -68,3 +68,13 @@ def compute_stranded_vectorized(
 
     Returns:
         DataFrame with stranded value per county (aggregated across crops).
+    """
+    yield_proj = yield_proj.copy()
+    yield_proj['price'] = yield_proj['crop'].map(COMMODITY_PRICES).fillna(5.0)
+    yield_proj['climate_income_impact'] = (
+        yield_proj['climate_impact_bu'] * yield_proj['price']
+    )
+    yield_proj['climate_income_total'] = (
+        yield_proj['climate_income_impact'] * yield_proj['acres_harvested']
+    )
+    min_year = yield_proj['year'].min()
