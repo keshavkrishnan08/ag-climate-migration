@@ -38,3 +38,13 @@ COMMODITY_PRICES = {
 SR_THRESHOLD_MODERATE = 29.0
 SR_JULY_DAYS = 31
 SR_SHOULDER_DAYS = 60
+SR_COEFFICIENTS = {
+    'corn':         -0.0662,
+    'soybeans':     -0.0560,
+    'wheat_winter': -0.0420,
+    'wheat_spring': -0.0420,
+    'cotton':       -0.0662,
+    'sorghum':      -0.0662,
+    'barley':       -0.0420,
+    'oats':         -0.0420,
+}
