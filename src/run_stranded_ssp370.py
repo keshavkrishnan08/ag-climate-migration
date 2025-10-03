@@ -48,3 +48,13 @@ SR_COEFFICIENTS = {
     'barley':       -0.0420,
     'oats':         -0.0420,
 }
+
+
+def compute_stranded_vectorized(
+    yield_proj: pd.DataFrame,
+    land_values: pd.DataFrame,
+    discount_rate: float = 0.04,
+    horizon: int = 30,
+    scenario: str = 'SSP370'
+) -> pd.DataFrame:
+    """Compute stranded assets (ML model only) across all counties/crops.
