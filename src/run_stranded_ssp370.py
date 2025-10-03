@@ -28,3 +28,13 @@ with open(PROJECT_ROOT / 'config.yaml') as f:
 SCENARIO = 'SSP370'
 
 # ── Inline helper functions (mirrors 06_stranded.py) ─────────────────────────
+
+COMMODITY_PRICES = {
+    'corn': 5.50, 'soybeans': 12.80, 'wheat_winter': 7.20,
+    'wheat_spring': 8.10, 'cotton': 0.78, 'sorghum': 5.30,
+    'barley': 6.10, 'oats': 3.80,
+}
+
+SR_THRESHOLD_MODERATE = 29.0
+SR_JULY_DAYS = 31
+SR_SHOULDER_DAYS = 60
