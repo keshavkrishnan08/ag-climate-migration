@@ -58,3 +58,13 @@ def compute_stranded_vectorized(
     scenario: str = 'SSP370'
 ) -> pd.DataFrame:
     """Compute stranded assets (ML model only) across all counties/crops.
+
+    Args:
+        yield_proj: Projections DataFrame with yield_tech_trend, climate_impact_bu, acres_harvested.
+        land_values: NASS land values with fips, land_value_per_acre.
+        discount_rate: Real discount rate.
+        horizon: Projection horizon in years.
+        scenario: Climate scenario label.
+
+    Returns:
+        DataFrame with stranded value per county (aggregated across crops).
