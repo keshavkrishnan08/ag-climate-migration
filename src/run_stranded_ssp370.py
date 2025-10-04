@@ -78,3 +78,13 @@ def compute_stranded_vectorized(
         yield_proj['climate_income_impact'] * yield_proj['acres_harvested']
     )
     min_year = yield_proj['year'].min()
+    yield_proj['years_ahead'] = yield_proj['year'] - min_year + 1
+    yield_proj = yield_proj[yield_proj['years_ahead'] <= horizon]
+    yield_proj['discount_factor'] = 1.0 / (1 + discount_rate) ** yield_proj['years_ahead']
+    yield_proj['pv_climate_impact'] = (
+        yield_proj['climate_income_total'] * yield_proj['discount_factor']
+    )
+    county_pv = (
+        yield_proj.groupby('fips')
+        .agg(
+            pv_climate_total=('pv_climate_impact', 'sum'),
