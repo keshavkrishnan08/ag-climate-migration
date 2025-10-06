@@ -88,3 +88,13 @@ def compute_stranded_vectorized(
         yield_proj.groupby('fips')
         .agg(
             pv_climate_total=('pv_climate_impact', 'sum'),
+            total_acres=('acres_harvested', 'mean'),
+            mean_climate_impact_bu=('climate_impact_bu', 'mean'),
+        )
+        .reset_index()
+    )
+    county_pv['stranded_value_total'] = -county_pv['pv_climate_total']
+    county_pv['stranded_value_per_acre'] = (
+        county_pv['stranded_value_total'] / county_pv['total_acres'].replace(0, np.nan)
+    )
+    if not land_values.empty:
