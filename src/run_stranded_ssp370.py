@@ -108,3 +108,13 @@ def compute_stranded_vectorized(
             county_pv['stranded_value_per_acre'] /
             county_pv['land_value_per_acre'].replace(0, np.nan)
         )
+    else:
+        county_pv['land_value_per_acre'] = np.nan
+        county_pv['stranded_fraction'] = np.nan
+
+    county_pv['scenario'] = scenario
+    county_pv['discount_rate'] = discount_rate
+    county_pv['horizon'] = horizon
+    return county_pv
+
+
