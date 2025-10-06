@@ -118,3 +118,13 @@ def compute_stranded_vectorized(
     return county_pv
 
 
+def compute_edd_above_threshold(
+    tmax_july_C: np.ndarray,
+    tmax_growing_C: np.ndarray,
+    threshold_C: float = SR_THRESHOLD_MODERATE,
+) -> np.ndarray:
+    """Compute extreme degree-days above threshold (Schlenker & Roberts 2009).
+
+    Args:
+        tmax_july_C: Array of mean July Tmax in degrees Celsius.
+        tmax_growing_C: Array of mean growing-season Tmax (May-Sep) in °C.
