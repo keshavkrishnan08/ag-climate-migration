@@ -148,3 +148,13 @@ def compute_stranded_with_damage_function(
     indirect_multiplier: float = 1.30,
 ) -> pd.DataFrame:
     """Compute stranded assets using ML + Schlenker-Roberts (2009) EDD damage function.
+
+    Adds an additive EDD-based yield penalty on top of the ML model estimate.
+
+    Args:
+        yield_proj: Yield projections DataFrame.
+        climate_proj: County climate projections with tmax_july_projected (°F) and deltas.
+        land_values: NASS land values for stranded fraction computation.
+        discount_rate: Real discount rate.
+        horizon: Projection horizon in years.
+        scenario: Climate scenario label.
