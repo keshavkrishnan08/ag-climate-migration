@@ -168,3 +168,13 @@ def compute_stranded_with_damage_function(
 
     # Convert projected temperatures from °F to °C
     climate_proj['tmax_july_C'] = (climate_proj['tmax_july_projected'] - 32) * 5.0 / 9.0
+    climate_proj['tmax_growing_C'] = (climate_proj['tmax_growing_projected'] - 32) * 5.0 / 9.0
+
+    # Historical baseline (remove the warming delta)
+    climate_proj['tmax_july_baseline_C'] = (
+        (climate_proj['tmax_july_projected'] - climate_proj['delta_tmax_july']) - 32
+    ) * 5.0 / 9.0
+    climate_proj['tmax_growing_baseline_C'] = (
+        (climate_proj['tmax_growing_projected'] - climate_proj['delta_tmax_growing']) - 32
+    ) * 5.0 / 9.0
+
