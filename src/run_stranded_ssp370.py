@@ -138,3 +138,13 @@ def compute_edd_above_threshold(
     return edd_july + edd_shoulder
 
 
+def compute_stranded_with_damage_function(
+    yield_proj: pd.DataFrame,
+    climate_proj: pd.DataFrame,
+    land_values: pd.DataFrame,
+    discount_rate: float = 0.03,
+    horizon: int = 35,
+    scenario: str = 'SSP370',
+    indirect_multiplier: float = 1.30,
+) -> pd.DataFrame:
+    """Compute stranded assets using ML + Schlenker-Roberts (2009) EDD damage function.
