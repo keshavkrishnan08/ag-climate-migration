@@ -158,3 +158,13 @@ def compute_stranded_with_damage_function(
         discount_rate: Real discount rate.
         horizon: Projection horizon in years.
         scenario: Climate scenario label.
+        indirect_multiplier: Multiplier on combined ML+SR impact (captures indirect losses).
+
+    Returns:
+        DataFrame with stranded value per county, decomposed into ML and SR components.
+    """
+    yield_proj = yield_proj.copy()
+    climate_proj = climate_proj.copy()
+
+    # Convert projected temperatures from °F to °C
+    climate_proj['tmax_july_C'] = (climate_proj['tmax_july_projected'] - 32) * 5.0 / 9.0
