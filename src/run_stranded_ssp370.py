@@ -198,3 +198,13 @@ def compute_stranded_with_damage_function(
     yield_proj = yield_proj.merge(clim_key, on=['fips', 'year'], how='left')
     yield_proj['delta_edd'] = yield_proj['delta_edd'].fillna(0.0)
 
+    yield_proj['sr_yield_penalty'] = (
+        yield_proj['delta_edd'] * yield_proj['sr_coef']
+    )
+    yield_proj['climate_impact_combined'] = (
+        yield_proj['climate_impact_bu'] + yield_proj['sr_yield_penalty']
+    )
+
+    yield_proj['income_ml'] = (
+        yield_proj['climate_impact_bu'] * yield_proj['price'] * yield_proj['acres_harvested']
+    )
