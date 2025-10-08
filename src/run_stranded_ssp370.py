@@ -208,3 +208,13 @@ def compute_stranded_with_damage_function(
     yield_proj['income_ml'] = (
         yield_proj['climate_impact_bu'] * yield_proj['price'] * yield_proj['acres_harvested']
     )
+    yield_proj['income_sr_add'] = (
+        yield_proj['sr_yield_penalty'] * yield_proj['price'] * yield_proj['acres_harvested']
+    )
+    yield_proj['income_combined'] = (
+        yield_proj['climate_impact_combined'] * yield_proj['price']
+        * yield_proj['acres_harvested'] * indirect_multiplier
+    )
+
+    min_year = yield_proj['year'].min()
+    yield_proj['years_ahead'] = yield_proj['year'] - min_year + 1
