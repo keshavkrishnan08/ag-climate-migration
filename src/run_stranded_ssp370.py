@@ -228,3 +228,13 @@ def compute_stranded_with_damage_function(
     county_pv = (
         yield_proj.groupby('fips')
         .agg(
+            pv_ml_total=('pv_ml', 'sum'),
+            pv_sr_additive=('pv_sr_add', 'sum'),
+            pv_combined_total=('pv_combined', 'sum'),
+            total_acres=('acres_harvested', 'mean'),
+            mean_delta_edd=('delta_edd', 'mean'),
+            mean_tmax_july_C=('tmax_july_C', 'mean'),
+            mean_sr_yield_penalty=('sr_yield_penalty', 'mean'),
+        )
+        .reset_index()
+    )
