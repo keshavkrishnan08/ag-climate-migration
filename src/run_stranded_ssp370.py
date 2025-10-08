@@ -218,3 +218,13 @@ def compute_stranded_with_damage_function(
 
     min_year = yield_proj['year'].min()
     yield_proj['years_ahead'] = yield_proj['year'] - min_year + 1
+    yield_proj = yield_proj[yield_proj['years_ahead'] <= horizon]
+    yield_proj['discount_factor'] = 1.0 / (1 + discount_rate) ** yield_proj['years_ahead']
+
+    yield_proj['pv_ml'] = yield_proj['income_ml'] * yield_proj['discount_factor']
+    yield_proj['pv_sr_add'] = yield_proj['income_sr_add'] * yield_proj['discount_factor']
+    yield_proj['pv_combined'] = yield_proj['income_combined'] * yield_proj['discount_factor']
+
+    county_pv = (
+        yield_proj.groupby('fips')
+        .agg(
