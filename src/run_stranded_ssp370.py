@@ -298,3 +298,13 @@ def main():
 
     # ── Method 1: Conservative — ML only, r=4%, h=30yr ──────────────────────
     national = compute_stranded_vectorized(yield_proj, land_values, r, h, SCENARIO)
+    pos_cons = national[national['stranded_value_total'] > 0]
+    neg_cons = national[national['stranded_value_total'] <= 0]
+    total_cons_B   = pos_cons['stranded_value_total'].sum() / 1e9
+    total_gained_B = abs(neg_cons['stranded_value_total'].sum()) / 1e9
+
+    logger.info(f"\nMethod 1 — Conservative (ML only), {SCENARIO}, r={r}, h={h}:")
+    logger.info(f"  Counties stranded: {len(pos_cons)}")
+    logger.info(f"  Total stranded:    ${total_cons_B:.1f}B")
+    logger.info(f"  Total gained:      ${total_gained_B:.1f}B")
+    logger.info(f"  Net:               ${(total_cons_B - total_gained_B):.1f}B")
