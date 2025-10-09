@@ -318,3 +318,13 @@ def main():
 
     logger.info(
         f"\nMethod 2 — Central (ML + SR + indirect {INDIRECT_MULTIPLIER}x), "
+        f"{SCENARIO}, r={CENTRAL_DISCOUNT_RATE}, h={CENTRAL_HORIZON}:"
+    )
+    national_sr = compute_stranded_with_damage_function(
+        yield_proj, climate_proj, land_values,
+        discount_rate=CENTRAL_DISCOUNT_RATE,
+        horizon=CENTRAL_HORIZON,
+        scenario=SCENARIO,
+        indirect_multiplier=INDIRECT_MULTIPLIER,
+    )
+
