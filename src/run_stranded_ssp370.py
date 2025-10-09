@@ -288,3 +288,13 @@ def main():
                  'tmax_growing_projected', 'delta_tmax_growing']
     )
     logger.info(f"Loaded SSP370 climate: {len(climate_proj)} rows")
+
+    # Land values
+    land_path = DATA_RAW / 'nass' / 'nass_land_values.parquet'
+    land_values = pd.read_parquet(land_path) if land_path.exists() else pd.DataFrame()
+
+    r = CONFIG['stranded_assets']['discount_rate']       # 0.04
+    h = CONFIG['stranded_assets']['projection_horizon']  # 30
+
+    # ── Method 1: Conservative — ML only, r=4%, h=30yr ──────────────────────
+    national = compute_stranded_vectorized(yield_proj, land_values, r, h, SCENARIO)
