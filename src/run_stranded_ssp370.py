@@ -278,3 +278,13 @@ def main():
     proj_path = PROJECTIONS_DIR / f'yield_projections_{SCENARIO}.parquet'
     yield_proj = pd.read_parquet(proj_path)
     logger.info(f"Loaded SSP370 projections: {len(yield_proj)} rows, "
+                f"{yield_proj['fips'].nunique()} counties")
+
+    # Load SSP370 climate projections
+    clim_path = PROJECTIONS_DIR / 'county_climate_projections_ssp370.parquet'
+    climate_proj = pd.read_parquet(
+        clim_path,
+        columns=['fips', 'year', 'tmax_july_projected', 'delta_tmax_july',
+                 'tmax_growing_projected', 'delta_tmax_growing']
+    )
+    logger.info(f"Loaded SSP370 climate: {len(climate_proj)} rows")
