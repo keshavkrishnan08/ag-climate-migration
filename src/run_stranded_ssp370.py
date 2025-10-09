@@ -258,3 +258,13 @@ def compute_stranded_with_damage_function(
         county_pv['stranded_fraction'] = np.nan
 
     county_pv['scenario'] = scenario
+    county_pv['discount_rate'] = discount_rate
+    county_pv['horizon'] = horizon
+    county_pv['damage_method'] = 'SR_EDD_additive'
+    county_pv['indirect_multiplier'] = indirect_multiplier
+
+    return county_pv
+
+
+# ── Main ─────────────────────────────────────────────────────────────────────
+
