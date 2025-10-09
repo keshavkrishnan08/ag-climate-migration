@@ -268,3 +268,13 @@ def compute_stranded_with_damage_function(
 
 # ── Main ─────────────────────────────────────────────────────────────────────
 
+def main():
+    """Execute stranded asset computation for SSP3-7.0 and compare with SSP245."""
+    logger.info("=" * 60)
+    logger.info("STRANDED ASSETS — SSP3-7.0")
+    logger.info("=" * 60)
+
+    # Load SSP370 yield projections
+    proj_path = PROJECTIONS_DIR / f'yield_projections_{SCENARIO}.parquet'
+    yield_proj = pd.read_parquet(proj_path)
+    logger.info(f"Loaded SSP370 projections: {len(yield_proj)} rows, "
