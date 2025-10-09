@@ -308,3 +308,13 @@ def main():
     logger.info(f"  Total stranded:    ${total_cons_B:.1f}B")
     logger.info(f"  Total gained:      ${total_gained_B:.1f}B")
     logger.info(f"  Net:               ${(total_cons_B - total_gained_B):.1f}B")
+
+    national.to_parquet(OUTPUT_DIR / f'stranded_national_{SCENARIO}.parquet', index=False)
+
+    # ── Method 2: Central — ML + SR + indirect, r=3%, h=35yr ────────────────
+    INDIRECT_MULTIPLIER   = 1.30
+    CENTRAL_DISCOUNT_RATE = 0.03
+    CENTRAL_HORIZON       = 35
+
+    logger.info(
+        f"\nMethod 2 — Central (ML + SR + indirect {INDIRECT_MULTIPLIER}x), "
