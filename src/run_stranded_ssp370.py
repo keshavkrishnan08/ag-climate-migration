@@ -348,3 +348,13 @@ def main():
 
     # ── SSP245 comparison ────────────────────────────────────────────────────
     logger.info("\n" + "=" * 60)
+    logger.info("COMPARISON: SSP370 vs SSP245")
+    logger.info("=" * 60)
+
+    ssp245_cons_path = OUTPUT_DIR / 'stranded_national_SSP245.parquet'
+    ssp245_sr_path   = OUTPUT_DIR / 'stranded_national_SR_SSP245.parquet'
+    ssp245_cons_B = None
+    ssp245_sr_B   = None
+
+    if ssp245_cons_path.exists():
+        ssp245_cons = pd.read_parquet(ssp245_cons_path)
