@@ -378,3 +378,13 @@ def main():
     ssp245_clim_path = PROJECTIONS_DIR / 'county_climate_projections.parquet'
     if ssp245_clim_path.exists():
         ssp245_clim = pd.read_parquet(ssp245_clim_path, columns=['year', 'delta_tmax_july'])
+        ssp370_clim = pd.read_parquet(clim_path, columns=['year', 'delta_tmax_july'])
+        logger.info("\n  Warming deltas (median delta_tmax_july, °F):")
+        for yr in [2040, 2050]:
+            s245 = ssp245_clim[ssp245_clim['year'] == yr]['delta_tmax_july'].median()
+            s370 = ssp370_clim[ssp370_clim['year'] == yr]['delta_tmax_july'].median()
+            logger.info(f"    {yr}: SSP245 = +{s245:.2f}°F   SSP370 = +{s370:.2f}°F   "
+                        f"ratio = {s370/s245:.2f}x")
+
+    # Save summary JSON
+    summary = {
