@@ -328,3 +328,13 @@ def main():
         indirect_multiplier=INDIRECT_MULTIPLIER,
     )
 
+    pos_sr           = national_sr[national_sr['stranded_value_total'] > 0]
+    neg_sr           = national_sr[national_sr['stranded_value_total'] <= 0]
+    total_sr_B       = pos_sr['stranded_value_total'].sum() / 1e9
+    total_gained_sr_B= abs(neg_sr['stranded_value_total'].sum()) / 1e9
+    sr_additive_B    = national_sr['stranded_sr_additive'].clip(lower=0).sum() / 1e9
+    mean_delta_edd   = national_sr['mean_delta_edd'].mean()
+    mean_tmax        = national_sr['mean_tmax_july_C'].mean()
+
+    logger.info(f"  Mean July Tmax (projected, °C):  {mean_tmax:.2f}")
+    logger.info(f"  Mean incremental EDD above 29°C: {mean_delta_edd:.1f} degree-days")
