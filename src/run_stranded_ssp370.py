@@ -368,3 +368,13 @@ def main():
     if ssp245_sr_path.exists():
         ssp245_sr = pd.read_parquet(ssp245_sr_path)
         ssp245_sr_B = ssp245_sr[ssp245_sr['stranded_value_total'] > 0]['stranded_value_total'].sum() / 1e9
+        logger.info(f"  Central (ML+SR+indirect, r=3%, h=35):")
+        logger.info(f"    SSP245: ${ssp245_sr_B:.1f}B  →  SSP370: ${total_sr_B:.1f}B  "
+                    f"(ratio: {total_sr_B/ssp245_sr_B:.2f}x)")
+    else:
+        logger.warning("  SSP245 SR central file not found for comparison")
+
+    # Warming comparison
+    ssp245_clim_path = PROJECTIONS_DIR / 'county_climate_projections.parquet'
+    if ssp245_clim_path.exists():
+        ssp245_clim = pd.read_parquet(ssp245_clim_path, columns=['year', 'delta_tmax_july'])
