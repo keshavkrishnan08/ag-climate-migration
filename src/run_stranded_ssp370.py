@@ -338,3 +338,13 @@ def main():
 
     logger.info(f"  Mean July Tmax (projected, °C):  {mean_tmax:.2f}")
     logger.info(f"  Mean incremental EDD above 29°C: {mean_delta_edd:.1f} degree-days")
+    logger.info(f"  SR additive component:           ${sr_additive_B:.1f}B")
+    logger.info(f"  Counties stranded:               {len(pos_sr)}")
+    logger.info(f"  Total stranded:                  ${total_sr_B:.1f}B")
+    logger.info(f"  Total gained:                    ${total_gained_sr_B:.1f}B")
+    logger.info(f"  Net:                             ${(total_sr_B - total_gained_sr_B):.1f}B")
+
+    national_sr.to_parquet(OUTPUT_DIR / f'stranded_national_SR_{SCENARIO}.parquet', index=False)
+
+    # ── SSP245 comparison ────────────────────────────────────────────────────
+    logger.info("\n" + "=" * 60)
