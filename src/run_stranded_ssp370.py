@@ -358,3 +358,13 @@ def main():
 
     if ssp245_cons_path.exists():
         ssp245_cons = pd.read_parquet(ssp245_cons_path)
+        ssp245_cons_B = ssp245_cons[ssp245_cons['stranded_value_total'] > 0]['stranded_value_total'].sum() / 1e9
+        logger.info(f"  Conservative (ML only, r=4%, h=30):")
+        logger.info(f"    SSP245: ${ssp245_cons_B:.1f}B  →  SSP370: ${total_cons_B:.1f}B  "
+                    f"(ratio: {total_cons_B/ssp245_cons_B:.2f}x)")
+    else:
+        logger.warning("  SSP245 conservative file not found for comparison")
+
+    if ssp245_sr_path.exists():
+        ssp245_sr = pd.read_parquet(ssp245_sr_path)
+        ssp245_sr_B = ssp245_sr[ssp245_sr['stranded_value_total'] > 0]['stranded_value_total'].sum() / 1e9
