@@ -408,3 +408,13 @@ def main():
             'discount_rate': CENTRAL_DISCOUNT_RATE,
             'horizon': CENTRAL_HORIZON,
             'indirect_multiplier': INDIRECT_MULTIPLIER,
+        },
+    }
+    if ssp245_cons_B is not None:
+        summary['vs_SSP245_conservative_ratio'] = float(total_cons_B / ssp245_cons_B)
+    if ssp245_sr_B is not None:
+        summary['vs_SSP245_central_ratio'] = float(total_sr_B / ssp245_sr_B)
+
+    summary_path = OUTPUT_DIR / 'stranded_ssp370_summary.json'
+    with open(summary_path, 'w') as f:
+        json.dump(summary, f, indent=2)
