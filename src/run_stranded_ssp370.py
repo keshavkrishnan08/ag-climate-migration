@@ -398,3 +398,13 @@ def main():
         'conservative_n_counties': int(len(pos_cons)),
         'central_SR_stranded_B': float(total_sr_B),
         'central_SR_gained_B': float(total_gained_sr_B),
+        'central_SR_net_B': float(total_sr_B - total_gained_sr_B),
+        'central_n_counties': int(len(pos_sr)),
+        'sr_additive_B': float(sr_additive_B),
+        'mean_delta_edd': float(mean_delta_edd),
+        'mean_tmax_july_C': float(mean_tmax),
+        'params_conservative': {'discount_rate': r, 'horizon': h},
+        'params_central': {
+            'discount_rate': CENTRAL_DISCOUNT_RATE,
+            'horizon': CENTRAL_HORIZON,
+            'indirect_multiplier': INDIRECT_MULTIPLIER,
