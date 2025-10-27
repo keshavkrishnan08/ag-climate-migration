@@ -388,3 +388,13 @@ def main():
 
     # Save summary JSON
     summary = {
+        'scenario': SCENARIO,
+        'n_gcms': 8,
+        'gcms': ['ACCESS-CM2', 'CESM2', 'CNRM-CM6-1', 'IPSL-CM6A-LR',
+                 'MIROC6', 'MPI-ESM1-2-LR', 'MRI-ESM2-0', 'UKESM1-0-LL'],
+        'conservative_ML_stranded_B': float(total_cons_B),
+        'conservative_ML_gained_B': float(total_gained_B),
+        'conservative_ML_net_B': float(total_cons_B - total_gained_B),
+        'conservative_n_counties': int(len(pos_cons)),
+        'central_SR_stranded_B': float(total_sr_B),
+        'central_SR_gained_B': float(total_gained_sr_B),
