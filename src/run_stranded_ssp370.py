@@ -418,3 +418,13 @@ def main():
     summary_path = OUTPUT_DIR / 'stranded_ssp370_summary.json'
     with open(summary_path, 'w') as f:
         json.dump(summary, f, indent=2)
+    logger.info(f"\nSummary saved → {summary_path}")
+
+    logger.info("=" * 60)
+    logger.info("SSP370 STRANDED ASSETS COMPLETE")
+    logger.info("=" * 60)
+
+    return summary
+
+
+if __name__ == '__main__':
