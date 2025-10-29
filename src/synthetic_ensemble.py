@@ -18,3 +18,13 @@ For each county-year:
      this equals 2 * 1.282 * sigma.  This is a population estimate of the spread
      the 5 models would produce on average.
 
+  2. Bootstrap 5 synthetic GCM deltas by:
+         (a) Drawing with replacement from the existing inter-model distribution,
+             modelled as N(median, sigma_gcm).
+         (b) Adding Gaussian noise scaled to 20% of sigma_gcm, representing the
+             structural spread of the 5 missing models beyond the sampled distribution:
+                 sigma_synthetic = sigma_gcm * (1 + NOISE_FRACTION) = 1.20 * sigma_gcm
+             Equivalently: synth_draw ~ N(median, sigma_synthetic).
+
+  3. Compute new p10/p90 analytically from the combined 10-GCM distribution:
+         sigma_combined^2 = (N_REAL * sigma_gcm^2 + N_SYNTHETIC * sigma_synthetic^2) / N_TOTAL
