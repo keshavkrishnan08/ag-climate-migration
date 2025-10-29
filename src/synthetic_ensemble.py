@@ -38,3 +38,13 @@ Why analytical (not Monte Carlo)?
   A Monte Carlo bootstrap with n=10 draws has high sampling variance per county.
   The analytical formula gives the expected value of the widened bands for a county
   with infinite bootstrap realizations — it is the stable estimate the task intends.
+  We also generate a Monte Carlo realisation (K=1000 samples) for verification and
+  store the seed-42 version as a secondary check.
+
+Limitation statement for paper
+-------------------------------
+"Uncertainty bands in Figures 3–5 are derived from a bootstrap approximation to a
+10-GCM ensemble.  Five GCMs (CESM2, CNRM-CM6-1, HadGEM3-GC31-LL, IPSL-CM6A-LR,
+MRI-ESM2-0) were unavailable at analysis time due to ESGF access constraints.
+Their spread was approximated by widening the existing five-model distribution by
+20% in sigma (representing estimated structural differences in equilibrium climate
