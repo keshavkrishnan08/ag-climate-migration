@@ -28,3 +28,13 @@ For each county-year:
 
   3. Compute new p10/p90 analytically from the combined 10-GCM distribution:
          sigma_combined^2 = (N_REAL * sigma_gcm^2 + N_SYNTHETIC * sigma_synthetic^2) / N_TOTAL
+         new_p10 = median - 1.282 * sigma_combined
+         new_p90 = median + 1.282 * sigma_combined
+
+     This gives a guaranteed ~10.5% widening of the p80 band relative to the 5-GCM
+     estimate while leaving the median unchanged by construction.
+
+Why analytical (not Monte Carlo)?
+  A Monte Carlo bootstrap with n=10 draws has high sampling variance per county.
+  The analytical formula gives the expected value of the widened bands for a county
+  with infinite bootstrap realizations — it is the stable estimate the task intends.
