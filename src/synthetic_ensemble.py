@@ -58,3 +58,13 @@ Outputs
 -------
   data/projections/county_climate_projections_10gcm_synthetic.parquet
 
+  Same schema as county_climate_projections.parquet but with:
+    - n_gcms = 10  (updated from 5)
+    - n_gcms_real = 5  (new — number of actual GCMs used)
+    - tmax_july_p10 / tmax_july_p90  (widened by ~10.5%)
+    - tmax_july_p10_orig / tmax_july_p90_orig  (original 5-GCM bands, preserved)
+    - sigma_gcm  (estimated inter-GCM std per county-year, °F)
+    - sigma_combined  (10-GCM combined std per county-year, °F)
+    - band_widening_factor  (new_half_spread / orig_half_spread, should be ~1.104)
+    - is_synthetic_ensemble = True  (new flag)
+"""
