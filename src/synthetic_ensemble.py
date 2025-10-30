@@ -48,3 +48,13 @@ Limitation statement for paper
 MRI-ESM2-0) were unavailable at analysis time due to ESGF access constraints.
 Their spread was approximated by widening the existing five-model distribution by
 20% in sigma (representing estimated structural differences in equilibrium climate
+sensitivity: HadGEM3-GC31-LL 5.55°C, CESM2 5.16°C vs. ensemble mean 3.87°C).
+This approach preserves the ensemble median and widens p10/p90 bands by ~10.5%
+on average.  It likely underestimates tail risk from high-ECS models and should be
+treated as a conservative lower bound on inter-model spread.  Results pending
+full 10-GCM download via ESGF."
+
+Outputs
+-------
+  data/projections/county_climate_projections_10gcm_synthetic.parquet
+
