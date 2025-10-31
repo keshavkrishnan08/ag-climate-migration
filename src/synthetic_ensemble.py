@@ -68,3 +68,13 @@ Outputs
     - band_widening_factor  (new_half_spread / orig_half_spread, should be ~1.104)
     - is_synthetic_ensemble = True  (new flag)
 """
+
+import numpy as np
+import pandas as pd
+from pathlib import Path
+
+# ── Paths ───────────────────────────────────────────────────────────────────────
+BASE    = Path(__file__).resolve().parent.parent
+IN_PATH = BASE / "data/projections/county_climate_projections.parquet"
+OUT_PATH= BASE / "data/projections/county_climate_projections_10gcm_synthetic.parquet"
+
