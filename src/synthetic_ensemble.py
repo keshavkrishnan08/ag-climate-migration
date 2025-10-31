@@ -78,3 +78,13 @@ BASE    = Path(__file__).resolve().parent.parent
 IN_PATH = BASE / "data/projections/county_climate_projections.parquet"
 OUT_PATH= BASE / "data/projections/county_climate_projections_10gcm_synthetic.parquet"
 
+# ── Config ──────────────────────────────────────────────────────────────────────
+N_REAL          = 5      # GCMs we actually have
+N_SYNTHETIC     = 5      # synthetic GCMs to approximate
+N_TOTAL         = N_REAL + N_SYNTHETIC   # = 10
+NOISE_FRACTION  = 0.20   # sigma_synthetic = sigma_gcm * (1 + NOISE_FRACTION)
+SEED            = 42
+
+# For a normal distribution, p90 - p10 = 2 * 1.282 * sigma (the 80th-pctile range).
+HALF_BAND_Z     = 1.282
+
