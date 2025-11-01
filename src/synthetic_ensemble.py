@@ -88,3 +88,13 @@ SEED            = 42
 # For a normal distribution, p90 - p10 = 2 * 1.282 * sigma (the 80th-pctile range).
 HALF_BAND_Z     = 1.282
 
+
+def estimate_sigma_gcm(p10: np.ndarray, p90: np.ndarray) -> np.ndarray:
+    """
+    Estimate inter-GCM standard deviation from the empirical p10/p90 band.
+
+    Treats (p90 - p10) as the 80th-percentile range of a normal distribution:
+        sigma_gcm = (p90 - p10) / (2 * 1.282)
+
+    At year 2025, p10 == p90 (zero spread), so sigma_gcm = 0.
+
