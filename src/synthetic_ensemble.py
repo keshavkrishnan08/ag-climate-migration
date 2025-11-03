@@ -98,3 +98,13 @@ def estimate_sigma_gcm(p10: np.ndarray, p90: np.ndarray) -> np.ndarray:
 
     At year 2025, p10 == p90 (zero spread), so sigma_gcm = 0.
 
+    Args:
+        p10: shape (n_rows,), 10th-percentile projected value (°F)
+        p90: shape (n_rows,), 90th-percentile projected value (°F)
+
+    Returns:
+        sigma_gcm: shape (n_rows,), estimated inter-GCM std (°F)
+    """
+    spread    = np.maximum(p90 - p10, 0.0)
+    sigma_gcm = spread / (2.0 * HALF_BAND_Z)
+    return sigma_gcm
