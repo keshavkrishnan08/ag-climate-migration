@@ -108,3 +108,13 @@ def estimate_sigma_gcm(p10: np.ndarray, p90: np.ndarray) -> np.ndarray:
     spread    = np.maximum(p90 - p10, 0.0)
     sigma_gcm = spread / (2.0 * HALF_BAND_Z)
     return sigma_gcm
+
+
+def compute_combined_sigma(sigma_gcm: np.ndarray) -> np.ndarray:
+    """
+    Compute the combined 10-GCM sigma from 5 real + 5 synthetic GCMs.
+
+    The 5 synthetic GCMs are modelled with sigma_synthetic = sigma_gcm * (1 + NOISE_FRACTION),
+    representing 20% additional structural spread from the missing models.
+
+    Combined variance (pooled):
