@@ -148,3 +148,13 @@ def widen_uncertainty_bands(df: pd.DataFrame) -> pd.DataFrame:
 
     Returns:
         df copy with updated tmax_july_p10/p90 and additional metadata columns.
+    """
+    median    = df["tmax_july_projected"].values
+    p10_orig  = df["tmax_july_p10"].values
+    p90_orig  = df["tmax_july_p90"].values
+
+    # Step 1: estimate sigma from existing 5-GCM bands
+    sigma_gcm = estimate_sigma_gcm(p10_orig, p90_orig)
+
+    # Step 2: compute combined sigma for 10-GCM ensemble
+    sigma_comb = compute_combined_sigma(sigma_gcm)
