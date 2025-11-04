@@ -158,3 +158,13 @@ def widen_uncertainty_bands(df: pd.DataFrame) -> pd.DataFrame:
 
     # Step 2: compute combined sigma for 10-GCM ensemble
     sigma_comb = compute_combined_sigma(sigma_gcm)
+
+    # Step 3: new p10/p90 symmetric around median (±1.282 * sigma_combined)
+    new_p10 = median - HALF_BAND_Z * sigma_comb
+    new_p90 = median + HALF_BAND_Z * sigma_comb
+
+    # Band widening factor per row (= 1.0 where original spread is 0)
+    orig_half = (p90_orig - p10_orig) / 2.0
+    new_half  = (new_p90  - new_p10)  / 2.0
+    widening  = np.where(orig_half > 1e-9, new_half / orig_half, 1.0)
+
