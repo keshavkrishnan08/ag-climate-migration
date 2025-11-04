@@ -128,3 +128,13 @@ def compute_combined_sigma(sigma_gcm: np.ndarray) -> np.ndarray:
 
     Returns:
         sigma_combined: shape (n_rows,), 10-GCM combined std (°F)
+    """
+    sigma_synthetic = sigma_gcm * (1.0 + NOISE_FRACTION)
+    sigma_combined  = np.sqrt(
+        (N_REAL * sigma_gcm**2 + N_SYNTHETIC * sigma_synthetic**2) / N_TOTAL
+    )
+    return sigma_combined
+
+
+def widen_uncertainty_bands(df: pd.DataFrame) -> pd.DataFrame:
+    """
