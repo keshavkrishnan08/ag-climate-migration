@@ -118,3 +118,13 @@ def compute_combined_sigma(sigma_gcm: np.ndarray) -> np.ndarray:
     representing 20% additional structural spread from the missing models.
 
     Combined variance (pooled):
+        sigma_combined^2 = (N_REAL * sigma_gcm^2 + N_SYNTHETIC * sigma_synthetic^2) / N_TOTAL
+
+    This gives sigma_combined / sigma_gcm = sqrt((1 + (1 + f)^2) / 2) where f = NOISE_FRACTION.
+    For f = 0.20: factor = sqrt((1 + 1.44) / 2) = sqrt(1.22) ≈ 1.1045 (+10.5% wider bands).
+
+    Args:
+        sigma_gcm: shape (n_rows,), estimated 5-GCM inter-model std (°F)
+
+    Returns:
+        sigma_combined: shape (n_rows,), 10-GCM combined std (°F)
