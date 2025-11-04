@@ -138,3 +138,13 @@ def compute_combined_sigma(sigma_gcm: np.ndarray) -> np.ndarray:
 
 def widen_uncertainty_bands(df: pd.DataFrame) -> pd.DataFrame:
     """
+    Widen tmax_july p10/p90 bands using the synthetic 10-GCM sigma formula.
+
+    Median (tmax_july_projected) is unchanged.  p10/p90 expand symmetrically
+    around the median in sigma units.
+
+    Args:
+        df: county_climate_projections DataFrame (one row per fips x year)
+
+    Returns:
+        df copy with updated tmax_july_p10/p90 and additional metadata columns.
