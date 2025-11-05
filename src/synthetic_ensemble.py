@@ -178,3 +178,13 @@ def widen_uncertainty_bands(df: pd.DataFrame) -> pd.DataFrame:
     out["n_gcms_real"]          = N_REAL
     out["sigma_gcm"]            = sigma_gcm
     out["sigma_combined"]       = sigma_comb
+    out["band_widening_factor"] = widening
+    out["is_synthetic_ensemble"]= True
+
+    return out
+
+
+def monte_carlo_verification(
+    df: pd.DataFrame,
+    year: int = 2040,
+    k_samples: int = 1_000,
