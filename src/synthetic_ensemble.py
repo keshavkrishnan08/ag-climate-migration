@@ -168,3 +168,13 @@ def widen_uncertainty_bands(df: pd.DataFrame) -> pd.DataFrame:
     new_half  = (new_p90  - new_p10)  / 2.0
     widening  = np.where(orig_half > 1e-9, new_half / orig_half, 1.0)
 
+    # Build output
+    out = df.copy()
+    out["tmax_july_p10_orig"]   = p10_orig
+    out["tmax_july_p90_orig"]   = p90_orig
+    out["tmax_july_p10"]        = new_p10
+    out["tmax_july_p90"]        = new_p90
+    out["n_gcms"]               = N_TOTAL
+    out["n_gcms_real"]          = N_REAL
+    out["sigma_gcm"]            = sigma_gcm
+    out["sigma_combined"]       = sigma_comb
