@@ -188,3 +188,13 @@ def monte_carlo_verification(
     df: pd.DataFrame,
     year: int = 2040,
     k_samples: int = 1_000,
+    rng: np.random.Generator = None,
+) -> dict:
+    """
+    Verify the analytical formula with a Monte Carlo bootstrap.
+
+    Draws K independent bootstrap realisations of the 10-GCM ensemble for a
+    single year and computes the average p10/p90 across realisations.
+
+    Args:
+        df:        projections DataFrame
