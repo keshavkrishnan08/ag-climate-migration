@@ -198,3 +198,13 @@ def monte_carlo_verification(
 
     Args:
         df:        projections DataFrame
+        year:      representative year to check (default 2040)
+        k_samples: number of Monte Carlo realisations
+        rng:       numpy random Generator (seeded)
+
+    Returns:
+        dict with original, analytical, and MC band widths.
+    """
+    if rng is None:
+        rng = np.random.default_rng(SEED)
+
