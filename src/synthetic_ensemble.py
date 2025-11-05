@@ -218,3 +218,13 @@ def monte_carlo_verification(
     sigma_syn  = sigma_gcm * (1.0 + NOISE_FRACTION)
     sigma_sig  = np.maximum(sigma_gcm, 1e-12)
     sigma_ssig = np.maximum(sigma_syn, 1e-12)
+
+    # Monte Carlo: K realisations
+    mc_spreads = []
+    for _ in range(k_samples):
+        real_d = rng.normal(median, sigma_sig,  size=(N_REAL,      N))  # (5, N)
+        synth_d= rng.normal(median, sigma_ssig, size=(N_SYNTHETIC, N))  # (5, N)
+        comb   = np.vstack([real_d, synth_d])                           # (10, N)
+        mc_p10 = np.percentile(comb, 10, axis=0)
+        mc_p90 = np.percentile(comb, 90, axis=0)
+        mc_spreads.append((mc_p90 - mc_p10).mean())
