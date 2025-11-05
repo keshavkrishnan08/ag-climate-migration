@@ -208,3 +208,13 @@ def monte_carlo_verification(
     if rng is None:
         rng = np.random.default_rng(SEED)
 
+    sub    = df[df["year"] == year]
+    median = sub["tmax_july_projected"].values
+    p10    = sub["tmax_july_p10"].values
+    p90    = sub["tmax_july_p90"].values
+    N      = len(median)
+
+    sigma_gcm  = estimate_sigma_gcm(p10, p90)
+    sigma_syn  = sigma_gcm * (1.0 + NOISE_FRACTION)
+    sigma_sig  = np.maximum(sigma_gcm, 1e-12)
+    sigma_ssig = np.maximum(sigma_syn, 1e-12)
