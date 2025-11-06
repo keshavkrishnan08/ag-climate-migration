@@ -318,3 +318,13 @@ def main():
 
     print("\nDetailed comparison:")
     for yr in [2030, 2040, 2050]:
+        o  = orig_stats[yr]
+        s  = synth_stats[yr]
+        abs_mean = s["mean"] - o["mean"]
+        abs_med  = s["median"] - o["median"]
+        pct_mean = (s["mean"] / max(o["mean"], 1e-9) - 1) * 100
+        print(f"\n  Year {yr} ({o['n']:,} counties):")
+        print(f"    5-GCM  original: mean={o['mean']:.3f}°F  "
+              f"median={o['median']:.3f}°F  "
+              f"[p10={o['p10']:.3f}, p90={o['p90']:.3f}]")
+        print(f"    10-GCM synth   : mean={s['mean']:.3f}°F  "
