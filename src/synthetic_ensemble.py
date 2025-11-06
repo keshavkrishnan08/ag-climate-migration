@@ -258,3 +258,13 @@ def compute_band_stats(df: pd.DataFrame, p10_col: str, p90_col: str) -> dict:
         results[yr] = {
             "mean":   spread.mean(),
             "median": spread.median(),
+            "p10":    spread.quantile(0.10),
+            "p90":    spread.quantile(0.90),
+            "n":      len(sub),
+        }
+    return results
+
+
+def main():
+    """Run synthetic ensemble generation and report band widening vs original."""
+    print("=" * 65)
