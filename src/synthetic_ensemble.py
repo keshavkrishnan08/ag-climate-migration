@@ -238,3 +238,13 @@ def monte_carlo_verification(
         "k_samples":      k_samples,
     }
 
+
+def compute_band_stats(df: pd.DataFrame, p10_col: str, p90_col: str) -> dict:
+    """
+    Compute per-year summary statistics of the uncertainty band width.
+
+    Args:
+        df:      projections DataFrame
+        p10_col: column name for 10th percentile
+        p90_col: column name for 90th percentile
+
