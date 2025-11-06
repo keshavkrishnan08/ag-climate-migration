@@ -228,3 +228,13 @@ def monte_carlo_verification(
         mc_p10 = np.percentile(comb, 10, axis=0)
         mc_p90 = np.percentile(comb, 90, axis=0)
         mc_spreads.append((mc_p90 - mc_p10).mean())
+
+    return {
+        "year":           year,
+        "orig_spread":    (p90 - p10).mean(),
+        "analytic_spread":(compute_combined_sigma(sigma_gcm) * 2 * HALF_BAND_Z).mean(),
+        "mc_spread_mean": np.mean(mc_spreads),
+        "mc_spread_std":  np.std(mc_spreads),
+        "k_samples":      k_samples,
+    }
+
