@@ -298,3 +298,13 @@ def main():
     print("\n" + "─" * 65)
     print("tmax_july p90-p10 band width (°F)")
     print("─" * 65)
+    print(f"{'Year':<6} {'5-GCM mean':>12} {'5-GCM med':>11} "
+          f"{'10-GCM mean':>13} {'10-GCM med':>12} {'Δ% mean':>9}")
+    print("─" * 65)
+
+    for yr in [2030, 2040, 2050]:
+        o  = orig_stats[yr]
+        s  = synth_stats[yr]
+        dp = (s["mean"] / max(o["mean"], 1e-9) - 1) * 100
+        print(
+            f"{yr:<6}"
