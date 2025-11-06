@@ -288,3 +288,13 @@ def main():
     print(f"  Expected widening: sqrt((1 + {(1+NOISE_FRACTION)**2:.2f})/2) = "
           f"{np.sqrt((1 + (1+NOISE_FRACTION)**2)/2):.4f}  "
           f"(+{(np.sqrt((1 + (1+NOISE_FRACTION)**2)/2)-1)*100:.1f}%)")
+
+    df_syn = widen_uncertainty_bands(df)
+
+    # ── Band stats ───────────────────────────────────────────────────────────
+    orig_stats = compute_band_stats(df,     "tmax_july_p10", "tmax_july_p90")
+    synth_stats= compute_band_stats(df_syn, "tmax_july_p10", "tmax_july_p90")
+
+    print("\n" + "─" * 65)
+    print("tmax_july p90-p10 band width (°F)")
+    print("─" * 65)
