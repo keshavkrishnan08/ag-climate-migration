@@ -248,3 +248,13 @@ def compute_band_stats(df: pd.DataFrame, p10_col: str, p90_col: str) -> dict:
         p10_col: column name for 10th percentile
         p90_col: column name for 90th percentile
 
+    Returns:
+        dict keyed by year, each value a dict of stats.
+    """
+    results = {}
+    for yr in [2030, 2040, 2050]:
+        sub    = df[df["year"] == yr]
+        spread = sub[p90_col] - sub[p10_col]
+        results[yr] = {
+            "mean":   spread.mean(),
+            "median": spread.median(),
