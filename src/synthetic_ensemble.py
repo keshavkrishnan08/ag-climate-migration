@@ -268,3 +268,13 @@ def compute_band_stats(df: pd.DataFrame, p10_col: str, p90_col: str) -> dict:
 def main():
     """Run synthetic ensemble generation and report band widening vs original."""
     print("=" * 65)
+    print("Synthetic 10-GCM ensemble spread — bootstrap approximation")
+    print("=" * 65)
+
+    # ── Load ─────────────────────────────────────────────────────────────────
+    print(f"\nLoading {IN_PATH.name} …")
+    df = pd.read_parquet(IN_PATH)
+    print(f"  Shape:    {df.shape}")
+    print(f"  Counties: {df['fips'].nunique():,}")
+    print(f"  Years:    {df['year'].min()}–{df['year'].max()}")
+    print(f"  n_gcms in source: {sorted(df['n_gcms'].unique().tolist())}")
