@@ -278,3 +278,13 @@ def main():
     print(f"  Counties: {df['fips'].nunique():,}")
     print(f"  Years:    {df['year'].min()}–{df['year'].max()}")
     print(f"  n_gcms in source: {sorted(df['n_gcms'].unique().tolist())}")
+
+    # ── Compute ──────────────────────────────────────────────────────────────
+    print(f"\nComputing synthetic 10-GCM ensemble  (seed={SEED}) …")
+    print(f"  sigma_gcm  = (p90-p10) / (2 * {HALF_BAND_Z})  [normal 80th-pctile range]")
+    print(f"  sigma_synth = sigma_gcm * (1 + {NOISE_FRACTION})  [20% inflation]")
+    print(f"  sigma_comb  = sqrt(({N_REAL}*sg^2 + {N_SYNTHETIC}*ss^2) / {N_TOTAL})")
+    print(f"  new_p10/p90 = median ± {HALF_BAND_Z} * sigma_comb")
+    print(f"  Expected widening: sqrt((1 + {(1+NOISE_FRACTION)**2:.2f})/2) = "
+          f"{np.sqrt((1 + (1+NOISE_FRACTION)**2)/2):.4f}  "
+          f"(+{(np.sqrt((1 + (1+NOISE_FRACTION)**2)/2)-1)*100:.1f}%)")
