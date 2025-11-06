@@ -308,3 +308,13 @@ def main():
         dp = (s["mean"] / max(o["mean"], 1e-9) - 1) * 100
         print(
             f"{yr:<6}"
+            f"  {o['mean']:>10.3f}°F"
+            f"  {o['median']:>9.3f}°F"
+            f"  {s['mean']:>11.3f}°F"
+            f"  {s['median']:>10.3f}°F"
+            f"  {dp:>+8.1f}%"
+        )
+    print("─" * 65)
+
+    print("\nDetailed comparison:")
+    for yr in [2030, 2040, 2050]:
