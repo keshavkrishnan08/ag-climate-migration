@@ -368,3 +368,13 @@ def main():
     print(f"  Analytical 10-GCM spread:    {mc['analytic_spread']:.3f}°F  "
           f"(+{(mc['analytic_spread']/mc['orig_spread']-1)*100:.1f}%)")
     print(f"  MC mean spread (K=1000):     {mc['mc_spread_mean']:.3f}°F ± {mc['mc_spread_std']:.3f}°F  "
+          f"(+{(mc['mc_spread_mean']/mc['orig_spread']-1)*100:.1f}%)")
+    print(f"  Analytic vs MC agreement:    "
+          f"{abs(mc['analytic_spread']-mc['mc_spread_mean'])/mc['mc_spread_mean']*100:.2f}% diff")
+
+    # ── Save ─────────────────────────────────────────────────────────────────
+    print(f"\nSaving → {OUT_PATH.name} …")
+    df_syn.to_parquet(OUT_PATH, index=False)
+    size_mb = OUT_PATH.stat().st_size / 1e6
+    print(f"  Saved: shape={df_syn.shape}  size={size_mb:.1f} MB")
+    print(f"  New columns: n_gcms_real, tmax_july_p10_orig, tmax_july_p90_orig,")
