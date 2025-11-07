@@ -348,3 +348,13 @@ def main():
               f"diff={diff:.2e}  [{status}]")
     if all_ok:
         print("  Median perfectly preserved (numerical identity)  [PASS]")
+
+    # ── Widening factor sanity ────────────────────────────────────────────────
+    print("\nBand widening factor per county-year (non-zero spread rows):")
+    late = df_syn[df_syn["year"].isin([2030, 2040, 2050]) & (df_syn["sigma_gcm"] > 0.01)]
+    wf   = late["band_widening_factor"]
+    print(f"  Expected (analytical):  {np.sqrt((1+(1+NOISE_FRACTION)**2)/2):.4f}")
+    print(f"  Actual mean:            {wf.mean():.4f}  "
+          f"(std={wf.std():.6f})")
+    print(f"  Min: {wf.min():.4f}  Max: {wf.max():.4f}")
+    print(f"  All rows exactly equal expected: "
