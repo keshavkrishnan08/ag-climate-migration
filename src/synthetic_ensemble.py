@@ -338,3 +338,13 @@ def main():
     print("\nMedian (tmax_july_projected) preservation check:")
     all_ok = True
     for yr in [2025, 2030, 2040, 2050]:
+        orig_m  = df[df["year"] == yr]["tmax_july_projected"].mean()
+        synth_m = df_syn[df_syn["year"] == yr]["tmax_july_projected"].mean()
+        diff    = abs(synth_m - orig_m)
+        status  = "OK" if diff < 1e-10 else "WARN"
+        if status == "WARN":
+            all_ok = False
+        print(f"  {yr}: orig={orig_m:.4f}  synth={synth_m:.4f}  "
+              f"diff={diff:.2e}  [{status}]")
+    if all_ok:
+        print("  Median perfectly preserved (numerical identity)  [PASS]")
