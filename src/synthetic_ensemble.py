@@ -328,3 +328,13 @@ def main():
               f"median={o['median']:.3f}°F  "
               f"[p10={o['p10']:.3f}, p90={o['p90']:.3f}]")
         print(f"    10-GCM synth   : mean={s['mean']:.3f}°F  "
+              f"median={s['median']:.3f}°F  "
+              f"[p10={s['p10']:.3f}, p90={s['p90']:.3f}]")
+        print(f"    Widening       : {abs_mean:+.3f}°F mean, "
+              f"{abs_med:+.3f}°F median, "
+              f"{pct_mean:+.1f}% relative")
+
+    # ── Median preservation ───────────────────────────────────────────────────
+    print("\nMedian (tmax_july_projected) preservation check:")
+    all_ok = True
+    for yr in [2025, 2030, 2040, 2050]:
