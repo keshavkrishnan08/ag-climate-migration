@@ -358,3 +358,13 @@ def main():
           f"(std={wf.std():.6f})")
     print(f"  Min: {wf.min():.4f}  Max: {wf.max():.4f}")
     print(f"  All rows exactly equal expected: "
+          f"{(abs(wf - np.sqrt((1+(1+NOISE_FRACTION)**2)/2)) < 1e-10).all()}")
+
+    # ── Monte Carlo verification ──────────────────────────────────────────────
+    print("\nMonte Carlo verification (K=1000 bootstrap realisations at 2040):")
+    rng = np.random.default_rng(SEED)
+    mc  = monte_carlo_verification(df, year=2040, k_samples=1000, rng=rng)
+    print(f"  Original 5-GCM spread:       {mc['orig_spread']:.3f}°F")
+    print(f"  Analytical 10-GCM spread:    {mc['analytic_spread']:.3f}°F  "
+          f"(+{(mc['analytic_spread']/mc['orig_spread']-1)*100:.1f}%)")
+    print(f"  MC mean spread (K=1000):     {mc['mc_spread_mean']:.3f}°F ± {mc['mc_spread_std']:.3f}°F  "
