@@ -378,3 +378,13 @@ def main():
     size_mb = OUT_PATH.stat().st_size / 1e6
     print(f"  Saved: shape={df_syn.shape}  size={size_mb:.1f} MB")
     print(f"  New columns: n_gcms_real, tmax_july_p10_orig, tmax_july_p90_orig,")
+    print(f"               sigma_gcm, sigma_combined, band_widening_factor,")
+    print(f"               is_synthetic_ensemble")
+
+    print("\n" + "=" * 65)
+    print("DONE")
+    print(f"Output → {OUT_PATH}")
+    print(f"Use in A4/A5 steps. Flag bootstrap limitation in paper Methods §4.")
+    print("=" * 65)
+
+
