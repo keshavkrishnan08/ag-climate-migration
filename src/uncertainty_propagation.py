@@ -38,3 +38,13 @@ SEED = 42
 
 
 def compute_total_stranded(yield_proj: pd.DataFrame) -> float:
+    """Compute total national stranded value ($ billions) from yield projections.
+
+    Args:
+        yield_proj: DataFrame with climate_impact_bu, acres_harvested, year, crop.
+
+    Returns:
+        Total stranded value in billions USD (positive = loss).
+    """
+    df = yield_proj.copy()
+    df['price'] = df['crop'].map(COMMODITY_PRICES).fillna(5.0)
