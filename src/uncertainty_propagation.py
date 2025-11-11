@@ -58,3 +58,13 @@ def compute_total_stranded(yield_proj: pd.DataFrame) -> float:
 
     # County-level stranded = -PV(climate impact)
     county_pv = df.groupby('fips')['pv_climate_impact'].sum().reset_index()
+    county_pv['stranded'] = -county_pv['pv_climate_impact']
+    total_b = county_pv[county_pv['stranded'] > 0]['stranded'].sum() / 1e9
+    return total_b
+
+
+def run_monte_carlo() -> dict:
+    """Run 1,000-iteration Monte Carlo propagation of yield model uncertainty.
+
+    For each iteration:
+        1. Compute residual_std = sqrt(1 - R²) * std(climate_impact_bu)
