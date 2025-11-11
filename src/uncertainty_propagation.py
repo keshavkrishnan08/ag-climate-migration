@@ -78,3 +78,13 @@ def run_monte_carlo() -> dict:
     """
     logger.info("Loading yield projections SSP2-4.5...")
     yp = pd.read_parquet(
+        PROJECTIONS_DIR / 'yield_projections_SSP245.parquet',
+        columns=['fips', 'year', 'crop', 'climate_impact_bu', 'acres_harvested']
+    )
+    yp['fips'] = yp['fips'].astype(str).str.zfill(5)
+
+    # Residual std: sqrt(1 - R²) * std(target)
+    # climate_impact_bu is already the yield anomaly in bu/acre — that's our target
+    impact_std = yp['climate_impact_bu'].std()
+    residual_std = np.sqrt(1.0 - R2_YIELD) * impact_std
+
