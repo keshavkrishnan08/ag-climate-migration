@@ -18,3 +18,13 @@ from loguru import logger
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / 'src'))
 RESULTS_DIR = PROJECT_ROOT / 'results'
+PROJECTIONS_DIR = PROJECT_ROOT / 'data' / 'projections'
+
+# Yield model test R² from v2 model (results/yield_model_v2_metrics.json)
+R2_YIELD = 0.2059691810308517
+
+# Commodity prices (2023 USD) — must match 06_stranded.py
+COMMODITY_PRICES = {
+    'corn': 5.50, 'soybeans': 12.80, 'wheat_winter': 7.20,
+    'wheat_spring': 8.10, 'cotton': 0.78, 'sorghum': 5.30,
+    'barley': 6.10, 'oats': 3.80,
