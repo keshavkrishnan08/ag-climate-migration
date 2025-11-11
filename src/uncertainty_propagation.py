@@ -48,3 +48,13 @@ def compute_total_stranded(yield_proj: pd.DataFrame) -> float:
     """
     df = yield_proj.copy()
     df['price'] = df['crop'].map(COMMODITY_PRICES).fillna(5.0)
+    df['climate_income_total'] = df['climate_impact_bu'] * df['price'] * df['acres_harvested']
+
+    min_year = df['year'].min()
+    df['years_ahead'] = df['year'] - min_year + 1
+    df = df[df['years_ahead'] <= HORIZON]
+    df['discount_factor'] = 1.0 / (1 + DISCOUNT_RATE) ** df['years_ahead']
+    df['pv_climate_impact'] = df['climate_income_total'] * df['discount_factor']
+
+    # County-level stranded = -PV(climate impact)
+    county_pv = df.groupby('fips')['pv_climate_impact'].sum().reset_index()
