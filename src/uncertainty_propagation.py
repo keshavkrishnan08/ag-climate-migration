@@ -68,3 +68,13 @@ def run_monte_carlo() -> dict:
 
     For each iteration:
         1. Compute residual_std = sqrt(1 - R²) * std(climate_impact_bu)
+           This is the standard deviation of yield prediction errors in bu/acre units.
+        2. Add N(0, residual_std) noise to climate_impact_bu (all rows independently).
+        3. Recompute stranded asset total with noisy predictions.
+        4. Record total stranded.
+
+    Returns:
+        Dict with mean, p2.5, p97.5, and all iteration values.
+    """
+    logger.info("Loading yield projections SSP2-4.5...")
+    yp = pd.read_parquet(
