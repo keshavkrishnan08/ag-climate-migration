@@ -28,3 +28,13 @@ COMMODITY_PRICES = {
     'corn': 5.50, 'soybeans': 12.80, 'wheat_winter': 7.20,
     'wheat_spring': 8.10, 'cotton': 0.78, 'sorghum': 5.30,
     'barley': 6.10, 'oats': 3.80,
+}
+
+# DCF parameters: baseline (4%, 30yr) — conservative scenario
+DISCOUNT_RATE = 0.04
+HORIZON = 30
+N_ITER = 1000
+SEED = 42
+
+
+def compute_total_stranded(yield_proj: pd.DataFrame) -> float:
