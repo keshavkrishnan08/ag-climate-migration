@@ -108,3 +108,13 @@ def run_monte_carlo() -> dict:
         totals.append(total_b)
         if (i + 1) % 100 == 0:
             logger.info(f"  Iteration {i+1}/{N_ITER} — running mean: ${np.mean(totals):.2f}B")
+
+    totals = np.array(totals)
+    result = {
+        "method": "Monte Carlo uncertainty propagation",
+        "n_iterations": N_ITER,
+        "yield_model_r2": R2_YIELD,
+        "residual_std_bu_acre": float(residual_std),
+        "discount_rate": DISCOUNT_RATE,
+        "horizon": HORIZON,
+        "scenario": "SSP245",
