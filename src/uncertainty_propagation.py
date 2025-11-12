@@ -128,3 +128,13 @@ def run_monte_carlo() -> dict:
         "std_b": float(np.std(totals)),
         "seed": SEED,
     }
+    logger.info(
+        f"MC result: mean=${result['mean_b']:.1f}B, "
+        f"95% CI=[${result['p2_5_b']:.1f}B, ${result['p97_5_b']:.1f}B]"
+    )
+    return result
+
+
+def main():
+    """Run propagation and save results."""
+    out_dir = RESULTS_DIR / 'stranded_assets'
