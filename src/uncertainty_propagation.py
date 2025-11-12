@@ -118,3 +118,13 @@ def run_monte_carlo() -> dict:
         "discount_rate": DISCOUNT_RATE,
         "horizon": HORIZON,
         "scenario": "SSP245",
+        "point_estimate_b": float(point_estimate),
+        "mean_b": float(np.mean(totals)),
+        "median_b": float(np.median(totals)),
+        "p2_5_b": float(np.percentile(totals, 2.5)),
+        "p97_5_b": float(np.percentile(totals, 97.5)),
+        "p5_b": float(np.percentile(totals, 5)),
+        "p95_b": float(np.percentile(totals, 95)),
+        "std_b": float(np.std(totals)),
+        "seed": SEED,
+    }
