@@ -98,3 +98,13 @@ def run_monte_carlo() -> dict:
     logger.info(f"Point estimate: ${point_estimate:.2f}B")
 
     rng = np.random.default_rng(SEED)
+    totals = []
+
+    for i in range(N_ITER):
+        yp_noisy = yp.copy()
+        noise = rng.normal(0.0, residual_std, size=len(yp_noisy))
+        yp_noisy['climate_impact_bu'] = yp_noisy['climate_impact_bu'] + noise
+        total_b = compute_total_stranded(yp_noisy)
+        totals.append(total_b)
+        if (i + 1) % 100 == 0:
+            logger.info(f"  Iteration {i+1}/{N_ITER} — running mean: ${np.mean(totals):.2f}B")
