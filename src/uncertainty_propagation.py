@@ -148,3 +148,12 @@ def main():
     logger.info(f"Saved uncertainty propagation to {out_path}")
 
     print(f"\n=== Uncertainty Propagation Results ===")
+    print(f"Point estimate:  ${result['point_estimate_b']:.1f}B")
+    print(f"MC mean:         ${result['mean_b']:.1f}B")
+    print(f"95% CI:          [${result['p2_5_b']:.1f}B, ${result['p97_5_b']:.1f}B]")
+    print(f"R² = {result['yield_model_r2']:.2f}, residual_std = {result['residual_std_bu_acre']:.2f} bu/ac")
+    return result
+
+
+if __name__ == '__main__':
+    main()
