@@ -138,3 +138,13 @@ def run_monte_carlo() -> dict:
 def main():
     """Run propagation and save results."""
     out_dir = RESULTS_DIR / 'stranded_assets'
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / 'uncertainty_propagation.json'
+
+    result = run_monte_carlo()
+
+    with open(out_path, 'w') as f:
+        json.dump(result, f, indent=2)
+    logger.info(f"Saved uncertainty propagation to {out_path}")
+
+    print(f"\n=== Uncertainty Propagation Results ===")
