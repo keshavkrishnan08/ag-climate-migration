@@ -88,3 +88,13 @@ def run_monte_carlo() -> dict:
     impact_std = yp['climate_impact_bu'].std()
     residual_std = np.sqrt(1.0 - R2_YIELD) * impact_std
 
+    logger.info(
+        f"climate_impact_bu std={impact_std:.3f} bu/ac, "
+        f"R²={R2_YIELD:.4f}, residual_std={residual_std:.3f} bu/ac"
+    )
+
+    # Point estimate (no noise)
+    point_estimate = compute_total_stranded(yp)
+    logger.info(f"Point estimate: ${point_estimate:.2f}B")
+
+    rng = np.random.default_rng(SEED)
