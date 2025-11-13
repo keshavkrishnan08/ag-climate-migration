@@ -8,3 +8,13 @@ crop switching patterns. Four validation events from SWARM spec §A3:
 2. Cotton retreat from Missouri/Tennessee (1980-2010) — POSITIVE
 3. Winter wheat boundary shift in Kansas (1990-2010) — POSITIVE
 4. Soybean adoption in Corn Belt (1960-1980) — NEGATIVE test
+
+All four must pass before the switching model can be trusted for projections.
+"""
+
+import json
+import sys
+from pathlib import Path
+from datetime import datetime
+from typing import Tuple
+
