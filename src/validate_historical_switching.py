@@ -68,3 +68,13 @@ KANSAS_COUNTY_LAT = {
 
 
 # -----------------------------------------------------------------------
+# Data loading helpers
+# -----------------------------------------------------------------------
+
+def load_nass_acreage(
+    state_fips: list[str],
+    crops: list[str] | None = None,
+    year_min: int = 1950,
+    year_max: int = 2025,
+) -> pd.DataFrame:
+    """Load deduplicated NASS county acreage data for target states/crops.
