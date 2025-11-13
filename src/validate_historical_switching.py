@@ -28,3 +28,13 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 NASS_PATH = PROJECT_ROOT / "data" / "raw" / "nass" / "nass_county_yields.parquet"
+CLIMATE_PATH = PROJECT_ROOT / "data" / "raw" / "prism" / "county_climate_annual.parquet"
+CLIMATE_MONTHLY_PATH = PROJECT_ROOT / "data" / "raw" / "prism" / "county_climate_monthly.parquet"
+OUTPUT_PATH = PROJECT_ROOT / "state" / "validation" / "historical_switching.json"
+
+RANDOM_SEED = 42
+
+# Kansas county centroid latitudes (FIPS -> latitude in degrees N).
+# Source: US Census Bureau TIGER/Gazetteer county centroids.
+KANSAS_COUNTY_LAT = {
+    "20001": 37.88, "20003": 37.77, "20005": 38.91, "20007": 37.25,
