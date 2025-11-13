@@ -78,3 +78,13 @@ def load_nass_acreage(
     year_max: int = 2025,
 ) -> pd.DataFrame:
     """Load deduplicated NASS county acreage data for target states/crops.
+
+    Takes the MAX of acres_harvested per (fips, year, crop) to collapse
+    the survey-item cross-product artifact in the raw NASS bulk download.
+
+    Args:
+        state_fips: 2-digit state FIPS strings to include.
+        crops: Crop names to filter. None means all.
+        year_min: Start year (inclusive).
+        year_max: End year (inclusive).
+
