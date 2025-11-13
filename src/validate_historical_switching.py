@@ -18,3 +18,13 @@ from pathlib import Path
 from datetime import datetime
 from typing import Tuple
 
+import numpy as np
+import pandas as pd
+import lightgbm as lgb
+from scipy.stats import spearmanr
+from loguru import logger
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
+
+NASS_PATH = PROJECT_ROOT / "data" / "raw" / "nass" / "nass_county_yields.parquet"
