@@ -118,3 +118,13 @@ def load_nass_acreage(
 
     logger.info(
         f"Loaded NASS acreage: {len(df)} rows, "
+        f"{df['fips'].nunique()} counties, "
+        f"years {df['year'].min()}-{df['year'].max()}"
+    )
+    return df.drop(columns=["state_fips"], errors="ignore")
+
+
+def load_climate(
+    state_fips: list[str],
+    year_min: int = 1950,
+    year_max: int = 2025,
