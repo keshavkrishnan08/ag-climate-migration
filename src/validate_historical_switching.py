@@ -108,3 +108,13 @@ def load_nass_acreage(
     if crops is not None:
         mask &= df["crop"].isin(crops)
     df = df[mask].copy()
+
+    # Deduplicate: max acres_harvested per fips/year/crop
+    df = df.groupby(["fips", "year", "crop"], as_index=False)["acres_harvested"].max()
+
+    # Drop nulls and zeros
+    df = df.dropna(subset=["acres_harvested"])
+    df = df[df["acres_harvested"] > 0]
+
+    logger.info(
+        f"Loaded NASS acreage: {len(df)} rows, "
