@@ -98,3 +98,13 @@ def load_nass_acreage(
     )
     df["fips"] = df["fips"].astype(str).str.zfill(5)
     df["state_fips"] = df["fips"].str[:2]
+
+    # Filter state, year, and crop
+    mask = (
+        df["state_fips"].isin(state_fips)
+        & (df["year"] >= year_min)
+        & (df["year"] <= year_max)
+    )
+    if crops is not None:
+        mask &= df["crop"].isin(crops)
+    df = df[mask].copy()
