@@ -88,3 +88,13 @@ def load_nass_acreage(
         year_min: Start year (inclusive).
         year_max: End year (inclusive).
 
+    Returns:
+        DataFrame with columns [fips, year, crop, acres_harvested],
+        one row per county-year-crop.
+    """
+    df = pd.read_parquet(
+        NASS_PATH,
+        columns=["fips", "year", "crop", "acres_harvested"],
+    )
+    df["fips"] = df["fips"].astype(str).str.zfill(5)
+    df["state_fips"] = df["fips"].str[:2]
