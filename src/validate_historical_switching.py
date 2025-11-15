@@ -128,3 +128,13 @@ def load_climate(
     state_fips: list[str],
     year_min: int = 1950,
     year_max: int = 2025,
+) -> pd.DataFrame:
+    """Load annual climate data for target states.
+
+    Args:
+        state_fips: 2-digit state FIPS strings.
+        year_min: Start year.
+        year_max: End year.
+
+    Returns:
+        DataFrame with climate columns, one row per county-year.
