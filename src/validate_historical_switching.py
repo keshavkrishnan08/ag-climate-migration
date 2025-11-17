@@ -148,3 +148,13 @@ def load_climate(
         & (df["year"] >= year_min)
         & (df["year"] <= year_max)
     )
+    df = df[mask].copy()
+
+    # Filter out state/division aggregates (FIPS ending in 998/999)
+    df = df[~df["fips"].str[-3:].isin(["998", "999"])]
+
+    logger.info(
+        f"Loaded climate: {len(df)} rows, "
+        f"{df['fips'].nunique()} counties, "
+        f"years {df['year'].min()}-{df['year'].max()}"
+    )
