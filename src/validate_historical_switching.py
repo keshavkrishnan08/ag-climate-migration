@@ -138,3 +138,13 @@ def load_climate(
 
     Returns:
         DataFrame with climate columns, one row per county-year.
+    """
+    df = pd.read_parquet(CLIMATE_PATH)
+    df["fips"] = df["fips"].astype(str).str.zfill(5)
+    df["state_fips"] = df["fips"].str[:2]
+
+    mask = (
+        df["state_fips"].isin(state_fips)
+        & (df["year"] >= year_min)
+        & (df["year"] <= year_max)
+    )
