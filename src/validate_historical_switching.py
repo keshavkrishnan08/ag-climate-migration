@@ -168,3 +168,13 @@ def load_climate_monthly(
     months: list[str] | None = None,
 ) -> pd.DataFrame:
     """Load monthly climate data for target states.
+
+    Includes month-level tmax, tmin, tavg, precip, pdsi, and cdd columns,
+    plus the annual summaries. Useful for capturing phenology-sensitive
+    signals like spring temperature disruption for cotton.
+
+    Args:
+        state_fips: 2-digit state FIPS strings.
+        year_min: Start year.
+        year_max: End year.
+        months: Optional list of month-var prefixes to keep (e.g.,
