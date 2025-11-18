@@ -158,3 +158,13 @@ def load_climate(
         f"{df['fips'].nunique()} counties, "
         f"years {df['year'].min()}-{df['year'].max()}"
     )
+    return df.drop(columns=["state_fips"], errors="ignore")
+
+
+def load_climate_monthly(
+    state_fips: list[str],
+    year_min: int = 1950,
+    year_max: int = 2025,
+    months: list[str] | None = None,
+) -> pd.DataFrame:
+    """Load monthly climate data for target states.
