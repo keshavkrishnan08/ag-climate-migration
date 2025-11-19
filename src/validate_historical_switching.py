@@ -208,3 +208,13 @@ def load_climate_monthly(
 
 def compute_acreage_shares(acreage: pd.DataFrame) -> pd.DataFrame:
     """Compute each crop's share of total county acreage per year.
+
+    Args:
+        acreage: DataFrame with [fips, year, crop, acres_harvested].
+
+    Returns:
+        Same DataFrame with an additional 'share' column (0-1).
+    """
+    total = acreage.groupby(["fips", "year"])["acres_harvested"].sum().reset_index()
+    total.rename(columns={"acres_harvested": "total_acres"}, inplace=True)
+
