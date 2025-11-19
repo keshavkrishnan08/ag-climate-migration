@@ -238,3 +238,13 @@ def build_climate_features(
         window: Rolling window size (years) for trend computation.
 
     Returns:
+        DataFrame with original climate cols plus trend columns.
+    """
+    climate = climate.sort_values(["fips", "year"])
+    out = climate.copy()
+
+    trend_cols = [
+        "tmax_growing_avg", "tmin_growing_avg", "precip_growing_total",
+        "tmax_july", "pdsi_growing_avg", "cdd_annual",
+    ]
+
