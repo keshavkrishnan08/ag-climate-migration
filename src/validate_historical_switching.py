@@ -188,3 +188,13 @@ def load_climate_monthly(
     df["state_fips"] = df["fips"].str[:2]
 
     mask = (
+        df["state_fips"].isin(state_fips)
+        & (df["year"] >= year_min)
+        & (df["year"] <= year_max)
+    )
+    df = df[mask].copy()
+    df = df[~df["fips"].str[-3:].isin(["998", "999"])]
+
+    if months is not None:
+        keep_cols = ["fips", "year"] + [c for c in df.columns if c in months]
+        df = df[keep_cols]
