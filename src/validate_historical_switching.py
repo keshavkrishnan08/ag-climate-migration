@@ -198,3 +198,13 @@ def load_climate_monthly(
     if months is not None:
         keep_cols = ["fips", "year"] + [c for c in df.columns if c in months]
         df = df[keep_cols]
+
+    logger.info(
+        f"Loaded monthly climate: {len(df)} rows, "
+        f"{df['fips'].nunique()} counties, {df.shape[1]} columns"
+    )
+    return df.drop(columns=["state_fips"], errors="ignore")
+
+
+def compute_acreage_shares(acreage: pd.DataFrame) -> pd.DataFrame:
+    """Compute each crop's share of total county acreage per year.
