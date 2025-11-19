@@ -178,3 +178,13 @@ def load_climate_monthly(
         year_min: Start year.
         year_max: End year.
         months: Optional list of month-var prefixes to keep (e.g.,
+            ['tmin_m03', 'tmin_m04']). None means keep all.
+
+    Returns:
+        DataFrame with monthly climate columns, one row per county-year.
+    """
+    df = pd.read_parquet(CLIMATE_MONTHLY_PATH)
+    df["fips"] = df["fips"].astype(str).str.zfill(5)
+    df["state_fips"] = df["fips"].str[:2]
+
+    mask = (
