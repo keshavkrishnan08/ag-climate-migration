@@ -218,3 +218,13 @@ def compute_acreage_shares(acreage: pd.DataFrame) -> pd.DataFrame:
     total = acreage.groupby(["fips", "year"])["acres_harvested"].sum().reset_index()
     total.rename(columns={"acres_harvested": "total_acres"}, inplace=True)
 
+    out = acreage.merge(total, on=["fips", "year"], how="left")
+    out["share"] = out["acres_harvested"] / out["total_acres"]
+    return out
+
+
+def build_climate_features(
+    climate: pd.DataFrame,
+    window: int = 5,
+) -> pd.DataFrame:
+    """Build climate trend features for each county.
