@@ -228,3 +228,13 @@ def build_climate_features(
     window: int = 5,
 ) -> pd.DataFrame:
     """Build climate trend features for each county.
+
+    Computes rolling-window trends (slope) and level features for:
+    - tmax_growing_avg, tmin_growing_avg, precip_growing_total
+    - tmax_july, pdsi_growing_avg, cdd_annual
+
+    Args:
+        climate: Annual climate data.
+        window: Rolling window size (years) for trend computation.
+
+    Returns:
