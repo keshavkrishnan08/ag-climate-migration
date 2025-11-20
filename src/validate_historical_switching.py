@@ -268,3 +268,13 @@ def build_climate_features(
 
     return out
 
+
+def _linear_slope(arr: np.ndarray) -> float:
+    """Compute OLS slope of array against index (years).
+
+    Args:
+        arr: 1-D array of values.
+
+    Returns:
+        Slope (change per year).
+    """
