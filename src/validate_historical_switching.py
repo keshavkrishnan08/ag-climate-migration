@@ -258,3 +258,13 @@ def build_climate_features(
         )
         # Rolling trend (slope over window)
         out[f"{col}_trend{window}y"] = (
+            out.groupby("fips")[col]
+            .transform(
+                lambda s: s.rolling(window, min_periods=3).apply(
+                    _linear_slope, raw=True
+                )
+            )
+        )
+
+    return out
+
