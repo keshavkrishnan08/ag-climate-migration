@@ -248,3 +248,13 @@ def build_climate_features(
         "tmax_july", "pdsi_growing_avg", "cdd_annual",
     ]
 
+    for col in trend_cols:
+        if col not in out.columns:
+            continue
+        # Rolling mean (level)
+        out[f"{col}_mean{window}y"] = (
+            out.groupby("fips")[col]
+            .transform(lambda s: s.rolling(window, min_periods=3).mean())
+        )
+        # Rolling trend (slope over window)
+        out[f"{col}_trend{window}y"] = (
