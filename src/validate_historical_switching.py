@@ -288,3 +288,13 @@ def _linear_slope(arr: np.ndarray) -> float:
     x_m, y_m = x[mask], arr[mask]
     xbar = x_m.mean()
     slope = np.sum((x_m - xbar) * (y_m - y_m.mean())) / np.sum((x_m - xbar) ** 2)
+    return slope
+
+
+def _compute_period_change(
+    acreage: pd.DataFrame,
+    crop: str,
+    pre_years: Tuple[int, int],
+    post_years: Tuple[int, int],
+) -> pd.DataFrame:
+    """Compute change in acreage share between two periods for one crop.
