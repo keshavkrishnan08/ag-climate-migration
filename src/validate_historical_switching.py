@@ -308,3 +308,13 @@ def _compute_period_change(
     Returns:
         DataFrame with [fips, share_pre, share_post, share_change].
     """
+    crop_data = acreage[acreage["crop"] == crop].copy()
+
+    pre = crop_data[
+        (crop_data["year"] >= pre_years[0]) & (crop_data["year"] <= pre_years[1])
+    ]
+    post = crop_data[
+        (crop_data["year"] >= post_years[0]) & (crop_data["year"] <= post_years[1])
+    ]
+
+    pre_avg = pre.groupby("fips")["share"].mean().reset_index()
