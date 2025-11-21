@@ -278,3 +278,13 @@ def _linear_slope(arr: np.ndarray) -> float:
     Returns:
         Slope (change per year).
     """
+    n = len(arr)
+    if n < 3:
+        return np.nan
+    x = np.arange(n, dtype=float)
+    mask = ~np.isnan(arr)
+    if mask.sum() < 3:
+        return np.nan
+    x_m, y_m = x[mask], arr[mask]
+    xbar = x_m.mean()
+    slope = np.sum((x_m - xbar) * (y_m - y_m.mean())) / np.sum((x_m - xbar) ** 2)
