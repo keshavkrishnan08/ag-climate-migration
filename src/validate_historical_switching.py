@@ -298,3 +298,13 @@ def _compute_period_change(
     post_years: Tuple[int, int],
 ) -> pd.DataFrame:
     """Compute change in acreage share between two periods for one crop.
+
+    Args:
+        acreage: Acreage data with 'share' column.
+        crop: Target crop.
+        pre_years: (start, end) of baseline period.
+        post_years: (start, end) of event period.
+
+    Returns:
+        DataFrame with [fips, share_pre, share_post, share_change].
+    """
