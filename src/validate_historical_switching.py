@@ -328,3 +328,13 @@ def _compute_period_change(
 
     return merged
 
+
+# -----------------------------------------------------------------------
+# Event 1: Sorghum expansion in southern Plains (1950-1975)
+# -----------------------------------------------------------------------
+
+def validate_sorghum_expansion() -> dict:
+    """Test 1 (POSITIVE): Sorghum expansion in KS/OK/TX/NE 1950-1975.
+
+    Train on 1950-1960, predict 1961-1975 sorghum acreage share changes.
+    Pass criterion: Spearman rank correlation > 0.55 between predicted and
