@@ -318,3 +318,13 @@ def _compute_period_change(
     ]
 
     pre_avg = pre.groupby("fips")["share"].mean().reset_index()
+    pre_avg.rename(columns={"share": "share_pre"}, inplace=True)
+
+    post_avg = post.groupby("fips")["share"].mean().reset_index()
+    post_avg.rename(columns={"share": "share_post"}, inplace=True)
+
+    merged = pre_avg.merge(post_avg, on="fips", how="outer").fillna(0)
+    merged["share_change"] = merged["share_post"] - merged["share_pre"]
+
+    return merged
+
