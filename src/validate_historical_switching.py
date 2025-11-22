@@ -338,3 +338,13 @@ def validate_sorghum_expansion() -> dict:
 
     Train on 1950-1960, predict 1961-1975 sorghum acreage share changes.
     Pass criterion: Spearman rank correlation > 0.55 between predicted and
+    actual county-level expansion.
+
+    Returns:
+        Dict with test results.
+    """
+    logger.info("=" * 60)
+    logger.info("EVENT 1: Sorghum expansion, southern Plains 1950-1975")
+    logger.info("=" * 60)
+
+    states = ["20", "40", "48", "31"]  # KS, OK, TX, NE
