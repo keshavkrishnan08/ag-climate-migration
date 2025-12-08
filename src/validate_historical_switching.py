@@ -368,3 +368,13 @@ def validate_sorghum_expansion() -> dict:
 
     # Build training data: county-year panel with climate features
     # Target: sorghum acreage share
+    sorghum_shares = acreage[acreage["crop"] == "sorghum"][
+        ["fips", "year", "share"]
+    ].copy()
+
+    train_panel = sorghum_shares.merge(climate, on=["fips", "year"], how="inner")
+
+    # Feature columns (all climate features)
+    feature_cols = [
+        c for c in train_panel.columns
+        if c not in ("fips", "year", "share", "crop")
