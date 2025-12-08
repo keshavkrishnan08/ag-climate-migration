@@ -358,3 +358,13 @@ def validate_sorghum_expansion() -> dict:
     climate = build_climate_features(climate, window=5)
 
     # Compute actual sorghum share change
+    actual_change = _compute_period_change(
+        acreage, "sorghum", train_years, predict_years
+    )
+    logger.info(
+        f"Actual sorghum change: {len(actual_change)} counties, "
+        f"mean change = {actual_change['share_change'].mean():.3f}"
+    )
+
+    # Build training data: county-year panel with climate features
+    # Target: sorghum acreage share
