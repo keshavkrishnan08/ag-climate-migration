@@ -348,3 +348,13 @@ def validate_sorghum_expansion() -> dict:
     logger.info("=" * 60)
 
     states = ["20", "40", "48", "31"]  # KS, OK, TX, NE
+    train_years = (1950, 1960)
+    predict_years = (1961, 1975)
+
+    # Load data
+    acreage = load_nass_acreage(states, year_min=1950, year_max=1975)
+    acreage = compute_acreage_shares(acreage)
+    climate = load_climate(states, year_min=1950, year_max=1975)
+    climate = build_climate_features(climate, window=5)
+
+    # Compute actual sorghum share change
