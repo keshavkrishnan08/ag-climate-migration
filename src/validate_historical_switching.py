@@ -408,3 +408,13 @@ def validate_sorghum_expansion() -> dict:
 
     logger.info(f"Training on {len(X_train)} obs, predicting {len(X_predict)} obs")
     logger.info(f"Features: {len(feature_cols)}")
+
+    # Train LightGBM regressor to predict sorghum share from climate
+    model = lgb.LGBMRegressor(
+        n_estimators=200,
+        learning_rate=0.05,
+        max_depth=4,
+        num_leaves=15,
+        min_child_samples=10,
+        subsample=0.8,
+        colsample_bytree=0.8,
