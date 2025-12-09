@@ -428,3 +428,13 @@ def validate_sorghum_expansion() -> dict:
 
     # Average predictions per county
     pred_df = pd.DataFrame({
+        "fips": fips_predict.values,
+        "pred_share": pred_share,
+    })
+    pred_avg = pred_df.groupby("fips")["pred_share"].mean().reset_index()
+
+    # Also compute the actual average share during training period per county
+    train_share_avg = (
+        sorghum_shares[sorghum_shares["year"].between(*train_years)]
+        .groupby("fips")["share"]
+        .mean()
