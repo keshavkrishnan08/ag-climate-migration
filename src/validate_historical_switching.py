@@ -458,3 +458,13 @@ def validate_sorghum_expansion() -> dict:
             "test_type": "POSITIVE",
             "criterion": "Spearman rank correlation > 0.55",
             "passed": False,
+            "reason": f"Only {len(comparison)} counties in comparison",
+        }
+
+    # Spearman rank correlation
+    rho, p_val = spearmanr(comparison["pred_change"], comparison["share_change"])
+    passed = rho > 0.55
+
+    logger.info(f"Spearman rho = {rho:.3f} (p = {p_val:.4f})")
+    logger.info(f"N counties = {len(comparison)}")
+    logger.info(f"RESULT: {'PASS' if passed else 'FAIL'} (threshold = 0.55)")
