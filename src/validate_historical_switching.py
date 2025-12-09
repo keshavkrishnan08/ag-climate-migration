@@ -418,3 +418,13 @@ def validate_sorghum_expansion() -> dict:
         min_child_samples=10,
         subsample=0.8,
         colsample_bytree=0.8,
+        random_state=RANDOM_SEED,
+        verbose=-1,
+    )
+    model.fit(X_train, y_train)
+
+    # Predict on event-period data
+    pred_share = model.predict(X_predict)
+
+    # Average predictions per county
+    pred_df = pd.DataFrame({
