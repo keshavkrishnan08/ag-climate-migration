@@ -438,3 +438,13 @@ def validate_sorghum_expansion() -> dict:
         sorghum_shares[sorghum_shares["year"].between(*train_years)]
         .groupby("fips")["share"]
         .mean()
+        .reset_index()
+    )
+    train_share_avg.rename(columns={"share": "train_share"}, inplace=True)
+
+    # Predicted change = predicted share in event period - actual share in training
+    pred_avg = pred_avg.merge(train_share_avg, on="fips", how="left")
+    pred_avg["train_share"] = pred_avg["train_share"].fillna(0)
+    pred_avg["pred_change"] = pred_avg["pred_share"] - pred_avg["train_share"]
+
+    # Merge with actual change
