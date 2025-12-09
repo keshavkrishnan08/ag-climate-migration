@@ -398,3 +398,13 @@ def validate_sorghum_expansion() -> dict:
         logger.error(
             f"Insufficient data: train={len(X_train)}, predict={len(X_predict)}"
         )
+        return {
+            "event": "Sorghum expansion in southern Plains 1950-1975",
+            "test_type": "POSITIVE",
+            "criterion": "Spearman rank correlation > 0.55",
+            "passed": False,
+            "reason": "Insufficient data",
+        }
+
+    logger.info(f"Training on {len(X_train)} obs, predicting {len(X_predict)} obs")
+    logger.info(f"Features: {len(feature_cols)}")
