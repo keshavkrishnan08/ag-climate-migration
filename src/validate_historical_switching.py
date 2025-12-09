@@ -448,3 +448,13 @@ def validate_sorghum_expansion() -> dict:
     pred_avg["pred_change"] = pred_avg["pred_share"] - pred_avg["train_share"]
 
     # Merge with actual change
+    comparison = pred_avg.merge(actual_change, on="fips", how="inner")
+    comparison = comparison.dropna(subset=["pred_change", "share_change"])
+
+    if len(comparison) < 10:
+        logger.error(f"Too few counties in comparison: {len(comparison)}")
+        return {
+            "event": "Sorghum expansion in southern Plains 1950-1975",
+            "test_type": "POSITIVE",
+            "criterion": "Spearman rank correlation > 0.55",
+            "passed": False,
