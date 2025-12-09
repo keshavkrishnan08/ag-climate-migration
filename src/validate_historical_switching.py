@@ -378,3 +378,13 @@ def validate_sorghum_expansion() -> dict:
     feature_cols = [
         c for c in train_panel.columns
         if c not in ("fips", "year", "share", "crop")
+        and train_panel[c].dtype in ("float64", "float32", "int64")
+    ]
+
+    # Split
+    train_mask = train_panel["year"].between(*train_years)
+    predict_mask = train_panel["year"].between(*predict_years)
+
+    X_train = train_panel.loc[train_mask, feature_cols].copy()
+    y_train = train_panel.loc[train_mask, "share"].copy()
+    X_predict = train_panel.loc[predict_mask, feature_cols].copy()
