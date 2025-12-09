@@ -388,3 +388,13 @@ def validate_sorghum_expansion() -> dict:
     X_train = train_panel.loc[train_mask, feature_cols].copy()
     y_train = train_panel.loc[train_mask, "share"].copy()
     X_predict = train_panel.loc[predict_mask, feature_cols].copy()
+    fips_predict = train_panel.loc[predict_mask, "fips"].copy()
+
+    # Handle NaNs
+    X_train = X_train.fillna(X_train.median())
+    X_predict = X_predict.fillna(X_predict.median())
+
+    if len(X_train) < 20 or len(X_predict) < 20:
+        logger.error(
+            f"Insufficient data: train={len(X_train)}, predict={len(X_predict)}"
+        )
