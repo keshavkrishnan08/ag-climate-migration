@@ -468,3 +468,13 @@ def validate_sorghum_expansion() -> dict:
     logger.info(f"Spearman rho = {rho:.3f} (p = {p_val:.4f})")
     logger.info(f"N counties = {len(comparison)}")
     logger.info(f"RESULT: {'PASS' if passed else 'FAIL'} (threshold = 0.55)")
+
+    return {
+        "event": "Sorghum expansion in southern Plains 1950-1975",
+        "test_type": "POSITIVE",
+        "criterion": "Spearman rank correlation > 0.55",
+        "threshold": 0.55,
+        "spearman_rho": round(float(rho), 4),
+        "p_value": round(float(p_val), 6),
+        "n_counties": int(len(comparison)),
+        "mean_actual_change": round(float(comparison["share_change"].mean()), 4),
