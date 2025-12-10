@@ -498,3 +498,13 @@ def validate_cotton_retreat() -> dict:
     Fixed approach:
     - Target: log(acres_harvested) change per county, pre-1980 vs post-1980.
       Avoids denominator ambiguity entirely.
+    - Features: county-average climate over 1955-1979 plus early/late-period
+      delta features. Includes growing-season PDSI (the dominant signal found
+      at ρ=0.43 in univariate analysis) alongside precip, tmin, and scale.
+    - Drought persistence features: severe drought frequency and summer PDSI.
+    - Validation: leave-one-state-out cross-validation across 4 states.
+
+    Pass criterion: Spearman rank correlation > 0.40 between predicted and
+    actual county-level log acres change (leave-one-state-out).
+
+    Returns:
