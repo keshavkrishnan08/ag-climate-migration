@@ -508,3 +508,13 @@ def validate_cotton_retreat() -> dict:
     actual county-level log acres change (leave-one-state-out).
 
     Returns:
+        Dict with test results.
+    """
+    logger.info("=" * 60)
+    logger.info("EVENT 2: Cotton retreat from MO/TN/AR/MS 1980-2010 (v2)")
+    logger.info("=" * 60)
+
+    states = ["29", "47", "05", "28"]  # MO, TN, AR, MS
+    train_years = (1955, 1979)
+    predict_years = (1980, 2010)
+    _cotton_state_lat = {"29": 38.4, "47": 35.7, "05": 34.8, "28": 32.8}
