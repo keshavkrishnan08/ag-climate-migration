@@ -478,3 +478,13 @@ def validate_sorghum_expansion() -> dict:
         "p_value": round(float(p_val), 6),
         "n_counties": int(len(comparison)),
         "mean_actual_change": round(float(comparison["share_change"].mean()), 4),
+        "mean_pred_change": round(float(comparison["pred_change"].mean()), 4),
+        "passed": bool(passed),
+    }
+
+
+# -----------------------------------------------------------------------
+# Event 2: Cotton retreat from Missouri/Tennessee (1980-2010)
+# -----------------------------------------------------------------------
+
+def validate_cotton_retreat() -> dict:
