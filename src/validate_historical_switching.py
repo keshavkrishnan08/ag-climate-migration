@@ -518,3 +518,13 @@ def validate_cotton_retreat() -> dict:
     train_years = (1955, 1979)
     predict_years = (1980, 2010)
     _cotton_state_lat = {"29": 38.4, "47": 35.7, "05": 34.8, "28": 32.8}
+
+    # ── 1. Load raw NASS acreage (all crops for all states, for correct totals)
+    nass_path = NASS_PATH
+    nass = pd.read_parquet(nass_path, columns=["fips", "year", "crop", "acres_harvested"])
+    nass["fips"] = nass["fips"].astype(str).str.zfill(5)
+    nass["state_fips"] = nass["fips"].str[:2]
+
+    all_crops = nass[
+        nass["state_fips"].isin(states)
+        & ~nass["fips"].str[-3:].isin(["998", "999"])
