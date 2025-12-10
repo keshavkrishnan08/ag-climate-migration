@@ -488,3 +488,13 @@ def validate_sorghum_expansion() -> dict:
 # -----------------------------------------------------------------------
 
 def validate_cotton_retreat() -> dict:
+    """Test 2 (POSITIVE): Cotton retreat from MO/TN/AR/MS 1980-2010.
+
+    Root-cause fix (v2): the prior implementation used cotton-only acreage as
+    the share denominator, producing share=1.0 for all county-years and
+    making the target effectively binary (present/absent) — eliminating the
+    continuous climate signal.
+
+    Fixed approach:
+    - Target: log(acres_harvested) change per county, pre-1980 vs post-1980.
+      Avoids denominator ambiguity entirely.
