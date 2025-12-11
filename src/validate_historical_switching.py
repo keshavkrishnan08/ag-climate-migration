@@ -558,3 +558,13 @@ def validate_cotton_retreat() -> dict:
     pre_share = pre_acres / total_acres_pre
     cotton_counties = pre_share[pre_share > 0.02].index.tolist()
     logger.info(f"Cotton-growing counties (pre-period share >2%): {len(cotton_counties)}")
+
+    pre_acres = pre_acres[pre_acres.index.isin(cotton_counties)]
+    post_acres = (
+        cotton[cotton["fips"].isin(cotton_counties) & cotton["year"].between(*predict_years)]
+        .groupby("fips")["acres_harvested"]
+        .mean()
+    )
+
+    pre_df = pre_acres.reset_index().rename(columns={"acres_harvested": "acres_pre"})
+    post_df = post_acres.reset_index().rename(columns={"acres_harvested": "acres_post"})
