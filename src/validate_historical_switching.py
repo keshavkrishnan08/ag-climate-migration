@@ -538,3 +538,13 @@ def validate_cotton_retreat() -> dict:
 
     logger.info(
         f"Cotton rows: {len(cotton)}, counties: {cotton['fips'].nunique()}, "
+        f"years {cotton['year'].min()}-{cotton['year'].max()}"
+    )
+
+    # ── 2. Build targets: log(acres) change per county
+    pre_acres = (
+        cotton[cotton["year"].between(*train_years)]
+        .groupby("fips")["acres_harvested"]
+        .mean()
+    )
+    # Require >2% of pre-period cotton presence (filter marginal reporters)
