@@ -528,3 +528,13 @@ def validate_cotton_retreat() -> dict:
     all_crops = nass[
         nass["state_fips"].isin(states)
         & ~nass["fips"].str[-3:].isin(["998", "999"])
+        & (nass["acres_harvested"] > 0)
+    ]
+    all_crops = all_crops.groupby(
+        ["fips", "year", "crop"], as_index=False
+    )["acres_harvested"].max()
+
+    cotton = all_crops[all_crops["crop"] == "cotton"]
+
+    logger.info(
+        f"Cotton rows: {len(cotton)}, counties: {cotton['fips'].nunique()}, "
