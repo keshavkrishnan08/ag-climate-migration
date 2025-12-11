@@ -548,3 +548,13 @@ def validate_cotton_retreat() -> dict:
         .mean()
     )
     # Require >2% of pre-period cotton presence (filter marginal reporters)
+    total_acres_pre = (
+        all_crops[all_crops["year"].between(*train_years)]
+        .groupby(["fips", "year"])["acres_harvested"]
+        .sum()
+        .groupby("fips")
+        .mean()
+    )
+    pre_share = pre_acres / total_acres_pre
+    cotton_counties = pre_share[pre_share > 0.02].index.tolist()
+    logger.info(f"Cotton-growing counties (pre-period share >2%): {len(cotton_counties)}")
