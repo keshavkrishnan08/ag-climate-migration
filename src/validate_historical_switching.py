@@ -568,3 +568,13 @@ def validate_cotton_retreat() -> dict:
 
     pre_df = pre_acres.reset_index().rename(columns={"acres_harvested": "acres_pre"})
     post_df = post_acres.reset_index().rename(columns={"acres_harvested": "acres_post"})
+    target = pre_df.merge(post_df, on="fips", how="left").fillna(0)
+    target["log_acres_change"] = (
+        np.log1p(target["acres_post"]) - np.log1p(target["acres_pre"])
+    )
+    logger.info(
+        f"Target counties: {len(target)}, "
+        f"mean log-acres change = {target['log_acres_change'].mean():.3f}"
+    )
+
+    # ── 3. Load annual and monthly climate for training period
