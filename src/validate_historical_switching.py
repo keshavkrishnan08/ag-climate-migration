@@ -618,3 +618,13 @@ def validate_cotton_retreat() -> dict:
             "tmax_july": g["tmax_july"].mean(),
         })
 
+    county_feats = (
+        clim_tr.groupby("fips")
+        .apply(_county_climate_features)
+        .reset_index()
+    )
+
+    # ── 5. Add early-vs-late climate-change delta within training period
+    early_clim = (
+        climate_annual[
+            climate_annual["fips"].isin(cotton_counties)
