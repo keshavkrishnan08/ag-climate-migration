@@ -578,3 +578,13 @@ def validate_cotton_retreat() -> dict:
     )
 
     # ── 3. Load annual and monthly climate for training period
+    climate_annual = load_climate(states, year_min=1950, year_max=2010)
+    climate_monthly = load_climate_monthly(states, year_min=1950, year_max=2010)
+
+    # ── 4. Build county-level climate feature summaries over training period
+    clim_tr = climate_annual[
+        climate_annual["fips"].isin(cotton_counties)
+        & climate_annual["year"].between(*train_years)
+    ].copy()
+
+    def _county_climate_features(g: pd.DataFrame) -> pd.Series:
