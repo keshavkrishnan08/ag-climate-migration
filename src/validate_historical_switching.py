@@ -588,3 +588,13 @@ def validate_cotton_retreat() -> dict:
     ].copy()
 
     def _county_climate_features(g: pd.DataFrame) -> pd.Series:
+        """Compute multi-year climate summary per county."""
+        g = g.sort_values("year")
+        n = len(g)
+        def _slope(col: pd.Series) -> float:
+            vals = col.values
+            if (~np.isnan(vals)).sum() < 3:
+                return 0.0
+            x = np.arange(n, dtype=float)
+            mask = ~np.isnan(vals)
+            xm, ym = x[mask], vals[mask]
