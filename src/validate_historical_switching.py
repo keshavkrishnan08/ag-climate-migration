@@ -628,3 +628,13 @@ def validate_cotton_retreat() -> dict:
     early_clim = (
         climate_annual[
             climate_annual["fips"].isin(cotton_counties)
+            & climate_annual["year"].between(1955, 1964)
+        ]
+        .groupby("fips")[["pdsi_growing_avg", "tmax_growing_avg", "precip_growing_total"]]
+        .mean()
+    )
+    late_clim = (
+        climate_annual[
+            climate_annual["fips"].isin(cotton_counties)
+            & climate_annual["year"].between(1970, 1979)
+        ]
