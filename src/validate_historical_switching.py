@@ -598,3 +598,13 @@ def validate_cotton_retreat() -> dict:
             x = np.arange(n, dtype=float)
             mask = ~np.isnan(vals)
             xm, ym = x[mask], vals[mask]
+            return float(np.sum((xm - xm.mean()) * (ym - ym.mean())) /
+                         (np.sum((xm - xm.mean()) ** 2) + 1e-12))
+
+        pdsi = g["pdsi_growing_avg"]
+        return pd.Series({
+            "tmax_mean": g["tmax_growing_avg"].mean(),
+            "tmin_mean": g["tmin_growing_avg"].mean(),
+            "precip_mean": g["precip_growing_total"].mean(),
+            "precip_cv": g["precip_growing_total"].std()
+                         / (g["precip_growing_total"].mean() + 1.0),
