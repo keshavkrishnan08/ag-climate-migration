@@ -608,3 +608,13 @@ def validate_cotton_retreat() -> dict:
             "precip_mean": g["precip_growing_total"].mean(),
             "precip_cv": g["precip_growing_total"].std()
                          / (g["precip_growing_total"].mean() + 1.0),
+            "pdsi_mean": pdsi.mean(),
+            "pdsi_std": pdsi.std(),
+            "severe_drought_freq": (pdsi < -2).mean(),
+            "extreme_drought_freq": (pdsi < -3).mean(),
+            "pdsi_trend": _slope(pdsi),
+            "tmax_trend": _slope(g["tmax_growing_avg"]),
+            "cdd_mean": g["cdd_annual"].mean(),
+            "tmax_july": g["tmax_july"].mean(),
+        })
+
