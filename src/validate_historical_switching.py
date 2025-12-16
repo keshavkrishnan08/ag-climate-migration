@@ -648,3 +648,13 @@ def validate_cotton_retreat() -> dict:
             "precip_growing_total": "delta_precip",
         }
     ).reset_index()
+    county_feats = county_feats.merge(delta_clim, on="fips", how="left")
+
+    # ── 6. Add summer-PDSI from monthly climate (Apr-Oct)
+    pdsi_summer_cols = [
+        c for c in climate_monthly.columns
+        if "pdsi" in c and any(
+            f"m{m:02d}" in c or f"m0{m}" in c for m in range(4, 11)
+        )
+    ]
+    if pdsi_summer_cols:
