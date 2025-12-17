@@ -668,3 +668,13 @@ def validate_cotton_retreat() -> dict:
         summer_pdsi["pdsi_summer_mean"] = summer_pdsi.mean(axis=1)
         county_feats = county_feats.merge(
             summer_pdsi[["pdsi_summer_mean"]].reset_index(), on="fips", how="left"
+        )
+
+    # ── 7. Add lat and pre-period scale features
+    county_feats["approx_lat"] = county_feats["fips"].str[:2].map(_cotton_state_lat)
+    county_feats = county_feats.merge(
+        pre_df.rename(columns={"acres_pre": "acres_pre_feat"}), on="fips", how="left"
+    )
+    county_feats["log_acres_pre"] = np.log1p(county_feats["acres_pre_feat"])
+    # Interaction: large operations in high-drought zones are most exposed
+    county_feats["drought_x_scale"] = (
