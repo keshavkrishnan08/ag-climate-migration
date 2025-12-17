@@ -658,3 +658,13 @@ def validate_cotton_retreat() -> dict:
         )
     ]
     if pdsi_summer_cols:
+        monthly_tr = climate_monthly[
+            climate_monthly["fips"].isin(cotton_counties)
+            & climate_monthly["year"].between(*train_years)
+        ]
+        summer_pdsi = (
+            monthly_tr.groupby("fips")[pdsi_summer_cols].mean()
+        )
+        summer_pdsi["pdsi_summer_mean"] = summer_pdsi.mean(axis=1)
+        county_feats = county_feats.merge(
+            summer_pdsi[["pdsi_summer_mean"]].reset_index(), on="fips", how="left"
