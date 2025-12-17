@@ -678,3 +678,13 @@ def validate_cotton_retreat() -> dict:
     county_feats["log_acres_pre"] = np.log1p(county_feats["acres_pre_feat"])
     # Interaction: large operations in high-drought zones are most exposed
     county_feats["drought_x_scale"] = (
+        county_feats["severe_drought_freq"] * county_feats["log_acres_pre"]
+    )
+
+    # ── 8. Assemble model dataset
+    data = county_feats.merge(
+        target[["fips", "log_acres_change"]], on="fips", how="inner"
+    ).dropna(subset=["log_acres_change"])
+    data["state"] = data["fips"].str[:2]
+
+    feature_cols = [
