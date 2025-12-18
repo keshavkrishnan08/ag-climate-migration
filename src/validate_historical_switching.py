@@ -708,3 +708,13 @@ def validate_cotton_retreat() -> dict:
     logger.info(f"Model dataset: {len(data)} counties, {len(feature_cols)} features")
 
     # ── 9. Leave-one-state-out cross-validation
+    # This is a strict hold-out that guards against within-state spatial leakage.
+    all_pred = np.zeros(len(data))
+    states_present = data["state"].unique()
+    for hold_state in states_present:
+        tr = (data["state"] != hold_state).values
+        te = (data["state"] == hold_state).values
+        if tr.sum() < 10 or te.sum() < 1:
+            continue
+        model = lgb.LGBMRegressor(
+            n_estimators=200,
