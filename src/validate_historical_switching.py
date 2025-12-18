@@ -698,3 +698,13 @@ def validate_cotton_retreat() -> dict:
     if len(data) < 10:
         logger.error(f"Insufficient data: {len(data)} counties")
         return {
+            "event": "Cotton retreat from MO/TN/AR/MS 1980-2010",
+            "test_type": "POSITIVE",
+            "criterion": "Spearman rank correlation > 0.40",
+            "passed": False,
+            "reason": f"Only {len(data)} counties in dataset",
+        }
+
+    logger.info(f"Model dataset: {len(data)} counties, {len(feature_cols)} features")
+
+    # ── 9. Leave-one-state-out cross-validation
