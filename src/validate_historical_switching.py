@@ -688,3 +688,13 @@ def validate_cotton_retreat() -> dict:
     data["state"] = data["fips"].str[:2]
 
     feature_cols = [
+        c for c in data.columns
+        if c not in ("fips", "log_acres_change", "acres_pre_feat", "state")
+        and data[c].dtype in ("float64", "float32", "int64", "int32")
+    ]
+    X = data[feature_cols].fillna(0)
+    y = data["log_acres_change"]
+
+    if len(data) < 10:
+        logger.error(f"Insufficient data: {len(data)} counties")
+        return {
