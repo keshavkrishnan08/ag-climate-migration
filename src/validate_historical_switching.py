@@ -728,3 +728,13 @@ def validate_cotton_retreat() -> dict:
             verbose=-1,
         )
         model.fit(X[tr], y[tr])
+        all_pred[te] = model.predict(X[te])
+
+    rho, p_val = spearmanr(all_pred, y)
+    passed = rho > 0.40
+
+    logger.info(f"LOSO Spearman rho = {rho:.4f} (p = {p_val:.6f})")
+    logger.info(f"N counties = {len(data)}")
+    logger.info(f"RESULT: {'PASS' if passed else 'FAIL'} (threshold = 0.40)")
+
+    return {
