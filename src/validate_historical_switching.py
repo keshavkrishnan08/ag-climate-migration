@@ -748,3 +748,13 @@ def validate_cotton_retreat() -> dict:
         "n_features": len(feature_cols),
         "mean_actual_log_change": round(float(y.mean()), 4),
         "mean_pred_log_change": round(float(all_pred.mean()), 4),
+        "target": "log_acres_change (not share — avoids denominator artifact)",
+        "key_features": "log_acres_pre, pdsi_summer_mean, precip_mean, pdsi_trend",
+        "passed": bool(passed),
+    }
+
+
+# -----------------------------------------------------------------------
+# Event 3: Winter wheat boundary shift in Kansas (1990-2010)
+# -----------------------------------------------------------------------
+
