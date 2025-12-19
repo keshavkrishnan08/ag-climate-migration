@@ -738,3 +738,13 @@ def validate_cotton_retreat() -> dict:
     logger.info(f"RESULT: {'PASS' if passed else 'FAIL'} (threshold = 0.40)")
 
     return {
+        "event": "Cotton retreat from MO/TN/AR/MS 1980-2010",
+        "test_type": "POSITIVE",
+        "criterion": "Spearman rank correlation > 0.40 (LOSO CV)",
+        "threshold": 0.40,
+        "spearman_rho": round(float(rho), 4),
+        "p_value": round(float(p_val), 6),
+        "n_counties": int(len(data)),
+        "n_features": len(feature_cols),
+        "mean_actual_log_change": round(float(y.mean()), 4),
+        "mean_pred_log_change": round(float(all_pred.mean()), 4),
