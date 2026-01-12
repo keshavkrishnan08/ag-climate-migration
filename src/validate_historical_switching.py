@@ -758,3 +758,13 @@ def validate_cotton_retreat() -> dict:
 # Event 3: Winter wheat boundary shift in Kansas (1990-2010)
 # -----------------------------------------------------------------------
 
+def validate_wheat_boundary() -> dict:
+    """Test 3 (POSITIVE): Winter wheat boundary southward shift in Kansas.
+
+    Train on 1950-1985, predict 1986-2010 wheat boundary change.
+    Pass criterion: Predicted boundary within 50km of observed NASS boundary.
+    Uses latitude as proxy for boundary position.
+
+    Returns:
+        Dict with test results.
+    """
