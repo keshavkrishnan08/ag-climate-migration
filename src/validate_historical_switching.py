@@ -768,3 +768,13 @@ def validate_wheat_boundary() -> dict:
     Returns:
         Dict with test results.
     """
+    logger.info("=" * 60)
+    logger.info("EVENT 3: Winter wheat boundary shift in Kansas 1990-2010")
+    logger.info("=" * 60)
+
+    states = ["20"]  # Kansas only
+    train_years = (1950, 1985)
+    predict_years = (1986, 2010)
+
+    # Load data
+    acreage = load_nass_acreage(states, year_min=1950, year_max=2010)
