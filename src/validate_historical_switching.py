@@ -808,3 +808,13 @@ def validate_wheat_boundary() -> dict:
         )
         wheat_counties = avg[avg["share"] >= threshold]
         if len(wheat_counties) == 0:
+            return avg["lat"].min()
+        return wheat_counties["lat"].max()
+
+    # Observed boundaries
+    boundary_train = find_wheat_boundary(
+        wheat[wheat["year"].between(*train_years)]
+    )
+    boundary_predict = find_wheat_boundary(
+        wheat[wheat["year"].between(*predict_years)]
+    )
