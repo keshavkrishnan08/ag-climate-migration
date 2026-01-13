@@ -798,3 +798,13 @@ def validate_wheat_boundary() -> dict:
         Args:
             data: Wheat acreage data with 'lat' and 'share' columns.
             threshold: Minimum share to count as "wheat county."
+
+        Returns:
+            Boundary latitude (northern extent of wheat belt).
+        """
+        avg = data.groupby("fips").agg(
+            lat=("lat", "first"),
+            share=("share", "mean"),
+        )
+        wheat_counties = avg[avg["share"] >= threshold]
+        if len(wheat_counties) == 0:
