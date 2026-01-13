@@ -778,3 +778,13 @@ def validate_wheat_boundary() -> dict:
 
     # Load data
     acreage = load_nass_acreage(states, year_min=1950, year_max=2010)
+    acreage = compute_acreage_shares(acreage)
+    climate = load_climate(states, year_min=1950, year_max=2010)
+    climate = build_climate_features(climate, window=5)
+
+    # Add latitude to acreage data
+    acreage["lat"] = acreage["fips"].map(KANSAS_COUNTY_LAT)
+    acreage = acreage.dropna(subset=["lat"])
+
+    # Define the "wheat boundary" as the northern-most latitude where
+    # winter wheat share exceeds 20% of total cropland.
