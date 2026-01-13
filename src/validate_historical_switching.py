@@ -788,3 +788,13 @@ def validate_wheat_boundary() -> dict:
 
     # Define the "wheat boundary" as the northern-most latitude where
     # winter wheat share exceeds 20% of total cropland.
+    # Compute this for training and prediction periods.
+
+    wheat = acreage[acreage["crop"] == "wheat_winter"].copy()
+
+    def find_wheat_boundary(data: pd.DataFrame, threshold: float = 0.20) -> float:
+        """Find the latitude above which wheat share drops below threshold.
+
+        Args:
+            data: Wheat acreage data with 'lat' and 'share' columns.
+            threshold: Minimum share to count as "wheat county."
