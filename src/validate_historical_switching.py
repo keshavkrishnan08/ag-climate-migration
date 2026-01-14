@@ -908,3 +908,13 @@ def validate_wheat_boundary() -> dict:
 # -----------------------------------------------------------------------
 # Event 4: Soybean adoption in Corn Belt (1960-1980) — NEGATIVE TEST
 # -----------------------------------------------------------------------
+
+def validate_soybean_negative() -> dict:
+    """Test 4 (NEGATIVE): Soybean adoption was technology-driven, not climate.
+
+    Train on 1950-1960 climate features only, predict soybean expansion
+    1960-1980. The model must NOT be able to predict this from climate alone.
+    Pass criterion: Model predicts < 10% of actual soybean expansion.
+
+    If this test FAILS, the model is overfitting non-climate signals.
+
