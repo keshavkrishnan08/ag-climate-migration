@@ -848,3 +848,13 @@ def validate_wheat_boundary() -> dict:
             "reason": "Insufficient data",
         }
 
+    model = lgb.LGBMRegressor(
+        n_estimators=200,
+        learning_rate=0.05,
+        max_depth=4,
+        num_leaves=15,
+        min_child_samples=10,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        random_state=RANDOM_SEED,
+        verbose=-1,
