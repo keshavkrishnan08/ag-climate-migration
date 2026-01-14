@@ -818,3 +818,13 @@ def validate_wheat_boundary() -> dict:
     boundary_predict = find_wheat_boundary(
         wheat[wheat["year"].between(*predict_years)]
     )
+
+    observed_shift = boundary_predict - boundary_train  # negative = southward
+    logger.info(
+        f"Observed wheat boundary: train={boundary_train:.2f}°N, "
+        f"predict={boundary_predict:.2f}°N, shift={observed_shift:.2f}°"
+    )
+
+    # Build model: predict wheat share from climate features
+    wheat_shares = wheat[["fips", "year", "share", "lat"]].copy()
+    panel = wheat_shares.merge(climate, on=["fips", "year"], how="inner")
