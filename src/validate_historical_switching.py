@@ -858,3 +858,13 @@ def validate_wheat_boundary() -> dict:
         colsample_bytree=0.8,
         random_state=RANDOM_SEED,
         verbose=-1,
+    )
+    model.fit(X_train, y_train)
+
+    # Predict wheat shares during event period
+    pred_climate = climate[climate["year"].between(*predict_years)]
+    pred_panel = pred_climate.copy()
+    pred_panel["lat"] = pred_panel["fips"].map(KANSAS_COUNTY_LAT)
+    pred_panel = pred_panel.dropna(subset=["lat"])
+
+    X_pred = pred_panel[feature_cols].fillna(0)
