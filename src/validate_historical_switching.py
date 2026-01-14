@@ -868,3 +868,13 @@ def validate_wheat_boundary() -> dict:
     pred_panel = pred_panel.dropna(subset=["lat"])
 
     X_pred = pred_panel[feature_cols].fillna(0)
+    pred_share = model.predict(X_pred)
+
+    pred_panel = pred_panel[["fips", "year", "lat"]].copy()
+    pred_panel["pred_share"] = pred_share
+
+    # Find predicted boundary
+    boundary_predicted = find_wheat_boundary(
+        pred_panel.rename(columns={"pred_share": "share"})
+    )
+
