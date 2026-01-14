@@ -898,3 +898,13 @@ def validate_wheat_boundary() -> dict:
         "boundary_train_lat": round(float(boundary_train), 3),
         "boundary_observed_lat": round(float(boundary_predict), 3),
         "boundary_predicted_lat": round(float(boundary_predicted), 3),
+        "observed_shift_deg": round(float(observed_shift), 3),
+        "error_km": round(float(boundary_error_km), 1),
+        "error_deg": round(float(boundary_error_deg), 3),
+        "passed": bool(passed),
+    }
+
+
+# -----------------------------------------------------------------------
+# Event 4: Soybean adoption in Corn Belt (1960-1980) — NEGATIVE TEST
+# -----------------------------------------------------------------------
