@@ -838,3 +838,13 @@ def validate_wheat_boundary() -> dict:
     train_mask = panel["year"].between(*train_years)
     X_train = panel.loc[train_mask, feature_cols].fillna(0)
     y_train = panel.loc[train_mask, "share"]
+
+    if len(X_train) < 20:
+        return {
+            "event": "Winter wheat boundary shift in Kansas 1990-2010",
+            "test_type": "POSITIVE",
+            "criterion": "Predicted boundary within 50km of observed",
+            "passed": False,
+            "reason": "Insufficient data",
+        }
+
