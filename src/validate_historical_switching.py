@@ -828,3 +828,13 @@ def validate_wheat_boundary() -> dict:
     # Build model: predict wheat share from climate features
     wheat_shares = wheat[["fips", "year", "share", "lat"]].copy()
     panel = wheat_shares.merge(climate, on=["fips", "year"], how="inner")
+
+    feature_cols = [
+        c for c in panel.columns
+        if c not in ("fips", "year", "share", "crop", "lat")
+        and panel[c].dtype in ("float64", "float32", "int64")
+    ]
+
+    train_mask = panel["year"].between(*train_years)
+    X_train = panel.loc[train_mask, feature_cols].fillna(0)
+    y_train = panel.loc[train_mask, "share"]
