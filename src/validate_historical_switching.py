@@ -888,3 +888,13 @@ def validate_wheat_boundary() -> dict:
     logger.info(f"Predicted boundary: {boundary_predicted:.2f}°N")
     logger.info(f"Observed boundary: {boundary_predict:.2f}°N")
     logger.info(f"Error: {boundary_error_km:.1f} km ({boundary_error_deg:.2f}°)")
+    logger.info(f"RESULT: {'PASS' if passed else 'FAIL'} (threshold = 50 km)")
+
+    return {
+        "event": "Winter wheat boundary shift in Kansas 1990-2010",
+        "test_type": "POSITIVE",
+        "criterion": "Predicted boundary within 50km of observed",
+        "threshold_km": 50.0,
+        "boundary_train_lat": round(float(boundary_train), 3),
+        "boundary_observed_lat": round(float(boundary_predict), 3),
+        "boundary_predicted_lat": round(float(boundary_predicted), 3),
