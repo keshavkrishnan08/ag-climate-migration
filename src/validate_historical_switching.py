@@ -878,3 +878,13 @@ def validate_wheat_boundary() -> dict:
         pred_panel.rename(columns={"pred_share": "share"})
     )
 
+    # Compare predicted vs observed boundary in prediction period
+    boundary_error_deg = abs(boundary_predicted - boundary_predict)
+    # 1 degree latitude ~ 111 km
+    boundary_error_km = boundary_error_deg * 111.0
+
+    passed = boundary_error_km <= 50.0
+
+    logger.info(f"Predicted boundary: {boundary_predicted:.2f}°N")
+    logger.info(f"Observed boundary: {boundary_predict:.2f}°N")
+    logger.info(f"Error: {boundary_error_km:.1f} km ({boundary_error_deg:.2f}°)")
