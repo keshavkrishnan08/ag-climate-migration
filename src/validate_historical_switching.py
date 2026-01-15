@@ -948,3 +948,13 @@ def validate_soybean_negative() -> dict:
         f"Actual soybean expansion: {len(expanders)} counties expanded >5pp, "
         f"total share-change sum = {total_expansion:.2f}"
     )
+
+    # Build model: predict soybean share from climate features only
+    soy_shares = acreage[acreage["crop"] == "soybeans"][
+        ["fips", "year", "share"]
+    ].copy()
+
+    panel = soy_shares.merge(climate, on=["fips", "year"], how="inner")
+
+    feature_cols = [
+        c for c in panel.columns
