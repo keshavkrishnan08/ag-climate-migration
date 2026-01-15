@@ -918,3 +918,13 @@ def validate_soybean_negative() -> dict:
 
     If this test FAILS, the model is overfitting non-climate signals.
 
+    Returns:
+        Dict with test results.
+    """
+    logger.info("=" * 60)
+    logger.info("EVENT 4 (NEGATIVE): Soybean adoption in Corn Belt 1960-1980")
+    logger.info("=" * 60)
+
+    # Corn Belt states: IA, IL, IN, OH, MN, MO, WI, MI, NE, KS, SD, ND
+    states = ["19", "17", "18", "39", "27", "29", "55", "26", "31", "20", "46", "38"]
+    train_years = (1950, 1960)
