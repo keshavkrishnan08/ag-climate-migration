@@ -928,3 +928,13 @@ def validate_soybean_negative() -> dict:
     # Corn Belt states: IA, IL, IN, OH, MN, MO, WI, MI, NE, KS, SD, ND
     states = ["19", "17", "18", "39", "27", "29", "55", "26", "31", "20", "46", "38"]
     train_years = (1950, 1960)
+    predict_years = (1961, 1980)
+
+    # Load data
+    acreage = load_nass_acreage(states, year_min=1950, year_max=1980)
+    acreage = compute_acreage_shares(acreage)
+    climate = load_climate(states, year_min=1950, year_max=1980)
+    climate = build_climate_features(climate, window=5)
+
+    # Compute actual soybean expansion
+    actual_change = _compute_period_change(
