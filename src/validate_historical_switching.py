@@ -938,3 +938,13 @@ def validate_soybean_negative() -> dict:
 
     # Compute actual soybean expansion
     actual_change = _compute_period_change(
+        acreage, "soybeans", train_years, predict_years
+    )
+    # Only consider counties that actually expanded soybeans
+    expanders = actual_change[actual_change["share_change"] > 0.05]
+    total_expansion = actual_change["share_change"].clip(lower=0).sum()
+
+    logger.info(
+        f"Actual soybean expansion: {len(expanders)} counties expanded >5pp, "
+        f"total share-change sum = {total_expansion:.2f}"
+    )
