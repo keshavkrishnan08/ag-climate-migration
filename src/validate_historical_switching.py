@@ -978,3 +978,13 @@ def validate_soybean_negative() -> dict:
             "criterion": "Model predicts <10% of actual soybean expansion",
             "passed": False,
             "reason": "Insufficient data",
+        }
+
+    logger.info(f"Training on {len(X_train)} obs, predicting {len(X_predict)} obs")
+
+    model = lgb.LGBMRegressor(
+        n_estimators=200,
+        learning_rate=0.05,
+        max_depth=4,
+        num_leaves=15,
+        min_child_samples=10,
