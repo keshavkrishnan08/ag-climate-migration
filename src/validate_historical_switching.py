@@ -988,3 +988,13 @@ def validate_soybean_negative() -> dict:
         max_depth=4,
         num_leaves=15,
         min_child_samples=10,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        random_state=RANDOM_SEED,
+        verbose=-1,
+    )
+    model.fit(X_train, y_train)
+
+    # Predict soybean shares in event period
+    pred_share = model.predict(X_predict)
+
