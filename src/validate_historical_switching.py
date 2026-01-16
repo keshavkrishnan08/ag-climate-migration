@@ -958,3 +958,13 @@ def validate_soybean_negative() -> dict:
 
     feature_cols = [
         c for c in panel.columns
+        if c not in ("fips", "year", "share", "crop")
+        and panel[c].dtype in ("float64", "float32", "int64")
+    ]
+
+    train_mask = panel["year"].between(*train_years)
+    predict_mask = panel["year"].between(*predict_years)
+
+    X_train = panel.loc[train_mask, feature_cols].fillna(0)
+    y_train = panel.loc[train_mask, "share"]
+    X_predict = panel.loc[predict_mask, feature_cols].fillna(0)
