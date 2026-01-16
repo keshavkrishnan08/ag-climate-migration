@@ -998,3 +998,13 @@ def validate_soybean_negative() -> dict:
     # Predict soybean shares in event period
     pred_share = model.predict(X_predict)
 
+    pred_df = pd.DataFrame({
+        "fips": fips_predict.values,
+        "pred_share": pred_share,
+    })
+    pred_avg = pred_df.groupby("fips")["pred_share"].mean().reset_index()
+
+    # Get training-period averages
+    train_avg = (
+        soy_shares[soy_shares["year"].between(*train_years)]
+        .groupby("fips")["share"]
