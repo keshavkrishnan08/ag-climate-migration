@@ -968,3 +968,13 @@ def validate_soybean_negative() -> dict:
     X_train = panel.loc[train_mask, feature_cols].fillna(0)
     y_train = panel.loc[train_mask, "share"]
     X_predict = panel.loc[predict_mask, feature_cols].fillna(0)
+    fips_predict = panel.loc[predict_mask, "fips"]
+
+    if len(X_train) < 20:
+        logger.error(f"Insufficient training data: {len(X_train)}")
+        return {
+            "event": "Soybean adoption in Corn Belt 1960-1980 (NEGATIVE)",
+            "test_type": "NEGATIVE",
+            "criterion": "Model predicts <10% of actual soybean expansion",
+            "passed": False,
+            "reason": "Insufficient data",
