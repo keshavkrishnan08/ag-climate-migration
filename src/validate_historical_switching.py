@@ -1008,3 +1008,13 @@ def validate_soybean_negative() -> dict:
     train_avg = (
         soy_shares[soy_shares["year"].between(*train_years)]
         .groupby("fips")["share"]
+        .mean()
+        .reset_index()
+    )
+    train_avg.rename(columns={"share": "train_share"}, inplace=True)
+
+    pred_avg = pred_avg.merge(train_avg, on="fips", how="left")
+    pred_avg["train_share"] = pred_avg["train_share"].fillna(0)
+    pred_avg["pred_change"] = pred_avg["pred_share"] - pred_avg["train_share"]
+
+    # Compare with actual
