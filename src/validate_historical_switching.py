@@ -1028,3 +1028,13 @@ def validate_soybean_negative() -> dict:
 
     # SECONDARY METRIC: R-squared of predicted vs actual change.
     # Captures both level and cross-section. Climate model should explain
+    # nearly zero variance of county-level soybean expansion patterns.
+    ss_res = ((comparison["pred_change"] - comparison["share_change"]) ** 2).sum()
+    ss_tot = ((comparison["share_change"] - comparison["share_change"].mean()) ** 2).sum()
+    r2_change = 1.0 - ss_res / ss_tot if ss_tot > 0 else 0.0
+    r2_change = max(r2_change, 0.0)  # floor at 0 (can be negative)
+
+    # PASS CRITERION: The model cannot predict the cross-sectional pattern.
+    # Spearman |rho| < 0.15 (near zero) AND R^2 < 0.10
+    # This is the correct negative test: we're asking whether climate
+    # features can predict which counties adopted soybeans. They shouldn't.
