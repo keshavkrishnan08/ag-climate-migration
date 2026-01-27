@@ -1058,3 +1058,13 @@ def validate_soybean_negative() -> dict:
         "spearman_p": round(float(p_val), 6),
         "r2_change": round(float(r2_change), 4),
         "n_counties": int(len(comparison)),
+        "passed": bool(passed),
+    }
+
+
+# -----------------------------------------------------------------------
+# Main entry point
+# -----------------------------------------------------------------------
+
+def run_all_validations() -> dict:
+    """Run all 4 historical switching validation events.
