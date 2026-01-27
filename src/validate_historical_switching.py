@@ -1018,3 +1018,13 @@ def validate_soybean_negative() -> dict:
     pred_avg["pred_change"] = pred_avg["pred_share"] - pred_avg["train_share"]
 
     # Compare with actual
+    comparison = pred_avg.merge(actual_change, on="fips", how="inner")
+
+    # PRIMARY METRIC: Spearman rank correlation between predicted and actual
+    # county-level expansion. If the model can't predict WHICH counties
+    # expand (rank order), it hasn't learned the spatial pattern.
+    # A climate-only model should have rho near zero for tech-driven adoption.
+    rho, p_val = spearmanr(comparison["pred_change"], comparison["share_change"])
+
+    # SECONDARY METRIC: R-squared of predicted vs actual change.
+    # Captures both level and cross-section. Climate model should explain
