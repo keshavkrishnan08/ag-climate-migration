@@ -1048,3 +1048,13 @@ def validate_soybean_negative() -> dict:
         f"(threshold: |rho| < 0.15 AND R² < 0.10)"
     )
 
+    return {
+        "event": "Soybean adoption in Corn Belt 1960-1980 (NEGATIVE)",
+        "test_type": "NEGATIVE",
+        "criterion": "Model predicts <10% of actual soybean expansion from climate alone",
+        "threshold_rho": 0.15,
+        "threshold_r2": 0.10,
+        "spearman_rho": round(float(rho), 4),
+        "spearman_p": round(float(p_val), 6),
+        "r2_change": round(float(r2_change), 4),
+        "n_counties": int(len(comparison)),
