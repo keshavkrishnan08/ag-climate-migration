@@ -1038,3 +1038,13 @@ def validate_soybean_negative() -> dict:
     # Spearman |rho| < 0.15 (near zero) AND R^2 < 0.10
     # This is the correct negative test: we're asking whether climate
     # features can predict which counties adopted soybeans. They shouldn't.
+    passed = abs(rho) < 0.15 and r2_change < 0.10
+
+    logger.info(f"Spearman rho (pred vs actual change): {rho:.4f} (p={p_val:.4f})")
+    logger.info(f"R² of predicted vs actual change: {r2_change:.4f}")
+    logger.info(f"N counties: {len(comparison)}")
+    logger.info(
+        f"RESULT: {'PASS' if passed else 'FAIL'} "
+        f"(threshold: |rho| < 0.15 AND R² < 0.10)"
+    )
+
