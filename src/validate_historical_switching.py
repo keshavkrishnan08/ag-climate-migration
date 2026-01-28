@@ -1068,3 +1068,13 @@ def validate_soybean_negative() -> dict:
 
 def run_all_validations() -> dict:
     """Run all 4 historical switching validation events.
+
+    Writes results to state/validation/historical_switching.json.
+
+    Returns:
+        Full validation results dict.
+    """
+    logger.info("=" * 60)
+    logger.info("FIX 5: HISTORICAL SWITCHING VALIDATION — 4 EVENTS")
+    logger.info("=" * 60)
+
