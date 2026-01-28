@@ -1088,3 +1088,13 @@ def run_all_validations() -> dict:
 
     # Summary
     n_passed = sum(1 for r in results.values() if r.get("passed"))
+    n_total = len(results)
+    all_passed = n_passed == n_total
+
+    summary = {
+        "timestamp": datetime.now().isoformat(),
+        "events_passed": n_passed,
+        "events_total": n_total,
+        "all_passed": all_passed,
+        "gate": "PASS" if all_passed else "FAIL",
+        "events": results,
