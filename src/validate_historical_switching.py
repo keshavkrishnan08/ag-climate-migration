@@ -1108,3 +1108,13 @@ def run_all_validations() -> dict:
     logger.info("=" * 60)
     logger.info(f"VALIDATION SUMMARY: {n_passed}/{n_total} events passed")
     logger.info(f"GATE: {'PASS' if all_passed else 'FAIL'}")
+    logger.info(f"Results written to {OUTPUT_PATH}")
+    logger.info("=" * 60)
+
+    # Print detailed summary
+    for name, res in results.items():
+        status = "PASS" if res.get("passed") else "FAIL"
+        logger.info(f"  {name}: {status} — {res.get('criterion', '')}")
+
+    return summary
+
