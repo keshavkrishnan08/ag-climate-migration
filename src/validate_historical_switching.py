@@ -1098,3 +1098,13 @@ def run_all_validations() -> dict:
         "all_passed": all_passed,
         "gate": "PASS" if all_passed else "FAIL",
         "events": results,
+    }
+
+    # Write output
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(OUTPUT_PATH, "w") as f:
+        json.dump(summary, f, indent=2)
+
+    logger.info("=" * 60)
+    logger.info(f"VALIDATION SUMMARY: {n_passed}/{n_total} events passed")
+    logger.info(f"GATE: {'PASS' if all_passed else 'FAIL'}")
