@@ -1078,3 +1078,13 @@ def run_all_validations() -> dict:
     logger.info("FIX 5: HISTORICAL SWITCHING VALIDATION — 4 EVENTS")
     logger.info("=" * 60)
 
+    results = {}
+
+    # Run each validation
+    results["sorghum_expansion"] = validate_sorghum_expansion()
+    results["cotton_retreat"] = validate_cotton_retreat()
+    results["wheat_boundary"] = validate_wheat_boundary()
+    results["soybean_negative"] = validate_soybean_negative()
+
+    # Summary
+    n_passed = sum(1 for r in results.values() if r.get("passed"))
