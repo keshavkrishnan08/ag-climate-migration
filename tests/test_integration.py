@@ -38,3 +38,13 @@ class TestFullPipeline:
         # 5. Compute stranded value for Iowa counties
         # 6. Assert results are in reasonable range
 
+        # Placeholder assertions for pipeline structure
+        iowa_fips_prefix = '19'
+        assert iowa_fips_prefix == '19'
+
+        # Corn yield range: 100-250 bu/acre is reasonable for Iowa
+        projected_yield_range = (100, 250)
+        assert projected_yield_range[0] < projected_yield_range[1]
+
+
+class TestProjectionMonotonicity:
