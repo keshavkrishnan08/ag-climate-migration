@@ -18,3 +18,13 @@ import numpy as np
 import pandas as pd
 import pytest
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'src'))
+
+
+class TestFullPipeline:
+    """End-to-end pipeline test for single state."""
+
+    @pytest.mark.slow
+    def test_full_pipeline_corn_iowa(self):
+        """Run complete pipeline for Iowa corn 1950-2050.
+        Assert headline numbers are in reasonable range.
