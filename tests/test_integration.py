@@ -8,3 +8,13 @@ Required integration tests:
     5. test_northern_opportunity_positive: All opportunity counties have positive gain
     6. test_figure_generation: All 12 figures generate without error
     7. test_latex_compiles: paper/main.tex compiles to PDF
+    8. test_reproducibility: Same seed → identical results
+"""
+
+import sys
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import pytest
+
