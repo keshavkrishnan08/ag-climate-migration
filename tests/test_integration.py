@@ -78,3 +78,13 @@ class TestCascadeFeedback:
         decline_with_feedback = np.zeros(len(years))
         for i in range(1, len(years)):
             base_decline = -2.0
+            feedback = feedback_multiplier * abs(decline_with_feedback[i-1])
+            decline_with_feedback[i] = decline_with_feedback[i-1] + base_decline - feedback
+
+        # With feedback should decline faster than linear
+        final_linear = linear_decline[-1]
+        final_feedback = decline_with_feedback[-1]
+
+        assert final_feedback < final_linear, \
+            f"Feedback should accelerate decline: {final_feedback:.1f} should be < {final_linear:.1f}"
+
