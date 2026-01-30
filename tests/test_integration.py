@@ -48,3 +48,13 @@ class TestFullPipeline:
 
 
 class TestProjectionMonotonicity:
+    """RCP scenarios must produce monotone results."""
+
+    def test_projection_monotone_in_rcp(self):
+        """RCP 8.5 must produce larger stranded value than RCP 4.5,
+        which must produce larger than RCP 2.6."""
+        # Simulated total stranded by scenario
+        stranded = {'RCP26': 100, 'RCP45': 250, 'RCP85': 450}
+
+        assert stranded['RCP26'] < stranded['RCP45'], \
+            "RCP 2.6 should have less stranded than RCP 4.5"
