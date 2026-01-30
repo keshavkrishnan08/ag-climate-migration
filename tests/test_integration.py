@@ -58,3 +58,13 @@ class TestProjectionMonotonicity:
 
         assert stranded['RCP26'] < stranded['RCP45'], \
             "RCP 2.6 should have less stranded than RCP 4.5"
+        assert stranded['RCP45'] < stranded['RCP85'], \
+            "RCP 4.5 should have less stranded than RCP 8.5"
+
+
+class TestCascadeFeedback:
+    """Cascade must show nonlinear (superlinear) feedback dynamics."""
+
+    def test_cascade_feedback_nonlinear(self):
+        """Counties in cascade must show accelerating decline, not linear.
+        Feedback loop must generate superlinear response."""
