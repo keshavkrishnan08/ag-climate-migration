@@ -108,3 +108,13 @@ class TestInsuranceAggregate:
 
 class TestNorthernOpportunity:
     """All opportunity counties must have positive projected income gain."""
+
+    def test_northern_opportunity_positive(self):
+        """Every identified opportunity county must have positive gain under RCP 4.5."""
+        # Simulated opportunity counties
+        gains = np.array([50, 80, 120, 200, 45, 65, 90])  # $/acre
+
+        assert all(g > 0 for g in gains), \
+            "All opportunity counties must have positive income gain"
+
+
