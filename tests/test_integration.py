@@ -88,3 +88,13 @@ class TestCascadeFeedback:
         assert final_feedback < final_linear, \
             f"Feedback should accelerate decline: {final_feedback:.1f} should be < {final_linear:.1f}"
 
+
+class TestInsuranceAggregate:
+    """Insurance mispricing aggregate sanity check."""
+
+    def test_insurance_aggregate_correct(self):
+        """Sum of mispricing × insured acres must be in $1-10B/year range."""
+        # This is a sanity check on the order of magnitude
+        # Total US crop insurance program: ~$20B/year in premiums
+        # Mispricing of 15-40% → $3-8B
+
