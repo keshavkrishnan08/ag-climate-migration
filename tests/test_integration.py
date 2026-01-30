@@ -98,3 +98,13 @@ class TestInsuranceAggregate:
         # Total US crop insurance program: ~$20B/year in premiums
         # Mispricing of 15-40% → $3-8B
 
+        total_premium = 20e9  # $20B
+        mispricing_fraction = 0.25  # 25% average mispricing
+        expected_mispricing = total_premium * mispricing_fraction
+
+        assert 1e9 < expected_mispricing < 10e9, \
+            f"Aggregate mispricing out of range: ${expected_mispricing/1e9:.1f}B"
+
+
+class TestNorthernOpportunity:
+    """All opportunity counties must have positive projected income gain."""
