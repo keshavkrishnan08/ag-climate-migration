@@ -68,3 +68,13 @@ class TestCascadeFeedback:
     def test_cascade_feedback_nonlinear(self):
         """Counties in cascade must show accelerating decline, not linear.
         Feedback loop must generate superlinear response."""
+        years = np.arange(2025, 2051)
+
+        # Without feedback: linear decline
+        linear_decline = -2.0 * (years - 2025)
+
+        # With feedback: superlinear (quadratic or exponential)
+        feedback_multiplier = 0.08
+        decline_with_feedback = np.zeros(len(years))
+        for i in range(1, len(years)):
+            base_decline = -2.0
