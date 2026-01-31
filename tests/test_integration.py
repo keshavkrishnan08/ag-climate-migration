@@ -118,3 +118,13 @@ class TestNorthernOpportunity:
             "All opportunity counties must have positive income gain"
 
 
+class TestFigureGeneration:
+    """All 12 figures must generate without error."""
+
+    def test_figure_count(self):
+        """Should generate exactly 12 figures."""
+        expected_figures = [
+            'fig01_northward_migration',
+            'fig02_model_validation',
+            'fig03_yield_cliff',
+            'fig04_crop_switching',
