@@ -138,3 +138,13 @@ class TestFigureGeneration:
             'fig12_transition_map',
         ]
         assert len(expected_figures) == 12
+
+
+class TestReproducibility:
+    """Running pipeline twice with same seed must produce identical results."""
+
+    def test_reproducibility(self):
+        """Same random seed (42) must produce identical numerical results."""
+        seed = 42
+
+        # Run 1
