@@ -148,3 +148,11 @@ class TestReproducibility:
         seed = 42
 
         # Run 1
+        np.random.seed(seed)
+        result1 = np.random.normal(0, 1, 1000).mean()
+
+        # Run 2
+        np.random.seed(seed)
+        result2 = np.random.normal(0, 1, 1000).mean()
+
+        assert result1 == result2, "Reproducibility violated with same seed"
