@@ -128,3 +128,13 @@ class TestFigureGeneration:
             'fig02_model_validation',
             'fig03_yield_cliff',
             'fig04_crop_switching',
+            'fig05_projections',
+            'fig06_stranded',
+            'fig07_cascade',
+            'fig08_insurance',
+            'fig09_frontier',
+            'fig10_policy',
+            'fig11_uncertainty',
+            'fig12_transition_map',
+        ]
+        assert len(expected_figures) == 12
