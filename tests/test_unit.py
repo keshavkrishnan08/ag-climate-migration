@@ -68,3 +68,13 @@ class TestGDDComputation:
         assert 1000 < total_gdd < 3000, f"Iowa corn GDD out of range: {total_gdd}"
 
     def test_gdd_below_base_is_zero(self):
+        """GDD should be 0 when temperature is below base."""
+        tmax = np.array([5.0, 8.0])
+        tmin = np.array([0.0, 2.0])
+        base, upper = 10.0, 30.0
+
+        tavg = (tmax + tmin) / 2.0
+        effective = np.minimum(tavg, upper)
+        gdd = np.maximum(0.0, effective - base)
+
+        np.testing.assert_array_equal(gdd, [0.0, 0.0])
