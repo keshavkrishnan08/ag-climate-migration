@@ -18,3 +18,13 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import pytest
+
+# Add src to path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'src'))
+
+
+class TestGDDComputation:
+    """Test GDD computation matches agronomic standards."""
+
+    def test_gdd_corn_basic(self):
