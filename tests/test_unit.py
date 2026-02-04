@@ -28,3 +28,13 @@ class TestGDDComputation:
     """Test GDD computation matches agronomic standards."""
 
     def test_gdd_corn_basic(self):
+        """GDD for corn: base=10°C, upper=30°C."""
+        from src.utils import deflator  # noqa — just checking import path structure
+
+        # We import from features module
+        sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'src'))
+
+        # Manually test the GDD formula
+        tmax = np.array([25.0, 30.0, 35.0, 40.0])
+        tmin = np.array([15.0, 20.0, 25.0, 30.0])
+        base, upper = 10.0, 30.0
