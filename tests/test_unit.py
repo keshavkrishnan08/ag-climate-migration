@@ -78,3 +78,13 @@ class TestGDDComputation:
         gdd = np.maximum(0.0, effective - base)
 
         np.testing.assert_array_equal(gdd, [0.0, 0.0])
+
+
+class TestYieldDetrending:
+    """Test that yield detrending removes technology trend."""
+
+    def test_detrend_removes_technology(self):
+        """Detrended series should have zero linear trend."""
+        # Create yield with known linear trend + noise
+        years = np.arange(1950, 2024)
+        technology_trend = 50 + 1.5 * (years - 1950)  # 1.5 bu/yr technology gain
