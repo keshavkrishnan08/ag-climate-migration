@@ -38,3 +38,13 @@ class TestGDDComputation:
         tmax = np.array([25.0, 30.0, 35.0, 40.0])
         tmin = np.array([15.0, 20.0, 25.0, 30.0])
         base, upper = 10.0, 30.0
+
+        tavg = (tmax + tmin) / 2.0
+        effective = np.minimum(tavg, upper)
+        gdd = np.maximum(0.0, effective - base)
+
+        expected = np.array([10.0, 15.0, 20.0, 20.0])  # upper capped at 30
+        np.testing.assert_array_almost_equal(gdd, expected)
+
+    def test_gdd_corn_iowa_2012(self):
+        """GDD for Iowa corn 2012 should be within 5% of NASS reported value.
