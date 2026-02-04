@@ -58,3 +58,13 @@ class TestGDDComputation:
         tmax = np.random.normal(30, 5, n_days)  # °C
         tmin = tmax - np.random.uniform(8, 15, n_days)
 
+        base, upper = 10.0, 30.0
+        tavg = (tmax + tmin) / 2.0
+        effective = np.minimum(tavg, upper)
+        gdd = np.maximum(0.0, effective - base)
+        total_gdd = gdd.sum()
+
+        # Should be in reasonable range for Iowa (1200-2800 GDD base 10°C)
+        assert 1000 < total_gdd < 3000, f"Iowa corn GDD out of range: {total_gdd}"
+
+    def test_gdd_below_base_is_zero(self):
