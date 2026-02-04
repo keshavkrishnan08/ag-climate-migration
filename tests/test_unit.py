@@ -48,3 +48,13 @@ class TestGDDComputation:
 
     def test_gdd_corn_iowa_2012(self):
         """GDD for Iowa corn 2012 should be within 5% of NASS reported value.
+
+        NASS reported ~2800 GDD base 50°F for Iowa 2012 growing season.
+        In Celsius: ~1555 GDD base 10°C.
+        """
+        # Simulated daily data for Iowa growing season (Apr-Sep, ~183 days)
+        np.random.seed(42)
+        n_days = 183
+        tmax = np.random.normal(30, 5, n_days)  # °C
+        tmin = tmax - np.random.uniform(8, 15, n_days)
+
