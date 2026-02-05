@@ -128,3 +128,13 @@ class TestYieldDetrending:
 class TestTemporalCV:
     """Test that temporal CV has no future leakage."""
 
+    def test_no_future_leakage(self):
+        """Validation years must always be after training years."""
+        years = np.arange(1950, 2024)
+
+        # Simulate fold splits
+        folds = [
+            (1950, 1985, 1986, 1990),
+            (1950, 1990, 1991, 1995),
+            (1950, 1995, 1996, 2000),
+            (1950, 2000, 2001, 2005),
