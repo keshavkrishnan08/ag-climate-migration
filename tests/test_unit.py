@@ -118,3 +118,13 @@ class TestYieldDetrending:
         # Detrend
         coeffs = np.polyfit(years.astype(float), yields, deg=2)
         trend = np.polyval(coeffs, years.astype(float))
+        residuals = yields - trend
+
+        # 2012 should still be the minimum (or near it)
+        min_year = years[np.argmin(residuals)]
+        assert min_year == 2012, f"Drought year not preserved: min at {min_year}"
+
+
+class TestTemporalCV:
+    """Test that temporal CV has no future leakage."""
+
