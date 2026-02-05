@@ -108,3 +108,13 @@ class TestYieldDetrending:
         years = np.arange(1950, 2024)
         technology = 50 + 1.5 * (years - 1950)
 
+        # Add a known drought year
+        climate = np.zeros(len(years))
+        drought_idx = np.where(years == 2012)[0][0]
+        climate[drought_idx] = -30  # Big negative anomaly
+
+        yields = technology + climate + np.random.normal(0, 2, len(years))
+
+        # Detrend
+        coeffs = np.polyfit(years.astype(float), yields, deg=2)
+        trend = np.polyval(coeffs, years.astype(float))
