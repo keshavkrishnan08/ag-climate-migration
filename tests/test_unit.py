@@ -88,3 +88,13 @@ class TestYieldDetrending:
         # Create yield with known linear trend + noise
         years = np.arange(1950, 2024)
         technology_trend = 50 + 1.5 * (years - 1950)  # 1.5 bu/yr technology gain
+        climate_noise = np.random.normal(0, 5, len(years))
+        yields = technology_trend + climate_noise
+
+        series = pd.Series(yields, index=years)
+
+        # Detrend (quadratic)
+        coeffs = np.polyfit(years.astype(float), yields, deg=2)
+        trend = np.polyval(coeffs, years.astype(float))
+        residuals = yields - trend
+
