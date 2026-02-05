@@ -98,3 +98,13 @@ class TestYieldDetrending:
         trend = np.polyval(coeffs, years.astype(float))
         residuals = yields - trend
 
+        # Check: residuals should have ~zero linear trend
+        from scipy.stats import linregress
+        slope, _, _, _, _ = linregress(years.astype(float), residuals)
+        assert abs(slope) < 0.1, f"Detrended slope too large: {slope}"
+
+    def test_detrend_preserves_climate_signal(self):
+        """Detrending should preserve climate-driven year-to-year variation."""
+        years = np.arange(1950, 2024)
+        technology = 50 + 1.5 * (years - 1950)
+
