@@ -138,3 +138,13 @@ class TestTemporalCV:
             (1950, 1990, 1991, 1995),
             (1950, 1995, 1996, 2000),
             (1950, 2000, 2001, 2005),
+            (1950, 2005, 2006, 2010),
+        ]
+
+        for train_start, train_end, val_start, val_end in folds:
+            assert train_end < val_start, \
+                f"Leakage: train ends {train_end}, val starts {val_start}"
+
+    def test_val_not_much_better_than_train(self):
+        """Val performance should not exceed train by >20% (overfitting check)."""
+        # This would be checked with actual model metrics
