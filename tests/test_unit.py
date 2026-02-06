@@ -198,3 +198,13 @@ class TestStrandedAssetMonotone:
             "Stranded value must be monotone in warming severity"
 
 
+class TestCascadeTippingPoint:
+    """Test cascade tipping point detection logic."""
+
+    def test_tipping_point_detection(self):
+        """County with all 4 conditions met should return a tipping year."""
+        conditions_by_year = {
+            2030: {'hospital': False, 'school': False, 'infrastructure': False, 'outmigration': True},
+            2035: {'hospital': True, 'school': False, 'infrastructure': True, 'outmigration': True},
+            2038: {'hospital': True, 'school': True, 'infrastructure': True, 'outmigration': True},
+            2040: {'hospital': True, 'school': True, 'infrastructure': True, 'outmigration': True},
