@@ -178,3 +178,13 @@ class TestCropSwitchDetection:
         # Compute switching rate
         corn_mask = cdl_2018 == 1
         switched_to_soy = (corn_mask & (cdl_2019 == 5)).sum()
+        rate = switched_to_soy / corn_mask.sum()
+
+        assert rate > 0.2, f"Switch rate too low: {rate:.3f}"
+        assert rate < 0.4, f"Switch rate too high: {rate:.3f}"
+
+
+class TestStrandedAssetMonotone:
+    """Test that stranded assets increase with warming severity."""
+
+    def test_stranded_increases_with_temp(self):
