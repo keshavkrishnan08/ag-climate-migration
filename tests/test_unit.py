@@ -158,3 +158,13 @@ class TestTemporalCV:
 
 class TestCropSwitchDetection:
     """Test crop switch detection from CDL data."""
+
+    def test_cdl_switching_ohio_2019(self):
+        """Should recover known large corn→soy switch in Ohio 2019."""
+        np.random.seed(42)
+        n_pixels = 10000
+
+        # Year 1: mostly corn (code 1)
+        cdl_2018 = np.ones(n_pixels, dtype=int)
+        cdl_2018[:2000] = 5  # Some soybeans
+
