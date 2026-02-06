@@ -168,3 +168,13 @@ class TestCropSwitchDetection:
         cdl_2018 = np.ones(n_pixels, dtype=int)
         cdl_2018[:2000] = 5  # Some soybeans
 
+        # Year 2: many switch to soybeans
+        cdl_2019 = cdl_2018.copy()
+        # 30% of corn pixels switch to soybeans
+        corn_idx = np.where(cdl_2018 == 1)[0]
+        switch_idx = np.random.choice(corn_idx, size=int(len(corn_idx) * 0.3), replace=False)
+        cdl_2019[switch_idx] = 5
+
+        # Compute switching rate
+        corn_mask = cdl_2018 == 1
+        switched_to_soy = (corn_mask & (cdl_2019 == 5)).sum()
