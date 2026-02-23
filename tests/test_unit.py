@@ -208,3 +208,13 @@ class TestCascadeTippingPoint:
             2035: {'hospital': True, 'school': False, 'infrastructure': True, 'outmigration': True},
             2038: {'hospital': True, 'school': True, 'infrastructure': True, 'outmigration': True},
             2040: {'hospital': True, 'school': True, 'infrastructure': True, 'outmigration': True},
+        }
+
+        tipping_year = None
+        for year in sorted(conditions_by_year):
+            if all(conditions_by_year[year].values()):
+                tipping_year = year
+                break
+
+        assert tipping_year == 2038, f"Expected tipping at 2038, got {tipping_year}"
+
