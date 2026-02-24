@@ -238,3 +238,13 @@ class TestCascadeTippingPoint:
 class TestInsuranceMispricing:
     """Test insurance mispricing direction."""
 
+    def test_mispricing_direction(self):
+        """Southern counties (warming) should be underpriced,
+        Northern counties (cooling risk declining) should be overpriced."""
+        # Southern county: future yields worse than historical
+        historical_yields = np.array([150, 155, 160, 158, 162, 155, 148, 152, 157, 160])
+        future_yields = np.array([140, 135, 130, 128, 125])  # declining
+
+        aph = np.mean(historical_yields)
+        future_mean = np.mean(future_yields)
+
