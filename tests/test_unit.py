@@ -278,3 +278,13 @@ class TestDeflation:
         cpi_annual = pd.Series({
             2010: 218.056,
             2023: 304.702,
+        })
+
+        nominal_2010 = 5.18
+        deflated = nominal_2010 * (cpi_annual[2023] / cpi_annual[2010])
+
+        # Should be approximately $7.24
+        assert 6.5 < deflated < 8.0, f"Deflated corn price out of range: ${deflated:.2f}"
+
+    def test_deflation_same_year_unchanged(self):
+        """Deflating 2023 values to 2023 should return same value."""
