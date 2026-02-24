@@ -248,3 +248,13 @@ class TestInsuranceMispricing:
         aph = np.mean(historical_yields)
         future_mean = np.mean(future_yields)
 
+        # If future yields are lower, APH overestimates guarantee
+        # → premiums too cheap → underpriced
+        assert future_mean < aph, "Southern county should have declining yields"
+
+    def test_northern_overpriced(self):
+        """Northern counties with improving yields should be overpriced."""
+        historical_yields = np.array([80, 85, 88, 90, 92, 95, 98, 100, 103, 105])
+        future_yields = np.array([110, 115, 120, 125, 130])  # improving
+
+        aph = np.mean(historical_yields)
