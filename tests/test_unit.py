@@ -268,3 +268,13 @@ class TestInsuranceMispricing:
 class TestDeflation:
     """Test CPI deflation to 2023 USD."""
 
+    def test_deflation_2010_corn(self):
+        """2010 corn price deflated to 2023 should match known value.
+
+        2010 corn price: ~$5.18/bu nominal
+        CPI 2010: ~218.1, CPI 2023: ~304.7
+        Expected 2023$: ~$7.24/bu
+        """
+        cpi_annual = pd.Series({
+            2010: 218.056,
+            2023: 304.702,
