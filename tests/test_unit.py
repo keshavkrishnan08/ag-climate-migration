@@ -258,3 +258,13 @@ class TestInsuranceMispricing:
         future_yields = np.array([110, 115, 120, 125, 130])  # improving
 
         aph = np.mean(historical_yields)
+        future_mean = np.mean(future_yields)
+
+        # If future yields better, APH underestimates actual
+        # → premiums too expensive → overpriced
+        assert future_mean > aph, "Northern county should have improving yields"
+
+
+class TestDeflation:
+    """Test CPI deflation to 2023 USD."""
+
