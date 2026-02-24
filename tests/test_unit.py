@@ -218,3 +218,13 @@ class TestCascadeTippingPoint:
 
         assert tipping_year == 2038, f"Expected tipping at 2038, got {tipping_year}"
 
+    def test_no_tipping_if_conditions_not_met(self):
+        """County without all conditions should not tip."""
+        conditions_by_year = {
+            2030: {'hospital': False, 'school': False, 'infrastructure': False, 'outmigration': True},
+            2040: {'hospital': True, 'school': False, 'infrastructure': True, 'outmigration': True},
+            2050: {'hospital': True, 'school': False, 'infrastructure': True, 'outmigration': True},
+        }
+
+        tipping_year = None
+        for year in sorted(conditions_by_year):
