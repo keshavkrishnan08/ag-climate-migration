@@ -228,3 +228,13 @@ class TestCascadeTippingPoint:
 
         tipping_year = None
         for year in sorted(conditions_by_year):
+            if all(conditions_by_year[year].values()):
+                tipping_year = year
+                break
+
+        assert tipping_year is None, "Should not tip without school closure"
+
+
+class TestInsuranceMispricing:
+    """Test insurance mispricing direction."""
+
