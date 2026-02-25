@@ -308,3 +308,13 @@ class TestCMIP6Ensemble:
         models = config['cmip6_models']
         assert len(models) == 10, f"Expected 10 CMIP6 models, got {len(models)}"
 
+        expected_models = [
+            'ACCESS-CM2', 'CESM2', 'CNRM-CM6-1', 'GFDL-ESM4',
+            'HadGEM3-GC31-LL', 'IPSL-CM6A-LR', 'MIROC6',
+            'MPI-ESM1-2-HR', 'MRI-ESM2-0', 'NorESM2-MM'
+        ]
+        for model in expected_models:
+            assert model in models, f"Missing CMIP6 model: {model}"
+
+
+class TestCountyFIPS:
