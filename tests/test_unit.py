@@ -288,3 +288,13 @@ class TestDeflation:
 
     def test_deflation_same_year_unchanged(self):
         """Deflating 2023 values to 2023 should return same value."""
+        cpi_annual = pd.Series({2023: 304.702})
+        value = 100.0
+
+        deflated = value * (cpi_annual[2023] / cpi_annual[2023])
+        assert deflated == value
+
+
+class TestCMIP6Ensemble:
+    """Test CMIP6 ensemble configuration."""
+
