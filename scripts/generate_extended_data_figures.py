@@ -31,3 +31,14 @@ os.makedirs(OUT_DIR, exist_ok=True)
 COLORS = {
     'Corn Belt':      '#2166ac',
     'Southern Plains':'#d6604d',
+    'Northern Plains':'#4dac26',
+    'Southeast':      '#8073ac',
+}
+
+REGION_STATES = {
+    'Corn Belt':       ['17', '18', '19', '27', '29', '31', '39', '55'],
+    'Southern Plains': ['20', '40', '48'],
+    'Northern Plains': ['30', '38', '46'],
+    'Southeast':       ['01', '05', '12', '13', '22', '28', '37', '45', '47', '51'],
+}
+
