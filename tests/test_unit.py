@@ -328,3 +328,13 @@ class TestCountyFIPS:
             config = yaml.safe_load(f)
 
         assert config['geography']['n_counties'] == 3108
+
+    def test_fips_exclude_correct(self):
+        """Alaska (02), Hawaii (15), Puerto Rico (72) excluded."""
+        import yaml
+        config_path = Path(__file__).resolve().parent.parent / 'config.yaml'
+        with open(config_path) as f:
+            config = yaml.safe_load(f)
+
+        excluded = set(config['geography']['fips_exclude'])
+        assert excluded == {'02', '15', '72'}
