@@ -298,3 +298,13 @@ class TestDeflation:
 class TestCMIP6Ensemble:
     """Test CMIP6 ensemble configuration."""
 
+    def test_ensemble_10_models(self):
+        """All 10 CMIP6 models must be configured."""
+        import yaml
+        config_path = Path(__file__).resolve().parent.parent / 'config.yaml'
+        with open(config_path) as f:
+            config = yaml.safe_load(f)
+
+        models = config['cmip6_models']
+        assert len(models) == 10, f"Expected 10 CMIP6 models, got {len(models)}"
+
