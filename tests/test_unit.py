@@ -318,3 +318,13 @@ class TestCMIP6Ensemble:
 
 
 class TestCountyFIPS:
+    """Test county FIPS completeness."""
+
+    def test_conus_county_count(self):
+        """Config should specify 3,108 CONUS counties."""
+        import yaml
+        config_path = Path(__file__).resolve().parent.parent / 'config.yaml'
+        with open(config_path) as f:
+            config = yaml.safe_load(f)
+
+        assert config['geography']['n_counties'] == 3108
