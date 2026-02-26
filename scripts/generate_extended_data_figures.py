@@ -64,3 +64,14 @@ def make_ed_fig1():
     df['pct_p10']  = (df['yield_p10']       - df['yield_baseline']) / df['yield_baseline'].abs() * 100
     df['pct_p90']  = (df['yield_p90']       - df['yield_baseline']) / df['yield_baseline'].abs() * 100
 
+    fig, axes = plt.subplots(2, 2, figsize=(9, 6.5), dpi=300, sharey=False)
+    axes_flat = axes.flatten()
+
+    regions = list(REGION_STATES.keys())
+    for idx, region in enumerate(regions):
+        ax = axes_flat[idx]
+        color = COLORS[region]
+        states = REGION_STATES[region]
+
+        mask = df['fips'].str[:2].isin(states)
+        sub = df[mask].groupby('year').agg(
