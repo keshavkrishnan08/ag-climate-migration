@@ -42,3 +42,14 @@ REGION_STATES = {
     'Southeast':       ['01', '05', '12', '13', '22', '28', '37', '45', '47', '51'],
 }
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ED Figure 1: GCM Ensemble Spread Fan Charts
+# ─────────────────────────────────────────────────────────────────────────────
+def make_ed_fig1():
+    """
+    Build 2×2 fan chart showing mean yield-change trajectory ± p10/p90 band
+    for four US agricultural regions, 2025–2050.
+
+    Returns:
+        str: output PDF path
