@@ -75,3 +75,14 @@ def make_ed_fig1():
 
         mask = df['fips'].str[:2].isin(states)
         sub = df[mask].groupby('year').agg(
+            mean=('pct_mean', 'mean'),
+            p10=('pct_p10',  'mean'),
+            p90=('pct_p90',  'mean'),
+        ).reset_index()
+
+        years = sub['year'].values
+
+        # Fan (shaded band)
+        ax.fill_between(years, sub['p10'], sub['p90'],
+                        color=color, alpha=0.20, linewidth=0, label='p10–p90 band')
+        # Mean line
