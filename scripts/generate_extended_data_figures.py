@@ -119,3 +119,14 @@ def make_ed_fig1():
     plt.tight_layout(rect=[0, 0.04, 1, 1])
 
     out = os.path.join(OUT_DIR, 'ed_fig01_gcm_spread.pdf')
+    fig.savefig(out, dpi=300, bbox_inches='tight')
+    plt.close(fig)
+    print(f"Saved: {out}")
+    return out
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ED Figure 2: Cascade Score Distribution
+# ─────────────────────────────────────────────────────────────────────────────
+def make_ed_fig2():
+    """
