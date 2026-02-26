@@ -97,3 +97,14 @@ def make_ed_fig1():
         ax.tick_params(labelsize=7)
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
+
+        # Add n_counties annotation
+        n_counties = df.loc[mask, 'fips'].nunique()
+        ax.annotate(f'n = {n_counties} counties', xy=(0.97, 0.05),
+                    xycoords='axes fraction', ha='right', fontsize=7,
+                    color='#555555')
+
+    # Shared legend
+    handles = [
+        mpatches.Patch(color='#888888', alpha=0.3, label='p10–p90 GCM spread'),
+        plt.Line2D([0], [0], color='#888888', linewidth=2, label='Ensemble mean'),
