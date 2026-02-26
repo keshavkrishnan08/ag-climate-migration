@@ -108,3 +108,14 @@ def make_ed_fig1():
     handles = [
         mpatches.Patch(color='#888888', alpha=0.3, label='p10–p90 GCM spread'),
         plt.Line2D([0], [0], color='#888888', linewidth=2, label='Ensemble mean'),
+    ]
+    fig.legend(handles=handles, loc='lower center', ncol=2, fontsize=8,
+               frameon=False, bbox_to_anchor=(0.5, -0.01))
+
+    fig.suptitle(
+        'Extended Data Fig. 1 — GCM Ensemble Spread by Region (SSP2-4.5, 2025–2050)',
+        fontsize=9, fontweight='bold', y=1.01
+    )
+    plt.tight_layout(rect=[0, 0.04, 1, 1])
+
+    out = os.path.join(OUT_DIR, 'ed_fig01_gcm_spread.pdf')
