@@ -130,3 +130,14 @@ def make_ed_fig1():
 # ─────────────────────────────────────────────────────────────────────────────
 def make_ed_fig2():
     """
+    Build bar chart of cascade score distribution (1–6 signals) from
+    historical_cascade_summary.json.
+
+    Returns:
+        str: output PDF path
+    """
+    print("Loading cascade summary …")
+    with open(CASCADE_PATH) as f:
+        data = json.load(f)
+
+    dist = data['cascade_score_distribution']
