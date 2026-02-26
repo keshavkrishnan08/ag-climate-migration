@@ -141,3 +141,14 @@ def make_ed_fig2():
         data = json.load(f)
 
     dist = data['cascade_score_distribution']
+    scores = sorted(int(k) for k in dist.keys())
+    counts = [dist[str(s)] for s in scores]
+
+    # Color: grey for 1-3, amber for 4-5, red for 6
+    bar_colors = []
+    for s in scores:
+        if s <= 3:
+            bar_colors.append('#aab4c4')
+        elif s == 6:
+            bar_colors.append('#c0392b')
+        else:
