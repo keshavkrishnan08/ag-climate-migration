@@ -53,3 +53,14 @@ def make_ed_fig1():
 
     Returns:
         str: output PDF path
+    """
+    print("Loading yield projections …")
+    df = pd.read_parquet(PROJ_PATH,
+                         columns=['fips', 'year', 'crop', 'yield_projected',
+                                  'yield_baseline', 'yield_p10', 'yield_p90'])
+
+    # Compute % change relative to baseline
+    df['pct_mean'] = (df['yield_projected'] - df['yield_baseline']) / df['yield_baseline'].abs() * 100
+    df['pct_p10']  = (df['yield_p10']       - df['yield_baseline']) / df['yield_baseline'].abs() * 100
+    df['pct_p90']  = (df['yield_p90']       - df['yield_baseline']) / df['yield_baseline'].abs() * 100
+
