@@ -86,3 +86,14 @@ def make_ed_fig1():
         ax.fill_between(years, sub['p10'], sub['p90'],
                         color=color, alpha=0.20, linewidth=0, label='p10–p90 band')
         # Mean line
+        ax.plot(years, sub['mean'], color=color, linewidth=2.0, label='GCM ensemble mean')
+        # Zero reference
+        ax.axhline(0, color='#444444', linewidth=0.7, linestyle='--', alpha=0.6)
+
+        ax.set_title(region, fontsize=10, fontweight='bold', pad=4)
+        ax.set_xlabel('Year', fontsize=8)
+        ax.set_ylabel('Yield change (%)', fontsize=8)
+        ax.set_xlim(2025, 2050)
+        ax.tick_params(labelsize=7)
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
