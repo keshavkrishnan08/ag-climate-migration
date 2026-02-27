@@ -174,3 +174,14 @@ def make_ed_fig2():
     ax.set_xlabel('Number of cascade signals observed (2009–2023)', fontsize=9)
     ax.set_ylabel('County count', fontsize=9)
     ax.set_title(
+        'Extended Data Fig. 2 — Historical Cascade Score Distribution\n'
+        '(1,824 agricultural counties, observed data)',
+        fontsize=9, fontweight='bold'
+    )
+    ax.set_xticks(scores)
+    ax.set_xticklabels([str(s) for s in scores], fontsize=9)
+    ax.tick_params(labelsize=8)
+    ax.set_ylim(0, max(counts) * 1.15)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.yaxis.grid(True, alpha=0.3, zorder=0)
