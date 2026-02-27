@@ -218,3 +218,4 @@ def make_ed_fig2():
 if __name__ == '__main__':
     make_ed_fig1()
     make_ed_fig2()
+    print("All extended data figures complete.")
