@@ -196,3 +196,14 @@ def make_ed_fig2():
     ax.legend(handles=legend_patches, fontsize=7.5, loc='upper right',
               framealpha=0.9, edgecolor='#cccccc')
 
+    # Annotate total >= 4
+    total_gte4 = sum(counts[i] for i, s in enumerate(scores) if s >= 4)
+    ax.annotate(
+        f'473 counties ≥ 4 signals\n(25.9% of agricultural counties)',
+        xy=(4, counts[scores.index(4)]),
+        xytext=(4.6, counts[scores.index(4)] + 60),
+        fontsize=7.5,
+        arrowprops=dict(arrowstyle='->', color='#555', lw=0.8),
+        color='#333333'
+    )
+
