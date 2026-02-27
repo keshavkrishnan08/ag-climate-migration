@@ -152,3 +152,14 @@ def make_ed_fig2():
         elif s == 6:
             bar_colors.append('#c0392b')
         else:
+            bar_colors.append('#e67e22')
+
+    fig, ax = plt.subplots(figsize=(6, 4), dpi=300)
+
+    bars = ax.bar(scores, counts, color=bar_colors, edgecolor='white',
+                  linewidth=0.8, width=0.65, zorder=3)
+
+    # Count labels above bars
+    for bar, count in zip(bars, counts):
+        ax.text(bar.get_x() + bar.get_width() / 2,
+                bar.get_height() + 8,
