@@ -185,3 +185,14 @@ def make_ed_fig2():
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     ax.yaxis.grid(True, alpha=0.3, zorder=0)
+    ax.set_axisbelow(True)
+
+    # Legend patches
+    legend_patches = [
+        mpatches.Patch(color='#aab4c4', label='1–3 signals (below threshold)'),
+        mpatches.Patch(color='#e67e22', label='4–5 signals (at risk)'),
+        mpatches.Patch(color='#c0392b', label='6 signals (full cascade)'),
+    ]
+    ax.legend(handles=legend_patches, fontsize=7.5, loc='upper right',
+              framealpha=0.9, edgecolor='#cccccc')
+
