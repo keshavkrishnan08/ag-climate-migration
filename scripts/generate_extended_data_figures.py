@@ -163,3 +163,14 @@ def make_ed_fig2():
     for bar, count in zip(bars, counts):
         ax.text(bar.get_x() + bar.get_width() / 2,
                 bar.get_height() + 8,
+                f'{count:,}',
+                ha='center', va='bottom', fontsize=8.5, fontweight='bold')
+
+    # Threshold annotation
+    ax.axvline(3.5, color='#2c3e50', linewidth=1.2, linestyle='--', alpha=0.7)
+    ax.text(3.55, max(counts) * 0.92, 'Tipping\nthreshold\n(≥4 signals)',
+            fontsize=7.5, color='#2c3e50', va='top')
+
+    ax.set_xlabel('Number of cascade signals observed (2009–2023)', fontsize=9)
+    ax.set_ylabel('County count', fontsize=9)
+    ax.set_title(
