@@ -207,3 +207,14 @@ def make_ed_fig2():
         color='#333333'
     )
 
+    plt.tight_layout()
+    out = os.path.join(OUT_DIR, 'ed_fig02_cascade_dist.pdf')
+    fig.savefig(out, dpi=300, bbox_inches='tight')
+    plt.close(fig)
+    print(f"Saved: {out}")
+    return out
+
+
+if __name__ == '__main__':
+    make_ed_fig1()
+    make_ed_fig2()
