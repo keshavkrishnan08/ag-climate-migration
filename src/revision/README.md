@@ -58,3 +58,13 @@ and why; the manuscript cites only the headline versions.
 | `migration_longdiff.py`           | `migration_fiscal_chain.py` | Long-difference fiscal chain (kept as separate scope) |
 | `migration_robustness.py`         | `migration_wildbootstrap.py` | Earlier robustness explorations |
 | `opportunity_clean.py`            | `recompute_opportunity.py` | Earlier gross-revenue version |
+| `yield_v4_morefeatures.py`        | `yield_v7_spectrum.py` | Earlier feature set |
+| `yield_v5_percrop.py`             | `yield_v7_spectrum.py` | Earlier per-crop ensemble |
+| `yield_v6_skill.py`               | `yield_v7_spectrum.py` | Skill diagnostics; folded in |
+| `yield_v7_baseline.py`            | `yield_v7_spectrum.py` | Baseline before spectrum + irrigation |
+| `yield_model_v3_features.py`      | `yield_v7_spectrum.py` | Early feature engineering |
+| `yield_audit_cotton.py`           | `yield_audit_target_decomp.py` | Cotton-specific audit |
+| `yield_audit_cotton_pct.py`       | `yield_audit_target_decomp.py` | Cotton % variant |
+| `yield_audit_drought_huber.py`    | (not used) | Huber drought variant |
+| `yield_audit_mlp_stack.py`        | (not used) | MLP ensemble exploration |
+| `yield_audit_ceiling.py`          | (not used) | Early ceiling demo, now in `yield_v7_spectrum.py` |
