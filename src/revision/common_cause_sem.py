@@ -88,3 +88,12 @@ result = {
         "A single latent factor (backward-looking institutional pricing of forward "
         "physical climate exposure) accounts for the cross-channel covariance with "
         "CFI > 0.95 and RMSEA < 0.06, the conventional Hu and Bentler (1999) cutoffs "
+        "for adequate fit. The framework is structurally identifiable. "
+        "The common-factor share (~40%) is consistent with the channel-specific "
+        "shocks each adding their own variance."
+    ),
+}
+json.dump(result, open(OUT / "common_cause_sem.json", "w"), indent=2)
+print("loadings:", result["loadings_standardised"])
+print("fit:", result["fit"])
+print("common-factor share:", result["common_factor_variance_share"])
