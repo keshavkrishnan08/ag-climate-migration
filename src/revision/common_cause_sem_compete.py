@@ -138,3 +138,13 @@ imp3[1, 0] += theta
 M3 = fit_stats(imp3, free_params=5)
 M3["loadings"] = [round(float(v), 3) for v in L3]
 M3["theta_C1_C2"] = round(float(theta), 3)
+
+
+# Likelihood-ratio tests M1 vs M2, M1 vs M3.
+def lr(small, large):
+    dchi = small["chi_square"] - large["chi_square"]
+    ddf = small["df"] - large["df"]
+    if ddf <= 0:
+        return None
+    return {
+        "delta_chi2": round(dchi, 3),
