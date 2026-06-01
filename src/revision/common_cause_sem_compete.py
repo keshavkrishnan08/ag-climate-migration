@@ -148,3 +148,13 @@ def lr(small, large):
         return None
     return {
         "delta_chi2": round(dchi, 3),
+        "delta_df": int(ddf),
+        "p_value": round(float(1 - chi2_dist.cdf(max(dchi, 0), ddf)), 3),
+    }
+
+
+lr_M2 = lr(M1, M2)
+lr_M3 = lr(M1, M3)
+
+# Partial out shared thermal exposure (July Tmax): subtract the part of the
+# observed correlation attributable to a common temperature factor with
