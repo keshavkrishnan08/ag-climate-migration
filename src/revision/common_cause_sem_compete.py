@@ -218,3 +218,7 @@ result = {
 json.dump(result, open(OUT / "common_cause_sem_compete.json", "w"), indent=2)
 print("M1:", M1)
 print("M2:", M2)
+print("M3:", M3)
+print("Delta-AIC M2-M1:", result["model_competition"]["delta_AIC_M2_minus_M1"])
+print("Delta-AIC M3-M1:", result["model_competition"]["delta_AIC_M3_minus_M1"])
+print("Partial-out loadings:", result["exposure_partial"]["single_factor_loadings_after_partialing"])
