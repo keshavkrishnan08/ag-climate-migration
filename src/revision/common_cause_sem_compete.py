@@ -168,3 +168,13 @@ np.fill_diagonal(obs_adj, 1.0)
 
 
 def m1_obj_adj(L):
+    imp = np.outer(L, L)
+    np.fill_diagonal(imp, 1.0)
+    return float(np.sum((obs_adj[iu] - imp[iu]) ** 2))
+
+
+L_adj = minimize(m1_obj_adj, np.full(4, 0.5), method="L-BFGS-B",
+                 bounds=[(0.05, 0.99)] * 4).x
+
+result = {
+    "models": {
