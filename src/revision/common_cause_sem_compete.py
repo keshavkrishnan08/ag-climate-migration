@@ -68,3 +68,13 @@ def fit_stats(implied, free_params):
     }
 
 
+# M1 single factor
+def m1_obj(L):
+    imp = np.outer(L, L)
+    np.fill_diagonal(imp, 1.0)
+    return float(np.sum((obs[iu] - imp[iu]) ** 2))
+
+
+L1 = minimize(m1_obj, np.full(4, 0.6), method="L-BFGS-B",
+              bounds=[(0.1, 0.99)] * 4).x
+imp1 = np.outer(L1, L1)
