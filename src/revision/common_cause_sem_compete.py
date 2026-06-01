@@ -158,3 +158,13 @@ lr_M3 = lr(M1, M3)
 
 # Partial out shared thermal exposure (July Tmax): subtract the part of the
 # observed correlation attributable to a common temperature factor with
+# loading 0.45 across all four channels (forward-exposure driver loading,
+# framework_common_driver.json residual analysis). If loadings shrink
+# substantially under this adjustment, the institutional reading is not
+# separable from shared exposure.
+t_load = 0.45
+obs_adj = obs - t_load ** 2
+np.fill_diagonal(obs_adj, 1.0)
+
+
+def m1_obj_adj(L):
