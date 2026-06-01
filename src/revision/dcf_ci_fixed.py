@@ -28,3 +28,13 @@ def main(n=2000):
     yp = yp[yp["year"] <= y0 + H - 1].copy()
     yp["disc"] = 1.0 / (1 + r) ** (yp["year"] - y0 + 1)
     yp["pv_loss"] = -(yp["climate_impact_bu"] * yp["price"] * yp["acres_harvested"] * yp["disc"])
+    # GCM relative spread per row -> county
+    yp["gcm_rel"] = ((yp["yield_p90"] - yp["yield_p10"]) / 2.563).abs() / \
+                    yp["climate_impact_bu"].abs().clip(lower=1)
+    cty = yp.groupby("fips").agg(pv=("pv_loss", "sum"),
+                                 gcm_rel=("gcm_rel", "mean")).reset_index()
+    cty["state"] = cty["fips"].str[:2]
+    stranded = cty[cty["pv"] > 0].copy()           # fixed stranded set
+    pv = stranded["pv"].values
+    point = pv.sum() / 1e9
+    states = stranded["state"].values
