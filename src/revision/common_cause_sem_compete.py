@@ -108,3 +108,13 @@ l1, l2, l3, l4, phi = p2
 F = np.array([[1, phi], [phi, 1]])
 Lam = np.array([[l1, 0], [l2, 0], [0, l3], [0, l4]])
 imp2 = Lam @ F @ Lam.T
+np.fill_diagonal(imp2, 1.0)
+M2 = fit_stats(imp2, free_params=5)
+M2["loadings_F1"] = [round(float(l1), 3), round(float(l2), 3)]
+M2["loadings_F2"] = [round(float(l3), 3), round(float(l4), 3)]
+M2["phi"] = round(float(phi), 3)
+
+
+# M3 correlated-error single-factor + theta_{C1,C2}
+def m3_obj(p):
+    L = p[:4]
