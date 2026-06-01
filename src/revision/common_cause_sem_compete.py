@@ -28,3 +28,13 @@ import numpy as np
 from scipy.optimize import minimize
 from scipy.stats import chi2 as chi2_dist
 
+OUT = Path("results/revision")
+rng = np.random.default_rng(42)
+n = 1820
+
+# Observed inter-channel partial correlation matrix from common_cause_sem.py.
+obs = np.array([
+    [1.00, 0.41, 0.39, 0.36],
+    [0.41, 1.00, 0.44, 0.37],
+    [0.39, 0.44, 1.00, 0.42],
+    [0.36, 0.37, 0.42, 1.00],
