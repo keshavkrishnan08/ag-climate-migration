@@ -88,3 +88,13 @@ make rev-stranded     # just the stranded scripts
 make rev-insurance    # just insurance
 make rev-migration    # just migration
 make rev-yield        # just yield model
+make rev-framework    # common-cause + chain tests
+make rev-substantive  # E1-E9 substantive robustness
+
+# Paper build
+make revision-paper   # recompile main + SI + response + tracked-changes PDFs
+```
+
+## Data inputs
+
+All scripts read from `../../data/raw/` and `../../data/processed/` — see
