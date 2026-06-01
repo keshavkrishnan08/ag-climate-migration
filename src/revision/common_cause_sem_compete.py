@@ -38,3 +38,13 @@ obs = np.array([
     [0.41, 1.00, 0.44, 0.37],
     [0.39, 0.44, 1.00, 0.42],
     [0.36, 0.37, 0.42, 1.00],
+])
+iu = np.triu_indices(4, 1)
+
+
+def ssr_to_chi2(ssr):
+    return (n - 1) * ssr
+
+
+def fit_stats(implied, free_params):
+    diff = obs - implied
