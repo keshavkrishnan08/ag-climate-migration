@@ -58,3 +58,13 @@ ssr = float(np.sum((obs[iu] - implied[iu]) ** 2))
 # Fit statistics.
 df_model = 6 - 4  # 6 unique pairs - 4 free loadings
 chi2 = (n - 1) * ssr
+null_chi2 = (n - 1) * float(np.sum(obs[iu] ** 2))
+null_df = 6
+cfi = max(0.0, 1 - max(chi2 - df_model, 0) / max(null_chi2 - null_df, 1))
+rmsea = float(np.sqrt(max((chi2 / df_model - 1) / (n - 1), 0)))
+srmr = float(np.sqrt(np.mean((obs[iu] - implied[iu]) ** 2)))
+common_share = float(np.mean(L ** 2))
+
+# Approximate p-value for chi-square (df = 2).
+from scipy.stats import chi2 as chi2_dist
+p_chi2 = float(1 - chi2_dist.cdf(chi2, df_model))
