@@ -48,3 +48,13 @@ def ssr_to_chi2(ssr):
 
 def fit_stats(implied, free_params):
     diff = obs - implied
+    ssr = float(np.sum(diff[iu] ** 2))
+    chi2 = ssr_to_chi2(ssr)
+    df = 6 - free_params
+    null_chi2 = (n - 1) * float(np.sum(obs[iu] ** 2))
+    cfi = max(0.0, 1 - max(chi2 - df, 0) / max(null_chi2 - 6, 1))
+    rmsea = float(np.sqrt(max((chi2 / max(df, 1) - 1) / (n - 1), 0)))
+    srmr = float(np.sqrt(np.mean(diff[iu] ** 2)))
+    p = float(1 - chi2_dist.cdf(chi2, df)) if df > 0 else 1.0
+    aic = chi2 - 2 * df  # standard SEM AIC = chi2 + 2k_free - 2*df_baseline (relative)
+    return {
