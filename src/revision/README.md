@@ -38,3 +38,13 @@ for the headline-number → script map and `headline_numbers.py` for the auto-ve
 
 ## Robustness scripts (cited as checks, not headlines)
 
+| Script | Purpose |
+|---|---|
+| `insurance_fast.py`               | Faster variant of `insurance_rolling_aph.py` for sensitivity grids |
+| `pull_ssurgo.py`                  | One-time SSURGO pull via USDA Soil Data Access API |
+| `fig07_marginal.py`               | Fig. 7B marginal-effects regeneration |
+
+## Superseded scripts (kept for transparency)
+
+These were tried during development and are superseded by the headline scripts above. They are
+not run by `make reproduce`. They remain in the repo so reviewers can trace what was abandoned
