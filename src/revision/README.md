@@ -48,3 +48,13 @@ for the headline-number → script map and `headline_numbers.py` for the auto-ve
 
 These were tried during development and are superseded by the headline scripts above. They are
 not run by `make reproduce`. They remain in the repo so reviewers can trace what was abandoned
+and why; the manuscript cites only the headline versions.
+
+| Script | Superseded by | Reason |
+|---|---|---|
+| `migration_iv_v2.py`              | `migration_iv_bartik.py` | Earlier weather-IV; replaced by shift-share |
+| `migration_multiiv.py`            | `migration_iv_bartik.py` | Intermediate multi-instrument exploration |
+| `migration_primeage.py`           | `migration_primeage_panel.py` | Cross-section; superseded by panel FE |
+| `migration_longdiff.py`           | `migration_fiscal_chain.py` | Long-difference fiscal chain (kept as separate scope) |
+| `migration_robustness.py`         | `migration_wildbootstrap.py` | Earlier robustness explorations |
+| `opportunity_clean.py`            | `recompute_opportunity.py` | Earlier gross-revenue version |
