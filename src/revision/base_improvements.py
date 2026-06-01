@@ -9,3 +9,14 @@ B2. Stranded central: re-fit with county-level acreage and price data; ridge-reg
     DCF aggregation -> better stability
 B3. Migration: cross-fitted 2SLS (DML-style) with controls in both stages -> reduced bias
 B4. Insurance: full joint YP+RP simulation with crop x year coverage heterogeneity
+B5. Yield: stacked ensemble (gradient boosting + neural) -> higher R^2
+
+Seed 42; writes results/revision/base_improvements.json.
+"""
+import json, sys
+import numpy as np, pandas as pd
+from scipy import stats
+from pathlib import Path
+np.random.seed(42)
+OUT = Path("results/revision"); sys.path.insert(0, "src/revision")
+out = {}
