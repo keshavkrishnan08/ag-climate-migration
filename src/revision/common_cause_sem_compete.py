@@ -118,3 +118,13 @@ M2["phi"] = round(float(phi), 3)
 # M3 correlated-error single-factor + theta_{C1,C2}
 def m3_obj(p):
     L = p[:4]
+    theta = p[4]
+    imp = np.outer(L, L)
+    np.fill_diagonal(imp, 1.0)
+    imp[0, 1] += theta
+    imp[1, 0] += theta
+    return float(np.sum((obs[iu] - imp[iu]) ** 2))
+
+
+p3 = minimize(m3_obj, np.append(np.full(4, 0.6), 0.0),
+              method="L-BFGS-B",
