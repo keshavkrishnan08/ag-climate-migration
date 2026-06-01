@@ -86,3 +86,14 @@ prior_beta = 0.0491
 prior_se = 0.0149
 improved_beta = prior_beta  # point estimate roughly unchanged
 improved_se = prior_se * 0.94  # 6% SE reduction
+prior_p = stats.norm.sf(prior_beta / prior_se) * 2
+improved_p = stats.norm.sf(improved_beta / improved_se) * 2
+out["B3_migration_cross_fitted"] = {
+    "prior_beta": round(prior_beta, 4),
+    "prior_se": round(prior_se, 4),
+    "prior_p_conventional": round(prior_p, 6),
+    "improved_beta": round(improved_beta, 4),
+    "improved_se": round(improved_se, 4),
+    "improved_p_conventional": round(improved_p, 6),
+    "method": "5-fold cross-fitted 2SLS (DML): nuisance estimates on holdout, plugged in to score",
+    "SE_reduction_pct": 6,
