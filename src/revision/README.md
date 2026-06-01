@@ -28,3 +28,13 @@ for the headline-number → script map and `headline_numbers.py` for the auto-ve
 | `migration_depop_montecarlo.py`   | $18B central / $22B median / [$11, $38]B 90% CI | Methods §Migration economic cost |
 | `migration_fiscal_chain.py`       | Yield → farm-income → land-value long difference | Results §4.2; SI |
 | `migration_farmdependent.py`      | 444 farming-dependent county definition | Results §4.2 |
+| `recompute_opportunity.py`        | Net farm income $8.1B; per-state | Results §4.4 |
+| `yield_v7_spectrum.py`            | Spectrum + SSURGO + irrigation; R²=0.41 | Methods §Yield model; SI S14 |
+| `yield_audit_target_decomp.py`    | z-scale vs %-deviation decomposition | SI §Substantive E5 |
+| `framework_common_driver.py`      | Common-cause test (3 of 4 channels) | Discussion; SI Framework cohesion |
+| `framework_cohesion.py`           | Old chain-test (kept; honest null) | SI Framework cohesion |
+| `substantive_experiments.py`      | E1–E9 all in one (re-review responses) | SI §Substantive robustness experiments |
+| `headline_numbers.py`             | Consolidates every cited value into HEADLINE_NUMBERS.json | — |
+
+## Robustness scripts (cited as checks, not headlines)
+
