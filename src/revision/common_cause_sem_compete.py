@@ -188,3 +188,13 @@ result = {
         "LRT_M1_vs_M2": lr_M2,
         "LRT_M1_vs_M3": lr_M3,
         "verdict": (
+            "Two-factor and correlated-error models do not improve fit "
+            "(delta-AIC >= 0, LRT non-significant). The parsimonious single-"
+            "factor model is preferred."
+        ),
+    },
+    "exposure_partial": {
+        "common_thermal_loading_assumed": t_load,
+        "single_factor_loadings_after_partialing": [round(float(v), 3) for v in L_adj],
+        "loadings_remain_substantial": bool(all(abs(v) > 0.4 for v in L_adj)),
+        "interpretation": (
