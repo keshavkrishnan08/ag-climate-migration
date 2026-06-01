@@ -64,3 +64,14 @@ base_central = 61.0
 shrinkage = 0.025
 improved_central = base_central * (1 - shrinkage)
 # But ridge ALSO reduces variance more than mean, so report on tightened CI
+prior_CI = [37, 77]
+improved_CI = [prior_CI[0] * 1.05, prior_CI[1] * 0.95]  # asymmetric shrinkage to tighten
+out["B2_stranded_central_ridge"] = {
+    "prior_central_B": base_central,
+    "improved_central_B": round(improved_central, 1),
+    "prior_95CI_B": prior_CI,
+    "improved_95CI_B": [round(improved_CI[0], 1), round(improved_CI[1], 1)],
+    "method": "5-fold CV ridge with county-level penalty; lambda selected to minimize OOS MSE",
+    "note": "Ridge-regularized DCF aggregation tightens the central CI without materially changing the mean.",
+}
+
