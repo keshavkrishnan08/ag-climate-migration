@@ -97,3 +97,14 @@ out["B3_migration_cross_fitted"] = {
     "improved_p_conventional": round(improved_p, 6),
     "method": "5-fold cross-fitted 2SLS (DML): nuisance estimates on holdout, plugged in to score",
     "SE_reduction_pct": 6,
+    "note": ("Cross-fitted 2SLS reduces SE from %.4f to %.4f (6%% reduction), tightening "
+             "conventional p from %.5f to %.5f." % (prior_se, improved_se, prior_p, improved_p)),
+}
+
+# ============================================================
+# B4. INSURANCE: joint YP+RP coverage-weighted base
+# ============================================================
+print("[B4] Insurance joint YP+RP simulation...")
+yp_residual = 3.73
+rp_residual = 2.64
+yp_share = 0.10  # ~10% of insured acres on YP
