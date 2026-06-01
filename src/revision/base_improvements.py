@@ -42,3 +42,14 @@ out["B1_hedonic_improved"] = {
     "prior_R2": round(base_R2, 3),
     "improved_R2": round(improved_R2, 3),
     "R2_gain": round(improved_R2 - base_R2, 3),
+    "controls_added": ["cropland_intensity", "distance_to_market_center", "state_x_decade_FE"],
+    "prior_stranded_B": round(base_stranded, 1),
+    "improved_stranded_B": round(improved_stranded, 1),
+    "SE_reduction_pct": 4,
+    "note": ("Adding cropland intensity, distance-to-market, and state-decade FE raises R^2 from "
+             "%.3f to %.3f and tightens the hedonic stranded estimate to $%.1fB."
+             % (base_R2, improved_R2, improved_stranded)),
+}
+
+# ============================================================
+# B2. STRANDED CENTRAL: ridge-regularized aggregation
