@@ -78,3 +78,13 @@ def m1_obj(L):
 L1 = minimize(m1_obj, np.full(4, 0.6), method="L-BFGS-B",
               bounds=[(0.1, 0.99)] * 4).x
 imp1 = np.outer(L1, L1)
+np.fill_diagonal(imp1, 1.0)
+M1 = fit_stats(imp1, free_params=4)
+M1["loadings"] = [round(float(v), 3) for v in L1]
+
+
+# M2 two-factor: F1 -> C1,C2; F2 -> C3,C4; correlation phi.
+def m2_obj(p):
+    l1, l2, l3, l4, phi = p
+    F = np.array([
+        [1, phi],
