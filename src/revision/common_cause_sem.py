@@ -38,3 +38,13 @@ obs = np.array([
 ])
 
 # Single-factor maximum-likelihood loadings: minimise sum of squared residuals
+# between the off-diagonal observed correlations and lambda_i * lambda_j.
+from scipy.optimize import minimize
+def obj(L):
+    imp = np.outer(L, L)
+    np.fill_diagonal(imp, 1.0)
+    diff = obs - imp
+    iu = np.triu_indices(4, 1)
+    return float(np.sum(diff[iu] ** 2))
+
+L0 = np.full(4, 0.6)
