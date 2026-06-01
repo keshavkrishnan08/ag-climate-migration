@@ -18,3 +18,13 @@ We compare on chi-square difference, AIC, and the Vuong test on the
 loglikelihood ratio. The single-factor model wins if (i) the two-factor and
 correlated-error AIC values do not improve on M1 by Delta_AIC > 2 and
 (ii) the chi-square decrement is not significant. We then run a covariate-
+adjusted single-factor SEM that partials out July Tmax exposure at the
+county level; if loadings shrink toward zero, the institutional reading is
+not separable from shared exposure. Seed 42.
+"""
+import json
+from pathlib import Path
+import numpy as np
+from scipy.optimize import minimize
+from scipy.stats import chi2 as chi2_dist
+
