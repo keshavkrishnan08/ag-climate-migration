@@ -68,3 +68,13 @@ and why; the manuscript cites only the headline versions.
 | `yield_audit_drought_huber.py`    | (not used) | Huber drought variant |
 | `yield_audit_mlp_stack.py`        | (not used) | MLP ensemble exploration |
 | `yield_audit_ceiling.py`          | (not used) | Early ceiling demo, now in `yield_v7_spectrum.py` |
+| `yield_irr_final.py`              | `yield_v7_spectrum.py` | Irrigation feature folded in |
+| `yield_levels_direct.py`          | `yield_audit_target_decomp.py` | Direct-vs-decomposed levels audit |
+| `yield_monotonic.py`              | (not used) | Monotonicity check |
+| `yield_stack_levels.py`           | `yield_audit_target_decomp.py` | Stacking exploration |
+| `yield_uncertainty.py`            | `dcf_ci_fixed.py` | CI propagation; now in DCF CI fixer |
+| `yield_v4_morefeatures.py`        | `yield_v7_spectrum.py` | Earlier features |
+
+## Running the pipeline
+
+```bash
