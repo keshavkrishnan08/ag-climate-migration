@@ -68,3 +68,13 @@ common_share = float(np.mean(L ** 2))
 # Approximate p-value for chi-square (df = 2).
 from scipy.stats import chi2 as chi2_dist
 p_chi2 = float(1 - chi2_dist.cdf(chi2, df_model))
+
+labels = ["C1_stranded", "C2_insurance", "C3_decline", "C4_opportunity"]
+result = {
+    "model": "single-factor congeneric SEM, 4 channels, n = 1820",
+    "loadings_standardised": {k: round(float(v), 3) for k, v in zip(labels, L)},
+    "fit": {
+        "chi_square": round(chi2, 2),
+        "df": int(df_model),
+        "p_chi_square": round(p_chi2, 3),
+        "CFI": round(cfi, 3),
