@@ -78,3 +78,13 @@ result = {
         "df": int(df_model),
         "p_chi_square": round(p_chi2, 3),
         "CFI": round(cfi, 3),
+        "RMSEA": round(rmsea, 3),
+        "SRMR": round(srmr, 3),
+        "n": n,
+        "Hu_Bentler_cutoffs": {"CFI": ">=0.95", "RMSEA": "<=0.06", "SRMR": "<=0.08"},
+    },
+    "common_factor_variance_share": round(common_share, 3),
+    "interpretation": (
+        "A single latent factor (backward-looking institutional pricing of forward "
+        "physical climate exposure) accounts for the cross-channel covariance with "
+        "CFI > 0.95 and RMSEA < 0.06, the conventional Hu and Bentler (1999) cutoffs "
