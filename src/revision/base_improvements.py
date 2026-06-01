@@ -108,3 +108,14 @@ print("[B4] Insurance joint YP+RP simulation...")
 yp_residual = 3.73
 rp_residual = 2.64
 yp_share = 0.10  # ~10% of insured acres on YP
+rp_share = 0.90  # ~90% on RP
+joint_residual = yp_share * yp_residual + rp_share * rp_residual
+out["B4_insurance_joint_YP_RP_base"] = {
+    "YP_residual_B": yp_residual,
+    "RP_residual_B": rp_residual,
+    "YP_acreage_share": yp_share,
+    "RP_acreage_share": rp_share,
+    "coverage_weighted_residual_B": round(joint_residual, 2),
+    "note": ("Acreage-weighted residual is %.2f x %.2f + %.2f x %.2f = $%.2fB/yr (dominated by RP)."
+             % (yp_share, yp_residual, rp_share, rp_residual, joint_residual)),
+}
