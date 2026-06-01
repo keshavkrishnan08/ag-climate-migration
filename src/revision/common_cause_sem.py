@@ -8,3 +8,13 @@ exposure (the common driver established in framework_common_driver.json):
 
     z_C1 = lambda_1 F + e_1   (stranded value per acre, residualised on land-value)
     z_C2 = lambda_2 F + e_2   (insurance underpricing residual)
+    z_C3 = lambda_3 F + e_3   (rural-decline count, prime-age population)
+    z_C4 = lambda_4 F + e_4   (northern opportunity, net farm income)
+
+Standardised loadings are estimated by maximum-likelihood factor analysis on the
+observed inter-channel correlation matrix at the county level (n = 1,820 counties
+appearing in at least three channels). Fit statistics follow Hu & Bentler (1999):
+CFI > 0.95 and RMSEA < 0.06 indicate adequate fit; SRMR < 0.08 indicates the
+average standardised residual is small.
+
+Seed 42. Writes common_cause_sem.json.
