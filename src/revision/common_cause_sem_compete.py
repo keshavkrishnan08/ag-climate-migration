@@ -208,3 +208,13 @@ result = {
     },
     "headline": (
         "The single-factor model is preferred over a 2-factor (institutional "
+        "+ thermal) decomposition and over a correlated-error variant. It "
+        "is not, by itself, a causal claim: we report it as evidence the "
+        "four channels share a single underlying structure, consistent "
+        "with backward-looking institutional pricing on top of shared "
+        "physical exposure."
+    ),
+}
+json.dump(result, open(OUT / "common_cause_sem_compete.json", "w"), indent=2)
+print("M1:", M1)
+print("M2:", M2)
