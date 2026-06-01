@@ -98,3 +98,13 @@ def m2_obj(p):
     ])
     imp = Lam @ F @ Lam.T
     np.fill_diagonal(imp, 1.0)
+    return float(np.sum((obs[iu] - imp[iu]) ** 2))
+
+
+p2 = minimize(m2_obj, [0.6, 0.6, 0.6, 0.6, 0.5],
+              method="L-BFGS-B",
+              bounds=[(0.1, 0.99)] * 4 + [(-0.99, 0.99)]).x
+l1, l2, l3, l4, phi = p2
+F = np.array([[1, phi], [phi, 1]])
+Lam = np.array([[l1, 0], [l2, 0], [0, l3], [0, l4]])
+imp2 = Lam @ F @ Lam.T
