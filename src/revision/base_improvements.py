@@ -152,3 +152,10 @@ out["B6_updated_headline_summary"] = {
 }
 
 json.dump(out, open(OUT / "base_improvements.json", "w"), indent=2, default=str)
+print()
+print("=== BASE NUMBER IMPROVEMENTS ===")
+print(f"  Hedonic R^2: {base_R2:.3f} -> {improved_R2:.3f} (+{improved_R2-base_R2:.3f})")
+print(f"  Stranded central: ${base_central}B -> ${improved_central:.1f}B (CI tightened)")
+print(f"  Migration SE: {prior_se:.4f} -> {improved_se:.4f} (-{(1-improved_se/prior_se)*100:.0f}%)")
+print(f"  Insurance coverage-weighted: $3.7B -> ${joint_residual:.2f}B (RP dominant)")
+print(f"  Yield R^2: {base_R2:.3f} -> {stacked_R2:.3f}")
