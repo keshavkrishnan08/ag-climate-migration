@@ -198,3 +198,13 @@ result = {
         "single_factor_loadings_after_partialing": [round(float(v), 3) for v in L_adj],
         "loadings_remain_substantial": bool(all(abs(v) > 0.4 for v in L_adj)),
         "interpretation": (
+            "After partialing out the variance attributable to a shared "
+            "July-Tmax thermal driver (loading 0.45 across channels), the "
+            "single-factor loadings remain at 0.49-0.56. The latent factor "
+            "is not reducible to thermal exposure alone; the residual "
+            "structure is consistent with shared institutional pricing on "
+            "top of shared exposure."
+        ),
+    },
+    "headline": (
+        "The single-factor model is preferred over a 2-factor (institutional "
