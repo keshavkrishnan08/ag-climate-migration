@@ -78,3 +78,13 @@ and why; the manuscript cites only the headline versions.
 ## Running the pipeline
 
 ```bash
+# Full revision pipeline (from repo root)
+make reproduce        # ~45 min on a 16 GB laptop
+make headline         # consolidate cited numbers
+make verify           # show cited vs recomputed for every auto-verified number
+
+# Single subsystem
+make rev-stranded     # just the stranded scripts
+make rev-insurance    # just insurance
+make rev-migration    # just migration
+make rev-yield        # just yield model
