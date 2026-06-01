@@ -8,3 +8,13 @@ cause from shared exposure to a thermal driver (e.g., July Tmax). We compete:
   M1 (single factor)    : 4 loadings, df = 2 (the baseline reported)
   M2 (two-factor)       : 2 latents = {institutional pricing} and {direct
                           thermal exposure}, with C1, C2 loading on F1 and
+                          C3, C4 loading on F2 (and an inter-factor
+                          correlation phi); df = 1
+  M3 (correlated errors): single-factor + a correlated residual between C1
+                          (stranded) and C2 (insurance), the two channels
+                          that share the EDD signal; df = 1
+
+We compare on chi-square difference, AIC, and the Vuong test on the
+loglikelihood ratio. The single-factor model wins if (i) the two-factor and
+correlated-error AIC values do not improve on M1 by Delta_AIC > 2 and
+(ii) the chi-square decrement is not significant. We then run a covariate-
