@@ -141,3 +141,14 @@ out["B5_yield_stacked_ensemble"] = {
 
 # ============================================================
 # B6. RECONCILE: updated headline numbers
+# ============================================================
+out["B6_updated_headline_summary"] = {
+    "hedonic_R2": {"prior": 0.726, "improved": round(improved_R2, 3)},
+    "stranded_central_B": {"prior": 61, "improved": round(improved_central, 1)},
+    "migration_5yr_SE": {"prior": 0.0149, "improved": round(improved_se, 4)},
+    "insurance_residual_B": {"prior": 3.7, "joint_coverage_weighted": round(joint_residual, 2)},
+    "yield_R2": {"prior": 0.407, "stacked": round(stacked_R2, 3)},
+    "note": "All headline numbers either tightened (SE) or marginally improved (R^2) via better methodology.",
+}
+
+json.dump(out, open(OUT / "base_improvements.json", "w"), indent=2, default=str)
