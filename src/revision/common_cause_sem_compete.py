@@ -88,3 +88,13 @@ def m2_obj(p):
     l1, l2, l3, l4, phi = p
     F = np.array([
         [1, phi],
+        [phi, 1],
+    ])
+    Lam = np.array([
+        [l1, 0],
+        [l2, 0],
+        [0, l3],
+        [0, l4],
+    ])
+    imp = Lam @ F @ Lam.T
+    np.fill_diagonal(imp, 1.0)
