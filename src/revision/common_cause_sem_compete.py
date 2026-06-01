@@ -58,3 +58,13 @@ def fit_stats(implied, free_params):
     p = float(1 - chi2_dist.cdf(chi2, df)) if df > 0 else 1.0
     aic = chi2 - 2 * df  # standard SEM AIC = chi2 + 2k_free - 2*df_baseline (relative)
     return {
+        "chi_square": round(chi2, 3),
+        "df": int(df),
+        "p_chi_square": round(p, 3),
+        "CFI": round(cfi, 3),
+        "RMSEA": round(rmsea, 3),
+        "SRMR": round(srmr, 3),
+        "AIC": round(aic, 2),
+    }
+
+
