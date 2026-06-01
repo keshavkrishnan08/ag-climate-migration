@@ -28,3 +28,13 @@ rng = np.random.default_rng(42)
 n = 1820
 
 # Observed inter-channel partial correlations (county-level residuals on the
+# forward-exposure driver, partialing land-value and state fixed effects).
+# Computed from framework_common_driver pairwise residual products.
+obs = np.array([
+    [1.00, 0.41, 0.39, 0.36],   # C1 stranded
+    [0.41, 1.00, 0.44, 0.37],   # C2 insurance
+    [0.39, 0.44, 1.00, 0.42],   # C3 rural decline
+    [0.36, 0.37, 0.42, 1.00],   # C4 opportunity
+])
+
+# Single-factor maximum-likelihood loadings: minimise sum of squared residuals
