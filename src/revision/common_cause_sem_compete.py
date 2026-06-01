@@ -178,3 +178,13 @@ L_adj = minimize(m1_obj_adj, np.full(4, 0.5), method="L-BFGS-B",
 
 result = {
     "models": {
+        "M1_single_factor": M1,
+        "M2_two_factor": M2,
+        "M3_correlated_errors": M3,
+    },
+    "model_competition": {
+        "delta_AIC_M2_minus_M1": round(M2["AIC"] - M1["AIC"], 2),
+        "delta_AIC_M3_minus_M1": round(M3["AIC"] - M1["AIC"], 2),
+        "LRT_M1_vs_M2": lr_M2,
+        "LRT_M1_vs_M3": lr_M3,
+        "verdict": (
