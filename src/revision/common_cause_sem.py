@@ -48,3 +48,13 @@ def obj(L):
     return float(np.sum(diff[iu] ** 2))
 
 L0 = np.full(4, 0.6)
+res_opt = minimize(obj, L0, method="L-BFGS-B", bounds=[(0.1, 0.99)] * 4)
+L = res_opt.x
+implied = np.outer(L, L)
+np.fill_diagonal(implied, 1.0)
+iu = np.triu_indices(4, 1)
+ssr = float(np.sum((obs[iu] - implied[iu]) ** 2))
+
+# Fit statistics.
+df_model = 6 - 4  # 6 unique pairs - 4 free loadings
+chi2 = (n - 1) * ssr
