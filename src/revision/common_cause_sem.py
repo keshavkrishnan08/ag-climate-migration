@@ -18,3 +18,13 @@ CFI > 0.95 and RMSEA < 0.06 indicate adequate fit; SRMR < 0.08 indicates the
 average standardised residual is small.
 
 Seed 42. Writes common_cause_sem.json.
+"""
+import json
+from pathlib import Path
+import numpy as np
+
+OUT = Path("results/revision")
+rng = np.random.default_rng(42)
+n = 1820
+
+# Observed inter-channel partial correlations (county-level residuals on the
