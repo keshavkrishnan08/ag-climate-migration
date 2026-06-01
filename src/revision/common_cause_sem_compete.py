@@ -128,3 +128,13 @@ def m3_obj(p):
 
 p3 = minimize(m3_obj, np.append(np.full(4, 0.6), 0.0),
               method="L-BFGS-B",
+              bounds=[(0.1, 0.99)] * 4 + [(-0.3, 0.3)]).x
+L3 = p3[:4]
+theta = p3[4]
+imp3 = np.outer(L3, L3)
+np.fill_diagonal(imp3, 1.0)
+imp3[0, 1] += theta
+imp3[1, 0] += theta
+M3 = fit_stats(imp3, free_params=5)
+M3["loadings"] = [round(float(v), 3) for v in L3]
+M3["theta_C1_C2"] = round(float(theta), 3)
