@@ -28,3 +28,13 @@ n_draws = 200_000
 horizon = np.arange(2025, 2051)  # 26 years
 prime_age_base = 1_130_330
 beta_hat = 0.0491
+beta_se = 0.0149
+income_decline_lo, income_decline_hi = 0.15, 0.25
+household_lo, household_hi = 2.2, 2.6
+per_capita_lo, per_capita_hi = 70_000.0, 75_000.0
+multiplier_lo, multiplier_hi = 1.6, 1.8
+discount_lo, discount_hi = 0.03, 0.05
+
+
+def attenuation_path(start, end, t_target=2040, t_end=2050):
+    out = []
