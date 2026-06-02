@@ -308,3 +308,13 @@ def main():
     print(f"   - absorbed by TAY at current participation:    "
           f"-{headline['tay_absorption_B']:.2f}")
     print(f"  RESIDUAL (reform-eliminable, NEW HEADLINE):     "
+          f"{headline['residual_tay_total_B']:.2f}  (xsub {headline['residual_tay_xsub_B']:.2f})")
+    print(f"\n  Coverage sensitivity (residual): {headline['coverage_sensitivity_residual_B']}")
+
+    per_year.to_csv(OUT / "insurance_mispricing_by_year.csv", index=False)
+    cy.to_parquet(OUT / "insurance_mispricing_county_year.parquet", index=False)
+    with open(OUT / "insurance_decomposition.json", "w") as f:
+        json.dump(headline, f, indent=2)
+    print(f"\nSaved -> {OUT}/insurance_decomposition.json, insurance_mispricing_by_year.csv")
+
+
