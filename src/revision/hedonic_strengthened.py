@@ -18,3 +18,13 @@ import statsmodels.formula.api as smf
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 DATA_RAW = ROOT / "data" / "raw"
+DATA_PROC = ROOT / "data" / "processed"
+PROJ = ROOT / "data" / "projections"
+OUT = ROOT / "results" / "revision"
+np.random.seed(42)
+GROW = [f"{m:02d}" for m in range(4, 10)]
+CPI = {2017: 0.0, 2022: 0.0}  # placeholder; deflate 2022->2017-ish via ratio below
+
+
+def build():
+    # land values (2017, 2022), deflate 2022 to common dollars (CPI 2017=245.1, 2022=292.7)
