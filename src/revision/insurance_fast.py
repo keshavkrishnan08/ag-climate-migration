@@ -138,3 +138,13 @@ def main():
     paths, cv = build_paths("SSP245")
     base = simulate_fast(rma, paths, cv, aph_window=10)
     print(f"  frozen={base['frozen']['total_B']:.2f}  roll={base['roll']['total_B']:.2f}  "
+          f"residual_tay={base['tay']['total_B']:.2f} (xsub {base['tay']['xsub_B']:.2f})")
+    out["SSP245_window10"] = base
+
+    print("=== APH window sensitivity (SSP245) ===")
+    out["window_sensitivity"] = {}
+    for w in [4, 7, 10]:
+        r = simulate_fast(rma, paths, cv, aph_window=w)
+        out["window_sensitivity"][w] = {"residual_tay_B": r["tay"]["total_B"],
+                                        "rolling_B": r["roll"]["total_B"],
+                                        "xsub_B": r["tay"]["xsub_B"]}
