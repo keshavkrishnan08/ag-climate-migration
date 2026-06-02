@@ -88,3 +88,13 @@ def mc_npv(beta_path_fn):
     }
 
 
+paths = {
+    "no_attenuation": lambda: attenuation_path(beta_hat, beta_hat),
+    "modest_1.5x": lambda: attenuation_path(beta_hat, 1.5 * beta_hat),
+    "halving_0.5x": lambda: attenuation_path(beta_hat, 0.5 * beta_hat),
+    "quartering_0.25x": lambda: attenuation_path(beta_hat, 0.25 * beta_hat),
+}
+
+res = {name: mc_npv(fn) for name, fn in paths.items()}
+result = {
+    "method": (
