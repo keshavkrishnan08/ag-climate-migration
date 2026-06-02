@@ -58,3 +58,13 @@ def fdep():
 # ---- exposure driver + stranded (central floored scenario) ----
 st = pd.read_parquet(OUT / "stranded_central_floored.parquet")
 # collapse to one row per county at the central scenario if multiple present
+keep = ["fips", "stranded_value_per_acre", "mean_delta_edd", "mean_tmax_july_C", "mean_sr_yield_penalty", "total_acres"]
+st = st[keep].copy()
+st["fips"] = st["fips"].astype(str).str.zfill(5)
+st = st.groupby("fips", as_index=False).mean(numeric_only=True)
+# exposure = projected SR yield penalty (forward climate signal); robustness: delta_edd
+st["exposure"] = st["mean_sr_yield_penalty"].abs()
+st["exposure_edd"] = st["mean_delta_edd"]
+
+# ---- C2 insurance net underpricing per county (2040-2050 mean) ----
+cy = pd.read_parquet(OUT / "insurance_mispricing_county_year.parquet")
