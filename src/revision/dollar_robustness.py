@@ -48,3 +48,13 @@ def county_stranded_process(scen="SSP245", climfile="county_climate_projections.
                   - edd(f2c(cl.tmax_july_projected - cl.delta_tmax_july),
                         f2c(cl.tmax_growing_projected - cl.delta_tmax_growing))).clip(lower=0)
     yp = yp.merge(cl[["fips", "year", "dedd"]], on=["fips", "year"], how="left")
+    yp["dedd"] = yp["dedd"].fillna(0); yp["price"] = yp["crop"].map(PRICE).fillna(4.0)
+    yp["srcoef"] = yp["crop"].map(SR).fillna(-0.0662)
+    y0 = yp["year"].min(); yp = yp[yp["year"] <= y0 + H - 1].copy()
+    yp["disc"] = 1 / (1 + r) ** (yp["year"] - y0 + 1)
+    yp["pv"] = (yp["dedd"] * yp["srcoef"]) * yp["price"] * yp["acres_harvested"] * yp["disc"]
+    return (-yp.groupby("fips")["pv"].sum()).rename("proc")
+
+
+def main():
+    ml = county_stranded_ml(); proc = county_stranded_process()
