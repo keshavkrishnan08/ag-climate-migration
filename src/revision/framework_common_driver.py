@@ -88,3 +88,13 @@ df["fdep"] = df["fdep"].fillna(0).astype(int)
 # DIFFERENT facets of warming, not one variable: rural decline tracks the heat-stress LEVEL
 # (July Tmax) and is NOT significant under Delta-EDD (p=0.49), which we report honestly. The
 # common-factor share across channels is only ~35%, so the unifying claim is about a shared
+# institutional cause, not a single latent statistic.
+results = []
+# C2 insurance underpricing ~ physical exposure (NON-mechanical)
+results.append(reg(df, "net_underpricing", "exposure_edd", "C2 insurance net underpricing (~ Delta-EDD)", +1))
+# C3 decline ~ July-Tmax heat exposure among farming-dependent (NON-mechanical)
+results.append(reg(df[df.fdep == 1], "n_decline_indicators", "mean_tmax_july_C", "C3 rural-decline count, farm-dep (~ July Tmax)", +1))
+# C4 frontier opportunity ~ projected warming gain (GDD)  (NON-mechanical)
+fr["gdd"] = pd.to_numeric(fr["gdd_projected"], errors="coerce")
+results.append(reg(fr, "annual_opportunity_2023USD", "gdd", "C4 northern opportunity (~ projected GDD)", +1))
+# C1 stranded value/acre ~ exposure: reported but CONFOUNDED by land-value levels
