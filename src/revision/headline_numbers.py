@@ -178,3 +178,13 @@ HEADLINE = {
         "source_script": "src/revision/migration_iv_bartik.py"},
     "migration_share_balance_R2_withinFE": {
         "value": 0.004,
+        "value_recomputed": get(mig_sbl, "within_FE_instrument_on_amenity", "R2"),
+        "source_script": "src/revision/migration_share_balance.py",
+        "source_json": "results/revision/migration_share_balance.json",
+        "cited": "SI Migration §Shift-share identification"},
+    "migration_nonfarm_effect_ratio": {
+        "value": 63,
+        "value_recomputed": get(substantive, "E3_E4_migration_falsification_and_effect_size", "effect_size_ratio_farmdep_over_nonfarm"),
+        "source_script": "src/revision/substantive_experiments.py",
+        "cited": "SI §Substantive E3-E4"},
+    "depop_NPV_central_B": {
