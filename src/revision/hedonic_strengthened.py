@@ -88,3 +88,13 @@ def stranded_from_hedonic(df, b1, b2, label):
     g["loss"] = -g["dV"] * g["acres"]                          # positive=stranded
     total = g.loc[g["loss"] > 0, "loss"].sum() / 1e9
     return float(total), g
+
+
+def main():
+    df = build()
+    print(f"Hedonic sample: {len(df)} counties")
+    specs = {
+        "baseline (orig controls)": "log_land_value ~ tmax_july + tmax_july_sq + precip_growing + log_pop + log_inc + C(state)",
+        "+ SSURGO water": "log_land_value ~ tmax_july + tmax_july_sq + precip_growing + log_pop + log_inc + ssurgo_aws + C(state)",
+        "+ SSURGO + irrigation + soil-productivity": "log_land_value ~ tmax_july + tmax_july_sq + precip_growing + log_pop + log_inc + ssurgo_aws + irr_share + nccpi + C(state)",
+    }
