@@ -18,3 +18,13 @@ This script rebuilds the estimate to answer the reviewer precisely:
 
   (R2 #3c) Decompose the gross gap into:
              (i)   what the rolling APH window absorbs mechanically,
+             (ii)  what TAY absorbs at current participation,
+             (iii) the RESIDUAL that forward-looking reform would actually
+                   eliminate  --> the policy-relevant headline.
+
+  (R2 #2)  Use the ACREAGE-WEIGHTED coverage election from the RMA Summary of
+           Business (not a uniform 75%), report a coverage-level sensitivity,
+           and report the Revenue-Protection vs Yield-Protection acreage mix
+           (RP is the dominant product, so the analytical put captures the
+           yield channel; the RP price channel is climate-neutral in
+           expectation).
