@@ -128,3 +128,7 @@ for r in results:
           % (r["channel"], r["beta_per_1sd"], r["p"], r["n"], r["sign_as_predicted"]))
 print("  %-52s beta/1sd=%+.3g  p=%.4g  n=%d  (confounded)"
       % (c1["channel"], c1["beta_per_1sd"], c1["p"], c1["n"]))
+print("non-definitional channels significant (p<.05): %d/%d ; all signs coherent: %s"
+      % (summary["n_nondef_channels_significant_p05"], len(results), summary["all_signs_as_predicted"]))
+print("common factor explains %.0f%% of variance across the 3 non-frontier channels (n=%d)"
+      % (100 * common_var_share, summary["common_factor_n"]))
