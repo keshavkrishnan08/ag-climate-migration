@@ -58,3 +58,13 @@ def wls(y, X, w):
     se = np.sqrt(np.diag(cov))
     return b, se
 
+
+def main():
+    rma = build_rma_county_crop()              # fips, crop, cov_wt, insured_acres, ...
+    stress = climate_stress()
+    df = rma.merge(stress, on=["fips", "crop"], how="inner").dropna(subset=["cov_wt", "stress"])
+    df = df[(df["insured_acres"] > 0) & np.isfinite(df["stress"])]
+
+    # (1) Test: cov_wt ~ stress + crop FE, acreage-weighted
+    dummies = pd.get_dummies(df["crop"], prefix="c", drop_first=True).astype(float)
+    X = np.column_stack([np.ones(len(df)), df["stress"].values, dummies.values])
