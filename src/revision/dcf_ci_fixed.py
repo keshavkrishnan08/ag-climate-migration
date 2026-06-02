@@ -38,3 +38,13 @@ def main(n=2000):
     pv = stranded["pv"].values
     point = pv.sum() / 1e9
     states = stranded["state"].values
+    uniq = np.unique(states)
+    sidx = {s: np.where(states == s)[0] for s in uniq}
+    gcm_rel = np.clip(stranded["gcm_rel"].fillna(0.3).values, 0, 1.5)
+
+    SIG_IDIO = 0.70      # ~ relative model error on the county impact (R2~0.22 on anomalies)
+    SIG_SPAT = 0.30      # regional common component
+
+    def draw(idio, spat, gcm):
+        out = np.empty(n)
+        for k in range(n):
