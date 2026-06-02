@@ -38,3 +38,13 @@ def floored_total_under_g(g):
     capped = total.copy()
     bind = has_lv & (total > cap)
     capped[bind] = cap[bind]
+    return float(capped.sum() / 1e9)
+
+central_check = float(df["stranded_value_floored"].sum() / 1e9)
+unscaled_base = floored_total_under_g(0.0)
+rescale = central_check / unscaled_base if unscaled_base != 0 else 1.0
+
+res = {
+    "discount_rate": r,
+    "horizon_years": H,
+    "annuity_multipliers_vs_flat": {
