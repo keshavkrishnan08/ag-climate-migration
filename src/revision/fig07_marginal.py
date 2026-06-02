@@ -16,3 +16,12 @@ di=di.merge(fdf[["fips","farm_dependent"]],on="fips",how="left"); di["farm_depen
 # county yield-stress = -(acreage-weighted 15yr yield trend slope), standardized
 fm=pd.read_parquet("data/processed/feature_matrix.parquet",columns=["fips","crop","year","yield_trend_slope_15yr","acres_harvested"])
 fm["fips"]=fm["fips"].astype(str).str.zfill(5)
+recent=fm[fm["year"]>=2018]
+g=recent.groupby("fips").apply(lambda d: np.average(d["yield_trend_slope_15yr"].fillna(0),weights=d["acres_harvested"].clip(lower=1e-6)) if d["acres_harvested"].sum()>0 else d["yield_trend_slope_15yr"].mean(),include_groups=False).rename("yld_trend").reset_index()
+di=di.merge(g,on="fips",how="left")
+fdc=di[(di["farm_dependent"]==1)&di["yld_trend"].notna()].copy()
+fdc["stress"]=-(fdc["yld_trend"]-fdc["yld_trend"].mean())/fdc["yld_trend"].std()  # +1 = declining yields
+inds=[("pop_decline","Population decline"),("income_decline","Income decline"),("outmigration","Out-migration"),("school_decline","School decline"),("hospital_closure","Hospital closure")]
+def lpm(y,x):
+    X=np.column_stack([np.ones(len(x)),x]); b,*_=np.linalg.lstsq(X,y,rcond=None)
+    resid=y-X@b; XtXi=np.linalg.inv(X.T@X); meat=(X*(resid**2)[:,None]).T@X
