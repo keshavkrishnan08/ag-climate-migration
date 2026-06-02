@@ -28,3 +28,13 @@ WIN = (2040, 2050)
 PRICE_VOL = 0.20      # harvest-price lognormal vol (RMA volatility factors ~0.15-0.30)
 YIELD_PRICE_CORR = -0.30   # natural hedge: low yields <-> high prices
 
+
+def rp_vs_yp_climate_mispricing():
+    """Aggregate climate mispricing under YP (yield-only put) vs RP (revenue put
+    with harvest-price reset), to test whether the RP price channel is climate-neutral.
+    Monte Carlo per county-crop over the headline window."""
+    rma = build_rma_county_crop()
+    paths, cv = build_paths("SSP245")
+    keys = rma[["fips", "crop"]].drop_duplicates()
+    paths = paths.merge(keys, on=["fips", "crop"], how="inner")
+    wide = paths.pivot_table(index=["fips", "crop"], columns="year", values="y", aggfunc="first").sort_index(axis=1)
