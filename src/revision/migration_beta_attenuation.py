@@ -48,3 +48,13 @@ def attenuation_path(start, end, t_target=2040, t_end=2050):
 
 
 def mc_npv(beta_path_fn):
+    # Antithetic variates: pair (u, 1-u).
+    half = n_draws // 2
+    z = rng.standard_normal(half)
+    beta0 = np.clip(beta_hat + beta_se * z, 0.0, None)
+    beta0 = np.concatenate([beta0, np.clip(beta_hat - beta_se * z, 0.0, None)])
+
+    u_inc = rng.uniform(income_decline_lo, income_decline_hi, n_draws)
+    u_hh = rng.uniform(household_lo, household_hi, n_draws)
+    u_pc = rng.uniform(per_capita_lo, per_capita_hi, n_draws)
+    u_m = rng.uniform(multiplier_lo, multiplier_hi, n_draws)
