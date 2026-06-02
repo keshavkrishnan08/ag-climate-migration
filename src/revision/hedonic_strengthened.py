@@ -118,3 +118,13 @@ def main():
 
     # measured field-crop share of ag value (national, for DCF<->hedonic reconciliation)
     # USDA ERS 2023 cash receipts: total ag ~ $515B; crops ~ $277B; modeled 8 field crops ~ $172B.
+    field_crop_share = 172.0 / 515.0
+    dcf_central_floored = 61.0
+    implied_all_channel = dcf_central_floored / field_crop_share
+    print(f"  Measured field-crop share of US ag cash receipts = {field_crop_share:.2f} (USDA ERS 2023).")
+    print(f"  DCF field-crop ${dcf_central_floored}B / {field_crop_share:.2f} = ${implied_all_channel:.0f}B all-channel "
+          f"vs hedonic ${res['+ SSURGO + irrigation + soil-productivity']['stranded_B']:.0f}B.")
+
+    out = {"specs": res, "coef_stability_pct": float(stability_pct),
+           "field_crop_share_of_ag_value": field_crop_share,
+           "implied_all_channel_from_dcf_B": float(implied_all_channel),
