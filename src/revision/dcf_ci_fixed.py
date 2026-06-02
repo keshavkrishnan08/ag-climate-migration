@@ -68,3 +68,11 @@ def main(n=2000):
            "n_stranded_counties": int(len(pv))}
     print("point  $%.1fB" % point)
     print("idio   ", [round(x, 1) for x in res["ci_idiosyncratic_only"]])
+    print("+spat  ", [round(x, 1) for x in res["ci_plus_spatial"]])
+    print("full   ", [round(x, 1) for x in res["ci_full"]])
+    with open(OUT / "dcf_ci_fixed.json", "w") as f:
+        json.dump(res, f, indent=2)
+
+
+if __name__ == "__main__":
+    main()
