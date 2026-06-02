@@ -78,3 +78,13 @@ def stranded_from_hedonic(df, b1, b2, label):
                          columns=["fips", "year", "delta_tmax_july"])
     cl["fips"] = cl["fips"].astype(str).str.zfill(5)
     d = cl[cl["year"] == 2050].groupby("fips", as_index=False)["delta_tmax_july"].mean()  # °F by 2050
+    fm = pd.read_parquet(DATA_PROC / "feature_matrix.parquet", columns=["fips", "year", "crop", "acres_harvested"])
+    fm["fips"] = fm["fips"].astype(str).str.zfill(5)
+    ac = fm[fm["year"] >= 2018].groupby(["fips", "year"])["acres_harvested"].sum().groupby("fips").mean().rename("acres").reset_index()
+    g = df.merge(d, on="fips", how="inner").merge(ac, on="fips", how="left")
+    g["acres"] = g["acres"].fillna(0)
+    g["dlogV"] = (b1 + 2 * b2 * g["tmax_july"]) * g["delta_tmax_july"]
+    g["dV"] = g["dlogV"] * g["land_value_per_acre"]            # $/acre change (negative=loss)
+    g["loss"] = -g["dV"] * g["acres"]                          # positive=stranded
+    total = g.loc[g["loss"] > 0, "loss"].sum() / 1e9
+    return float(total), g
