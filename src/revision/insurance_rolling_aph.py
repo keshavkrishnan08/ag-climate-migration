@@ -148,3 +148,13 @@ def build_yield_paths():
     fm = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet",
                          columns=["fips", "year", "crop", "yield_bu_acre"])
     fm["fips"] = fm["fips"].astype(str).str.zfill(5)
+    obs = fm[(fm["year"] <= 2024) & (fm["yield_bu_acre"] > 0)].rename(
+        columns={"yield_bu_acre": "y"})[["fips", "crop", "year", "y"]]
+
+    proj = pd.read_parquet(PROJECTIONS_DIR / "yield_projections_SSP245.parquet",
+                           columns=["fips", "year", "crop", "yield_projected"])
+    proj["fips"] = proj["fips"].astype(str).str.zfill(5)
+    proj = proj[proj["year"] >= 2025].rename(columns={"yield_projected": "y"})
+    proj = proj[["fips", "crop", "year", "y"]]
+    proj["y"] = proj["y"].clip(lower=0.0)
+
