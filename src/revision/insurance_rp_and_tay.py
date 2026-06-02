@@ -118,3 +118,10 @@ def main():
     for k, v in tay.items():
         print(f"  {k}: residual ${v['residual_B']:.2f}B, transfer ${v['transfer_B']:.2f}B")
     json.dump({"rp_vs_yp": rpyp, "tay_participation_range": tay,
+               "rp_params": {"price_vol": PRICE_VOL, "yield_price_corr": YIELD_PRICE_CORR}},
+              open(OUT / "insurance_rp_tay.json", "w"), indent=2)
+    print(f"\nSaved -> {OUT}/insurance_rp_tay.json")
+
+
+if __name__ == "__main__":
+    main()
