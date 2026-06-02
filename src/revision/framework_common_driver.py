@@ -108,3 +108,13 @@ panel = df[["fips", "stranded_value_per_acre", "net_underpricing", "n_decline_in
 panel = panel.replace([np.inf, -np.inf], np.nan).dropna()
 Z = np.column_stack([z(panel[c]).values for c in ["stranded_value_per_acre", "net_underpricing", "n_decline_indicators"]])
 Z = Z[~np.isnan(Z).any(axis=1)]
+C = np.corrcoef(Z, rowvar=False)
+evals = np.sort(np.linalg.eigvalsh(C))[::-1]
+common_var_share = float(evals[0] / evals.sum())
+
+summary = {"driver": "forward physical climate exposure (Delta-EDD, July Tmax, projected GDD)",
+           "hypothesis": "one unpriced climate signal -> parallel consequences (common cause, not chain)",
+           "non_definitional_channels": results,
+           "stranded_confounded": c1,
+           "all_signs_as_predicted": bool(all(r["sign_as_predicted"] for r in results)),
+           "n_nondef_channels_significant_p05": int(sum(r["p"] < 0.05 for r in results)),
