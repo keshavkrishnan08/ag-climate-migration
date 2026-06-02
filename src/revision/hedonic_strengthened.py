@@ -98,3 +98,13 @@ def main():
         "+ SSURGO water": "log_land_value ~ tmax_july + tmax_july_sq + precip_growing + log_pop + log_inc + ssurgo_aws + C(state)",
         "+ SSURGO + irrigation + soil-productivity": "log_land_value ~ tmax_july + tmax_july_sq + precip_growing + log_pop + log_inc + ssurgo_aws + irr_share + nccpi + C(state)",
     }
+    res = {}
+    for name, formula in specs.items():
+        mod = smf.ols(formula, data=df).fit(cov_type="HC3")
+        b1, b2 = mod.params["tmax_july"], mod.params["tmax_july_sq"]
+        # marginal warming effect at mean July Tmax (per °F)
+        me = b1 + 2 * b2 * df["tmax_july"].mean()
+        strn, _ = stranded_from_hedonic(df, b1, b2, name)
+        res[name] = {"r2": float(mod.rsquared), "beta_tmax": float(b1), "beta_tmax_sq": float(b2),
+                     "marginal_pct_per_F_at_mean": float(me), "stranded_B": strn, "n": int(mod.nobs)}
+        print(f"  [{name[:42]:42s}] R2={mod.rsquared:.3f} dlnV/dT@mean={me*100:+.2f}%/F stranded=${strn:.0f}B")
