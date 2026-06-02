@@ -98,3 +98,13 @@ def main():
         "residual_actual_B": res_actual["tay"]["total_B"],
         "residual_uniform_B": res_uniform["tay"]["total_B"],
     }
+    print("\n=== (2) Effect on the implicit transfer ===")
+    print(f"  transfer (actual/endogenous coverage): ${out['transfer_actual_coverage_B']:.2f}B")
+    print(f"  transfer (uniform {natl_cov:.2f} coverage):    ${out['transfer_uniform_coverage_B']:.2f}B")
+    print(f"  endogeneity effect:                    ${out['endogeneity_effect_on_transfer_B']:+.2f}B")
+    json.dump(out, open(OUT / "insurance_coverage_endogeneity.json", "w"), indent=2)
+    print(f"\nSaved -> {OUT}/insurance_coverage_endogeneity.json")
+
+
+if __name__ == "__main__":
+    main()
