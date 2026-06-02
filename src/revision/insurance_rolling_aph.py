@@ -78,3 +78,13 @@ WINDOW = (2040, 2050)     # headline window (matches original $5.9B definition)
 
 
 def expected_indemnity(K, mu, sigma):
+    """E[max(K - X, 0)] for X ~ N(mu, sigma^2): analytical revenue put.
+
+    Args:
+        K: revenue guarantee, $/acre.
+        mu: expected revenue, $/acre.
+        sigma: revenue standard deviation, $/acre.
+    Returns:
+        Expected indemnity per acre ($, >= 0).
+    """
+    sigma = np.maximum(sigma, 1.0)
