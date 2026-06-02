@@ -98,3 +98,13 @@ HEADLINE = {
         "source_script": "src/revision/dollar_robustness.py",
         "source_json": "results/revision/dollar_robustness.json",
         "cited": "SI §Substantive E8"},
+
+    # === INSURANCE ===
+    "insurance_gross_frozen_B": {
+        "value": 6.6, "value_recomputed": get(ins_dec, "gross_frozen_total_B"),
+        "source_script": "src/revision/insurance_rolling_aph.py",
+        "source_json": "results/revision/insurance_decomposition.json"},
+    "insurance_rolling_total_B": {
+        "value": 4.6, "value_recomputed": get(ins_dec, "rolling_total_B"),
+        "source_script": "src/revision/insurance_rolling_aph.py",
+        "source_json": "results/revision/insurance_decomposition.json"},
