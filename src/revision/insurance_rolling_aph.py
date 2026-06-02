@@ -88,3 +88,13 @@ def expected_indemnity(K, mu, sigma):
         Expected indemnity per acre ($, >= 0).
     """
     sigma = np.maximum(sigma, 1.0)
+    z = (K - mu) / sigma
+    return np.maximum((K - mu) * stats.norm.cdf(z) + sigma * stats.norm.pdf(z), 0.0)
+
+
+def build_rma_county_crop():
+    """Aggregate RMA SOB (2014-2023) to county-crop with acreage-weighted
+    coverage, RP/YP acre shares, observed premium per acre, and insured acres.
+
+    The 2014-2023 window reflects post-2014-Farm-Bill coverage elections
+    (Reviewer 2: elections shifted upward to 80-85% in the upper Corn Belt).
