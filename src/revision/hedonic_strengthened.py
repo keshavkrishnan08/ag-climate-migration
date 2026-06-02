@@ -48,3 +48,13 @@ def build():
                            columns=["fips", "year", "total_population", "median_household_income"])
     demo["fips"] = demo["fips"].astype(str).str.zfill(5)
     demo = demo[demo["year"].between(2019, 2023)].groupby("fips", as_index=False).agg(
+        pop=("total_population", "mean"), inc=("median_household_income", "mean"))
+    demo["log_pop"] = np.log(demo["pop"].clip(lower=1)); demo["log_inc"] = np.log(demo["inc"].clip(lower=1))
+    # SSURGO + irrigation + soil-productivity
+    soil = pd.read_parquet(OUT / "ssurgo_county_soil.parquet"); soil["fips"] = soil["fips"].astype(str).str.zfill(5)
+    irr = pd.read_parquet(OUT / "irrigation_share.parquet")
+    irr["fips"] = irr["fips"].astype(str).str.zfill(5)
+    irrc = irr.groupby("fips", as_index=False)["irr_prop"].mean().rename(columns={"irr_prop": "irr_share"})
+    fm = pd.read_parquet(DATA_PROC / "feature_matrix.parquet", columns=["fips", "crop", "yield_bu_acre"])
+    fm["fips"] = fm["fips"].astype(str).str.zfill(5)
+    corn = fm[fm["crop"] == "corn"].groupby("fips")["yield_bu_acre"].max()
