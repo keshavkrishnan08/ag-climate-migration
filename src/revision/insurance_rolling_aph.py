@@ -28,3 +28,13 @@ This script rebuilds the estimate to answer the reviewer precisely:
            (RP is the dominant product, so the analytical put captures the
            yield channel; the RP price channel is climate-neutral in
            expectation).
+
+All dollars 2023 USD. Seed 42. Writes only to results/revision/.
+"""
+
+import json
+import sys
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
