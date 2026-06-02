@@ -218,3 +218,13 @@ HEADLINE = {
         "source_script": "src/revision/yield_v7_spectrum.py + yield_audit_target_decomp.py",
         "source_json": "results/revision/audit_yield_target_decomp.json"},
     "yield_Spearman_pct": {
+        "value": 0.64,
+        "value_recomputed": get(yield_dec, "cells", "SPEC_PCT", "spearman_on_pct")},
+    "yield_z_scale_apples_to_apples": {
+        "aggregates_z_R2": get(substantive, "E5_yield_zscale_apples_to_apples", "aggregates_on_z_R2"),
+        "spectrum_z_R2": get(substantive, "E5_yield_zscale_apples_to_apples", "spectrum_on_z_R2"),
+        "feature_gain_on_z": get(substantive, "E5_yield_zscale_apples_to_apples", "feature_gain_on_z_scale"),
+        "target_shift_gain": get(substantive, "E5_yield_zscale_apples_to_apples", "target_shift_gain_with_aggregates"),
+        "source_script": "src/revision/yield_audit_target_decomp.py",
+        "cited": "SI §Substantive E5"},
+
