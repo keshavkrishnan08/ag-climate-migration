@@ -48,3 +48,13 @@ PROJECTIONS_DIR = PROJECT_ROOT / "data" / "projections"
 OUT = PROJECT_ROOT / "results" / "revision"
 OUT.mkdir(parents=True, exist_ok=True)
 
+np.random.seed(42)
+
+# RMA crop_name -> model crop
+RMA_CROP_MAP = {
+    "CORN": "corn", "SOYBEANS": "soybeans", "WHEAT": "wheat_winter",
+    "COTTON": "cotton", "GRAIN SORGHUM": "sorghum", "BARLEY": "barley",
+    "OATS": "oats",
+}
+# Flat real prices (2023 USD) -- price largely cancels in the EI ratio, but we
+# use a single consistent value per crop. These are 30-yr real averages
