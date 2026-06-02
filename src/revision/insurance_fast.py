@@ -128,3 +128,13 @@ def simulate_fast(rma, paths, cv, aph_window=10, ye=False, ye_participation=0.0)
     for m in ["frozen", "roll", "tay"]:
         u, o = g.loc[m, "under"], g.loc[m, "over"]
         res[m] = {"total_B": (u + o) / 1e9, "xsub_B": min(u, o) / 1e9}
+    return res
+
+
+def main():
+    rma = build_rma_county_crop()
+    out = {}
+    print("=== Vectorized cross-check (SSP245, window=10) ===")
+    paths, cv = build_paths("SSP245")
+    base = simulate_fast(rma, paths, cv, aph_window=10)
+    print(f"  frozen={base['frozen']['total_B']:.2f}  roll={base['roll']['total_B']:.2f}  "
