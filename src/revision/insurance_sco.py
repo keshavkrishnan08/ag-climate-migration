@@ -18,3 +18,13 @@ We confirm with a direct simulation. Seed 42; writes only to results/revision/.
 """
 import json
 import numpy as np, pandas as pd
+from pathlib import Path
+np.random.seed(42)
+OUT = Path("results/revision")
+
+# Documented parameters
+SCO_PARTICIPATION_BY_CROP = {  # share of insured acres carrying SCO (RMA SOB, recent years)
+    "CORN": 0.060, "SOYBEANS": 0.045, "WINTER WHEAT": 0.055, "SPRING WHEAT": 0.040,
+    "SORGHUM": 0.025, "BARLEY": 0.020, "OATS": 0.015, "COTTON": 0.030,
+}
+SCO_TRIGGER = 0.86            # SCO pays below 86% expected county yield/revenue
