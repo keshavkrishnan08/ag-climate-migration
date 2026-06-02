@@ -138,3 +138,13 @@ def build_rma_county_crop():
 
 
 def build_yield_paths():
+    """Realized yield path per county-crop: observed (<=2024) + projected (2025-2050).
+
+    Returns:
+        (paths, cv) where paths is a long DataFrame [fips, crop, year, y] and
+        cv is [fips, crop, cv] interannual coefficient of variation from
+        observed 2008-2023 yields.
+    """
+    fm = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet",
+                         columns=["fips", "year", "crop", "yield_bu_acre"])
+    fm["fips"] = fm["fips"].astype(str).str.zfill(5)
