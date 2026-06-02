@@ -78,3 +78,8 @@ def main():
     print(f"National stranded: ML ${tot_ml:.1f}B vs process ${tot_proc:.1f}B")
     print(f"Spatial rank correlation: {rho:.3f}; top-100 county overlap: {overlap:.0%}")
     print(f"Hedonic (model-free): $168B")
+    json.dump(out, open(OUT / "dollar_robustness.json", "w"), indent=2)
+
+
+if __name__ == "__main__":
+    main()
