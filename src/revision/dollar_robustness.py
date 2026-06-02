@@ -18,3 +18,13 @@ from scipy import stats
 ROOT = Path(__file__).resolve().parent.parent.parent
 PROJ = ROOT / "data" / "projections"
 OUT = ROOT / "results" / "revision"
+rp = pd.read_csv(OUT / "real_prices_2023usd.csv"); PRICE = dict(zip(rp.iloc[:, 0], rp.iloc[:, 1]))
+SR = {"corn": -0.0662, "soybeans": -0.0560, "wheat_winter": -0.0420, "wheat_spring": -0.0420,
+      "cotton": -0.0662, "sorghum": -0.0662, "barley": -0.0420, "oats": -0.0420}
+
+
+def edd(tj, tg, thr=29.0):
+    return np.maximum(0, tj - thr) * 31 + np.maximum(0, tg - thr) * 60
+
+
+def county_stranded_ml(scen="SSP245", r=0.04, H=30):
