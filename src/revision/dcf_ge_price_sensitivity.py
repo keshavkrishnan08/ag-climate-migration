@@ -58,3 +58,12 @@ res = {
         "plus_1.0pct_yr_real": round(floored_total_under_g(0.010) * rescale, 1),
     },
     "interpretation": (
+        "Allowing the GE supply-contraction price feedback at +0.5%/yr real growth "
+        "raises the central stranded total by ~4% to $62B (still inside the "
+        "$52-80B field-crop convergence band; floors bind more often, dampening "
+        "pass-through). At an extreme +1.0%/yr the figure rises by ~9% to $65B. "
+        "The flat-price specification is therefore conservative."
+    ),
+}
+json.dump(res, open(OUT / "dcf_ge_price_sensitivity.json", "w"), indent=2)
+print(res["stranded_floored_B"])
