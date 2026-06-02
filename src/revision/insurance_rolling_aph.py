@@ -168,3 +168,13 @@ def build_yield_paths():
     cv["cv"] = (cv["std"] / cv["mean"]).clip(0.05, 0.50).fillna(0.20)
     return paths, cv[["fips", "crop", "cv"]]
 
+
+def simulate(rma, paths, cv):
+    """Simulate mispricing under frozen / rolling / rolling+TAY APH for each
+    projection year, anchored to observed premiums via the EI ratio.
+
+    For each county-crop and year t, we hold the revenue guarantee at
+    K = APH_method_t * coverage * price and compare the expected indemnity under
+    the TRUE expected yield (realized path at t) against the expected indemnity
+    the program implicitly prices (yield centered at APH_method_t). Mispricing
+    per acre = observed_premium * (EI_true / EI_priced - 1). Price and CV
