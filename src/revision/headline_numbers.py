@@ -48,3 +48,13 @@ market = jl("market_robustness.json") or {}
 
 HEADLINE = {
     "schema": ("Each entry maps a number CITED in the paper to its source script, input JSON, "
+               "and computed value. Reviewers verify reproducibility by running the named script "
+               "and checking the value against the JSON path."),
+
+    # === STRANDED VALUE ===
+    "stranded_conservative_DCF_B": {
+        "value": 52,
+        "source_script": "src/revision/stranded_revision.py",
+        "source_json": "results/revision/stranded_central_floored.parquet (groupby fips, sum)",
+        "computed_in": "substantive_experiments.json (cross-check)",
+        "cited": "main.tex abstract, Results Table 1, SI S0"},
