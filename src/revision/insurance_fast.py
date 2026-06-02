@@ -158,3 +158,13 @@ def main():
 
     print("=== Scenario robustness: SSP3-7.0 ===")
     try:
+        p2, c2 = build_paths("SSP370")
+        r370 = simulate_fast(rma, p2, c2, aph_window=10)
+        out["SSP370_window10"] = r370
+        print(f"  SSP370 residual_tay={r370['tay']['total_B']:.2f} (xsub {r370['tay']['xsub_B']:.2f})")
+    except Exception as e:
+        print("  SSP370 unavailable:", e)
+
+    with open(OUT / "insurance_robustness.json", "w") as f:
+        json.dump(out, f, indent=2)
+    print(f"\nSaved -> {OUT}/insurance_robustness.json")
