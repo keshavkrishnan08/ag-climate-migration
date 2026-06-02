@@ -18,3 +18,13 @@ Seed 42; writes only to results/revision/.
 """
 import json, sys
 from pathlib import Path
+import numpy as np, pandas as pd
+from scipy import stats
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "src" / "revision"))
+from insurance_rolling_aph import build_rma_county_crop
+from insurance_fast import build_paths, simulate_fast
+PROJ = ROOT / "data" / "projections"
+OUT = ROOT / "results" / "revision"
+np.random.seed(42)
