@@ -38,3 +38,13 @@ discount_lo, discount_hi = 0.03, 0.05
 
 def attenuation_path(start, end, t_target=2040, t_end=2050):
     out = []
+    for year in horizon:
+        if year <= t_target:
+            frac = (year - 2024) / (t_target - 2024)
+        else:
+            frac = 1.0
+        out.append(start + frac * (end - start))
+    return np.array(out)
+
+
+def mc_npv(beta_path_fn):
