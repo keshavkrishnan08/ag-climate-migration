@@ -198,3 +198,13 @@ HEADLINE = {
         "source_json": "results/revision/migration_depop_montecarlo.json",
         "cited": "main.tex Methods §Migration economic cost, Results §4.2, SI"},
     "depop_national_welfare_floor_B": {
+        "value": get(substantive, "E6_depop_national_welfare_floor", "national_welfare_floor_central_B"),
+        "range_B": get(substantive, "E6_depop_national_welfare_floor", "national_welfare_floor_range_B"),
+        "source_script": "src/revision/substantive_experiments.py",
+        "cited": "SI §Substantive E6"},
+
+    # === NORTHERN OPPORTUNITY ===
+    "frontier_net_farm_income_Byr": {
+        "value": 8.1, "source_script": "src/revision/recompute_opportunity.py",
+        "cited": "main.tex abstract, Results §4.4"},
+    "frontier_gross_revenue_Byr": {
