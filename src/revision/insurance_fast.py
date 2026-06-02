@@ -88,3 +88,13 @@ def simulate_fast(rma, paths, cv, aph_window=10, ye=False, ye_participation=0.0)
 
     flows = {"frozen": [], "roll": [], "tay": []}
     state = pd.Index(wide.index.get_level_values("fips")).str[:2].to_numpy()
+    rows = []
+    for T in range(WIN[0], WIN[1] + 1):
+        wcols = [y for y in range(T - aph_window, T)]
+        W = wide[wcols].values  # (n, window)
+        roll = np.nanmean(W, axis=1)
+        if ye:
+            # drop worst year in window for participating share; vectorize blended APH
+            Wsort = np.sort(W, axis=1)
+            roll_ye = np.nanmean(Wsort[:, 1:], axis=1)  # exclude minimum
+            roll = (1 - ye_participation) * roll + ye_participation * roll_ye
