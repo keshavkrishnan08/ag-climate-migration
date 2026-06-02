@@ -43,3 +43,12 @@ m=m[(m["lon"]>-125)&(m["lon"]<-66)&(m["lat"]>24)&(m["lat"]<50)]
 sc=axA.scatter(m["lon"],m["lat"],c=m["n_decline_indicators"],cmap="YlOrRd",s=14,edgecolor="none")
 axA.set_title("A  Decline indicators, farming-dependent counties"); axA.set_xticks([]); axA.set_yticks([])
 plt.colorbar(sc,ax=axA,shrink=0.7,label="# indicators (of 6)")
+# Panel B: marginal effects
+labs=list(me.keys()); vals=[me[k]["marginal_pp"] for k in labs]; ses=[1.96*me[k]["se_pp"] for k in labs]
+yp=np.arange(len(labs)); cols=["#b2182b" if v>0 else "#2166ac" for v in vals]
+axB.barh(yp,vals,xerr=ses,color=cols,alpha=0.85,capsize=3)
+axB.set_yticks(yp); axB.set_yticklabels(labs); axB.axvline(0,color="k",lw=0.8)
+axB.set_xlabel("Marginal effect on P(indicator), pp per +1 SD yield decline")
+axB.set_title("B  Marginal effect of yield decline on each indicator")
+fig.tight_layout(); fig.savefig(FIG/"fig07_cascade.pdf",dpi=200); fig.savefig(FIG/"fig07_cascade.png",dpi=150)
+print("saved fig07_cascade.pdf (marginal-effects Panel B)")
