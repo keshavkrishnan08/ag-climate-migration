@@ -78,3 +78,13 @@ HEADLINE = {
         "coefficient_stability_pct": get(hedonic, "coef_stability_pct"),
         "source_script": "src/revision/hedonic_strengthened.py",
         "source_json": "results/revision/hedonic_strengthened.json",
+        "cited": "main.tex Results §Stranded, SI S12, S14"},
+    "all_channel_upper_bound_B": {
+        "value": 168,
+        "DCF_scaled_route": get(hedonic, "implied_all_channel_from_dcf_B"),
+        "source_script": "src/revision/hedonic_strengthened.py",
+        "source_json": "results/revision/hedonic_strengthened.json",
+        "cited": "main.tex abstract, Results §Stranded, SI S12"},
+    "stranded_propagated_CI_B": {
+        "value": [37, 77],
+        "value_recomputed": get(ranged, "propagated_full_CI_B"),
