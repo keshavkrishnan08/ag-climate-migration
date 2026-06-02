@@ -38,3 +38,13 @@ def build():
 
     # climate 2019-2023 avg: July Tmax (F), growing precip
     m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet")
+    m["fips"] = m["fips"].astype(str).str.zfill(5)
+    m = m[m["year"].between(2019, 2023)].copy()
+    m["precip_growing"] = m[[f"precip_m{mm}" for mm in GROW]].sum(axis=1)
+    clim = m.groupby("fips", as_index=False).agg(tmax_july=("tmax_m07", "mean"),
+                                                 precip_growing=("precip_growing", "mean"))
+    # ACS controls
+    demo = pd.read_parquet(DATA_RAW / "census" / "acs_county_demographics.parquet",
+                           columns=["fips", "year", "total_population", "median_household_income"])
+    demo["fips"] = demo["fips"].astype(str).str.zfill(5)
+    demo = demo[demo["year"].between(2019, 2023)].groupby("fips", as_index=False).agg(
