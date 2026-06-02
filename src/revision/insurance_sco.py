@@ -48,3 +48,13 @@ sco_p_aw = sum(SCO_PARTICIPATION_BY_CROP[c] * liability_share[c] for c in SCO_PA
 
 # SCO mispricing addition: participation x (SCO liability band) x (per-coverage-unit density)
 sco_addition_B = sco_p_aw * COV_BAND_SCO * density_per_coverage_pt * SCO_LIABILITY_SHARE_OF_INDIV
+
+# Range across plausible participation (3-8% acreage-weighted), SCO liability share (0.2-0.4):
+lo = 0.03 * COV_BAND_SCO * density_per_coverage_pt * 0.20
+hi = 0.08 * COV_BAND_SCO * density_per_coverage_pt * 0.40
+
+out = {
+    "acreage_weighted_SCO_participation": round(sco_p_aw, 4),
+    "SCO_coverage_band_pp": round(COV_BAND_SCO * 100, 1),
+    "SCO_mispricing_addition_B": round(sco_addition_B, 3),
+    "SCO_addition_range_B": [round(lo, 3), round(hi, 3)],
