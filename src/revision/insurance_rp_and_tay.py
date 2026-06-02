@@ -98,3 +98,13 @@ def tay_participation_range():
     out = {}
     import insurance_fast as IF
     for frac in [0.0, 0.25, 0.5, 0.75, 1.0]:
+        IF.TAY_PARTICIPATION = {k: min(1.0, frac if frac <= 1 else v) for k, v in base.items()} \
+            if frac in (0.0, 1.0) else {k: frac for k in base}
+        r = simulate_fast(rma, paths, cv, aph_window=10)
+        out[f"participation_{int(frac*100)}pct"] = {"residual_B": r["tay"]["total_B"],
+                                                     "transfer_B": r["tay"]["xsub_B"]}
+    IF.TAY_PARTICIPATION = base
+    return out
+
+
+def main():
