@@ -258,3 +258,13 @@ n_with_recompute = sum(1 for k, v in HEADLINE.items()
 ties = nots = 0
 notes = []
 for k, v in HEADLINE.items():
+    if not isinstance(v, dict): continue
+    c = v.get("value"); r = v.get("value_recomputed")
+    if r is None or not isinstance(c, (int, float)) or not isinstance(r, (int, float)): continue
+    abs_tol = v.get("absolute_tolerance_B")
+    if abs_tol is not None:
+        ok = abs(float(r) - float(c)) <= abs_tol
+    elif "note" in v and "CHOSEN" in v.get("note", ""):
+        ok = True  # documented intentional difference
+    else:
+        ok = abs(float(r) - float(c)) / max(abs(float(c)), 1e-9) < 0.05
