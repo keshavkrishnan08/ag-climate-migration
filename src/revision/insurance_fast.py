@@ -28,3 +28,13 @@ from insurance_rolling_aph import (build_rma_county_crop, PRICE, LOADING, MAX_RA
                                     TAY_PARTICIPATION, TAY_LAG_YEARS)
 
 DATA_PROCESSED = ROOT / "data" / "processed"
+PROJ = ROOT / "data" / "projections"
+OUT = ROOT / "results" / "revision"
+np.random.seed(42)
+WIN = (2040, 2050)
+
+
+def expected_indemnity_vec(K, mu, sigma):
+    sigma = np.maximum(sigma, 1.0)
+    z = (K - mu) / sigma
+    return np.maximum((K - mu) * stats.norm.cdf(z) + sigma * stats.norm.pdf(z), 0.0)
