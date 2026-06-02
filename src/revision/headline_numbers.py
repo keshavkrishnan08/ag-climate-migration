@@ -108,3 +108,13 @@ HEADLINE = {
         "value": 4.6, "value_recomputed": get(ins_dec, "rolling_total_B"),
         "source_script": "src/revision/insurance_rolling_aph.py",
         "source_json": "results/revision/insurance_decomposition.json"},
+    "insurance_residual_TAY_total_B": {
+        "value": 3.7, "value_recomputed": get(ins_dec, "residual_tay_total_B"),
+        "source_script": "src/revision/insurance_rolling_aph.py",
+        "source_json": "results/revision/insurance_decomposition.json",
+        "cited": "main.tex abstract, Results §4.3, Table insurance_flows"},
+    "insurance_transfer_B": {
+        "value": 1.6, "value_recomputed": get(ins_dec, "residual_tay_xsub_B"),
+        "source_script": "src/revision/insurance_rolling_aph.py",
+        "source_json": "results/revision/insurance_decomposition.json"},
+    "insurance_RP_residual_B": {
