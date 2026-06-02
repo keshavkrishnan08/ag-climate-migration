@@ -58,3 +58,13 @@ def build():
     fm = pd.read_parquet(DATA_PROC / "feature_matrix.parquet", columns=["fips", "crop", "yield_bu_acre"])
     fm["fips"] = fm["fips"].astype(str).str.zfill(5)
     corn = fm[fm["crop"] == "corn"].groupby("fips")["yield_bu_acre"].max()
+    nccpi = (corn / corn.max()).rename("nccpi").reset_index()
+
+    df = (lv.merge(clim, on="fips").merge(demo[["fips", "log_pop", "log_inc"]], on="fips")
+          .merge(soil, on="fips", how="left").merge(irrc, on="fips", how="left")
+          .merge(nccpi, on="fips", how="left"))
+    df["state"] = df["fips"].str[:2]
+    df["tmax_july_sq"] = df["tmax_july"] ** 2
+    df["log_land_value"] = np.log(df["land_value_per_acre"])
+    for c in ["ssurgo_aws", "irr_share", "nccpi"]:
+        df[c] = df[c].fillna(df[c].median())
