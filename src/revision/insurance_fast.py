@@ -168,3 +168,7 @@ def main():
     with open(OUT / "insurance_robustness.json", "w") as f:
         json.dump(out, f, indent=2)
     print(f"\nSaved -> {OUT}/insurance_robustness.json")
+
+
+if __name__ == "__main__":
+    main()
