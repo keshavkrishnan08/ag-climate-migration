@@ -18,3 +18,13 @@ import json, sys
 from pathlib import Path
 import numpy as np, pandas as pd
 
+ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "src" / "revision"))
+from insurance_rolling_aph import build_rma_county_crop, PRICE, TAY_LAG_YEARS
+from insurance_fast import build_paths, simulate_fast, TAY_PARTICIPATION
+OUT = ROOT / "results" / "revision"
+np.random.seed(42)
+WIN = (2040, 2050)
+PRICE_VOL = 0.20      # harvest-price lognormal vol (RMA volatility factors ~0.15-0.30)
+YIELD_PRICE_CORR = -0.30   # natural hedge: low yields <-> high prices
+
