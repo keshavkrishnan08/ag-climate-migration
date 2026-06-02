@@ -48,3 +48,13 @@ res = {
     "discount_rate": r,
     "horizon_years": H,
     "annuity_multipliers_vs_flat": {
+        "g_0.0pct": round(annuity_factor(r, 0.000, H) / base, 3),
+        "g_0.5pct": round(annuity_factor(r, 0.005, H) / base, 3),
+        "g_1.0pct": round(annuity_factor(r, 0.010, H) / base, 3),
+    },
+    "stranded_floored_B": {
+        "flat_real_prices": round(floored_total_under_g(0.000) * rescale, 1),
+        "plus_0.5pct_yr_real": round(floored_total_under_g(0.005) * rescale, 1),
+        "plus_1.0pct_yr_real": round(floored_total_under_g(0.010) * rescale, 1),
+    },
+    "interpretation": (
