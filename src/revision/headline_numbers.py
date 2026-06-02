@@ -238,3 +238,13 @@ HEADLINE = {
         "value": "<0.001",
         "source_script": "src/revision/framework_common_driver.py"},
     "common_cause_decline_p_July_Tmax": {
+        "value": "<0.001",
+        "source_script": "src/revision/framework_common_driver.py"},
+    "common_cause_opportunity_HC1_p": {
+        "value": 0.005,
+        "source_script": "src/revision/framework_common_driver.py"},
+    "stranded_no_indirect_multiplier_B": {
+        "values_range": get(substantive, "E9_dcf_no_indirect_multiplier"),
+        "source_script": "src/revision/substantive_experiments.py",
+        "cited": "SI §Substantive E9"},
+}
