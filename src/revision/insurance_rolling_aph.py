@@ -278,3 +278,13 @@ def main():
     paths, cv = build_yield_paths()
 
     print("Simulating frozen / rolling / rolling+TAY...")
+    per_year, cy = simulate(rma, paths, cv)
+    win = per_year[per_year["year"].between(*WINDOW)]
+
+    headline = {
+        "acreage_weighted_coverage": float(natl_cov),
+        "revenue_protection_acre_share": float(natl_rp),
+        "window": list(WINDOW),
+        "gross_frozen_total_B": float(win["frozen_total"].mean() / 1e9),
+        "gross_frozen_xsub_B": float(win["frozen_xsub"].mean() / 1e9),
+        "rolling_total_B": float(win["roll_total"].mean() / 1e9),
