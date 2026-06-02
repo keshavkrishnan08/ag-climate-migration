@@ -198,3 +198,13 @@ def simulate(rma, paths, cv):
     for (fips, crop), d in paths.groupby(["fips", "crop"], sort=False):
         d = d.sort_values("year")
         yr = d["year"].values
+        y = d["y"].values
+        price = PRICE.get(crop, 4.0)
+        cvv = d["cv"].iloc[0]
+        cov = float(d["cov_wt"].iloc[0])
+        prem = float(d["prem_per_acre"].iloc[0])
+        acres = float(d["insured_acres"].iloc[0])
+        aph_frozen = float(d["aph_frozen"].iloc[0])
+        if not np.isfinite(aph_frozen) or aph_frozen <= 0:
+            continue
+        sigma = aph_frozen * cvv * price          # fixed interannual revenue risk
