@@ -188,3 +188,13 @@ HEADLINE = {
         "source_script": "src/revision/substantive_experiments.py",
         "cited": "SI §Substantive E3-E4"},
     "depop_NPV_central_B": {
+        "value": 18,
+        "note": "$18B is a CHOSEN conservative central below the propagated MC median; MC median = $22B is the auto-verified statistic.",
+        "value_recomputed": get(mig_dep, "npv_central_median_B"),
+        "MC_median_B": get(mig_dep, "npv_central_median_B"),
+        "MC_90CI_B": get(mig_dep, "npv_ci90_B"),
+        "workers_only_floor_B": get(mig_dep, "npv_workers_only_floor_median_B"),
+        "source_script": "src/revision/migration_depop_montecarlo.py",
+        "source_json": "results/revision/migration_depop_montecarlo.json",
+        "cited": "main.tex Methods §Migration economic cost, Results §4.2, SI"},
+    "depop_national_welfare_floor_B": {
