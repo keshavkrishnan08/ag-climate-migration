@@ -78,3 +78,13 @@ def main():
     print("=== (1) Endogenous coverage selection test (WLS, crop FE, acre-weighted) ===")
     print(f"  beta(stress) = {beta_stress:+.4f}  SE={se_stress:.4f}  p={p:.4f}  n={len(df)}")
     print(f"  => a +10pp projected yield decline is associated with {effect_10pp*100:+.2f}pp coverage")
+
+    # (2) Quantify bias: transfer under ACTUAL vs UNIFORM coverage
+    paths, cv = build_paths("SSP245")
+    res_actual = simulate_fast(rma, paths, cv, aph_window=10)            # endogenous elections
+    natl_cov = float(np.average(rma["cov_wt"], weights=rma["insured_acres"]))
+    rma_uniform = rma.copy(); rma_uniform["cov_wt"] = natl_cov           # counterfactual uniform
+    res_uniform = simulate_fast(rma_uniform, paths, cv, aph_window=10)
+
+    out = {
+        "selection_test": {"beta_stress": float(beta_stress), "se": float(se_stress),
