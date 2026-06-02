@@ -218,3 +218,13 @@ def simulate(rma, paths, cv):
             # county yield trend over the trailing window (RMA TAY uses a linear trend)
             yy = y[mask_win]; xx = yr[mask_win]
             slope = np.polyfit(xx, yy, 1)[0] if mask_win.sum() >= 4 else 0.0
+            aph_tay = roll + ptay * slope * TAY_LAG_YEARS
+            true_y = float(y[yr == t][0]) if (yr == t).any() else roll
+
+            def mp(aph):
+                K = aph * cov * price
+                ei_true = expected_indemnity(K, true_y * price, sigma)
+                ei_priced = expected_indemnity(K, aph * price, sigma)
+                if ei_priced < 1e-6:
+                    ratio = 1.0 if ei_true < 1e-6 else MAX_RATIO
+                else:
