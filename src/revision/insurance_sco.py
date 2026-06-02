@@ -58,3 +58,13 @@ out = {
     "SCO_coverage_band_pp": round(COV_BAND_SCO * 100, 1),
     "SCO_mispricing_addition_B": round(sco_addition_B, 3),
     "SCO_addition_range_B": [round(lo, 3), round(hi, 3)],
+    "interpretation": ("SCO inherits the APH-equivalent county baseline; it extends the "
+                       "under-priced coverage band by ~12 pp at ~5% acreage participation, "
+                       "adding $0.01B/yr (range $0.00-0.02B) to the residual. This is below "
+                       "the $0.1B rounding of the $3.7B headline and is reported in the SI."),
+    "decomposition_with_SCO": {
+        "gross_frozen_B": 6.6, "rolling_absorb_B": -2.0, "TAY_absorb_B": -0.9,
+        "SCO_add_B": round(sco_addition_B, 2),
+        "residual_with_SCO_B": round(6.6 - 2.0 - 0.9 + sco_addition_B, 2),
+    },
+}
