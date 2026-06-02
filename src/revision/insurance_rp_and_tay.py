@@ -78,3 +78,13 @@ def rp_vs_yp_climate_mispricing():
         # mispricing per acre anchored to observed premium: prem*(EI_true/EI_roll - 1)
         def mp(eit, eir):
             ratio = np.where(eir < 1e-6, np.where(eit < 1e-6, 1.0, 5.0),
+                             np.minimum(eit / np.maximum(eir, 1e-9), 5.0))
+            v = prem * (ratio - 1.0) * acres
+            return np.where(valid & np.isfinite(v), v, 0.0)
+        yp_flow.append(mp(ei_yp_true, ei_yp_roll))
+        rp_flow.append(mp(ei_rp_true, ei_rp_roll))
+    yp = np.mean(yp_flow, axis=0); rp = np.mean(rp_flow, axis=0)
+    def agg(v):
+        up = v[v > 0].sum(); ov = -v[v < 0].sum()
+        return {"total_B": (up + ov) / 1e9, "xsub_B": min(up, ov) / 1e9}
+    return {"YP_yield_put": agg(yp), "RP_revenue_put": agg(rp)}
