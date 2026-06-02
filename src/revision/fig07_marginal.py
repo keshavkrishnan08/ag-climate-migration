@@ -34,3 +34,12 @@ json.dump(me,open(OUT/"fig7b_marginal_effects.json","w"),indent=2)
 print("marginal effects (pp per +1SD yield decline):")
 for k,v in me.items(): print(f"  {k}: {v['marginal_pp']:+.1f}pp (p={v['p']:.3f})")
 # ---- figure ----
+fig,(axA,axB)=plt.subplots(1,2,figsize=(13,5))
+# Panel A: geographic (lon/lat scatter from gazetteer)
+gaz=pd.read_csv("data/raw/census/2023_Gaz_counties_national.txt",sep="\t",dtype=str); gaz.columns=[c.strip() for c in gaz.columns]
+gaz["fips"]=gaz["GEOID"].str.zfill(5); gaz["lat"]=pd.to_numeric(gaz["INTPTLAT"],errors="coerce"); gaz["lon"]=pd.to_numeric(gaz["INTPTLONG"],errors="coerce")
+m=di[di["farm_dependent"]==1].merge(gaz[["fips","lat","lon"]],on="fips",how="left")
+m=m[(m["lon"]>-125)&(m["lon"]<-66)&(m["lat"]>24)&(m["lat"]<50)]
+sc=axA.scatter(m["lon"],m["lat"],c=m["n_decline_indicators"],cmap="YlOrRd",s=14,edgecolor="none")
+axA.set_title("A  Decline indicators, farming-dependent counties"); axA.set_xticks([]); axA.set_yticks([])
+plt.colorbar(sc,ax=axA,shrink=0.7,label="# indicators (of 6)")
