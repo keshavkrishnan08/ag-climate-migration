@@ -28,3 +28,13 @@ cy=pd.read_parquet(OUT/"insurance_mispricing_county_year.parquet")
 cyn=cy[cy.year.between(2040,2050)].groupby("fips")["flow_tay"].mean().rename("net_flow").reset_index()
 cyn["fips"]=cyn["fips"].astype(str).str.zfill(5)
 front=pd.read_csv("results/frontier/opportunity_counties_SSP245.csv",dtype={"fips":str}); front["fips"]=front["fips"].str.zfill(5)
+fset=set(front["fips"])
+# L1: overpriced outflow total vs from frontier counties
+over=cyn[cyn["net_flow"]<0].copy(); over["outflow"]=-over["net_flow"]
+total_outflow=over["outflow"].sum(); frontier_outflow=over[over["fips"].isin(fset)]["outflow"].sum()
+L1={"total_overpriced_outflow_B":float(total_outflow/1e9),
+    "from_frontier_counties_B":float(frontier_outflow/1e9),
+    "frontier_share_pct":float(100*frontier_outflow/total_outflow) if total_outflow>0 else None,
+    "n_frontier_overpriced":int(over["fips"].isin(fset).sum())}
+
+# L2: stranded exposure -> decline indicators (farming-dependent)
