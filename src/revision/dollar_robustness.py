@@ -58,3 +58,13 @@ def county_stranded_process(scen="SSP245", climfile="county_climate_projections.
 
 def main():
     ml = county_stranded_ml(); proc = county_stranded_process()
+    df = pd.concat([ml, proc], axis=1).fillna(0)
+    pos = df[(df["ml"] > 0) | (df["proc"] > 0)]
+    tot_ml = df.loc[df["ml"] > 0, "ml"].sum() / 1e9
+    tot_proc = df.loc[df["proc"] > 0, "proc"].sum() / 1e9
+    # spatial robustness: rank correlation over counties exposed by either method
+    rho = stats.spearmanr(pos["ml"], pos["proc"]).correlation
+    # top-50 county overlap
+    top_ml = set(df["ml"].sort_values(ascending=False).head(100).index)
+    top_proc = set(df["proc"].sort_values(ascending=False).head(100).index)
+    overlap = len(top_ml & top_proc) / 100
