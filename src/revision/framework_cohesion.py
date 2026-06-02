@@ -58,3 +58,13 @@ m["fdep"]=m["fdep"].fillna(0).astype(int)
 m=m[(m["fdep"]==1)&m["switch"].notna()&m["stranded_per_acre"].notna()&np.isfinite(m["stranded_per_acre"])]
 m["under"]=(m["net_flow"]>0).astype(float)   # 1 = underpriced/subsidized
 m["stress_std"]=(m["stranded_per_acre"]-m["stranded_per_acre"].mean())/m["stranded_per_acre"].std()
+X=np.column_stack([np.ones(len(m)),m["under"].values,m["stress_std"].values])
+b,se=hc1(m["switch"].astype(float).values,X)
+L3={"beta_underpriced_on_switching":float(b[1]),"se":float(se[1]),"p":float(2*(1-stats.norm.cdf(abs(b[1]/se[1])))),
+    "controls":"climate stress (stranded per acre)","n":int(len(m)),
+    "interpretation":"negative beta => subsidized/underpriced counties switch crops less (insurance impedes adaptation)"}
+out={"L1_insurance_to_frontier":L1,"L2_stranded_to_decline":L2,"L3_insurance_to_adaptation":L3}
+json.dump(out,open(OUT/"framework_cohesion.json","w"),indent=2)
+print("L1 insurance->frontier: %.1f%% of overpriced outflow ($%.2fB) comes from the 514 frontier counties (n=%d)"%(L1["frontier_share_pct"],L1["from_frontier_counties_B"],L1["n_frontier_overpriced"]))
+print("L2 stranded->decline: +%.2f more decline indicators per 1 SD stranded exposure (p=%.4f, n=%d)"%(L2["beta_per_1sd_stranded"],L2["p"],L2["n"]))
+print("L3 insurance->adaptation: underpriced counties switch %.4f %s (p=%.4f, n=%d)"%(L3["beta_underpriced_on_switching"],"LESS" if L3["beta_underpriced_on_switching"]<0 else "MORE",L3["p"],L3["n"]))
