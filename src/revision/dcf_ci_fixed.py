@@ -48,3 +48,13 @@ def main(n=2000):
     def draw(idio, spat, gcm):
         out = np.empty(n)
         for k in range(n):
+            f = np.ones(len(pv))
+            if idio:
+                f *= np.exp(np.random.normal(0, SIG_IDIO, len(pv)) - SIG_IDIO**2 / 2)
+            if spat:
+                for s in uniq:
+                    sh = np.exp(np.random.normal(0, SIG_SPAT) - SIG_SPAT**2 / 2)
+                    f[sidx[s]] *= sh
+            if gcm:
+                f *= np.exp(np.random.normal(0, gcm_rel) - gcm_rel**2 / 2)
+            out[k] = (pv * f).sum() / 1e9
