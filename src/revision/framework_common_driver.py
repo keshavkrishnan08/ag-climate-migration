@@ -28,3 +28,13 @@ OUT = Path("results/revision")
 
 def hc1(y, X):
     b, *_ = np.linalg.lstsq(X, y, rcond=None)
+    r = y - X @ b
+    XtXi = np.linalg.inv(X.T @ X)
+    cov = XtXi @ ((X * (r ** 2)[:, None]).T @ X) @ XtXi * (len(y) / (len(y) - X.shape[1]))
+    se = np.sqrt(np.diag(cov))
+    return b, se
+
+def z(s):
+    s = pd.to_numeric(s, errors="coerce")
+    return (s - s.mean()) / s.std()
+
