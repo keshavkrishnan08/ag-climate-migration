@@ -118,3 +118,13 @@ def build_rma_county_crop():
     # Revenue plans: 02 RP, 03 RPHPE, 32/33 SCO-RP, 25 RA, 44 CRC. Yield: 01 YP, 31 SCO-YP.
     rev_plans = {"02", "03", "25", "44", "32", "33"}
     rma["is_rev"] = rma["plan_code"].astype(str).str.zfill(2).isin(rev_plans)
+
+    g = rma.groupby(["fips", "crop"])
+    out = pd.DataFrame({
+        "insured_acres": g["acres"].sum() / rma.groupby(["fips", "crop"])["year"].nunique(),
+        "cov_wt": g.apply(lambda d: np.average(d["cl"], weights=d["acres"]), include_groups=False),
+        "rp_acres": rma[rma.is_rev].groupby(["fips", "crop"])["acres"].sum(),
+        "tot_acres": g["acres"].sum(),
+        "prem_sum": g["total_premium"].sum(),
+        "acre_sum": g["acres"].sum(),
+    }).reset_index()
