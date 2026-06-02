@@ -68,3 +68,13 @@ st["exposure_edd"] = st["mean_delta_edd"]
 
 # ---- C2 insurance net underpricing per county (2040-2050 mean) ----
 cy = pd.read_parquet(OUT / "insurance_mispricing_county_year.parquet")
+cy["fips"] = cy["fips"].astype(str).str.zfill(5)
+ins = cy[cy.year.between(2040, 2050)].groupby("fips")["flow_tay"].mean().rename("net_underpricing").reset_index()
+
+# ---- C3 decline indicators ----
+di = pd.read_csv("data/published_dataset/county_decline_indicators.csv", dtype={"fips": str})
+di["fips"] = di["fips"].str.zfill(5)
+
+# ---- C4 frontier opportunity ----
+fr = pd.read_csv("results/frontier/opportunity_counties_SSP245.csv", dtype={"fips": str})
+fr["fips"] = fr["fips"].str.zfill(5)
