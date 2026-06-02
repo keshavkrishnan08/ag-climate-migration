@@ -48,3 +48,13 @@ def climate_stress():
 
 def wls(y, X, w):
     """Weighted least squares with HC1 SE. X includes intercept."""
+    W = np.sqrt(w)
+    Xw = X * W[:, None]; yw = y * W
+    b, *_ = np.linalg.lstsq(Xw, yw, rcond=None)
+    resid = y - X @ b
+    XtWX_inv = np.linalg.inv((X * w[:, None]).T @ X)
+    meat = (X * (w * resid**2)[:, None]).T @ X
+    cov = XtWX_inv @ meat @ XtWX_inv
+    se = np.sqrt(np.diag(cov))
+    return b, se
+
