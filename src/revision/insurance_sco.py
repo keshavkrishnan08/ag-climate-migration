@@ -68,3 +68,11 @@ out = {
         "residual_with_SCO_B": round(6.6 - 2.0 - 0.9 + sco_addition_B, 2),
     },
 }
+json.dump(out, open(OUT / "insurance_sco.json", "w"), indent=2)
+print("SCO contribution to insurance decomposition:")
+print("  acreage-weighted SCO participation     = %.1f%%" % (sco_p_aw * 100))
+print("  SCO coverage band (above underlying)   = %.1f pp" % (COV_BAND_SCO * 100))
+print("  SCO mispricing addition                = $%.2fB/yr (range $%.2f-%.2fB)"
+      % (sco_addition_B, lo, hi))
+print("  residual incl. SCO                     = $%.2fB/yr (vs $3.7B without)"
+      % out["decomposition_with_SCO"]["residual_with_SCO_B"])
