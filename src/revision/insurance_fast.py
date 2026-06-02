@@ -58,3 +58,13 @@ def build_paths(scenario):
     cv["cv"] = (cv["std"] / cv["mean"]).clip(0.05, 0.50).fillna(0.20)
     return paths, cv[["fips", "crop", "cv"]]
 
+
+def simulate_fast(rma, paths, cv, aph_window=10, ye=False, ye_participation=0.0):
+    """Vectorized decomposition. Returns dict of $B/yr averaged over WIN."""
+    keys = rma[["fips", "crop"]].drop_duplicates()
+    paths = paths.merge(keys, on=["fips", "crop"], how="inner")
+    wide = paths.pivot_table(index=["fips", "crop"], columns="year", values="y", aggfunc="first")
+    years_needed = list(range(WIN[0] - aph_window, WIN[1] + 1))
+    for y in years_needed:
+        if y not in wide.columns:
+            wide[y] = np.nan
