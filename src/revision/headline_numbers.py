@@ -248,3 +248,13 @@ HEADLINE = {
         "source_script": "src/revision/substantive_experiments.py",
         "cited": "SI §Substantive E9"},
 }
+
+json.dump(HEADLINE, open(OUT / "HEADLINE_NUMBERS.json", "w"), indent=2, default=str)
+n_keys = len(HEADLINE) - 1
+n_with_recompute = sum(1 for k, v in HEADLINE.items()
+                       if isinstance(v, dict) and ("value_recomputed" in v or "values" in v))
+
+# Tolerance-aware tie check: use absolute_tolerance_B when specified, else 5% relative
+ties = nots = 0
+notes = []
+for k, v in HEADLINE.items():
