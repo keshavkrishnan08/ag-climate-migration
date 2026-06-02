@@ -128,3 +128,13 @@ def build_rma_county_crop():
         "prem_sum": g["total_premium"].sum(),
         "acre_sum": g["acres"].sum(),
     }).reset_index()
+    out["rp_acres"] = out["rp_acres"].fillna(0.0)
+    out["rp_share"] = out["rp_acres"] / out["tot_acres"].replace(0, np.nan)
+    out["yp_share"] = 1.0 - out["rp_share"]
+    out["prem_per_acre"] = out["prem_sum"] / out["acre_sum"].replace(0, np.nan)
+    out = out[out["insured_acres"] > 0].dropna(subset=["cov_wt", "prem_per_acre"])
+    return out[["fips", "crop", "cov_wt", "rp_share", "yp_share",
+                "prem_per_acre", "insured_acres"]]
+
+
+def build_yield_paths():
