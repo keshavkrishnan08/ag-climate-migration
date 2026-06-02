@@ -38,3 +38,13 @@ def county_stranded_ml(scen="SSP245", r=0.04, H=30):
 
 
 def county_stranded_process(scen="SSP245", climfile="county_climate_projections.parquet", r=0.04, H=30):
+    yp = pd.read_parquet(PROJ / f"yield_projections_{scen}.parquet")
+    yp["fips"] = yp["fips"].astype(str).str.zfill(5)
+    cl = pd.read_parquet(PROJ / climfile, columns=["fips", "year", "tmax_july_projected",
+         "delta_tmax_july", "tmax_growing_projected", "delta_tmax_growing"])
+    cl["fips"] = cl["fips"].astype(str).str.zfill(5)
+    f2c = lambda f: (f - 32) * 5 / 9
+    cl["dedd"] = (edd(f2c(cl.tmax_july_projected), f2c(cl.tmax_growing_projected))
+                  - edd(f2c(cl.tmax_july_projected - cl.delta_tmax_july),
+                        f2c(cl.tmax_growing_projected - cl.delta_tmax_growing))).clip(lower=0)
+    yp = yp.merge(cl[["fips", "year", "dedd"]], on=["fips", "year"], how="left")
