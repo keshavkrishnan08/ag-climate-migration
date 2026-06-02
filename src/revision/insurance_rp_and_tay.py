@@ -58,3 +58,13 @@ def rp_vs_yp_climate_mispricing():
         z = rng.standard_normal((len(aph_frozen), N))
         zp = rng.standard_normal((len(aph_frozen), N))
         for label, aph in [("true", true_y), ("roll", roll)]:
+            sd = aph_frozen * cvv                      # yield sd (bu)
+            ydraw = np.maximum(aph[:, None] + sd[:, None] * z, 0) if label == "roll" \
+                    else np.maximum(true_y[:, None] + sd[:, None] * z, 0)
+            # YP: indemnity = price * max(K_yield - yield, 0), K_yield = APH_roll*cov
+            K_y = roll * cov
+            ind_yp = price[:, None] * np.maximum(K_y[:, None] - ydraw, 0)
+            # RP: harvest price lognormal, corr with yield; guarantee revenue with reset
+            eps = YIELD_PRICE_CORR * z + np.sqrt(1 - YIELD_PRICE_CORR**2) * zp
+            ph = price[:, None] * np.exp(PRICE_VOL * eps - 0.5 * PRICE_VOL**2)
+            guar = roll[:, None] * cov[:, None] * np.maximum(price[:, None], ph)   # harvest-price reset
