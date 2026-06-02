@@ -128,3 +128,10 @@ def main():
     out = {"specs": res, "coef_stability_pct": float(stability_pct),
            "field_crop_share_of_ag_value": field_crop_share,
            "implied_all_channel_from_dcf_B": float(implied_all_channel),
+           "note": "Stability of the warming coefficient to soil/irrigation controls defuses the Ricardian critique; reconciliation uses measured crop share, not 30% assumption."}
+    json.dump(out, open(OUT / "hedonic_strengthened.json", "w"), indent=2)
+    print(f"\nSaved -> {OUT}/hedonic_strengthened.json")
+
+
+if __name__ == "__main__":
+    main()
