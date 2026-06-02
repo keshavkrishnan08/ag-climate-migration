@@ -38,3 +38,13 @@ mig_wcb = jl("migration_wildbootstrap.json") or {}
 mig_sbl = jl("migration_share_balance.json") or {}
 mig_dep = jl("migration_depop_montecarlo.json") or {}
 mig_fc = jl("migration_fiscal_chain.json") or {}
+mig_fd = jl("migration_farmdependent.json") or {}
+mig_hi = jl("migration_high_tercile_2sls.json") or {}
+mig_inf = jl("migration_inference_robust.json") or {}
+yield_dec = jl("audit_yield_target_decomp.json") or {}
+common = jl("framework_common_driver.json") or {}
+substantive = jl("substantive_experiments.json") or {}
+market = jl("market_robustness.json") or {}
+
+HEADLINE = {
+    "schema": ("Each entry maps a number CITED in the paper to its source script, input JSON, "
