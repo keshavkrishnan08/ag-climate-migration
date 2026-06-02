@@ -298,3 +298,13 @@ def main():
         headline["rolling_total_B"] - headline["residual_tay_total_B"])
     headline["coverage_sensitivity_residual_B"] = coverage_sensitivity(rma, paths, cv)
 
+    print("\n=== INSURANCE MISPRICING DECOMPOSITION (avg over 2040-2050, $B/yr) ===")
+    print(f"  Gross gap (frozen APH, original method):        "
+          f"{headline['gross_frozen_total_B']:.2f}  (xsub {headline['gross_frozen_xsub_B']:.2f})")
+    print(f"   - absorbed mechanically by rolling APH window: "
+          f"-{headline['mechanical_absorption_B']:.2f}")
+    print(f"  After rolling APH:                              "
+          f"{headline['rolling_total_B']:.2f}  (xsub {headline['rolling_xsub_B']:.2f})")
+    print(f"   - absorbed by TAY at current participation:    "
+          f"-{headline['tay_absorption_B']:.2f}")
+    print(f"  RESIDUAL (reform-eliminable, NEW HEADLINE):     "
