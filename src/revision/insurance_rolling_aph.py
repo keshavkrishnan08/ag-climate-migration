@@ -68,3 +68,13 @@ MAX_RATIO = 5.0
 APH_WINDOW = 10           # RMA APH uses up to 10 years
 TAY_LAG_YEARS = 5.5       # mean age of APH years -> TAY adds trend*lag
 # TAY participation by crop (share of insured acres carrying a trend-adjusted
+# endorsement). Corn/soy in the Corn Belt have high uptake; small grains lower.
+# Documented as a parameter; sensitivity reported in the summary.
+TAY_PARTICIPATION = {
+    "corn": 0.55, "soybeans": 0.55, "wheat_winter": 0.35, "wheat_spring": 0.35,
+    "sorghum": 0.30, "barley": 0.30, "oats": 0.20, "cotton": 0.30,
+}
+WINDOW = (2040, 2050)     # headline window (matches original $5.9B definition)
+
+
+def expected_indemnity(K, mu, sigma):
