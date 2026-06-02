@@ -58,3 +58,13 @@ def main(n=2000):
             if gcm:
                 f *= np.exp(np.random.normal(0, gcm_rel) - gcm_rel**2 / 2)
             out[k] = (pv * f).sum() / 1e9
+        return [float(np.percentile(out, 2.5)), float(np.percentile(out, 97.5))]
+
+    res = {"point_estimate_B": float(point),
+           "ci_idiosyncratic_only": draw(True, False, False),
+           "ci_plus_spatial": draw(True, True, False),
+           "ci_full": draw(True, True, True),
+           "sig_idio": SIG_IDIO, "sig_spatial": SIG_SPAT, "n_draws": n,
+           "n_stranded_counties": int(len(pv))}
+    print("point  $%.1fB" % point)
+    print("idio   ", [round(x, 1) for x in res["ci_idiosyncratic_only"]])
