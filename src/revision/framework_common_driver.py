@@ -48,3 +48,13 @@ def reg(df, yname, xname, label, expect):
     return {"channel": label, "beta_per_1sd": float(b[1]), "se": float(se[1]),
             "p": float(p), "n": int(len(d)), "sign_as_predicted": bool(sign_ok)}
 
+def fdep():
+    cc = pd.read_csv("data/raw/other/ers_atlas/CountyClassifications.csv", dtype=str, encoding="latin-1")
+    cc = cc.rename(columns={cc.columns[0]: "fips"}); cc["fips"] = cc["fips"].str.zfill(5)
+    f = cc[cc["Attribute"] == "Type_2015_Farming_NO"][["fips", "Value"]]
+    f["fdep"] = (f["Value"] == "1").astype(int)
+    return f[["fips", "fdep"]]
+
+# ---- exposure driver + stranded (central floored scenario) ----
+st = pd.read_parquet(OUT / "stranded_central_floored.parquet")
+# collapse to one row per county at the central scenario if multiple present
