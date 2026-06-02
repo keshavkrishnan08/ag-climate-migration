@@ -68,3 +68,13 @@ def mc_npv(beta_path_fn):
         sl = slice(i, i + 5000)
         b = beta0[sl][:, None]              # (chunk, 1)
         inc = u_inc[sl][:, None]
+        hh = u_hh[sl][:, None]
+        pc = u_pc[sl][:, None]
+        m = u_m[sl][:, None]
+        d = u_d[sl][:, None]
+
+        # Time-varying beta multiplier: beta(t) / beta_hat.
+        bt = beta_path_fn() / beta_hat        # (years,)
+        D_y = b * bt[None, :] * inc * prime_age_base * (yrs[None, :] / Hsq)
+        flow = D_y * hh * pc * m
+        disc = (1 + d) ** yrs[None, :]
