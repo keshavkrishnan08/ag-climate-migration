@@ -98,3 +98,13 @@ def simulate_fast(rma, paths, cv, aph_window=10, ye=False, ye_participation=0.0)
             Wsort = np.sort(W, axis=1)
             roll_ye = np.nanmean(Wsort[:, 1:], axis=1)  # exclude minimum
             roll = (1 - ye_participation) * roll + ye_participation * roll_ye
+        # trailing slope (OLS) vectorized
+        x = np.array(wcols, dtype=float); xm = x.mean(); xc = x - xm
+        denom = np.sum(xc ** 2)
+        slope = np.nansum((W - np.nanmean(W, axis=1, keepdims=True)) * xc, axis=1) / denom
+        aph_tay = roll + ptay * slope * TAY_LAG_YEARS
+        true_y = wide[T].values if T in wide.columns else roll
+
+        def mp(aph):
+            K = aph * cov * price
+            ei_true = expected_indemnity_vec(K, true_y * price, sigma)
