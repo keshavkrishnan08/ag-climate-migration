@@ -108,3 +108,13 @@ def simulate_fast(rma, paths, cv, aph_window=10, ye=False, ye_participation=0.0)
         def mp(aph):
             K = aph * cov * price
             ei_true = expected_indemnity_vec(K, true_y * price, sigma)
+            ei_pr = expected_indemnity_vec(K, aph * price, sigma)
+            ratio = np.where(ei_pr < 1e-6, np.where(ei_true < 1e-6, 1.0, MAX_RATIO),
+                             np.minimum(ei_true / np.maximum(ei_pr, 1e-9), MAX_RATIO))
+            return prem * (ratio - 1.0) * acres
+
+        f = {"frozen": mp(aph_frozen), "roll": mp(roll), "tay": mp(aph_tay)}
+        for m in flows:
+            v = f[m]; vv = np.where(valid & np.isfinite(v), v, 0.0)
+            rows.append({"year": T, "method": m,
+                         "under": vv[vv > 0].sum(), "over": -vv[vv < 0].sum(),
