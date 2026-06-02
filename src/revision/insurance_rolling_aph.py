@@ -108,3 +108,13 @@ def build_rma_county_crop():
         columns=["year", "fips", "crop_name", "plan_code", "coverage_level",
                  "acres", "total_premium", "indemnity"],
     )
+    rma = rma[rma["year"].between(2014, 2023)].copy()
+    rma["fips"] = rma["fips"].astype(str).str.zfill(5)
+    rma["crop"] = rma["crop_name"].str.strip().str.upper().map(RMA_CROP_MAP)
+    rma = rma[rma["crop"].notna()].copy()
+    rma["cl"] = pd.to_numeric(rma["coverage_level"], errors="coerce")
+    rma = rma[(rma["acres"] > 0) & rma["cl"].between(0.45, 0.95)].copy()
+
+    # Revenue plans: 02 RP, 03 RPHPE, 32/33 SCO-RP, 25 RA, 44 CRC. Yield: 01 YP, 31 SCO-YP.
+    rev_plans = {"02", "03", "25", "44", "32", "33"}
+    rma["is_rev"] = rma["plan_code"].astype(str).str.zfill(2).isin(rev_plans)
