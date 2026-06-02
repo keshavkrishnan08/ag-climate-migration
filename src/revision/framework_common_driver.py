@@ -18,3 +18,13 @@ Channels:
 If one exposure variable predicts C1-C4 with coherent signs, the four are parallel
 consequences of one mispriced climate signal -- the honest form of 'one mechanism'.
 Seed 42; writes only to results/revision/.
+"""
+import json
+import numpy as np, pandas as pd
+from pathlib import Path
+from scipy import stats
+np.random.seed(42)
+OUT = Path("results/revision")
+
+def hc1(y, X):
+    b, *_ = np.linalg.lstsq(X, y, rcond=None)
