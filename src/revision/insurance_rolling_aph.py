@@ -228,3 +228,13 @@ def simulate(rma, paths, cv):
                 if ei_priced < 1e-6:
                     ratio = 1.0 if ei_true < 1e-6 else MAX_RATIO
                 else:
+                    ratio = min(ei_true / ei_priced, MAX_RATIO)
+                return prem * (ratio - 1.0) * acres   # annual $ flow
+
+            records.append({
+                "fips": fips, "crop": crop, "year": t,
+                "flow_frozen": mp(aph_frozen),
+                "flow_roll": mp(roll),
+                "flow_tay": mp(aph_tay),
+                "acres": acres,
+            })
