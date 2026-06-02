@@ -28,3 +28,13 @@ SCO_PARTICIPATION_BY_CROP = {  # share of insured acres carrying SCO (RMA SOB, r
     "SORGHUM": 0.025, "BARLEY": 0.020, "OATS": 0.015, "COTTON": 0.030,
 }
 SCO_TRIGGER = 0.86            # SCO pays below 86% expected county yield/revenue
+SCO_LIABILITY_SHARE_OF_INDIV = 0.30   # SCO buy-up liability per acre, share of individual policy
+SCO_PREMIUM_PER_LIAB = 0.067  # average premium rate on the SCO band (RMA SOB ~6-7%)
+
+# Insurance residual building blocks (from the rolling-APH decomposition)
+RESIDUAL_YP_B = 3.7           # individual policy residual mispricing under YP
+COV_UNDERLYING = 0.74         # acreage-weighted individual coverage election
+COV_BAND_SCO = SCO_TRIGGER - COV_UNDERLYING  # ~0.12
+
+# County-level trend mispricing density: SCO's RMA "expected county yield" is built from a
+# county production history of comparable length to APH, so the per-band mispricing density
