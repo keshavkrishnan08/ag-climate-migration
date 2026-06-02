@@ -118,3 +118,13 @@ def simulate_fast(rma, paths, cv, aph_window=10, ye=False, ye_participation=0.0)
             v = f[m]; vv = np.where(valid & np.isfinite(v), v, 0.0)
             rows.append({"year": T, "method": m,
                          "under": vv[vv > 0].sum(), "over": -vv[vv < 0].sum(),
+                         "crops": wide.index.get_level_values("crop")})
+            flows[m].append(vv)
+    # aggregate per method
+    res = {}
+    df = pd.DataFrame([{"year": r["year"], "method": r["method"],
+                        "under": r["under"], "over": r["over"]} for r in rows])
+    g = df.groupby("method").agg(under=("under", "mean"), over=("over", "mean"))
+    for m in ["frozen", "roll", "tay"]:
+        u, o = g.loc[m, "under"], g.loc[m, "over"]
+        res[m] = {"total_B": (u + o) / 1e9, "xsub_B": min(u, o) / 1e9}
