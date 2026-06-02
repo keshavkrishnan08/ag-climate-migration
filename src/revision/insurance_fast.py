@@ -78,3 +78,13 @@ def simulate_fast(rma, paths, cv, aph_window=10, ye=False, ye_participation=0.0)
     aph_frozen = wide[obs_cols].mean(axis=1).values
     price = pd.Index(wide.index.get_level_values("crop")).map(
         lambda c: PRICE.get(c, 4.0)).to_numpy(dtype=float)
+    ptay = pd.Index(wide.index.get_level_values("crop")).map(
+        lambda c: TAY_PARTICIPATION.get(c, 0.3)).to_numpy(dtype=float)
+    cov = meta["cov_wt"].values
+    prem = meta["prem_per_acre"].values
+    acres = meta["insured_acres"].values
+    sigma = aph_frozen * cvv * price
+    valid = np.isfinite(aph_frozen) & (aph_frozen > 0) & np.isfinite(cov) & np.isfinite(prem)
+
+    flows = {"frozen": [], "roll": [], "tay": []}
+    state = pd.Index(wide.index.get_level_values("fips")).str[:2].to_numpy()
