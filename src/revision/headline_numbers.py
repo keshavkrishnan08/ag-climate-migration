@@ -168,3 +168,13 @@ HEADLINE = {
         "value": 0.053,
         "value_recomputed": get(mig_hi, "beta"),
         "p": get(mig_hi, "p"),
+        "F": get(mig_hi, "first_stage_F"),
+        "n_counties": get(mig_hi, "n_counties"),
+        "source_script": "src/revision/migration_iv_bartik.py + migration_farmdependent.py",
+        "source_json": "results/revision/migration_high_tercile_2sls.json"},
+    "migration_two_way_clustering_p": {
+        "value": 0.11,
+        "value_recomputed": get(mig_inf, "twoway_p"),
+        "source_script": "src/revision/migration_iv_bartik.py"},
+    "migration_share_balance_R2_withinFE": {
+        "value": 0.004,
