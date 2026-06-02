@@ -148,3 +148,13 @@ def main():
         out["window_sensitivity"][w] = {"residual_tay_B": r["tay"]["total_B"],
                                         "rolling_B": r["roll"]["total_B"],
                                         "xsub_B": r["tay"]["xsub_B"]}
+        print(f"  window={w}yr: rolling={r['roll']['total_B']:.2f}  residual={r['tay']['total_B']:.2f}")
+
+    print("=== Yield-Exclusion sensitivity (SSP245, window=10, YE part=0.4) ===")
+    rye = simulate_fast(rma, paths, cv, aph_window=10, ye=True, ye_participation=0.4)
+    out["yield_exclusion"] = {"residual_with_YE_B": rye["tay"]["total_B"],
+                              "residual_no_YE_B": base["tay"]["total_B"]}
+    print(f"  residual with YE={rye['tay']['total_B']:.2f} vs no-YE={base['tay']['total_B']:.2f}")
+
+    print("=== Scenario robustness: SSP3-7.0 ===")
+    try:
