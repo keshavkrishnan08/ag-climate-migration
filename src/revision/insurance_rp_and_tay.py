@@ -88,3 +88,13 @@ def rp_vs_yp_climate_mispricing():
         up = v[v > 0].sum(); ov = -v[v < 0].sum()
         return {"total_B": (up + ov) / 1e9, "xsub_B": min(up, ov) / 1e9}
     return {"YP_yield_put": agg(yp), "RP_revenue_put": agg(rp)}
+
+
+def tay_participation_range():
+    """Residual mispricing across TAY participation 0,25,50,75,100% (uniform multiplier
+    on the crop-specific base participation)."""
+    rma = build_rma_county_crop(); paths, cv = build_paths("SSP245")
+    base = dict(TAY_PARTICIPATION)
+    out = {}
+    import insurance_fast as IF
+    for frac in [0.0, 0.25, 0.5, 0.75, 1.0]:
