@@ -8,3 +8,13 @@ would request next:
   * Yield-Exclusion (YE) at participation -- drop the worst year in the window,
     raising APH in disaster-prone counties (works against TAY).
   * Climate scenario (SSP2-4.5 vs SSP3-7.0).
+  * Per-crop decomposition.
+
+A vectorized re-implementation also cross-checks the headline produced by the
+slow loop. Seed 42; writes only to results/revision/.
+"""
+
+import json
+import sys
+from pathlib import Path
+
