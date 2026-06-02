@@ -228,3 +228,13 @@ HEADLINE = {
         "source_script": "src/revision/yield_audit_target_decomp.py",
         "cited": "SI §Substantive E5"},
 
+    # === COMMON CAUSE / MARKET TEST ===
+    "common_cause_factor_share": {
+        "value": 0.35,
+        "value_recomputed": get(common, "common_factor_first_eigen_share"),
+        "source_script": "src/revision/framework_common_driver.py",
+        "source_json": "results/revision/framework_common_driver.json"},
+    "common_cause_insurance_p": {
+        "value": "<0.001",
+        "source_script": "src/revision/framework_common_driver.py"},
+    "common_cause_decline_p_July_Tmax": {
