@@ -148,3 +148,13 @@ HEADLINE = {
 
     # === MIGRATION ===
     "migration_prime_age_3yr_beta": {
+        "value": 0.024,
+        "value_recomputed": get(mig_pa, "primeage_panelFE_farmdep", "beta"),
+        "p": get(mig_pa, "primeage_panelFE_farmdep", "p"),
+        "first_stage_F": get(mig_pa, "primeage_panelFE_farmdep", "first_stage_F"),
+        "n_counties": get(mig_pa, "primeage_panelFE_farmdep", "n_cty"),
+        "source_script": "src/revision/migration_primeage_panel.py",
+        "source_json": "results/revision/migration_primeage_panel.json"},
+    "migration_prime_age_5yr_beta": {
+        "value": 0.049,
+        "value_recomputed": get(mig_wcb, "beta"),
