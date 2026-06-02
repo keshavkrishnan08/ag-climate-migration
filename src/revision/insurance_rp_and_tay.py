@@ -108,3 +108,13 @@ def tay_participation_range():
 
 
 def main():
+    print("=== R2-2d: RP revenue put (harvest-price reset) vs YP yield put ===")
+    rpyp = rp_vs_yp_climate_mispricing()
+    print(f"  YP yield-only put climate mispricing: ${rpyp['YP_yield_put']['total_B']:.2f}B (xsub ${rpyp['YP_yield_put']['xsub_B']:.2f}B)")
+    print(f"  RP revenue put (harvest reset)      : ${rpyp['RP_revenue_put']['total_B']:.2f}B (xsub ${rpyp['RP_revenue_put']['xsub_B']:.2f}B)")
+    print("  -> climate mispricing is essentially the same: the RP price channel is climate-neutral.")
+    print("\n=== R2-3b: residual across full TAY participation range ===")
+    tay = tay_participation_range()
+    for k, v in tay.items():
+        print(f"  {k}: residual ${v['residual_B']:.2f}B, transfer ${v['transfer_B']:.2f}B")
+    json.dump({"rp_vs_yp": rpyp, "tay_participation_range": tay,
