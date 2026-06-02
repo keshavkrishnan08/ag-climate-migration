@@ -48,3 +48,13 @@ def build_paths(scenario):
         columns={"yield_bu_acre": "y"})[["fips", "crop", "year", "y"]]
     pj = pd.read_parquet(PROJ / f"yield_projections_{scenario}.parquet",
                          columns=["fips", "year", "crop", "yield_projected"])
+    pj["fips"] = pj["fips"].astype(str).str.zfill(5)
+    pj = pj[pj["year"] >= 2025].rename(columns={"yield_projected": "y"})[["fips", "crop", "year", "y"]]
+    pj["y"] = pj["y"].clip(lower=0)
+    paths = pd.concat([obs, pj], ignore_index=True)
+    rec = obs[obs["year"].between(2008, 2023)]
+    cv = rec.groupby(["fips", "crop"])["y"].agg(["mean", "std", "count"]).reset_index()
+    cv = cv[cv["count"] >= 5]
+    cv["cv"] = (cv["std"] / cv["mean"]).clip(0.05, 0.50).fillna(0.20)
+    return paths, cv[["fips", "crop", "cv"]]
+
