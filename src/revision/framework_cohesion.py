@@ -38,3 +38,13 @@ L1={"total_overpriced_outflow_B":float(total_outflow/1e9),
     "n_frontier_overpriced":int(over["fips"].isin(fset).sum())}
 
 # L2: stranded exposure -> decline indicators (farming-dependent)
+st=pd.read_parquet(OUT/"stranded_central_floored.parquet")[["fips","stranded_value_total","total_acres"]]
+st["fips"]=st["fips"].astype(str).str.zfill(5)
+st["stranded_per_acre"]=st["stranded_value_total"]/st["total_acres"].replace(0,np.nan)
+di=pd.read_csv("data/published_dataset/county_decline_indicators.csv",dtype={"fips":str}); di["fips"]=di["fips"].str.zfill(5)
+d2=di.merge(st,on="fips",how="inner").merge(fdep(),on="fips",how="left"); d2["fdep"]=d2["fdep"].fillna(0).astype(int)
+d2=d2[(d2["fdep"]==1)&d2["stranded_per_acre"].notna()&np.isfinite(d2["stranded_per_acre"])]
+d2["sp_std"]=(d2["stranded_per_acre"]-d2["stranded_per_acre"].mean())/d2["stranded_per_acre"].std()
+b,se=hc1(d2["n_decline_indicators"].astype(float).values,np.column_stack([np.ones(len(d2)),d2["sp_std"].values]))
+L2={"beta_per_1sd_stranded":float(b[1]),"se":float(se[1]),"p":float(2*(1-stats.norm.cdf(abs(b[1]/se[1])))),"n":int(len(d2))}
+
