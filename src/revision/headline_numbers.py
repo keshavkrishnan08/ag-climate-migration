@@ -208,3 +208,13 @@ HEADLINE = {
         "value": 8.1, "source_script": "src/revision/recompute_opportunity.py",
         "cited": "main.tex abstract, Results §4.4"},
     "frontier_gross_revenue_Byr": {
+        "value": 37, "source_script": "src/revision/recompute_opportunity.py"},
+    "frontier_n_counties": {"value": 514},
+
+    # === YIELD MODEL ===
+    "yield_R2_pct_deviation": {
+        "value": 0.41,
+        "value_recomputed": get(yield_dec, "cells", "SPEC_PCT", "overall_r2_on_pct"),
+        "source_script": "src/revision/yield_v7_spectrum.py + yield_audit_target_decomp.py",
+        "source_json": "results/revision/audit_yield_target_decomp.json"},
+    "yield_Spearman_pct": {
