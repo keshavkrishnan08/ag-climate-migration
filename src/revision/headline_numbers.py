@@ -158,3 +158,13 @@ HEADLINE = {
     "migration_prime_age_5yr_beta": {
         "value": 0.049,
         "value_recomputed": get(mig_wcb, "beta"),
+        "county_clustered_p": get(mig_wcb, "county_cluster_p"),
+        "wild_cluster_bootstrap_p_B1999": get(mig_wcb, "wild_cluster_bootstrap_p"),
+        "wild_cluster_bootstrap_p_B9999": 0.0001,
+        "source_script": "src/revision/migration_wildbootstrap.py + tier3_tighten.py",
+        "source_json": "results/revision/tier3_tighten.json",
+        "cited": "main.tex Methods §Migration IV, Results §4.2, SI Migration"},
+    "migration_total_pop_tercile_750": {
+        "value": 0.053,
+        "value_recomputed": get(mig_hi, "beta"),
+        "p": get(mig_hi, "p"),
