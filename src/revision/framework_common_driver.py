@@ -38,3 +38,13 @@ def z(s):
     s = pd.to_numeric(s, errors="coerce")
     return (s - s.mean()) / s.std()
 
+def reg(df, yname, xname, label, expect):
+    d = df[[yname, xname]].replace([np.inf, -np.inf], np.nan).dropna()
+    X = np.column_stack([np.ones(len(d)), z(d[xname]).values])
+    b, se = hc1(d[yname].astype(float).values, X)
+    t = b[1] / se[1]
+    p = 2 * (1 - stats.norm.cdf(abs(t)))
+    sign_ok = (b[1] > 0) == (expect > 0)
+    return {"channel": label, "beta_per_1sd": float(b[1]), "se": float(se[1]),
+            "p": float(p), "n": int(len(d)), "sign_as_predicted": bool(sign_ok)}
+
