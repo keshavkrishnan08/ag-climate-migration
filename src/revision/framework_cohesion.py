@@ -48,3 +48,13 @@ d2["sp_std"]=(d2["stranded_per_acre"]-d2["stranded_per_acre"].mean())/d2["strand
 b,se=hc1(d2["n_decline_indicators"].astype(float).values,np.column_stack([np.ones(len(d2)),d2["sp_std"].values]))
 L2={"beta_per_1sd_stranded":float(b[1]),"se":float(se[1]),"p":float(2*(1-stats.norm.cdf(abs(b[1]/se[1])))),"n":int(len(d2))}
 
+# L3: insurance underpricing -> less crop switching, controlling for climate stress
+fm=pd.read_parquet("data/processed/feature_matrix.parquet",columns=["fips","year","switching_rate_5yr","yield_anomaly"])
+fm["fips"]=fm["fips"].astype(str).str.zfill(5)
+sw=fm[fm.year>=2015].groupby("fips").agg(switch=("switching_rate_5yr","mean")).reset_index()
+# climate stress = projected decline per county (from stranded per acre, proxy) ; use stranded_per_acre as stress
+m=sw.merge(cyn,on="fips",how="inner").merge(st[["fips","stranded_per_acre"]],on="fips",how="left").merge(fdep(),on="fips",how="left")
+m["fdep"]=m["fdep"].fillna(0).astype(int)
+m=m[(m["fdep"]==1)&m["switch"].notna()&m["stranded_per_acre"].notna()&np.isfinite(m["stranded_per_acre"])]
+m["under"]=(m["net_flow"]>0).astype(float)   # 1 = underpriced/subsidized
+m["stress_std"]=(m["stranded_per_acre"]-m["stranded_per_acre"].mean())/m["stranded_per_acre"].std()
