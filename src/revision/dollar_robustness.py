@@ -8,3 +8,13 @@ Roberts extreme-degree-day damage function -- and show (a) the national total st
 the same order of magnitude, (b) the spatial pattern (which counties are exposed)
 is highly rank-correlated, and (c) the hedonic upper bound ($168B) uses no yield
 model at all. The policy conclusion is therefore not load-bearing on the yield model.
+Seed 42.
+"""
+import json
+from pathlib import Path
+import numpy as np, pandas as pd
+from scipy import stats
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+PROJ = ROOT / "data" / "projections"
+OUT = ROOT / "results" / "revision"
