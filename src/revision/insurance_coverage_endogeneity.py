@@ -38,3 +38,13 @@ def climate_stress():
                                   "yield_baseline", "acres_harvested"])
     yp["fips"] = yp["fips"].astype(str).str.zfill(5)
     late = yp[yp["year"].between(2040, 2050)].copy()
+    late["decline_frac"] = -late["climate_impact_bu"] / late["yield_baseline"].clip(lower=1)
+    g = late.groupby(["fips", "crop"]).apply(
+        lambda d: np.average(d["decline_frac"], weights=d["acres_harvested"].clip(lower=1e-6))
+        if d["acres_harvested"].sum() > 0 else d["decline_frac"].mean(),
+        include_groups=False).rename("stress").reset_index()
+    return g
+
+
+def wls(y, X, w):
+    """Weighted least squares with HC1 SE. X includes intercept."""
