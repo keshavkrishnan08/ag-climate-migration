@@ -268,3 +268,13 @@ def coverage_sensitivity(rma, paths, cv, levels=(0.55, 0.65, 0.75, 0.85)):
 def main():
     print("Building RMA county-crop coverage/plan aggregates (2014-2023)...")
     rma = build_rma_county_crop()
+    print(f"  county-crop pairs: {len(rma)}")
+    # acreage-weighted coverage and RP share, nationally (acre-weighted)
+    natl_cov = np.average(rma["cov_wt"], weights=rma["insured_acres"])
+    natl_rp = np.average(rma["rp_share"], weights=rma["insured_acres"])
+    print(f"  acreage-weighted coverage = {natl_cov:.3f} | RP acre share = {natl_rp:.3f}")
+
+    print("Building realized yield paths + CV...")
+    paths, cv = build_yield_paths()
+
+    print("Simulating frozen / rolling / rolling+TAY...")
