@@ -58,3 +58,13 @@ HEADLINE = {
         "source_json": "results/revision/stranded_central_floored.parquet (groupby fips, sum)",
         "computed_in": "substantive_experiments.json (cross-check)",
         "cited": "main.tex abstract, Results Table 1, SI S0"},
+    "stranded_central_floored_DCF_B": {
+        "value": 61,
+        "source_script": "src/revision/stranded_revision.py",
+        "source_json": "results/revision/stranded_central_floored.parquet (1500/ac floor)",
+        "value_recomputed": get(floor, "pasture_1500_per_ac_central_B"),
+        "cited": "main.tex Results §Stranded, SI S0"},
+    "stranded_floor_sensitivity_B": {
+        "values": {"pasture_1000": get(floor, "pasture_1000_per_ac_central_B"),
+                   "pasture_1500": get(floor, "pasture_1500_per_ac_central_B"),
+                   "pasture_2000": get(floor, "pasture_2000_per_ac_central_B")},
