@@ -238,3 +238,13 @@ def simulate(rma, paths, cv):
                 "flow_tay": mp(aph_tay),
                 "acres": acres,
             })
+
+    cy = pd.DataFrame(records)
+
+    def agg(col):
+        up = cy[cy[col] > 0].groupby("year")[col].sum()
+        ov = cy[cy[col] < 0].groupby("year")[col].sum().abs()
+        return pd.DataFrame({f"{col}_under": up, f"{col}_over": ov}).fillna(0.0)
+
+    per_year = pd.concat([agg("flow_frozen"), agg("flow_roll"),
+                          agg("flow_tay")], axis=1).fillna(0.0)
