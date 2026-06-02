@@ -158,3 +158,13 @@ def build_yield_paths():
     proj = proj[["fips", "crop", "year", "y"]]
     proj["y"] = proj["y"].clip(lower=0.0)
 
+    paths = pd.concat([obs, proj], ignore_index=True).sort_values(
+        ["fips", "crop", "year"]).reset_index(drop=True)
+
+    rec = obs[obs["year"].between(2008, 2023)]
+    cv = (rec.groupby(["fips", "crop"])["y"]
+          .agg(["mean", "std", "count"]).reset_index())
+    cv = cv[cv["count"] >= 5]
+    cv["cv"] = (cv["std"] / cv["mean"]).clip(0.05, 0.50).fillna(0.20)
+    return paths, cv[["fips", "crop", "cv"]]
+
