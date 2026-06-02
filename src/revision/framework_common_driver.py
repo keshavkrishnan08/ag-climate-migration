@@ -98,3 +98,13 @@ results.append(reg(df[df.fdep == 1], "n_decline_indicators", "mean_tmax_july_C",
 fr["gdd"] = pd.to_numeric(fr["gdd_projected"], errors="coerce")
 results.append(reg(fr, "annual_opportunity_2023USD", "gdd", "C4 northern opportunity (~ projected GDD)", +1))
 # C1 stranded value/acre ~ exposure: reported but CONFOUNDED by land-value levels
+# (high-exposure southern counties have low land values), so its mechanism evidence is
+# the market-efficiency test, not this cross-section.
+c1 = reg(df, "stranded_value_per_acre", "exposure_edd", "C1 stranded value/acre (~ Delta-EDD; confounded by land value)", +1)
+c1["note"] = "confounded by land-value levels; mechanism evidence is the market-efficiency test"
+
+# ---- common-factor check: do the channel intensities share one factor? ----
+panel = df[["fips", "stranded_value_per_acre", "net_underpricing", "n_decline_indicators"]].copy()
+panel = panel.replace([np.inf, -np.inf], np.nan).dropna()
+Z = np.column_stack([z(panel[c]).values for c in ["stranded_value_per_acre", "net_underpricing", "n_decline_indicators"]])
+Z = Z[~np.isnan(Z).any(axis=1)]
