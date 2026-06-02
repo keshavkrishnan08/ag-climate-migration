@@ -258,3 +258,13 @@ def coverage_sensitivity(rma, paths, cv, levels=(0.55, 0.65, 0.75, 0.85)):
     """Residual (rolling+TAY) mispricing under fixed coverage levels."""
     res = {}
     for L in levels:
+        r2 = rma.copy(); r2["cov_wt"] = L
+        py, _ = simulate(r2, paths, cv)
+        win = py[py["year"].between(*WINDOW)]
+        res[L] = float(win["tay_total"].mean() / 1e9)
+    return res
+
+
+def main():
+    print("Building RMA county-crop coverage/plan aggregates (2014-2023)...")
+    rma = build_rma_county_crop()
