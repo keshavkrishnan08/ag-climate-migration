@@ -48,3 +48,13 @@ def rp_vs_yp_climate_mispricing():
     valid = np.isfinite(aph_frozen) & (aph_frozen > 0) & np.isfinite(cov) & np.isfinite(prem)
 
     N = 4000
+    rng = np.random.default_rng(42)
+    yp_flow, rp_flow = [], []
+    for T in range(WIN[0], WIN[1] + 1):
+        wcols = [y for y in range(T - 10, T) if y in wide.columns]
+        roll = np.nanmean(wide[wcols].values, axis=1)
+        true_y = wide[T].values if T in wide.columns else roll
+        # standardized yield draws shared across YP/RP for variance reduction
+        z = rng.standard_normal((len(aph_frozen), N))
+        zp = rng.standard_normal((len(aph_frozen), N))
+        for label, aph in [("true", true_y), ("roll", roll)]:
