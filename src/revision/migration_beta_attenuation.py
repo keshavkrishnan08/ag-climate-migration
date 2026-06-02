@@ -58,3 +58,13 @@ def mc_npv(beta_path_fn):
     u_hh = rng.uniform(household_lo, household_hi, n_draws)
     u_pc = rng.uniform(per_capita_lo, per_capita_hi, n_draws)
     u_m = rng.uniform(multiplier_lo, multiplier_hi, n_draws)
+    u_d = rng.uniform(discount_lo, discount_hi, n_draws)
+
+    # Linearly accumulate displaced prime-age over the horizon, then value.
+    yrs = horizon - 2024
+    Hsq = len(yrs)
+    npvs = np.zeros(n_draws)
+    for i in range(0, n_draws, 5000):
+        sl = slice(i, i + 5000)
+        b = beta0[sl][:, None]              # (chunk, 1)
+        inc = u_inc[sl][:, None]
