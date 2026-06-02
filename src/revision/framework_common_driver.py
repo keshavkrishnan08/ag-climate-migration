@@ -118,3 +118,13 @@ summary = {"driver": "forward physical climate exposure (Delta-EDD, July Tmax, p
            "stranded_confounded": c1,
            "all_signs_as_predicted": bool(all(r["sign_as_predicted"] for r in results)),
            "n_nondef_channels_significant_p05": int(sum(r["p"] < 0.05 for r in results)),
+           "common_factor_first_eigen_share": common_var_share,
+           "common_factor_n": int(len(Z))}
+json.dump(summary, open(OUT / "framework_common_driver.json", "w"), indent=2)
+
+print("=== COMMON-CAUSE TEST: one forward-climate signal -> the channels ===")
+for r in results:
+    print("  %-52s beta/1sd=%+.3g  p=%.4g  n=%d  sign_ok=%s"
+          % (r["channel"], r["beta_per_1sd"], r["p"], r["n"], r["sign_as_predicted"]))
+print("  %-52s beta/1sd=%+.3g  p=%.4g  n=%d  (confounded)"
+      % (c1["channel"], c1["beta_per_1sd"], c1["p"], c1["n"]))
