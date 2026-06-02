@@ -18,3 +18,13 @@ def jl(name):
 def get(d, *path, default=None):
     cur = d
     for k in path:
+        if cur is None: return default
+        cur = cur.get(k) if isinstance(cur, dict) else None
+    return cur if cur is not None else default
+
+# Load every per-experiment JSON
+master = jl("MASTER_NUMBERS.json") or {}
+ranged = jl("dcf_ci_fixed.json") or {}
+floor = jl("stranded_floor_sensitivity.json") or {}
+hedonic = jl("hedonic_strengthened.json") or {}
+dollar = jl("dollar_robustness.json") or {}
