@@ -68,3 +68,13 @@ def build():
     df["log_land_value"] = np.log(df["land_value_per_acre"])
     for c in ["ssurgo_aws", "irr_share", "nccpi"]:
         df[c] = df[c].fillna(df[c].median())
+    df = df[df["tmax_july"] > 30].dropna(subset=["log_land_value", "tmax_july", "precip_growing", "log_pop", "log_inc"])
+    return df
+
+
+def stranded_from_hedonic(df, b1, b2, label):
+    """Capitalized loss = -ΔlogV * V * farm_acres, ΔlogV=(b1+2 b2 tmax)*Δtmax (°F)."""
+    cl = pd.read_parquet(PROJ / "county_climate_projections.parquet",
+                         columns=["fips", "year", "delta_tmax_july"])
+    cl["fips"] = cl["fips"].astype(str).str.zfill(5)
+    d = cl[cl["year"] == 2050].groupby("fips", as_index=False)["delta_tmax_july"].mean()  # °F by 2050
