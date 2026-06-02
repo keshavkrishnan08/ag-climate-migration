@@ -28,3 +28,13 @@ def edd(tj, tg, thr=29.0):
 
 
 def county_stranded_ml(scen="SSP245", r=0.04, H=30):
+    yp = pd.read_parquet(PROJ / f"yield_projections_{scen}.parquet")
+    yp["fips"] = yp["fips"].astype(str).str.zfill(5)
+    yp["price"] = yp["crop"].map(PRICE).fillna(4.0)
+    y0 = yp["year"].min(); yp = yp[yp["year"] <= y0 + H - 1].copy()
+    yp["disc"] = 1 / (1 + r) ** (yp["year"] - y0 + 1)
+    yp["pv"] = yp["climate_impact_bu"].clip(upper=0) * yp["price"] * yp["acres_harvested"] * yp["disc"]
+    return (-yp.groupby("fips")["pv"].sum()).rename("ml")
+
+
+def county_stranded_process(scen="SSP245", climfile="county_climate_projections.parquet", r=0.04, H=30):
