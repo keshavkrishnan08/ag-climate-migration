@@ -138,3 +138,13 @@ HEADLINE = {
     "insurance_process_falsification_B": {
         "value": get(substantive, "E1_insurance_process_falsification", "process_residual_B"),
         "yield_spec_robust_range_B": get(substantive, "E1_insurance_process_falsification", "yield_spec_robust_range_B"),
+        "source_script": "src/revision/substantive_experiments.py",
+        "source_json": "results/revision/substantive_experiments.json",
+        "cited": "SI §Substantive E1"},
+    "insurance_climate_sigma_B": {
+        "value": get(substantive, "E2_insurance_climate_dependent_sigma", "residual_with_climate_dependent_sigma_B"),
+        "source_script": "src/revision/substantive_experiments.py",
+        "cited": "SI §Substantive E2"},
+
+    # === MIGRATION ===
+    "migration_prime_age_3yr_beta": {
