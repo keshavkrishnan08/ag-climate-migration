@@ -288,3 +288,13 @@ def main():
         "gross_frozen_total_B": float(win["frozen_total"].mean() / 1e9),
         "gross_frozen_xsub_B": float(win["frozen_xsub"].mean() / 1e9),
         "rolling_total_B": float(win["roll_total"].mean() / 1e9),
+        "rolling_xsub_B": float(win["roll_xsub"].mean() / 1e9),
+        "residual_tay_total_B": float(win["tay_total"].mean() / 1e9),
+        "residual_tay_xsub_B": float(win["tay_xsub"].mean() / 1e9),
+    }
+    headline["mechanical_absorption_B"] = (
+        headline["gross_frozen_total_B"] - headline["rolling_total_B"])
+    headline["tay_absorption_B"] = (
+        headline["rolling_total_B"] - headline["residual_tay_total_B"])
+    headline["coverage_sensitivity_residual_B"] = coverage_sensitivity(rma, paths, cv)
+
