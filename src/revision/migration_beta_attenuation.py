@@ -78,3 +78,13 @@ def mc_npv(beta_path_fn):
         D_y = b * bt[None, :] * inc * prime_age_base * (yrs[None, :] / Hsq)
         flow = D_y * hh * pc * m
         disc = (1 + d) ** yrs[None, :]
+        npvs[sl] = (flow / disc).sum(axis=1)
+
+    return {
+        "median_B": round(float(np.median(npvs) / 1e9), 1),
+        "ci90_B": [round(float(np.quantile(npvs, 0.05) / 1e9), 1),
+                    round(float(np.quantile(npvs, 0.95) / 1e9), 1)],
+        "mean_B": round(float(np.mean(npvs) / 1e9), 1),
+    }
+
+
