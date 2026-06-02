@@ -38,3 +38,13 @@ def rp_vs_yp_climate_mispricing():
     keys = rma[["fips", "crop"]].drop_duplicates()
     paths = paths.merge(keys, on=["fips", "crop"], how="inner")
     wide = paths.pivot_table(index=["fips", "crop"], columns="year", values="y", aggfunc="first").sort_index(axis=1)
+    meta = rma.set_index(["fips", "crop"]).reindex(wide.index)
+    cvv = cv.set_index(["fips", "crop"]).reindex(wide.index)["cv"].fillna(0.20).values
+    obs = [c for c in wide.columns if c <= 2024]
+    aph_frozen = wide[obs].mean(axis=1).values
+    crops = pd.Index(wide.index.get_level_values("crop"))
+    price = crops.map(lambda c: PRICE.get(c, 4.0)).to_numpy(float)
+    cov = meta["cov_wt"].values; prem = meta["prem_per_acre"].values; acres = meta["insured_acres"].values
+    valid = np.isfinite(aph_frozen) & (aph_frozen > 0) & np.isfinite(cov) & np.isfinite(prem)
+
+    N = 4000
