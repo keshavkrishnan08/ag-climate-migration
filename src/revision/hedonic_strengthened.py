@@ -108,3 +108,13 @@ def main():
         res[name] = {"r2": float(mod.rsquared), "beta_tmax": float(b1), "beta_tmax_sq": float(b2),
                      "marginal_pct_per_F_at_mean": float(me), "stranded_B": strn, "n": int(mod.nobs)}
         print(f"  [{name[:42]:42s}] R2={mod.rsquared:.3f} dlnV/dT@mean={me*100:+.2f}%/F stranded=${strn:.0f}B")
+
+    # coefficient stability: change in marginal warming effect from adding confounders
+    base_me = res["baseline (orig controls)"]["marginal_pct_per_F_at_mean"]
+    full_me = res["+ SSURGO + irrigation + soil-productivity"]["marginal_pct_per_F_at_mean"]
+    stability_pct = abs(full_me - base_me) / abs(base_me) * 100
+    print(f"\n  Warming-coefficient stability: marginal effect changes {stability_pct:.1f}% when the "
+          f"Ricardian confounders (soil water, irrigation, productivity) are added.")
+
+    # measured field-crop share of ag value (national, for DCF<->hedonic reconciliation)
+    # USDA ERS 2023 cash receipts: total ag ~ $515B; crops ~ $277B; modeled 8 field crops ~ $172B.
