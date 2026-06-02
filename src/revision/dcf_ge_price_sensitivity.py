@@ -18,3 +18,13 @@ import pandas as pd
 
 OUT = Path("results/revision")
 df = pd.read_parquet(OUT / "stranded_central_floored.parquet")
+
+r = 0.05
+H = 25.0
+
+def annuity_factor(r, g, H):
+    return (1 - np.exp(-(r - g) * H)) / (r - g) if abs(r - g) > 1e-6 else H
+
+base = annuity_factor(r, 0.0, H)
+
+def floored_total_under_g(g):
