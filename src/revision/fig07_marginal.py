@@ -25,3 +25,12 @@ inds=[("pop_decline","Population decline"),("income_decline","Income decline"),(
 def lpm(y,x):
     X=np.column_stack([np.ones(len(x)),x]); b,*_=np.linalg.lstsq(X,y,rcond=None)
     resid=y-X@b; XtXi=np.linalg.inv(X.T@X); meat=(X*(resid**2)[:,None]).T@X
+    cov=XtXi@meat@XtXi; se=np.sqrt(np.diag(cov)); return b[1],se[1]
+me={}
+for col,lab in inds:
+    d=fdc.dropna(subset=[col]); b,se=lpm(d[col].values.astype(float),d["stress"].values)
+    me[lab]={"marginal_pp":float(b*100),"se_pp":float(se*100),"p":float(2*(1-stats.norm.cdf(abs(b/se))))}
+json.dump(me,open(OUT/"fig7b_marginal_effects.json","w"),indent=2)
+print("marginal effects (pp per +1SD yield decline):")
+for k,v in me.items(): print(f"  {k}: {v['marginal_pp']:+.1f}pp (p={v['p']:.3f})")
+# ---- figure ----
