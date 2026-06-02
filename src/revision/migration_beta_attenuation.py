@@ -18,3 +18,13 @@ prime-age population. Seed 42.
 """
 import json
 from pathlib import Path
+import numpy as np
+
+OUT = Path("results/revision")
+rng = np.random.default_rng(42)
+
+# Headline MC inputs (mirroring migration_depop_montecarlo.json).
+n_draws = 200_000
+horizon = np.arange(2025, 2051)  # 26 years
+prime_age_base = 1_130_330
+beta_hat = 0.0491
