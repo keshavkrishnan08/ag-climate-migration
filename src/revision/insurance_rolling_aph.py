@@ -318,3 +318,5 @@ def main():
     print(f"\nSaved -> {OUT}/insurance_decomposition.json, insurance_mispricing_by_year.csv")
 
 
+if __name__ == "__main__":
+    main()
