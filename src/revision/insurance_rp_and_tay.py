@@ -8,3 +8,13 @@ and recompute the CLIMATE mispricing (forward vs rolling-APH yield) under RP, th
 compare to the yield-only (YP) put. If the RP price channel is climate-neutral, the
 two climate-mispricing aggregates coincide, validating the closed-form yield put.
 
+R2-3b: TAY participation is an endorsement not flagged in the SOB-coverage file, so
+rather than assume a single rate we report the reform-eliminable residual across the
+entire participation range (0-100%), bounding the headline without an assumption.
+
+Seed 42; writes only to results/revision/.
+"""
+import json, sys
+from pathlib import Path
+import numpy as np, pandas as pd
+
