@@ -188,3 +188,13 @@ def simulate(rma, paths, cv):
     paths = paths.merge(cv, on=["fips", "crop"], how="inner")
     paths = paths.merge(rma[["fips", "crop", "cov_wt", "prem_per_acre",
                              "insured_acres"]], on=["fips", "crop"], how="inner")
+
+    # baseline mean yield (pre-2025 observed mean) used for sigma and frozen APH
+    base = (paths[paths["year"] <= 2024].groupby(["fips", "crop"])["y"]
+            .mean().rename("aph_frozen").reset_index())
+    paths = paths.merge(base, on=["fips", "crop"], how="left")
+
+    records = []
+    for (fips, crop), d in paths.groupby(["fips", "crop"], sort=False):
+        d = d.sort_values("year")
+        yr = d["year"].values
