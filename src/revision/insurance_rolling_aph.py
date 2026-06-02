@@ -208,3 +208,13 @@ def simulate(rma, paths, cv):
         if not np.isfinite(aph_frozen) or aph_frozen <= 0:
             continue
         sigma = aph_frozen * cvv * price          # fixed interannual revenue risk
+        ptay = TAY_PARTICIPATION.get(crop, 0.3)
+
+        for t in range(WINDOW[0], WINDOW[1] + 1):
+            mask_win = (yr >= t - APH_WINDOW) & (yr <= t - 1)
+            if mask_win.sum() < 4:
+                continue
+            roll = float(np.mean(y[mask_win]))
+            # county yield trend over the trailing window (RMA TAY uses a linear trend)
+            yy = y[mask_win]; xx = yr[mask_win]
+            slope = np.polyfit(xx, yy, 1)[0] if mask_win.sum() >= 4 else 0.0
