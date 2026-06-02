@@ -118,3 +118,13 @@ HEADLINE = {
         "source_script": "src/revision/insurance_rolling_aph.py",
         "source_json": "results/revision/insurance_decomposition.json"},
     "insurance_RP_residual_B": {
+        "value": 2.6,
+        "value_recomputed": get(ins_rp, "rp_vs_yp", "RP_revenue_put", "total_B"),
+        "source_script": "src/revision/insurance_rp_and_tay.py",
+        "source_json": "results/revision/insurance_rp_tay.json"},
+    "insurance_coverage_acreage_weighted": {
+        "value": 0.74, "value_recomputed": get(ins_cov, "national_acreage_weighted_coverage"),
+        "source_script": "src/revision/insurance_coverage_endogeneity.py"},
+    "insurance_SCO_addition_B": {
+        "value": 0.01,
+        "value_3sigfig": 0.009,
