@@ -28,3 +28,13 @@ from insurance_fast import build_paths, simulate_fast
 PROJ = ROOT / "data" / "projections"
 OUT = ROOT / "results" / "revision"
 np.random.seed(42)
+
+
+def climate_stress():
+    """County climate-stress = acreage-weighted projected yield decline (2040-2050),
+    expressed as fraction of baseline yield (positive = more stressed)."""
+    yp = pd.read_parquet(PROJ / "yield_projections_SSP245.parquet",
+                         columns=["fips", "year", "crop", "climate_impact_bu",
+                                  "yield_baseline", "acres_harvested"])
+    yp["fips"] = yp["fips"].astype(str).str.zfill(5)
+    late = yp[yp["year"].between(2040, 2050)].copy()
