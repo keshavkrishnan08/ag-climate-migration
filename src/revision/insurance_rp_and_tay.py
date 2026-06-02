@@ -68,3 +68,13 @@ def rp_vs_yp_climate_mispricing():
             eps = YIELD_PRICE_CORR * z + np.sqrt(1 - YIELD_PRICE_CORR**2) * zp
             ph = price[:, None] * np.exp(PRICE_VOL * eps - 0.5 * PRICE_VOL**2)
             guar = roll[:, None] * cov[:, None] * np.maximum(price[:, None], ph)   # harvest-price reset
+            ind_rp = np.maximum(guar - ydraw * ph, 0)
+            (yp_flow if False else None)
+            ei_yp = ind_yp.mean(axis=1); ei_rp = ind_rp.mean(axis=1)
+            if label == "true":
+                ei_yp_true, ei_rp_true = ei_yp, ei_rp
+            else:
+                ei_yp_roll, ei_rp_roll = ei_yp, ei_rp
+        # mispricing per acre anchored to observed premium: prem*(EI_true/EI_roll - 1)
+        def mp(eit, eir):
+            ratio = np.where(eir < 1e-6, np.where(eit < 1e-6, 1.0, 5.0),
