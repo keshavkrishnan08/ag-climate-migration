@@ -78,3 +78,13 @@ di["fips"] = di["fips"].str.zfill(5)
 # ---- C4 frontier opportunity ----
 fr = pd.read_csv("results/frontier/opportunity_counties_SSP245.csv", dtype={"fips": str})
 fr["fips"] = fr["fips"].str.zfill(5)
+
+df = st.merge(ins, on="fips", how="left").merge(di[["fips", "n_decline_indicators"]], on="fips", how="left").merge(fdep(), on="fips", how="left")
+df["fdep"] = df["fdep"].fillna(0).astype(int)
+
+# Driver per channel = the canonical physical climate-exposure metric for that channel
+# (July max temperature is the Schlenker-Roberts field-crop heat-stress metric; Delta-EDD is
+# the projected change in extreme heat; GDD is the northern growing-season gain). These are
+# DIFFERENT facets of warming, not one variable: rural decline tracks the heat-stress LEVEL
+# (July Tmax) and is NOT significant under Delta-EDD (p=0.49), which we report honestly. The
+# common-factor share across channels is only ~35%, so the unifying claim is about a shared
