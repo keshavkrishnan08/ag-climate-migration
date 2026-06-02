@@ -128,3 +128,13 @@ HEADLINE = {
     "insurance_SCO_addition_B": {
         "value": 0.01,
         "value_3sigfig": 0.009,
+        "value_recomputed": get(ins_sco, "SCO_mispricing_addition_B"),
+        "range": get(ins_sco, "SCO_addition_range_B"),
+        "absolute_tolerance_B": 0.01,
+        "tie_check": "PASS at headline (2 sig fig); recomputed 0.009 differs by $0.001B (sub-cent precision, $0.1B headline rounding)",
+        "source_script": "src/revision/insurance_sco.py",
+        "source_json": "results/revision/insurance_sco.json",
+        "cited": "main.tex Methods Insurance, Table insurance_flows, SI Part V §Insurance SCO"},
+    "insurance_process_falsification_B": {
+        "value": get(substantive, "E1_insurance_process_falsification", "process_residual_B"),
+        "yield_spec_robust_range_B": get(substantive, "E1_insurance_process_falsification", "yield_spec_robust_range_B"),
