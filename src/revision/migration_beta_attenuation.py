@@ -108,3 +108,9 @@ result = {
         "the present-value depopulation cost remains in the lower half of "
         "the original $11-38B 90% interval (median $14B). Under a 75% "
         "attenuation, the median drops to $7B. The headline interval is "
+        "therefore conservative against plausible regime-change attenuation."
+    ),
+}
+json.dump(result, open(OUT / "migration_beta_attenuation.json", "w"), indent=2)
+for name, r in res.items():
+    print(f"  {name:20s}  median ${r['median_B']:.1f}B  90% [{r['ci90_B'][0]}, {r['ci90_B'][1]}]B")
