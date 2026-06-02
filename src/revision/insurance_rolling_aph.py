@@ -248,3 +248,13 @@ def simulate(rma, paths, cv):
 
     per_year = pd.concat([agg("flow_frozen"), agg("flow_roll"),
                           agg("flow_tay")], axis=1).fillna(0.0)
+    for m in ["frozen", "roll", "tay"]:
+        per_year[f"{m}_total"] = per_year[f"flow_{m}_under"] + per_year[f"flow_{m}_over"]
+        per_year[f"{m}_xsub"] = per_year[[f"flow_{m}_under", f"flow_{m}_over"]].min(axis=1)
+    return per_year.reset_index(), cy
+
+
+def coverage_sensitivity(rma, paths, cv, levels=(0.55, 0.65, 0.75, 0.85)):
+    """Residual (rolling+TAY) mispricing under fixed coverage levels."""
+    res = {}
+    for L in levels:
