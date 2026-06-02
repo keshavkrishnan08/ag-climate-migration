@@ -38,3 +38,13 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from scipy import stats
+from scipy.optimize import nnls  # noqa: F401 (kept for parity with pipeline env)
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+DATA_RAW = PROJECT_ROOT / "data" / "raw"
+DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
+PROJECTIONS_DIR = PROJECT_ROOT / "data" / "projections"
+OUT = PROJECT_ROOT / "results" / "revision"
+OUT.mkdir(parents=True, exist_ok=True)
+
