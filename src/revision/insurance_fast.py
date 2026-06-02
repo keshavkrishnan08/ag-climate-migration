@@ -38,3 +38,13 @@ def expected_indemnity_vec(K, mu, sigma):
     sigma = np.maximum(sigma, 1.0)
     z = (K - mu) / sigma
     return np.maximum((K - mu) * stats.norm.cdf(z) + sigma * stats.norm.pdf(z), 0.0)
+
+
+def build_paths(scenario):
+    fm = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet",
+                         columns=["fips", "year", "crop", "yield_bu_acre"])
+    fm["fips"] = fm["fips"].astype(str).str.zfill(5)
+    obs = fm[(fm["year"] <= 2024) & (fm["yield_bu_acre"] > 0)].rename(
+        columns={"yield_bu_acre": "y"})[["fips", "crop", "year", "y"]]
+    pj = pd.read_parquet(PROJ / f"yield_projections_{scenario}.parquet",
+                         columns=["fips", "year", "crop", "yield_projected"])
