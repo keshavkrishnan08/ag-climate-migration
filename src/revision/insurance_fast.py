@@ -68,3 +68,13 @@ def simulate_fast(rma, paths, cv, aph_window=10, ye=False, ye_participation=0.0)
     for y in years_needed:
         if y not in wide.columns:
             wide[y] = np.nan
+    wide = wide.sort_index(axis=1)
+
+    meta = (rma.set_index(["fips", "crop"])
+            .reindex(wide.index)[["cov_wt", "prem_per_acre", "insured_acres"]])
+    cvv = (cv.set_index(["fips", "crop"]).reindex(wide.index)["cv"]).fillna(0.20).values
+    # frozen APH = pre-2025 observed mean
+    obs_cols = [c for c in wide.columns if c <= 2024]
+    aph_frozen = wide[obs_cols].mean(axis=1).values
+    price = pd.Index(wide.index.get_level_values("crop")).map(
+        lambda c: PRICE.get(c, 4.0)).to_numpy(dtype=float)
