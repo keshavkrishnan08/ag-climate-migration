@@ -88,3 +88,13 @@ HEADLINE = {
     "stranded_propagated_CI_B": {
         "value": [37, 77],
         "value_recomputed": get(ranged, "propagated_full_CI_B"),
+        "source_script": "src/revision/dcf_ci_fixed.py",
+        "source_json": "results/revision/dcf_ci_fixed.json",
+        "cited": "main.tex Methods, Results, SI S10"},
+    "stranded_ML_vs_process_B": {
+        "ML_path": get(dollar, "national_total_ml_B"),
+        "process_path": get(dollar, "national_total_process_B"),
+        "spatial_rank_rho": get(dollar, "spatial_rank_correlation"),
+        "source_script": "src/revision/dollar_robustness.py",
+        "source_json": "results/revision/dollar_robustness.json",
+        "cited": "SI §Substantive E8"},
