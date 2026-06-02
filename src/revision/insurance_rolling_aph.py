@@ -58,3 +58,13 @@ RMA_CROP_MAP = {
 }
 # Flat real prices (2023 USD) -- price largely cancels in the EI ratio, but we
 # use a single consistent value per crop. These are 30-yr real averages
+# (consistent with the DCF real-price fix); kept here so the module is standalone.
+PRICE = {
+    "corn": 4.10, "soybeans": 10.30, "wheat_winter": 5.70, "wheat_spring": 6.10,
+    "cotton": 0.70, "sorghum": 4.00, "barley": 4.80, "oats": 3.10,
+}
+LOADING = 1.15
+MAX_RATIO = 5.0
+APH_WINDOW = 10           # RMA APH uses up to 10 years
+TAY_LAG_YEARS = 5.5       # mean age of APH years -> TAY adds trend*lag
+# TAY participation by crop (share of insured acres carrying a trend-adjusted
