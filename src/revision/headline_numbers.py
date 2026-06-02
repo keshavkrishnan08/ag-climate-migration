@@ -68,3 +68,13 @@ HEADLINE = {
         "values": {"pasture_1000": get(floor, "pasture_1000_per_ac_central_B"),
                    "pasture_1500": get(floor, "pasture_1500_per_ac_central_B"),
                    "pasture_2000": get(floor, "pasture_2000_per_ac_central_B")},
+        "source_script": "src/revision/stranded_floor_sensitivity.py",
+        "source_json": "results/revision/stranded_floor_sensitivity.json",
+        "cited": "main.tex Results, response Major 1 table"},
+    "hedonic_soil_irrigation_controlled_B": {
+        "value": 80,
+        "value_recomputed": get(hedonic, "specs", "+ SSURGO + irrigation + soil-productivity", "stranded_B"),
+        "marginal_pct_per_F": get(hedonic, "specs", "+ SSURGO + irrigation + soil-productivity", "marginal_pct_per_F_at_mean"),
+        "coefficient_stability_pct": get(hedonic, "coef_stability_pct"),
+        "source_script": "src/revision/hedonic_strengthened.py",
+        "source_json": "results/revision/hedonic_strengthened.json",
