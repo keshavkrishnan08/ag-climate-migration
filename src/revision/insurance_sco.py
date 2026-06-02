@@ -38,3 +38,13 @@ COV_BAND_SCO = SCO_TRIGGER - COV_UNDERLYING  # ~0.12
 
 # County-level trend mispricing density: SCO's RMA "expected county yield" is built from a
 # county production history of comparable length to APH, so the per-band mispricing density
+# is approximately the same as for the individual policy (per unit of liability covered).
+density_per_coverage_pt = RESIDUAL_YP_B / COV_UNDERLYING  # $/yr per coverage-unit of liability
+
+# Acreage-weighted SCO participation (weight by RMA SOB liability shares, approximate)
+liability_share = {"CORN": 0.48, "SOYBEANS": 0.27, "WINTER WHEAT": 0.10, "SPRING WHEAT": 0.04,
+                   "SORGHUM": 0.02, "BARLEY": 0.01, "OATS": 0.005, "COTTON": 0.075}
+sco_p_aw = sum(SCO_PARTICIPATION_BY_CROP[c] * liability_share[c] for c in SCO_PARTICIPATION_BY_CROP)
+
+# SCO mispricing addition: participation x (SCO liability band) x (per-coverage-unit density)
+sco_addition_B = sco_p_aw * COV_BAND_SCO * density_per_coverage_pt * SCO_LIABILITY_SHARE_OF_INDIV
