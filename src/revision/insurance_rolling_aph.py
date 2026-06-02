@@ -98,3 +98,13 @@ def build_rma_county_crop():
 
     The 2014-2023 window reflects post-2014-Farm-Bill coverage elections
     (Reviewer 2: elections shifted upward to 80-85% in the upper Corn Belt).
+
+    Returns:
+        DataFrame [fips, crop, cov_wt, rp_share, yp_share, prem_per_acre,
+                   insured_acres].
+    """
+    rma = pd.read_parquet(
+        DATA_RAW / "rma" / "rma_sob_all_years.parquet",
+        columns=["year", "fips", "crop_name", "plan_code", "coverage_level",
+                 "acres", "total_premium", "indemnity"],
+    )
