@@ -268,3 +268,12 @@ for k, v in HEADLINE.items():
         ok = True  # documented intentional difference
     else:
         ok = abs(float(r) - float(c)) / max(abs(float(c)), 1e-9) < 0.05
+    if ok: ties += 1
+    else: nots += 1; notes.append((k, c, r))
+
+print("HEADLINE_NUMBERS.json: %d cited numbers, %d auto-verified." % (n_keys, n_with_recompute))
+print("Tolerance-aware tie rate: %d/%d auto-verified numbers tie (%.0f%%)."
+      % (ties, ties + nots, 100 * ties / max(ties + nots, 1)))
+if notes:
+    print("Untied:")
+    for k, c, r in notes: print(f"  {k}: cited={c} recomputed={r}")
