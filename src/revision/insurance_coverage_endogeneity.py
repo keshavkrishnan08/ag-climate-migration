@@ -88,3 +88,13 @@ def main():
 
     out = {
         "selection_test": {"beta_stress": float(beta_stress), "se": float(se_stress),
+                            "p_value": float(p), "n_county_crop": int(len(df)),
+                            "coverage_pp_per_10pp_decline": float(effect_10pp * 100),
+                            "interpretation": "positive beta => climate-stressed counties elect higher coverage"},
+        "national_acreage_weighted_coverage": natl_cov,
+        "transfer_actual_coverage_B": res_actual["tay"]["xsub_B"],
+        "transfer_uniform_coverage_B": res_uniform["tay"]["xsub_B"],
+        "endogeneity_effect_on_transfer_B": res_actual["tay"]["xsub_B"] - res_uniform["tay"]["xsub_B"],
+        "residual_actual_B": res_actual["tay"]["total_B"],
+        "residual_uniform_B": res_uniform["tay"]["total_B"],
+    }
