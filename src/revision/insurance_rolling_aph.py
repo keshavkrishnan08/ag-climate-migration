@@ -178,3 +178,13 @@ def simulate(rma, paths, cv):
     the TRUE expected yield (realized path at t) against the expected indemnity
     the program implicitly prices (yield centered at APH_method_t). Mispricing
     per acre = observed_premium * (EI_true / EI_priced - 1). Price and CV
+    largely cancel in the ratio, so the result is robust to price level.
+
+    Returns:
+        (per_year_df, county_year_df). per_year_df has total mispricing and
+        cross-subsidy by year and method.
+    """
+    # pivot realized path to wide for fast trailing-window ops per county-crop
+    paths = paths.merge(cv, on=["fips", "crop"], how="inner")
+    paths = paths.merge(rma[["fips", "crop", "cov_wt", "prem_per_acre",
+                             "insured_acres"]], on=["fips", "crop"], how="inner")
