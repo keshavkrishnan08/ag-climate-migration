@@ -28,3 +28,13 @@ CPI = {2017: 0.0, 2022: 0.0}  # placeholder; deflate 2022->2017-ish via ratio be
 
 def build():
     # land values (2017, 2022), deflate 2022 to common dollars (CPI 2017=245.1, 2022=292.7)
+    lv = pd.read_parquet(DATA_RAW / "nass" / "nass_land_values.parquet")
+    lv["fips"] = lv["fips"].astype(str).str.zfill(5)
+    lv = lv[lv["year"].isin([2017, 2022])].copy()
+    lv.loc[lv["year"] == 2022, "land_value_per_acre"] *= 245.1 / 292.7
+    lv = lv.groupby("fips", as_index=False)["land_value_per_acre"].mean()
+    lv = lv[(lv["land_value_per_acre"] > lv["land_value_per_acre"].quantile(0.01)) &
+            (lv["land_value_per_acre"] < lv["land_value_per_acre"].quantile(0.99))]
+
+    # climate 2019-2023 avg: July Tmax (F), growing precip
+    m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet")
