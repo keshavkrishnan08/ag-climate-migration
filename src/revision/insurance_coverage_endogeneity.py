@@ -68,3 +68,13 @@ def main():
     # (1) Test: cov_wt ~ stress + crop FE, acreage-weighted
     dummies = pd.get_dummies(df["crop"], prefix="c", drop_first=True).astype(float)
     X = np.column_stack([np.ones(len(df)), df["stress"].values, dummies.values])
+    b, se = wls(df["cov_wt"].values, X, df["insured_acres"].values)
+    beta_stress, se_stress = b[1], se[1]
+    t = beta_stress / se_stress
+    p = 2 * (1 - stats.norm.cdf(abs(t)))
+    # interpretable: coverage change for a +10pp projected decline
+    effect_10pp = beta_stress * 0.10
+
+    print("=== (1) Endogenous coverage selection test (WLS, crop FE, acre-weighted) ===")
+    print(f"  beta(stress) = {beta_stress:+.4f}  SE={se_stress:.4f}  p={p:.4f}  n={len(df)}")
+    print(f"  => a +10pp projected yield decline is associated with {effect_10pp*100:+.2f}pp coverage")
