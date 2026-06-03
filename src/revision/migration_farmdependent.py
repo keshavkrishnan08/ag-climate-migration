@@ -168,3 +168,13 @@ def main():
     print(f"  >=4 indicators (farm-dependent):  {fd_4plus}  ({fd_share*100:.1f}%)")
     print(f"  >=4 indicators (other counties):  {nonfd_4plus}  ({nonfd_share*100:.1f}%)")
     print(f"  enrichment ratio: {fd_share/max(nonfd_share,1e-9):.2f}x")
+
+    print("\nBuilding county-year panel for marginal effects...")
+    panel = build_panel()
+    me_fd = marginal_effects(panel, panel["farm_dependent"] == 1, "farming_dependent")
+    me_all = marginal_effects(panel, panel["farm_dependent"].notna(), "all_counties")
+
+    print("\nMarginal effect of a 1-SD adverse yield anomaly (two-way FE):")
+    for o in ["pop_growth", "inc_growth"]:
+        if o in me_fd:
+            r = me_fd[o]
