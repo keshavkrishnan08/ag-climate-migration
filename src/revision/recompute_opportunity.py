@@ -458,3 +458,13 @@ def write_summary(
         lines.append("")
 
     lines += [
+        "## 6. Infrastructure capex in context",
+        "",
+        f"| Infrastructure metric | Value |",
+        f"|---|---|",
+        f"| Infrastructure capex (one-time, 2023 USD) | ${infra['infra_capex_B']:.1f} B |",
+        f"| Capex as % of annual gross opportunity | {infra['capex_as_pct_of_gross']:.0f}% |",
+        f"| Capex as % of annual net income (central) | {infra['capex_as_pct_of_net']:.0f}% |",
+        f"| Multiple of annual net income | {infra['multiple_vs_annual_net']:.1f}× |",
+        f"| Payback period (central net income) | {infra['payback_vs_net_central_yrs']:.0f} years |",
+        f"| Payback period (low net income, 18%) | {infra['payback_vs_net_low_yrs']:.0f} years |",
