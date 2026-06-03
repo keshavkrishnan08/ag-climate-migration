@@ -188,3 +188,13 @@ def load_real_prices() -> pd.DataFrame:
     )
     avg["source"] = "USDA NASS QuickStats qs.crops.txt.gz, marketing-year avg 1994-2023, deflated CPI-U 2023 USD"
 
+    # Check coverage — any missing crops?
+    all_crops = set(short_desc_map.keys())
+    found_crops = set(avg["crop"])
+    missing = all_crops - found_crops
+
+    if missing:
+        print(f"  WARNING: Missing crops from QuickStats scan: {missing}")
+        print("  Falling back to USDA published marketing-year averages (1994-2023 real).")
+        # FALLBACK: USDA published 30-yr real average prices (2023 USD)
+        # Source: USDA ERS, "Commodity Costs and Returns" & NASS Quick Stats
