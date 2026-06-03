@@ -20,3 +20,14 @@ PRIME_AGE_BASE = 1_130_330      # farming-dependent counties, 2019 (results/revi
 H = 26                          # 2024 -> 2050
 N = 200_000
 
+# --- parameter draws over documented ranges ---
+# IV 5-yr elasticity: estimated N(0.0491, 0.0149); truncate at >0 (the identified sign)
+beta = rng.normal(0.0491, 0.0149, N); beta = np.clip(beta, 0, None)
+income_decline = rng.uniform(0.15, 0.25, N)     # SSP2-4.5 -> SSP3-7.0 sustained farm-income decline
+household      = rng.uniform(2.2, 2.6, N)        # total residents per displaced prime-age worker (doc 2.2-2.4; empirical median 3.09)
+per_capita     = rng.uniform(70_000, 75_000, N)  # regional per-capita output, 2023 USD
+multiplier     = rng.uniform(1.6, 1.8, N)        # USDA-ERS / IMPLAN rural farm-economy output multiplier
+disc           = rng.uniform(0.03, 0.05, N)      # discount rate
+
+D = beta * income_decline * PRIME_AGE_BASE       # annual prime-age shortfall at full displacement
+persons = D * household
