@@ -68,3 +68,8 @@ res={
  "link1_yield_to_farm_revenue": fe_reg(fd,"log_rev","yld"),
  "link2a_farm_revenue_to_farmland_value": fe_reg(fd,"log_lv","log_rev_lag1"),
  "link2b_farm_revenue_to_median_income": fe_reg(fd,"log_inc","log_rev_lag1"),
+ "revenue_to_landvalue_longdiff": longdiff_reg(fd, "log_lv", "log_rev"),
+ "note":"Farming-dependent counties; two-way FE (annual links); cluster-robust SE. Long-difference is cumulative farm-revenue -> farmland-value (ag property-tax base)."}
+json.dump(res,open(OUT/"migration_fiscal_chain.json","w"),indent=2)
+for k,v in res.items():
+    if isinstance(v,dict): print(f"  {k}: beta={v['beta']:+.3f} p={v['p']:.4f} (n={v['n']}, {v['n_cty']} counties)")
