@@ -488,3 +488,13 @@ def write_summary(
 
     out_path.write_text('\n'.join(lines))
     print(f"Summary written to {out_path}")
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+def main() -> None:
+    """Run the full revision recomputation pipeline."""
+    print("=" * 65)
+    print("REVISION: Northern Opportunity Recomputation")
+    print("Responding to Reviewer 1, Major Comment #3")
