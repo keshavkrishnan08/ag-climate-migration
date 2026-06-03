@@ -238,3 +238,13 @@ def main():
     # Reduced form in farm-dep (should be significant if IV works)
     rf = reduced_form(fd, "pop_growth_3yr", "z_bartik", ctrls)
     out["reduced_form_farmdep"] = rf
+    if rf:
+        print(f"[REDUCED FORM farm-dep] beta={rf['beta']:+.5f} p={rf['p']:.3f} n={rf['n']}")
+
+    with open(OUT / "migration_iv_bartik.json", "w") as f:
+        json.dump(out, f, indent=2)
+    print(f"\nSaved -> {OUT}/migration_iv_bartik.json")
+
+
+if __name__ == "__main__":
+    main()
