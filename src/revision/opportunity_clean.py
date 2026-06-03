@@ -75,3 +75,9 @@ def main():
     json.dump(res, open(OUT / "opportunity_clean.json", "w"), indent=2)
     print(f"CLEAN opportunity: gross ${gross_B:.1f}B  net ${net_B:.1f}B  (6-state net ${six_net:.1f}B)")
     print(f"infra $35.6B = {35.6/net_B:.1f}x annual net opportunity")
+    print("top states (net $B):")
+    print(by_state.head(8).round(2).to_string())
+
+
+if __name__ == "__main__":
+    main()
