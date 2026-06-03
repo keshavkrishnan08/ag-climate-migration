@@ -238,3 +238,13 @@ def build_state_table(df: pd.DataFrame) -> pd.DataFrame:
         by_state['net_income_central_B'] / by_state['usda_total_farm_income_B'] * 100
     ).round(1)
 
+    by_state = by_state.sort_values('gross_opportunity_B', ascending=False)
+    return by_state
+
+
+# ---------------------------------------------------------------------------
+# STEP 5: Infrastructure cost ratio vs corrected income
+# ---------------------------------------------------------------------------
+def infra_context(total_net_central_B: float, total_gross_B: float) -> dict:
+    """Compute infrastructure capex as a multiple of corrected income.
+
