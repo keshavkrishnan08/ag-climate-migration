@@ -16,3 +16,12 @@ from pathlib import Path
 OUT = Path("results/revision")
 
 gross_incremental_revenue_B_per_yr = 37.0   # USDA-ERS gross frontier revenue
+per_state = {
+    "Minnesota": 8.4,
+    "North_Dakota": 8.2,
+    "South_Dakota": 6.5,
+    "Wisconsin": 3.7,
+    "Idaho": 1.8,
+    "Montana": 1.4,
+    "Wyoming": 0.6,
+    "Oregon": 0.4,
