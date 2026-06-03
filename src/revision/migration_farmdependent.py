@@ -188,3 +188,13 @@ def main():
         "decline_4plus_other": nonfd_4plus,
         "decline_4plus_share_other": nonfd_share,
         "enrichment_ratio": fd_share / max(nonfd_share, 1e-9),
+        "marginal_effects_farm_dependent": me_fd,
+        "marginal_effects_all": me_all,
+        "note": ("Restricting to ERS farming-dependent counties addresses Reviewer 1's "
+                 "external-validity concern. Marginal effects replace coincident counts "
+                 "(Fig 7B). The weather IV is not used for a causal migration claim here "
+                 "because of the exclusion-restriction concern (amenity/winter-mildness "
+                 "channels, Rappaport 2007); the defensible object is yield -> farm income "
+                 "-> local fiscal capacity."),
+    }
+    with open(OUT / "migration_farmdependent.json", "w") as f:
