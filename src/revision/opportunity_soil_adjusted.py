@@ -34,3 +34,12 @@ for margin in [0.15, 0.22, 0.30]:
 per_state_net = {s: {f"net_margin_{int(m*100)}pct_B_per_yr": round(gross * m, 2)
                      for m in [0.15, 0.22, 0.30]} for s, gross in per_state.items()}
 
+res = {
+    "gross_incremental_revenue_B_per_yr": gross_incremental_revenue_B_per_yr,
+    "headline_band": {
+        "lower_15pct_margin_B_per_yr": bands["margin_15pct_net_B_per_yr"],
+        "central_22pct_margin_B_per_yr": bands["margin_22pct_net_B_per_yr"],
+        "upper_30pct_margin_B_per_yr": bands["margin_30pct_net_B_per_yr"],
+    },
+    "per_state_net_band": per_state_net,
+    "interpretation": (
