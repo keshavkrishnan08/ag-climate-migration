@@ -198,3 +198,13 @@ def reduced_form(df, y, z, controls):
     X = np.column_stack([dm[z + "_dm"].values] +
                         [dm[c + "_dm"].values for c in controls])
     b, *_ = np.linalg.lstsq(X, Y, rcond=None)
+    u = Y - X @ b
+    bread = np.linalg.inv(X.T @ X)
+    meat = np.zeros((X.shape[1], X.shape[1]))
+    for g, idx in dd.groupby("fips").indices.items():
+        Xg = X[idx]; ug = u[idx]
+        meat += Xg.T @ np.outer(ug, ug) @ Xg
+    cov = bread @ meat @ bread
+    se = np.sqrt(cov[0, 0]); t = b[0] / se
+    return {"beta": float(b[0]), "se": float(se),
+            "p": float(2 * (1 - stats.norm.cdf(abs(t)))), "n": int(len(dd))}
