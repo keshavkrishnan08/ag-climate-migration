@@ -148,3 +148,13 @@ def marginal_effects(panel, subset_mask, label):
     res["label"] = label
     return res
 
+
+def main():
+    fd = farming_dependent()
+    di = pd.read_csv(PUB / "county_decline_indicators.csv", dtype={"fips": str})
+    di["fips"] = di["fips"].str.zfill(5)
+    di = di.merge(fd, on="fips", how="left")
+    di["farm_dependent"] = di["farm_dependent"].fillna(0).astype(int)
+
+    # Restricted observational result
+    n_fd = int(di["farm_dependent"].sum())
