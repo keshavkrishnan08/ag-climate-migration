@@ -48,3 +48,13 @@ def demean_groups(df, cols, group_keys):
         for _ in range(30):
             for g in group_keys:
                 s = s - s.groupby(out[g]).transform("mean")
+        out[c + "_dm"] = s
+    return out
+
+
+def ols_cluster(df, y, xcols, group_keys, cluster="fips"):
+    cols = [y] + xcols
+    dd = df.dropna(subset=cols).copy()
+    dd = dd[np.all(np.isfinite(dd[cols].values), axis=1)]
+    if len(dd) < 200:
+        return None
