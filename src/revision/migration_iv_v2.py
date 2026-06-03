@@ -68,3 +68,13 @@ def ols_cluster(df, y, xcols, group_keys, cluster="fips"):
     for _, idx in dd.groupby(cluster).indices.items():
         Xg = X[idx]; ug = u[idx]
         meat += Xg.T @ np.outer(ug, ug) @ Xg
+    cov = bread @ meat @ bread
+    se = np.sqrt(np.diag(cov)); t = b / se
+    p = 2 * (1 - stats.norm.cdf(np.abs(t)))
+    return {"coef": dict(zip(xcols, b.tolist())),
+            "se": dict(zip(xcols, se.tolist())),
+            "p": dict(zip(xcols, p.tolist())),
+            "n": int(len(dd)), "n_counties": int(dd["fips"].nunique())}
+
+
+def main():
