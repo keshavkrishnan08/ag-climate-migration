@@ -28,3 +28,13 @@ import json
 import sys
 from pathlib import Path
 
+import numpy as np
+import pandas as pd
+from scipy import stats
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "src" / "revision"))
+from migration_iv_bartik import build_panel, tsls  # reuse panel + 2SLS
+
+OUT = ROOT / "results" / "revision"
+np.random.seed(42)
