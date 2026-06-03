@@ -248,3 +248,13 @@ def compute_stranded_vectorized(
     discount_rate: float = 0.04,
     horizon: int = 30,
     scenario: str = "SSP245",
+) -> pd.DataFrame:
+    """DCF stranded-value computation (ML climate impact only).
+
+    Ported from src/06_stranded.py:compute_stranded_vectorized.
+    Prices injected as parameter rather than module-level constant.
+
+    Args:
+        yield_proj: Projections with climate_impact_bu, acres_harvested, crop, year, fips.
+        land_values: NASS land values with fips, land_value_per_acre.
+        commodity_prices: dict mapping crop -> real price $/bu (or $/lb for cotton).
