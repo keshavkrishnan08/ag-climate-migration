@@ -48,3 +48,13 @@ PRICE = {"corn": 5.04, "soybeans": 12.29, "wheat_winter": 6.72, "wheat_spring": 
 
 def farming_dependent():
     cc = pd.read_csv(DATA_RAW / "other" / "ers_atlas" / "CountyClassifications.csv",
+                     dtype=str, encoding="latin-1")
+    cc = cc.rename(columns={cc.columns[0]: "fips"})
+    cc["fips"] = cc["fips"].str.zfill(5)
+    fd = cc[cc["Attribute"] == "Type_2015_Farming_NO"][["fips", "Value"]].copy()
+    fd["farm_dependent"] = (fd["Value"] == "1").astype(int)
+    am = cc[cc["Attribute"] == "HiAmenity"][["fips", "Value"]].rename(
+        columns={"Value": "hi_amenity"})
+    am["hi_amenity"] = pd.to_numeric(am["hi_amenity"], errors="coerce").fillna(0)
+    return fd[["fips", "farm_dependent"]].merge(am, on="fips", how="left")
+
