@@ -20,3 +20,14 @@ def hc1(y, X):
     b, *_ = np.linalg.lstsq(X, y, rcond=None)
     r = y - X @ b; XtXi = np.linalg.inv(X.T @ X)
     cov = XtXi @ ((X * (r ** 2)[:, None]).T @ X) @ XtXi * (len(y) / (len(y) - X.shape[1]))
+    return b, np.sqrt(np.diag(cov))
+
+panel = build_panel()
+panel['fips'] = panel['fips'].astype(str).str.zfill(5)
+
+# county instrument exposure = mean over the 2009-2023 estimation window
+instr = panel[panel.year.between(2009, 2023)].groupby('fips')['z_bartik'].mean().rename('instr')
+
+# PRE-PERIOD population growth (1990 -> 2000), strictly before the 2000-09 baseline-share window
+pop = panel[['fips', 'year', 'total_population']].dropna()
+def pop_yr(y):
