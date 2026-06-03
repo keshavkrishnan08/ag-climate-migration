@@ -98,3 +98,13 @@ def build_panel():
                                  agg["meany"])
     cy = agg[["fips", "year", "yield_anom"]]
 
+    demo = pd.read_parquet(DATA_RAW / "census" / "acs_county_demographics.parquet",
+                           columns=["fips", "year", "total_population",
+                                    "median_household_income"])
+    demo = demo.rename(columns={"total_population": "population",
+                                "median_household_income": "median_income"})
+    demo["fips"] = demo["fips"].astype(str).str.zfill(5)
+    demo = demo.sort_values(["fips", "year"])
+    demo["pop_growth"] = demo.groupby("fips")["population"].pct_change()
+    demo["inc_growth"] = (np.log(demo["median_income"])
+                          - np.log(demo.groupby("fips")["median_income"].shift(1)))
