@@ -118,3 +118,13 @@ def load_real_prices() -> pd.DataFrame:
             if "NATIONAL" not in line:
                 continue
 
+            parts = line.split("\t")
+            if len(parts) < 39:
+                continue
+
+            statisticcat = parts[ci["STATISTICCAT_DESC"]].strip()
+            if statisticcat != "PRICE RECEIVED":
+                continue
+
+            agg_level = parts[ci["AGG_LEVEL_DESC"]].strip()
+            if agg_level != "NATIONAL":
