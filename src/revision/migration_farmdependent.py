@@ -8,3 +8,13 @@ Reviewer 1 raised three linked points:
   (b) Figure 7B (coincident counts of decline indicators) is misleading because
       the indicators are merely concurrent; report the MARGINAL effect of yield
       decline on each indicator instead.
+  (c) The weather IV likely violates the exclusion restriction (weather affects
+      migration via amenity / winter-mildness channels, Rappaport 2007), so the
+      defensible object is the direct chain yield -> farm income -> local fiscal
+      capacity, not a causal migration elasticity.
+
+This script:
+  1. Flags the 444 ERS farming-dependent counties (Type_2015_Farming_NO=1).
+  2. Recomputes the share of counties with >=4 decline indicators within the
+     farming-dependent subset vs the rest (the restricted observational result).
+  3. Estimates the marginal effect of a 1-SD adverse yield anomaly on each
