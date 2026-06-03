@@ -98,3 +98,13 @@ def main():
            "key_coef": "z_x_fi (farm-income channel, exclusion-robust)"}
 
     # (1) county + year FE
+    r1 = ols_cluster(panel, "pop_growth_3yr", ["z_bartik", "z_x_fi", "winter_tmin_anom"],
+                     ["fips", "year"])
+    out["dose_response_county_year_FE"] = r1
+    # (2) county + state-year FE (absorbs regional macro shocks)
+    r2 = ols_cluster(panel, "pop_growth_3yr", ["z_bartik", "z_x_fi", "winter_tmin_anom"],
+                     ["fips", "state_year"])
+    out["dose_response_county_stateyear_FE"] = r2
+    # (3) clean placebo: bottom farm-intensity tercile, reduced form of z
+    cut = panel["farm_intensity"].quantile(0.33)
+    placebo = panel[panel["farm_intensity"] <= cut]
