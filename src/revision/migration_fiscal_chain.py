@@ -38,3 +38,13 @@ def dm(df,cols):
         o[c+"_dm"]=s
     return o
 def fe_reg(df,y,x):
+    d=df.dropna(subset=[y,x]).copy(); d=d[np.isfinite(d[y])&np.isfinite(d[x])]
+    d=dm(d,[y,x]); Y=d[y+"_dm"].values; X=np.column_stack([d[x+"_dm"].values])
+    b,*_=np.linalg.lstsq(X,Y,rcond=None); r=Y-X@b
+    bread=np.linalg.inv(X.T@X); meat=np.zeros((1,1))
+    for _,idx in d.groupby("fips").indices.items():
+        Xg=X[idx]; ug=r[idx]; meat+=Xg.T@np.outer(ug,ug)@Xg
+    se=np.sqrt((bread@meat@bread)[0,0]); t=b[0]/se
+    return {"beta":float(b[0]),"se":float(se),"p":float(2*(1-stats.norm.cdf(abs(t)))),"n":int(len(d)),"n_cty":int(d["fips"].nunique())}
+def longdiff_reg(df, y, x, t0=2007, t1=2022):
+    """Cumulative log change t0->t1 per county (NASS land-value census years)."""
