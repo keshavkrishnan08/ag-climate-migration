@@ -108,3 +108,13 @@ INFRA_GAP_ORIGINAL_B = 35.647  # $35.6B one-time capital expenditure
 def load_and_audit(path: Path) -> pd.DataFrame:
     """Load opportunity CSV and verify its structure.
 
+    Args:
+        path: Path to opportunity_counties_SSP245.csv.
+
+    Returns:
+        DataFrame with fips zero-padded to 5 digits.
+    """
+    df = pd.read_csv(path)
+    # Enforce 5-digit FIPS zero-padding per project convention
+    df['fips'] = df['fips'].astype(str).str.zfill(5)
+    assert df['fips'].str.len().eq(5).all(), "FIPS padding failed"
