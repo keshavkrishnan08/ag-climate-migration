@@ -48,3 +48,12 @@ p=panel.merge(prime[["fips","year","prime_growth_3yr"]],on=["fips","year"],how="
 fd=p[p["farm_dependent"]==1]
 out={}
 out["primeage_panelFE_farmdep"]=fe2sls(fd,"prime_growth_3yr","farm_income_dev","z_bartik")
+thr=fd["fi"].quantile(0.667)
+out["primeage_panelFE_high_intensity"]=fe2sls(fd[fd["fi"]>=thr],"prime_growth_3yr","farm_income_dev","z_bartik")
+out["primeage_panelFE_placebo_low"]=fe2sls(fd[fd["fi"]<fd["fi"].quantile(0.333)],"prime_growth_3yr","farm_income_dev","z_bartik")
+b=out["primeage_panelFE_high_intensity"]["beta"]
+out["interp"]=f"sustained 10% farm-income decline -> {b*-0.10*100:+.2f}% 3yr prime-age growth (high-intensity)"
+json.dump(out,open(OUT/"migration_primeage_panel.json","w"),indent=2)
+for k,v in out.items():
+    if isinstance(v,dict): print(f"  {k}: beta={v['beta']:+.3f} p={v['p']:.4f} F={v['first_stage_F']:.0f} n={v['n']} ({v['n_cty']} cty)")
+print(" ",out["interp"])
