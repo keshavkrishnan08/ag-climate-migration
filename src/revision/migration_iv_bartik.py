@@ -78,3 +78,13 @@ def build_panel():
 
     # County farm revenue per year (2023 USD proxy)
     rev = fm.groupby(["fips", "year"])["revenue"].sum().reset_index()
+    base = rev[rev["year"].between(2000, 2009)].groupby("fips")["revenue"].mean().rename("base_rev")
+    rev = rev.merge(base, on="fips", how="left")
+    rev = rev[rev["base_rev"] > 0]
+    rev["farm_income_dev"] = (rev["revenue"] - rev["base_rev"]) / rev["base_rev"]
+    rev = rev.sort_values(["fips", "year"])
+    rev["fid_3yr"] = rev.groupby("fips")["farm_income_dev"].transform(
+        lambda s: s.rolling(3, min_periods=1).mean())
+
+    # Baseline crop mix (2000-2009 acreage shares)
+    bmix = fm[fm["year"].between(2000, 2009)].groupby(["fips", "crop"])["acres_harvested"].mean()
