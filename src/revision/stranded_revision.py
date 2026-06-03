@@ -218,3 +218,13 @@ def load_real_prices() -> pd.DataFrame:
         }
         fallback_source = (
             "USDA ERS Commodity Costs and Returns + NASS Quick Stats, "
+            "30-yr marketing-year avg 1994-2023, deflated CPI-U 2023 USD (hardcoded fallback)"
+        )
+        for crop in missing:
+            price, unit = fallback[crop]
+            new_row = pd.DataFrame([{
+                "crop": crop,
+                "real_price_2023usd": price,
+                "n_years": 0,
+                "unit": unit,
+                "source": fallback_source,
