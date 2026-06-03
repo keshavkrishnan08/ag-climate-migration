@@ -68,3 +68,13 @@ def load_real_prices() -> pd.DataFrame:
       wheat_spring  → WHEAT, SPRING, (EXCL DURUM) - PRICE RECEIVED ($ / BU)
       cotton        → COTTON, UPLAND - PRICE RECEIVED ($ / LB)
       sorghum       → SORGHUM, GRAIN - PRICE RECEIVED ($ / CWT)
+                      converted to $/bu at 56 lb/bu (USDA standard conversion)
+      barley        → BARLEY - PRICE RECEIVED ($ / BU)
+      oats          → OATS - PRICE RECEIVED ($ / BU)
+
+    Returns:
+        DataFrame with columns: crop, real_price_2023usd, unit, n_years, source.
+    """
+    print("Loading CPI data...")
+    cpi_df = pd.read_csv(DATA_RAW / "other" / "cpi_annual.csv")
+    cpi_map = dict(zip(cpi_df["year"].astype(int), cpi_df["cpi"]))
