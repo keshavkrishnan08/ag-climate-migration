@@ -18,3 +18,13 @@ EXTRA migration response to the farm-income instrument that scales with farm
 dependence. Any uniform effect of z that operates through non-farm channels
 (amenity, macro commodity cycles) is captured by b1 and differenced out, so b2
 isolates the farm-income channel. We confirm with state x year fixed effects
+(absorbing regional shocks) and a clean placebo on the bottom farm-intensity
+tercile.
+
+Seed 42. Writes only to results/revision/.
+"""
+
+import json
+import sys
+from pathlib import Path
+
