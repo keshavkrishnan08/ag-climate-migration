@@ -28,3 +28,13 @@ lv=lv.groupby(["fips","year"])["land_value_per_acre"].mean().reset_index(); lv["
 demo=pd.read_parquet("data/raw/census/acs_county_demographics.parquet",columns=["fips","year","median_household_income"])
 demo["fips"]=demo["fips"].astype(str).str.zfill(5); demo["log_inc"]=np.log(demo["median_household_income"].clip(lower=1))
 p=cy.merge(lv[["fips","year","log_lv"]],on=["fips","year"],how="left").merge(demo[["fips","year","log_inc"]],on=["fips","year"],how="left").merge(fdep(),on="fips",how="left")
+p["fdep"]=p["fdep"].fillna(0).astype(int); p=p.sort_values(["fips","year"])
+p["log_rev_lag1"]=p.groupby("fips")["log_rev"].shift(1)
+def dm(df,cols):
+    o=df.copy()
+    for c in cols:
+        s=o[c].astype(float)
+        for _ in range(20): s=s-s.groupby(o["fips"]).transform("mean"); s=s-s.groupby(o["year"]).transform("mean")
+        o[c+"_dm"]=s
+    return o
+def fe_reg(df,y,x):
