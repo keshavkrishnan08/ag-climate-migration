@@ -228,3 +228,13 @@ def load_real_prices() -> pd.DataFrame:
                 "n_years": 0,
                 "unit": unit,
                 "source": fallback_source,
+            }])
+            avg = pd.concat([avg, new_row], ignore_index=True)
+
+    print("\nReal price table (1994-2023 avg, 2023 USD):")
+    print(avg[["crop", "real_price_2023usd", "n_years", "unit"]].to_string(index=False))
+
+    return avg, raw_df
+
+
+# ---------------------------------------------------------------------------
