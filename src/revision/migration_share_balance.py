@@ -42,3 +42,14 @@ d = d[d.index.isin(set(fd))]
 
 def reg(col):
     dd = d[['instr', col]].replace([np.inf, -np.inf], np.nan).dropna()
+    z = (dd['instr'] - dd['instr'].mean()) / dd['instr'].std()
+    X = np.column_stack([np.ones(len(dd)), z.values])
+    b, se = hc1(dd[col].astype(float).values, X)
+    t = b[1] / se[1]; p = 2 * (1 - stats.norm.cdf(abs(t)))
+    return {"beta_per_1sd_instr": float(b[1]), "se": float(se[1]), "p": float(p), "n": int(len(dd))}
+
+r9000 = reg('pretrend_9000')
+r0008 = reg('pretrend_0008')
+out = {"test": "pre-trend balance: pre-period population growth ~ instrument exposure (farming-dependent)",
+       "interpretation": "null coefficient => instrument not aligned with pre-existing trends => share-exogeneity supported",
+       "pretrend_1990_2000": r9000, "pretrend_2000_2008": r0008,
