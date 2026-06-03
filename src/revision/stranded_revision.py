@@ -278,3 +278,13 @@ def compute_stranded_vectorized(
     yp["discount_factor"] = 1.0 / (1 + discount_rate) ** yp["years_ahead"]
     yp["pv_climate_impact"] = yp["climate_income_total"] * yp["discount_factor"]
 
+    county_pv = (
+        yp.groupby("fips")
+        .agg(
+            pv_climate_total=("pv_climate_impact", "sum"),
+            total_acres=("acres_harvested", "mean"),
+            mean_climate_impact_bu=("climate_impact_bu", "mean"),
+        )
+        .reset_index()
+    )
+
