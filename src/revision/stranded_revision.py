@@ -168,3 +168,13 @@ def load_real_prices() -> pd.DataFrame:
     # Deflate to 2023 USD
     raw_df["cpi"] = raw_df["year"].map(cpi_map)
     raw_df["real_price_2023usd"] = raw_df["nominal_price"] * (CPI_2023 / raw_df["cpi"])
+
+    # Convert sorghum from $/CWT to $/bu (56 lb/bu = 1.12 cwt/bu)
+    # USDA standard: 1 bushel of grain sorghum = 56 lbs = 0.56 CWT
+    # So $/CWT * 0.56 = $/bu
+    sorghum_mask = raw_df["crop"] == "sorghum"
+    raw_df.loc[sorghum_mask, "real_price_2023usd"] *= 0.56
+    raw_df.loc[sorghum_mask, "unit"] = "$ / BU (converted from $/CWT * 0.56)"
+
+    # Average 1994-2023
+    avg = (
