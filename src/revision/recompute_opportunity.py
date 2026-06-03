@@ -388,3 +388,13 @@ def write_summary(
         rows.append(
             f"| **TOTAL** | **{int(tdf['n_counties'].sum())}** | "
             f"**{total_gross:.2f}** | **{total_net:.2f}** | "
+            f"**{total_receipts:.1f}** | **{total_gross/total_receipts*100:.0f}%** | "
+            f"**{total_net/total_receipts*100:.0f}%** |"
+        )
+        return '\n'.join(rows)
+
+    # Paper-ready methods text (active voice, Nature style, ~3 sentences)
+    total_gross_B = char['total_gross_opportunity_B']
+    total_net_B   = round(total_gross_B * NET_TO_GROSS_CENTRAL, 1)
+    net_lo        = round(total_gross_B * NET_TO_GROSS_LOW, 1)
+    net_hi        = round(total_gross_B * NET_TO_GROSS_HIGH, 1)
