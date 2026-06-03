@@ -58,3 +58,9 @@ def main():
            "ar_excludes_zero": (ar_ci is not None and not (ar_ci[0] <= 0 <= ar_ci[1])),
            "alt_outcome_in_mig": alt}
     json.dump(out, open(OUT / "migration_robustness.json", "w"), indent=2)
+    print("Anderson-Rubin 95% CI (weak-IV robust):", [round(x, 3) for x in ar_ci] if ar_ci else None)
+    print("  excludes zero (significant):", out["ar_excludes_zero"])
+
+
+if __name__ == "__main__":
+    main()
