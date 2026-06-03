@@ -68,3 +68,13 @@ def ols(y, X):
     """OLS with HC1 SE. X already includes intercept column if desired."""
     XtX = X.T @ X
     beta = np.linalg.solve(XtX, X.T @ y)
+    resid = y - X @ beta
+    n, k = X.shape
+    XtX_inv = np.linalg.inv(XtX)
+    # HC1
+    S = (X * resid[:, None]).T @ (X * resid[:, None])
+    cov = XtX_inv @ S @ XtX_inv * (n / (n - k))
+    se = np.sqrt(np.diag(cov))
+    from scipy import stats
+    t = beta / se
+    p = 2 * (1 - stats.norm.cdf(np.abs(t)))
