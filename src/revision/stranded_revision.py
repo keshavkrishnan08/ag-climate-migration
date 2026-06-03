@@ -18,3 +18,13 @@ Author: AgMigration revision team, 2026-05-21
 
 import sys
 import gzip
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+DATA_RAW = PROJECT_ROOT / "data" / "raw"
+PROJECTIONS_DIR = PROJECT_ROOT / "data" / "projections"
+RESULTS_REV = PROJECT_ROOT / "results" / "revision"
+
