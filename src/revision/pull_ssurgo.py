@@ -9,3 +9,14 @@ q = ("SELECT l.areasymbol, "
      "SUM(m.claytotal_r*mu.muacres)/NULLIF(SUM(mu.muacres),0) AS clay "
      "FROM legend l JOIN mapunit mu ON mu.lkey=l.lkey "
      "JOIN muaggatt m ON m.mukey=mu.mukey "
+     "GROUP BY l.areasymbol")
+url = "https://sdmdataaccess.sc.egov.usda.gov/Tabular/post.rest"
+try:
+    r = requests.post(url, json={"format": "JSON+COLUMNNAME", "query": q}, timeout=120)
+    print("status", r.status_code)
+    data = r.json().get("Table", [])
+    if not data:
+        # muaggatt may lack claytotal_r; retry simpler
+        q2 = ("SELECT l.areasymbol, SUM(mu.muacres) acres, "
+              "SUM(m.aws0150wta*mu.muacres)/NULLIF(SUM(mu.muacres),0) aws0150 "
+              "FROM legend l JOIN mapunit mu ON mu.lkey=l.lkey JOIN muaggatt m ON m.mukey=mu.mukey "
