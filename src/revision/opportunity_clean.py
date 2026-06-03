@@ -64,3 +64,14 @@ def main():
                 net_B=("net_income", lambda s: s.sum() / 1e9))
                 .sort_values("net_B", ascending=False))
     by_state.to_csv(OUT / "opportunity_clean_by_state.csv")
+    six = ["MN", "WI", "SD", "ND", "MT", "ID", "Minnesota", "Wisconsin",
+           "South Dakota", "North Dakota", "Montana", "Idaho"]
+    six_net = df[df["state"].isin(six)]["net_income"].sum() / 1e9
+
+    res = {"gross_opportunity_B": float(gross_B), "net_income_B": float(net_B),
+           "net_six_named_states_B": float(six_net), "margin": MARGIN,
+           "denominator": "historical max harvested acreage x 1.15 (real cropland)",
+           "infra_capex_B": 35.6, "infra_to_net_ratio": 35.6 / float(net_B)}
+    json.dump(res, open(OUT / "opportunity_clean.json", "w"), indent=2)
+    print(f"CLEAN opportunity: gross ${gross_B:.1f}B  net ${net_B:.1f}B  (6-state net ${six_net:.1f}B)")
+    print(f"infra $35.6B = {35.6/net_B:.1f}x annual net opportunity")
