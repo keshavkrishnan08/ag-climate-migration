@@ -248,3 +248,13 @@ def build_state_table(df: pd.DataFrame) -> pd.DataFrame:
 def infra_context(total_net_central_B: float, total_gross_B: float) -> dict:
     """Compute infrastructure capex as a multiple of corrected income.
 
+    Args:
+        total_net_central_B: Total net income (central estimate), billions USD.
+        total_gross_B: Total gross revenue, billions USD.
+
+    Returns:
+        Dict with infrastructure cost ratios.
+    """
+    return {
+        'infra_capex_B': round(INFRA_GAP_ORIGINAL_B, 2),
+        'payback_vs_net_central_yrs': round(INFRA_GAP_ORIGINAL_B / total_net_central_B, 1),
