@@ -218,3 +218,13 @@ def build_state_table(df: pd.DataFrame) -> pd.DataFrame:
         net_income_low_B          = ('net_income_low_usd',         lambda x: round(x.sum() / 1e9, 3)),
         net_income_high_B         = ('net_income_high_usd',        lambda x: round(x.sum() / 1e9, 3)),
         expansion_infra_B         = ('expansion_infra_investment',  lambda x: round(x.sum() / 1e9, 3)),
+    ).reset_index()
+
+    by_state['usda_crop_receipts_B']    = by_state['state'].map(USDA_STATE_CROP_RECEIPTS_2023USD)
+    by_state['usda_total_farm_income_B']= by_state['state'].map(USDA_STATE_TOTAL_FARM_INCOME_2023USD)
+
+    # Ratio: projected incremental gross opportunity ÷ current total gross crop receipts
+    # This answers the reviewer's "50-130% increase" concern
+    by_state['pct_of_crop_receipts_gross'] = (
+        by_state['gross_opportunity_B'] / by_state['usda_crop_receipts_B'] * 100
+    ).round(1)
