@@ -168,3 +168,13 @@ def tsls(df, y, d, z, controls, cluster="fips"):
     X2 = np.column_stack([Dhat, C]) if C.size else Dhat.reshape(-1, 1)
     b2, *_ = np.linalg.lstsq(X2, Y, rcond=None)
     beta_d = b2[0]
+    # cluster-robust SE (cluster by county) using IV residuals with actual D
+    Xstruct = np.column_stack([D, C]) if C.size else D.reshape(-1, 1)
+    u = Y - Xstruct @ b2
+    XZ = np.column_stack([Dhat, C]) if C.size else Dhat.reshape(-1, 1)
+    bread = np.linalg.inv(XZ.T @ XZ)
+    meat = np.zeros((XZ.shape[1], XZ.shape[1]))
+    for g, idx in dd.groupby(cluster).indices.items():
+        Xg = XZ[idx]; ug = u[idx]
+        meat += Xg.T @ np.outer(ug, ug) @ Xg
+    cov = bread @ meat @ bread
