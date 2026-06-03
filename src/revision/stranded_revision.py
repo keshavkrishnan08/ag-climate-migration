@@ -48,3 +48,13 @@ SR_COEFFICIENTS = {
 SR_THRESHOLD_MODERATE = 29.0
 SSP585_SCALE = 1.8
 INDIRECT_MULTIPLIER = 1.30
+
+
+# ---------------------------------------------------------------------------
+# TASK 1: Extract 30-yr real marketing-year average prices from QuickStats
+# ---------------------------------------------------------------------------
+
+def load_real_prices() -> pd.DataFrame:
+    """Compute 30-yr inflation-adjusted marketing-year average prices (1994-2023, 2023 USD).
+
+    Data source: USDA NASS QuickStats dump (qs.crops.txt.gz), STATISTICCAT_DESC =
