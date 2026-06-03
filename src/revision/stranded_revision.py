@@ -8,3 +8,13 @@ Responds to Reviewer 1, Major #1:
       (cropland value - pasture/grazing land value) where cropping returns
       go negative.
 
+CONVENTIONS:
+  - All dollars in 2023 USD.
+  - FIPS are 5-digit zero-padded strings.
+  - Random seed 42 (no randomness here, but noted for reproducibility).
+
+Author: AgMigration revision team, 2026-05-21
+"""
+
+import sys
+import gzip
