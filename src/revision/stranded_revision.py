@@ -78,3 +78,13 @@ def load_real_prices() -> pd.DataFrame:
     print("Loading CPI data...")
     cpi_df = pd.read_csv(DATA_RAW / "other" / "cpi_annual.csv")
     cpi_map = dict(zip(cpi_df["year"].astype(int), cpi_df["cpi"]))
+
+    # Define which short_desc strings map to our crop categories
+    # Each entry: crop_key -> list of short_desc fragments (most-to-least preferred)
+    short_desc_map = {
+        "corn":         ["CORN, GRAIN - PRICE RECEIVED, MEASURED IN $ / BU"],
+        "soybeans":     ["SOYBEANS - PRICE RECEIVED, MEASURED IN $ / BU"],
+        "wheat_winter": ["WHEAT, WINTER - PRICE RECEIVED, MEASURED IN $ / BU"],
+        "wheat_spring": ["WHEAT, SPRING, (EXCL DURUM) - PRICE RECEIVED, MEASURED IN $ / BU"],
+        "cotton":       ["COTTON, UPLAND - PRICE RECEIVED, MEASURED IN $ / LB"],
+        "sorghum":      ["SORGHUM, GRAIN - PRICE RECEIVED, MEASURED IN $ / CWT"],
