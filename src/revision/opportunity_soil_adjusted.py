@@ -43,3 +43,12 @@ res = {
     },
     "per_state_net_band": per_state_net,
     "interpretation": (
+        "We report the net opportunity as a band: $5.6B/yr (15% margin, "
+        "lower bound reflecting reduced operating efficiency on high-latitude "
+        "soils), $8.1B/yr (22% margin, USDA-ERS national average), $11.1B/yr "
+        "(30% margin, upper bound). The band is the abstract headline rather "
+        "than a single point."
+    ),
+}
+json.dump(res, open(OUT / "opportunity_soil_adjusted.json", "w"), indent=2)
+print(res["headline_band"])
