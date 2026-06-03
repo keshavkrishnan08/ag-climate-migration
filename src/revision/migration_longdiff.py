@@ -58,3 +58,7 @@ hi=cs[(cs["fdep"]==1)&(cs["fi"]>=cs[cs.fdep==1]["fi"].quantile(0.5))]
 out["longdiff_high_intensity"]=tsls_cs(hi,"dlog_pop","cum_fid","cum_z",["winter"])
 # placebo: non-farm counties
 nf=cs[cs["fdep"]==0]
+out["placebo_nonfarm"]=tsls_cs(nf,"dlog_pop","cum_fid","cum_z",["winter"])
+json.dump(out,open(OUT/"migration_longdiff.json","w"),indent=2)
+for k,v in out.items():
+    print(f"  {k}: beta={v['beta']:+.3f} p={v['p']:.4f} F={v['first_stage_F']:.1f} CI={[round(x,3) for x in v['ci95']]} n={v['n']}")
