@@ -48,3 +48,13 @@ t_cl = beta_hat / se_cl
 from scipy import stats
 p_cl = 2 * (1 - stats.t.cdf(abs(t_cl), df=G - 1))
 
+# ---- WILD-CLUSTER RESTRICTED bootstrap (Webb 6-point), impose H0: beta=0 ----
+# Restricted model under H0: Y = D*0 + e  =>  restricted residual = Y (FE partialled out).
+# Score/wild bootstrap of the IV t-stat (Davidson-MacKinnon WRE, simplified just-identified).
+webb = np.array([-np.sqrt(1.5), -1, -np.sqrt(0.5), np.sqrt(0.5), 1, np.sqrt(1.5)])
+u_r = Y - D * 0.0                          # restricted (H0) residuals = Y_w
+rng = np.random.default_rng(42)
+B = 1999
+t_star = np.empty(B)
+for b in range(B):
+    w = {c: webb[rng.integers(0, 6)] for c in clusters}
