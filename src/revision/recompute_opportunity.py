@@ -78,3 +78,13 @@ USDA_STATE_CROP_RECEIPTS_2023USD = {
     # Additional states in our 514-county set
     'Washington':    11.6,   # $11.6B (WA is major fruit/wheat state)
     'Oregon':         4.2,   # $4.2B
+    'Michigan':       4.3,   # $4.3B
+    'Pennsylvania':   3.5,   # $3.5B
+    'New York':       3.6,   # $3.6B
+}
+
+USDA_STATE_TOTAL_FARM_INCOME_2023USD = {
+    # Gross cash farm income (crop + livestock + other)
+    'Minnesota':     15.0,
+    'Wisconsin':     11.9,
+    'South Dakota':   9.7,
