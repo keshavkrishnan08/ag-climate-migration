@@ -28,3 +28,13 @@ DATA_RAW = PROJECT_ROOT / "data" / "raw"
 PROJECTIONS_DIR = PROJECT_ROOT / "data" / "projections"
 RESULTS_REV = PROJECT_ROOT / "results" / "revision"
 
+RESULTS_REV.mkdir(parents=True, exist_ok=True)
+
+CPI_2023 = 304.703  # matches cpi_annual.csv
+
+# ---------------------------------------------------------------------------
+# Schlenker-Roberts (2009) EDD coefficients (from 06_stranded.py)
+# ---------------------------------------------------------------------------
+SR_COEFFICIENTS = {
+    "corn": -0.0662,
+    "soybeans": -0.0560,
