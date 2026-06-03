@@ -42,3 +42,14 @@ npv_B = npv / 1e9
 annual_floor = D * per_capita        # workers only, no multiplier
 npv_floor = np.array([(annual_floor[i] * (t / H) / (1 + disc[i]) ** t).sum() for i in range(N)]) / 1e9
 
+med, lo, hi = np.percentile(npv_B, [50, 5, 95])
+mean = npv_B.mean()
+floor_med = np.percentile(npv_floor, 50)
+
+out = {
+    "method": "Monte Carlo (200k draws) propagating IV elasticity sampling uncertainty + 5 parameter ranges",
+    "prime_age_base": PRIME_AGE_BASE, "horizon_years": H,
+    "npv_central_median_B": round(float(med), 1),
+    "npv_mean_B": round(float(mean), 1),
+    "npv_ci90_B": [round(float(lo), 1), round(float(hi), 1)],
+    "npv_workers_only_floor_median_B": round(float(floor_med), 1),
