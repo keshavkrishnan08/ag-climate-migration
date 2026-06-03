@@ -138,3 +138,13 @@ def demean2(df, cols, ent="fips", time="year"):
             s = s - s.groupby(out[time]).transform("mean")
         out[c + "_dm"] = s
     return out
+
+
+def tsls(df, y, d, z, controls, cluster="fips"):
+    """Two-way FE 2SLS with cluster-robust SE on the endogenous coefficient."""
+    cols = [y, d, z] + controls
+    dd = df.dropna(subset=cols).copy()
+    dd = dd[np.all(np.isfinite(dd[cols].values), axis=1)]
+    if dd["fips"].nunique() < 20 or len(dd) < 100:
+        return None
+    dm = demean2(dd, cols)
