@@ -298,3 +298,13 @@ def plausibility_check(state_table: pd.DataFrame, char: dict) -> list:
 
     findings.append(
         f"GROSS opportunity in 6 reviewer-named states (MN, WI, SD, ND, MT, ID): "
+        f"${named_gross:.1f}B/yr = {pct_crop_gross:.0f}% of current crop cash receipts "
+        f"(${named_crop_receipts:.1f}B) or {pct_total_gross:.0f}% of total farm income "
+        f"(${named_total_income:.1f}B). "
+        f"The reviewer's concern ('50–130% of current income') is CORRECT for the gross figure."
+    )
+    findings.append(
+        f"NET income opportunity in same 6 states: ${named_net:.1f}B/yr "
+        f"= {pct_crop_net:.0f}% of crop cash receipts or {pct_total_net:.0f}% of total farm income. "
+        f"This is more defensible: a {pct_total_net:.0f}% addition to farm income over "
+        f"~15 years (to 2040) implies ~{pct_total_net/15:.1f}% annual income growth from "
