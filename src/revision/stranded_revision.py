@@ -198,3 +198,13 @@ def load_real_prices() -> pd.DataFrame:
         print("  Falling back to USDA published marketing-year averages (1994-2023 real).")
         # FALLBACK: USDA published 30-yr real average prices (2023 USD)
         # Source: USDA ERS, "Commodity Costs and Returns" & NASS Quick Stats
+        # Corn: MYA avg 1994-2023 nominal ~$3.45/bu; real 2023 USD ~$4.42
+        # Soybeans: MYA avg ~$8.20/bu nominal; real ~$9.85
+        # Wheat winter: MYA avg ~$4.10/bu nominal; real ~$5.10
+        # Wheat spring: MYA avg ~$4.50/bu nominal; real ~$5.55
+        # Cotton upland: MYA avg ~$0.60/lb nominal; real ~$0.72
+        # Sorghum: MYA avg ~$3.40/bu nominal; real ~$4.35
+        # Barley: MYA avg ~$2.90/bu nominal; real ~$3.65
+        # Oats: MYA avg ~$2.00/bu nominal; real ~$2.45
+        fallback = {
+            "corn": (4.42, "$ / BU"),
