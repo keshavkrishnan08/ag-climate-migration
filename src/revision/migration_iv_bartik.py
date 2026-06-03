@@ -188,3 +188,13 @@ def tsls(df, y, d, z, controls, cluster="fips"):
 
 def reduced_form(df, y, z, controls):
     """OLS reduced form (placebo): y ~ z + controls + FE."""
+    cols = [y, z] + controls
+    dd = df.dropna(subset=cols).copy()
+    dd = dd[np.all(np.isfinite(dd[cols].values), axis=1)]
+    if len(dd) < 100:
+        return None
+    dm = demean2(dd, cols)
+    Y = dm[y + "_dm"].values
+    X = np.column_stack([dm[z + "_dm"].values] +
+                        [dm[c + "_dm"].values for c in controls])
+    b, *_ = np.linalg.lstsq(X, Y, rcond=None)
