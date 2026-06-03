@@ -38,3 +38,13 @@ def ar_test(df, y, d, z, ctrls, beta0):
     se = np.sqrt(cov[0, 0]); t = b[0] / se
     return 2 * (1 - stats.norm.cdf(abs(t)))
 
+
+def main():
+    panel = build_panel()
+    high = high_tercile(panel)
+    ctrls = ["winter_tmin_anom"]
+
+    # Anderson-Rubin 95% CI for beta on pop_growth_3yr
+    grid = np.linspace(-0.05, 0.25, 121)
+    accept = [b for b in grid if ar_test(high, "pop_growth_3yr", "fid_3yr", "z_bartik", ctrls, b) > 0.05]
+    ar_ci = [float(min(accept)), float(max(accept))] if accept else None
