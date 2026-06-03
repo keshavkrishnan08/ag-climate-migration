@@ -118,3 +118,13 @@ def build_panel():
     demo["pop_lead3"] = demo.groupby("fips")["total_population"].shift(-3)
     demo["pop_growth_3yr"] = (demo["pop_lead3"] - demo["total_population"]) / demo["total_population"]
 
+    mig = pd.read_parquet(DATA_RAW / "census" / "acs_migration_data.parquet")
+    mig["fips"] = mig["fips"].astype(str).str.zfill(5)
+    mig = mig.merge(demo[["fips", "year", "total_population"]], on=["fips", "year"], how="left")
+    mig["in_mig_rate"] = mig["moved_diff_county_same_state"].fillna(0) / mig["total_population"]
+
+    panel = (panel.merge(demo[["fips", "year", "pop_growth_3yr", "total_population"]],
+                         on=["fips", "year"], how="left")
+                  .merge(mig[["fips", "year", "in_mig_rate"]], on=["fips", "year"], how="left"))
+    return panel
+
