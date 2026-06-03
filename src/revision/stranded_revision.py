@@ -258,3 +258,13 @@ def compute_stranded_vectorized(
         yield_proj: Projections with climate_impact_bu, acres_harvested, crop, year, fips.
         land_values: NASS land values with fips, land_value_per_acre.
         commodity_prices: dict mapping crop -> real price $/bu (or $/lb for cotton).
+        discount_rate: Real discount rate.
+        horizon: Projection horizon in years.
+        scenario: Label string for output.
+
+    Returns:
+        County-level stranded value DataFrame.
+    """
+    yp = yield_proj.copy()
+    yp["price"] = yp["crop"].map(commodity_prices).fillna(5.0)
+
