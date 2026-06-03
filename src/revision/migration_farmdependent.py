@@ -58,3 +58,13 @@ def demean_twoway(df, cols, ent="fips", time="year"):
     for c in cols:
         s = out[c].astype(float)
         for _ in range(20):
+            s = s - s.groupby(out[ent]).transform("mean")
+            s = s - s.groupby(out[time]).transform("mean")
+        out[c + "_dm"] = s
+    return out
+
+
+def ols(y, X):
+    """OLS with HC1 SE. X already includes intercept column if desired."""
+    XtX = X.T @ X
+    beta = np.linalg.solve(XtX, X.T @ y)
