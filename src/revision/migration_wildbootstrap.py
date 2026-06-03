@@ -38,3 +38,13 @@ def iv_beta(Y, D, Z):
 beta_hat = iv_beta(Y, D, Z)
 u = Y - D * beta_hat                      # structural residual
 
+# ---- one-way CLUSTER-ROBUST (county) variance ----
+ZD = Z @ D
+meat = sum((Z[r] @ u[r]) ** 2 for r in rows_by.values())
+# small-sample correction G/(G-1)
+V = (G / (G - 1)) * meat / (ZD ** 2)
+se_cl = np.sqrt(V)
+t_cl = beta_hat / se_cl
+from scipy import stats
+p_cl = 2 * (1 - stats.t.cdf(abs(t_cl), df=G - 1))
+
