@@ -28,3 +28,13 @@ def crop_instruments():
     tot = bmix.groupby("fips")["acres_harvested"].transform("sum")
     bmix["share"] = bmix["acres_harvested"] / tot.replace(0, np.nan)
     natl = fm.groupby(["crop", "year"])["yield_anomaly"].agg(["sum", "count"]).reset_index()
+    fm2 = fm.merge(natl, on=["crop", "year"], how="left")
+    fm2["g_loo"] = (fm2["sum"] - fm2["yield_anomaly"]) / (fm2["count"] - 1).clip(lower=1)
+    fm2 = fm2.merge(bmix[["fips", "crop", "share"]], on=["fips", "crop"], how="left")
+    fm2["term"] = fm2["share"].fillna(0) * fm2["crop"].map(PRICE).fillna(5.0) * fm2["g_loo"]
+    out = None
+    for c in INSTR_CROPS:
+        z = (fm2[fm2["crop"] == c].groupby(["fips", "year"])["term"].sum()
+             .rename(f"z_{c}").reset_index())
+        out = z if out is None else out.merge(z, on=["fips", "year"], how="outer")
+    return out.fillna(0)
