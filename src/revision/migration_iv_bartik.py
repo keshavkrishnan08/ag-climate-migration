@@ -128,3 +128,13 @@ def build_panel():
                   .merge(mig[["fips", "year", "in_mig_rate"]], on=["fips", "year"], how="left"))
     return panel
 
+
+def demean2(df, cols, ent="fips", time="year"):
+    out = df.copy()
+    for c in cols:
+        s = out[c].astype(float)
+        for _ in range(25):
+            s = s - s.groupby(out[ent]).transform("mean")
+            s = s - s.groupby(out[time]).transform("mean")
+        out[c + "_dm"] = s
+    return out
