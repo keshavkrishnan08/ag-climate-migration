@@ -48,3 +48,13 @@ def longdiff(df):
         "cum_fid": df["farm_income_dev"].mean(),          # cumulative income deviation
         "cum_z": df["z_bartik"].mean(),                   # cumulative instrument
         "winter": df["winter_tmin_anom"].mean(),
+        "fdep": df["farm_dependent"].max(), "fi": df["fi"].iloc[0],
+        "yrs": p1["year"]-p0["year"]})
+cs=panel.groupby("fips").apply(longdiff,include_groups=False).dropna(subset=["dlog_pop","cum_fid","cum_z"]).reset_index()
+fd=cs[cs["fdep"]==1].copy()
+out={}
+out["longdiff_farmdep_all"]=tsls_cs(fd,"dlog_pop","cum_fid","cum_z",["winter"])
+hi=cs[(cs["fdep"]==1)&(cs["fi"]>=cs[cs.fdep==1]["fi"].quantile(0.5))]
+out["longdiff_high_intensity"]=tsls_cs(hi,"dlog_pop","cum_fid","cum_z",["winter"])
+# placebo: non-farm counties
+nf=cs[cs["fdep"]==0]
