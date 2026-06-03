@@ -78,3 +78,13 @@ def ols(y, X):
     from scipy import stats
     t = beta / se
     p = 2 * (1 - stats.norm.cdf(np.abs(t)))
+    return beta, se, p
+
+
+def build_panel():
+    """County-year panel: acreage-weighted yield anomaly + ACS pop/income/migration."""
+    fm = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet",
+                         columns=["fips", "year", "crop", "yield_anomaly",
+                                  "acres_harvested"])
+    fm["fips"] = fm["fips"].astype(str).str.zfill(5)
+    fm = fm.dropna(subset=["yield_anomaly"])
