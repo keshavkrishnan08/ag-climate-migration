@@ -138,3 +138,13 @@ def marginal_effects(panel, subset_mask, label):
         y = dm[outcome + "_dm"].values
         X = dm[["yield_anom_lag1_dm"]].values
         X = np.column_stack([np.ones(len(X)), X])
+        beta, se, p = ols(y, X)
+        sd_shock = dd["yield_anom_lag1"].std()
+        res[outcome] = {
+            "beta_per_unit": float(beta[1]), "se": float(se[1]), "p": float(p[1]),
+            "marginal_per_1sd_yield_drop_pct": float(-beta[1] * sd_shock * 100),
+            "n": int(len(dd)), "n_counties": int(dd["fips"].nunique()),
+        }
+    res["label"] = label
+    return res
+
