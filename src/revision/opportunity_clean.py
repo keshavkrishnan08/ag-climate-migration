@@ -20,3 +20,14 @@ MARGIN = 0.22
 EXPANSION_HEADROOM = 1.15   # allow 15% onto historically idle cropland
 
 
+def main():
+    front = pd.read_csv(ROOT / "results" / "frontier" / "opportunity_counties_SSP245.csv",
+                        dtype={"fips": str})
+    front["fips"] = front["fips"].str.zfill(5)
+    fm = pd.read_parquet(ROOT / "data" / "processed" / "feature_matrix.parquet",
+                         columns=["fips", "year", "crop", "acres_harvested"])
+    fm["fips"] = fm["fips"].astype(str).str.zfill(5)
+    # historical max total harvested acreage per county (real cropland ceiling)
+    yr_tot = fm.groupby(["fips", "year"])["acres_harvested"].sum()
+    cropland_ceiling = yr_tot.groupby("fips").max().rename("cropland_ceiling")
+    cur_harv = (fm[fm["year"].between(2019, 2023)].groupby(["fips", "year"])["acres_harvested"]
