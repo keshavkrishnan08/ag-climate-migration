@@ -38,3 +38,13 @@ USDA state-level benchmarks (2024, for plausibility check):
     All 11-state crop cash receipts, 2024:                                         ~$82 B
     (These are CURRENT annual totals — the reviewer's comparison baseline.)
 
+    Note: USDA state farm income figures are NOT stored as project data files;
+    they are cited directly from the ERS published tables and hardcoded below.
+    All dollar values are in 2023 USD per project convention.
+"""
+
+from pathlib import Path
+import numpy as np
+import pandas as pd
+
+# ---- Paths ----------------------------------------------------------------
