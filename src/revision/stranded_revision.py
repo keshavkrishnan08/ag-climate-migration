@@ -238,3 +238,13 @@ def load_real_prices() -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------
+# Core DCF functions (ported from 06_stranded.py, parameterised on prices)
+# ---------------------------------------------------------------------------
+
+def compute_stranded_vectorized(
+    yield_proj: pd.DataFrame,
+    land_values: pd.DataFrame,
+    commodity_prices: dict,
+    discount_rate: float = 0.04,
+    horizon: int = 30,
+    scenario: str = "SSP245",
