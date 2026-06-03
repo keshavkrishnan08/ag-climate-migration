@@ -18,3 +18,13 @@ def high_tercile(panel):
     fi = base.merge(pop0, on="fips"); fi["fi"] = fi["base_rev"] / fi["pop0"].replace(0, np.nan)
     panel = panel.merge(fi[["fips", "fi"]], on="fips", how="left")
     return panel[panel["fi"] >= panel["fi"].quantile(0.67)].copy()
+
+
+def ar_test(df, y, d, z, ctrls, beta0):
+    """Anderson-Rubin: regress (y - beta0*d) on z (+ctrls) with FE; return p on z."""
+    cols = [y, d, z] + ctrls
+    dd = df.dropna(subset=cols).copy()
+    dd = dd[np.all(np.isfinite(dd[cols].values), axis=1)]
+    dd["resid_y"] = dd[y] - beta0 * dd[d]
+    dm = demean2(dd, ["resid_y", z] + ctrls)
+    Y = dm["resid_y_dm"].values
