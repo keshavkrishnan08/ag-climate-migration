@@ -288,3 +288,13 @@ def plausibility_check(state_table: pd.DataFrame, char: dict) -> list:
     named_states = ['Minnesota', 'Wisconsin', 'South Dakota', 'North Dakota', 'Montana', 'Idaho']
     named_gross = state_table[state_table['state'].isin(named_states)]['gross_opportunity_B'].sum()
     named_net   = state_table[state_table['state'].isin(named_states)]['net_income_central_B'].sum()
+    named_crop_receipts = sum(USDA_STATE_CROP_RECEIPTS_2023USD[s] for s in named_states)
+    named_total_income  = sum(USDA_STATE_TOTAL_FARM_INCOME_2023USD[s] for s in named_states)
+
+    pct_crop_gross = named_gross / named_crop_receipts * 100
+    pct_crop_net   = named_net   / named_crop_receipts * 100
+    pct_total_gross = named_gross / named_total_income * 100
+    pct_total_net   = named_net   / named_total_income * 100
+
+    findings.append(
+        f"GROSS opportunity in 6 reviewer-named states (MN, WI, SD, ND, MT, ID): "
