@@ -53,3 +53,11 @@ out = {
     "npv_mean_B": round(float(mean), 1),
     "npv_ci90_B": [round(float(lo), 1), round(float(hi), 1)],
     "npv_workers_only_floor_median_B": round(float(floor_med), 1),
+    "param_ranges": {"beta": "N(0.0491,0.0149) trunc>=0", "income_decline": "U(0.15,0.25)",
+                     "household": "U(2.2,2.6)", "per_capita_output": "U(70k,75k)",
+                     "multiplier": "U(1.6,1.8)", "discount": "U(0.03,0.05)"}}
+json.dump(out, open(OUT / "migration_depop_montecarlo.json", "w"), indent=2)
+print("Depopulation NPV (Monte Carlo, 200k draws):")
+print("  central (median)     = $%.1fB   (mean $%.1fB)" % (med, mean))
+print("  90%% CI               = [$%.1f, $%.1f]B" % (lo, hi))
+print("  workers-only floor   = $%.1fB (median)" % floor_med)
