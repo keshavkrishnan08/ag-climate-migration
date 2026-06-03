@@ -118,3 +118,13 @@ def load_and_audit(path: Path) -> pd.DataFrame:
     # Enforce 5-digit FIPS zero-padding per project convention
     df['fips'] = df['fips'].astype(str).str.zfill(5)
     assert df['fips'].str.len().eq(5).all(), "FIPS padding failed"
+    assert df['annual_opportunity_2023USD'].notna().all(), "NaN in opportunity column"
+    print(f"Loaded {len(df)} counties, {df['state'].nunique()} states")
+    return df
+
+
+# ---------------------------------------------------------------------------
+# STEP 2: Characterise what annual_opportunity_usd actually represents
+# ---------------------------------------------------------------------------
+def characterise_metric(df: pd.DataFrame) -> dict:
+    """Decompose the original figure and document its definition.
