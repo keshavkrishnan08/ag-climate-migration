@@ -338,3 +338,13 @@ def plausibility_check(state_table: pd.DataFrame, char: dict) -> list:
     )
 
     return findings
+
+
+# ---------------------------------------------------------------------------
+# STEP 7: Write markdown summary
+# ---------------------------------------------------------------------------
+def write_summary(
+    char: dict,
+    state_table: pd.DataFrame,
+    infra: dict,
+    findings: list,
