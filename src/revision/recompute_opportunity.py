@@ -228,3 +228,13 @@ def build_state_table(df: pd.DataFrame) -> pd.DataFrame:
     by_state['pct_of_crop_receipts_gross'] = (
         by_state['gross_opportunity_B'] / by_state['usda_crop_receipts_B'] * 100
     ).round(1)
+    by_state['pct_of_crop_receipts_net'] = (
+        by_state['net_income_central_B'] / by_state['usda_crop_receipts_B'] * 100
+    ).round(1)
+    by_state['pct_of_total_farm_income_gross'] = (
+        by_state['gross_opportunity_B'] / by_state['usda_total_farm_income_B'] * 100
+    ).round(1)
+    by_state['pct_of_total_farm_income_net'] = (
+        by_state['net_income_central_B'] / by_state['usda_total_farm_income_B'] * 100
+    ).round(1)
+
