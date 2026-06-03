@@ -28,3 +28,13 @@ Net-to-gross ratio (USDA ERS):
         Table 6: Net farm income by commodity specialization.
     Conservative and aggressive bounds: 0.18 (low) and 0.27 (high) reflecting
     variability across regions and years in USDA ERS Table 6.
+
+USDA state-level benchmarks (2024, for plausibility check):
+    Source: USDA ERS "State Farm Income" 2024 estimates (https://www.ers.usda.gov/topics/farm-economy/farm-income-and-financial-forecasts/state-farm-income-forecasts/).
+    Crop cash receipts for 6 named states (MN, WI, SD, ND, MT, ID), 2024 estimate: ~$39.4 B
+    Total gross cash farm income same 6 states, 2024:                              ~$90.0 B
+    Adding WA, OR, MI, PA, NY (the other 5 states in our 514-county set):          ~$56.8 B
+    All 11-state gross cash farm income, 2024:                                     ~$147 B
+    All 11-state crop cash receipts, 2024:                                         ~$82 B
+    (These are CURRENT annual totals — the reviewer's comparison baseline.)
+
