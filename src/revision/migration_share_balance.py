@@ -9,3 +9,14 @@ A null = no pre-trend = the instrument is not aligned with pre-existing differen
 Seed 42; writes only to results/revision/.
 """
 import sys; sys.path.insert(0, 'src/revision')
+import json
+import numpy as np, pandas as pd
+from scipy import stats
+from migration_iv_bartik import build_panel
+np.random.seed(42)
+OUT = __import__('pathlib').Path('results/revision')
+
+def hc1(y, X):
+    b, *_ = np.linalg.lstsq(X, y, rcond=None)
+    r = y - X @ b; XtXi = np.linalg.inv(X.T @ X)
+    cov = XtXi @ ((X * (r ** 2)[:, None]).T @ X) @ XtXi * (len(y) / (len(y) - X.shape[1]))
