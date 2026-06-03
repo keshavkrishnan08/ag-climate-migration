@@ -31,3 +31,14 @@ instr = panel[panel.year.between(2009, 2023)].groupby('fips')['z_bartik'].mean()
 # PRE-PERIOD population growth (1990 -> 2000), strictly before the 2000-09 baseline-share window
 pop = panel[['fips', 'year', 'total_population']].dropna()
 def pop_yr(y):
+    return pop[pop.year == y].set_index('fips')['total_population']
+pre = (pop_yr(2000) / pop_yr(1990) - 1).rename('pretrend_9000')
+# also 2000->2008 as a second pre-window (overlaps baseline shares but precedes outcome window)
+pre2 = (pop_yr(2008) / pop_yr(2000) - 1).rename('pretrend_0008')
+
+fd = panel[panel.farm_dependent == 1]['fips'].unique()
+d = pd.concat([instr, pre, pre2], axis=1).dropna(subset=['instr'])
+d = d[d.index.isin(set(fd))]
+
+def reg(col):
+    dd = d[['instr', col]].replace([np.inf, -np.inf], np.nan).dropna()
