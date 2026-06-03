@@ -118,3 +118,13 @@ def build_panel():
     panel = (cy.merge(demo[["fips", "year", "pop_growth", "inc_growth", "population"]],
                       on=["fips", "year"], how="inner")
                .merge(farming_dependent(), on="fips", how="left"))
+    panel["farm_dependent"] = panel["farm_dependent"].fillna(0).astype(int)
+    # lag yield anomaly one year (decline follows the shock)
+    panel = panel.sort_values(["fips", "year"])
+    panel["yield_anom_lag1"] = panel.groupby("fips")["yield_anom"].shift(1)
+    return panel
+
+
+def marginal_effects(panel, subset_mask, label):
+    """Two-way FE marginal effect of lagged yield anomaly on decline outcomes."""
+    res = {}
