@@ -268,3 +268,13 @@ def infra_context(total_net_central_B: float, total_gross_B: float) -> dict:
 
 # ---------------------------------------------------------------------------
 # STEP 6: Plausibility assessment vs USDA benchmarks
+# ---------------------------------------------------------------------------
+def plausibility_check(state_table: pd.DataFrame, char: dict) -> list:
+    """Assess whether the opportunity figures are plausible vs USDA benchmarks.
+
+    Args:
+        state_table: Per-state summary from build_state_table().
+        char: Characterisation dict from characterise_metric().
+
+    Returns:
+        List of finding strings (plain English).
