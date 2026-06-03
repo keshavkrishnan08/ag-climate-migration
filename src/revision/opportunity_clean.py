@@ -31,3 +31,14 @@ def main():
     yr_tot = fm.groupby(["fips", "year"])["acres_harvested"].sum()
     cropland_ceiling = yr_tot.groupby("fips").max().rename("cropland_ceiling")
     cur_harv = (fm[fm["year"].between(2019, 2023)].groupby(["fips", "year"])["acres_harvested"]
+                .sum().groupby("fips").mean().rename("cur_harv"))
+    cap = pd.concat([cropland_ceiling, cur_harv], axis=1).reset_index()
+    cap["expandable_clean"] = (cap["cropland_ceiling"] * EXPANSION_HEADROOM
+                               - cap["cur_harv"]).clip(lower=0)
+
+    yp = pd.read_parquet(ROOT / "data" / "projections" / "yield_projections_SSP245.parquet",
+                         columns=["fips", "year", "crop", "yield_projected"])
+    yp["fips"] = yp["fips"].astype(str).str.zfill(5)
+    late = yp[yp["year"].between(2038, 2042)].groupby(["fips", "crop"])["yield_projected"].mean().reset_index()
+    late["price"] = late["crop"].map(PRICE).fillna(4.0)
+    late["min_v"] = late["crop"].map(MIN_VIABLE).fillna(20)
