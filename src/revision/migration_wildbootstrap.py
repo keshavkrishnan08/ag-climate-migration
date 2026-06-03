@@ -28,3 +28,13 @@ D = fd['farm_income_dev_w'].values
 Z = fd['z_bartik_w'].values
 g = fd['fips'].values
 clusters = np.unique(g)
+G = len(clusters)
+rows_by = {c: np.where(g == c)[0] for c in clusters}
+
+def iv_beta(Y, D, Z):
+    # just-identified IV (FE already partialled out): beta = (Z'D)^-1 Z'Y
+    return (Z @ Y) / (Z @ D)
+
+beta_hat = iv_beta(Y, D, Z)
+u = Y - D * beta_hat                      # structural residual
+
