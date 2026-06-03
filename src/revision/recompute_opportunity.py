@@ -508,3 +508,13 @@ def main() -> None:
     print(f"\nOriginal $51B headline decomposition:")
     print(f"  Total gross:    ${char['total_gross_opportunity_B']:.2f}B/yr")
     print(f"  Expansion:      ${char['expansion_B']:.2f}B ({char['pct_expansion']:.1f}%)")
+    print(f"  Yield gain:     ${char['yield_gain_B']:.2f}B")
+    print(f"  Crop upgrade:   ${char['upgrade_B']:.2f}B")
+    print(f"  + Dairy (flat): ${char['dairy_addback_B']:.1f}B")
+    print(f"  Paper headline: ${char['headline_with_dairy_B']:.2f}B/yr")
+
+    # 3. Add net income columns
+    df = add_net_income_columns(df)
+    total_net_central_B = df['net_income_central_usd'].sum() / 1e9
+    print(f"\nNet income (22% margin): ${total_net_central_B:.2f}B/yr")
+    print(f"Net income (18% margin): ${df['net_income_low_usd'].sum()/1e9:.2f}B/yr")
