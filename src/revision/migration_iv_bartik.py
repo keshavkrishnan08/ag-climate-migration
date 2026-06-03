@@ -58,3 +58,13 @@ def farming_dependent():
     am["hi_amenity"] = pd.to_numeric(am["hi_amenity"], errors="coerce").fillna(0)
     return fd[["fips", "farm_dependent"]].merge(am, on="fips", how="left")
 
+
+def winter_temp_anomaly():
+    m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet",
+                        columns=["fips", "year", "tmin_m12", "tmin_m01", "tmin_m02"])
+    m["fips"] = m["fips"].astype(str).str.zfill(5)
+    m["winter_tmin"] = m[["tmin_m12", "tmin_m01", "tmin_m02"]].mean(axis=1)
+    m["winter_tmin_anom"] = m["winter_tmin"] - m.groupby("fips")["winter_tmin"].transform("mean")
+    return m[["fips", "year", "winter_tmin_anom"]]
+
+
