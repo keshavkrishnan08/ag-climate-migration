@@ -88,3 +88,13 @@ def main():
     pop0 = (panel.sort_values("year").groupby("fips")["total_population"]
             .first().rename("pop0").reset_index())
     fi = base.merge(pop0, on="fips", how="left")
+    fi["farm_intensity"] = fi["base_rev"] / fi["pop0"].replace(0, np.nan)
+    fi["farm_intensity_std"] = ((fi["farm_intensity"] - fi["farm_intensity"].mean())
+                                / fi["farm_intensity"].std())
+    panel = panel.merge(fi[["fips", "farm_intensity", "farm_intensity_std"]], on="fips", how="left")
+    panel["z_x_fi"] = panel["z_bartik"] * panel["farm_intensity_std"]
+
+    out = {"design": "dose-response: pop_growth_3yr ~ z + z*farm_intensity, county+year FE",
+           "key_coef": "z_x_fi (farm-income channel, exclusion-robust)"}
+
+    # (1) county + year FE
