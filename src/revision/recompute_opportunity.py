@@ -98,3 +98,13 @@ USDA_STATE_TOTAL_FARM_INCOME_2023USD = {
     'New York':       7.8,
 }
 
+# Infrastructure gap from original analysis (expansion_infra_investment, 2023 USD)
+INFRA_GAP_ORIGINAL_B = 35.647  # $35.6B one-time capital expenditure
+
+
+# ---------------------------------------------------------------------------
+# STEP 1: Load and audit the existing output
+# ---------------------------------------------------------------------------
+def load_and_audit(path: Path) -> pd.DataFrame:
+    """Load opportunity CSV and verify its structure.
+
