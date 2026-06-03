@@ -348,3 +348,13 @@ def write_summary(
     state_table: pd.DataFrame,
     infra: dict,
     findings: list,
+    out_path: Path,
+) -> None:
+    """Write the revision summary markdown.
+
+    Args:
+        char: Characterisation dict.
+        state_table: Per-state DataFrame.
+        infra: Infrastructure context dict.
+        findings: Plausibility finding strings.
+        out_path: Output path for the markdown file.
