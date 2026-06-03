@@ -148,3 +148,13 @@ def load_real_prices() -> pd.DataFrame:
             except ValueError:
                 continue
 
+            crop_key = rev_map[short_desc]
+            unit = parts[ci["UNIT_DESC"]].strip()
+            records.append({
+                "crop": crop_key,
+                "year": year,
+                "nominal_price": value,
+                "unit": unit,
+                "short_desc": short_desc,
+            })
+
