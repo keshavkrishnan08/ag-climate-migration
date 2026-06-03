@@ -158,3 +158,13 @@ def characterise_metric(df: pd.DataFrame) -> dict:
             yield_gain_B / total_gross_B * 100,
             pct_expansion,
             upgrade_B / total_gross_B * 100,
+        ),
+        'total_gross_opportunity_B': round(total_gross_B, 2),
+        'expansion_B': round(expansion_B, 2),
+        'yield_gain_B': round(yield_gain_B, 2),
+        'upgrade_B': round(upgrade_B, 2),
+        'infra_capex_B': round(infra_capex_B, 2),
+        'pct_expansion': round(pct_expansion, 1),
+        'dairy_addback_B': 9.0,  # flat addition in 09_frontier.py (not in CSV)
+        'headline_with_dairy_B': round(total_gross_B + 9.0, 2),
+    }
