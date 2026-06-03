@@ -58,3 +58,13 @@ def load_real_prices() -> pd.DataFrame:
     """Compute 30-yr inflation-adjusted marketing-year average prices (1994-2023, 2023 USD).
 
     Data source: USDA NASS QuickStats dump (qs.crops.txt.gz), STATISTICCAT_DESC =
+    'PRICE RECEIVED', FREQ_DESC = 'MARKETING YEAR', AGG_LEVEL_DESC = 'NATIONAL'.
+    Nominal prices deflated to 2023 USD using cpi_annual.csv (CPI_2023 = 304.7).
+
+    Crops and price series used:
+      corn          → CORN, GRAIN - PRICE RECEIVED ($ / BU)
+      soybeans      → SOYBEANS - PRICE RECEIVED ($ / BU)
+      wheat_winter  → WHEAT, WINTER - PRICE RECEIVED ($ / BU)
+      wheat_spring  → WHEAT, SPRING, (EXCL DURUM) - PRICE RECEIVED ($ / BU)
+      cotton        → COTTON, UPLAND - PRICE RECEIVED ($ / LB)
+      sorghum       → SORGHUM, GRAIN - PRICE RECEIVED ($ / CWT)
