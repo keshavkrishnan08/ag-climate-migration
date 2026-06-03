@@ -58,3 +58,13 @@ def longdiff_reg(df, y, x, t0=2007, t1=2022):
     Yv = dy.values; Xv = dx.values
     bcoef = (Xv @ Yv) / (Xv @ Xv); r = Yv - Xv * bcoef
     meat = sum((Xv[np.where(d["fips"] == c)[0]] @ r[np.where(d["fips"] == c)[0]]) ** 2 for c in d["fips"].unique())
+    G = d["fips"].nunique()
+    se = np.sqrt((G / (G - 1)) * meat / (Xv @ Xv) ** 2)
+    t = bcoef / se
+    return {"beta": float(bcoef), "se": float(se), "p": float(2 * (1 - stats.norm.cdf(abs(t)))), "n": int(len(d)), "n_cty": int(G), "t0": t0, "t1": t1}
+
+fd=p[p["fdep"]==1]
+res={
+ "link1_yield_to_farm_revenue": fe_reg(fd,"log_rev","yld"),
+ "link2a_farm_revenue_to_farmland_value": fe_reg(fd,"log_lv","log_rev_lag1"),
+ "link2b_farm_revenue_to_median_income": fe_reg(fd,"log_inc","log_rev_lag1"),
