@@ -208,3 +208,13 @@ def build_state_table(df: pd.DataFrame) -> pd.DataFrame:
             net_income_low_B, net_income_high_B,
             usda_crop_receipts_B, usda_total_farm_income_B,
             ratio_to_crop_receipts_central (gross opportunity / crop receipts),
+            ratio_to_total_income_central (gross opportunity / total farm income),
+            ratio_net_to_crop_receipts (net income / crop receipts),
+    """
+    by_state = df.groupby('state').agg(
+        n_counties                = ('fips', 'count'),
+        gross_opportunity_B       = ('annual_opportunity_2023USD', lambda x: round(x.sum() / 1e9, 3)),
+        net_income_central_B      = ('net_income_central_usd',     lambda x: round(x.sum() / 1e9, 3)),
+        net_income_low_B          = ('net_income_low_usd',         lambda x: round(x.sum() / 1e9, 3)),
+        net_income_high_B         = ('net_income_high_usd',        lambda x: round(x.sum() / 1e9, 3)),
+        expansion_infra_B         = ('expansion_infra_investment',  lambda x: round(x.sum() / 1e9, 3)),
