@@ -128,3 +128,10 @@ def main():
     show("placebo bottom tercile", r3, "z_bartik")
     show("high tercile reduced form", r4, "z_bartik")
 
+    with open(OUT / "migration_iv_v2.json", "w") as f:
+        json.dump(out, f, indent=2)
+    print(f"\nSaved -> {OUT}/migration_iv_v2.json")
+
+
+if __name__ == "__main__":
+    main()
