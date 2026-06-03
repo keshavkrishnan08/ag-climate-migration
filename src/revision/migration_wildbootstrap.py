@@ -68,3 +68,10 @@ for b in range(B):
 p_wcb = (np.abs(t_star) >= abs(t_cl)).mean()
 
 out = {"beta": float(beta_hat), "n_obs": int(len(Y)), "n_clusters": int(G),
+       "county_cluster_se": float(se_cl), "county_cluster_t": float(t_cl), "county_cluster_p": float(p_cl),
+       "wild_cluster_bootstrap_p": float(p_wcb), "B": int(B),
+       "method": "FE-2SLS; one-way county-clustered + Webb wild-cluster restricted bootstrap (H0 imposed)"}
+json.dump(out, open('results/revision/migration_wildbootstrap.json', 'w'), indent=2)
+print("beta = %.4f  (n=%d, %d county clusters)" % (beta_hat, len(Y), G))
+print("county-clustered:        SE=%.4f  t=%.2f  p=%.4f" % (se_cl, t_cl, p_cl))
+print("wild-cluster bootstrap:  p=%.4f  (Webb weights, B=%d, H0 imposed)" % (p_wcb, B))
