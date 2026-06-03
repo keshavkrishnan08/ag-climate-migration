@@ -18,3 +18,13 @@ def floored_total(pasture):
     mask = has_lv & (df["stranded_before_floor"] > max_loss)
     capped[mask] = max_loss[mask]
     return float(capped.sum() / 1e9)
+
+res = {f"pasture_{int(p)}_per_ac_central_B": round(floored_total(p), 1) for p in [1000, 1500, 2000]}
+res["before_floor_central_B"] = round(float(df["stranded_before_floor"].sum() / 1e9), 1)
+res["reported_floored_1500_check_B"] = round(float(df["stranded_value_floored"].sum() / 1e9), 1)
+json.dump(res, open(OUT / "stranded_floor_sensitivity.json", "w"), indent=2)
+print("Alternate-use floor sensitivity (central DCF, after floor):")
+print("  before any floor:      $%.1fB" % res["before_floor_central_B"])
+for p in [1000, 1500, 2000]:
+    print("  pasture $%-5d/ac:      $%.1fB" % (p, res[f"pasture_{p}_per_ac_central_B"]))
+print("  (parquet $1500 check:   $%.1fB)" % res["reported_floored_1500_check_B"])
