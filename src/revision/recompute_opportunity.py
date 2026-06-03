@@ -368,3 +368,13 @@ def write_summary(
         'state', 'n_counties',
         'gross_opportunity_B', 'net_income_central_B',
         'usda_crop_receipts_B',
+        'pct_of_crop_receipts_gross', 'pct_of_crop_receipts_net',
+    ]
+
+    def fmt_tbl(tdf):
+        rows = []
+        rows.append('| State | N counties | Gross opp. ($B/yr) | Net income ($B/yr, central) | USDA crop receipts ($B) | Gross / receipts (%) | Net / receipts (%) |')
+        rows.append('|---|---|---|---|---|---|---|')
+        for _, r in tdf.iterrows():
+            rows.append(
+                f"| {r['state']} | {int(r['n_counties'])} | "
