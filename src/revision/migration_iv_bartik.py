@@ -88,3 +88,13 @@ def build_panel():
 
     # Baseline crop mix (2000-2009 acreage shares)
     bmix = fm[fm["year"].between(2000, 2009)].groupby(["fips", "crop"])["acres_harvested"].mean()
+    bmix = bmix.reset_index()
+    tot = bmix.groupby("fips")["acres_harvested"].transform("sum")
+    bmix["share"] = bmix["acres_harvested"] / tot.replace(0, np.nan)
+    bmix["price"] = bmix["crop"].map(PRICE).fillna(5.0)
+
+    # Leave-one-out national crop yield shock g_{c,t}^{-i}
+    # national sum and count of yield_anomaly by crop-year, then loo per county
+    natl = fm.groupby(["crop", "year"])["yield_anomaly"].agg(["sum", "count"]).reset_index()
+    fm2 = fm.merge(natl, on=["crop", "year"], how="left")
+    fm2["g_loo"] = (fm2["sum"] - fm2["yield_anomaly"]) / (fm2["count"] - 1).clip(lower=1)
