@@ -118,3 +118,13 @@ def main():
                      ["fips", "year"])
     out["high_tercile_reduced_form"] = r4
 
+    def show(name, r, key):
+        if r:
+            print(f"[{name}] {key}: beta={r['coef'][key]:+.5f} "
+                  f"p={r['p'][key]:.4f} n={r['n']} ({r['n_counties']} counties)")
+    print("Dose-response (the farm-income migration channel):")
+    show("county+year FE", r1, "z_x_fi")
+    show("county+stateyear FE", r2, "z_x_fi")
+    show("placebo bottom tercile", r3, "z_bartik")
+    show("high tercile reduced form", r4, "z_bartik")
+
