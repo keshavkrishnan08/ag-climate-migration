@@ -518,3 +518,13 @@ def main() -> None:
     total_net_central_B = df['net_income_central_usd'].sum() / 1e9
     print(f"\nNet income (22% margin): ${total_net_central_B:.2f}B/yr")
     print(f"Net income (18% margin): ${df['net_income_low_usd'].sum()/1e9:.2f}B/yr")
+    print(f"Net income (27% margin): ${df['net_income_high_usd'].sum()/1e9:.2f}B/yr")
+
+    # 4. Per-state table
+    state_table = build_state_table(df)
+    csv_path = OUT_DIR / 'opportunity_by_state.csv'
+    state_table.to_csv(csv_path, index=False)
+    print(f"\nPer-state table ({len(state_table)} states) saved to {csv_path}")
+    print(state_table[['state','n_counties','gross_opportunity_B','net_income_central_B',
+                        'usda_crop_receipts_B','pct_of_crop_receipts_gross','pct_of_crop_receipts_net']].to_string(index=False))
+
