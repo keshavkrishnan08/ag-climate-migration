@@ -318,3 +318,13 @@ def plausibility_check(state_table: pd.DataFrame, char: dict) -> list:
     findings.append(
         f"Annualized: net opportunity ${total_net_B:.1f}B/yr reached by 2040 equates to "
         f"~{total_net_B/all_states_total_income*100:.0f}% of all-11-state farm income "
+        f"(${all_states_total_income:.0f}B). Over 15 years, this is "
+        f"{annualized_net_pct:.1f}%/yr incremental income growth — "
+        f"consistent with 20-30% total real growth over 20 years that the reviewer cites."
+    )
+
+    # The $51B paper headline: clarify what it is
+    findings.append(
+        f"THE $51B HEADLINE IS GROSS INCREMENTAL CROP REVENUE (not net farm income). "
+        f"Of this, {char['pct_expansion']:.0f}% comes from the acreage expansion component, "
+        f"which assumes currently idle/marginal farmland is converted to corn/wheat at "
