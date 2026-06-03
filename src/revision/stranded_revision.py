@@ -308,3 +308,13 @@ def compute_stranded_vectorized(
         county_pv["stranded_fraction"] = np.nan
 
     county_pv["scenario"] = scenario
+    county_pv["discount_rate"] = discount_rate
+    county_pv["horizon"] = horizon
+    return county_pv
+
+
+def compute_stranded_with_damage_function(
+    yield_proj: pd.DataFrame,
+    climate_proj: pd.DataFrame,
+    land_values: pd.DataFrame,
+    commodity_prices: dict,
