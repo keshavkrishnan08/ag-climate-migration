@@ -108,3 +108,13 @@ def main():
     # (3) clean placebo: bottom farm-intensity tercile, reduced form of z
     cut = panel["farm_intensity"].quantile(0.33)
     placebo = panel[panel["farm_intensity"] <= cut]
+    r3 = ols_cluster(placebo, "pop_growth_3yr", ["z_bartik", "winter_tmin_anom"],
+                     ["fips", "year"])
+    out["placebo_bottom_tercile_reduced_form"] = r3
+    # (4) within high farm-intensity tercile reduced form (should be strong)
+    cut2 = panel["farm_intensity"].quantile(0.67)
+    high = panel[panel["farm_intensity"] >= cut2]
+    r4 = ols_cluster(high, "pop_growth_3yr", ["z_bartik", "winter_tmin_anom"],
+                     ["fips", "year"])
+    out["high_tercile_reduced_form"] = r4
+
