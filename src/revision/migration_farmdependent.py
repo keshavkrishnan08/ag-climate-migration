@@ -38,3 +38,13 @@ DATA_RAW = ROOT / "data" / "raw"
 DATA_PROCESSED = ROOT / "data" / "processed"
 PUB = ROOT / "data" / "published_dataset"
 OUT = ROOT / "results" / "revision"
+OUT.mkdir(parents=True, exist_ok=True)
+np.random.seed(42)
+
+
+def farming_dependent():
+    cc = pd.read_csv(DATA_RAW / "other" / "ers_atlas" / "CountyClassifications.csv",
+                     dtype=str, encoding="latin-1")
+    cc = cc.rename(columns={cc.columns[0]: "fips"})
+    cc["fips"] = cc["fips"].str.zfill(5)
+    fd = cc[cc["Attribute"] == "Type_2015_Farming_NO"][["fips", "Value"]]
