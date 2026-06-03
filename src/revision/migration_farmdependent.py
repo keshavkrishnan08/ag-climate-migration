@@ -28,3 +28,13 @@ Seed 42. Writes only to results/revision/.
 
 import json
 import sys
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+DATA_RAW = ROOT / "data" / "raw"
+DATA_PROCESSED = ROOT / "data" / "processed"
+PUB = ROOT / "data" / "published_dataset"
+OUT = ROOT / "results" / "revision"
