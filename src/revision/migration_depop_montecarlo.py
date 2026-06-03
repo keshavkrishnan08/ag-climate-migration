@@ -31,3 +31,14 @@ disc           = rng.uniform(0.03, 0.05, N)      # discount rate
 
 D = beta * income_decline * PRIME_AGE_BASE       # annual prime-age shortfall at full displacement
 persons = D * household
+annual_output = persons * per_capita * multiplier
+
+t = np.arange(1, H + 1)
+# NPV with linear phase-in: vectorize over draws
+npv = np.array([(annual_output[i] * (t / H) / (1 + disc[i]) ** t).sum() for i in range(N)])
+npv_B = npv / 1e9
+
+# workers-only floor (no household scaling, personal-income basis ~ per-capita * 1.0 multiplier)
+annual_floor = D * per_capita        # workers only, no multiplier
+npv_floor = np.array([(annual_floor[i] * (t / H) / (1 + disc[i]) ** t).sum() for i in range(N)]) / 1e9
+
