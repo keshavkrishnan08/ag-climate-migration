@@ -418,3 +418,13 @@ def write_summary(
 
     lines = [
         "# Opportunity Recomputation — Revision Response to Reviewer 1, Major #3",
+        "",
+        "## 1. What annual_opportunity_usd actually represents",
+        "",
+        char['definition'],
+        "",
+        f"**Bottom line:** The figure is **gross incremental crop revenue**, not net farm income.",
+        "",
+        "## 2. Aggregate numbers (gross vs net)",
+        "",
+        f"| Metric | Value |",
