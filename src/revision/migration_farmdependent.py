@@ -88,3 +88,13 @@ def build_panel():
                                   "acres_harvested"])
     fm["fips"] = fm["fips"].astype(str).str.zfill(5)
     fm = fm.dropna(subset=["yield_anomaly"])
+    # acreage-weighted county yield anomaly (vectorized)
+    fm["w"] = fm["acres_harvested"].clip(lower=0).fillna(0)
+    fm["wy"] = fm["yield_anomaly"] * fm["w"]
+    agg = fm.groupby(["fips", "year"]).agg(
+        sumwy=("wy", "sum"), sumw=("w", "sum"),
+        meany=("yield_anomaly", "mean")).reset_index()
+    agg["yield_anom"] = np.where(agg["sumw"] > 0, agg["sumwy"] / agg["sumw"].replace(0, np.nan),
+                                 agg["meany"])
+    cy = agg[["fips", "year", "yield_anom"]]
+
