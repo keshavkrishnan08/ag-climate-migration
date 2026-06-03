@@ -128,3 +128,13 @@ def load_real_prices() -> pd.DataFrame:
 
             agg_level = parts[ci["AGG_LEVEL_DESC"]].strip()
             if agg_level != "NATIONAL":
+                continue
+
+            short_desc = parts[ci["SHORT_DESC"]].strip()
+            if short_desc not in rev_map:
+                continue
+
+            try:
+                year = int(parts[ci["YEAR"]].strip())
+            except ValueError:
+                continue
