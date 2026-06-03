@@ -138,3 +138,13 @@ def load_real_prices() -> pd.DataFrame:
                 year = int(parts[ci["YEAR"]].strip())
             except ValueError:
                 continue
+
+            if year < 1994 or year > 2023:
+                continue
+
+            value_str = parts[ci["VALUE"]].strip().replace(",", "")
+            try:
+                value = float(value_str)
+            except ValueError:
+                continue
+
