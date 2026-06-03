@@ -138,3 +138,13 @@ def characterise_metric(df: pd.DataFrame) -> dict:
     total_gross_B    = df['annual_opportunity_2023USD'].sum() / 1e9
     expansion_B      = df['expansion_income'].sum() / 1e9
     yield_gain_B     = df['yield_gain_income'].sum() / 1e9
+    upgrade_B        = df['upgrade_income'].sum() / 1e9
+    infra_capex_B    = df['expansion_infra_investment'].sum() / 1e9
+
+    pct_expansion    = expansion_B / total_gross_B * 100
+
+    char = {
+        'definition': (
+            "GROSS INCREMENTAL CROP REVENUE (2023 USD/yr). "
+            "Component 1 (yield gain, {:.1f}%): (projected_yield - current_yield) × price × "
+            "existing_harvested_acres — INCREMENTAL gross revenue on existing farmland. "
