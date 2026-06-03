@@ -48,3 +48,13 @@ def farming_dependent():
     cc = cc.rename(columns={cc.columns[0]: "fips"})
     cc["fips"] = cc["fips"].str.zfill(5)
     fd = cc[cc["Attribute"] == "Type_2015_Farming_NO"][["fips", "Value"]]
+    fd["farm_dependent"] = (fd["Value"] == "1").astype(int)
+    return fd[["fips", "farm_dependent"]]
+
+
+def demean_twoway(df, cols, ent="fips", time="year"):
+    """Two-way within transform (county + year FE) by iterated demeaning."""
+    out = df.copy()
+    for c in cols:
+        s = out[c].astype(float)
+        for _ in range(20):
