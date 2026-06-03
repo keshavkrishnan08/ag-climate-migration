@@ -328,3 +328,13 @@ def plausibility_check(state_table: pd.DataFrame, char: dict) -> list:
         f"THE $51B HEADLINE IS GROSS INCREMENTAL CROP REVENUE (not net farm income). "
         f"Of this, {char['pct_expansion']:.0f}% comes from the acreage expansion component, "
         f"which assumes currently idle/marginal farmland is converted to corn/wheat at "
+        f"full projected yields with zero existing-use baseline. "
+        f"This is an INCREMENTAL revenue ceiling — it does not double-count existing production "
+        f"because the baseline for expansion acres is zero (unfarmed). "
+        f"However, it does not deduct production costs, so it overstates farm profit. "
+        f"The corrected NET income headline is ${total_net_B:.1f}B/yr (central) or "
+        f"${total_gross_B * NET_TO_GROSS_LOW:.1f}–{total_gross_B * NET_TO_GROSS_HIGH:.1f}B/yr "
+        f"(range using 18–27% net margins from USDA ERS Table 6)."
+    )
+
+    return findings
