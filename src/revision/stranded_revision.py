@@ -298,3 +298,13 @@ def compute_stranded_vectorized(
         land_avg = (
             land_values.groupby("fips")["land_value_per_acre"].mean().reset_index()
         )
+        county_pv = county_pv.merge(land_avg, on="fips", how="left")
+        county_pv["stranded_fraction"] = (
+            county_pv["stranded_value_per_acre"]
+            / county_pv["land_value_per_acre"].replace(0, np.nan)
+        )
+    else:
+        county_pv["land_value_per_acre"] = np.nan
+        county_pv["stranded_fraction"] = np.nan
+
+    county_pv["scenario"] = scenario
