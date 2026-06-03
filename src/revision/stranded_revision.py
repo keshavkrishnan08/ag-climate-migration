@@ -158,3 +158,13 @@ def load_real_prices() -> pd.DataFrame:
                 "short_desc": short_desc,
             })
 
+    print(f"  Scanned {line_count / 1e6:.1f}M lines, extracted {len(records)} records.")
+
+    raw_df = pd.DataFrame(records)
+
+    # Keep one record per crop-year (prefer exact short_desc match; dedup by taking first)
+    raw_df = raw_df.drop_duplicates(subset=["crop", "year"], keep="first")
+
+    # Deflate to 2023 USD
+    raw_df["cpi"] = raw_df["year"].map(cpi_map)
+    raw_df["real_price_2023usd"] = raw_df["nominal_price"] * (CPI_2023 / raw_df["cpi"])
