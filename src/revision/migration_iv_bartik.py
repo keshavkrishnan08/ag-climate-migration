@@ -208,3 +208,13 @@ def reduced_form(df, y, z, controls):
     se = np.sqrt(cov[0, 0]); t = b[0] / se
     return {"beta": float(b[0]), "se": float(se),
             "p": float(2 * (1 - stats.norm.cdf(abs(t)))), "n": int(len(dd))}
+
+
+def main():
+    panel = build_panel()
+    fd = panel[panel["farm_dependent"] == 1].copy()
+    nonfd = panel[panel["farm_dependent"] == 0].copy()
+    print(f"Farm-dependent county-years: {len(fd)} ({fd['fips'].nunique()} counties)")
+
+    out = {"sample": "ERS farming-dependent counties, 2000-2023",
+           "instrument": "leave-one-out shift-share national crop yield shock x baseline crop mix",
