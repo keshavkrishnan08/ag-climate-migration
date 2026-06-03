@@ -25,3 +25,12 @@ per_state = {
     "Montana": 1.4,
     "Wyoming": 0.6,
     "Oregon": 0.4,
+}
+
+bands = {}
+for margin in [0.15, 0.22, 0.30]:
+    bands[f"margin_{int(margin*100)}pct_net_B_per_yr"] = round(gross_incremental_revenue_B_per_yr * margin, 1)
+
+per_state_net = {s: {f"net_margin_{int(m*100)}pct_B_per_yr": round(gross * m, 2)
+                     for m in [0.15, 0.22, 0.30]} for s, gross in per_state.items()}
+
