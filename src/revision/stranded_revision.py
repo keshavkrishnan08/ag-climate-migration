@@ -38,3 +38,13 @@ CPI_2023 = 304.703  # matches cpi_annual.csv
 SR_COEFFICIENTS = {
     "corn": -0.0662,
     "soybeans": -0.0560,
+    "wheat_winter": -0.0420,
+    "wheat_spring": -0.0420,
+    "cotton": -0.0662,
+    "sorghum": -0.0662,
+    "barley": -0.0420,
+    "oats": -0.0420,
+}
+SR_THRESHOLD_MODERATE = 29.0
+SSP585_SCALE = 1.8
+INDIRECT_MULTIPLIER = 1.30
