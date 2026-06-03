@@ -408,3 +408,13 @@ def write_summary(
         f"(2023 USD) across all counties. "
         f"To convert to net farm income, we apply the USDA ERS grain and oilseed farm "
         f"operating margin of 22% (range: 18–27%; USDA ERS Farm Income and Wealth Statistics, "
+        f"Table 6, 2019–2022 average), yielding a net income opportunity of "
+        f"${total_net_B:.0f} billion per year (${net_lo:.0f}–${net_hi:.0f} B/yr across the margin range). "
+        f"The ${INFRA_GAP_ORIGINAL_B:.0f} billion infrastructure investment required to realise "
+        f"this opportunity represents {infra['multiple_vs_annual_net']:.1f} times the annual net "
+        f"income opportunity, or a {infra['payback_vs_net_central_yrs']:.0f}-year payback at "
+        f"full net income."
+    )
+
+    lines = [
+        "# Opportunity Recomputation — Revision Response to Reviewer 1, Major #3",
