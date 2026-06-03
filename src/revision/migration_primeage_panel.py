@@ -28,3 +28,13 @@ def fe2sls(d,y,x,z,cl="fips"):
     F=(np.sum((Dhat-Dhat.mean())**2))/ (np.sum((D-Dhat)**2)/(len(D)-2))
     Xh=np.column_stack([np.ones(len(d)),Dhat]); b2,*_=np.linalg.lstsq(Xh,Y,rcond=None); beta=b2[1]
     u=Y-np.column_stack([np.ones(len(d)),D])@b2
+    # cluster-robust by county
+    bread=np.linalg.inv(Xh.T@Xh); meat=np.zeros((2,2))
+    for _,idx in d.groupby(cl).indices.items():
+        Xg=Xh[idx]; ug=u[idx]; meat+=Xg.T@np.outer(ug,ug)@Xg
+    cov=bread@meat@bread; se=np.sqrt(cov[1,1]); t=beta/se
+    return {"beta":float(beta),"se":float(se),"p":float(2*(1-stats.norm.cdf(abs(t)))),
+            "first_stage_F":float(F),"n":int(len(d)),"n_cty":int(d[cl].nunique()),
+            "ci95":[float(beta-1.96*se),float(beta+1.96*se)]}
+
+prime=pd.read_parquet(OUT/"prime_age_pop.parquet"); prime["fips"]=prime["fips"].astype(str).str.zfill(5)
