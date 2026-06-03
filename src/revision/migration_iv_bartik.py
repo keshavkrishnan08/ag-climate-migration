@@ -8,3 +8,13 @@ through amenity or winter-mildness channels, not only farm income; Rappaport
 
   * EXTERNAL VALIDITY: estimate only on ERS farming-dependent counties
     (Type_2015_Farming_NO = 1).
+
+  * EXCLUSION RESTRICTION: instrument county farm-income deviation with a
+    LEAVE-ONE-OUT SHIFT-SHARE (Bartik) shock built from OTHER counties' national
+    crop-specific yield shocks weighted by the county's pre-period crop mix:
+        z_it = sum_c  share_ic(baseline) * price_c * g_{c,t}^{-i}
+    where g_{c,t}^{-i} is the mean detrended yield anomaly of crop c in year t
+    across all counties EXCEPT i. Because the instrument uses other counties'
+    growing conditions, it does not carry county i's own local weather, so it
+    cannot move county i's migration through a local-amenity channel. We
+    additionally control for the county's own winter-minimum-temperature anomaly
