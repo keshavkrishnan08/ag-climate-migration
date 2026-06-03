@@ -68,3 +68,13 @@ NET_TO_GROSS_HIGH    = 0.27   # favorable (strong prices, low input costs)
 # => 2024 dollars × (304.7/314) = 2023 USD; adjustment ~3%, negligible given uncertainty.
 # We treat these as approximately equal to 2023 USD given the small deflation factor.
 USDA_STATE_CROP_RECEIPTS_2023USD = {
+    # 6 states named by Reviewer 1
+    'Minnesota':      9.9,   # USDA ERS 2024: $9.9B crop cash receipts
+    'Wisconsin':      4.5,   # $4.5B
+    'South Dakota':   5.3,   # $5.3B
+    'North Dakota':   9.8,   # $9.8B
+    'Montana':        3.2,   # $3.2B
+    'Idaho':          6.7,   # $6.7B
+    # Additional states in our 514-county set
+    'Washington':    11.6,   # $11.6B (WA is major fruit/wheat state)
+    'Oregon':         4.2,   # $4.2B
