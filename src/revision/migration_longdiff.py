@@ -18,3 +18,13 @@ def tsls_cs(d,y,x,z,ctrls):
     Z=np.column_stack([np.ones(len(d)),Z]); 
     C=np.column_stack([d[c].values for c in ctrls]) if ctrls else np.empty((len(d),0))
     Xe=np.column_stack([np.ones(len(d)),D,C]) if C.size else np.column_stack([np.ones(len(d)),D])
+    # first stage F on instrument
+    b1,*_=np.linalg.lstsq(Z,D,rcond=None); Dhat=Z@b1; ss=np.sum((Dhat-Dhat.mean())**2)
+    F=(ss/1)/(np.sum((D-Dhat)**2)/(len(D)-Z.shape[1])); pr2=ss/np.sum((D-D.mean())**2)
+    Xh=np.column_stack([np.ones(len(d)),Dhat,C]) if C.size else np.column_stack([np.ones(len(d)),Dhat])
+    b2,*_=np.linalg.lstsq(Xh,Y,rcond=None); beta=b2[1]
+    u=Y-Xe@b2; bread=np.linalg.inv(Xh.T@Xh); meat=(Xh*(u**2)[:,None]).T@Xh
+    cov=bread@meat@bread*(len(d)/(len(d)-Xh.shape[1])); se=np.sqrt(cov[1,1]); t=beta/se
+    return {"beta":float(beta),"se":float(se),"p":float(2*(1-stats.norm.cdf(abs(t)))),
+            "first_stage_F":float(F),"partial_r2":float(pr2),"n":int(len(d)),
+            "ci95":[float(beta-1.96*se),float(beta+1.96*se)]}
