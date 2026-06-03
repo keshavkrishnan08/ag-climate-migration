@@ -178,3 +178,13 @@ def main():
     for o in ["pop_growth", "inc_growth"]:
         if o in me_fd:
             r = me_fd[o]
+            print(f"  [farm-dep] {o}: {r['marginal_per_1sd_yield_drop_pct']:+.3f} pct "
+                  f"(beta={r['beta_per_unit']:+.4f}, p={r['p']:.3f}, n={r['n']})")
+
+    summary = {
+        "n_farming_dependent_counties": n_fd,
+        "decline_4plus_farm_dependent": fd_4plus,
+        "decline_4plus_share_farm_dependent": fd_share,
+        "decline_4plus_other": nonfd_4plus,
+        "decline_4plus_share_other": nonfd_share,
+        "enrichment_ratio": fd_share / max(nonfd_share, 1e-9),
