@@ -68,3 +68,13 @@ def tsls_multi(df, y, d, zcols, ctrls):
     p = 2 * (1 - stats.norm.cdf(abs(beta / se)))
     # Hansen J overid: regress 2SLS residual on instruments, n*R^2 ~ chi2(L-1)
     rr = u - u.mean()
+    bz, *_ = np.linalg.lstsq(Z, rr, rcond=None); fit = Z @ bz
+    R2 = np.sum((fit - fit.mean()) ** 2) / np.sum((rr - rr.mean()) ** 2)
+    J = len(dd) * R2; dofJ = len(zcols) - 1
+    J_p = 1 - stats.chi2.cdf(J, dofJ) if dofJ > 0 else None
+    return {"beta": beta, "se": se, "p": float(p), "first_stage_F": float(F),
+            "n": int(len(dd)), "n_instruments": len(zcols),
+            "hansen_J": float(J), "hansen_p": float(J_p) if J_p is not None else None,
+            "ci95": [beta - 1.96 * se, beta + 1.96 * se]}
+
+
