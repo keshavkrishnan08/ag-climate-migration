@@ -538,3 +538,13 @@ def main() -> None:
     findings = plausibility_check(state_table, char)
     print("\nPlausibility findings:")
     for i, f in enumerate(findings, 1):
+        print(f"  [{i}] {f[:120]}...")
+
+    # 7. Write summary
+    summary_path = OUT_DIR / 'opportunity_recompute_summary.md'
+    write_summary(char, state_table, infra, findings, summary_path)
+
+    # 8. Verify outputs are non-empty
+    assert csv_path.stat().st_size > 0, "State table CSV is empty"
+    assert summary_path.stat().st_size > 0, "Summary markdown is empty"
+    print(f"\nAll outputs verified non-empty.")
