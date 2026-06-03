@@ -42,3 +42,14 @@ def main():
     late = yp[yp["year"].between(2038, 2042)].groupby(["fips", "crop"])["yield_projected"].mean().reset_index()
     late["price"] = late["crop"].map(PRICE).fillna(4.0)
     late["min_v"] = late["crop"].map(MIN_VIABLE).fillna(20)
+    late = late[late["yield_projected"] >= late["min_v"]]
+    late["rev_per_acre"] = late["yield_projected"] * late["price"]
+    best = late.sort_values("rev_per_acre").groupby("fips").tail(1)[["fips", "rev_per_acre"]]
+
+    front = front.rename(columns={"yield_gain_income": "yield_gain_usd"})
+    df = front[["fips", "state", "yield_gain_usd"]].merge(
+        cap[["fips", "expandable_clean"]], on="fips", how="left").merge(
+        best, on="fips", how="left")
+    df["expandable_clean"] = df["expandable_clean"].fillna(0)
+    df["rev_per_acre"] = df["rev_per_acre"].fillna(0)
+    df["expansion_clean_usd"] = df["expandable_clean"] * df["rev_per_acre"]
