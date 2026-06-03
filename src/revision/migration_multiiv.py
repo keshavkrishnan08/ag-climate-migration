@@ -78,3 +78,13 @@ def tsls_multi(df, y, d, zcols, ctrls):
             "ci95": [beta - 1.96 * se, beta + 1.96 * se]}
 
 
+def main():
+    panel = build_panel()
+    panel = panel.merge(crop_instruments(), on=["fips", "year"], how="left")
+    base = panel.groupby("fips").agg(base_rev=("base_rev", "first")).reset_index()
+    pop0 = panel.sort_values("year").groupby("fips")["total_population"].first().rename("pop0").reset_index()
+    fi = base.merge(pop0, on="fips"); fi["fi"] = fi["base_rev"] / fi["pop0"].replace(0, np.nan)
+    panel = panel.merge(fi[["fips", "fi"]], on="fips", how="left")
+    high = panel[panel["fi"] >= panel["fi"].quantile(0.67)].copy()
+    zc = [f"z_{c}" for c in INSTR_CROPS]
+    r = tsls_multi(high, "pop_growth_3yr", "fid_3yr", zc, ["winter_tmin_anom"])
