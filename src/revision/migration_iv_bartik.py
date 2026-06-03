@@ -68,3 +68,13 @@ def winter_temp_anomaly():
     return m[["fips", "year", "winter_tmin_anom"]]
 
 
+def build_panel():
+    fm = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet",
+                         columns=["fips", "year", "crop", "yield_bu_acre",
+                                  "yield_anomaly", "acres_harvested"])
+    fm["fips"] = fm["fips"].astype(str).str.zfill(5)
+    fm["price"] = fm["crop"].map(PRICE).fillna(5.0)
+    fm["revenue"] = fm["yield_bu_acre"] * fm["acres_harvested"].clip(lower=0) * fm["price"]
+
+    # County farm revenue per year (2023 USD proxy)
+    rev = fm.groupby(["fips", "year"])["revenue"].sum().reset_index()
