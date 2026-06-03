@@ -108,3 +108,13 @@ def build_panel():
                .merge(winter_temp_anomaly(), on=["fips", "year"], how="left"))
     panel["farm_dependent"] = panel["farm_dependent"].fillna(0).astype(int)
     panel["hi_amenity"] = panel["hi_amenity"].fillna(0)
+
+    # Outcomes from ACS migration + demographics
+    demo = pd.read_parquet(DATA_RAW / "census" / "acs_county_demographics.parquet",
+                           columns=["fips", "year", "total_population"])
+    demo["fips"] = demo["fips"].astype(str).str.zfill(5)
+    demo = demo.sort_values(["fips", "year"])
+    # 3-year forward population growth (cumulative) — less noisy than 1-yr
+    demo["pop_lead3"] = demo.groupby("fips")["total_population"].shift(-3)
+    demo["pop_growth_3yr"] = (demo["pop_lead3"] - demo["total_population"]) / demo["total_population"]
+
