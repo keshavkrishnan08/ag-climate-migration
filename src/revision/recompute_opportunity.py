@@ -168,3 +168,13 @@ def characterise_metric(df: pd.DataFrame) -> dict:
         'dairy_addback_B': 9.0,  # flat addition in 09_frontier.py (not in CSV)
         'headline_with_dairy_B': round(total_gross_B + 9.0, 2),
     }
+    return char
+
+
+# ---------------------------------------------------------------------------
+# STEP 3: Compute net income version
+# ---------------------------------------------------------------------------
+def add_net_income_columns(df: pd.DataFrame) -> pd.DataFrame:
+    """Apply USDA ERS net-to-gross ratios to produce net income estimates.
+
+    Args:
