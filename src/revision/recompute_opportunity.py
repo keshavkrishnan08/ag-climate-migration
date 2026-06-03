@@ -188,3 +188,13 @@ def add_net_income_columns(df: pd.DataFrame) -> pd.DataFrame:
     """
     df = df.copy()
     df['net_income_central_usd'] = df['annual_opportunity_2023USD'] * NET_TO_GROSS_CENTRAL
+    df['net_income_low_usd']     = df['annual_opportunity_2023USD'] * NET_TO_GROSS_LOW
+    df['net_income_high_usd']    = df['annual_opportunity_2023USD'] * NET_TO_GROSS_HIGH
+    return df
+
+
+# ---------------------------------------------------------------------------
+# STEP 4: Per-state table
+# ---------------------------------------------------------------------------
+def build_state_table(df: pd.DataFrame) -> pd.DataFrame:
+    """Aggregate opportunity by state and attach USDA benchmark ratios.
