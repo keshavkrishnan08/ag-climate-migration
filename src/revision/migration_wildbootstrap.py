@@ -58,3 +58,13 @@ B = 1999
 t_star = np.empty(B)
 for b in range(B):
     w = {c: webb[rng.integers(0, 6)] for c in clusters}
+    wv = np.array([w[c] for c in g])
+    Yb = D * 0.0 + u_r * wv                 # regenerate outcome under H0 with wild weights
+    bb = iv_beta(Yb, D, Z)
+    ub = Yb - D * bb
+    meatb = sum((Z[r] @ ub[r]) ** 2 for r in rows_by.values())
+    seb = np.sqrt((G / (G - 1)) * meatb / (ZD ** 2))
+    t_star[b] = bb / seb
+p_wcb = (np.abs(t_star) >= abs(t_cl)).mean()
+
+out = {"beta": float(beta_hat), "n_obs": int(len(Y)), "n_clusters": int(G),
