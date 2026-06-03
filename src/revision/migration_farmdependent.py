@@ -108,3 +108,13 @@ def build_panel():
     demo["pop_growth"] = demo.groupby("fips")["population"].pct_change()
     demo["inc_growth"] = (np.log(demo["median_income"])
                           - np.log(demo.groupby("fips")["median_income"].shift(1)))
+
+    mig = pd.read_parquet(DATA_RAW / "census" / "acs_migration_data.parquet")
+    mig["fips"] = mig["fips"].astype(str).str.zfill(5)
+    migcols = [c for c in mig.columns if "moved" in c or "mobility" in c]
+    keep = ["fips", "year"] + migcols
+    mig = mig[keep]
+
+    panel = (cy.merge(demo[["fips", "year", "pop_growth", "inc_growth", "population"]],
+                      on=["fips", "year"], how="inner")
+               .merge(farming_dependent(), on="fips", how="left"))
