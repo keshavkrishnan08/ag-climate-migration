@@ -53,3 +53,10 @@ r0008 = reg('pretrend_0008')
 out = {"test": "pre-trend balance: pre-period population growth ~ instrument exposure (farming-dependent)",
        "interpretation": "null coefficient => instrument not aligned with pre-existing trends => share-exogeneity supported",
        "pretrend_1990_2000": r9000, "pretrend_2000_2008": r0008,
+       "refs": "Goldsmith-Pinkham et al. 2020; Borusyak, Hull & Jaravel 2022"}
+json.dump(out, open(OUT / "migration_share_balance.json", "w"), indent=2)
+print("Shift-share pre-trend balance test (farming-dependent counties):")
+print("  pre-period 1990-2000 pop growth ~ instrument:  beta/1sd=%+.4f  p=%.3f  n=%d"
+      % (r9000["beta_per_1sd_instr"], r9000["p"], r9000["n"]))
+print("  pre-period 2000-2008 pop growth ~ instrument:  beta/1sd=%+.4f  p=%.3f  n=%d"
+      % (r0008["beta_per_1sd_instr"], r0008["p"], r0008["n"]))
