@@ -158,3 +158,13 @@ def tsls(df, y, d, z, controls, cluster="fips"):
     b1, *_ = np.linalg.lstsq(X1, D, rcond=None)
     Dhat = X1 @ b1
     resid1 = D - Dhat
+    # first-stage F on the instrument (robust-ish)
+    ss = np.sum((Dhat - Dhat.mean()) ** 2)
+    k1 = X1.shape[1]
+    F = (ss / 1) / (np.sum(resid1 ** 2) / (len(D) - k1))
+    partial_r2 = ss / np.sum((D - D.mean()) ** 2)
+
+    # Second stage: Y ~ Dhat + C
+    X2 = np.column_stack([Dhat, C]) if C.size else Dhat.reshape(-1, 1)
+    b2, *_ = np.linalg.lstsq(X2, Y, rcond=None)
+    beta_d = b2[0]
