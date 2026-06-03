@@ -38,3 +38,13 @@ from scipy import stats
 ROOT = Path(__file__).resolve().parent.parent.parent
 DATA_RAW = ROOT / "data" / "raw"
 DATA_PROCESSED = ROOT / "data" / "processed"
+OUT = ROOT / "results" / "revision"
+OUT.mkdir(parents=True, exist_ok=True)
+np.random.seed(42)
+
+PRICE = {"corn": 5.04, "soybeans": 12.29, "wheat_winter": 6.72, "wheat_spring": 7.38,
+         "cotton": 0.93, "sorghum": 4.80, "barley": 5.64, "oats": 3.35}
+
+
+def farming_dependent():
+    cc = pd.read_csv(DATA_RAW / "other" / "ers_atlas" / "CountyClassifications.csv",
