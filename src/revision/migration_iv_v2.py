@@ -38,3 +38,13 @@ from migration_iv_bartik import build_panel, tsls  # reuse panel + 2SLS
 
 OUT = ROOT / "results" / "revision"
 np.random.seed(42)
+
+
+def demean_groups(df, cols, group_keys):
+    """Iterated within-transform absorbing one or more grouping dimensions."""
+    out = df.copy()
+    for c in cols:
+        s = out[c].astype(float)
+        for _ in range(30):
+            for g in group_keys:
+                s = s - s.groupby(out[g]).transform("mean")
