@@ -128,3 +128,13 @@ def build_panel():
 def marginal_effects(panel, subset_mask, label):
     """Two-way FE marginal effect of lagged yield anomaly on decline outcomes."""
     res = {}
+    d = panel[subset_mask].dropna(subset=["yield_anom_lag1"]).copy()
+    for outcome in ["pop_growth", "inc_growth"]:
+        dd = d.dropna(subset=[outcome]).copy()
+        dd = dd[np.isfinite(dd[outcome]) & np.isfinite(dd["yield_anom_lag1"])]
+        if len(dd) < 200:
+            continue
+        dm = demean_twoway(dd, [outcome, "yield_anom_lag1"])
+        y = dm[outcome + "_dm"].values
+        X = dm[["yield_anom_lag1_dm"]].values
+        X = np.column_stack([np.ones(len(X)), X])
