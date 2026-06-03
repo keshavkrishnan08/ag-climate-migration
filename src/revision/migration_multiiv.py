@@ -48,3 +48,13 @@ def tsls_multi(df, y, d, zcols, ctrls):
     Y = dm[y + "_dm"].values.reshape(-1, 1)
     D = dm[d + "_dm"].values.reshape(-1, 1)
     Z = np.column_stack([dm[z + "_dm"].values for z in zcols]
+                        + [dm[c + "_dm"].values for c in ctrls])
+    C = np.column_stack([dm[c + "_dm"].values for c in ctrls]) if ctrls else np.empty((len(dd), 0))
+    Xend = np.column_stack([D, C]) if C.size else D
+    # first stage
+    b1, *_ = np.linalg.lstsq(Z, D, rcond=None); Dhat = Z @ b1
+    ss = np.sum((Dhat - Dhat.mean()) ** 2); k = Z.shape[1]
+    F = (ss / len(zcols)) / (np.sum((D - Dhat) ** 2) / (len(D) - k))
+    # 2SLS
+    Xhat = np.column_stack([Dhat, C]) if C.size else Dhat
+    b2, *_ = np.linalg.lstsq(Xhat, Y, rcond=None)
