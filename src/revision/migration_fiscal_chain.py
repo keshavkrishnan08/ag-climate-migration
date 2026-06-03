@@ -48,3 +48,13 @@ def fe_reg(df,y,x):
     return {"beta":float(b[0]),"se":float(se),"p":float(2*(1-stats.norm.cdf(abs(t)))),"n":int(len(d)),"n_cty":int(d["fips"].nunique())}
 def longdiff_reg(df, y, x, t0=2007, t1=2022):
     """Cumulative log change t0->t1 per county (NASS land-value census years)."""
+    a = df[df["year"] == t0][["fips", y, x]].rename(columns={y: "y0", x: "x0"})
+    b = df[df["year"] == t1][["fips", y, x]].rename(columns={y: "y1", x: "x1"})
+    d = a.merge(b, on="fips", how="inner").dropna()
+    if len(d) < 10:
+        return {"beta": None, "se": None, "p": None, "n": int(len(d)), "n_cty": int(d["fips"].nunique()), "t0": t0, "t1": t1}
+    dy = np.log(d["y1"].clip(lower=1)) - np.log(d["y0"].clip(lower=1))
+    dx = np.log(d["x1"].clip(lower=1)) - np.log(d["x0"].clip(lower=1))
+    Yv = dy.values; Xv = dx.values
+    bcoef = (Xv @ Yv) / (Xv @ Xv); r = Yv - Xv * bcoef
+    meat = sum((Xv[np.where(d["fips"] == c)[0]] @ r[np.where(d["fips"] == c)[0]]) ** 2 for c in d["fips"].unique())
