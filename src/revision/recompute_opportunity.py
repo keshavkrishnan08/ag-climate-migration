@@ -198,3 +198,13 @@ def add_net_income_columns(df: pd.DataFrame) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 def build_state_table(df: pd.DataFrame) -> pd.DataFrame:
     """Aggregate opportunity by state and attach USDA benchmark ratios.
+
+    Args:
+        df: Opportunity county DataFrame with net income columns already added.
+
+    Returns:
+        DataFrame indexed by state with the following columns:
+            n_counties, gross_opportunity_B, net_income_central_B,
+            net_income_low_B, net_income_high_B,
+            usda_crop_receipts_B, usda_total_farm_income_B,
+            ratio_to_crop_receipts_central (gross opportunity / crop receipts),
