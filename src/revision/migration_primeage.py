@@ -31,3 +31,13 @@ pa["dlog_prime"]=np.log(pa["p19"])-np.log(pa["p10"])
 cs=pp.merge(pa[["fips","dlog_prime"]],on="fips",how="inner").dropna(subset=["dlog_prime","cum_fid","cum_z"])
 out={}
 out["primeage_longdiff_farmdep"]=tsls_cs(cs[cs.fdep==1],"dlog_prime","cum_fid","cum_z",["winter"])
+hi=cs[(cs.fdep==1)&(cs.fi>=cs[cs.fdep==1].fi.quantile(0.5))]
+out["primeage_longdiff_high_intensity"]=tsls_cs(hi,"dlog_prime","cum_fid","cum_z",["winter"])
+out["primeage_placebo_nonfarm"]=tsls_cs(cs[cs.fdep==0],"dlog_prime","cum_fid","cum_z",["winter"])
+# economic magnitude: effect of a sustained 10% farm-income decline on prime-age pop
+b=out["primeage_longdiff_farmdep"]["beta"]
+out["interpretation"]=f"A sustained 10%% farm-income decline -> {b*-0.10*100:+.2f}%% prime-age population over 2010-2019"
+json.dump(out,open(OUT/"migration_primeage.json","w"),indent=2)
+for k,v in out.items():
+    if isinstance(v,dict): print(f"  {k}: beta={v['beta']:+.3f} p={v['p']:.4f} F={v['first_stage_F']:.1f} CI={[round(x,3) for x in v['ci95']]} n={v['n']}")
+print(" ",out["interpretation"])
