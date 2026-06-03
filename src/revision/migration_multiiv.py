@@ -88,3 +88,11 @@ def main():
     high = panel[panel["fi"] >= panel["fi"].quantile(0.67)].copy()
     zc = [f"z_{c}" for c in INSTR_CROPS]
     r = tsls_multi(high, "pop_growth_3yr", "fid_3yr", zc, ["winter_tmin_anom"])
+    print(f"Multi-IV 2SLS (high farm-intensity): beta={r['beta']:+.4f} p={r['p']:.4f} "
+          f"F={r['first_stage_F']:.1f} CI={[round(x,4) for x in r['ci95']]}")
+    print(f"  Hansen J p={r['hansen_p']:.3f} (>0.05 = instruments valid), {r['n_instruments']} instruments, n={r['n']}")
+    json.dump(r, open(OUT / "migration_multiiv.json", "w"), indent=2)
+
+
+if __name__ == "__main__":
+    main()
