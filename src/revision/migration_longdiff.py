@@ -28,3 +28,13 @@ def tsls_cs(d,y,x,z,ctrls):
     return {"beta":float(beta),"se":float(se),"p":float(2*(1-stats.norm.cdf(abs(t)))),
             "first_stage_F":float(F),"partial_r2":float(pr2),"n":int(len(d)),
             "ci95":[float(beta-1.96*se),float(beta+1.96*se)]}
+
+panel=build_panel()
+# farm intensity (baseline rev per capita) for subsample + dose
+base=panel.groupby("fips").agg(base_rev=("base_rev","first")).reset_index()
+pop0=panel.sort_values("year").groupby("fips")["total_population"].first().rename("pop0").reset_index()
+fi=base.merge(pop0,on="fips"); fi["fi"]=fi["base_rev"]/fi["pop0"].replace(0,np.nan)
+panel=panel.merge(fi[["fips","fi"]],on="fips",how="left")
+
+# collapse to long difference per county (2009->2023)
+def longdiff(df):
