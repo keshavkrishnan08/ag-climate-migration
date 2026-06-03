@@ -38,3 +38,13 @@ def crop_instruments():
              .rename(f"z_{c}").reset_index())
         out = z if out is None else out.merge(z, on=["fips", "year"], how="outer")
     return out.fillna(0)
+
+
+def tsls_multi(df, y, d, zcols, ctrls):
+    cols = [y, d] + zcols + ctrls
+    dd = df.dropna(subset=cols).copy()
+    dd = dd[np.all(np.isfinite(dd[cols].values), axis=1)]
+    dm = demean2(dd, cols)
+    Y = dm[y + "_dm"].values.reshape(-1, 1)
+    D = dm[d + "_dm"].values.reshape(-1, 1)
+    Z = np.column_stack([dm[z + "_dm"].values for z in zcols]
