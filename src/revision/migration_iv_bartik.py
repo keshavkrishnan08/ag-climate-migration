@@ -148,3 +148,13 @@ def tsls(df, y, d, z, controls, cluster="fips"):
     if dd["fips"].nunique() < 20 or len(dd) < 100:
         return None
     dm = demean2(dd, cols)
+    Y = dm[y + "_dm"].values
+    D = dm[d + "_dm"].values
+    Z = dm[z + "_dm"].values
+    C = dm[[c + "_dm" for c in controls]].values if controls else np.empty((len(dd), 0))
+
+    # First stage: D ~ Z + C
+    X1 = np.column_stack([Z, C]) if C.size else Z.reshape(-1, 1)
+    b1, *_ = np.linalg.lstsq(X1, D, rcond=None)
+    Dhat = X1 @ b1
+    resid1 = D - Dhat
