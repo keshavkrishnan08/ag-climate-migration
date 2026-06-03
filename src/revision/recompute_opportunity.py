@@ -178,3 +178,13 @@ def add_net_income_columns(df: pd.DataFrame) -> pd.DataFrame:
     """Apply USDA ERS net-to-gross ratios to produce net income estimates.
 
     Args:
+        df: Opportunity county DataFrame (already loaded, FIPS zero-padded).
+
+    Returns:
+        DataFrame with three new columns:
+            net_income_central_usd   — central estimate (ratio 0.22)
+            net_income_low_usd       — conservative lower bound (ratio 0.18)
+            net_income_high_usd      — upper bound (ratio 0.27)
+    """
+    df = df.copy()
+    df['net_income_central_usd'] = df['annual_opportunity_2023USD'] * NET_TO_GROSS_CENTRAL
