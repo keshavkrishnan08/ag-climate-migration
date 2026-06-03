@@ -288,3 +288,13 @@ def compute_stranded_vectorized(
         .reset_index()
     )
 
+    county_pv["stranded_value_total"] = -county_pv["pv_climate_total"]
+    county_pv["stranded_value_per_acre"] = (
+        county_pv["stranded_value_total"]
+        / county_pv["total_acres"].replace(0, np.nan)
+    )
+
+    if not land_values.empty:
+        land_avg = (
+            land_values.groupby("fips")["land_value_per_acre"].mean().reset_index()
+        )
