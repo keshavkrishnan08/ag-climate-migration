@@ -31,3 +31,11 @@ try:
     df['fips'] = df['areasymbol'].str[:2].map(st) + df['areasymbol'].str[2:5]
     for c in ['acres','aws0150'] + (['clay'] if 'clay' in df.columns else []):
         df[c] = pd.to_numeric(df[c], errors='coerce')
+    cty = df.groupby('fips').apply(lambda d: pd.Series({
+        'aws0150': np.average(d['aws0150'].dropna(), weights=d.loc[d['aws0150'].notna(),'acres']) if d['aws0150'].notna().any() and d['acres'].sum()>0 else np.nan,
+        'clay': (np.average(d['clay'].dropna(), weights=d.loc[d['clay'].notna(),'acres']) if 'clay' in d and d['clay'].notna().any() else np.nan)
+    }), include_groups=False).reset_index()
+    cty.to_parquet(OUT/'ssurgo_county_soil.parquet', index=False)
+    print("SSURGO counties:", len(cty), "| sample:", cty.head(3).to_dict('records'))
+except Exception as e:
+    import traceback; traceback.print_exc(); print("SSURGO pull failed:", e)
