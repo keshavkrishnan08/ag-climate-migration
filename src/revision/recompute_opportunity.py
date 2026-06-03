@@ -88,3 +88,13 @@ USDA_STATE_TOTAL_FARM_INCOME_2023USD = {
     'Minnesota':     15.0,
     'Wisconsin':     11.9,
     'South Dakota':   9.7,
+    'North Dakota':  13.3,
+    'Montana':        4.6,
+    'Idaho':          9.8,
+    'Washington':    15.0,
+    'Oregon':         6.0,
+    'Michigan':       9.1,
+    'Pennsylvania':   8.0,
+    'New York':       7.8,
+}
+
