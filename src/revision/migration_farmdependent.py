@@ -198,3 +198,11 @@ def main():
                  "-> local fiscal capacity."),
     }
     with open(OUT / "migration_farmdependent.json", "w") as f:
+        json.dump(summary, f, indent=2)
+    di[["fips", "county_name", "state", "n_decline_indicators", "farm_dependent"]].to_csv(
+        OUT / "decline_indicators_farmdependent.csv", index=False)
+    print(f"\nSaved -> {OUT}/migration_farmdependent.json")
+
+
+if __name__ == "__main__":
+    main()
