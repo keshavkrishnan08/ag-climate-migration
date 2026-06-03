@@ -38,3 +38,13 @@ panel=panel.merge(fi[["fips","fi"]],on="fips",how="left")
 
 # collapse to long difference per county (2009->2023)
 def longdiff(df):
+    df=df.sort_values("year")
+    p=df.dropna(subset=["total_population"])
+    if len(p)<2: return None
+    p0,p1=p.iloc[0],p.iloc[-1]
+    if p0["total_population"]<=0 or p1["total_population"]<=0: return None
+    return pd.Series({
+        "dlog_pop": np.log(p1["total_population"])-np.log(p0["total_population"]),
+        "cum_fid": df["farm_income_dev"].mean(),          # cumulative income deviation
+        "cum_z": df["z_bartik"].mean(),                   # cumulative instrument
+        "winter": df["winter_tmin_anom"].mean(),
