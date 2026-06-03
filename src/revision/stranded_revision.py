@@ -88,3 +88,13 @@ def load_real_prices() -> pd.DataFrame:
         "wheat_spring": ["WHEAT, SPRING, (EXCL DURUM) - PRICE RECEIVED, MEASURED IN $ / BU"],
         "cotton":       ["COTTON, UPLAND - PRICE RECEIVED, MEASURED IN $ / LB"],
         "sorghum":      ["SORGHUM, GRAIN - PRICE RECEIVED, MEASURED IN $ / CWT"],
+        "barley":       ["BARLEY - PRICE RECEIVED, MEASURED IN $ / BU"],
+        "oats":         ["OATS - PRICE RECEIVED, MEASURED IN $ / BU"],
+    }
+    # Reverse map: short_desc -> crop_key
+    rev_map = {}
+    for crop, descs in short_desc_map.items():
+        for d in descs:
+            rev_map[d] = crop
+
+    qs_path = DATA_RAW / "nass" / "qs.crops.txt.gz"
