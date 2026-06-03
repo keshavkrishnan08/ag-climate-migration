@@ -208,3 +208,13 @@ def load_real_prices() -> pd.DataFrame:
         # Oats: MYA avg ~$2.00/bu nominal; real ~$2.45
         fallback = {
             "corn": (4.42, "$ / BU"),
+            "soybeans": (9.85, "$ / BU"),
+            "wheat_winter": (5.10, "$ / BU"),
+            "wheat_spring": (5.55, "$ / BU"),
+            "cotton": (0.72, "$ / LB"),
+            "sorghum": (4.35, "$ / BU"),
+            "barley": (3.65, "$ / BU"),
+            "oats": (2.45, "$ / BU"),
+        }
+        fallback_source = (
+            "USDA ERS Commodity Costs and Returns + NASS Quick Stats, "
