@@ -38,3 +38,13 @@ def fe2sls(d,y,x,z,cl="fips"):
             "ci95":[float(beta-1.96*se),float(beta+1.96*se)]}
 
 prime=pd.read_parquet(OUT/"prime_age_pop.parquet"); prime["fips"]=prime["fips"].astype(str).str.zfill(5)
+prime=prime.sort_values(["fips","year"])
+prime["prime_growth_3yr"]=prime.groupby("fips")["prime"].transform(lambda s:(s.shift(-3)/s-1))
+panel=build_panel()
+base=panel.groupby("fips").agg(base_rev=("base_rev","first")).reset_index()
+pop0=panel.sort_values("year").groupby("fips")["total_population"].first().rename("pop0").reset_index()
+fi=base.merge(pop0,on="fips"); fi["fi"]=fi["base_rev"]/fi["pop0"].replace(0,np.nan)
+p=panel.merge(prime[["fips","year","prime_growth_3yr"]],on=["fips","year"],how="inner").merge(fi[["fips","fi"]],on="fips",how="left")
+fd=p[p["farm_dependent"]==1]
+out={}
+out["primeage_panelFE_farmdep"]=fe2sls(fd,"prime_growth_3yr","farm_income_dev","z_bartik")
