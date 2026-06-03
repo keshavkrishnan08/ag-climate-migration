@@ -268,3 +268,13 @@ def compute_stranded_vectorized(
     yp = yield_proj.copy()
     yp["price"] = yp["crop"].map(commodity_prices).fillna(5.0)
 
+    yp["climate_income_total"] = (
+        yp["climate_impact_bu"] * yp["price"] * yp["acres_harvested"]
+    )
+
+    min_year = yp["year"].min()
+    yp["years_ahead"] = yp["year"] - min_year + 1
+    yp = yp[yp["years_ahead"] <= horizon]
+    yp["discount_factor"] = 1.0 / (1 + discount_rate) ** yp["years_ahead"]
+    yp["pv_climate_impact"] = yp["climate_income_total"] * yp["discount_factor"]
+
