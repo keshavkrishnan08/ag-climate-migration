@@ -178,3 +178,13 @@ def tsls(df, y, d, z, controls, cluster="fips"):
         Xg = XZ[idx]; ug = u[idx]
         meat += Xg.T @ np.outer(ug, ug) @ Xg
     cov = bread @ meat @ bread
+    se_d = np.sqrt(cov[0, 0])
+    tstat = beta_d / se_d
+    p = 2 * (1 - stats.norm.cdf(abs(tstat)))
+    return {"beta": float(beta_d), "se": float(se_d), "p": float(p),
+            "first_stage_F": float(F), "partial_r2": float(partial_r2),
+            "n": int(len(dd)), "n_counties": int(dd["fips"].nunique())}
+
+
+def reduced_form(df, y, z, controls):
+    """OLS reduced form (placebo): y ~ z + controls + FE."""
