@@ -548,3 +548,10 @@ def main() -> None:
     assert csv_path.stat().st_size > 0, "State table CSV is empty"
     assert summary_path.stat().st_size > 0, "Summary markdown is empty"
     print(f"\nAll outputs verified non-empty.")
+    print("=" * 65)
+    print("DONE — Reviewer 1 Major #3 revision data ready")
+    print("=" * 65)
+
+
+if __name__ == '__main__':
+    main()
