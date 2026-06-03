@@ -128,3 +128,13 @@ def load_and_audit(path: Path) -> pd.DataFrame:
 # ---------------------------------------------------------------------------
 def characterise_metric(df: pd.DataFrame) -> dict:
     """Decompose the original figure and document its definition.
+
+    Args:
+        df: The opportunity county DataFrame.
+
+    Returns:
+        Dict with component totals and characterisation.
+    """
+    total_gross_B    = df['annual_opportunity_2023USD'].sum() / 1e9
+    expansion_B      = df['expansion_income'].sum() / 1e9
+    yield_gain_B     = df['yield_gain_income'].sum() / 1e9
