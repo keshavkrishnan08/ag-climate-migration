@@ -528,3 +528,13 @@ def main() -> None:
     print(state_table[['state','n_counties','gross_opportunity_B','net_income_central_B',
                         'usda_crop_receipts_B','pct_of_crop_receipts_gross','pct_of_crop_receipts_net']].to_string(index=False))
 
+    # 5. Infrastructure context
+    infra = infra_context(total_net_central_B, char['total_gross_opportunity_B'])
+    print(f"\nInfrastructure context:")
+    print(f"  Capex: ${infra['infra_capex_B']:.1f}B")
+    print(f"  = {infra['multiple_vs_annual_net']:.1f}× annual net income ({infra['payback_vs_net_central_yrs']:.0f}-yr payback)")
+
+    # 6. Plausibility
+    findings = plausibility_check(state_table, char)
+    print("\nPlausibility findings:")
+    for i, f in enumerate(findings, 1):
