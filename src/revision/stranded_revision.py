@@ -178,3 +178,13 @@ def load_real_prices() -> pd.DataFrame:
 
     # Average 1994-2023
     avg = (
+        raw_df.groupby("crop")
+        .agg(
+            real_price_2023usd=("real_price_2023usd", "mean"),
+            n_years=("year", "count"),
+            unit=("unit", "first"),
+        )
+        .reset_index()
+    )
+    avg["source"] = "USDA NASS QuickStats qs.crops.txt.gz, marketing-year avg 1994-2023, deflated CPI-U 2023 USD"
+
