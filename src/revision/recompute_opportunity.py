@@ -278,3 +278,13 @@ def plausibility_check(state_table: pd.DataFrame, char: dict) -> list:
 
     Returns:
         List of finding strings (plain English).
+    """
+    findings = []
+
+    total_gross_B = char['total_gross_opportunity_B']
+    total_net_B   = total_gross_B * NET_TO_GROSS_CENTRAL
+
+    # USDA benchmark for 6 reviewer-named states
+    named_states = ['Minnesota', 'Wisconsin', 'South Dakota', 'North Dakota', 'Montana', 'Idaho']
+    named_gross = state_table[state_table['state'].isin(named_states)]['gross_opportunity_B'].sum()
+    named_net   = state_table[state_table['state'].isin(named_states)]['net_income_central_B'].sum()
