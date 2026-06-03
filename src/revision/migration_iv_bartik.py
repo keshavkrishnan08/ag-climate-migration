@@ -98,3 +98,13 @@ def build_panel():
     natl = fm.groupby(["crop", "year"])["yield_anomaly"].agg(["sum", "count"]).reset_index()
     fm2 = fm.merge(natl, on=["crop", "year"], how="left")
     fm2["g_loo"] = (fm2["sum"] - fm2["yield_anomaly"]) / (fm2["count"] - 1).clip(lower=1)
+    # Bartik: sum_c share_ic * price_c * g_loo_{c,t}
+    fm2 = fm2.merge(bmix[["fips", "crop", "share"]], on=["fips", "crop"], how="left")
+    fm2["bartik_term"] = fm2["share"].fillna(0) * fm2["price"] * fm2["g_loo"]
+    bartik = fm2.groupby(["fips", "year"])["bartik_term"].sum().rename("z_bartik").reset_index()
+
+    panel = (rev.merge(bartik, on=["fips", "year"], how="inner")
+               .merge(farming_dependent(), on="fips", how="left")
+               .merge(winter_temp_anomaly(), on=["fips", "year"], how="left"))
+    panel["farm_dependent"] = panel["farm_dependent"].fillna(0).astype(int)
+    panel["hi_amenity"] = panel["hi_amenity"].fillna(0)
