@@ -308,3 +308,13 @@ def plausibility_check(state_table: pd.DataFrame, char: dict) -> list:
         f"= {pct_crop_net:.0f}% of crop cash receipts or {pct_total_net:.0f}% of total farm income. "
         f"This is more defensible: a {pct_total_net:.0f}% addition to farm income over "
         f"~15 years (to 2040) implies ~{pct_total_net/15:.1f}% annual income growth from "
+        f"climate opportunity alone — plausible given USDA's projected northward range expansion."
+    )
+
+    # The reviewer notes real US farm income rose only 20-30% over 20 years
+    # What % annual growth would our opportunity represent vs current income?
+    all_states_total_income = sum(USDA_STATE_TOTAL_FARM_INCOME_2023USD.values())
+    annualized_net_pct = (total_net_B / all_states_total_income) / 15 * 100
+    findings.append(
+        f"Annualized: net opportunity ${total_net_B:.1f}B/yr reached by 2040 equates to "
+        f"~{total_net_B/all_states_total_income*100:.0f}% of all-11-state farm income "
