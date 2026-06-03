@@ -98,3 +98,13 @@ def load_real_prices() -> pd.DataFrame:
             rev_map[d] = crop
 
     qs_path = DATA_RAW / "nass" / "qs.crops.txt.gz"
+    print(f"Scanning {qs_path} for marketing-year price records (1994-2023)...")
+    print("  This takes ~2 min for 23M lines...")
+
+    records = []
+    line_count = 0
+
+    with gzip.open(qs_path, "rt", encoding="utf-8", errors="replace") as f:
+        header = f.readline().strip().split("\t")
+        ci = {c: i for i, c in enumerate(header)}
+
