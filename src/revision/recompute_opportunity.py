@@ -58,3 +58,13 @@ np.random.seed(RANDOM_SEED)
 
 # ---- Net-to-gross ratio (USDA ERS, documented in module docstring) --------
 # Central estimate and bounds for crop farms
+NET_TO_GROSS_CENTRAL = 0.22   # USDA ERS grain/oilseed farm operating margin, 2019-2022 avg
+NET_TO_GROSS_LOW     = 0.18   # conservative (high-input years, wet years)
+NET_TO_GROSS_HIGH    = 0.27   # favorable (strong prices, low input costs)
+
+# ---- USDA ERS 2024 state-level farm income benchmarks (2023 USD) ----------
+# Source: USDA ERS State Farm Income, 2024 forecasts, Table 4 & Table 6.
+# All values in billions of 2023 USD. CPI deflator: 2024 CPI ~314 vs 2023 CPI 304.7
+# => 2024 dollars × (304.7/314) = 2023 USD; adjustment ~3%, negligible given uncertainty.
+# We treat these as approximately equal to 2023 USD given the small deflation factor.
+USDA_STATE_CROP_RECEIPTS_2023USD = {
