@@ -20,3 +20,14 @@ pop0=panel.sort_values("year").groupby("fips")["total_population"].first().renam
 fi=base.merge(pop0,on="fips"); fi["fi"]=fi["base_rev"]/fi["pop0"].replace(0,np.nan)
 # cumulative instrument & treatment over 2010-2019 (pre-COVID)
 pp=panel[panel["year"].between(2010,2019)].groupby("fips").agg(
+    cum_fid=("farm_income_dev","mean"), cum_z=("z_bartik","mean"),
+    winter=("winter_tmin_anom","mean"), fdep=("farm_dependent","max")).reset_index()
+pp=pp.merge(fi[["fips","fi"]],on="fips",how="left")
+# prime-age long difference 2010->2019
+p10=prime[prime.year==2010][["fips","prime"]].rename(columns={"prime":"p10"})
+p19=prime[prime.year==2019][["fips","prime"]].rename(columns={"prime":"p19"})
+pa=p10.merge(p19,on="fips"); pa=pa[(pa.p10>0)&(pa.p19>0)]
+pa["dlog_prime"]=np.log(pa["p19"])-np.log(pa["p10"])
+cs=pp.merge(pa[["fips","dlog_prime"]],on="fips",how="inner").dropna(subset=["dlog_prime","cum_fid","cum_z"])
+out={}
+out["primeage_longdiff_farmdep"]=tsls_cs(cs[cs.fdep==1],"dlog_prime","cum_fid","cum_z",["winter"])
