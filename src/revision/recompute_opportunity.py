@@ -448,3 +448,13 @@ def write_summary(
         "## 4. Per-state breakdown — 6 reviewer-named states (MN, WI, SD, ND, MT, ID)",
         "",
         fmt_tbl(named_tbl),
+        "",
+        "## 5. USDA reconciliation and plausibility",
+        "",
+    ]
+
+    for i, f in enumerate(findings, 1):
+        lines.append(f"**Finding {i}:** {f}")
+        lines.append("")
+
+    lines += [
