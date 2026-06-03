@@ -9,3 +9,14 @@ import numpy as np, pandas as pd
 from scipy import stats
 ROOT=Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0,str(ROOT/"src"/"revision"))
+from migration_iv_bartik import build_panel
+from migration_longdiff import tsls_cs
+OUT=ROOT/"results"/"revision"; np.random.seed(42)
+
+prime=pd.read_parquet(OUT/"prime_age_pop.parquet"); prime["fips"]=prime["fips"].astype(str).str.zfill(5)
+panel=build_panel()
+base=panel.groupby("fips").agg(base_rev=("base_rev","first")).reset_index()
+pop0=panel.sort_values("year").groupby("fips")["total_population"].first().rename("pop0").reset_index()
+fi=base.merge(pop0,on="fips"); fi["fi"]=fi["base_rev"]/fi["pop0"].replace(0,np.nan)
+# cumulative instrument & treatment over 2010-2019 (pre-COVID)
+pp=panel[panel["year"].between(2010,2019)].groupby("fips").agg(
