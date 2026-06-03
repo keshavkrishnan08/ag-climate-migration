@@ -358,3 +358,13 @@ def write_summary(
         infra: Infrastructure context dict.
         findings: Plausibility finding strings.
         out_path: Output path for the markdown file.
+    """
+    named = ['Minnesota', 'Wisconsin', 'South Dakota', 'North Dakota', 'Montana', 'Idaho']
+    named_tbl = state_table[state_table['state'].isin(named)].copy()
+    all_tbl   = state_table.copy()
+
+    # Format tables for markdown
+    tbl_cols = [
+        'state', 'n_counties',
+        'gross_opportunity_B', 'net_income_central_B',
+        'usda_crop_receipts_B',
