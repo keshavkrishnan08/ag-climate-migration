@@ -158,3 +158,13 @@ def main():
 
     # Restricted observational result
     n_fd = int(di["farm_dependent"].sum())
+    fd_4plus = int(((di["farm_dependent"] == 1) & (di["n_decline_indicators"] >= 4)).sum())
+    nonfd_4plus = int(((di["farm_dependent"] == 0) & (di["n_decline_indicators"] >= 4)).sum())
+    fd_share = fd_4plus / max(n_fd, 1)
+    nonfd_n = int((di["farm_dependent"] == 0).sum())
+    nonfd_share = nonfd_4plus / max(nonfd_n, 1)
+
+    print(f"Farming-dependent counties in indicator panel: {n_fd}")
+    print(f"  >=4 indicators (farm-dependent):  {fd_4plus}  ({fd_share*100:.1f}%)")
+    print(f"  >=4 indicators (other counties):  {nonfd_4plus}  ({nonfd_share*100:.1f}%)")
+    print(f"  enrichment ratio: {fd_share/max(nonfd_share,1e-9):.2f}x")
