@@ -148,3 +148,13 @@ def characterise_metric(df: pd.DataFrame) -> dict:
             "GROSS INCREMENTAL CROP REVENUE (2023 USD/yr). "
             "Component 1 (yield gain, {:.1f}%): (projected_yield - current_yield) × price × "
             "existing_harvested_acres — INCREMENTAL gross revenue on existing farmland. "
+            "Component 2 (acreage expansion, {:.1f}%): projected_yield × price × expandable_acres — "
+            "TOTAL gross revenue on currently idle/marginal farmland, using zero-baseline "
+            "(land is assumed unfarmed prior to climate warming). "
+            "Component 3 (crop upgrade, {:.1f}%): premium per acre from switching oats/barley "
+            "to corn/soybeans × low-value-crop acres — INCREMENTAL gross revenue. "
+            "NO production expenses are deducted; this is NOT net farm income."
+        ).format(
+            yield_gain_B / total_gross_B * 100,
+            pct_expansion,
+            upgrade_B / total_gross_B * 100,
