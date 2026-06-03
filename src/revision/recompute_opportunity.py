@@ -498,3 +498,13 @@ def main() -> None:
     print("=" * 65)
     print("REVISION: Northern Opportunity Recomputation")
     print("Responding to Reviewer 1, Major Comment #3")
+    print("=" * 65)
+
+    # 1. Load
+    df = load_and_audit(FRONTIER_CSV)
+
+    # 2. Characterise
+    char = characterise_metric(df)
+    print(f"\nOriginal $51B headline decomposition:")
+    print(f"  Total gross:    ${char['total_gross_opportunity_B']:.2f}B/yr")
+    print(f"  Expansion:      ${char['expansion_B']:.2f}B ({char['pct_expansion']:.1f}%)")
