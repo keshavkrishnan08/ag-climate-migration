@@ -228,3 +228,13 @@ def main():
         if r:
             print(f"[IV farm-dep] {ylab}: beta={r['beta']:+.4f} p={r['p']:.3f} "
                   f"F={r['first_stage_F']:.1f} n={r['n']}")
+
+    # Amenity placebo: reduced form of instrument on migration in NON-farm counties
+    pl = reduced_form(nonfd, "pop_growth_3yr", "z_bartik", ctrls)
+    out["placebo_nonfarm_reduced_form"] = pl
+    if pl:
+        print(f"[PLACEBO non-farm] reduced form beta={pl['beta']:+.5f} p={pl['p']:.3f} "
+              f"(expect null) n={pl['n']}")
+    # Reduced form in farm-dep (should be significant if IV works)
+    rf = reduced_form(fd, "pop_growth_3yr", "z_bartik", ctrls)
+    out["reduced_form_farmdep"] = rf
