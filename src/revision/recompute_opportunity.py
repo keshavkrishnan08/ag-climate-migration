@@ -258,3 +258,13 @@ def infra_context(total_net_central_B: float, total_gross_B: float) -> dict:
     return {
         'infra_capex_B': round(INFRA_GAP_ORIGINAL_B, 2),
         'payback_vs_net_central_yrs': round(INFRA_GAP_ORIGINAL_B / total_net_central_B, 1),
+        'payback_vs_net_low_yrs':     round(INFRA_GAP_ORIGINAL_B / (total_gross_B * NET_TO_GROSS_LOW), 1),
+        'payback_vs_net_high_yrs':    round(INFRA_GAP_ORIGINAL_B / (total_gross_B * NET_TO_GROSS_HIGH), 1),
+        'capex_as_pct_of_gross':      round(INFRA_GAP_ORIGINAL_B / total_gross_B * 100, 1),
+        'capex_as_pct_of_net':        round(INFRA_GAP_ORIGINAL_B / total_net_central_B * 100, 1),
+        'multiple_vs_annual_net':     round(INFRA_GAP_ORIGINAL_B / total_net_central_B, 2),
+    }
+
+
+# ---------------------------------------------------------------------------
+# STEP 6: Plausibility assessment vs USDA benchmarks
