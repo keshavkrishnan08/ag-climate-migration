@@ -78,3 +78,13 @@ def ols_cluster(df, y, xcols, group_keys, cluster="fips"):
 
 
 def main():
+    panel = build_panel()
+    # state from fips
+    panel["state"] = panel["fips"].str[:2]
+    panel["state_year"] = panel["state"] + "_" + panel["year"].astype(str)
+
+    # farm intensity: baseline crop revenue per capita (time-invariant), standardized
+    base = panel.groupby("fips").agg(base_rev=("base_rev", "first")).reset_index()
+    pop0 = (panel.sort_values("year").groupby("fips")["total_population"]
+            .first().rename("pop0").reset_index())
+    fi = base.merge(pop0, on="fips", how="left")
