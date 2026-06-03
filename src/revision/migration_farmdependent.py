@@ -18,3 +18,13 @@ This script:
   2. Recomputes the share of counties with >=4 decline indicators within the
      farming-dependent subset vs the rest (the restricted observational result).
   3. Estimates the marginal effect of a 1-SD adverse yield anomaly on each
+     decline outcome (population growth, income growth, net outmigration) with
+     two-way (county + year) fixed effects, on the farming-dependent subset.
+  4. Re-estimates a reduced-form / OLS yield->outmigration relationship on the
+     subset and reports it honestly, with the exclusion-restriction caveat.
+
+Seed 42. Writes only to results/revision/.
+"""
+
+import json
+import sys
