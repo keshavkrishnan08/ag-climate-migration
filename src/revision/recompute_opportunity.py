@@ -398,3 +398,13 @@ def write_summary(
     total_net_B   = round(total_gross_B * NET_TO_GROSS_CENTRAL, 1)
     net_lo        = round(total_gross_B * NET_TO_GROSS_LOW, 1)
     net_hi        = round(total_gross_B * NET_TO_GROSS_HIGH, 1)
+
+    paper_text = (
+        f"We quantify the projected agricultural opportunity in {514} northern counties "
+        f"as gross incremental crop revenue — the value of additional output from yield gains "
+        f"on existing farmland and full production from currently idle/marginal cropland "
+        f"converted to major crops under SSP2-4.5 warming by 2040. "
+        f"Gross incremental revenue totals ${total_gross_B:.0f} billion per year "
+        f"(2023 USD) across all counties. "
+        f"To convert to net farm income, we apply the USDA ERS grain and oilseed farm "
+        f"operating margin of 22% (range: 18–27%; USDA ERS Farm Income and Wealth Statistics, "
