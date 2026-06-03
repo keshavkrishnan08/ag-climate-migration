@@ -108,3 +108,13 @@ def load_real_prices() -> pd.DataFrame:
         header = f.readline().strip().split("\t")
         ci = {c: i for i, c in enumerate(header)}
 
+        for line in f:
+            line_count += 1
+            # Fast pre-filter using substring search before split
+            if "PRICE RECEIVED" not in line:
+                continue
+            if "MARKETING YEAR" not in line:
+                continue
+            if "NATIONAL" not in line:
+                continue
+
