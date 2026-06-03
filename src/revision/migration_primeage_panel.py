@@ -18,3 +18,13 @@ def within(df,cols,gi="fips",gt="year"):
         s=o[c].astype(float)
         for _ in range(30): s=s-s.groupby(o[gi]).transform("mean"); s=s-s.groupby(o[gt]).transform("mean")
         o[c+"_w"]=s
+    return o
+def fe2sls(d,y,x,z,cl="fips"):
+    d=d.dropna(subset=[y,x,z]).copy(); d=d[np.all(np.isfinite(d[[y,x,z]].values),axis=1)]
+    d=within(d,[y,x,z])
+    Z=d[z+"_w"].values.reshape(-1,1); D=d[x+"_w"].values; Y=d[y+"_w"].values
+    Zc=np.column_stack([np.ones(len(d)),Z])
+    b1,*_=np.linalg.lstsq(Zc,D,rcond=None); Dhat=Zc@b1
+    F=(np.sum((Dhat-Dhat.mean())**2))/ (np.sum((D-Dhat)**2)/(len(D)-2))
+    Xh=np.column_stack([np.ones(len(d)),Dhat]); b2,*_=np.linalg.lstsq(Xh,Y,rcond=None); beta=b2[1]
+    u=Y-np.column_stack([np.ones(len(d)),D])@b2
