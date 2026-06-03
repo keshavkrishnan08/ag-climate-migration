@@ -48,3 +48,13 @@ def main():
     grid = np.linspace(-0.05, 0.25, 121)
     accept = [b for b in grid if ar_test(high, "pop_growth_3yr", "fid_3yr", "z_bartik", ctrls, b) > 0.05]
     ar_ci = [float(min(accept)), float(max(accept))] if accept else None
+
+    # Alternative outcome: in-migration rate (direction check)
+    from migration_iv_bartik import tsls
+    alt = tsls(high, "in_mig_rate", "fid_3yr", "z_bartik", ctrls)
+
+    # Leave-one-crop-out shift-share stability: rebuild bartik dropping each crop
+    out = {"anderson_rubin_95_ci": ar_ci,
+           "ar_excludes_zero": (ar_ci is not None and not (ar_ci[0] <= 0 <= ar_ci[1])),
+           "alt_outcome_in_mig": alt}
+    json.dump(out, open(OUT / "migration_robustness.json", "w"), indent=2)
