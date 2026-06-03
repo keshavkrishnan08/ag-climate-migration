@@ -53,3 +53,14 @@ def main():
     df["expandable_clean"] = df["expandable_clean"].fillna(0)
     df["rev_per_acre"] = df["rev_per_acre"].fillna(0)
     df["expansion_clean_usd"] = df["expandable_clean"] * df["rev_per_acre"]
+    df["gross_opp"] = df["yield_gain_usd"].fillna(0) + df["expansion_clean_usd"]
+    df["net_income"] = df["gross_opp"] * MARGIN
+
+    gross_B = df["gross_opp"].sum() / 1e9
+    net_B = df["net_income"].sum() / 1e9
+    df.to_csv(OUT / "opportunity_clean_county.csv", index=False)
+    by_state = (df.groupby("state").agg(n=("fips", "nunique"),
+                gross_B=("gross_opp", lambda s: s.sum() / 1e9),
+                net_B=("net_income", lambda s: s.sum() / 1e9))
+                .sort_values("net_B", ascending=False))
+    by_state.to_csv(OUT / "opportunity_clean_by_state.csv")
