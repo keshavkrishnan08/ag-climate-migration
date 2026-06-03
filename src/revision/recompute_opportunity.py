@@ -48,3 +48,13 @@ import numpy as np
 import pandas as pd
 
 # ---- Paths ----------------------------------------------------------------
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+FRONTIER_CSV = PROJECT_ROOT / 'results' / 'frontier' / 'opportunity_counties_SSP245.csv'
+OUT_DIR = PROJECT_ROOT / 'results' / 'revision'
+OUT_DIR.mkdir(parents=True, exist_ok=True)
+
+RANDOM_SEED = 42
+np.random.seed(RANDOM_SEED)
+
+# ---- Net-to-gross ratio (USDA ERS, documented in module docstring) --------
+# Central estimate and bounds for crop farms
