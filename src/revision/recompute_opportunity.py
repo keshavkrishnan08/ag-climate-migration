@@ -378,3 +378,13 @@ def write_summary(
         for _, r in tdf.iterrows():
             rows.append(
                 f"| {r['state']} | {int(r['n_counties'])} | "
+                f"{r['gross_opportunity_B']:.2f} | {r['net_income_central_B']:.2f} | "
+                f"{r['usda_crop_receipts_B']:.1f} | {r['pct_of_crop_receipts_gross']:.0f}% | "
+                f"{r['pct_of_crop_receipts_net']:.0f}% |"
+            )
+        total_gross = tdf['gross_opportunity_B'].sum()
+        total_net   = tdf['net_income_central_B'].sum()
+        total_receipts = tdf['usda_crop_receipts_B'].sum()
+        rows.append(
+            f"| **TOTAL** | **{int(tdf['n_counties'].sum())}** | "
+            f"**{total_gross:.2f}** | **{total_net:.2f}** | "
