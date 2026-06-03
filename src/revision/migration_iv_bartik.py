@@ -18,3 +18,13 @@ through amenity or winter-mildness channels, not only farm income; Rappaport
     growing conditions, it does not carry county i's own local weather, so it
     cannot move county i's migration through a local-amenity channel. We
     additionally control for the county's own winter-minimum-temperature anomaly
+    and an amenity indicator, and run an amenity PLACEBO: the same instrument has
+    no reduced-form effect on migration in non-farming counties.
+
+  * SUSTAINED SHOCK: treatment is the 3-year moving average of farm-income
+    deviation (out-migration responds to persistent decline, not single years).
+
+Seed 42. Writes only to results/revision/.
+"""
+
+import json
