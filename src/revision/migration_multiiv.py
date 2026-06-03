@@ -58,3 +58,13 @@ def tsls_multi(df, y, d, zcols, ctrls):
     # 2SLS
     Xhat = np.column_stack([Dhat, C]) if C.size else Dhat
     b2, *_ = np.linalg.lstsq(Xhat, Y, rcond=None)
+    beta = float(b2[0, 0])
+    u = (Y - Xend @ b2).ravel()
+    bread = np.linalg.inv(Xhat.T @ Xhat)
+    meat = np.zeros((Xhat.shape[1], Xhat.shape[1]))
+    for _, idx in dd.groupby("fips").indices.items():
+        Xg = Xhat[idx]; ug = u[idx]; meat += Xg.T @ np.outer(ug, ug) @ Xg
+    cov = bread @ meat @ bread; se = float(np.sqrt(cov[0, 0]))
+    p = 2 * (1 - stats.norm.cdf(abs(beta / se)))
+    # Hansen J overid: regress 2SLS residual on instruments, n*R^2 ~ chi2(L-1)
+    rr = u - u.mean()
