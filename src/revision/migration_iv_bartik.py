@@ -218,3 +218,13 @@ def main():
 
     out = {"sample": "ERS farming-dependent counties, 2000-2023",
            "instrument": "leave-one-out shift-share national crop yield shock x baseline crop mix",
+           "treatment": "3-yr MA farm-income deviation (revenue proxy, 2023 USD)",
+           "controls": ["winter_tmin_anom", "hi_amenity"]}
+
+    ctrls = ["winter_tmin_anom"]
+    for ylab, yvar in [("pop_growth_3yr", "pop_growth_3yr"), ("in_mig_rate", "in_mig_rate")]:
+        r = tsls(fd, yvar, "fid_3yr", "z_bartik", ctrls)
+        out[f"iv_{ylab}_farmdep"] = r
+        if r:
+            print(f"[IV farm-dep] {ylab}: beta={r['beta']:+.4f} p={r['p']:.3f} "
+                  f"F={r['first_stage_F']:.1f} n={r['n']}")
