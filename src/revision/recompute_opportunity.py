@@ -18,3 +18,13 @@ Net-to-gross ratio (USDA ERS):
     Source: USDA ERS Farm Income and Wealth Statistics, 2022 preliminary estimates.
         U.S. gross cash farm income:       $561.0 B
         U.S. net farm income (NFI):        $136.6 B
+        NFI / Gross cash farm income:       0.243
+    For CROP FARMS specifically (corn, soybeans, wheat, barley — the crops in our model):
+        Per USDA ERS "Farm Financial Ratios" for grain/oilseed farms (2019-2022 avg):
+        Operating profit margin (NFI / gross revenue): ~0.20-0.25
+        We use the midpoint 0.22 for crop-farm net income ratio.
+        This is documented in: USDA ERS, "Farm Income and Wealth Statistics,"
+        https://www.ers.usda.gov/data-products/farm-income-and-wealth-statistics/
+        Table 6: Net farm income by commodity specialization.
+    Conservative and aggressive bounds: 0.18 (low) and 0.27 (high) reflecting
+    variability across regions and years in USDA ERS Table 6.
