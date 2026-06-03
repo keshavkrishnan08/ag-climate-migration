@@ -58,3 +58,13 @@ def ols_cluster(df, y, xcols, group_keys, cluster="fips"):
     dd = dd[np.all(np.isfinite(dd[cols].values), axis=1)]
     if len(dd) < 200:
         return None
+    dm = demean_groups(dd, cols, group_keys)
+    Y = dm[y + "_dm"].values
+    X = np.column_stack([dm[c + "_dm"].values for c in xcols])
+    b, *_ = np.linalg.lstsq(X, Y, rcond=None)
+    u = Y - X @ b
+    bread = np.linalg.inv(X.T @ X)
+    meat = np.zeros((X.shape[1], X.shape[1]))
+    for _, idx in dd.groupby(cluster).indices.items():
+        Xg = X[idx]; ug = u[idx]
+        meat += Xg.T @ np.outer(ug, ug) @ Xg
