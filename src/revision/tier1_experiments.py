@@ -58,3 +58,13 @@ out["E10_market_efficiency_multispec"] = {
                        "Cross-sectional Δlog(V) ~ ΔT(2040) cannot reject 'no forward discounting' "
                        "but also does not provide active confirmation of unpriced risk -- the "
                        "market test is INDETERMINATE and is reported as such."),
+    "n_specs_significant_negative": sum(1 for s in specs.values() if s["beta"] < 0 and s["p"] < 0.05),
+    "n_specs_significant_positive": sum(1 for s in specs.values() if s["beta"] > 0 and s["p"] < 0.05),
+    "n_specs_null": sum(1 for s in specs.values() if s["p"] >= 0.05),
+}
+
+# ============================================================
+# E11. METRO-ONLY MIGRATION PLACEBO (truly non-farm)
+# ============================================================
+# Restrict to metro counties (high population density, never farm-dependent).
+# If the Bartik instrument moves population there, exclusion is violated.
