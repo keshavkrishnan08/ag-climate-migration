@@ -588,3 +588,13 @@ def sensitivity_grid_real(
                 "scenario": scenario,
                 "total_stranded_B": total_B,
                 "n_stranded_counties": len(pos),
+            })
+
+    return pd.DataFrame(results)
+
+
+# ---------------------------------------------------------------------------
+# TASK 4: State-level stranded value table
+# ---------------------------------------------------------------------------
+
+def build_state_table(county_df: pd.DataFrame) -> pd.DataFrame:
