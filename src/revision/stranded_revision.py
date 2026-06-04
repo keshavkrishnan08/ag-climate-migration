@@ -648,3 +648,13 @@ def build_state_table(county_df: pd.DataFrame) -> pd.DataFrame:
     return state_agg
 
 
+# ---------------------------------------------------------------------------
+# Main pipeline
+# ---------------------------------------------------------------------------
+
+def main():
+    """Run the full stranded-value revision pipeline."""
+    np.random.seed(42)
+
+    # ------------------------------------------------------------------
+    # TASK 1: Real prices from QuickStats
