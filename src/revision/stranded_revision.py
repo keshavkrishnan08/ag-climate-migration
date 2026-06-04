@@ -728,3 +728,13 @@ def main():
     central = compute_stranded_with_damage_function(
         yield_proj, climate_proj, land_values, commodity_prices_real,
         discount_rate=0.03, horizon=35, scenario="SSP245",
+        ssp585_scale=1.0, indirect_multiplier=INDIRECT_MULTIPLIER,
+    )
+    pos_cent = central[central["stranded_value_total"] > 0]
+    total_cent_B = pos_cent["stranded_value_total"].sum() / 1e9
+    print(f"  Counties stranded: {len(pos_cent)}")
+    print(f"  Total stranded:    ${total_cent_B:.1f}B  (old: $105B)")
+
+    # --- Upper: ML + SR + 1.30x indirect, r=2.5%, h=40yr, SSP5-8.5 ---
+    print("\nUpper (ML+SR+1.30x+SSP5-8.5, r=2.5%, h=40yr)...")
+    upper = compute_stranded_with_damage_function(
