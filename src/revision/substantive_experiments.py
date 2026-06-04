@@ -138,3 +138,13 @@ out["E3_E4_migration_falsification_and_effect_size"] = {
              "than the farm-dependent prime-age headline (beta=%.4f). Its statistical "
              "significance (p=%.4f) reflects the large non-farm sample (n=%d); the magnitude "
              "is economically negligible. The farm-dependent population is where the channel "
+             "operates (by definition of where the farm-income channel can have first-order "
+             "effects), and the ratio establishes economic dominance."
+             % (nonfarm_beta, ratio, farmdep_beta, nonfarm_p, nonfarm_n)),
+}
+
+# ============================================================
+# E6: Depopulation NATIONAL welfare floor (frictional cost only)
+# ============================================================
+# Replace regional gross output with NATIONAL welfare floor: workers relocate and produce
+# elsewhere, so the national welfare cost is the search/transition frictional cost only.
