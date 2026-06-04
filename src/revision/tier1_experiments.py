@@ -298,3 +298,13 @@ out["E19_depop_projected_income_path"] = {
              "[%.1f, %.1f]B. The conservative $18B central remains below the projected median."
              % (median, p5, p95)),
 }
+
+# ============================================================
+# E21. INSURANCE CLIMATE-SIGMA SENSITIVITY GRID (alpha range)
+# ============================================================
+residual_baseline = 3.7
+alphas = [0.02, 0.04, 0.06, 0.08]
+dT = 1.5
+grid_sigma = {f"alpha_{a:.2f}": round(residual_baseline * (1 + a * dT), 2) for a in alphas}
+out["E21_insurance_sigma_grid"] = {
+    "alpha_grid": grid_sigma,
