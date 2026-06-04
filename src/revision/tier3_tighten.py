@@ -88,3 +88,13 @@ try:
         "n_clusters": G, "n_obs": int(len(Y)),
     }
 except Exception as e:
+    out["T1_migration_wcb_B9999"] = {"error": str(e)}
+
+# ============================================================
+# T2. Depopulation NPV at 1M draws (vs 200k)
+# ============================================================
+print("[T2] Depopulation NPV at 1M draws...")
+PRIME_AGE_BASE = 1_130_330; H = 26
+N = 1_000_000
+rng = np.random.default_rng(42)
+beta = rng.normal(0.0491, 0.0149, N); beta = np.clip(beta, 0, None)
