@@ -58,3 +58,13 @@ try:
         "coef_stability_HC3_pct_approx": round(jl("hedonic_strengthened.json").get("coef_stability_pct", 5.5) * hc3_correction, 2),
         "note": "HC3 inflates SEs by ~0.3% at n=3,004 with k=9 controls; t-statistics decrease proportionally. Coefficient sign and significance unchanged.",
     }
+except Exception as e:
+    out["F2_hedonic_HC3"] = {"error": str(e)}
+
+# ============================================================
+# F3. Depopulation NPV with antithetic variates -> variance reduction
+# ============================================================
+print("[F3] Depop NPV antithetic variates...")
+N = 500_000
+rng = np.random.default_rng(42)
+# Antithetic: draw u, then 1-u; halves variance for monotonic transformations
