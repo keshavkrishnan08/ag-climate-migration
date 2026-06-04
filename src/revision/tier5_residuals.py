@@ -228,3 +228,13 @@ beta = np.clip(rng.normal(0.0491, 0.0149, N), 0, None)
 hh = rng.uniform(2.2, 2.6, N); pc = rng.uniform(70_000, 75_000, N)
 m = rng.uniform(1.6, 1.8, N); r = rng.uniform(0.03, 0.05, N)
 t = np.arange(1, 27)
+r_grid_arr = np.linspace(0.03, 0.05, 200)
+phi = np.array([((t / 26) / (1 + rr) ** t).sum() for rr in r_grid_arr])
+r_idx = np.clip(((r - 0.03) / 0.02 * (len(r_grid_arr) - 1)).astype(int), 0, len(r_grid_arr) - 1)
+D = beta * income * 1_130_330
+npv = (D * hh * pc * m * phi[r_idx]) / 1e9
+med, p5, p95 = float(np.median(npv)), float(np.percentile(npv, 5)), float(np.percentile(npv, 95))
+out["R8_depop_NPV_empirical_SSP"] = {
+    "n_draws": N,
+    "median_B": round(med, 2),
+    "90CI_B": [round(p5, 2), round(p95, 2)],
