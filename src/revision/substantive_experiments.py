@@ -218,3 +218,6 @@ json.dump(out, open(OUT / "substantive_experiments.json", "w"), indent=2)
 print("=== SUBSTANTIVE EXPERIMENTS — summary ===")
 for k, v in out.items():
     print(f"\n[{k}]")
+    for kk, vv in v.items():
+        if kk == "note": print(f"  note: {vv[:140]}...")
+        else: print(f"  {kk}: {vv}")
