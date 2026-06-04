@@ -308,3 +308,13 @@ dT = 1.5
 grid_sigma = {f"alpha_{a:.2f}": round(residual_baseline * (1 + a * dT), 2) for a in alphas}
 out["E21_insurance_sigma_grid"] = {
     "alpha_grid": grid_sigma,
+    "alpha_range_B": [min(grid_sigma.values()), max(grid_sigma.values())],
+    "note": ("Across alpha in {0.02, 0.04, 0.06, 0.08} pp/C, the climate-sigma residual spans "
+             "$%.2f-$%.2fB. The 4 pp/C central is the literature mid-point (Lobell 2014; "
+             "Schauberger 2017)."
+             % (min(grid_sigma.values()), max(grid_sigma.values()))),
+}
+
+# ============================================================
+# E22. INSURANCE SCO + ECO JOINT
+# ============================================================
