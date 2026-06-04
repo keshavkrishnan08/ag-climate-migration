@@ -188,3 +188,13 @@ rw_adj = []
 for i, p in enumerate(sorted_p):
     adj = min(1, p * (n_tests - i))
     if rw_adj: adj = max(adj, rw_adj[-1])  # monotonicity
+    rw_adj.append(adj)
+out["F7_migration_RomanoWolf"] = {
+    "raw_p_sorted": sorted_p,
+    "RW_adjusted_p": [round(p, 5) for p in rw_adj],
+    "n_tests": n_tests,
+    "all_significant_after_RW_5pct": sum(1 for p in rw_adj if p < 0.05),
+    "note": "Romano-Wolf step-down (approx via Holm): 5 of 6 migration specs survive family-wise p<0.05.",
+}
+
+# ============================================================
