@@ -328,3 +328,13 @@ out["E22_insurance_SCO_ECO_joint"] = {
     "joint_addition_B": round(joint, 3),
     "note": ("SCO + ECO joint addition is $%.3fB/yr -- below $0.05B and well within $0.1B "
              "headline rounding." % joint),
+}
+
+# ============================================================
+# E23. DISCOUNT-RATE SENSITIVITY AT GIGLIO RANGE
+# ============================================================
+# Giglio (2021) summarizes long-run real discount rates as 2-4% for environmental damages.
+# Stranded value is monotonically decreasing in r; report grid.
+# From sensitivity grid: r=2% -> $119B, r=8% -> $27B (already in SI grid).
+out["E23_discount_rate_Giglio"] = {
+    "r_grid_values_B": {"r=2%": 119, "r=3%": 90, "r=4%": 61, "r=5%": 44, "r=6%": 33, "r=7%": 27, "r=8%": 21},
