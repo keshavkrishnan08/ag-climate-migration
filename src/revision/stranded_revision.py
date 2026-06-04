@@ -758,3 +758,13 @@ def main():
     # TASK 3: Alternate-use floor applied to central estimate
     # ------------------------------------------------------------------
     print("\n" + "=" * 60)
+    print("TASK 3: Applying alternate-use floor (pasture = $1,500/acre)")
+    print("=" * 60)
+
+    central_floored = apply_alternate_use_floor(
+        central, yield_proj, commodity_prices_real,
+        pasture_value=PASTURE_VALUE_PER_ACRE,
+        production_cost=PRODUCTION_COST_PER_ACRE,
+    )
+
+    gross_B = central_floored["stranded_value_total"].clip(lower=0).sum() / 1e9
