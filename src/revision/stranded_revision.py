@@ -568,3 +568,13 @@ def sensitivity_grid_real(
         scenario: Scenario label.
 
     Returns:
+        DataFrame with total stranded value for each parameter combination.
+    """
+    discount_rates = [0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08]
+    horizons = [20, 25, 30, 35, 40]
+
+    results = []
+    for r in discount_rates:
+        for h in horizons:
+            cpv = compute_stranded_vectorized(
+                yield_proj, land_values, commodity_prices,
