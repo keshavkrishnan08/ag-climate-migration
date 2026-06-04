@@ -998,3 +998,4 @@ and reduces the central estimate by ${floor_reduction_B:.1f}B ({100*floor_reduct
 
 
 if __name__ == "__main__":
+    main()
