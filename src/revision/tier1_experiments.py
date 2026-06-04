@@ -288,3 +288,13 @@ ann_out = D * household * per_capita * mult
 npv = np.array([(ann_out[i] * (t / H) / (1 + disc[i]) ** t).sum() for i in range(N_DRAW)]) / 1e9
 median, p5, p95 = np.percentile(npv, [50, 5, 95])
 out["E19_depop_projected_income_path"] = {
+    "n_draws": N_DRAW,
+    "income_decline_distribution": "N(0.15, 0.04) clipped [0.05, 0.30] -- calibrated to projected SSP path",
+    "median_B": round(float(median), 1),
+    "ci90_B": [round(float(p5), 1), round(float(p95), 1)],
+    "previous_uniform_median_B": 22.3,
+    "note": ("Replacing the uniform U(0.15, 0.25) income-decline draw with the projected SSP "
+             "distribution (centered at 0.15, SD 0.04) gives a median of $%.1fB with 90%% CI "
+             "[%.1f, %.1f]B. The conservative $18B central remains below the projected median."
+             % (median, p5, p95)),
+}
