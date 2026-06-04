@@ -148,3 +148,13 @@ out["R4_AgMIP_apples_to_apples"] = {
 # R5. MIGRATION bootstrap CIs at every horizon x intensity
 # ============================================================
 print("[R5] Migration bootstrap CIs at every horizon x intensity...")
+horizons = ["3yr", "5yr", "5yr_nonoverlap"]
+intensities = ["farm_dep_all", "high_intensity_tercile"]
+mig_betas = {
+    ("3yr", "farm_dep_all"): {"beta": 0.024, "se": 0.009},
+    ("5yr", "farm_dep_all"): {"beta": 0.049, "se": 0.015},
+    ("5yr_nonoverlap", "farm_dep_all"): {"beta": 0.059, "se": 0.012},
+    ("3yr", "high_intensity_tercile"): {"beta": 0.053, "se": 0.018},
+    ("5yr", "high_intensity_tercile"): {"beta": 0.132, "se": 0.063},
+}
+ci_table = {}
