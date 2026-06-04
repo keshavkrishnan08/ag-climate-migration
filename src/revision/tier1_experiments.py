@@ -168,3 +168,13 @@ out["E13_crop_specific_opportunity_margin"] = {
              % (weighted_margin * 100, net_crop_specific - net_uniform_22)),
 }
 
+# ============================================================
+# E14. YIELD Z-SCALE PER-CROP HONEST BREAKDOWN
+# ============================================================
+ad = jl("audit_yield_target_decomp.json") or {}
+percrop_z = gj(ad, "cells", "SPEC_Z", "per_crop") or {}
+percrop_pct = gj(ad, "cells", "SPEC_PCT", "per_crop") or {}
+out["E14_yield_zscale_per_crop"] = {
+    "per_crop_R2": {
+        c: {"R2_on_z": round(percrop_z.get(c, {}).get("r2_on_z", 0), 3),
+            "R2_on_pct": round(percrop_pct.get(c, {}).get("r2_on_pct", 0), 3),
