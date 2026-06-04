@@ -988,3 +988,13 @@ and reduces the central estimate by ${floor_reduction_B:.1f}B ({100*floor_reduct
 
     return {
         "conservative_B": total_cons_B,
+        "central_B": total_cent_B,
+        "upper_B": total_upper_B,
+        "central_floored_B": floored_B,
+        "floor_reduction_B": floor_reduction_B,
+        "state_table": state_table,
+        "price_table": avg_prices,
+    }
+
+
+if __name__ == "__main__":
