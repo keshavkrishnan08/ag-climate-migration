@@ -48,3 +48,13 @@ print("[R1] Insurance with rate adjustment over time...")
 #
 # At tau_rate = 5 years, the residual halves in ~3.5 years.
 # At infinity, GE residual = 0 (full re-rating).
+#
+# But the OBSERVED policy lag means the rolling-window absorption (already in our
+# decomposition) IS the rate adjustment. So the PE/GE distinction collapses if we
+# already include the rolling window. Confirm:
+residual_pe = 3.7
+tau_rate = 5  # years
+# Steady-state with rate adjustment: residual approaches zero only if APH absorbs
+# the full trend. Our rolling APH absorbs $2.0B (mechanical), TAY $0.9B, leaving
+# $3.7B residual. So even with full rate adjustment in the very long run, the
+# transient residual exists during the adjustment period.
