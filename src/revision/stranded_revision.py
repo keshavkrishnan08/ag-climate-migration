@@ -478,3 +478,13 @@ def apply_alternate_use_floor(
     """Cap per-acre losses where cropping is no longer economically viable.
 
     Where the projected per-acre gross revenue (averaged 2040-2050) falls below
+    the variable production cost, we treat that county-crop combination as
+    transitioning to alternate use (grazing/recreation).  The maximum per-acre
+    asset loss is capped at (cropland_value - pasture_value), not the full
+    cropland value.
+
+    This implements the Csikos & Toth (2023) insight that farmland retains
+    significant value as pasture or recreational land even when row-crop
+    production is no longer viable.
+
+    Args:
