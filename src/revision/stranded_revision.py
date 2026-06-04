@@ -398,3 +398,13 @@ def compute_stranded_with_damage_function(
     yp["income_combined"] = (
         yp["climate_impact_combined"] * yp["price"]
         * yp["acres_harvested"] * indirect_multiplier
+    )
+
+    min_year = yp["year"].min()
+    yp["years_ahead"] = yp["year"] - min_year + 1
+    yp = yp[yp["years_ahead"] <= horizon]
+    yp["discount_factor"] = 1.0 / (1 + discount_rate) ** yp["years_ahead"]
+
+    yp["pv_ml"] = yp["income_ml"] * yp["discount_factor"]
+    yp["pv_sr_add"] = yp["income_sr_add"] * yp["discount_factor"]
+    yp["pv_combined"] = yp["income_combined"] * yp["discount_factor"]
