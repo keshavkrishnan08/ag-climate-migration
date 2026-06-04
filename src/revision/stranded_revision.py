@@ -578,3 +578,13 @@ def sensitivity_grid_real(
         for h in horizons:
             cpv = compute_stranded_vectorized(
                 yield_proj, land_values, commodity_prices,
+                discount_rate=r, horizon=h, scenario=scenario,
+            )
+            pos = cpv[cpv["stranded_value_total"] > 0]
+            total_B = pos["stranded_value_total"].sum() / 1e9
+            results.append({
+                "discount_rate": r,
+                "horizon": h,
+                "scenario": scenario,
+                "total_stranded_B": total_B,
+                "n_stranded_counties": len(pos),
