@@ -408,3 +408,13 @@ def compute_stranded_with_damage_function(
     yp["pv_ml"] = yp["income_ml"] * yp["discount_factor"]
     yp["pv_sr_add"] = yp["income_sr_add"] * yp["discount_factor"]
     yp["pv_combined"] = yp["income_combined"] * yp["discount_factor"]
+
+    county_pv = (
+        yp.groupby("fips")
+        .agg(
+            pv_ml_total=("pv_ml", "sum"),
+            pv_sr_additive=("pv_sr_add", "sum"),
+            pv_combined_total=("pv_combined", "sum"),
+            total_acres=("acres_harvested", "mean"),
+            mean_delta_edd=("delta_edd", "mean"),
+            mean_tmax_july_C=("tmax_july_C", "mean"),
