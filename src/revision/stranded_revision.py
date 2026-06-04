@@ -818,3 +818,13 @@ def main():
     for _, row in state_table.head(10).iterrows():
         frac = row["median_stranded_fraction"]
         frac_str = f"{frac:.1%}" if pd.notna(frac) else "N/A"
+        top10_lines.append(
+            f"| {row['state']:20s} | {int(row['n_stressed_counties']):4d}              "
+            f"| ${row['total_stranded_B']:.2f}B             | {frac_str:8s}        |"
+        )
+    top10_str = "\n".join(top10_lines)
+
+    methods_text = (
+        "We replace the original near-peak nominal commodity prices with 30-year "
+        "(1994–2023) marketing-year average prices deflated to 2023 USD using the "
+        "CPI-U (Table R1). Prices are held flat in real terms across all projection "
