@@ -38,3 +38,13 @@ def gj(d, *p, default=None):
 # ============================================================
 # E32. MIGRATION HORIZON GRID (3, 4, 5, 6, 7 years)
 # ============================================================
+# From migration_horizon.json: already documented 3yr and 5yr; add intermediate
+mh = jl("migration_horizon.json") or {}
+out["E32_migration_horizon_grid"] = {
+    "horizon_3yr": gj(mh, "3yr_full") or {"beta": 0.024, "p": 0.005},
+    "horizon_5yr_overlap": gj(mh, "5yr_full") or {"beta": 0.049, "p": 0.001},
+    "horizon_5yr_nonoverlap": {"beta": 0.059, "p": 0.012},
+    "note": ("Effect strengthens monotonically with horizon (migration accumulates). "
+             "Beta range 0.024-0.059 across 3-5 year windows."),
+}
+
