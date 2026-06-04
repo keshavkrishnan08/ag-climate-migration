@@ -768,3 +768,13 @@ def main():
     )
 
     gross_B = central_floored["stranded_value_total"].clip(lower=0).sum() / 1e9
+    floored_B = central_floored["stranded_value_floored"].clip(lower=0).sum() / 1e9
+    floor_reduction_B = gross_B - floored_B
+    n_floor_applied = central_floored["floor_applied"].sum()
+    n_non_viable = (central_floored["n_non_viable_crops"] > 0).sum()
+
+    print(f"  Counties with ≥1 non-viable crop (2040-50): {n_non_viable}")
+    print(f"  Counties where floor was binding:           {n_floor_applied}")
+    print(f"  Gross stranded (before floor):              ${gross_B:.1f}B")
+    print(f"  Net stranded (after floor):                 ${floored_B:.1f}B")
+    print(f"  Floor reduces estimate by:                  ${floor_reduction_B:.1f}B  ({100*floor_reduction_B/gross_B:.1f}%)")
