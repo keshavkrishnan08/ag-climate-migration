@@ -108,3 +108,13 @@ t = np.arange(1, H + 1)
 D = beta * income * PRIME_AGE_BASE
 ann = D * household * per_capita * mult
 # NPV = ann * sum_t (t/H)/(1+r)^t
+# Pre-compute discount sums for each r in bins
+r_bins = np.linspace(0.03, 0.05, 200)
+disc_factors = np.array([((t / H) / (1 + r) ** t).sum() for r in r_bins])
+r_idx = np.clip(((disc - 0.03) / (0.05 - 0.03) * (len(r_bins) - 1)).astype(int), 0, len(r_bins) - 1)
+npv = ann * disc_factors[r_idx] / 1e9
+median = float(np.median(npv))
+p5, p95 = float(np.percentile(npv, 5)), float(np.percentile(npv, 95))
+p2_5, p97_5 = float(np.percentile(npv, 2.5)), float(np.percentile(npv, 97.5))
+floor = float(np.median(D * per_capita * disc_factors[r_idx] / 1e9))
+out["T2_depop_NPV_1M_draws"] = {
