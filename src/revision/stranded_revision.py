@@ -358,3 +358,13 @@ def compute_stranded_with_damage_function(
         cp["delta_tmax_july"] = cp["delta_tmax_july"] * ssp585_scale
         cp["delta_tmax_growing"] = cp["delta_tmax_growing"] * ssp585_scale
 
+    cp["tmax_july_C"] = (cp["tmax_july_projected"] - 32) * 5.0 / 9.0
+    cp["tmax_growing_C"] = (cp["tmax_growing_projected"] - 32) * 5.0 / 9.0
+    cp["tmax_july_baseline_C"] = (
+        (cp["tmax_july_projected"] - cp["delta_tmax_july"]) - 32
+    ) * 5.0 / 9.0
+    cp["tmax_growing_baseline_C"] = (
+        (cp["tmax_growing_projected"] - cp["delta_tmax_growing"]) - 32
+    ) * 5.0 / 9.0
+
+    def edd(tmax_july, tmax_growing, threshold=SR_THRESHOLD_MODERATE):
