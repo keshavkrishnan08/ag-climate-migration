@@ -188,3 +188,13 @@ spec_z = yz["SPEC_Z"]["overall_r2_on_z"]
 agg_pct = yz["AGG_PCT"]["overall_r2_on_pct"]
 spec_pct = yz["SPEC_PCT"]["overall_r2_on_pct"]
 feature_gain_z = spec_z - agg_z
+target_shift_with_agg = agg_pct - agg_z
+total_gain = spec_pct - agg_z
+out["E5_yield_zscale_apples_to_apples"] = {
+    "aggregates_on_z_R2": round(agg_z, 3),
+    "spectrum_on_z_R2": round(spec_z, 3),
+    "aggregates_on_pct_R2": round(agg_pct, 3),
+    "spectrum_on_pct_R2": round(spec_pct, 3),
+    "feature_gain_on_z_scale": round(feature_gain_z, 3),
+    "target_shift_gain_with_aggregates": round(target_shift_with_agg, 3),
+    "total_gain": round(total_gain, 3),
