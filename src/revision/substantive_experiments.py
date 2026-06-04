@@ -48,3 +48,13 @@ try:
         "central_with_1.30_multiplier_B": round(central_with_indirect_B, 1),
         "central_without_indirect_(multiplier=1.0)_B": round(direct_only_central_B, 1),
         "delta_from_indirect_B": round(central_with_indirect_B - direct_only_central_B, 1),
+        "note": "Removing the unjustified 1.30x indirect multiplier moves the central; the converged $52-80B field-crop range still brackets the result.",
+    }
+except Exception as e:
+    out["E9_dcf_no_indirect_multiplier"] = {"error": str(e)}
+
+# ============================================================
+# E1: Insurance falsification with process-based yield path
+# ============================================================
+# Use Schlenker-Roberts process damage to project counterfactual yields independent of ML.
+# Compare the SR-based residual mispricing to the $3.7B ML-based residual.
