@@ -88,3 +88,13 @@ out["E1_insurance_process_falsification"] = {
     "yield_spec_robust_range_B": [round(residual_proc, 2), residual_ml],
 }
 
+# ============================================================
+# E2: Climate-dependent sigma in insurance
+# ============================================================
+# Historical variance-temperature relationship: yield CV typically rises ~3-5% per degree C
+# of growing-season warming above optimum (Schauberger 2017; Lobell 2014).
+# Re-scale residual under sigma(T) = sigma_base * (1 + 0.04 * dT) where dT~1.5C by 2050.
+alpha = 0.04  # CV scaling per degree C
+dT_mid = 1.5  # median 2050 SSP2-4.5 warming
+sigma_scaler = 1 + alpha * dT_mid    # ~1.06
+# Residual is approximately linear in sigma at moderate K-mu gaps (put is convex in sigma)
