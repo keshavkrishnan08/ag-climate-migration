@@ -108,3 +108,13 @@ out["E2_insurance_climate_dependent_sigma"] = {
     "residual_with_climate_dependent_sigma_B": round(residual_with_climvar, 2),
     "residual_baseline_fixed_sigma_B": residual_ml,
     "note": ("Allowing CV to rise 4 pp per degree C of growing-season warming (Lobell 2014; "
+             "Schauberger 2017) raises the residual mispricing from $%.1fB to $%.2fB, "
+             "within the reported range and inside $0.1B headline rounding."
+             % (residual_ml, residual_with_climvar)),
+}
+
+# ============================================================
+# E3 + E4: Migration metro placebo + effect-size dominance
+# ============================================================
+# The migration_iv_bartik non-farm reduced form (p=0.007) is statistically significant
+# but economically TINY: beta=+0.00038 vs the farm-dep prime-age headline beta=+0.024.
