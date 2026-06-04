@@ -238,3 +238,13 @@ out["E17_tail_risk_decoupled"] = {
     "note": ("The >$500B tail is the 10th-percentile-yield quantile regression DCF -- a different "
              "estimand from the conditional-expectation DCF central ($61B). We do not bundle them "
              "in the headline; the tail is reported as a tail-risk sensitivity only."),
+}
+
+# ============================================================
+# E18. HEDONIC SI SECTION6 RECONCILIATION
+# ============================================================
+hs = jl("hedonic_strengthened.json") or {}
+specs_h = gj(hs, "specs") or {}
+out["E18_hedonic_S6_reconciliation"] = {
+    "soil_controlled_cropland_B": gj(hs, "specs", "+ SSURGO + irrigation + soil-productivity", "stranded_B"),
+    "all_farmland_uncontrolled_upper_bound_B": 168,
