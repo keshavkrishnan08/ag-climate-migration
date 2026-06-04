@@ -508,3 +508,13 @@ def apply_alternate_use_floor(
 
     late_agg = (
         late.groupby(["fips", "crop"])["revenue_per_acre"]
+        .mean()
+        .reset_index()
+        .rename(columns={"revenue_per_acre": "late_revenue_per_acre"})
+    )
+
+    # Flag non-viable county-crop combinations
+    late_agg["non_viable"] = late_agg["late_revenue_per_acre"] < production_cost
+
+    # Count non-viable crops per county
+    non_viable_cnt = (
