@@ -638,3 +638,13 @@ def build_state_table(county_df: pd.DataFrame) -> pd.DataFrame:
         .agg(
             n_stressed_counties=("fips", "count"),
             total_stranded_B=("stranded_value_floored", lambda x: x.sum() / 1e9),
+            median_stranded_fraction=("stranded_fraction", "median"),
+        )
+        .reset_index()
+        .sort_values("total_stranded_B", ascending=False)
+        .reset_index(drop=True)
+    )
+
+    return state_agg
+
+
