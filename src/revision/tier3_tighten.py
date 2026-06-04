@@ -248,3 +248,10 @@ improvements = {
 out["T10_improvements_summary"] = improvements
 
 json.dump(out, open(OUT / "tier3_tighten.json", "w"), indent=2, default=str)
+print()
+print("=== TIER-3 TIGHTENING COMPLETE ===")
+print(f"  Migration WCB B=9999: p={out.get('T1_migration_wcb_B9999', {}).get('wild_cluster_bootstrap_p_B9999')}")
+print(f"  Depop NPV 1M draws: median ${out['T2_depop_NPV_1M_draws']['median_B']}B, 95% CI {out['T2_depop_NPV_1M_draws']['ci95_B']}")
+print(f"  Stranded CI 1M draws: full {out['T7_stranded_CI_1M_draws']['full_propagation_95CI_B']}")
+print(f"  Insurance residual CI: {out['T4_insurance_residual_CI']['bootstrap_90CI_B']}")
+print(f"  Common-cause Bonferroni all<0.05: {out['T6_common_cause_bonferroni']['all_significant_after_bonferroni_5pct']}")
