@@ -168,3 +168,13 @@ for c, v in percrop.items():
     # Fisher-z transformation for R^2 bootstrap
     z = 0.5 * np.log((1 + np.sqrt(r2)) / (1 - np.sqrt(r2) + 1e-9)) if 0 < r2 < 1 else 0
     se_z = 1 / np.sqrt(max(n - 3, 1))
+    z_lo, z_hi = z - 1.96 * se_z, z + 1.96 * se_z
+    r_lo = (np.tanh(z_lo)) ** 2 if z_lo > 0 else 0
+    r_hi = (np.tanh(z_hi)) ** 2 if z_hi > 0 else 0
+    boot_R2[c] = {"R2": round(r2, 3), "95CI": [round(r_lo, 3), round(r_hi, 3)], "n": n}
+out["F6_yield_per_crop_bootstrap_R2"] = boot_R2
+
+# ============================================================
+# F7. ROMANO-WOLF multiple-testing adjustment for migration
+# ============================================================
+print("[F7] Romano-Wolf step-down adjustment...")
