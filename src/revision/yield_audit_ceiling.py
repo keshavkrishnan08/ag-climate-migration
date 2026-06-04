@@ -58,3 +58,13 @@ def per_crop_levels(panel, te_pred, te, panel_full):
         cm = tp["crop"] == c
         if cm.sum() < 30:
             continue
+        sub = tp[cm]
+        # per-county sd of yield within crop (full-period), to map anomaly->level
+        key = panel_full[panel_full["crop"] == c]
+        sd = key.groupby("fips")["yield_bu_acre"].transform("std")
+        mu = key.groupby("fips")["yield_bu_acre"].transform("mean")
+        ref = key.assign(sd=sd, mu=mu)[["fips", "year", "sd", "mu"]]
+        sub = sub.merge(ref, on=["fips", "year"], how="left")
+        actual = sub["yield_bu_acre"].values
+        pred_level = sub["mu"].values + sub["pred_anom"].values * sub["sd"].values
+        ok = np.isfinite(pred_level) & np.isfinite(actual)
