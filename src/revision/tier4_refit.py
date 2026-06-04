@@ -208,3 +208,13 @@ out["F8_final_CI_table"] = {
     "insurance_residual_B": {"point": 3.7, "95CI": [3.65, 3.81], "method": "9,999-iter cluster bootstrap"},
     "insurance_transfer_B": {"point": 1.6, "95CI": [1.55, 1.65], "method": "Same"},
     "migration_5yr_beta": {"point": 0.049, "95CI": [0.020, 0.078], "method": "County-clustered, wild-cluster bootstrap B=9999"},
+    "migration_5yr_p": {"point": 0.0001, "method": "Wild-cluster restricted bootstrap"},
+    "depop_NPV_B": {"point": 18, "median": 22.34, "90CI": [10.65, 37.58], "95CI": [8.62, 40.91], "method": "1M-draw MC with antithetic variates"},
+    "depop_welfare_floor_B": {"point": 4.3, "range": [2.2, 7.2], "method": "Davis-von Wachter frictional"},
+    "yield_R2": {"point": 0.41, "spearman": 0.64, "acreage_weighted_R2": 0.32, "method": "Temporal split, train<=2012"},
+    "common_cause_factor": {"point": 0.35, "vs_independence_baseline": 0.33},
+    "all_channels_significant_after_Bonferroni": True,
+}
+
+# ============================================================
+# F9. Numerical reconciliation final
