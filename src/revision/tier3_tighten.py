@@ -198,3 +198,13 @@ rng = np.random.default_rng(42)
 # Idiosyncratic, spatial, GCM components, each centered on their CI
 idio = rng.normal(0, 1.75, N)   # +/- 1.75% width per CI [49, 56] / 2 ~ 1.75 std
 spatial = rng.normal(0, 5.25, N)
+gcm = rng.normal(0, 10.0, N)
+total = 61 + idio + spatial + gcm
+ci_idio = [float(np.percentile(61 + idio, 2.5)), float(np.percentile(61 + idio, 97.5))]
+ci_full = [float(np.percentile(total, 2.5)), float(np.percentile(total, 97.5))]
+out["T7_stranded_CI_1M_draws"] = {
+    "n_draws": N,
+    "idiosyncratic_only_95CI_B": [round(ci_idio[0], 1), round(ci_idio[1], 1)],
+    "full_propagation_95CI_B": [round(ci_full[0], 1), round(ci_full[1], 1)],
+    "prior_full_CI_B": [37, 77],
+    "improvement": "1M draws give CI precision to 1 decimal; tighter component decomposition reported.",
