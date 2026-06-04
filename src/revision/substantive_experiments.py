@@ -78,3 +78,13 @@ out["E1_insurance_process_falsification"] = {
     "process_yield_scaling_vs_ML": round(proc / ml, 3),
     "process_gross_B": round(gross_proc, 2),
     "process_residual_B": round(residual_proc, 2),
+    "ML_residual_B": residual_ml,
+    "note": ("Process-based (Schlenker-Roberts) yield damage gives a gross $%.1fB and a "
+             "residual $%.1fB after the same rolling+TAY absorption (absorption fractions "
+             "are structural to the algorithm, not the yield level). The %.2fx ratio reflects "
+             "the broader ML vs process headline divergence; the headline RESIDUAL range "
+             "$%.1f-%.1fB brackets both yield specifications."
+             % (gross_proc, residual_proc, proc/ml, residual_proc, residual_ml)),
+    "yield_spec_robust_range_B": [round(residual_proc, 2), residual_ml],
+}
+
