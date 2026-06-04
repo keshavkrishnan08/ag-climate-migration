@@ -338,3 +338,13 @@ def compute_stranded_with_damage_function(
         horizon: Projection horizon in years.
         scenario: Label string for output.
         ssp585_scale: Warming scaling factor (1.0 = SSP2-4.5; 1.8 = SSP5-8.5).
+        indirect_multiplier: Multiplier for indirect losses (1.30 = central).
+
+    Returns:
+        County-level stranded value DataFrame with ML + SR additive components.
+    """
+    yp = yield_proj.copy()
+    cp = climate_proj.copy()
+
+    if ssp585_scale != 1.0:
+        cp["tmax_july_projected"] = (
