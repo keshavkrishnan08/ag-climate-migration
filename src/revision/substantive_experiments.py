@@ -58,3 +58,13 @@ except Exception as e:
 # ============================================================
 # Use Schlenker-Roberts process damage to project counterfactual yields independent of ML.
 # Compare the SR-based residual mispricing to the $3.7B ML-based residual.
+# Approach: take the ratio of national process-based / ML stranded ($13.3B / $59.3B ~ 0.224),
+# apply as a scaling on the yield-channel mispricing (because insurance mispricing scales
+# linearly with yield decline in the rolling-APH simulation, holding APH absorption fixed).
+ml_residual = 3.7
+process_residual_proxy = ml_residual * (proc / ml)
+# More principled: process damage is monotone in EDD; the rolling APH still absorbs at
+# the same five-year lag. Run the same decomposition with the process damage scaled to its
+# total, and the rolling-window absorption fraction (a structural property of the algorithm,
+# not the yield level) preserved.
+gross_ml = 6.6; rolling_absorb_ml = 2.0; tay_absorb_ml = 0.9; residual_ml = 3.7
