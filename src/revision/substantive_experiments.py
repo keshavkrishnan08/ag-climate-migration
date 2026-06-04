@@ -168,3 +168,13 @@ out["E6_depop_national_welfare_floor"] = {
     "cumulative_displaced_workers": int(cumulative_displaced),
     "per_worker_frictional_cost_USD": friction_per_worker_mid,
     "national_welfare_floor_central_B": round(nat_welfare_floor_B, 1),
+    "national_welfare_floor_range_B": [round(nat_lo, 1), round(nat_hi, 1)],
+    "regional_gross_output_central_B": 18.0,
+    "note": ("The $18B central is REGIONAL gross output, not national welfare. The national "
+             "welfare floor is the frictional cost of involuntary worker relocation: about "
+             "$%dk per displaced worker (12mo unemployment plus 10-15 pp earnings loss; Davis & "
+             "von Wachter 2011). At %.0fk cumulative displaced workers through 2050, this "
+             "gives a national welfare floor of $%.1fB (range $%.1f-%.1fB)."
+             % (friction_per_worker_mid // 1000, cumulative_displaced / 1000,
+                nat_welfare_floor_B, nat_lo, nat_hi)),
+}
