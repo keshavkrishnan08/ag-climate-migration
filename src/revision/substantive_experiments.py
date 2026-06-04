@@ -68,3 +68,13 @@ process_residual_proxy = ml_residual * (proc / ml)
 # total, and the rolling-window absorption fraction (a structural property of the algorithm,
 # not the yield level) preserved.
 gross_ml = 6.6; rolling_absorb_ml = 2.0; tay_absorb_ml = 0.9; residual_ml = 3.7
+# Absorption FRACTIONS (rolling-window and TAY) depend on window length and lag, not yield level
+# So we scale gross by (proc/ml) and apply the same absorption fractions:
+gross_proc = gross_ml * (proc / ml)
+rolling_absorb_proc = rolling_absorb_ml * (proc / ml)
+tay_absorb_proc = tay_absorb_ml * (proc / ml)
+residual_proc = gross_proc - rolling_absorb_proc - tay_absorb_proc
+out["E1_insurance_process_falsification"] = {
+    "process_yield_scaling_vs_ML": round(proc / ml, 3),
+    "process_gross_B": round(gross_proc, 2),
+    "process_residual_B": round(residual_proc, 2),
