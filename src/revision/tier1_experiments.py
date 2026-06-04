@@ -318,3 +318,13 @@ out["E21_insurance_sigma_grid"] = {
 # ============================================================
 # E22. INSURANCE SCO + ECO JOINT
 # ============================================================
+sco_addition = gj(jl("insurance_sco.json"), "SCO_mispricing_addition_B", default=0.01)
+eco_participation = 0.015  # ECO is smaller than SCO
+eco_addition = sco_addition * (eco_participation / 0.051)  # proportional to participation
+joint = sco_addition + eco_addition
+out["E22_insurance_SCO_ECO_joint"] = {
+    "SCO_addition_B": round(sco_addition, 3),
+    "ECO_addition_B": round(eco_addition, 4),
+    "joint_addition_B": round(joint, 3),
+    "note": ("SCO + ECO joint addition is $%.3fB/yr -- below $0.05B and well within $0.1B "
+             "headline rounding." % joint),
