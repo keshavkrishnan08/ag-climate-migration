@@ -528,3 +528,13 @@ def apply_alternate_use_floor(
     result["n_non_viable_crops"] = result["n_non_viable_crops"].fillna(0).astype(int)
 
     # Apply floor: stranded per acre capped at (cropland_value - pasture_value)
+    result["stranded_before_floor"] = result["stranded_value_total"]
+
+    # Only apply floor where stranded > 0 and land value is known
+    has_land_value = result["land_value_per_acre"].notna() & (result["land_value_per_acre"] > 0)
+    # Max per-acre loss = cropland_value - pasture_value (floored at 0)
+    max_loss_per_acre = (result["land_value_per_acre"] - pasture_value).clip(lower=0)
+    max_total_loss = max_loss_per_acre * result["total_acres"]
+
+    # Apply cap only where stranded > max_total_loss
+    floor_mask = (
