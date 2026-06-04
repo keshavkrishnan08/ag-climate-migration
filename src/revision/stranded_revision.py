@@ -628,3 +628,13 @@ def build_state_table(county_df: pd.DataFrame) -> pd.DataFrame:
     }
 
     df = county_df.copy()
+    df["state_fips"] = df["fips"].astype(str).str.zfill(5).str[:2]
+    df["state"] = df["state_fips"].map(state_fips_map).fillna("Unknown")
+
+    positive = df[df["stranded_value_floored"] > 0].copy()
+
+    state_agg = (
+        positive.groupby("state")
+        .agg(
+            n_stressed_counties=("fips", "count"),
+            total_stranded_B=("stranded_value_floored", lambda x: x.sum() / 1e9),
