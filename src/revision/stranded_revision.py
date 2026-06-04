@@ -708,3 +708,13 @@ def main():
     # ------------------------------------------------------------------
     # TASK 2: Recompute stranded values with real prices
     # ------------------------------------------------------------------
+    print("\n" + "=" * 60)
+    print("TASK 2: Recomputing stranded values with real prices")
+    print("=" * 60)
+
+    # --- Conservative: ML only, r=4%, h=30yr (same as original lower bound) ---
+    print("\nConservative (ML only, r=4%, h=30yr, SSP2-4.5)...")
+    conservative = compute_stranded_vectorized(
+        yield_proj, land_values, commodity_prices_real,
+        discount_rate=0.04, horizon=30, scenario="SSP245",
+    )
