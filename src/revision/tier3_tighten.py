@@ -38,3 +38,13 @@ try:
     from migration_primeage_panel import within
     prime = pd.read_parquet(OUT / "prime_age_pop.parquet")
     prime["fips"] = prime["fips"].astype(str).str.zfill(5)
+    prime = prime.sort_values(["fips", "year"])
+    prime["g5"] = prime.groupby("fips")["prime"].transform(lambda s: (s.shift(-5) / s - 1))
+    panel = build_panel()
+    p = panel.merge(prime[["fips", "year", "g5"]], on=["fips", "year"], how="inner")
+    fd = p[p["farm_dependent"] == 1].dropna(subset=["g5", "farm_income_dev", "z_bartik"]).copy()
+    fd = within(fd, ["g5", "farm_income_dev", "z_bartik"])
+    Y = fd["g5_w"].values; D = fd["farm_income_dev_w"].values; Z = fd["z_bartik_w"].values
+    g = fd["fips"].values; clusters = np.unique(g); G = len(clusters)
+    rows_by = {c: np.where(g == c)[0] for c in clusters}
+    def iv_beta(Y, D, Z): return (Z @ Y) / (Z @ D)
