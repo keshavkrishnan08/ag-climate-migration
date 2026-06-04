@@ -88,3 +88,13 @@ try:
     Y = metro["pgw"].values
     b, *_ = np.linalg.lstsq(X, Y, rcond=None)
     r = Y - X @ b
+    # cluster-robust SE on county
+    g = metro["fips"].values
+    XtXi = np.linalg.inv(X.T @ X)
+    meat = np.zeros((2, 2))
+    for c in np.unique(g):
+        m = g == c
+        meat += (X[m].T @ r[m])[:, None] @ (r[m][None, :] @ X[m])
+    cov = XtXi @ meat @ XtXi
+    se = np.sqrt(np.diag(cov))
+    t = b[1] / se[1]
