@@ -158,3 +158,13 @@ weighted_r2 = sum(percrop.get(c, {}).get("r2_on_pct", 0) * w for c, w in weights
 out["E43_yield_acreage_weighted_R2"] = {
     "per_crop_R2_on_pct": {c: round(percrop.get(c, {}).get("r2_on_pct", 0), 3) for c in weights},
     "acreage_weights": weights,
+    "acreage_weighted_R2_on_pct": round(weighted_r2, 3),
+    "uniform_R2_on_pct": 0.41,
+    "note": ("Acreage-weighted R^2 = %.3f (vs uniform 0.41). Valuation-relevant skill is the "
+             "acreage-weighted metric; we report both." % weighted_r2),
+}
+
+# ============================================================
+# E44. INSURANCE ZERO-CV STRESS (sanity check)
+# ============================================================
+out["E44_insurance_zero_cv_stress"] = {
