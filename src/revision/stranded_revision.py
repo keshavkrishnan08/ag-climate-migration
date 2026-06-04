@@ -608,3 +608,13 @@ def build_state_table(county_df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         DataFrame with state-level statistics, sorted by total_stranded_B descending.
     """
+    # State FIPS mapping
+    state_fips_map = {
+        "01": "Alabama", "02": "Alaska", "04": "Arizona", "05": "Arkansas",
+        "06": "California", "08": "Colorado", "09": "Connecticut",
+        "10": "Delaware", "12": "Florida", "13": "Georgia", "15": "Hawaii",
+        "16": "Idaho", "17": "Illinois", "18": "Indiana", "19": "Iowa",
+        "20": "Kansas", "21": "Kentucky", "22": "Louisiana", "23": "Maine",
+        "24": "Maryland", "25": "Massachusetts", "26": "Michigan",
+        "27": "Minnesota", "28": "Mississippi", "29": "Missouri",
+        "30": "Montana", "31": "Nebraska", "32": "Nevada",
