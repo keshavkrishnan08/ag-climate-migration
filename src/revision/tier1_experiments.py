@@ -258,3 +258,13 @@ out["E18_hedonic_S6_reconciliation"] = {
              "coefficient; that derivation is replaced by the soil-controlled spec."),
 }
 
+# ============================================================
+# E19. CLIMATE-PROJECTED INCOME PATH FOR DEPOP NPV
+# ============================================================
+# Replace U(0.15, 0.25) uniform draw with the actual projected farm-income decline path from
+# the SSP yield projections. Compute the implied decline endogenously.
+# From dollar_robustness: process-based national yield decline implies revenue decline.
+# Calibrate: process damage = $13.3B PV, gross frontier value = $648B all-farmland
+# → process-implied annual revenue decline ~ 0.020 (2%) at full warming
+# ML-implied ~ 0.092 (9.2%)
+# So projected sustained farm-income decline in farming-dependent counties: 0.10-0.20
