@@ -118,3 +118,13 @@ def main():
         rr, ss = r2_sp(y[te].values, mm.predict(X[te]))
         lc_data[f"train_from_{start}"] = {"n_train": int(m_tr.sum()), "r2": rr, "spearman": ss}
         print(f"  learning curve train>={start} (n={int(m_tr.sum())}): R2={rr:.4f}")
+
+    # ---- feature-richness curve: progressively richer feature blocks ----
+    blocks = {
+        "base_aggregates": [c for c in X.columns if any(
+            k in c for k in ["tmax_july", "precip_growing", "pdsi_growing", "cdd_annual",
+                             "tmax_growing", "tmin_growing", "extreme_heat", "gdd_"])
+            or c.startswith("crop_")],
+    }
+    blocks["+vpd_edd_heat"] = blocks["base_aggregates"] + [c for c in X.columns if any(
+        k in c for k in ["vpd", "edd30", "heat_days", "kdd34", "dtr"])]
