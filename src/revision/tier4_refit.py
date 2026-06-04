@@ -118,3 +118,13 @@ strat_weights = {"low": 0.4, "med": 0.4, "high": 0.2}
 strat_means = {"low": 45, "med": 65, "high": 95}
 strat_sds = {"low": 8, "med": 12, "high": 18}
 samples = []
+for b in bins:
+    n_b = int(N * strat_weights[b])
+    samples.append(rng.normal(strat_means[b], strat_sds[b], n_b))
+total = np.concatenate(samples)
+p2_5, p97_5 = float(np.percentile(total, 2.5)), float(np.percentile(total, 97.5))
+out["F4_stranded_CI_stratified"] = {
+    "n_draws": N,
+    "stratification": "low/med/high warming bins, weighted by climate-stressed county shares",
+    "95CI_B": [round(p2_5, 1), round(p97_5, 1)],
+    "median_B": round(float(np.median(total)), 1),
