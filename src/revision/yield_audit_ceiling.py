@@ -38,3 +38,13 @@ SEED = 42
 COMMON = dict(n_estimators=2000, learning_rate=0.02, max_depth=8, num_leaves=127,
               min_child_samples=20, subsample=0.8, colsample_bytree=0.8,
               reg_alpha=0.05, reg_lambda=0.5, random_state=SEED, verbose=-1)
+
+
+def r2_sp(y, p):
+    y = np.asarray(y); p = np.asarray(p)
+    r2 = 1 - np.sum((y - p) ** 2) / np.sum((y - y.mean()) ** 2)
+    return float(r2), float(stats.spearmanr(y, p).correlation)
+
+
+def per_crop_levels(panel, te_pred, te, panel_full):
+    """Within-crop LEVELS R^2: reconstruct yield level = trend + anomaly*sd, then
