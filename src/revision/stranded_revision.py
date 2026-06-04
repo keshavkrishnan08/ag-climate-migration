@@ -538,3 +538,13 @@ def apply_alternate_use_floor(
 
     # Apply cap only where stranded > max_total_loss
     floor_mask = (
+        has_land_value
+        & (result["stranded_value_total"] > max_total_loss)
+    )
+    result["floor_applied"] = floor_mask
+
+    result["stranded_value_floored"] = result["stranded_value_total"].copy()
+    result.loc[floor_mask, "stranded_value_floored"] = max_total_loss[floor_mask]
+
+    return result
+
