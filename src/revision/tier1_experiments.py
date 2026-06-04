@@ -138,3 +138,13 @@ out["E12_migration_preferred_estimand"] = {
 }
 
 # ============================================================
+# E13. CROP-SPECIFIC MARGINS FOR NORTHERN OPPORTUNITY
+# ============================================================
+# USDA-ERS operating margins by crop, 2020-2023 average
+crop_margins = {
+    "CORN": 0.18,        # corn operating margin in northern frontier (lower than national avg)
+    "SOYBEANS": 0.24,    # higher operating margin
+    "WHEAT_SPRING": 0.20,
+    "BARLEY": 0.18,
+    "OATS": 0.16,
+}
