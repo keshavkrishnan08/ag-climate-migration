@@ -28,3 +28,13 @@ import lightgbm as lgb
 from scipy import stats
 
 ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "src" / "revision"))
+from yield_audit_drought_huber import build_panel, design
+from yield_audit_mlp_stack import add_soil_lat
+
+OUT = ROOT / "results" / "revision"
+SEED = 42
+
+COMMON = dict(n_estimators=2000, learning_rate=0.02, max_depth=8, num_leaves=127,
+              min_child_samples=20, subsample=0.8, colsample_bytree=0.8,
+              reg_alpha=0.05, reg_lambda=0.5, random_state=SEED, verbose=-1)
