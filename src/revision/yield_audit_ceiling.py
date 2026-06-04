@@ -108,3 +108,13 @@ def main():
     med_levels = float(np.median(levels_vals))
 
     # ---- learning curve: vary first training year (data volume) ----
+    lc_data = {}
+    for start in [1980, 1990, 1995, 2000, 2005]:
+        m_tr = (yr >= start) & (yr <= 2012)
+        if m_tr.sum() < 5000:
+            continue
+        mm = lgb.LGBMRegressor(objective="regression", **COMMON)
+        mm.fit(X[m_tr], y[m_tr])
+        rr, ss = r2_sp(y[te].values, mm.predict(X[te]))
+        lc_data[f"train_from_{start}"] = {"n_train": int(m_tr.sum()), "r2": rr, "spearman": ss}
+        print(f"  learning curve train>={start} (n={int(m_tr.sum())}): R2={rr:.4f}")
