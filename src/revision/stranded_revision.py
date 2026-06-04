@@ -468,3 +468,13 @@ PRODUCTION_COST_PER_ACRE = 350.0
 # acre < PRODUCTION_COST_PER_ACRE, i.e. net return < 0.
 
 
+def apply_alternate_use_floor(
+    county_df: pd.DataFrame,
+    yield_proj: pd.DataFrame,
+    commodity_prices: dict,
+    pasture_value: float = PASTURE_VALUE_PER_ACRE,
+    production_cost: float = PRODUCTION_COST_PER_ACRE,
+) -> pd.DataFrame:
+    """Cap per-acre losses where cropping is no longer economically viable.
+
+    Where the projected per-acre gross revenue (averaged 2040-2050) falls below
