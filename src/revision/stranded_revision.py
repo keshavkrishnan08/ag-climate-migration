@@ -908,3 +908,13 @@ values typically represent 30–50% of cropland values in transitioning counties
 | Reduction from alternate-use floor            | ${floor_reduction_B:.1f}B ({100*floor_reduction_B/gross_B:.1f}%) |
 
 Detailed county data: `results/revision/stranded_central_floored.parquet`
+
+---
+
+## 4. State-Level Stranded Value Table (Central, Post-Floor)
+
+Top-10 states by total stranded value:
+
+| State                | Stressed counties | Total stranded ($B)  | Median fraction |
+|----------------------|-------------------|----------------------|-----------------|
+{top10_str}
