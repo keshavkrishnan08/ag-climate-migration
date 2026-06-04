@@ -178,3 +178,13 @@ out["E44_insurance_zero_cv_stress"] = {
 hl = jl("HEADLINE_NUMBERS.json") or {}
 reconcile = {}
 for k, v in hl.items():
+    if not isinstance(v, dict): continue
+    cited = v.get("value"); rec = v.get("value_recomputed")
+    if rec is None: continue
+    try:
+        if isinstance(rec, (int, float)) and isinstance(cited, (int, float)):
+            err = abs(float(rec) - float(cited)) / max(abs(float(cited)), 1e-9)
+            reconcile[k] = {"cited": cited, "recomputed": round(rec, 4), "rel_error": round(err, 4)}
+    except: pass
+total = len(reconcile)
+within_5 = sum(1 for v in reconcile.values() if v["rel_error"] < 0.05)
