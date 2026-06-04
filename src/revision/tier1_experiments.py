@@ -108,3 +108,13 @@ try:
         "interpretation": ("Restricting to metro counties (population >100k, never farm-dependent) "
                            "the Bartik instrument has %s effect. This rules out the channel running "
                            "through national crop-price effects on tradable urban labor markets."
+                           % ("a null" if p >= 0.05 else "a SIGNIFICANT")),
+    }
+except Exception as e:
+    out["E11_metro_only_placebo"] = {"error": str(e)}
+
+# ============================================================
+# E12. MIGRATION PREFERRED-ESTIMAND DECLARATION
+# ============================================================
+mp = jl("migration_primeage_panel.json") or {}
+mwcb = jl("migration_wildbootstrap.json") or {}
