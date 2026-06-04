@@ -318,3 +318,13 @@ def compute_stranded_with_damage_function(
     climate_proj: pd.DataFrame,
     land_values: pd.DataFrame,
     commodity_prices: dict,
+    discount_rate: float = 0.04,
+    horizon: int = 30,
+    scenario: str = "SSP245",
+    ssp585_scale: float = 1.0,
+    indirect_multiplier: float = 1.0,
+) -> pd.DataFrame:
+    """DCF stranded-value with Schlenker-Roberts (2009) EDD damage function.
+
+    Ported from src/06_stranded.py:compute_stranded_with_damage_function.
+    Prices injected as parameter rather than module-level constant.
