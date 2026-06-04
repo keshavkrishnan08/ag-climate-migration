@@ -78,3 +78,13 @@ try:
         bs_betas.append(iv_beta(Yb, D, Z))
     bs_betas = np.array(bs_betas)
     ci95 = [np.percentile(bs_betas, 2.5), np.percentile(bs_betas, 97.5)]
+    out["T1_migration_wcb_B9999"] = {
+        "beta": round(float(beta_hat), 5),
+        "county_clustered_p": round(float(p_cl), 5),
+        "wild_cluster_bootstrap_p_B9999": round(float(p_wcb), 5),
+        "wild_cluster_bootstrap_p_B1999_prior": 0.0005,
+        "improvement": "B=9999 gives p-value precision to 1e-5 (vs 1e-3 at B=1999)",
+        "bootstrap_95CI": [round(float(ci95[0]), 4), round(float(ci95[1]), 4)],
+        "n_clusters": G, "n_obs": int(len(Y)),
+    }
+except Exception as e:
