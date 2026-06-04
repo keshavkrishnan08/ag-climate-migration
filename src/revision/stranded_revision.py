@@ -388,3 +388,13 @@ def compute_stranded_with_damage_function(
 
     yp["sr_yield_penalty"] = yp["delta_edd"] * yp["sr_coef"]
     yp["climate_impact_combined"] = yp["climate_impact_bu"] + yp["sr_yield_penalty"]
+
+    yp["income_ml"] = (
+        yp["climate_impact_bu"] * yp["price"] * yp["acres_harvested"]
+    )
+    yp["income_sr_add"] = (
+        yp["sr_yield_penalty"] * yp["price"] * yp["acres_harvested"]
+    )
+    yp["income_combined"] = (
+        yp["climate_impact_combined"] * yp["price"]
+        * yp["acres_harvested"] * indirect_multiplier
