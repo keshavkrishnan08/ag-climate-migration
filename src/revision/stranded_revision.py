@@ -968,3 +968,13 @@ and reduces the central estimate by ${floor_reduction_B:.1f}B ({100*floor_reduct
     assert total_cent_B < 105.0, f"Central should DROP vs old $105B, got ${total_cent_B:.1f}B"
     assert total_upper_B < 140.0, f"Upper should DROP vs old $140B, got ${total_upper_B:.1f}B"
     assert total_cons_B > 0, "Conservative stranded should be positive"
+    assert total_cent_B > total_cons_B, "Central > Conservative"
+    assert total_upper_B > total_cent_B, "Upper > Central"
+    assert len(state_table) > 0, "State table should be non-empty"
+    assert (RESULTS_REV / "real_prices_2023usd.csv").exists()
+    assert (RESULTS_REV / "stranded_by_state.csv").exists()
+    assert (RESULTS_REV / "stranded_recompute_summary.md").exists()
+    print("All assertions passed.")
+
+    print("\n" + "=" * 60)
+    print("SUMMARY")
