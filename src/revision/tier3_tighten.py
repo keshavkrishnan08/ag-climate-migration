@@ -188,3 +188,13 @@ out["T6_common_cause_bonferroni"] = {
     "all_significant_after_bonferroni_5pct": all(v < 0.05 for v in bonf.values()),
     "improvement": "All three channels remain significant at p<0.05 after Bonferroni adjustment for 3 tests.",
 }
+
+# ============================================================
+# T7. Stranded CI with proper full-MC propagation at 1M draws
+# ============================================================
+print("[T7] Stranded CI at 1M draws...")
+N = 1_000_000
+rng = np.random.default_rng(42)
+# Idiosyncratic, spatial, GCM components, each centered on their CI
+idio = rng.normal(0, 1.75, N)   # +/- 1.75% width per CI [49, 56] / 2 ~ 1.75 std
+spatial = rng.normal(0, 5.25, N)
