@@ -8,3 +8,13 @@ Two deliverables a hostile methods reviewer would want:
    anomaly R^2 / Spearman, plus confirm the WITHIN-CROP LEVELS R^2 (the number the
    paper also reports) is not degraded.
 
+2. LEARNING CURVE / CEILING EVIDENCE. To show the remaining gap is a genuine
+   signal ceiling and not under-training, we sweep the number of training years
+   (and, separately, the feature-set richness) and plot held-out anomaly R^2. If
+   R^2 has plateaued -- more data and more features stop helping -- the residual
+   variance is irreducible weather noise + unobserved management/irrigation, i.e.
+   the literature ceiling, NOT a fixable modelling error.
+
+Target = z-scored county-detrended anomaly. Split: test 2013-2023. Seed 42.
+Climate-only features (projectable from CMIP6 deltas).
+"""
