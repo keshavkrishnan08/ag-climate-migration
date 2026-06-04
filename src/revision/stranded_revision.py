@@ -668,3 +668,13 @@ def main():
 
     # Save price table
     avg_prices.to_csv(RESULTS_REV / "real_prices_2023usd.csv", index=False)
+    print(f"\nSaved: {RESULTS_REV / 'real_prices_2023usd.csv'}")
+
+    # Reference old nominal prices for comparison
+    old_prices = {
+        "corn": 5.50, "soybeans": 12.80, "wheat_winter": 7.20,
+        "wheat_spring": 8.10, "cotton": 0.78, "sorghum": 5.30,
+        "barley": 6.10, "oats": 3.80,
+    }
+    print("\nOld (nominal peak) vs new (30-yr real avg) prices:")
+    for crop in sorted(commodity_prices_real):
