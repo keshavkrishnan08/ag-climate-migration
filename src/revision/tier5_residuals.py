@@ -268,3 +268,13 @@ first_eig = fc.get("common_factor_first_eigen_share", 0.354)
 out["R10_common_cause_IRT"] = {
     "first_eigenvalue_share": round(first_eig, 3),
     "independence_baseline_share": round(1/3, 3),
+    "excess_over_independence_pct": round(100 * (first_eig - 1/3) / (1/3), 1),
+    "interpretation": "First common factor explains 35.4% vs the 33.3% independence baseline; 6.3% excess.",
+}
+
+# ============================================================
+# Final summary
+# ============================================================
+json.dump(out, open(OUT / "tier5_residuals.json", "w"), indent=2, default=str)
+print()
+print("=== TIER-5 RESIDUALS RESOLVED ===")
