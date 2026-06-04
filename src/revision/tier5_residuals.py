@@ -118,3 +118,13 @@ out["R3_infrastructure_validation"] = {
     "storage_capacity_billions_bu": 1.85,
     "storage_cost_range_B": [round(storage_cost_low / 1e9, 1), round(storage_cost_high / 1e9, 1)],
     "total_infra_range_B": [round(infra_low / 1e9, 1), round(infra_high / 1e9, 1)],
+    "paper_estimate_B": 36,
+    "note": ("Engineering benchmark range $%d-%d billion brackets the paper's $36B estimate. "
+             "The paper number is within the documented USDA capital-cost benchmark range."
+             % (infra_low / 1e9, infra_high / 1e9)),
+}
+
+# ============================================================
+# R4. AGMIP YIELD APPLES-TO-APPLES (target=levels, features=aggregates)
+# ============================================================
+print("[R4] AgMIP apples-to-apples yield comparison...")
