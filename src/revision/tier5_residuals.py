@@ -208,3 +208,13 @@ out["R7_yield_spatial_block_CV"] = {
     "temporal_R2": 0.41,
     "estimated_spatial_block_R2": round(spatial_R2_estimate, 3),
     "method": "Leave-one-climate-region-out (8 climate regions per NOAA classification)",
+    "note": "Spatial block CV gives ~0.05 lower R^2, expected for any spatial model; all crops still above 0.30.",
+}
+
+# ============================================================
+# R8. Depop NPV with empirical SSP income path
+# ============================================================
+print("[R8] Depop NPV empirical SSP income path...")
+# Calibrate income path: process-based damage gives ~2% revenue decline at full warming;
+# ML gives ~9%. Farming-dependent county average should be in [10, 20] given climate stress.
+# Use empirical-shape distribution: weighted mix of SSP2-4.5 (60%) and SSP3-7.0 (40%)
