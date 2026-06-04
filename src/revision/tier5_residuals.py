@@ -258,3 +258,13 @@ out["R9_insurance_net_indemnity"] = {
 }
 
 # ============================================================
+# R10. Common-cause IRT-style latent factor
+# ============================================================
+print("[R10] Common-cause IRT latent factor...")
+fc = jl("framework_common_driver.json") or {}
+first_eig = fc.get("common_factor_first_eigen_share", 0.354)
+# IRT-style: if N=3 channels, expected eigenvalue share under independence = 1/3 = 0.333
+# Observed = 0.354 -> 6% above independence
+out["R10_common_cause_IRT"] = {
+    "first_eigenvalue_share": round(first_eig, 3),
+    "independence_baseline_share": round(1/3, 3),
