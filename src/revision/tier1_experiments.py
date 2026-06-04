@@ -368,3 +368,13 @@ out["E24_stranded_model_average"] = {
              "Equal-weight average is $%.1fB. Both sit inside the converged $52-80B field-crop "
              "range." % (blend_iv, blend_eq)),
 }
+
+# ============================================================
+# E25. MIGRATION WILD-CLUSTER BOOTSTRAP ON YEAR DIMENSION
+# ============================================================
+# Already documented: county-clustered = $p=0.001$ (gold standard for serial correlation).
+# Two-way (county AND year) gives p=0.11 (few year-clusters). We re-run the WCB on year
+# dimension only as a sensitivity (with ~13 year-clusters Webb is the standard remedy).
+mi = jl("migration_inference_robust.json") or {}
+out["E25_migration_year_cluster_bootstrap"] = {
+    "twoway_p_naive": gj(mi, "twoway_p"),
