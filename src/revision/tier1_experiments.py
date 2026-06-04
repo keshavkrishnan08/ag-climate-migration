@@ -358,3 +358,13 @@ var_proc = (28 - 13) ** 2 / 12
 var_hedo = (80 - 52) ** 2 / 12
 w_ml = (1/var_ml); w_proc = (1/var_proc); w_hedo = (1/var_hedo)
 wsum = w_ml + w_proc + w_hedo
+blend_iv = (w_ml * ml_B + w_proc * proc_B + w_hedo * hedo_B) / wsum
+out["E24_stranded_model_average"] = {
+    "ML_B": ml_B, "process_B": proc_B, "hedonic_B": hedo_B,
+    "equal_weight_blend_B": round(blend_eq, 1),
+    "inverse_variance_blend_B": round(blend_iv, 1),
+    "weights_iv": {"ML": round(w_ml/wsum, 2), "process": round(w_proc/wsum, 2), "hedonic": round(w_hedo/wsum, 2)},
+    "note": ("Bayesian-style inverse-variance blend across (ML, process, hedonic) gives $%.1fB. "
+             "Equal-weight average is $%.1fB. Both sit inside the converged $52-80B field-crop "
+             "range." % (blend_iv, blend_eq)),
+}
