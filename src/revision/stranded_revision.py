@@ -438,3 +438,13 @@ def compute_stranded_with_damage_function(
             county_pv["stranded_value_per_acre"]
             / county_pv["land_value_per_acre"].replace(0, np.nan)
         )
+    else:
+        county_pv["land_value_per_acre"] = np.nan
+        county_pv["stranded_fraction"] = np.nan
+
+    county_pv["scenario"] = scenario
+    county_pv["discount_rate"] = discount_rate
+    county_pv["horizon"] = horizon
+    county_pv["damage_method"] = "SR_EDD_additive"
+    county_pv["ssp585_scale"] = ssp585_scale
+    county_pv["indirect_multiplier"] = indirect_multiplier
