@@ -798,3 +798,13 @@ def main():
     # ------------------------------------------------------------------
     # TASK 5: Summary document
     # ------------------------------------------------------------------
+    print("\n" + "=" * 60)
+    print("TASK 5: Writing summary document")
+    print("=" * 60)
+
+    # Build price table text
+    price_rows = []
+    for _, row in avg_prices.iterrows():
+        old_p = old_prices.get(row["crop"], float("nan"))
+        pct = ((row["real_price_2023usd"] - old_p) / old_p * 100) if old_p else float("nan")
+        price_rows.append(
