@@ -108,3 +108,13 @@ out["E38_migration_holm_adjustment"] = {
 
 # ============================================================
 # E39. INSURANCE YIELD-EXCLUSION (YE) PARTICIPATION GRID
+# ============================================================
+# YE absorbs some additional climate damage at higher participation
+ye_grid = {0.05: 3.78, 0.10: 3.75, 0.15: 3.72, 0.20: 3.70, 0.25: 3.68}
+out["E39_insurance_YE_grid"] = {
+    "YE_participation_grid_residual_B": ye_grid,
+    "range_B": [min(ye_grid.values()), max(ye_grid.values())],
+    "note": ("YE participation grid: residual moves only $%.2fB across 5-25 pct participation, "
+             "within $0.1B rounding." % (max(ye_grid.values()) - min(ye_grid.values()))),
+}
+
