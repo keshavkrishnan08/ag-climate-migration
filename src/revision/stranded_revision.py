@@ -518,3 +518,13 @@ def apply_alternate_use_floor(
 
     # Count non-viable crops per county
     non_viable_cnt = (
+        late_agg.groupby("fips")["non_viable"]
+        .sum()
+        .reset_index()
+        .rename(columns={"non_viable": "n_non_viable_crops"})
+    )
+
+    result = county_df.merge(non_viable_cnt, on="fips", how="left")
+    result["n_non_viable_crops"] = result["n_non_viable_crops"].fillna(0).astype(int)
+
+    # Apply floor: stranded per acre capped at (cropland_value - pasture_value)
