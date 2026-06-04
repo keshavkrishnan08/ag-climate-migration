@@ -878,3 +878,13 @@ Saved to: `results/revision/real_prices_2023usd.csv`
 - Central: ML + Schlenker-Roberts EDD + 1.30× indirect multiplier, SSP2-4.5, r=3%, h=35yr
 - Upper: ML + SR + 1.30× indirect, SSP5-8.5 (×1.8 warming), r=2.5%, h=40yr
 
+Sensitivity grid (7 discount rates × 5 horizons = 35 combinations):
+  Range: ${grid['total_stranded_B'].min():.1f}B – ${grid['total_stranded_B'].max():.1f}B
+  Saved to: `results/revision/sensitivity_grid_real_prices.csv`
+
+**Prices held flat in real terms** — no real price growth assumed across 2025–2050.
+This directly addresses Reviewer 1 (a): the flat-real-price assumption is consistent
+with USDA (2024a) long-run agricultural baseline, which projects stable real commodity
+prices over the 10- to 30-year horizon.
+
+---
