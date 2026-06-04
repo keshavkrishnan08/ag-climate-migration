@@ -108,3 +108,13 @@ print("[R3] Infrastructure cost engineering benchmarks...")
 # Plus transport (rail/road), processing (elevators, ethanol/crushing): typically 3-4x
 # storage cost
 storage_bu = 7.4e9 / 4
+storage_cost_low = storage_bu * 3
+storage_cost_high = storage_bu * 5
+infra_low = storage_cost_low * 4
+infra_high = storage_cost_high * 4
+out["R3_infrastructure_validation"] = {
+    "method": "USDA NRCS / NEPC capital cost benchmarks: $3-5/bu grain storage + 3-4x processing/transport",
+    "annual_production_billions_bu": 7.4,
+    "storage_capacity_billions_bu": 1.85,
+    "storage_cost_range_B": [round(storage_cost_low / 1e9, 1), round(storage_cost_high / 1e9, 1)],
+    "total_infra_range_B": [round(infra_low / 1e9, 1), round(infra_high / 1e9, 1)],
