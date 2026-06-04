@@ -148,3 +148,13 @@ out["E41_stranded_tail_percentiles"] = {
 
 # ============================================================
 # E43. YIELD AGRICULTURAL (acreage-weighted) R^2
+# ============================================================
+ad = jl("audit_yield_target_decomp.json") or {}
+percrop = gj(ad, "cells", "SPEC_PCT", "per_crop") or {}
+# Acreage weights from frontier
+weights = {"corn": 0.46, "soybeans": 0.30, "winter wheat": 0.08, "spring wheat": 0.04,
+           "sorghum": 0.03, "cotton": 0.05, "barley": 0.02, "oats": 0.02}
+weighted_r2 = sum(percrop.get(c, {}).get("r2_on_pct", 0) * w for c, w in weights.items()) / sum(weights.values())
+out["E43_yield_acreage_weighted_R2"] = {
+    "per_crop_R2_on_pct": {c: round(percrop.get(c, {}).get("r2_on_pct", 0), 3) for c in weights},
+    "acreage_weights": weights,
