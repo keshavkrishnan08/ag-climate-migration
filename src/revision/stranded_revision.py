@@ -488,3 +488,13 @@ def apply_alternate_use_floor(
     production is no longer viable.
 
     Args:
+        county_df: County-level stranded value DataFrame (from compute_stranded_*).
+        yield_proj: Raw yield projections (to compute late-period revenue).
+        commodity_prices: dict mapping crop -> price $/bu.
+        pasture_value: National average pasture land value $/acre (2023 USD).
+        production_cost: Variable production cost threshold $/acre.
+
+    Returns:
+        county_df with additional columns:
+          - stranded_before_floor: original stranded_value_total
+          - stranded_value_floored: stranded value after alternate-use cap
