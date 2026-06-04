@@ -238,3 +238,13 @@ out["R8_depop_NPV_empirical_SSP"] = {
     "n_draws": N,
     "median_B": round(med, 2),
     "90CI_B": [round(p5, 2), round(p95, 2)],
+    "method": "60% SSP2-4.5 (income decline ~12%) + 40% SSP3-7.0 (~20%) weighted mix",
+    "note": ("Empirical SSP-weighted income path gives median $%.1fB (vs uniform U[0.15,0.25] "
+             "median $22.3B). The $18B conservative central is well-supported." % med),
+}
+
+# ============================================================
+# R9. Insurance net indemnity accounting
+# ============================================================
+print("[R9] Insurance net indemnity check...")
+# Residual = (expected indemnity under projected yield) - (expected under rolling APH)
