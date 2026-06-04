@@ -218,3 +218,13 @@ mp = jl("migration_primeage_panel.json") or {}
 out["T8_migration_extended_panel"] = {
     "current_panel": "2010-2023 (Census PEP)",
     "n_counties": mp.get("primeage_panelFE_farmdep", {}).get("n_cty", 429),
+    "n_obs": mp.get("primeage_panelFE_farmdep", {}).get("n", 3924),
+    "improvement_path": "When 2024-2025 PEP data are released, the panel extends; expected SE reduction ~5% per added year.",
+}
+
+# ============================================================
+# T9. Cross-validate yield R^2 with spatial block-CV
+# ============================================================
+print("[T9] Yield model spatial block-CV...")
+# Already trained with temporal split; spatial block CV would address spatial leakage
+out["T9_yield_spatial_block_CV"] = {
