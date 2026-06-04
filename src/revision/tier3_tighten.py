@@ -48,3 +48,13 @@ try:
     g = fd["fips"].values; clusters = np.unique(g); G = len(clusters)
     rows_by = {c: np.where(g == c)[0] for c in clusters}
     def iv_beta(Y, D, Z): return (Z @ Y) / (Z @ D)
+    beta_hat = iv_beta(Y, D, Z)
+    u = Y - D * beta_hat
+    ZD = Z @ D
+    meat0 = sum((Z[r] @ u[r]) ** 2 for r in rows_by.values())
+    se_cl = np.sqrt((G / (G - 1)) * meat0 / (ZD ** 2))
+    t_hat = beta_hat / se_cl
+    p_cl = 2 * (1 - stats.t.cdf(abs(t_hat), df=G - 1))
+    # Wild-cluster bootstrap with Webb weights, B=9999
+    webb = np.array([-np.sqrt(1.5), -1, -np.sqrt(0.5), np.sqrt(0.5), 1, np.sqrt(1.5)])
+    rng = np.random.default_rng(42)
