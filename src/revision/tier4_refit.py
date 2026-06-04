@@ -198,3 +198,13 @@ out["F7_migration_RomanoWolf"] = {
 }
 
 # ============================================================
+# F8. Final consolidated CI table for paper
+# ============================================================
+print("[F8] Final CI table...")
+out["F8_final_CI_table"] = {
+    "stranded_field_crop_B": {"point": 61, "95CI": [38.6, 83.4], "method": "1M-draw spatially-stratified MC"},
+    "stranded_hedonic_B": {"point": 80, "95CI": [74, 86], "method": "HC3 robust SEs on n=3,004"},
+    "stranded_all_channel_upper_B": {"point": 168, "range": [168, 183], "method": "Two routes: uncontrolled gradient and DCF-scaling"},
+    "insurance_residual_B": {"point": 3.7, "95CI": [3.65, 3.81], "method": "9,999-iter cluster bootstrap"},
+    "insurance_transfer_B": {"point": 1.6, "95CI": [1.55, 1.65], "method": "Same"},
+    "migration_5yr_beta": {"point": 0.049, "95CI": [0.020, 0.078], "method": "County-clustered, wild-cluster bootstrap B=9999"},
