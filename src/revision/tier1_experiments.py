@@ -8,3 +8,13 @@ E14: Yield z-scale per-crop honest breakdown (cotton/corn)
 E15: Long-difference fiscal chain weighted
 E16: DCF floor + indirect joint sensitivity grid
 E17: Tail-risk decoupled (separate from main DCF)
+E18: Hedonic SI section6 reconciliation ($187B vs $80B)
+E19: Climate-projected income path for depop NPV (replaces uniform draw)
+E20: Hedonic extended-controls battery
+E21: Insurance climate-σ at multiple α (0.02, 0.04, 0.08)
+E22: Insurance SCO + ECO joint contribution
+E23: Discount-rate sensitivity at Giglio (2021) range
+E24: Stranded model-average (ML/process/hedonic) Bayesian-style blend
+E25: Migration wild-cluster bootstrap on YEAR dimension too
+E26: Floor binding county count by pasture value
+E27: Migration robustness to farm-intensity cutoff
