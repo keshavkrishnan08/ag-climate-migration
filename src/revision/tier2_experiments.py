@@ -88,3 +88,13 @@ out["E37_common_cause_pairwise"] = {
     "channels_significant_under_exposure": 3,
     "channels_total": 4,
 }
+
+# ============================================================
+# E38. MIGRATION MULTIPLE-OUTCOME FAMILY ADJUSTMENT
+# ============================================================
+# Holm adjustment across the 6 specs reported
+specs_p = [0.005, 0.001, 0.0005, 0.012, 0.004, 0.11]
+specs_sorted = sorted(specs_p)
+n = len(specs_sorted)
+holm = [min(1, p * (n - i)) for i, p in enumerate(specs_sorted)]
+out["E38_migration_holm_adjustment"] = {
