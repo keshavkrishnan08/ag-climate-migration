@@ -688,3 +688,13 @@ def main():
     # ------------------------------------------------------------------
     print("\nLoading yield projections and land values...")
     yield_proj = pd.read_parquet(PROJECTIONS_DIR / "yield_projections_SSP245.parquet")
+    print(f"  Yield proj: {len(yield_proj):,} rows, {yield_proj['fips'].nunique()} counties")
+
+    clim_path = PROJECTIONS_DIR / "county_climate_projections.parquet"
+    climate_proj = pd.read_parquet(
+        clim_path,
+        columns=[
+            "fips", "year",
+            "tmax_july_projected", "delta_tmax_july",
+            "tmax_growing_projected", "delta_tmax_growing",
+        ],
