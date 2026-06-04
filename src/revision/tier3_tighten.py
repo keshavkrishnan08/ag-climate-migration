@@ -98,3 +98,13 @@ PRIME_AGE_BASE = 1_130_330; H = 26
 N = 1_000_000
 rng = np.random.default_rng(42)
 beta = rng.normal(0.0491, 0.0149, N); beta = np.clip(beta, 0, None)
+income = rng.uniform(0.15, 0.25, N)
+household = rng.uniform(2.2, 2.6, N)
+per_capita = rng.uniform(70_000, 75_000, N)
+mult = rng.uniform(1.6, 1.8, N)
+disc = rng.uniform(0.03, 0.05, N)
+t = np.arange(1, H + 1)
+# Vectorize the NPV computation (avoid Python loop)
+D = beta * income * PRIME_AGE_BASE
+ann = D * household * per_capita * mult
+# NPV = ann * sum_t (t/H)/(1+r)^t
