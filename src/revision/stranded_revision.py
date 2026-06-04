@@ -378,3 +378,13 @@ def compute_stranded_with_damage_function(
         cp["tmax_july_baseline_C"].values, cp["tmax_growing_baseline_C"].values
     )
     cp["delta_edd"] = (cp["edd_projected"] - cp["edd_baseline"]).clip(lower=0)
+
+    yp["price"] = yp["crop"].map(commodity_prices).fillna(5.0)
+    yp["sr_coef"] = yp["crop"].map(SR_COEFFICIENTS).fillna(SR_COEFFICIENTS["corn"])
+
+    clim_key = cp[["fips", "year", "tmax_july_C", "tmax_growing_C", "edd_projected", "delta_edd"]]
+    yp = yp.merge(clim_key, on=["fips", "year"], how="left")
+    yp["delta_edd"] = yp["delta_edd"].fillna(0.0)
+
+    yp["sr_yield_penalty"] = yp["delta_edd"] * yp["sr_coef"]
+    yp["climate_impact_combined"] = yp["climate_impact_bu"] + yp["sr_yield_penalty"]
