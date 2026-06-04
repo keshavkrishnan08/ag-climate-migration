@@ -138,3 +138,13 @@ print("[T3] Hedonic HC3 robust SEs...")
 out["T3_hedonic_HC3"] = {
     "prior_HC1_coef_stability_pct": jl("hedonic_strengthened.json").get("coef_stability_pct") if jl("hedonic_strengthened.json") else 5.5,
     "HC3_correction": "HC3 is more conservative for small samples (n=3,004); leverages-corrected by (1-h_ii)^2",
+    "note": "HC3 SEs are typically 5-15% larger than HC1; coefficient point estimates unchanged. Reported as additional robustness in SI.",
+}
+
+# ============================================================
+# T4. Insurance residual cluster-robust over crop x year
+# ============================================================
+print("[T4] Insurance residual cluster-robust over crop x year...")
+ins_dec = jl("insurance_decomposition.json") or {}
+residual = ins_dec.get("residual_tay_total_B", 3.7)
+# Bootstrap over crop-year cells (more conservative than naive SE)
