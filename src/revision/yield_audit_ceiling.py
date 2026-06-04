@@ -78,3 +78,13 @@ def main():
     panel = build_panel()
     panel = add_soil_lat(panel)
     # add nccpi/lat to design feature pool by including them as numeric cols
+    X, fcols = design(panel)
+    for extra in ["nccpi", "lat_proxy"]:
+        if extra in panel.columns and extra not in X.columns:
+            X[extra] = panel[extra].fillna(0).values
+    y = panel["yield_anomaly"]
+    yr = panel["year"].values
+    te = (yr > 2012) & (yr <= 2023)
+
+    # ---- best pooled model (full train <=2012) ----
+    tr = yr <= 2012
