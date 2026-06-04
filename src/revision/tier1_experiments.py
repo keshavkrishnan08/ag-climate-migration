@@ -68,3 +68,13 @@ out["E10_market_efficiency_multispec"] = {
 # ============================================================
 # Restrict to metro counties (high population density, never farm-dependent).
 # If the Bartik instrument moves population there, exclusion is violated.
+import sys; sys.path.insert(0, "src/revision")
+try:
+    from migration_iv_bartik import build_panel
+    panel = build_panel()
+    panel["fips"] = panel["fips"].astype(str).str.zfill(5)
+    # Metro = high population, low farm dependency
+    # Use total_population >= 100k AND not farm_dependent
+    high_pop_fips = panel[panel.year == 2019].groupby("fips")["total_population"].max()
+    high_pop_fips = high_pop_fips[high_pop_fips > 100_000].index
+    metro = panel[(panel.fips.isin(high_pop_fips)) & (panel.farm_dependent == 0)].copy()
