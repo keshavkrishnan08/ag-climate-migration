@@ -128,3 +128,13 @@ out["E40_depop_welfare_floor_worst_case"] = {
     "cumulative_displaced": N_disp,
     "frictional_cost_per_worker_worst_USD": f_worst,
     "worst_case_national_welfare_floor_B": round(worst_floor, 1),
+    "note": ("Worst-case frictional cost ($50k per worker, large displacement cohort) gives a "
+             "national welfare floor of $%.1fB -- still well below the regional gross-output $18B."
+             % worst_floor),
+}
+
+# ============================================================
+# E41. STRANDED VALUE DISTRIBUTIONAL TAIL PERCENTILES
+# ============================================================
+ci = jl("dcf_ci_fixed.json") or {}
+# From the propagated MC, report percentiles
