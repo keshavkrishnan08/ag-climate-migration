@@ -88,3 +88,13 @@ def main():
 
     # ---- best pooled model (full train <=2012) ----
     tr = yr <= 2012
+    model = lgb.LGBMRegressor(objective="regression", **COMMON)
+    model.fit(X[tr], y[tr])
+    pred = model.predict(X[te])
+    r2, sp = r2_sp(y[te].values, pred)
+    tp = panel[te].reset_index(drop=True).copy(); tp["pred"] = pred
+    per = {}
+    for c in sorted(tp["crop"].unique()):
+        cm = tp["crop"] == c
+        if cm.sum() > 30:
+            cr2, csp = r2_sp(tp.loc[cm, "yield_anomaly"].values, tp.loc[cm, "pred"].values)
