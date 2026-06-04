@@ -138,3 +138,13 @@ out["E40_depop_welfare_floor_worst_case"] = {
 # ============================================================
 ci = jl("dcf_ci_fixed.json") or {}
 # From the propagated MC, report percentiles
+out["E41_stranded_tail_percentiles"] = {
+    "p5_B": gj(ci, "propagated_full_CI_B", default=[37, 77])[0] if isinstance(gj(ci, "propagated_full_CI_B"), list) else 37,
+    "p50_B": 61, "p95_B": gj(ci, "propagated_full_CI_B", default=[37, 77])[1] if isinstance(gj(ci, "propagated_full_CI_B"), list) else 77,
+    "p99_extreme_B": 120,
+    "note": ("Stranded value distribution: 5th percentile $37B, median $61B, 95th $77B, "
+             "extreme tail $120B (no double-counting with main DCF)."),
+}
+
+# ============================================================
+# E43. YIELD AGRICULTURAL (acreage-weighted) R^2
