@@ -38,3 +38,13 @@ out["E8_stranded_ML_vs_process"] = {
 try:
     sf = pd.read_parquet(OUT / "stranded_central_floored.parquet")
     sf = sf[["fips", "pv_sr_additive", "stranded_value_floored", "stranded_before_floor"]].copy()
+    sf = sf.groupby("fips", as_index=False).mean(numeric_only=True)
+    central_with_indirect_B = float(sf["stranded_value_floored"].sum() / 1e9)
+    # Remove the indirect markup: pv_sr_additive was multiplied by INDIRECT_MULTIPLIER=1.30,
+    # so removing 30% of pv_sr_additive gives the direct-only central.
+    sr_indirect = sf["pv_sr_additive"].sum() * (1 - 1/1.30)  # the 30% markup component
+    direct_only_central_B = central_with_indirect_B - float(sr_indirect / 1e9)
+    out["E9_dcf_no_indirect_multiplier"] = {
+        "central_with_1.30_multiplier_B": round(central_with_indirect_B, 1),
+        "central_without_indirect_(multiplier=1.0)_B": round(direct_only_central_B, 1),
+        "delta_from_indirect_B": round(central_with_indirect_B - direct_only_central_B, 1),
