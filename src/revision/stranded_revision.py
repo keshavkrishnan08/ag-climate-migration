@@ -748,3 +748,13 @@ def main():
     print(f"  Total stranded:    ${total_upper_B:.1f}B  (old: $140B)")
 
     # Sensitivity grid
+    print("\nRunning sensitivity grid (7 × 5 = 35 combinations)...")
+    grid = sensitivity_grid_real(yield_proj, land_values, commodity_prices_real)
+    grid.to_csv(RESULTS_REV / "sensitivity_grid_real_prices.csv", index=False)
+    print(f"  Grid range: ${grid['total_stranded_B'].min():.1f}B to ${grid['total_stranded_B'].max():.1f}B")
+    print(f"  Saved: {RESULTS_REV / 'sensitivity_grid_real_prices.csv'}")
+
+    # ------------------------------------------------------------------
+    # TASK 3: Alternate-use floor applied to central estimate
+    # ------------------------------------------------------------------
+    print("\n" + "=" * 60)
