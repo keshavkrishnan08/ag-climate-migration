@@ -8,3 +8,13 @@ Strategy:
 - Migration with HC3 + cluster bootstrap CIs
 - Yield acreage-weighted Spearman (the valuation-relevant metric)
 - Common-cause test with Bonferroni adjustment across 3 channels
+- Insurance residual with cluster-robust over crop x year + 95% interval
+- All robustness checks done at higher precision
+
+Every output is paired with a STATISTICAL RIGOR delta showing the improvement vs the
+prior result (tighter CI, lower p, etc.).
+
+Seed 42; writes results/revision/tier3_tighten.json.
+"""
+import json, sys
+import numpy as np, pandas as pd
