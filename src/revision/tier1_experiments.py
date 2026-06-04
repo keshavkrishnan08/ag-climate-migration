@@ -198,3 +198,13 @@ out["E15_fiscal_chain_long_difference"] = {
     "long_difference_revenue_to_landvalue": gj(mfc, "revenue_to_landvalue") or gj(ld, "revenue_to_landvalue"),
     "long_difference_revenue_to_income": gj(mfc, "revenue_to_income") or gj(ld, "revenue_to_income"),
     "note": ("Annual frequency yields a null on revenue→land-value (land values are sticky); "
+             "the long-difference (multi-year cumulative) version is the appropriate test "
+             "and produces census-year long-diff output in migration_fiscal_chain.json (SI §E15). Both are reported."),
+}
+
+# ============================================================
+# E16. DCF FLOOR x INDIRECT JOINT SENSITIVITY GRID
+# ============================================================
+fs = jl("stranded_floor_sensitivity.json") or {}
+# Joint grid: floor in {1000, 1500, 2000}, indirect in {1.0, 1.15, 1.30}
+# Floor sensitivity scales linearly outside binding mass; indirect scales sr_additive
