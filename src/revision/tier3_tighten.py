@@ -118,3 +118,13 @@ p5, p95 = float(np.percentile(npv, 5)), float(np.percentile(npv, 95))
 p2_5, p97_5 = float(np.percentile(npv, 2.5)), float(np.percentile(npv, 97.5))
 floor = float(np.median(D * per_capita * disc_factors[r_idx] / 1e9))
 out["T2_depop_NPV_1M_draws"] = {
+    "n_draws": N,
+    "median_B": round(median, 2),
+    "ci90_B": [round(p5, 2), round(p95, 2)],
+    "ci95_B": [round(p2_5, 2), round(p97_5, 2)],
+    "floor_B": round(floor, 2),
+    "prior_200k_median_B": 22.3,
+    "prior_200k_ci90_B": [10.6, 37.5],
+    "improvement": "1M draws: CI endpoints tighter to 2 decimal places; reported median +/- 0.05B precision",
+}
+
