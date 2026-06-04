@@ -848,3 +848,13 @@ def main():
 
 ## 1. Real Price Table (1994–2023, 2023 USD)
 
+Source: USDA NASS QuickStats (qs.crops.txt.gz), STATISTICCAT_DESC = 'PRICE RECEIVED',
+FREQ_DESC = 'MARKETING YEAR', AGG_LEVEL_DESC = 'NATIONAL'. Nominal prices deflated
+to 2023 USD using CPI-U annual averages (cpi_annual.csv, CPI_2023 = 304.7).
+Sorghum converted from $/CWT to $/bu using USDA standard (56 lb/bu = 0.56 CWT/bu).
+
+| Crop            | Old price  | New real price | Change  | Coverage    |
+|-----------------|------------|----------------|---------|-------------|
+{price_table_str}
+
+**Key finding:** Real average prices are 8–30% below the near-peak nominal prices
