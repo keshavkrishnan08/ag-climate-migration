@@ -348,3 +348,13 @@ out["E23_discount_rate_Giglio"] = {
 # E24. STRANDED MODEL-AVERAGE (ML / process / hedonic) BAYESIAN-STYLE BLEND
 # ============================================================
 ml_B = 59.3; proc_B = 13.3; hedo_B = 79.7
+# Equal-prior posterior weights
+w_eq = 1/3
+blend_eq = w_eq * (ml_B + proc_B + hedo_B)
+# Confidence-weighted: hedonic is model-free (highest weight); ML and process equal
+# Variance proxies: hedonic from regression SE; ML and process from their CI widths
+var_ml = (77 - 37) ** 2 / 12  # uniform width
+var_proc = (28 - 13) ** 2 / 12
+var_hedo = (80 - 52) ** 2 / 12
+w_ml = (1/var_ml); w_proc = (1/var_proc); w_hedo = (1/var_hedo)
+wsum = w_ml + w_proc + w_hedo
