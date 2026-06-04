@@ -48,3 +48,13 @@ def gj(d, *path, default=None):
 mr = jl("market_robustness.json") or {}
 # What we have: multiple specs of cross-section Delta-lnV ~ Delta-T_2040
 # Report ALL specs with effect size + interpretation
+specs = {}
+for k, v in mr.items():
+    if isinstance(v, dict) and "beta" in v and "p" in v:
+        specs[k] = {"beta": round(v["beta"], 4), "p": round(v["p"], 4), "n": v.get("n")}
+out["E10_market_efficiency_multispec"] = {
+    "specifications": specs,
+    "interpretation": ("Across specifications: coefficient sign and significance are NOT stable. "
+                       "Cross-sectional Δlog(V) ~ ΔT(2040) cannot reject 'no forward discounting' "
+                       "but also does not provide active confirmation of unpriced risk -- the "
+                       "market test is INDETERMINATE and is reported as such."),
