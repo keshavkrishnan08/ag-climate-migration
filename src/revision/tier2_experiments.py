@@ -188,3 +188,13 @@ for k, v in hl.items():
     except: pass
 total = len(reconcile)
 within_5 = sum(1 for v in reconcile.values() if v["rel_error"] < 0.05)
+out["E45_numerical_reconciliation"] = {
+    "total_auto_verified": total,
+    "within_5pct": within_5,
+    "tie_rate_pct": round(100 * within_5 / max(total, 1), 1),
+    "by_number": reconcile,
+}
+
+json.dump(out, open(OUT / "tier2_experiments.json", "w"), indent=2, default=str)
+print(f"=== TIER-2 BATTERY: {len(out)} experiments ===")
+print(f"E45 reconciliation: {within_5}/{total} numbers tie within 5% ({100*within_5/max(total,1):.0f}%)")
