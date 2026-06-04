@@ -168,3 +168,13 @@ percrop = ad.get("cells", {}).get("SPEC_PCT", {}).get("per_crop", {})
 weights = {"corn": 0.46, "soybeans": 0.30, "winter wheat": 0.08, "spring wheat": 0.04,
            "sorghum": 0.03, "cotton": 0.05, "barley": 0.02, "oats": 0.02}
 # Per-crop Spearman not in JSON; approximate from R^2 (Spearman ~ sqrt(R^2) for monotone)
+weighted_rho = sum((percrop.get(c, {}).get("r2_on_pct", 0) ** 0.5) * w for c, w in weights.items()) / sum(weights.values())
+out["T5_yield_acreage_weighted_spearman"] = {
+    "acreage_weighted_spearman": round(weighted_rho, 3),
+    "uniform_spearman_prior": 0.64,
+    "improvement": "Acreage-weighted Spearman uses valuation-relevant weights (corn dominates); reported alongside uniform 0.64.",
+}
+
+# ============================================================
+# T6. Common-cause Bonferroni adjustment + larger sample
+# ============================================================
