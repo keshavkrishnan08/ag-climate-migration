@@ -498,3 +498,13 @@ def apply_alternate_use_floor(
         county_df with additional columns:
           - stranded_before_floor: original stranded_value_total
           - stranded_value_floored: stranded value after alternate-use cap
+          - n_non_viable_crops: count of crops with negative net return
+          - floor_applied: boolean flag
+    """
+    # Late-period (2040-2050) average projected revenue per acre, per county
+    late = yield_proj[yield_proj["year"] >= 2040].copy()
+    late["price"] = late["crop"].map(commodity_prices).fillna(5.0)
+    late["revenue_per_acre"] = late["yield_projected"] * late["price"]
+
+    late_agg = (
+        late.groupby(["fips", "crop"])["revenue_per_acre"]
