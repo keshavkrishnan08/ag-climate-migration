@@ -18,3 +18,13 @@ E45: All numbers TIE check -- final reconciliation
 
 Seed 42; writes results/revision/tier2_experiments.json.
 """
+import json, sys
+import numpy as np, pandas as pd
+from scipy import stats
+from pathlib import Path
+np.random.seed(42)
+OUT = Path("results/revision"); sys.path.insert(0, "src/revision")
+out = {}
+
+def jl(n):
+    p = OUT / n; return json.load(open(p)) if p.exists() else None
