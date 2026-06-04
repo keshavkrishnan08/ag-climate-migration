@@ -178,3 +178,13 @@ out["E6_depop_national_welfare_floor"] = {
              % (friction_per_worker_mid // 1000, cumulative_displaced / 1000,
                 nat_welfare_floor_B, nat_lo, nat_hi)),
 }
+
+# ============================================================
+# E5: Yield z-scale apples-to-apples (consolidate from existing audit)
+# ============================================================
+yz = json.load(open(OUT / "audit_yield_target_decomp.json"))["cells"]
+agg_z = yz["AGG_Z"]["overall_r2_on_z"]
+spec_z = yz["SPEC_Z"]["overall_r2_on_z"]
+agg_pct = yz["AGG_PCT"]["overall_r2_on_pct"]
+spec_pct = yz["SPEC_PCT"]["overall_r2_on_pct"]
+feature_gain_z = spec_z - agg_z
