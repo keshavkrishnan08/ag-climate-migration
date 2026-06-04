@@ -838,3 +838,13 @@ def main():
         "economic floor provided by alternate land uses."
     )
 
+    summary_md = f"""# Stranded Farmland Value: Revision Recomputation
+
+**Date:** 2026-05-21
+**Responds to:** Reviewer 1, Major #1 (a) and (b)
+**Convention:** All values in 2023 USD; random seed 42.
+
+---
+
+## 1. Real Price Table (1994–2023, 2023 USD)
+
