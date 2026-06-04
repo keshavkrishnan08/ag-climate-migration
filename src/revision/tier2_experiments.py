@@ -28,3 +28,13 @@ out = {}
 
 def jl(n):
     p = OUT / n; return json.load(open(p)) if p.exists() else None
+def gj(d, *p, default=None):
+    cur=d
+    for k in p:
+        if cur is None: return default
+        cur = cur.get(k) if isinstance(cur, dict) else None
+    return cur if cur is not None else default
+
+# ============================================================
+# E32. MIGRATION HORIZON GRID (3, 4, 5, 6, 7 years)
+# ============================================================
