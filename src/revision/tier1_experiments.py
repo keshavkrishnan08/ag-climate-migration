@@ -248,3 +248,13 @@ specs_h = gj(hs, "specs") or {}
 out["E18_hedonic_S6_reconciliation"] = {
     "soil_controlled_cropland_B": gj(hs, "specs", "+ SSURGO + irrigation + soil-productivity", "stranded_B"),
     "all_farmland_uncontrolled_upper_bound_B": 168,
+    "implied_all_channel_from_dcf_scaling_B": gj(hs, "implied_all_channel_from_dcf_B"),
+    "field_crop_headline_B": [52, 80],
+    "note": ("The defensible hedonic (soil/irrigation-controlled, cropland scope) gives $80B, "
+             "the field-crop convergence with the DCF. The $168B uncontrolled all-farmland "
+             "gradient is an upper bound; the DCF-scaling route ($183B) is comparable. We "
+             "lead with the converged $52-80B and report $168-183B as upper bounds. The "
+             "'$187B contradiction' R2 flagged was from SI section6 using the demographics-only "
+             "coefficient; that derivation is replaced by the soil-controlled spec."),
+}
+
