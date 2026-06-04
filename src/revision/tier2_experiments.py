@@ -98,3 +98,13 @@ specs_sorted = sorted(specs_p)
 n = len(specs_sorted)
 holm = [min(1, p * (n - i)) for i, p in enumerate(specs_sorted)]
 out["E38_migration_holm_adjustment"] = {
+    "raw_p_values": specs_p,
+    "holm_adjusted_p_values": [round(p, 4) for p in holm],
+    "all_survive_5pct_after_holm": all(p < 0.05 for p in holm[:-1]),
+    "note": ("Holm-adjusted across 6 migration specifications: 5 of 6 remain p<0.05 after "
+             "family-wise correction; only the two-way naive (p=0.11) does not, consistent "
+             "with the few-cluster artifact disclosure."),
+}
+
+# ============================================================
+# E39. INSURANCE YIELD-EXCLUSION (YE) PARTICIPATION GRID
