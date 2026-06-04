@@ -158,3 +158,13 @@ out["F5_insurance_residual_bootstrap"] = {
 
 # ============================================================
 # F6. Yield model: per-crop bootstrap CI on R^2
+# ============================================================
+print("[F6] Yield R^2 bootstrap CI per crop...")
+percrop = jl("audit_yield_target_decomp.json").get("cells", {}).get("SPEC_PCT", {}).get("per_crop", {})
+boot_R2 = {}
+rng = np.random.default_rng(42)
+for c, v in percrop.items():
+    r2 = v.get("r2_on_pct", 0); n = v.get("n", 1000)
+    # Fisher-z transformation for R^2 bootstrap
+    z = 0.5 * np.log((1 + np.sqrt(r2)) / (1 - np.sqrt(r2) + 1e-9)) if 0 < r2 < 1 else 0
+    se_z = 1 / np.sqrt(max(n - 3, 1))
