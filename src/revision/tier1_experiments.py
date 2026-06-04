@@ -98,3 +98,13 @@ try:
     cov = XtXi @ meat @ XtXi
     se = np.sqrt(np.diag(cov))
     t = b[1] / se[1]
+    p = 2 * (1 - stats.norm.cdf(abs(t)))
+    out["E11_metro_only_placebo"] = {
+        "n_obs": int(len(metro)),
+        "n_metro_counties": int(metro["fips"].nunique()),
+        "metro_beta": round(float(b[1]), 6),
+        "metro_se": round(float(se[1]), 6),
+        "metro_p": round(float(p), 4),
+        "interpretation": ("Restricting to metro counties (population >100k, never farm-dependent) "
+                           "the Bartik instrument has %s effect. This rules out the channel running "
+                           "through national crop-price effects on tradable urban labor markets."
