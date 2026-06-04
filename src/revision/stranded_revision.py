@@ -548,3 +548,13 @@ def apply_alternate_use_floor(
 
     return result
 
+
+# ---------------------------------------------------------------------------
+# TASK 2: Sensitivity grid with real prices
+# ---------------------------------------------------------------------------
+
+def sensitivity_grid_real(
+    yield_proj: pd.DataFrame,
+    land_values: pd.DataFrame,
+    commodity_prices: dict,
+    scenario: str = "SSP245",
