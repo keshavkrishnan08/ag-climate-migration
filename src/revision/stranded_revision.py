@@ -958,3 +958,13 @@ and reduces the central estimate by ${floor_reduction_B:.1f}B ({100*floor_reduct
         f.write(summary_md)
     print(f"Saved: {summary_path}")
 
+    # ------------------------------------------------------------------
+    # Final verification
+    # ------------------------------------------------------------------
+    print("\n" + "=" * 60)
+    print("VERIFICATION")
+    print("=" * 60)
+    assert total_cons_B < 56.0, f"Conservative should DROP vs old $56B, got ${total_cons_B:.1f}B"
+    assert total_cent_B < 105.0, f"Central should DROP vs old $105B, got ${total_cent_B:.1f}B"
+    assert total_upper_B < 140.0, f"Upper should DROP vs old $140B, got ${total_upper_B:.1f}B"
+    assert total_cons_B > 0, "Conservative stranded should be positive"
