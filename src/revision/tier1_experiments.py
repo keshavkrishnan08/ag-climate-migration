@@ -218,3 +218,13 @@ indirect_vals = {1.0: indirect_delta_at_1, 1.15: indirect_delta_at_1 / 2, 1.30: 
 grid = {}
 for fv in [1000, 1500, 2000]:
     for iv in [1.0, 1.15, 1.30]:
+        grid[f"floor_{fv}_indirect_{iv}"] = round(floor_vals[fv] + indirect_vals[iv], 1)
+out["E16_dcf_floor_indirect_joint_grid"] = {
+    "grid_central_B": grid,
+    "grid_range_B": [min(grid.values()), max(grid.values())],
+    "note": ("Across the 3x3 (floor, indirect-multiplier) joint grid, the central spans "
+             "$%.1f-$%.1fB. The converged $52-80B field-crop headline brackets the entire grid."
+             % (min(grid.values()), max(grid.values()))),
+}
+
+# ============================================================
