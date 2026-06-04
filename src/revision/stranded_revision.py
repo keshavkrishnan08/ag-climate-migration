@@ -948,3 +948,13 @@ Southern Plains, and Mississippi Delta.
 
 **Response:** We add an explicit alternate-use floor. Where late-period (2040–2050)
 projected revenue per acre falls below variable production costs ($350/acre), the
+per-acre loss is capped at cropland value minus pasture/recreation land value
+($1,500/acre, USDA NASS 2023). This floor is binding for {n_floor_applied} counties
+and reduces the central estimate by ${floor_reduction_B:.1f}B ({100*floor_reduction_B/gross_B:.1f}%).
+"""
+
+    summary_path = RESULTS_REV / "stranded_recompute_summary.md"
+    with open(summary_path, "w") as f:
+        f.write(summary_md)
+    print(f"Saved: {summary_path}")
+
