@@ -108,3 +108,13 @@ out["F3_depop_NPV_antithetic"] = {
 
 # ============================================================
 # F4. Stranded CI with stratified MC by warming bin
+# ============================================================
+print("[F4] Stranded CI stratified MC...")
+N = 200_000
+rng = np.random.default_rng(42)
+# Stratify by warming intensity (low / med / high)
+bins = ["low", "med", "high"]
+strat_weights = {"low": 0.4, "med": 0.4, "high": 0.2}
+strat_means = {"low": 45, "med": 65, "high": 95}
+strat_sds = {"low": 8, "med": 12, "high": 18}
+samples = []
