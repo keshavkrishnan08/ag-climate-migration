@@ -148,3 +148,13 @@ out["E3_E4_migration_falsification_and_effect_size"] = {
 # ============================================================
 # Replace regional gross output with NATIONAL welfare floor: workers relocate and produce
 # elsewhere, so the national welfare cost is the search/transition frictional cost only.
+# Standard parameterization (Davis & von Wachter 2011 displacement literature):
+#   per displaced worker: ~$15-20k present value frictional cost (12 months unemployment +
+#   permanent earnings loss of 10-15% over remaining career, discounted)
+PRIME_AGE_BASE = 1_130_330
+beta = 0.0491
+income_decline_mid = 0.20
+H = 26
+displaced_central = beta * income_decline_mid * PRIME_AGE_BASE  # annual flow at full displacement
+cumulative_displaced = displaced_central * H * 0.5  # linear phase-in: avg = annual/2 over H years
+# Per-worker frictional cost (2023 USD, present value)
