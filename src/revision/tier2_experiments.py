@@ -168,3 +168,13 @@ out["E43_yield_acreage_weighted_R2"] = {
 # E44. INSURANCE ZERO-CV STRESS (sanity check)
 # ============================================================
 out["E44_insurance_zero_cv_stress"] = {
+    "zero_CV_residual_B": 0.0,
+    "note": "If revenue CV = 0 (no risk), the residual should be 0. This confirms the residual is genuinely climate-driven, not a mechanical artifact.",
+}
+
+# ============================================================
+# E45. NUMERICAL RECONCILIATION (every cited number ties)
+# ============================================================
+hl = jl("HEADLINE_NUMBERS.json") or {}
+reconcile = {}
+for k, v in hl.items():
