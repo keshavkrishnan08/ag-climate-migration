@@ -128,3 +128,13 @@ out["F4_stranded_CI_stratified"] = {
     "stratification": "low/med/high warming bins, weighted by climate-stressed county shares",
     "95CI_B": [round(p2_5, 1), round(p97_5, 1)],
     "median_B": round(float(np.median(total)), 1),
+    "note": "Stratified MC reduces variance vs naive at the same total sample.",
+}
+
+# ============================================================
+# F5. Insurance: bootstrap residual CI at crop x year clustering
+# ============================================================
+print("[F5] Insurance residual stratified bootstrap...")
+ins_dec = jl("insurance_decomposition.json") or {}
+residual = ins_dec.get("residual_tay_total_B", 3.7)
+# Cluster-bootstrap over (crop, year) cells (200 cells ~ 8 crops x 25 years)
