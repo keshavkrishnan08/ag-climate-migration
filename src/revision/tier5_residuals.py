@@ -98,3 +98,13 @@ out["R2_migration_treatment_alignment"] = {
 # ============================================================
 # R3. INFRASTRUCTURE $36B engineering validation
 # ============================================================
+print("[R3] Infrastructure cost engineering benchmarks...")
+# USDA NRCS / NEPC grain storage capital costs: ~$3-5 per bushel of capacity
+# Frontier expansion: 514 counties, projected production ~$37B/yr gross revenue
+# Average corn/soybean price ~$5/bu -> 7.4B bushels annual storage needed
+# But storage is for surge capacity (~3 months); typical capacity = annual / 4
+# = 1.85B bushels storage
+# Capital cost: 1.85B bu x $3-5/bu = $5.5-9.3B storage alone
+# Plus transport (rail/road), processing (elevators, ethanol/crushing): typically 3-4x
+# storage cost
+storage_bu = 7.4e9 / 4
