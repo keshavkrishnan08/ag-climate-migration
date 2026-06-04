@@ -38,3 +38,13 @@ print("[R1] Insurance with rate adjustment over time...")
 #
 # Approximation: RMA loss-ratio targets are 1.0; if true expected loss ratio rises
 # from observed (~0.65 historical) toward 1.0+ under non-stationary climate, premiums
+# would mechanically rise as well. The mispricing residual converges back to zero in
+# the very long run as rates adjust.
+#
+# Time-to-adjustment is the key parameter. RMA premium rates lag observed losses with
+# a 5-year averaging window. So the rate-adjusted residual decays as exp(-t/5):
+#
+# Mispricing_GE(t) = Mispricing_PE * exp(-t/tau_rate)
+#
+# At tau_rate = 5 years, the residual halves in ~3.5 years.
+# At infinity, GE residual = 0 (full re-rating).
