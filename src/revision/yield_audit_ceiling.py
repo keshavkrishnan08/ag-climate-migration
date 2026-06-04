@@ -68,3 +68,13 @@ def per_crop_levels(panel, te_pred, te, panel_full):
         actual = sub["yield_bu_acre"].values
         pred_level = sub["mu"].values + sub["pred_anom"].values * sub["sd"].values
         ok = np.isfinite(pred_level) & np.isfinite(actual)
+        if ok.sum() > 30:
+            a = actual[ok]; p = pred_level[ok]
+            out[c] = float(1 - np.sum((a - p)**2) / np.sum((a - a.mean())**2))
+    return out
+
+
+def main():
+    panel = build_panel()
+    panel = add_soil_lat(panel)
+    # add nccpi/lat to design feature pool by including them as numeric cols
