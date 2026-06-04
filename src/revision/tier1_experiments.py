@@ -158,3 +158,13 @@ net_crop_specific = gross_B * weighted_margin
 out["E13_crop_specific_opportunity_margin"] = {
     "uniform_22pct_margin_B": round(net_uniform_22, 1),
     "crop_specific_weighted_margin": round(weighted_margin, 3),
+    "crop_specific_net_B": round(net_crop_specific, 1),
+    "delta_B": round(net_crop_specific - net_uniform_22, 1),
+    "by_crop_margin": crop_margins,
+    "frontier_weights": frontier_weights,
+    "note": ("Crop-specific operating margins (USDA-ERS, frontier-weighted) give %.1f%% blended "
+             "margin vs the 22%% uniform assumption -- the net opportunity changes by $%.1fB, "
+             "within the headline rounding of $8.1B."
+             % (weighted_margin * 100, net_crop_specific - net_uniform_22)),
+}
+
