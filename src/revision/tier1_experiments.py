@@ -118,3 +118,13 @@ except Exception as e:
 # ============================================================
 mp = jl("migration_primeage_panel.json") or {}
 mwcb = jl("migration_wildbootstrap.json") or {}
+out["E12_migration_preferred_estimand"] = {
+    "PREFERRED": ("Prime-age (25-54) panel-FE 2SLS, 5-year horizon, on the 444 ERS "
+                  "farming-dependent county sample. β = %.4f, county-clustered p = %.4f, "
+                  "wild-cluster restricted bootstrap p = %.4f."
+                  % (gj(mwcb, "beta", default=0.049),
+                     gj(mwcb, "county_cluster_p", default=0.001),
+                     gj(mwcb, "wild_cluster_bootstrap_p", default=0.0005))),
+    "headline_beta": gj(mwcb, "beta"),
+    "headline_county_clustered_p": gj(mwcb, "county_cluster_p"),
+    "headline_wcb_p": gj(mwcb, "wild_cluster_bootstrap_p"),
