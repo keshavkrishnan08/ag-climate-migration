@@ -128,3 +128,13 @@ out["E12_migration_preferred_estimand"] = {
     "headline_beta": gj(mwcb, "beta"),
     "headline_county_clustered_p": gj(mwcb, "county_cluster_p"),
     "headline_wcb_p": gj(mwcb, "wild_cluster_bootstrap_p"),
+    "robustness_specifications_in_SI": [
+        "3-year horizon (β=0.024, p=0.005)",
+        "Non-overlapping 5-year windows (β=0.059, p=0.012)",
+        "Total-population high-intensity tercile (β=0.053, p=0.004, 750 counties; corroboration)",
+        "Two-way clustering p=0.11 (disclosed as few-cluster artifact)",
+    ],
+    "note": "All other specs are reported as robustness; the preferred estimand is fixed.",
+}
+
+# ============================================================
