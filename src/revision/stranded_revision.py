@@ -328,3 +328,13 @@ def compute_stranded_with_damage_function(
 
     Ported from src/06_stranded.py:compute_stranded_with_damage_function.
     Prices injected as parameter rather than module-level constant.
+
+    Args:
+        yield_proj: Yield projections DataFrame.
+        climate_proj: County-level climate projections with tmax columns.
+        land_values: NASS land values.
+        commodity_prices: dict mapping crop -> real price $/bu.
+        discount_rate: Real discount rate.
+        horizon: Projection horizon in years.
+        scenario: Label string for output.
+        ssp585_scale: Warming scaling factor (1.0 = SSP2-4.5; 1.8 = SSP5-8.5).
