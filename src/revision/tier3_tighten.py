@@ -28,3 +28,13 @@ out = {}
 def jl(n):
     p = OUT / n
     return json.load(open(p)) if p.exists() else None
+
+# ============================================================
+# T1. Migration wild-cluster bootstrap at B=9999 (vs B=1999)
+# ============================================================
+print("[T1] Migration wild-cluster bootstrap at B=9999...")
+try:
+    from migration_iv_bartik import build_panel
+    from migration_primeage_panel import within
+    prime = pd.read_parquet(OUT / "prime_age_pop.parquet")
+    prime["fips"] = prime["fips"].astype(str).str.zfill(5)
