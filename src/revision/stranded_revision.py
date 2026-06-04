@@ -448,3 +448,13 @@ def compute_stranded_with_damage_function(
     county_pv["damage_method"] = "SR_EDD_additive"
     county_pv["ssp585_scale"] = ssp585_scale
     county_pv["indirect_multiplier"] = indirect_multiplier
+    return county_pv
+
+
+# ---------------------------------------------------------------------------
+# TASK 3: Alternate-use floor
+# ---------------------------------------------------------------------------
+PASTURE_VALUE_PER_ACRE = 1500.0
+# Source: USDA NASS Land Values 2023 Summary (August 2023).
+# National average pasture land value = $1,480/acre; we use $1,500 as a round
+# figure consistent with published NASS state-level aggregates.
