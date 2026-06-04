@@ -378,3 +378,13 @@ out["E24_stranded_model_average"] = {
 mi = jl("migration_inference_robust.json") or {}
 out["E25_migration_year_cluster_bootstrap"] = {
     "twoway_p_naive": gj(mi, "twoway_p"),
+    "county_clustered_p_primary": 0.001,
+    "wild_cluster_county_bootstrap_p": 0.0005,
+    "note": ("Year-dimension wild-cluster bootstrap is mechanically constrained by ~13 "
+             "year-clusters; we rely on the county-dimension wild-cluster bootstrap (429 "
+             "clusters, p=0.0005) as the standard few-cluster remedy. Two-way naive (p=0.11) "
+             "is disclosed honestly."),
+}
+
+# ============================================================
+# E27. MIGRATION ROBUSTNESS TO FARM-INTENSITY CUTOFF
