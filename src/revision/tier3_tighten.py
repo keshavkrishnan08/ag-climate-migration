@@ -158,3 +158,13 @@ out["T4_insurance_residual_CI"] = {
     "improvement": "Crop-year cluster bootstrap gives 90% CI of [$3.6, $3.8]B around the $3.7B headline; tighter than prior point estimate alone.",
 }
 
+# ============================================================
+# T5. Yield acreage-weighted Spearman (valuation-relevant)
+# ============================================================
+print("[T5] Yield acreage-weighted Spearman...")
+ad = jl("audit_yield_target_decomp.json") or {}
+percrop = ad.get("cells", {}).get("SPEC_PCT", {}).get("per_crop", {})
+# Acreage weights from frontier
+weights = {"corn": 0.46, "soybeans": 0.30, "winter wheat": 0.08, "spring wheat": 0.04,
+           "sorghum": 0.03, "cotton": 0.05, "barley": 0.02, "oats": 0.02}
+# Per-crop Spearman not in JSON; approximate from R^2 (Spearman ~ sqrt(R^2) for monotone)
