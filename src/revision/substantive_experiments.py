@@ -208,3 +208,13 @@ out["E5_yield_zscale_apples_to_apples"] = {
 }
 json.dump(out, open(OUT / "substantive_experiments.json", "w"), indent=2)
 print("E5 corrected:")
+print("  z-scale R^2 (aggregates -> spectrum): %.3f -> %.3f (feature gain +%.3f)"
+      % (agg_z, spec_z, feature_gain_z))
+print("  target shift R^2 (z -> pct, aggregates): %.3f -> %.3f (target gain +%.3f)"
+      % (agg_z, agg_pct, target_shift_with_agg))
+print("  headline R^2 (spectrum on pct): %.3f" % spec_pct)
+
+json.dump(out, open(OUT / "substantive_experiments.json", "w"), indent=2)
+print("=== SUBSTANTIVE EXPERIMENTS — summary ===")
+for k, v in out.items():
+    print(f"\n[{k}]")
