@@ -78,3 +78,13 @@ def antithetic(u, low, high, distname="uniform"):
     if distname == "uniform":
         return np.concatenate([low + u * (high - low), low + (1 - u) * (high - low)])
     elif distname == "normal":
+        z = stats.norm.ppf(u)
+        z_anti = -z
+        return np.concatenate([z, z_anti])
+# beta ~ N(0.049, 0.015) truncated
+z_beta = antithetic(u_beta, 0, 1, "normal")
+beta = np.clip(0.049 + 0.015 * z_beta, 0, None)
+income = antithetic(u_inc, 0.15, 0.25, "uniform")
+hh = antithetic(u_hh, 2.2, 2.6, "uniform")
+pc = antithetic(u_pc, 70_000, 75_000, "uniform")
+mult = antithetic(u_m, 1.6, 1.8, "uniform")
