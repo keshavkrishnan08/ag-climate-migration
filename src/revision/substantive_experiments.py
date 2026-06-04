@@ -18,3 +18,13 @@ np.random.seed(42)
 OUT = Path("results/revision")
 out = {}
 
+# ============================================================
+# E8 + E9: Stranded ML vs process + no-indirect-multiplier
+# ============================================================
+db = json.load(open(OUT / "dollar_robustness.json"))
+ml = db["national_total_ml_B"]
+proc = db["national_total_process_B"]
+out["E8_stranded_ML_vs_process"] = {
+    "ML_path_total_B": round(ml, 1),
+    "process_path_total_B": round(proc, 1),
+    "ratio_ML_over_process": round(ml / proc, 2),
