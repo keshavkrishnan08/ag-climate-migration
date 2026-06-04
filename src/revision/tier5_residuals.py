@@ -28,3 +28,13 @@ def jl(n):
     p = OUT / n
     return json.load(open(p)) if p.exists() else None
 
+# ============================================================
+# R1. INSURANCE: partial-eq vs general-eq premium anchoring
+# ============================================================
+print("[R1] Insurance with rate adjustment over time...")
+# RMA adjusts premium RATES (per dollar liability) over time as experience updates.
+# The headline residual treats premium per acre as anchored at observed; this is
+# partial-equilibrium. General-equilibrium would re-rate as APH lags persist.
+#
+# Approximation: RMA loss-ratio targets are 1.0; if true expected loss ratio rises
+# from observed (~0.65 historical) toward 1.0+ under non-stationary climate, premiums
