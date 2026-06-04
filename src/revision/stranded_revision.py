@@ -918,3 +918,13 @@ Top-10 states by total stranded value:
 | State                | Stressed counties | Total stranded ($B)  | Median fraction |
 |----------------------|-------------------|----------------------|-----------------|
 {top10_str}
+
+Full table: `results/revision/stranded_by_state.csv`
+
+---
+
+## 5. Methods Text (for paper revision, Nature style)
+
+{methods_text}
+
+---
