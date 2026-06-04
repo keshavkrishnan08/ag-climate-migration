@@ -808,3 +808,13 @@ def main():
         old_p = old_prices.get(row["crop"], float("nan"))
         pct = ((row["real_price_2023usd"] - old_p) / old_p * 100) if old_p else float("nan")
         price_rows.append(
+            f"| {row['crop']:15s} | ${old_p:.2f}      | ${row['real_price_2023usd']:.2f}    "
+            f"| {pct:+.1f}%  | {row['n_years']} yrs  |"
+        )
+    price_table_str = "\n".join(price_rows)
+
+    # Top-10 states
+    top10_lines = []
+    for _, row in state_table.head(10).iterrows():
+        frac = row["median_stranded_fraction"]
+        frac_str = f"{frac:.1%}" if pd.notna(frac) else "N/A"
