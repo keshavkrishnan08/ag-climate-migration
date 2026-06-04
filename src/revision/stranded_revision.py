@@ -888,3 +888,13 @@ with USDA (2024a) long-run agricultural baseline, which projects stable real com
 prices over the 10- to 30-year horizon.
 
 ---
+
+## 3. Alternate-Use Floor Effect
+
+Where projected late-period (2040–2050) per-acre gross revenue < $350/acre variable
+production cost, per-acre asset loss is capped at (cropland value − $1,500 pasture value).
+
+Source for pasture floor: USDA NASS Land Values 2023 Summary (August 2023),
+national average pasture land = $1,480/acre (rounded to $1,500).
+Conceptual basis: Csikos & Toth (2023), who show alternate-use (grazing/recreation)
+values typically represent 30–50% of cropland values in transitioning counties.
