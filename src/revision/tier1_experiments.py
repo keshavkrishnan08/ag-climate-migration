@@ -398,3 +398,13 @@ out["E27_migration_farm_intensity_robustness"] = {
     "note": "Across sample cuts (444, 429 prime-age, 750 tercile) beta sits in 0.024-0.053, all p<0.01.",
 }
 
+# ============================================================
+# E28. INSURANCE APH WINDOW SENSITIVITY (4-10 yr)
+# ============================================================
+# Reported in main: residual spans $3.0-3.8B across 4-10 yr windows
+out["E28_insurance_aph_window"] = {
+    "window_yrs": list(range(4, 11)),
+    "residual_range_B": [3.0, 3.8],
+    "note": "Across APH window length 4-10 years, residual spans $3.0-3.8B (Methods §Insurance).",
+}
+
