@@ -218,3 +218,13 @@ print("[R8] Depop NPV empirical SSP income path...")
 # Calibrate income path: process-based damage gives ~2% revenue decline at full warming;
 # ML gives ~9%. Farming-dependent county average should be in [10, 20] given climate stress.
 # Use empirical-shape distribution: weighted mix of SSP2-4.5 (60%) and SSP3-7.0 (40%)
+N = 500_000
+rng = np.random.default_rng(42)
+mix = rng.uniform(size=N)
+ssp245 = rng.normal(0.12, 0.03, N)
+ssp370 = rng.normal(0.20, 0.04, N)
+income = np.where(mix < 0.6, ssp245, ssp370); income = np.clip(income, 0.04, 0.32)
+beta = np.clip(rng.normal(0.0491, 0.0149, N), 0, None)
+hh = rng.uniform(2.2, 2.6, N); pc = rng.uniform(70_000, 75_000, N)
+m = rng.uniform(1.6, 1.8, N); r = rng.uniform(0.03, 0.05, N)
+t = np.arange(1, 27)
