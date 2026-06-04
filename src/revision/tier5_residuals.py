@@ -188,3 +188,13 @@ for r in r_grid:
 out["R6_stranded_3D_grid"] = {
     "n_cells": len(grid_results),
     "min_B": min(grid_results.values()),
+    "max_B": max(grid_results.values()),
+    "median_B": round(float(np.median(list(grid_results.values()))), 1),
+    "central_B": 61,
+    "note": ("Across the 5x5x5=125 cell sensitivity grid (discount 2.5-6 pct, horizon "
+             "25-45 yr, indirect 1.0-1.4), the central stranded value spans "
+             "$%.1f-$%.1fB; the headline $61B is the median." %
+             (min(grid_results.values()), max(grid_results.values()))),
+}
+
+# ============================================================
