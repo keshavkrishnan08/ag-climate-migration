@@ -268,3 +268,13 @@ out["E18_hedonic_S6_reconciliation"] = {
 # → process-implied annual revenue decline ~ 0.020 (2%) at full warming
 # ML-implied ~ 0.092 (9.2%)
 # So projected sustained farm-income decline in farming-dependent counties: 0.10-0.20
+# (closer to ML side since farming-dependent counties are climate-stressed)
+import numpy as np
+PRIME_AGE_BASE = 1_130_330
+H = 26
+N_DRAW = 100_000
+rng = np.random.default_rng(42)
+# Projected income decline: lognormal centered at 0.15, SD reflecting SSP uncertainty
+income_decline_proj = rng.normal(0.15, 0.04, N_DRAW)
+income_decline_proj = np.clip(income_decline_proj, 0.05, 0.30)
+beta = rng.normal(0.0491, 0.0149, N_DRAW); beta = np.clip(beta, 0, None)
