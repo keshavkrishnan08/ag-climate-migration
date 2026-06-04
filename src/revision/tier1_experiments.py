@@ -148,3 +148,13 @@ crop_margins = {
     "BARLEY": 0.18,
     "OATS": 0.16,
 }
+# Frontier opportunity acreage weights (approximate from 09_frontier.py outputs)
+frontier_weights = {"CORN": 0.42, "SOYBEANS": 0.38, "WHEAT_SPRING": 0.12, "BARLEY": 0.05, "OATS": 0.03}
+weighted_margin = sum(crop_margins[c] * frontier_weights[c] for c in crop_margins)
+# Gross frontier opportunity is $37B
+gross_B = 37.0
+net_uniform_22 = gross_B * 0.22
+net_crop_specific = gross_B * weighted_margin
+out["E13_crop_specific_opportunity_margin"] = {
+    "uniform_22pct_margin_B": round(net_uniform_22, 1),
+    "crop_specific_weighted_margin": round(weighted_margin, 3),
