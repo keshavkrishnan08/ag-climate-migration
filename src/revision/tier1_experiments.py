@@ -188,3 +188,13 @@ out["E14_yield_zscale_per_crop"] = {
              "reported honestly per crop."),
 }
 
+# ============================================================
+# E15. LONG-DIFFERENCE FISCAL CHAIN (already done; restate from existing JSON)
+# ============================================================
+ld = jl("migration_longdiff.json") or {}
+mfc = jl("migration_fiscal_chain.json") or {}
+out["E15_fiscal_chain_long_difference"] = {
+    "long_difference_yield_to_revenue": gj(mfc, "yield_to_revenue") or gj(ld, "yield_to_revenue"),
+    "long_difference_revenue_to_landvalue": gj(mfc, "revenue_to_landvalue") or gj(ld, "revenue_to_landvalue"),
+    "long_difference_revenue_to_income": gj(mfc, "revenue_to_income") or gj(ld, "revenue_to_income"),
+    "note": ("Annual frequency yields a null on revenue→land-value (land values are sticky); "
