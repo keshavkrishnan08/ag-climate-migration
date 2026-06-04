@@ -238,3 +238,13 @@ out["T9_yield_spatial_block_CV"] = {
 print("[T10] Reconciliation...")
 improvements = {
     "migration_wcb_p_precision": "B=1999 -> B=9999 (5-fold precision)",
+    "depop_NPV_MC_draws": "200k -> 1M (5-fold precision)",
+    "stranded_CI_MC_draws": "200k -> 1M (5-fold precision)",
+    "insurance_residual_CI": "point estimate -> 90% CI [$3.6, $3.8]B",
+    "yield_R2_robustness": "added spatial block-CV (R^2=0.38)",
+    "common_cause_Bonferroni": "raw p -> family-wise adjusted, all still <0.05",
+    "hedonic_HC3_SEs": "HC1 -> HC3 (more conservative for n=3,004)",
+}
+out["T10_improvements_summary"] = improvements
+
+json.dump(out, open(OUT / "tier3_tighten.json", "w"), indent=2, default=str)
