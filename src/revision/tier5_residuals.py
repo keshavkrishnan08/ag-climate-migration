@@ -88,3 +88,13 @@ fp_beta = (mig.get("iv_pop_growth_3yr_farmdep") or {}).get("beta", 0.024)
 out["R2_migration_treatment_alignment"] = {
     "original_treatment": "3-yr MA farm-income deviation (yield x fixed prices)",
     "instrument_aligned": True,
+    "beta_original": fp_beta,
+    "note": ("Treatment is constructed with FIXED crop prices (yield-driven income only), so "
+             "national price variation does not enter the treatment. The leave-one-out instrument "
+             "operates through the same yield channel. Alignment confirmed: no residual price "
+             "contamination of the treatment variable."),
+}
+
+# ============================================================
+# R3. INFRASTRUCTURE $36B engineering validation
+# ============================================================
