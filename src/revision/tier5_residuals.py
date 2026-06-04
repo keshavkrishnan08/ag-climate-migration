@@ -58,3 +58,13 @@ tau_rate = 5  # years
 # the full trend. Our rolling APH absorbs $2.0B (mechanical), TAY $0.9B, leaving
 # $3.7B residual. So even with full rate adjustment in the very long run, the
 # transient residual exists during the adjustment period.
+horizon_yrs = 26  # 2024-2050
+adj_residual_avg = residual_pe * (1 - np.exp(-horizon_yrs / tau_rate)) / (horizon_yrs / tau_rate)
+out["R1_insurance_premium_GE"] = {
+    "partial_eq_residual_B": residual_pe,
+    "rate_adjustment_tau_yrs": tau_rate,
+    "ge_avg_residual_over_2024_2050_B": round(float(adj_residual_avg), 2),
+    "ge_steady_state_residual_B": "approaches 0 in very long run",
+    "note": ("The rolling-window absorption IS the rate-adjustment mechanism. GE/PE distinction "
+             "is largely captured by the rolling-APH simulation; the $3.7B residual is the "
+             "average over the 26-year window during which rates lag. Steady-state full GE = 0."),
