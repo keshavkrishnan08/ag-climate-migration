@@ -778,3 +778,13 @@ def main():
     print(f"  Gross stranded (before floor):              ${gross_B:.1f}B")
     print(f"  Net stranded (after floor):                 ${floored_B:.1f}B")
     print(f"  Floor reduces estimate by:                  ${floor_reduction_B:.1f}B  ({100*floor_reduction_B/gross_B:.1f}%)")
+
+    central_floored.to_parquet(RESULTS_REV / "stranded_central_floored.parquet", index=False)
+    print(f"  Saved: {RESULTS_REV / 'stranded_central_floored.parquet'}")
+
+    # ------------------------------------------------------------------
+    # TASK 4: State-level table
+    # ------------------------------------------------------------------
+    print("\n" + "=" * 60)
+    print("TASK 4: Building state-level stranded value table")
+    print("=" * 60)
