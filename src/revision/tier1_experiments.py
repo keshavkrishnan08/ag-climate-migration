@@ -78,3 +78,13 @@ try:
     high_pop_fips = panel[panel.year == 2019].groupby("fips")["total_population"].max()
     high_pop_fips = high_pop_fips[high_pop_fips > 100_000].index
     metro = panel[(panel.fips.isin(high_pop_fips)) & (panel.farm_dependent == 0)].copy()
+    metro = metro.dropna(subset=["pop_growth_3yr", "z_bartik"])
+    # Reduced form: pop growth ~ z_bartik with county+year FE
+    metro["pgw"] = metro["pop_growth_3yr"] - metro.groupby("fips")["pop_growth_3yr"].transform("mean") \
+                   - metro.groupby("year")["pop_growth_3yr"].transform("mean") + metro["pop_growth_3yr"].mean()
+    metro["zw"] = metro["z_bartik"] - metro.groupby("fips")["z_bartik"].transform("mean") \
+                  - metro.groupby("year")["z_bartik"].transform("mean") + metro["z_bartik"].mean()
+    X = np.column_stack([np.ones(len(metro)), metro["zw"].values])
+    Y = metro["pgw"].values
+    b, *_ = np.linalg.lstsq(X, Y, rcond=None)
+    r = Y - X @ b
