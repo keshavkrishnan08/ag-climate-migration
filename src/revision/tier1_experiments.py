@@ -228,3 +228,13 @@ out["E16_dcf_floor_indirect_joint_grid"] = {
 }
 
 # ============================================================
+# E17. TAIL RISK DECOUPLED ($500B is a different estimand)
+# ============================================================
+out["E17_tail_risk_decoupled"] = {
+    "tail_risk_estimand": "10th-percentile quantile regression on yield outcomes, then DCF",
+    "tail_risk_value_B": 500,
+    "main_DCF_estimand": "central conditional expectation",
+    "main_DCF_central_B": 61,
+    "note": ("The >$500B tail is the 10th-percentile-yield quantile regression DCF -- a different "
+             "estimand from the conditional-expectation DCF central ($61B). We do not bundle them "
+             "in the headline; the tail is reported as a tail-risk sensitivity only."),
