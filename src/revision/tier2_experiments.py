@@ -118,3 +118,13 @@ out["E39_insurance_YE_grid"] = {
              "within $0.1B rounding." % (max(ye_grid.values()) - min(ye_grid.values()))),
 }
 
+# ============================================================
+# E40. DEPOP NATIONAL WELFARE FLOOR WORST-CASE
+# ============================================================
+N_disp = 144_300  # from E6
+f_worst = 50_000   # high-frictional-cost end
+worst_floor = N_disp * f_worst / 1e9
+out["E40_depop_welfare_floor_worst_case"] = {
+    "cumulative_displaced": N_disp,
+    "frictional_cost_per_worker_worst_USD": f_worst,
+    "worst_case_national_welfare_floor_B": round(worst_floor, 1),
