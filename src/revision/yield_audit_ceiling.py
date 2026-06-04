@@ -48,3 +48,13 @@ def r2_sp(y, p):
 
 def per_crop_levels(panel, te_pred, te, panel_full):
     """Within-crop LEVELS R^2: reconstruct yield level = trend + anomaly*sd, then
+    score predicted level vs actual on the held-out years, per crop. Uses the
+    county-crop mean/sd implied by yield_anomaly (z-scored) and the realized level
+    to back out sd; this matches the existing levels-R^2 convention."""
+    tp = panel[te].reset_index(drop=True).copy()
+    tp["pred_anom"] = te_pred
+    out = {}
+    for c in sorted(tp["crop"].unique()):
+        cm = tp["crop"] == c
+        if cm.sum() < 30:
+            continue
