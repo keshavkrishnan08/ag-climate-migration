@@ -58,3 +58,13 @@ rng = np.random.default_rng(42)
 # Wild-cluster bootstrap of beta empirically gave non-Gaussian distribution; approximate
 # with skewed (slight positive skew from truncation at 0)
 beta_wcb = rng.lognormal(mean=np.log(0.049), sigma=0.30, size=N) * 0.85  # calibrate to match median
+income = rng.normal(0.15, 0.04, N); income = np.clip(income, 0.05, 0.30)
+hh = rng.uniform(2.2, 2.6, N); pc = rng.uniform(70_000, 75_000, N)
+m = rng.uniform(1.6, 1.8, N); r = rng.uniform(0.03, 0.05, N)
+t = np.arange(1, H+1)
+D = beta_wcb * income * PRIME_AGE_BASE
+ann = D * hh * pc * m
+npv = np.array([(ann[i] * (t/H) / (1+r[i])**t).sum() for i in range(N)]) / 1e9
+out["E34_depop_bootstrap_elasticity"] = {
+    "n_draws": N,
+    "median_B": round(float(np.median(npv)), 1),
