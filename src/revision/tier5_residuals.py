@@ -178,3 +178,13 @@ ind_grid = [1.0, 1.10, 1.20, 1.30, 1.40]
 # Stranded value scales as: base * discount_factor * indirect_multiplier
 # discount_factor(r, H) = sum_t (1+r)^-t for t in 1..H, divided by ref
 ref_disc = sum((1 + 0.04) ** -t for t in range(1, 31))
+grid_results = {}
+for r in r_grid:
+    for H in H_grid:
+        for ind in ind_grid:
+            df = sum((1 + r) ** -t for t in range(1, H + 1))
+            val = 61 * (df / ref_disc) * (ind / 1.30)
+            grid_results[f"r{r:.3f}_H{H}_ind{ind:.2f}"] = round(val, 1)
+out["R6_stranded_3D_grid"] = {
+    "n_cells": len(grid_results),
+    "min_B": min(grid_results.values()),
