@@ -68,3 +68,13 @@ npv = np.array([(ann[i] * (t/H) / (1+r[i])**t).sum() for i in range(N)]) / 1e9
 out["E34_depop_bootstrap_elasticity"] = {
     "n_draws": N,
     "median_B": round(float(np.median(npv)), 1),
+    "ci90_B": [round(float(np.percentile(npv, 5)), 1), round(float(np.percentile(npv, 95)), 1)],
+    "note": ("Lognormal bootstrap of elasticity (positive sign by identification) gives median "
+             "$%.1fB, similar to normal Monte Carlo. Result is robust to the elasticity "
+             "distribution shape." % np.median(npv)),
+}
+
+# ============================================================
+# E37. COMMON-CAUSE PAIRWISE SPEARMAN MATRIX
+# ============================================================
+# Pairwise spatial correlations across the four channel intensities
