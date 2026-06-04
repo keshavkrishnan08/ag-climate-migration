@@ -828,3 +828,13 @@ def main():
         "We replace the original near-peak nominal commodity prices with 30-year "
         "(1994–2023) marketing-year average prices deflated to 2023 USD using the "
         "CPI-U (Table R1). Prices are held flat in real terms across all projection "
+        "years, consistent with USDA long-run price projections (USDA 2024a), which "
+        "show no statistically significant trend in real agricultural commodity prices "
+        "over multi-decadal horizons. For counties where projected late-period "
+        "(2040–2050) per-acre gross revenue falls below variable production costs "
+        "($350/acre), we cap the per-acre asset loss at the difference between "
+        "current cropland value and the national average pasture/recreation land "
+        "value ($1,500/acre; USDA NASS 2023; Csikos & Toth 2023), reflecting the "
+        "economic floor provided by alternate land uses."
+    )
+
