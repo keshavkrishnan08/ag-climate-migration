@@ -8,3 +8,13 @@ R3. Infrastructure $36B engineering validation -> compare to per-bushel grain st
 R4. AgMIP yield apples-to-apples -> R^2 on the AgMIP target (yield levels, growing-season
     aggregates, no remote sensing) at the same county scale
 R5. Migration with bootstrap CIs at every horizon AND every farm-intensity cut
+R6. Stranded final sensitivity grid (discount x horizon x price x floor x indirect, 5^5)
+R7. Yield model held-out SPATIAL block CV (climate-region blocks)
+R8. Depop NPV with full empirical income path (from per-county SSP yield -> revenue)
+R9. Insurance with NET indemnity payments accounting (not just expected)
+R10. Common-cause IRT (item-response model) -> latent factor share
+
+Seed 42; writes results/revision/tier5_residuals.json.
+"""
+import json, sys
+import numpy as np, pandas as pd
