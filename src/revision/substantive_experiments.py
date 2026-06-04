@@ -118,3 +118,13 @@ out["E2_insurance_climate_dependent_sigma"] = {
 # ============================================================
 # The migration_iv_bartik non-farm reduced form (p=0.007) is statistically significant
 # but economically TINY: beta=+0.00038 vs the farm-dep prime-age headline beta=+0.024.
+bartik = json.load(open(OUT / "migration_iv_bartik.json"))
+primeage = json.load(open(OUT / "migration_primeage_panel.json"))
+nonfarm_beta = bartik["placebo_nonfarm_reduced_form"]["beta"]
+nonfarm_p = bartik["placebo_nonfarm_reduced_form"]["p"]
+nonfarm_n = bartik["placebo_nonfarm_reduced_form"]["n"]
+farmdep_beta = primeage["primeage_panelFE_farmdep"]["beta"]
+ratio = farmdep_beta / nonfarm_beta if nonfarm_beta != 0 else float("inf")
+# Effect on a 1-SD instrument shock: convert reduced-form beta to per-1SD-shock effect
+# (here scales are in raw beta units; the ratio is what matters)
+out["E3_E4_migration_falsification_and_effect_size"] = {
