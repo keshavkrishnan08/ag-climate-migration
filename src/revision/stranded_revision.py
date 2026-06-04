@@ -978,3 +978,13 @@ and reduces the central estimate by ${floor_reduction_B:.1f}B ({100*floor_reduct
 
     print("\n" + "=" * 60)
     print("SUMMARY")
+    print("=" * 60)
+    print(f"  Conservative: ${total_cons_B:.1f}B  (was $56B, {100*(total_cons_B-56)/56:+.1f}%)")
+    print(f"  Central:      ${total_cent_B:.1f}B  (was $105B, {100*(total_cent_B-105)/105:+.1f}%)")
+    print(f"  Upper:        ${total_upper_B:.1f}B  (was $140B, {100*(total_upper_B-140)/140:+.1f}%)")
+    print(f"  Alt-use floor reduces central by ${floor_reduction_B:.1f}B ({100*floor_reduction_B/gross_B:.1f}%)")
+    print(f"  Top state: {state_table.iloc[0]['state']} (${state_table.iloc[0]['total_stranded_B']:.2f}B)")
+    print("=" * 60)
+
+    return {
+        "conservative_B": total_cons_B,
