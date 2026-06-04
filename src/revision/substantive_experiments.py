@@ -198,3 +198,13 @@ out["E5_yield_zscale_apples_to_apples"] = {
     "feature_gain_on_z_scale": round(feature_gain_z, 3),
     "target_shift_gain_with_aggregates": round(target_shift_with_agg, 3),
     "total_gain": round(total_gain, 3),
+    "spearman_on_pct_spectrum": round(yz["SPEC_PCT"]["spearman_on_pct"], 3),
+    "note": ("Apples-to-apples on the Schlenker-Roberts z-anomaly target, the new spectrum "
+             "features lift R^2 from %.3f to %.3f (+%.3f, modest). The target switch from "
+             "z-anomaly to %%-deviation-from-trend (the quantity the valuation consumes) lifts "
+             "R^2 from %.3f to %.3f (+%.3f), the larger share of the headline gain. Both "
+             "components are real; we report each separately rather than blending."
+             % (agg_z, spec_z, feature_gain_z, agg_z, agg_pct, target_shift_with_agg)),
+}
+json.dump(out, open(OUT / "substantive_experiments.json", "w"), indent=2)
+print("E5 corrected:")
