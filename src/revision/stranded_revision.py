@@ -858,3 +858,13 @@ Sorghum converted from $/CWT to $/bu using USDA standard (56 lb/bu = 0.56 CWT/bu
 {price_table_str}
 
 **Key finding:** Real average prices are 8–30% below the near-peak nominal prices
+used in the original submission, driven mainly by deflating high-price years
+(2012–2013 corn/soybean spike) against a 30-year baseline.
+
+Saved to: `results/revision/real_prices_2023usd.csv`
+
+---
+
+## 2. Old vs New National Stranded Totals
+
+| Specification   | Old estimate | New estimate (real prices) | Change     |
