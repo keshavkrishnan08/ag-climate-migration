@@ -98,3 +98,13 @@ alpha = 0.04  # CV scaling per degree C
 dT_mid = 1.5  # median 2050 SSP2-4.5 warming
 sigma_scaler = 1 + alpha * dT_mid    # ~1.06
 # Residual is approximately linear in sigma at moderate K-mu gaps (put is convex in sigma)
+# Use a convex approximation: dResidual/dSigma ~ 2 * residual (call delta vega approximation)
+# More rigorously: indemnity put is monotone in sigma; the per-acre put scales ~ sigma
+residual_with_climvar = residual_ml * sigma_scaler
+out["E2_insurance_climate_dependent_sigma"] = {
+    "sigma_scaling_per_C": alpha,
+    "median_warming_C_2050": dT_mid,
+    "sigma_multiplier": round(sigma_scaler, 3),
+    "residual_with_climate_dependent_sigma_B": round(residual_with_climvar, 2),
+    "residual_baseline_fixed_sigma_B": residual_ml,
+    "note": ("Allowing CV to rise 4 pp per degree C of growing-season warming (Lobell 2014; "
