@@ -68,3 +68,13 @@ print("[F3] Depop NPV antithetic variates...")
 N = 500_000
 rng = np.random.default_rng(42)
 # Antithetic: draw u, then 1-u; halves variance for monotonic transformations
+u_beta = rng.uniform(size=N // 2)
+u_inc = rng.uniform(size=N // 2)
+u_hh = rng.uniform(size=N // 2)
+u_pc = rng.uniform(size=N // 2)
+u_m = rng.uniform(size=N // 2)
+u_r = rng.uniform(size=N // 2)
+def antithetic(u, low, high, distname="uniform"):
+    if distname == "uniform":
+        return np.concatenate([low + u * (high - low), low + (1 - u) * (high - low)])
+    elif distname == "normal":
