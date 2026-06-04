@@ -228,3 +228,13 @@ out["F9_final_reconciliation"] = {
     "tier3_improvements_logged": True,
     "tier4_CI_tightening_logged": True,
     "verdict": "Every cited value in HEADLINE_NUMBERS.json has a source script and computed cross-check.",
+}
+
+json.dump(out, open(OUT / "tier4_refit.json", "w"), indent=2, default=str)
+print()
+print("=== TIER-4 REFIT COMPLETE ===")
+print(f"  Migration horizons: 3yr 95CI={out['F1_migration_horizon_bootstrap_CI']['3yr']['95CI']}, 5yr={out['F1_migration_horizon_bootstrap_CI']['5yr']['95CI']}")
+print(f"  Hedonic HC3 SE increase: {out['F2_hedonic_HC3']['SE_increase_pct']}%")
+print(f"  Depop antithetic median: ${out['F3_depop_NPV_antithetic']['median_B']}B")
+print(f"  Stranded stratified MC 95CI: {out['F4_stranded_CI_stratified']['95CI_B']}")
+print(f"  Insurance residual bootstrap 95CI: {out['F5_insurance_residual_bootstrap']['95CI_B']}")
