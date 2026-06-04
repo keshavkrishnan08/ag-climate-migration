@@ -58,3 +58,13 @@ try:
     # Wild-cluster bootstrap with Webb weights, B=9999
     webb = np.array([-np.sqrt(1.5), -1, -np.sqrt(0.5), np.sqrt(0.5), 1, np.sqrt(1.5)])
     rng = np.random.default_rng(42)
+    B = 9999
+    t_star = np.empty(B)
+    for b in range(B):
+        w_map = {c: webb[rng.integers(0, 6)] for c in clusters}
+        wv = np.array([w_map[c] for c in g])
+        Yb = D * 0.0 + Y * wv  # H0: beta=0
+        bb = iv_beta(Yb, D, Z); ub = Yb - D * bb
+        meatb = sum((Z[r] @ ub[r]) ** 2 for r in rows_by.values())
+        seb = np.sqrt((G / (G - 1)) * meatb / (ZD ** 2))
+        t_star[b] = bb / seb
