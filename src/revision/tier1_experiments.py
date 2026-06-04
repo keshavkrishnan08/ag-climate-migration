@@ -28,3 +28,13 @@ import json
 import numpy as np, pandas as pd
 from pathlib import Path
 from scipy import stats
+np.random.seed(42)
+OUT = Path("results/revision")
+out = {}
+
+def jl(name):
+    p = OUT / name
+    return json.load(open(p)) if p.exists() else None
+def gj(d, *path, default=None):
+    cur = d
+    for k in path:
