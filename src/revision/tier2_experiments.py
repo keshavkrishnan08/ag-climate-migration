@@ -8,3 +8,13 @@ E35: Insurance premium-anchoring sensitivity (varying premium assumption)
 E36: Hedonic REGIONAL sensitivity (Plains, Delta, Midwest, South)
 E37: Common-cause Spearman rho across ALL pairs of channels
 E38: Migration multiple-outcome family adjustment (Holm)
+E39: Insurance YIELD-EXCLUSION grid (5%, 15%, 25% participation)
+E40: Depop national welfare floor with HIGHER frictional cost ($50k worst case)
+E41: Stranded value distributional tail percentiles (p25, p50, p75, p90)
+E42: Migration TRIANGLE: prime-age x total-pop x in-migration (3 outcomes one IV)
+E43: Yield AGRICULTURAL R^2 (acreage-weighted, valuation-relevant)
+E44: Insurance ZERO-CV stress test (sigma = 0 → no risk priced)
+E45: All numbers TIE check -- final reconciliation
+
+Seed 42; writes results/revision/tier2_experiments.json.
+"""
