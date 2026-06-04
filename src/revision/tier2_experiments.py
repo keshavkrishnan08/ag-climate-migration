@@ -198,3 +198,5 @@ out["E45_numerical_reconciliation"] = {
 json.dump(out, open(OUT / "tier2_experiments.json", "w"), indent=2, default=str)
 print(f"=== TIER-2 BATTERY: {len(out)} experiments ===")
 print(f"E45 reconciliation: {within_5}/{total} numbers tie within 5% ({100*within_5/max(total,1):.0f}%)")
+for k in sorted(out.keys()):
+    n = gj(out, k, "note", default=""); print(f"  {k}: {n[:100]}")
