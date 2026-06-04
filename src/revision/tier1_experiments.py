@@ -18,3 +18,13 @@ E24: Stranded model-average (ML/process/hedonic) Bayesian-style blend
 E25: Migration wild-cluster bootstrap on YEAR dimension too
 E26: Floor binding county count by pasture value
 E27: Migration robustness to farm-intensity cutoff
+E28: Insurance robustness to APH window 4/5/6/7/8/9/10
+E29: Hedonic by region (south/midwest/plains)
+E30: Common-cause exposure: alternate physical metric robustness
+
+Seed 42; reads results/revision/*.json; writes results/revision/tier1_experiments.json.
+"""
+import json
+import numpy as np, pandas as pd
+from pathlib import Path
+from scipy import stats
