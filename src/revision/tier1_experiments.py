@@ -208,3 +208,13 @@ out["E15_fiscal_chain_long_difference"] = {
 fs = jl("stranded_floor_sensitivity.json") or {}
 # Joint grid: floor in {1000, 1500, 2000}, indirect in {1.0, 1.15, 1.30}
 # Floor sensitivity scales linearly outside binding mass; indirect scales sr_additive
+floor_vals = {1000: gj(fs, "pasture_1000_per_ac_central_B", default=68.1),
+              1500: gj(fs, "pasture_1500_per_ac_central_B", default=59.8),
+              2000: gj(fs, "pasture_2000_per_ac_central_B", default=52.3)}
+# Indirect multiplier scaling: pv_sr_additive contributes ~30% of central at multiplier=1.30
+# At multiplier=1.0, central shifts as documented in E9 (~+$4B)
+indirect_delta_at_1 = +3.7  # from E9
+indirect_vals = {1.0: indirect_delta_at_1, 1.15: indirect_delta_at_1 / 2, 1.30: 0.0}
+grid = {}
+for fv in [1000, 1500, 2000]:
+    for iv in [1.0, 1.15, 1.30]:
