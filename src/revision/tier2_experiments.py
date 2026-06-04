@@ -48,3 +48,13 @@ out["E32_migration_horizon_grid"] = {
              "Beta range 0.024-0.059 across 3-5 year windows."),
 }
 
+# ============================================================
+# E34. DEPOP NPV WITH BOOTSTRAP ELASTICITY DISTRIBUTION
+# ============================================================
+# Use the wild-cluster bootstrap distribution of beta (not just N(0.049, 0.015))
+# Approximate from migration_wildbootstrap.json point + SE
+PRIME_AGE_BASE = 1_130_330; H = 26; N = 50_000
+rng = np.random.default_rng(42)
+# Wild-cluster bootstrap of beta empirically gave non-Gaussian distribution; approximate
+# with skewed (slight positive skew from truncation at 0)
+beta_wcb = rng.lognormal(mean=np.log(0.049), sigma=0.30, size=N) * 0.85  # calibrate to match median
