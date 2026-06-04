@@ -348,3 +348,13 @@ def compute_stranded_with_damage_function(
 
     if ssp585_scale != 1.0:
         cp["tmax_july_projected"] = (
+            (cp["tmax_july_projected"] - cp["delta_tmax_july"])
+            + cp["delta_tmax_july"] * ssp585_scale
+        )
+        cp["tmax_growing_projected"] = (
+            (cp["tmax_growing_projected"] - cp["delta_tmax_growing"])
+            + cp["delta_tmax_growing"] * ssp585_scale
+        )
+        cp["delta_tmax_july"] = cp["delta_tmax_july"] * ssp585_scale
+        cp["delta_tmax_growing"] = cp["delta_tmax_growing"] * ssp585_scale
+
