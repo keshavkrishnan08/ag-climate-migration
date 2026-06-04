@@ -658,3 +658,13 @@ def main():
 
     # ------------------------------------------------------------------
     # TASK 1: Real prices from QuickStats
+    # ------------------------------------------------------------------
+    print("\n" + "=" * 60)
+    print("TASK 1: Computing real marketing-year average prices")
+    print("=" * 60)
+
+    avg_prices, raw_price_df = load_real_prices()
+    commodity_prices_real = dict(zip(avg_prices["crop"], avg_prices["real_price_2023usd"]))
+
+    # Save price table
+    avg_prices.to_csv(RESULTS_REV / "real_prices_2023usd.csv", index=False)
