@@ -158,3 +158,13 @@ H = 26
 displaced_central = beta * income_decline_mid * PRIME_AGE_BASE  # annual flow at full displacement
 cumulative_displaced = displaced_central * H * 0.5  # linear phase-in: avg = annual/2 over H years
 # Per-worker frictional cost (2023 USD, present value)
+friction_per_worker_low = 15_000
+friction_per_worker_mid = 30_000   # central: 12mo unemployment + 10% earnings loss
+friction_per_worker_high = 50_000
+nat_welfare_floor_B = cumulative_displaced * friction_per_worker_mid / 1e9
+nat_lo = cumulative_displaced * friction_per_worker_low / 1e9
+nat_hi = cumulative_displaced * friction_per_worker_high / 1e9
+out["E6_depop_national_welfare_floor"] = {
+    "cumulative_displaced_workers": int(cumulative_displaced),
+    "per_worker_frictional_cost_USD": friction_per_worker_mid,
+    "national_welfare_floor_central_B": round(nat_welfare_floor_B, 1),
