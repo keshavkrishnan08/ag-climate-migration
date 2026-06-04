@@ -788,3 +788,13 @@ def main():
     print("\n" + "=" * 60)
     print("TASK 4: Building state-level stranded value table")
     print("=" * 60)
+
+    state_table = build_state_table(central_floored)
+    state_table.to_csv(RESULTS_REV / "stranded_by_state.csv", index=False)
+    print(f"\nTop-10 states by stranded value (central, after floor):")
+    print(state_table.head(10).to_string(index=False))
+    print(f"\nSaved: {RESULTS_REV / 'stranded_by_state.csv'}")
+
+    # ------------------------------------------------------------------
+    # TASK 5: Summary document
+    # ------------------------------------------------------------------
