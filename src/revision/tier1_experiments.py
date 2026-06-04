@@ -428,3 +428,5 @@ print(f"Experiments run: {n_exp}")
 for k in sorted(out.keys()):
     v = out[k]
     if isinstance(v, dict) and "note" in v:
+        print(f"\n[{k}]")
+        print(f"  -> {v['note'][:140]}...")
