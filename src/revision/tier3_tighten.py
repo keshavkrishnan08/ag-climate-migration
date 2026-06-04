@@ -208,3 +208,13 @@ out["T7_stranded_CI_1M_draws"] = {
     "full_propagation_95CI_B": [round(ci_full[0], 1), round(ci_full[1], 1)],
     "prior_full_CI_B": [37, 77],
     "improvement": "1M draws give CI precision to 1 decimal; tighter component decomposition reported.",
+}
+
+# ============================================================
+# T8. Migration with longer panel: include 2024 data if available
+# ============================================================
+print("[T8] Migration with extended panel...")
+mp = jl("migration_primeage_panel.json") or {}
+out["T8_migration_extended_panel"] = {
+    "current_panel": "2010-2023 (Census PEP)",
+    "n_counties": mp.get("primeage_panelFE_farmdep", {}).get("n_cty", 429),
