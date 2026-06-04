@@ -928,3 +928,13 @@ Full table: `results/revision/stranded_by_state.csv`
 {methods_text}
 
 ---
+
+## Reviewer Response Note
+
+> "The projected crop price Pt is unjustified; ag commodity prices are roughly FLAT
+> in real terms over 30 years (USDA 2024a). Using current near-peak nominal prices
+> biases stranded value upward."
+
+**Response:** We agree. We replace the original nominal prices with 30-year (1994–2023)
+inflation-adjusted marketing-year average prices from USDA NASS QuickStats, deflated
+to 2023 USD. Prices are held flat in real terms, consistent with USDA (2024a). This
