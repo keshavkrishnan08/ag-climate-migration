@@ -738,3 +738,13 @@ def main():
     # --- Upper: ML + SR + 1.30x indirect, r=2.5%, h=40yr, SSP5-8.5 ---
     print("\nUpper (ML+SR+1.30x+SSP5-8.5, r=2.5%, h=40yr)...")
     upper = compute_stranded_with_damage_function(
+        yield_proj, climate_proj, land_values, commodity_prices_real,
+        discount_rate=0.025, horizon=40, scenario="SSP585_synthetic",
+        ssp585_scale=SSP585_SCALE, indirect_multiplier=INDIRECT_MULTIPLIER,
+    )
+    pos_upper = upper[upper["stranded_value_total"] > 0]
+    total_upper_B = pos_upper["stranded_value_total"].sum() / 1e9
+    print(f"  Counties stranded: {len(pos_upper)}")
+    print(f"  Total stranded:    ${total_upper_B:.1f}B  (old: $140B)")
+
+    # Sensitivity grid
