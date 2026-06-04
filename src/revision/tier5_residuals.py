@@ -158,3 +158,13 @@ mig_betas = {
     ("5yr", "high_intensity_tercile"): {"beta": 0.132, "se": 0.063},
 }
 ci_table = {}
+for (h, i), v in mig_betas.items():
+    b, s = v["beta"], v["se"]
+    ci_table[f"{h}_{i}"] = {
+        "beta": b, "se": s,
+        "90CI": [round(b - 1.645 * s, 4), round(b + 1.645 * s, 4)],
+        "95CI": [round(b - 1.96 * s, 4), round(b + 1.96 * s, 4)],
+        "99CI": [round(b - 2.576 * s, 4), round(b + 2.576 * s, 4)],
+    }
+out["R5_migration_CI_table"] = ci_table
+
