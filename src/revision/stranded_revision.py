@@ -938,3 +938,13 @@ Full table: `results/revision/stranded_by_state.csv`
 **Response:** We agree. We replace the original nominal prices with 30-year (1994–2023)
 inflation-adjusted marketing-year average prices from USDA NASS QuickStats, deflated
 to 2023 USD. Prices are held flat in real terms, consistent with USDA (2024a). This
+reduces the conservative/central/upper estimates by approximately
+{abs(100*(total_cons_B-56)/56):.0f}%/{abs(100*(total_cent_B-105)/105):.0f}%/{abs(100*(total_upper_B-140)/140):.0f}% respectively, while preserving the qualitative finding that
+concentrated climate losses create material stranded-value risk in the Corn Belt,
+Southern Plains, and Mississippi Delta.
+
+> "Where yields fall so far that cropping is no longer economically viable, account
+> for the alternate-use value..."
+
+**Response:** We add an explicit alternate-use floor. Where late-period (2040–2050)
+projected revenue per acre falls below variable production costs ($350/acre), the
