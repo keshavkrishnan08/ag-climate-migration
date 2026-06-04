@@ -178,3 +178,13 @@ out["T5_yield_acreage_weighted_spearman"] = {
 # ============================================================
 # T6. Common-cause Bonferroni adjustment + larger sample
 # ============================================================
+print("[T6] Common-cause Bonferroni...")
+# 3 channels tested; Bonferroni at 3 tests
+raw_p = {"insurance_EDD": 0.000256, "decline_July_Tmax": 0.000678, "opportunity_GDD": 0.004685}
+bonf = {k: min(1, v * 3) for k, v in raw_p.items()}
+out["T6_common_cause_bonferroni"] = {
+    "raw_p": raw_p,
+    "bonferroni_adjusted_p": {k: round(v, 4) for k, v in bonf.items()},
+    "all_significant_after_bonferroni_5pct": all(v < 0.05 for v in bonf.values()),
+    "improvement": "All three channels remain significant at p<0.05 after Bonferroni adjustment for 3 tests.",
+}
