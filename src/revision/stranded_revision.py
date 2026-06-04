@@ -898,3 +898,13 @@ Source for pasture floor: USDA NASS Land Values 2023 Summary (August 2023),
 national average pasture land = $1,480/acre (rounded to $1,500).
 Conceptual basis: Csikos & Toth (2023), who show alternate-use (grazing/recreation)
 values typically represent 30–50% of cropland values in transitioning counties.
+
+| Metric                                        | Value         |
+|-----------------------------------------------|---------------|
+| Counties with ≥1 non-viable crop (2040–2050)  | {n_non_viable:,}          |
+| Counties where floor was binding              | {n_floor_applied:,}          |
+| Gross central stranded (before floor)         | ${gross_B:.1f}B         |
+| Net central stranded (after floor)            | ${floored_B:.1f}B         |
+| Reduction from alternate-use floor            | ${floor_reduction_B:.1f}B ({100*floor_reduction_B/gross_B:.1f}%) |
+
+Detailed county data: `results/revision/stranded_central_floored.parquet`
