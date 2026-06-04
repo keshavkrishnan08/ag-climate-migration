@@ -598,3 +598,13 @@ def sensitivity_grid_real(
 # ---------------------------------------------------------------------------
 
 def build_state_table(county_df: pd.DataFrame) -> pd.DataFrame:
+    """Aggregate county stranded values to state level.
+
+    Derives state FIPS from the first 2 characters of the 5-digit county FIPS.
+
+    Args:
+        county_df: County-level stranded value DataFrame (post-floor).
+
+    Returns:
+        DataFrame with state-level statistics, sorted by total_stranded_B descending.
+    """
