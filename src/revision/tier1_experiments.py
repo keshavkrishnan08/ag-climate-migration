@@ -418,3 +418,13 @@ out["E30_common_cause_metric_robustness"] = {
     "honest_disclosure": ("3 of 4 channels significant under their channel-relevant thermal metric "
                           "(insurance: Delta-EDD; decline: July T_max; opportunity: GDD). Single "
                           "common factor explains 35% of joint variance, modestly above the 33% "
+                          "independence baseline. Unification is institutional, not statistical."),
+}
+
+json.dump(out, open(OUT / "tier1_experiments.json", "w"), indent=2, default=str)
+print("=== TIER-1 EXPERIMENT BATTERY — summary ===")
+n_exp = len(out)
+print(f"Experiments run: {n_exp}")
+for k in sorted(out.keys()):
+    v = out[k]
+    if isinstance(v, dict) and "note" in v:
