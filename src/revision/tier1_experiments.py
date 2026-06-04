@@ -338,3 +338,13 @@ out["E22_insurance_SCO_ECO_joint"] = {
 # From sensitivity grid: r=2% -> $119B, r=8% -> $27B (already in SI grid).
 out["E23_discount_rate_Giglio"] = {
     "r_grid_values_B": {"r=2%": 119, "r=3%": 90, "r=4%": 61, "r=5%": 44, "r=6%": 33, "r=7%": 27, "r=8%": 21},
+    "Giglio_range_central_B": "[$44, $119]B (r in 2-5%)",
+    "headline_used_r": "4% (central)",
+    "note": ("Across Giglio (2021) long-run environmental discount range r in [2%, 5%], "
+             "the central DCF spans $44-$119B. Headline uses r=4%."),
+}
+
+# ============================================================
+# E24. STRANDED MODEL-AVERAGE (ML / process / hedonic) BAYESIAN-STYLE BLEND
+# ============================================================
+ml_B = 59.3; proc_B = 13.3; hedo_B = 79.7
