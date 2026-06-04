@@ -88,3 +88,13 @@ income = antithetic(u_inc, 0.15, 0.25, "uniform")
 hh = antithetic(u_hh, 2.2, 2.6, "uniform")
 pc = antithetic(u_pc, 70_000, 75_000, "uniform")
 mult = antithetic(u_m, 1.6, 1.8, "uniform")
+disc = antithetic(u_r, 0.03, 0.05, "uniform")
+H = 26; t = np.arange(1, H + 1)
+D = beta * income * 1_130_330
+ann = D * hh * pc * mult
+# Vectorized NPV
+r_grid = np.linspace(0.03, 0.05, 200)
+phi = np.array([((t / H) / (1 + r) ** t).sum() for r in r_grid])
+r_idx = np.clip(((disc - 0.03) / 0.02 * (len(r_grid) - 1)).astype(int), 0, len(r_grid) - 1)
+npv = ann * phi[r_idx] / 1e9
+m, p5, p95 = float(np.median(npv)), float(np.percentile(npv, 5)), float(np.percentile(npv, 95))
