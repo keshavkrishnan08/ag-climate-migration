@@ -68,3 +68,13 @@ out["R1_insurance_premium_GE"] = {
     "note": ("The rolling-window absorption IS the rate-adjustment mechanism. GE/PE distinction "
              "is largely captured by the rolling-APH simulation; the $3.7B residual is the "
              "average over the 26-year window during which rates lag. Steady-state full GE = 0."),
+}
+
+# ============================================================
+# R2. MIGRATION: treatment realigned to instrument's yield-shock content
+# ============================================================
+print("[R2] Migration treatment realignment...")
+# Original treatment: 3-yr MA farm-income deviation (revenue with fixed crop prices)
+# Concern: national price shocks enter revenue but are not in the instrument (leave-one-out)
+# Fix: reconstruct treatment as 3-yr MA yield-driven income (national prices held fixed)
+# This is equivalent to what the script already does (fixed_price treatment).
