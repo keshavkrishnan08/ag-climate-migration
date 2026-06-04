@@ -128,3 +128,13 @@ ratio = farmdep_beta / nonfarm_beta if nonfarm_beta != 0 else float("inf")
 # Effect on a 1-SD instrument shock: convert reduced-form beta to per-1SD-shock effect
 # (here scales are in raw beta units; the ratio is what matters)
 out["E3_E4_migration_falsification_and_effect_size"] = {
+    "farm_dep_prime_age_beta": round(farmdep_beta, 5),
+    "farm_dep_n_counties": primeage["primeage_panelFE_farmdep"]["n_cty"],
+    "non_farm_reduced_form_beta": round(nonfarm_beta, 6),
+    "non_farm_reduced_form_p": round(nonfarm_p, 4),
+    "non_farm_n": nonfarm_n,
+    "effect_size_ratio_farmdep_over_nonfarm": round(ratio, 1),
+    "note": ("The non-farm reduced-form coefficient (beta=%.5f) is %.0f x SMALLER in magnitude "
+             "than the farm-dependent prime-age headline (beta=%.4f). Its statistical "
+             "significance (p=%.4f) reflects the large non-farm sample (n=%d); the magnitude "
+             "is economically negligible. The farm-dependent population is where the channel "
