@@ -678,3 +678,13 @@ def main():
     }
     print("\nOld (nominal peak) vs new (30-yr real avg) prices:")
     for crop in sorted(commodity_prices_real):
+        old = old_prices.get(crop, "N/A")
+        new = commodity_prices_real[crop]
+        pct = ((new - old) / old * 100) if isinstance(old, float) else float("nan")
+        print(f"  {crop:15s}: old=${old:.2f}  new=${new:.2f}  change={pct:+.1f}%")
+
+    # ------------------------------------------------------------------
+    # Load data
+    # ------------------------------------------------------------------
+    print("\nLoading yield projections and land values...")
+    yield_proj = pd.read_parquet(PROJECTIONS_DIR / "yield_projections_SSP245.parquet")
