@@ -558,3 +558,13 @@ def sensitivity_grid_real(
     land_values: pd.DataFrame,
     commodity_prices: dict,
     scenario: str = "SSP245",
+) -> pd.DataFrame:
+    """Stranded value sensitivity grid (discount 2-8% × horizon 20-40yr) using real prices.
+
+    Args:
+        yield_proj: Yield projections.
+        land_values: Land value data.
+        commodity_prices: dict mapping crop -> real price $/bu.
+        scenario: Scenario label.
+
+    Returns:
