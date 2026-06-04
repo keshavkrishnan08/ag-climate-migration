@@ -278,3 +278,13 @@ rng = np.random.default_rng(42)
 income_decline_proj = rng.normal(0.15, 0.04, N_DRAW)
 income_decline_proj = np.clip(income_decline_proj, 0.05, 0.30)
 beta = rng.normal(0.0491, 0.0149, N_DRAW); beta = np.clip(beta, 0, None)
+household = rng.uniform(2.2, 2.6, N_DRAW)
+per_capita = rng.uniform(70_000, 75_000, N_DRAW)
+mult = rng.uniform(1.6, 1.8, N_DRAW)
+disc = rng.uniform(0.03, 0.05, N_DRAW)
+t = np.arange(1, H + 1)
+D = beta * income_decline_proj * PRIME_AGE_BASE
+ann_out = D * household * per_capita * mult
+npv = np.array([(ann_out[i] * (t / H) / (1 + disc[i]) ** t).sum() for i in range(N_DRAW)]) / 1e9
+median, p5, p95 = np.percentile(npv, [50, 5, 95])
+out["E19_depop_projected_income_path"] = {
