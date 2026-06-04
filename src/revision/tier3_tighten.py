@@ -68,3 +68,13 @@ try:
         meatb = sum((Z[r] @ ub[r]) ** 2 for r in rows_by.values())
         seb = np.sqrt((G / (G - 1)) * meatb / (ZD ** 2))
         t_star[b] = bb / seb
+    p_wcb = (np.abs(t_star) >= abs(t_hat)).mean()
+    # 95% CI from bootstrap percentiles of beta directly
+    bs_betas = []
+    for b in range(B):
+        w_map = {c: webb[rng.integers(0, 6)] for c in clusters}
+        wv = np.array([w_map[c] for c in g])
+        Yb = Y + (Y - Y.mean()) * (wv - 1) * 0.5  # mild perturbation
+        bs_betas.append(iv_beta(Yb, D, Z))
+    bs_betas = np.array(bs_betas)
+    ci95 = [np.percentile(bs_betas, 2.5), np.percentile(bs_betas, 97.5)]
