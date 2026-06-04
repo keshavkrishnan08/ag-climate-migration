@@ -458,3 +458,13 @@ PASTURE_VALUE_PER_ACRE = 1500.0
 # Source: USDA NASS Land Values 2023 Summary (August 2023).
 # National average pasture land value = $1,480/acre; we use $1,500 as a round
 # figure consistent with published NASS state-level aggregates.
+# Reference: Csikos & Toth (2023) show alternate-use (grazing/recreation) values
+# typically 30-50% of cropland values in transition counties.
+
+PRODUCTION_COST_PER_ACRE = 350.0
+# Average variable production cost (seed, fertiliser, chemicals, fuel).
+# Source: USDA ERS Cost of Production surveys 2020-2023, national median ~$330-370/acre.
+# A county-crop observation is "no longer viable" when expected gross revenue per
+# acre < PRODUCTION_COST_PER_ACRE, i.e. net return < 0.
+
+
