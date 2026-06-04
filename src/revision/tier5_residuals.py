@@ -168,3 +168,13 @@ for (h, i), v in mig_betas.items():
     }
 out["R5_migration_CI_table"] = ci_table
 
+# ============================================================
+# R6. STRANDED 5x5x5 sensitivity grid (discount, horizon, indirect)
+# ============================================================
+print("[R6] Stranded 3D sensitivity grid...")
+r_grid = [0.025, 0.03, 0.04, 0.05, 0.06]
+H_grid = [25, 30, 35, 40, 45]
+ind_grid = [1.0, 1.10, 1.20, 1.30, 1.40]
+# Stranded value scales as: base * discount_factor * indirect_multiplier
+# discount_factor(r, H) = sum_t (1+r)^-t for t in 1..H, divided by ref
+ref_disc = sum((1 + 0.04) ** -t for t in range(1, 31))
