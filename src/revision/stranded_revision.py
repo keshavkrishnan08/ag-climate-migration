@@ -698,3 +698,13 @@ def main():
             "tmax_july_projected", "delta_tmax_july",
             "tmax_growing_projected", "delta_tmax_growing",
         ],
+    )
+    print(f"  Climate proj: {len(climate_proj):,} rows")
+
+    land_path = DATA_RAW / "nass" / "nass_land_values.parquet"
+    land_values = pd.read_parquet(land_path) if land_path.exists() else pd.DataFrame()
+    print(f"  Land values: {len(land_values):,} rows")
+
+    # ------------------------------------------------------------------
+    # TASK 2: Recompute stranded values with real prices
+    # ------------------------------------------------------------------
