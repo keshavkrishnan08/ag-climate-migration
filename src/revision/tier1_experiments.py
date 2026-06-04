@@ -38,3 +38,13 @@ def jl(name):
 def gj(d, *path, default=None):
     cur = d
     for k in path:
+        if cur is None: return default
+        cur = cur.get(k) if isinstance(cur, dict) else None
+    return cur if cur is not None else default
+
+# ============================================================
+# E10. MARKET-EFFICIENCY RIGOROUS MULTI-SPEC
+# ============================================================
+mr = jl("market_robustness.json") or {}
+# What we have: multiple specs of cross-section Delta-lnV ~ Delta-T_2040
+# Report ALL specs with effect size + interpretation
