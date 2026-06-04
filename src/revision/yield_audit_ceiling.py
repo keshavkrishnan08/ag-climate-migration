@@ -98,3 +98,13 @@ def main():
         cm = tp["crop"] == c
         if cm.sum() > 30:
             cr2, csp = r2_sp(tp.loc[cm, "yield_anomaly"].values, tp.loc[cm, "pred"].values)
+            per[c] = {"r2": cr2, "spearman": csp, "n_test": int(cm.sum())}
+    print(f"[BEST pooled, drought+soil feats] anomaly R2={r2:.4f} Spearman={sp:.4f}")
+    print("per-crop anomaly R2:", {k: round(v["r2"], 3) for k, v in per.items()})
+
+    levels = per_crop_levels(panel, pred, te, panel)
+    print("per-crop LEVELS R2:", {k: round(v, 3) for k, v in levels.items()})
+    levels_vals = sorted(levels.values())
+    med_levels = float(np.median(levels_vals))
+
+    # ---- learning curve: vary first training year (data volume) ----
