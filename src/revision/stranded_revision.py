@@ -368,3 +368,13 @@ def compute_stranded_with_damage_function(
     ) * 5.0 / 9.0
 
     def edd(tmax_july, tmax_growing, threshold=SR_THRESHOLD_MODERATE):
+        return (
+            np.maximum(0.0, tmax_july - threshold) * 31
+            + np.maximum(0.0, tmax_growing - threshold) * 60
+        )
+
+    cp["edd_projected"] = edd(cp["tmax_july_C"].values, cp["tmax_growing_C"].values)
+    cp["edd_baseline"] = edd(
+        cp["tmax_july_baseline_C"].values, cp["tmax_growing_baseline_C"].values
+    )
+    cp["delta_edd"] = (cp["edd_projected"] - cp["edd_baseline"]).clip(lower=0)
