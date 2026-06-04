@@ -868,3 +868,13 @@ Saved to: `results/revision/real_prices_2023usd.csv`
 ## 2. Old vs New National Stranded Totals
 
 | Specification   | Old estimate | New estimate (real prices) | Change     |
+|-----------------|--------------|----------------------------|------------|
+| Conservative    | $56B         | ${total_cons_B:.1f}B                     | {100*(total_cons_B-56)/56:+.1f}%      |
+| Central         | $105B        | ${total_cent_B:.1f}B                    | {100*(total_cent_B-105)/105:+.1f}%      |
+| Upper           | $140B        | ${total_upper_B:.1f}B                    | {100*(total_upper_B-140)/140:+.1f}%      |
+
+**Specifications:**
+- Conservative: ML climate impact only, SSP2-4.5, r=4%, h=30yr
+- Central: ML + Schlenker-Roberts EDD + 1.30× indirect multiplier, SSP2-4.5, r=3%, h=35yr
+- Upper: ML + SR + 1.30× indirect, SSP5-8.5 (×1.8 warming), r=2.5%, h=40yr
+
