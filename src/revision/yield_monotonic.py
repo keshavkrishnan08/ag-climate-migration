@@ -128,3 +128,13 @@ def main():
 
     # ---- detrended SD per county-crop (z -> bu) ----
     sd_rows = []
+    for (f, c), d in panel.groupby(["fips", "crop"]):
+        if len(d) >= 8:
+            a, b = np.polyfit(d["year"], d["yield_bu_acre"], 1)
+            sd_rows.append((f, c, np.std(d["yield_bu_acre"] - (a * d["year"] + b))))
+    sd = pd.DataFrame(sd_rows, columns=["fips", "crop", "sd"])
+
+    # ---- representative feature row per county-crop (most recent obs) ----
+    rep = panel.sort_values("year").groupby(["fips", "crop"]).tail(1).copy()
+    # county climatology of each climate feature (historical mean)
+    clim_mean = panel.groupby("fips")[list(CLIM)].mean().reset_index()
