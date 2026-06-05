@@ -108,3 +108,8 @@ def main():
     pdf = trend_pct(panel)
     dev = run(pdf, "dev_pct", clim + extra, "PCTDEV+irr")
     json.dump({"levels": lev, "pct_dev": dev, "irrigation_feature": True},
+              open(OUT / "yield_irr_final.json", "w"), indent=2)
+
+
+if __name__ == "__main__":
+    main()
