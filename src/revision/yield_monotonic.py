@@ -178,3 +178,13 @@ def main():
             df["b_tmaxgrow"] = tmx_b.mean(1); df["p_tmaxgrow"] = tmx_p.mean(1)
             pb = np.array([mb[f"precip_m{mm}"].loc[idx].values for mm in GROW]).sum(0)
             df["b_precipgrow"] = pb; df["p_precipgrow"] = pb * (1 + dpr / np.maximum(pb, 1))
+            df["b_precipjul"] = mb["precip_m07"].loc[idx].values
+            df["p_precipjul"] = df["b_precipjul"] * (1 + dpr / np.maximum(pb, 1))
+            pdsi_b = -mb[[f"pdsi_m{mm}" for mm in GROW]].min(1).loc[idx].values
+            df["b_sm_stress"] = pdsi_b
+            df["p_sm_stress"] = pdsi_b + np.maximum(-dpr / 25.0, 0) + np.maximum(dtj, 0) * 0.1
+            recs.append(df)
+        P = pd.concat(recs, ignore_index=True)
+        P = P.merge(clim_mean, on="fips", how="left")
+        # predict per crop using representative non-climate row (crop dummy only)
+        impacts = []
