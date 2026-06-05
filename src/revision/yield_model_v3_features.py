@@ -38,3 +38,13 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import Ridge
 from sklearn.preprocessing import StandardScaler
 
+ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "src"))
+DATA_PROCESSED = ROOT / "data" / "processed"
+DATA_RAW = ROOT / "data" / "raw"
+OUT = ROOT / "results" / "revision"
+OUT.mkdir(parents=True, exist_ok=True)
+
+SEED = 42
+GROW_MONTHS = [f"{m:02d}" for m in range(4, 10)]   # Apr-Sep
+
