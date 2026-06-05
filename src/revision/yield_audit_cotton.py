@@ -128,3 +128,6 @@ def main():
     json.dump(out, open(OUT / "audit_yield_cotton.json", "w"), indent=2)
     print("saved audit_yield_cotton.json")
 
+
+if __name__ == "__main__":
+    main()
