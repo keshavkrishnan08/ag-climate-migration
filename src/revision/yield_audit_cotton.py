@@ -88,3 +88,13 @@ def main():
     cot_te = cot[te].reset_index(drop=True).copy()
     cot_te["pred"] = pred
     rmask = cot_te["fips"].isin(rainfed_fips)
+    imask = cot_te["fips"].isin(irrig_fips)
+    r2_r, sp_r = r2_sp(cot_te.loc[rmask, "yield_anomaly"].values, cot_te.loc[rmask, "pred"].values)
+    r2_i, sp_i = r2_sp(cot_te.loc[imask, "yield_anomaly"].values, cot_te.loc[imask, "pred"].values)
+    print(f"[rainfed cotton  (high yield-PDSI coupling)] R2={r2_r:.4f} rho={sp_r:.4f} n={int(rmask.sum())}")
+    print(f"[irrigated cotton (low  yield-PDSI coupling)] R2={r2_i:.4f} rho={sp_i:.4f} n={int(imask.sum())}")
+    print(f"median train yield-PDSI coupling: rainfed={coup[coup>=thr].mean():.3f} irrig={coup[coup<thr].mean():.3f}")
+
+    # --- rainfed-only model (train + test restricted to rainfed counties) ---
+    rf_tr = tr & cot["fips"].isin(rainfed_fips).values
+    rf_te = te & cot["fips"].isin(rainfed_fips).values
