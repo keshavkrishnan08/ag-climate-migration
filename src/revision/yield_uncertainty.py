@@ -58,3 +58,13 @@ def levels_hindcast_r2():
         sub = res[(res["fips"] == fips) & (res["crop"] == crop)]
         if sub.empty:
             continue
+        trend = a * sub["year"].values + b
+        pl = trend + sub["pred"].values * detr_sd
+        ol = (fm[(fm["fips"] == fips) & (fm["crop"] == crop)]
+              .set_index("year").reindex(sub["year"].values)["yield_bu_acre"].values)
+        m = np.isfinite(ol) & np.isfinite(pl)
+        obs_level.extend(ol[m]); pred_level.extend(pl[m]); crops.extend([crop] * m.sum())
+
+    o = np.array(obs_level); p = np.array(pred_level); c = np.array(crops)
+    def r2(o, p):
+        return float(1 - np.sum((o - p) ** 2) / np.sum((o - o.mean()) ** 2))
