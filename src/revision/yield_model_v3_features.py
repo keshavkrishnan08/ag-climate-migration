@@ -78,3 +78,13 @@ def build_modern_features():
 
     # EDD above 30 C, month-by-month sinusoid approx between tmin and tmax.
     # For a within-month diurnal sinusoid with min=tmin,max=tmax, the mean daily
+    # degree-days above threshold T0 has a closed form; we approximate with a
+    # 24-point quadrature per month and scale by ~30 days.
+    thr = 30.0
+    edd = np.zeros(len(m))
+    hot = np.zeros(len(m))
+    phase = np.linspace(0, np.pi, 24)
+    for mm in GROW_MONTHS:
+        tmn = m[f"tminc_{mm}"].values
+        tmx = m[f"tmaxc_{mm}"].values
+        mid = (tmx + tmn) / 2.0
