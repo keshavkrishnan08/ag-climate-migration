@@ -88,3 +88,13 @@ def main():
 
     summary = {}
     for name, (feats, tgt) in cells.items():
+        zo, zp, po, pp = [], [], [], []   # accumulate on both yardsticks
+        per = {}
+        for crop in sorted(panel["crop"].unique()):
+            d = panel[(panel["crop"] == crop) & panel[tgt].notna()
+                      & panel["z_anom"].notna() & panel["dev_pct"].notna()].copy()
+            tr = d["year"] <= 2012; te = (d["year"] > 2012) & (d["year"] <= 2023)
+            if tr.sum() < 500 or te.sum() < 100:
+                continue
+            X = d[feats].fillna(0)
+            m = lgb.LGBMRegressor(**COMMON); m.fit(X[tr], d.loc[tr, tgt])
