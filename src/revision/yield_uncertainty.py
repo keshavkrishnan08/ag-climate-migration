@@ -38,3 +38,13 @@ def levels_hindcast_r2():
     predicted_level = linear technology trend (fit on years <= 2012) extrapolated
     to the test year + predicted anomaly * detrended SD. Compared with observed
     yields. This is the metric directly comparable to AgMIP/hybrid-ML county
+    benchmarks (which are reported on levels).
+    """
+    res = pd.read_parquet(OUT / "yield_v3_test_residuals.parquet")  # fips,crop,year,yield_anomaly,pred,resid
+    res["fips"] = res["fips"].astype(str).str.zfill(5)
+    fm = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet",
+                         columns=["fips", "year", "crop", "yield_bu_acre"])
+    fm["fips"] = fm["fips"].astype(str).str.zfill(5)
+
+    obs_level, pred_level, crops = [], [], []
+    for (fips, crop), d in fm.groupby(["fips", "crop"], sort=False):
