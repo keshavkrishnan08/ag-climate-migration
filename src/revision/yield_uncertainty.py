@@ -128,3 +128,13 @@ def dcf_uncertainty(n_draws=500):
                     shock = np.random.normal(0, resid_sd_z) * 0.7  # regional common z-shock
                     d[sidx[s]] = d[sidx[s]] + shock * sc[sidx[s]]
             if gcm:
+                d = d + np.random.normal(0, 1, len(d)) * sd_gcm
+            out.append(total(d))
+        a = np.array(out)
+        return [float(np.percentile(a, 2.5)), float(np.percentile(a, 97.5))]
+
+    return {"point_estimate_B": pe,
+            "ci_idiosyncratic_only": run(True, False, False),
+            "ci_plus_spatial": run(True, True, False),
+            "ci_full_idio_spatial_gcm": run(True, True, True),
+            "resid_sd_z": resid_sd_z, "n_draws": n_draws}
