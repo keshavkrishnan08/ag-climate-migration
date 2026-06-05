@@ -48,3 +48,13 @@ def levels_hindcast_r2():
 
     obs_level, pred_level, crops = [], [], []
     for (fips, crop), d in fm.groupby(["fips", "crop"], sort=False):
+        train = d[(d["year"] <= 2012) & (d["yield_bu_acre"] > 0)]
+        if len(train) < 8:
+            continue
+        a, b = np.polyfit(train["year"], train["yield_bu_acre"], 1)
+        detr_sd = np.std(train["yield_bu_acre"] - (a * train["year"] + b))
+        if detr_sd <= 0:
+            continue
+        sub = res[(res["fips"] == fips) & (res["crop"] == crop)]
+        if sub.empty:
+            continue
