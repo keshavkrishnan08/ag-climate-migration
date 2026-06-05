@@ -48,3 +48,13 @@ def heat_features_from_monthly(tmax_c, tmin_c):
         dd30 = np.zeros(n); dd34 = np.zeros(n)
         for p in PHASE:
             temp = mid[:, j] + amp[:, j] * np.sin(p - np.pi / 2)
+            dd30 += np.maximum(temp - 30, 0); dd34 += np.maximum(temp - 34, 0)
+        edd += dd30 / len(PHASE) * 30; kdd += dd34 / len(PHASE) * 30
+        hot += (tmax_c[:, j] > 30).astype(float)
+    vpd = (es(tmax_c) - es(tmin_c)).clip(min=0).mean(axis=1)
+    vpd_jul = (es(tmax_c[:, 3]) - es(tmin_c[:, 3])).clip(min=0)   # July = index 3 (Apr=0)
+    dtr = (tmax_c - tmin_c).mean(axis=1)
+    return {"edd30": edd, "kdd34": kdd, "heat_days": hot, "vpd_grow": vpd,
+            "vpd_jul": vpd_jul, "dtr": dtr}
+
+
