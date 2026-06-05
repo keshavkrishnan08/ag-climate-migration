@@ -48,3 +48,13 @@ GROW = [f"{m:02d}" for m in range(4, 10)]   # Apr-Sep
 
 
 def drought_trajectory_features():
+    """Engineer drought timing / persistence / shape features from monthly PDSI.
+
+    Returns:
+        DataFrame [fips, year, <drought-shape feature columns>].
+    """
+    m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet")
+    m["fips"] = m["fips"].astype(str).str.zfill(5)
+
+    pdsi = np.column_stack([m[f"pdsi_m{mm}"].values for mm in GROW])   # (n, 6) Apr..Sep
+    precip = np.column_stack([m[f"precip_m{mm}"].values for mm in GROW])
