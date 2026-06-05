@@ -138,3 +138,13 @@ def main():
     r2_m, sp_m = metrics(y[te].values, mlp_te)
     out["tree_huber"] = {"r2": r2_t, "spearman": sp_t,
                          "per_crop": per_crop(panel[te], tree_te)}
+    out["mlp_sequence"] = {"r2": r2_m, "spearman": sp_m,
+                           "per_crop": per_crop(panel[te], mlp_te)}
+    print(f"[tree huber, tr<=2009] R2={r2_t:.4f} rho={sp_t:.4f}")
+    print(f"[mlp sequence]         R2={r2_m:.4f} rho={sp_m:.4f}")
+
+    # NNLS stack on the 2010-2012 blend window
+    P_bl = np.column_stack([tree_bl, mlp_bl])
+    w, _ = nnls(P_bl, y[bl].values)
+    if w.sum() <= 0:
+        w = np.array([1.0, 0.0])
