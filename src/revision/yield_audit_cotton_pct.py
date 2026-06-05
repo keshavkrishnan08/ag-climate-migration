@@ -78,3 +78,13 @@ def main():
     for fips, g in train_cot.groupby("fips"):
         if len(g) >= 8 and g["pdsi_mean"].std() > 0 and g["dev_pct"].std() > 0:
             coup[fips] = np.corrcoef(g["dev_pct"], g["pdsi_mean"])[0, 1]
+    coup = pd.Series(coup)
+    thr = coup.median()
+    rainfed = set(coup[coup >= thr].index); irrig = set(coup[coup < thr].index)
+    cot_te = cot[te].reset_index(drop=True).copy(); cot_te["pred"] = pred
+    rm = cot_te["fips"].isin(rainfed); im = cot_te["fips"].isin(irrig)
+    r2_r, sp_r = r2_sp(cot_te.loc[rm, "dev_pct"].values, cot_te.loc[rm, "pred"].values)
+    r2_i, sp_i = r2_sp(cot_te.loc[im, "dev_pct"].values, cot_te.loc[im, "pred"].values)
+    print(f"[rainfed]   R2={r2_r:.4f} rho={sp_r:.4f} n={int(rm.sum())} coupling={coup[coup>=thr].mean():.3f}")
+    print(f"[irrigated] R2={r2_i:.4f} rho={sp_i:.4f} n={int(im.sum())} coupling={coup[coup<thr].mean():.3f}")
+
