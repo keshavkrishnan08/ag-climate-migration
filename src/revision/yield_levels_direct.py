@@ -38,3 +38,13 @@ def main():
     cf = pd.DataFrame({"fips": m["fips"].values, "year": m["year"].values})
     for b in range(spec.shape[1]):
         cf[f"tbin_{b}"] = spec[:, b]
+    for mm in GROW:
+        cf[f"precip_{mm}"] = m[f"precip_m{mm}"].values
+        cf[f"pdsi_{mm}"] = m[f"pdsi_m{mm}"].values
+        tmaxc = (m[f"tmax_m{mm}"] - 32) * 5 / 9; tminc = (m[f"tmin_m{mm}"] - 32) * 5 / 9
+        cf[f"vpd_{mm}"] = (es(tmaxc) - es(tminc)).clip(lower=0).values
+    # mechanistic predictor: water-stress-adjusted growing GDD (process-based prior)
+    gdd = np.clip(((tmax + tmin) / 2) - 10, 0, 20).sum(axis=1)
+    precip_tot = m[[f"precip_m{mm}" for mm in GROW]].sum(axis=1).values
+    water_idx = np.clip(precip_tot / 400.0, 0, 1.5)            # crude moisture sufficiency
+    cf["mech_gdd_water"] = gdd * water_idx                      # mechanistic GDD x water
