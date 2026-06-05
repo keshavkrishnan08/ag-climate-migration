@@ -58,3 +58,13 @@ def main():
                 "log_population", "log_median_income"])
     feats = [f for f in feats if f in cot.columns]
     X = cot[feats].fillna(0); y = cot["dev_pct"]
+    yr = cot["year"].values
+    tr = yr <= 2012; te = (yr > 2012) & (yr <= 2023)
+
+    m = lgb.LGBMRegressor(objective="regression", n_estimators=1500,
+                          learning_rate=0.02, max_depth=6, num_leaves=63,
+                          min_child_samples=40, subsample=0.8, colsample_bytree=0.8,
+                          reg_alpha=0.1, reg_lambda=1.0, random_state=SEED, verbose=-1)
+    m.fit(X[tr], y[tr]); pred = m.predict(X[te])
+    r2_all, sp_all = r2_sp(y[te].values, pred)
+    print(f"[cotton-only, %-dev, drought+soil] R2={r2_all:.4f} Spearman={sp_all:.4f} "
