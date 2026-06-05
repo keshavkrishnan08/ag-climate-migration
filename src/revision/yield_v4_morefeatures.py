@@ -48,3 +48,13 @@ def extra_features():
     m["vpd_aug"] = (es_kpa(m["tmaxc_08"]) - es_kpa(m["tminc_08"])).clip(lower=0)
     return m[["fips", "year", "kdd34_growing", "dtr_growing", "precip_jul",
               "precip_aug", "vpd_aug"]].copy()
+
+
+def main():
+    panel = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet")
+    panel["fips"] = panel["fips"].astype(str).str.zfill(5)
+    panel = add_county_anomalies(panel, build_modern_features())
+    ex = extra_features()
+    panel = panel.merge(ex, on=["fips", "year"], how="left")
+    for c in ["kdd34_growing", "dtr_growing", "precip_jul", "precip_aug", "vpd_aug"]:
+        panel[f"{c}_anom"] = panel[c] - panel.groupby("fips")[c].transform("mean")
