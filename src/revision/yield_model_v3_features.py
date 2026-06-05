@@ -128,3 +128,13 @@ def metrics(y, p, label=""):
     r2 = 1 - ss_res / ss_tot
     sp = stats.spearmanr(y, p).correlation
     return {"label": label, "r2": float(r2), "spearman": float(sp),
+            "rmse": float(np.sqrt(np.mean((y - p) ** 2))), "n": int(len(y))}
+
+
+def get_features(df, extra):
+    exclude = {"fips", "year", "crop", "yield_bu_acre", "yield_anomaly",
+               "acres_harvested", "production"}
+    base = [c for c in df.columns if c not in exclude
+            and df[c].dtype.kind in "fi" and not df[c].isna().all()]
+    return sorted(set(base) | set(extra))
+
