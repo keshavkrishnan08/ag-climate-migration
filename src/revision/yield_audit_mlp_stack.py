@@ -58,3 +58,13 @@ def monthly_sequence_features():
 
 
 def metrics(y, p):
+    y = np.asarray(y); p = np.asarray(p)
+    r2 = 1 - np.sum((y - p) ** 2) / np.sum((y - y.mean()) ** 2)
+    return float(r2), float(stats.spearmanr(y, p).correlation)
+
+
+def per_crop(panel_te, pred):
+    tp = panel_te.reset_index(drop=True).copy(); tp["pred"] = pred
+    out = {}
+    for c in sorted(tp["crop"].unique()):
+        cm = tp["crop"] == c
