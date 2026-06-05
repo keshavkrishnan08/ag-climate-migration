@@ -108,3 +108,13 @@ def dcf_uncertainty(n_draws=500):
     states = yp["state"].values
     uniq_states = np.unique(states)
     sidx = {s: np.where(states == s)[0] for s in uniq_states}
+    px = (yp["price"] * yp["acres_harvested"] * yp["disc"]).values
+    impact = yp["climate_impact_bu"].values
+    sd_gcm = yp["impact_sd_gcm"].fillna(0).values
+    sc = yp["yield_scale"].values
+
+    def total(impact_draw):
+        v = -(impact_draw * px)
+        return v[v > 0].sum() / 1e9
+
+    def run(idio, spatial, gcm):
