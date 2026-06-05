@@ -58,3 +58,13 @@ def drought_trajectory_features():
 
     pdsi = np.column_stack([m[f"pdsi_m{mm}"].values for mm in GROW])   # (n, 6) Apr..Sep
     precip = np.column_stack([m[f"precip_m{mm}"].values for mm in GROW])
+    n, k = pdsi.shape
+    months_idx = np.arange(k)
+
+    # 1. longest consecutive run of PDSI < -1 within the growing season
+    def longest_run(mask):
+        out = np.zeros(mask.shape[0])
+        cur = np.zeros(mask.shape[0])
+        for j in range(mask.shape[1]):
+            cur = np.where(mask[:, j], cur + 1, 0)
+            out = np.maximum(out, cur)
