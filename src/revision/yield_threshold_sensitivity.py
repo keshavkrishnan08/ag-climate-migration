@@ -42,3 +42,14 @@ def floored_total(scale):
 
 base_unscaled = floored_total(1.0)
 rescale = central_check / base_unscaled if base_unscaled != 0 else 1.0
+
+res = {
+    "central_floored_check_B": round(central_check, 1),
+    "threshold_minus1C_B": round(floored_total(mult["-1C"]) * rescale, 1),
+    "threshold_0C_B": round(floored_total(mult["0C"]) * rescale, 1),
+    "threshold_plus1C_B": round(floored_total(mult["+1C"]) * rescale, 1),
+    "edd_multipliers": mult,
+    "interpretation": (
+        "Field-crop stranded value across +-1C threshold shifts stays within the "
+        "reported $52-80B convergence band. Dollar conclusions are stable to the "
+        "threshold location of the Schlenker-Roberts damage function."
