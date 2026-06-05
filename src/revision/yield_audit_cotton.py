@@ -98,3 +98,13 @@ def main():
     # --- rainfed-only model (train + test restricted to rainfed counties) ---
     rf_tr = tr & cot["fips"].isin(rainfed_fips).values
     rf_te = te & cot["fips"].isin(rainfed_fips).values
+    m2 = lgb.LGBMRegressor(objective="regression", n_estimators=1500,
+                           learning_rate=0.02, max_depth=6, num_leaves=63,
+                           min_child_samples=30, subsample=0.8, colsample_bytree=0.8,
+                           reg_alpha=0.1, reg_lambda=1.0, random_state=SEED, verbose=-1)
+    m2.fit(X[rf_tr], y[rf_tr])
+    pred_rf = m2.predict(X[rf_te])
+    r2_rf, sp_rf = r2_sp(y[rf_te].values, pred_rf)
+    print(f"[rainfed-only model] R2={r2_rf:.4f} rho={sp_rf:.4f} n_test={int(rf_te.sum())}")
+
+    out = {
