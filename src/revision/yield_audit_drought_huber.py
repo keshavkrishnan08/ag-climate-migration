@@ -158,3 +158,13 @@ def main():
     results = {}
     # (a) MSE baseline with the new drought features (isolates feature effect)
     m_mse = lgb.LGBMRegressor(objective="regression", **common)
+    m_mse.fit(X[tr], y[tr])
+    r2, sp, per = evaluate(panel, m_mse.predict(X[te]), te)
+    results["mse_drought"] = {"r2": r2, "spearman": sp, "per_crop": per}
+    print(f"[MSE + drought feats] R2={r2:.4f} Spearman={sp:.4f}")
+
+    # (b) Huber loss with the new drought features (isolates loss effect)
+    best = None
+    for alpha in (0.9, 0.95, 0.99):
+        m_h = lgb.LGBMRegressor(objective="huber", alpha=alpha, **common)
+        m_h.fit(X[tr], y[tr])
