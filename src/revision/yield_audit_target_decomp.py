@@ -38,3 +38,13 @@ sys.path.insert(0, str(ROOT / "src" / "revision"))
 from yield_v7_spectrum import build as build_v7   # spectrum features + pct target
 
 DATA_PROCESSED = ROOT / "data" / "processed"
+OUT = ROOT / "results" / "revision"
+SEED = 42
+COMMON = dict(objective="regression", n_estimators=2000, learning_rate=0.02,
+              max_depth=8, num_leaves=127, min_child_samples=30, subsample=0.8,
+              colsample_bytree=0.8, reg_alpha=0.05, reg_lambda=0.5,
+              random_state=SEED, verbose=-1)
+
+
+def r2(y, p):
+    y = np.asarray(y, float); p = np.asarray(p, float)
