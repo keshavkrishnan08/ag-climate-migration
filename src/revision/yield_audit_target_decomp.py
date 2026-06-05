@@ -58,3 +58,13 @@ def main():
     panel = panel.sort_values(["fips", "crop", "year"])
     grp = panel.groupby(["fips", "crop"])["yield_bu_acre"]
     mu = grp.transform("mean"); sd = grp.transform("std")
+    panel["z_anom"] = ((panel["yield_bu_acre"] - mu) / sd.replace(0, np.nan))
+    panel["cc_mu"] = mu; panel["cc_sd"] = sd
+
+    # spectrum feature set (v7) and an AGGREGATE feature set (growing-season means)
+    spec_feats = ([c for c in climcols] + [f"{c}_an" for c in climcols]
+                  + ["latitude", "nccpi", "yield_trend_slope_15yr",
+                     "switching_rate_5yr", "log_population", "log_median_income"])
+    spec_feats = [f for f in spec_feats if f in panel.columns]
+    # aggregates: collapse the spectrum/precip/pdsi/vpd to season means (old-style)
+    tbins = [c for c in climcols if c.startswith("tbin_")]
