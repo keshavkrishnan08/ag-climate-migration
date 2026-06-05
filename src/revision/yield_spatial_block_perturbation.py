@@ -28,3 +28,13 @@ def state_from_fips(fips):
 
 # USDA Farm Production Regions, state FIPS -> region.
 FPR = {
+    "Northeast": {"09", "23", "25", "33", "34", "36", "42", "44", "50"},
+    "Lake_States": {"26", "27", "55"},
+    "Corn_Belt": {"17", "18", "19", "29", "39"},
+    "Northern_Plains": {"20", "31", "38", "46"},
+    "Appalachia": {"21", "37", "47", "51", "54"},
+    "Southeast": {"01", "12", "13", "45"},
+    "Delta": {"05", "22", "28"},
+    "Southern_Plains": {"40", "48"},
+    "Mountain": {"04", "08", "16", "30", "32", "35", "49", "56"},
+    "Pacific": {"06", "41", "53"},
