@@ -138,3 +138,13 @@ def get_features(df, extra):
             and df[c].dtype.kind in "fi" and not df[c].isna().all()]
     return sorted(set(base) | set(extra))
 
+
+def main():
+    panel = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet")
+    panel["fips"] = panel["fips"].astype(str).str.zfill(5)
+    feats = build_modern_features()
+    new_cols = [c for c in feats.columns if c not in ("fips", "year")]
+    new_anom = [f"{c}_anom" for c in new_cols]
+
+    # Two feature sets: BASELINE (existing matrix) vs AUGMENTED (+ modern features)
+    base_feats = get_features(panel, [])
