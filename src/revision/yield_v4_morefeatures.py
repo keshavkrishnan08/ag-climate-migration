@@ -78,3 +78,13 @@ def main():
     r2 = 1 - np.sum((yt - pred) ** 2) / np.sum((yt - yt.mean()) ** 2)
     sp = stats.spearmanr(yt, pred).correlation
     print(f"v4 LightGBM (n_features={X.shape[1]}): R2={r2:.4f} Spearman={sp:.4f}")
+
+    tp = panel[te].reset_index(drop=True); tp["pred"] = pred
+    per = {}
+    for c in sorted(tp["crop"].unique()):
+        cm = tp["crop"] == c
+        if cm.sum() > 30:
+            o = tp.loc[cm, "yield_anomaly"].values; p = tp.loc[cm, "pred"].values
+            per[c] = {"r2": float(1 - np.sum((o - p)**2)/np.sum((o-o.mean())**2)),
+                      "spearman": float(stats.spearmanr(o, p).correlation)}
+    out = {"r2": float(r2), "spearman": float(sp), "n_features": int(X.shape[1]),
