@@ -78,3 +78,13 @@ def drought_trajectory_features():
 
     # 3. cumulative water deficit: sum of (PDSI below -1), i.e. area under -1
     deficit_integral = np.maximum(-1.0 - pdsi, 0).sum(axis=1)
+
+    # 4. month index (0=Apr..5=Sep) of the driest PDSI -> drought timing
+    dry_month = pdsi.argmin(axis=1).astype(float)
+
+    # 5. early vs late season PDSI contrast (Apr-Jun mean - Jul-Sep mean);
+    #    positive => dried out late (during grain-fill, the costly window)
+    early_late = pdsi[:, :3].mean(axis=1) - pdsi[:, 3:].mean(axis=1)
+
+    # 6. longest run of below-county-normal precip (within-year proxy:
+    #    below the within-season median precip month)
