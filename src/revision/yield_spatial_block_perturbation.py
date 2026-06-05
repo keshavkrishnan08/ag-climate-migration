@@ -48,3 +48,13 @@ central_check = float(df["stranded_value_floored"].sum() / 1e9)
 
 
 def floored_total_region_perturbed(region, scale_factor):
+    sr = df["stranded_sr_additive"].copy().fillna(0.0)
+    ml = df["stranded_ml_only"].fillna(0)
+    mask = df["region"] == region
+    sr[mask] = sr[mask] * scale_factor
+    total = ml + sr
+    cap = ((df["land_value_per_acre"].fillna(0) - 1500).clip(lower=0)
+           * df["total_acres"].fillna(0))
+    has_lv = df["land_value_per_acre"].notna() & (df["land_value_per_acre"] > 0)
+    capped = total.copy()
+    bind = has_lv & (total > cap)
