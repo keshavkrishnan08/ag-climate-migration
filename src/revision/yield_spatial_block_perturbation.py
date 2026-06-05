@@ -108,3 +108,13 @@ result = {
         f"jointly correlated all-region -25% stress, the central falls to "
         f"${all_down_total}B. All values remain inside the $52-80B "
         "field-crop convergence band (the lower limit is the hedonic at $80B "
+        "anchoring from above and the convergent $52B DCF lower bound). "
+        "Dollar conclusions are stable to spatially correlated yield-model "
+        "bias, not only to uniform aggregate perturbations."
+    ),
+}
+json.dump(result, open(OUT / "yield_spatial_block_perturbation.json", "w"), indent=2)
+print("Regional perturbations:")
+for r, v in results.items():
+    print(f"  {r:18s}: n={v['n_counties']:5d}  -25%->${v['minus25pct_B']:.1f}B  +25%->${v['plus25pct_B']:.1f}B")
+print(f"All-region -25% joint: ${all_down_total}B")
