@@ -48,3 +48,13 @@ OUT.mkdir(parents=True, exist_ok=True)
 SEED = 42
 GROW_MONTHS = [f"{m:02d}" for m in range(4, 10)]   # Apr-Sep
 
+
+def es_kpa(t_c):
+    """Saturation vapour pressure (kPa) from temperature in C (FAO-56 Tetens)."""
+    return 0.6108 * np.exp(17.27 * t_c / (t_c + 237.3))
+
+
+def build_modern_features():
+    """Engineer VPD, EDD>30C, heat-day, and soil-moisture stress features.
+
+    Returns:
