@@ -138,3 +138,13 @@ def main():
         mm = lgb.LGBMRegressor(objective="regression", **COMMON)
         mm.fit(X[tr][cols], y[tr])
         rr, ss = r2_sp(y[te].values, mm.predict(X[te][cols]))
+        fc[name] = {"n_features": len(cols), "r2": rr, "spearman": ss}
+        print(f"  feature curve {name} ({len(cols)} feats): R2={rr:.4f}")
+
+    out = {"split": "train<=2012, test 2013-2023", "target": "z-scored anomaly",
+           "baseline_v4_r2": 0.2269, "baseline_v4_spearman": 0.4856,
+           "best_pooled": {"r2": r2, "spearman": sp, "n_features": int(X.shape[1]),
+                           "per_crop": per},
+           "levels_r2_per_crop": levels, "levels_r2_median": med_levels,
+           "learning_curve_years": lc_data,
+           "feature_richness_curve": fc}
