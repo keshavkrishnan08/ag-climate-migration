@@ -18,3 +18,13 @@ OUT = ROOT / "results" / "revision"
 SEED = 42
 CACHE = OUT / "yield_features_full.parquet"
 
+
+def build_features():
+    if CACHE.exists():
+        return pd.read_parquet(CACHE)
+    fm = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet",
+                         columns=["fips", "year", "crop", "yield_bu_acre",
+                                  "log_population", "log_median_income", "yield_trend_slope_15yr"])
+    fm["fips"] = fm["fips"].astype(str).str.zfill(5)
+    fm = fm[fm["yield_bu_acre"] > 0].copy()
+    m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet")
