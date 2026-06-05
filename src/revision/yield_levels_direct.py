@@ -8,3 +8,13 @@ precipitation/VPD/PDSI, a soil-productivity index (NCCPI proxy) and latitude.
 Train <=2012, test 2013-2023; report levels R2 per crop. Also adds a mechanistic
 predictor (process-based water-stress-adjusted GDD) so the model is a genuine
 mechanistic-ML hybrid. Seed 42.
+"""
+import json, sys
+from pathlib import Path
+import numpy as np, pandas as pd, lightgbm as lgb
+from scipy import stats
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "src" / "revision"))
+from yield_v7_spectrum import temperature_spectrum, es, GROW
+from yield_v5_percrop import latitude
