@@ -148,3 +148,10 @@ def main():
            "levels_r2_per_crop": levels, "levels_r2_median": med_levels,
            "learning_curve_years": lc_data,
            "feature_richness_curve": fc}
+    json.dump(out, open(OUT / "audit_yield_ceiling.json", "w"), indent=2)
+    print(f"\nFINAL best pooled anomaly R2={r2:.4f} (vs 0.227), levels median R2={med_levels:.3f}")
+    print("saved audit_yield_ceiling.json")
+
+
+if __name__ == "__main__":
+    main()
