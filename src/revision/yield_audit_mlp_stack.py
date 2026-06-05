@@ -98,3 +98,13 @@ def main():
     for c in seq_raw:
         panel[f"{c}_an"] = panel[c] - panel.groupby("fips")[c].transform("mean")
     seq_an = [f"{c}_an" for c in seq_raw]
+
+    yr = panel["year"].values
+    tr = yr <= 2009
+    bl = (yr > 2009) & (yr <= 2012)
+    te = (yr > 2012) & (yr <= 2023)
+    y = panel["yield_anomaly"]
+
+    # ---- Tree on full engineered feature set (drought feats included) ----
+    X_tree, _ = design(panel)
+    common = dict(n_estimators=2000, learning_rate=0.02, max_depth=8,
