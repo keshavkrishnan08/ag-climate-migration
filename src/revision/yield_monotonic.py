@@ -108,3 +108,13 @@ def main():
                               max_depth=7, num_leaves=63, min_child_samples=40,
                               subsample=0.8, colsample_bytree=0.9, reg_alpha=0.1,
                               reg_lambda=1.0, monotone_constraints=mono,
+                              random_state=SEED, verbose=-1)
+    model.fit(X[tr], y[tr])
+    pred = model.predict(X[te]); yt = y[te].values
+    r2 = 1 - np.sum((yt - pred)**2) / np.sum((yt - yt.mean())**2)
+    sp = stats.spearmanr(yt, pred).correlation
+    resid_sd = float(np.std(yt - pred))
+    print(f"Monotonic model: R2={r2:.4f} Spearman={sp:.4f} resid_sd={resid_sd:.3f} (n_feat={X.shape[1]})")
+
+    # ---- monotonicity audit: sweep tmax_july anomaly, others at 0, corn ----
+    base_row = pd.DataFrame(0.0, index=range(7), columns=X.columns)
