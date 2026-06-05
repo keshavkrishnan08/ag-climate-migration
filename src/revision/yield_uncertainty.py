@@ -138,3 +138,13 @@ def dcf_uncertainty(n_draws=500):
             "ci_plus_spatial": run(True, True, False),
             "ci_full_idio_spatial_gcm": run(True, True, True),
             "resid_sd_z": resid_sd_z, "n_draws": n_draws}
+
+
+def main():
+    print("Computing levels hindcast R^2 ...")
+    lev = levels_hindcast_r2()
+    print("  levels R2 overall =", round(lev["levels_r2_overall"], 3),
+          "| corn =", round(lev.get("levels_r2_corn", float('nan')), 3),
+          "| RMSE corn =", round(lev.get("levels_rmse_corn", float('nan')), 1))
+    print("Propagating DCF uncertainty ...")
+    unc = dcf_uncertainty()
