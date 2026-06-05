@@ -98,3 +98,13 @@ def main():
                 continue
             X = d[feats].fillna(0)
             m = lgb.LGBMRegressor(**COMMON); m.fit(X[tr], d.loc[tr, tgt])
+            pred = m.predict(X[te])
+            dte = d[te]
+            # map prediction onto BOTH yardsticks
+            if tgt == "dev_pct":
+                pred_level = dte["trend"].values * (1 + pred)
+                pred_z = (pred_level - dte["cc_mu"].values) / dte["cc_sd"].values
+                pred_pct = pred
+            else:  # tgt == z_anom
+                pred_level = dte["cc_mu"].values + pred * dte["cc_sd"].values
+                pred_pct = pred_level / dte["trend"].values - 1
