@@ -188,3 +188,13 @@ def main():
         w, _ = nnls(P, ybl.values); w = w / w.sum() if w.sum() > 0 else np.array([1, 0, 0])
         pred = (w[0] * lgbm.predict(Xte) + w[1] * ridge.predict(sc.transform(Xte))
                 + w[2] * rf.predict(Xte))
+
+        overall = metrics(yte.values, pred, name)
+        per_crop = {}
+        tp = df[te].reset_index(drop=True); tp["pred"] = pred
+        for c in sorted(tp["crop"].unique()):
+            cm = tp["crop"] == c
+            if cm.sum() > 30:
+                per_crop[c] = metrics(tp.loc[cm, "yield_anomaly"].values,
+                                      tp.loc[cm, "pred"].values, c)
+        results[name] = {"n_features": X.shape[1], "blend_weights": w.tolist(),
