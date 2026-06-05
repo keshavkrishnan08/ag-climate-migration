@@ -178,3 +178,13 @@ def main():
         lgbm.fit(Xtr, ytr)
         sc = StandardScaler().fit(Xtr)
         ridge = Ridge(alpha=10.0, random_state=SEED).fit(sc.transform(Xtr), ytr)
+        rf = RandomForestRegressor(n_estimators=150, max_depth=10,
+                                   min_samples_leaf=30, max_features=0.4,
+                                   max_samples=0.3, n_jobs=-1, random_state=SEED)
+        rf.fit(Xtr, ytr)
+
+        P = np.column_stack([lgbm.predict(Xbl), ridge.predict(sc.transform(Xbl)),
+                             rf.predict(Xbl)])
+        w, _ = nnls(P, ybl.values); w = w / w.sum() if w.sum() > 0 else np.array([1, 0, 0])
+        pred = (w[0] * lgbm.predict(Xte) + w[1] * ridge.predict(sc.transform(Xte))
+                + w[2] * rf.predict(Xte))
