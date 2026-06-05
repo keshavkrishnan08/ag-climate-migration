@@ -98,3 +98,13 @@ def run(panel, target, feats, label):
 
 
 def main():
+    panel = build_features()
+    clim = [c for c in panel.columns if c.startswith(("tbin_", "precip_", "pdsi_", "vpd_"))]
+    extra = ["latitude", "nccpi", "irr_prop", "log_population", "log_median_income", "yield_trend_slope_15yr"]
+    # LEVELS model (add tech_time)
+    panel["tech_time"] = panel["year"] - 1980
+    lev = run(panel, "yield_bu_acre", clim + extra + ["tech_time"], "LEVELS+irr")
+    # %-deviation model
+    pdf = trend_pct(panel)
+    dev = run(pdf, "dev_pct", clim + extra, "PCTDEV+irr")
+    json.dump({"levels": lev, "pct_dev": dev, "irrigation_feature": True},
