@@ -18,3 +18,13 @@ Two points:
 Seed 42. Writes only to results/revision/.
 """
 
+import json
+import sys
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+DATA_PROCESSED = ROOT / "data" / "processed"
+PROJ = ROOT / "data" / "projections"
