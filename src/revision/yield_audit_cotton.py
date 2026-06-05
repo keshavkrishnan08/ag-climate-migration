@@ -18,3 +18,13 @@ Steps:
    cotton counties. If climate skill is concentrated in rainfed counties, that
    is direct evidence the cotton ceiling is irrigation-driven, not a model defect.
 
+Target = z-scored county-detrended anomaly (comparable to the pooled 0.23).
+Split: train<=2012, test 2013-2023. Seed 42. Climate-only (projectable).
+"""
+import json
+import sys
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import lightgbm as lgb
