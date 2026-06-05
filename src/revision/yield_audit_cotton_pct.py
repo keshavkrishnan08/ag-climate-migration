@@ -68,3 +68,13 @@ def main():
     m.fit(X[tr], y[tr]); pred = m.predict(X[te])
     r2_all, sp_all = r2_sp(y[te].values, pred)
     print(f"[cotton-only, %-dev, drought+soil] R2={r2_all:.4f} Spearman={sp_all:.4f} "
+          f"n_test={int(te.sum())} n_feat={X.shape[1]}")
+
+    # irrigation split via train-period yield-PDSI coupling
+    pdsi_season = [c for c in climcols if c.startswith("pdsi_")]
+    cot["pdsi_mean"] = cot[pdsi_season].mean(axis=1)
+    train_cot = cot[tr]
+    coup = {}
+    for fips, g in train_cot.groupby("fips"):
+        if len(g) >= 8 and g["pdsi_mean"].std() > 0 and g["dev_pct"].std() > 0:
+            coup[fips] = np.corrcoef(g["dev_pct"], g["pdsi_mean"])[0, 1]
