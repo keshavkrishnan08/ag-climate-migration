@@ -188,3 +188,7 @@ def main():
     json.dump(results, open(OUT / "audit_yield_drought_huber.json", "w"), indent=2)
     print(f"\nbest Huber R2={best[0]:.4f} (alpha={best[3]}) vs v4 0.227")
     print("per-crop (Huber):", {k: round(v["r2"], 3) for k, v in best[2].items()})
+
+
+if __name__ == "__main__":
+    main()
