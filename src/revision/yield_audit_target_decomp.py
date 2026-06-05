@@ -48,3 +48,13 @@ COMMON = dict(objective="regression", n_estimators=2000, learning_rate=0.02,
 
 def r2(y, p):
     y = np.asarray(y, float); p = np.asarray(p, float)
+    return float(1 - np.sum((y - p) ** 2) / np.sum((y - y.mean()) ** 2))
+
+
+def main():
+    panel, climcols = build_v7()
+    # panel has: yield_bu_acre, trend, dev_pct, spectrum/precip/pdsi/vpd + _an, nccpi, latitude
+    # build the z-scored anomaly target on the SAME rows, county-crop demeaned/scaled
+    panel = panel.sort_values(["fips", "crop", "year"])
+    grp = panel.groupby(["fips", "crop"])["yield_bu_acre"]
+    mu = grp.transform("mean"); sd = grp.transform("std")
