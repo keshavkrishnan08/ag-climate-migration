@@ -8,3 +8,13 @@ quantify how much of cotton's irreducible variance is irrigation.
 
 Approach:
 1. Build the v7 panel (spectrum + monthly precip/PDSI/VPD, NCCPI, latitude,
+   %-deviation target) and ADD the drought-trajectory features (dry-run,
+   PDSI slope, deficit integral, timing, early-late contrast).
+2. Train a cotton-only LightGBM with mild regularization. Report deviation R^2 /
+   Spearman vs the paper's 0.164.
+3. Split cotton counties into rainfed vs irrigated by TRAIN-period yield-PDSI
+   coupling and report skill separately -- the evidence that the cotton ceiling
+   is an irrigation effect, not a model defect.
+
+Split: train<=2012, test 2013-2023. Seed 42.
+"""
