@@ -208,3 +208,13 @@ def main():
             res.to_parquet(OUT / "yield_v3_test_residuals.parquet", index=False)
 
     d_r2 = results["augmented"]["overall"]["r2"] - results["baseline"]["overall"]["r2"]
+    d_sp = results["augmented"]["overall"]["spearman"] - results["baseline"]["overall"]["spearman"]
+    summary = {"seed": SEED, "split": "train<=2012, test 2013-2023",
+               "new_features": new_cols, "delta_r2": d_r2, "delta_spearman": d_sp,
+               "results": results}
+    with open(OUT / "yield_v3_metrics.json", "w") as f:
+        json.dump(summary, f, indent=2)
+    print(f"\nDelta R2 = {d_r2:+.4f}, Delta Spearman = {d_sp:+.4f}")
+    print(f"Saved -> {OUT}/yield_v3_metrics.json, yield_v3_test_residuals.parquet")
+
+
