@@ -108,3 +108,13 @@ def main():
     # ---- Tree on full engineered feature set (drought feats included) ----
     X_tree, _ = design(panel)
     common = dict(n_estimators=2000, learning_rate=0.02, max_depth=8,
+                  num_leaves=127, min_child_samples=20, subsample=0.8,
+                  colsample_bytree=0.8, reg_alpha=0.05, reg_lambda=0.5,
+                  random_state=SEED, verbose=-1)
+    tree = lgb.LGBMRegressor(objective="huber", alpha=0.95, **common)
+    tree.fit(X_tree[tr], y[tr])
+    tree_te = tree.predict(X_tree[te]); tree_bl = tree.predict(X_tree[bl])
+
+    # ---- MLP on monthly sequence (climate-only, projectable) ----
+    soil = [c for c in ["nccpi", "lat_proxy"] if c in panel.columns]
+    extra = [c for c in ["yield_trend_slope_15yr"] if c in panel.columns]
