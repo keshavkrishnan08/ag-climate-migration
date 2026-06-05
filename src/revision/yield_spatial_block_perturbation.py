@@ -8,3 +8,13 @@ penalty by USDA Farm Production Region (FPR) and recompute the central
 alternate-use-floored DCF.
 
 Regions tested (one at a time, +25% then -25%):
+  Delta, Southern Plains, Corn Belt, Northern Plains, Lake States,
+  Appalachia, Southeast, Mountain, Pacific, Northeast.
+
+The headline dollar range survives if no single regional block moves the
+central below the $52--80B convergence band by more than a few B. Seed 42.
+"""
+import json
+from pathlib import Path
+import pandas as pd
+
