@@ -28,3 +28,13 @@ import lightgbm as lgb
 from scipy import stats
 
 ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "src" / "revision"))
+from yield_v7_spectrum import build as build_v7
+from yield_audit_drought_huber import drought_trajectory_features
+
+OUT = ROOT / "results" / "revision"
+SEED = 42
+
+
+def r2_sp(y, p):
+    y = np.asarray(y, float); p = np.asarray(p, float)
