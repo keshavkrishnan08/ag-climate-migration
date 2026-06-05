@@ -78,3 +78,8 @@ def main():
     summary = {"per_crop": res, "n_crops_above_0.5": n_above, "n_crops": len(res),
                "median_levels_r2": float(np.median([v["levels_r2"] for v in res.values()]))}
     print(f"Crops with levels R2>=0.5: {n_above}/{len(res)} | median {summary['median_levels_r2']:.3f}")
+    json.dump(summary, open(OUT / "yield_levels_direct.json", "w"), indent=2)
+
+
+if __name__ == "__main__":
+    main()
