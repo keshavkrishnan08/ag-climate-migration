@@ -58,3 +58,13 @@ def heat_features_from_monthly(tmax_c, tmin_c):
             "vpd_jul": vpd_jul, "dtr": dtr}
 
 
+def build_training():
+    """Build training matrix with climate features + county anomalies."""
+    fm = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet")
+    fm["fips"] = fm["fips"].astype(str).str.zfill(5)
+    m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet")
+    m["fips"] = m["fips"].astype(str).str.zfill(5)
+    tmax = np.column_stack([(m[f"tmax_m{mm}"] - 32) * 5 / 9 for mm in GROW])
+    tmin = np.column_stack([(m[f"tmin_m{mm}"] - 32) * 5 / 9 for mm in GROW])
+    hf = heat_features_from_monthly(tmax, tmin)
+    cf = pd.DataFrame({"fips": m["fips"].values, "year": m["year"].values})
