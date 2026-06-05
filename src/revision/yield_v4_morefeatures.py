@@ -58,3 +58,13 @@ def main():
     panel = panel.merge(ex, on=["fips", "year"], how="left")
     for c in ["kdd34_growing", "dtr_growing", "precip_jul", "precip_aug", "vpd_aug"]:
         panel[f"{c}_anom"] = panel[c] - panel.groupby("fips")[c].transform("mean")
+
+    exclude = {"fips", "year", "crop", "yield_bu_acre", "yield_anomaly",
+               "acres_harvested", "production"}
+    fcols = [c for c in panel.columns if c not in exclude
+             and panel[c].dtype.kind in "fi" and not panel[c].isna().all()]
+    X = panel[fcols].fillna(0)
+    X = pd.concat([X, pd.get_dummies(panel["crop"], prefix="crop")], axis=1)
+    y = panel["yield_anomaly"]; yr = panel["year"].values
+    tr, te = yr <= 2012, (yr > 2012) & (yr <= 2023)
+
