@@ -148,3 +148,13 @@ def main():
           "| RMSE corn =", round(lev.get("levels_rmse_corn", float('nan')), 1))
     print("Propagating DCF uncertainty ...")
     unc = dcf_uncertainty()
+    print("  point =", round(unc["point_estimate_B"], 1), "B")
+    print("  CI idiosyncratic-only:", [round(x, 1) for x in unc["ci_idiosyncratic_only"]])
+    print("  CI + spatial:         ", [round(x, 1) for x in unc["ci_plus_spatial"]])
+    print("  CI full (+GCM):       ", [round(x, 1) for x in unc["ci_full_idio_spatial_gcm"]])
+    out = {"levels": lev, "dcf_uncertainty": unc}
+    with open(OUT / "yield_uncertainty.json", "w") as f:
+        json.dump(out, f, indent=2)
+    print(f"Saved -> {OUT}/yield_uncertainty.json")
+
+
