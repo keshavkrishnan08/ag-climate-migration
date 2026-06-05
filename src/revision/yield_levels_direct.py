@@ -18,3 +18,13 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT / "src" / "revision"))
 from yield_v7_spectrum import temperature_spectrum, es, GROW
 from yield_v5_percrop import latitude
+DATA_PROCESSED = ROOT / "data" / "processed"
+DATA_RAW = ROOT / "data" / "raw"
+OUT = ROOT / "results" / "revision"
+SEED = 42
+
+
+def main():
+    fm = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet",
+                         columns=["fips", "year", "crop", "yield_bu_acre",
+                                  "log_population", "log_median_income"])
