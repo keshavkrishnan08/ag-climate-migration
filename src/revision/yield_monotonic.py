@@ -88,3 +88,13 @@ CLIM = {"tmaxjul": -1, "tmaxgrow": -1, "edd30": -1, "kdd34": -1, "heat_days": -1
 def main():
     panel, cf = build_training()
     # county anomalies for climate features
+    feat = []
+    for c, sgn in CLIM.items():
+        panel[c + "_an"] = panel[c] - panel.groupby("fips")[c].transform("mean")
+        feat.append(c + "_an")
+    # Non-climate predictors (held fixed under projection -> cancel in the climate
+    # impact difference). Included unconstrained so the model fits well; climate
+    # flows ONLY through the monotone-constrained features above.
+    NONCLIM = [c for c in ["yield_trend_slope_15yr", "yield_trend_intercept",
+               "log_population", "log_median_income", "poverty_rate",
+               "switching_rate_proxy", "switching_rate_5yr"] if c in panel.columns]
