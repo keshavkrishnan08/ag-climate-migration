@@ -78,3 +78,13 @@ def main():
     for c in ["agg_heat", "agg_precip", "agg_pdsi", "agg_vpd"]:
         panel[f"{c}_an"] = panel[c] - panel.groupby("fips")[c].transform("mean")
     agg_feats = (["agg_heat", "agg_precip", "agg_pdsi", "agg_vpd",
+                  "agg_heat_an", "agg_precip_an", "agg_pdsi_an", "agg_vpd_an",
+                  "latitude", "nccpi", "yield_trend_slope_15yr", "switching_rate_5yr",
+                  "log_population", "log_median_income"])
+    agg_feats = [f for f in agg_feats if f in panel.columns]
+
+    cells = {"AGG_Z": (agg_feats, "z_anom"), "AGG_PCT": (agg_feats, "dev_pct"),
+             "SPEC_Z": (spec_feats, "z_anom"), "SPEC_PCT": (spec_feats, "dev_pct")}
+
+    summary = {}
+    for name, (feats, tgt) in cells.items():
