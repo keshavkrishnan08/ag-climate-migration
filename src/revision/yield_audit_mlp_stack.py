@@ -18,3 +18,13 @@ Target = the existing z-scored, county-detrended yield anomaly, so the held-out
 R^2 is DIRECTLY comparable to the paper's 0.227. Split: train<=2009 (MLP needs a
 clean fit window), blend 2010-2012, test 2013-2023. Seed 42.
 """
+import json
+import sys
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import lightgbm as lgb
+from scipy import stats
+from scipy.optimize import nnls
+from sklearn.neural_network import MLPRegressor
