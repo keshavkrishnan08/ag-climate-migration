@@ -18,3 +18,13 @@ import json
 from pathlib import Path
 import pandas as pd
 
+OUT = Path("results/revision")
+df = pd.read_parquet(OUT / "stranded_central_floored.parquet").copy()
+
+
+def state_from_fips(fips):
+    return str(fips)[:2]
+
+
+# USDA Farm Production Regions, state FIPS -> region.
+FPR = {
