@@ -8,3 +8,13 @@ literature but absent from the original 50-feature set:
   precip_aug_anom : August precipitation anomaly
   dtr_growing_anom: diurnal temperature range anomaly (cloud/heat-stress signal)
   vpd_aug         : August vapour pressure deficit
+Trains LightGBM only (the v3 ensemble blend collapsed to LightGBM, w=[1,0,0]),
+so this is the operative model. Same split (train<=2012, test 2013-2023). Seed 42.
+"""
+import json, sys
+from pathlib import Path
+import numpy as np, pandas as pd, lightgbm as lgb
+from scipy import stats
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "src" / "revision"))
