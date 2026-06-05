@@ -128,3 +128,13 @@ def main():
     # on the pct-scale (paper yardstick)
     base_pct = summary["AGG_Z"]["overall_r2_on_pct"]
     feat_gain_pct = summary["SPEC_PCT"]["overall_r2_on_pct"] - summary["AGG_PCT"]["overall_r2_on_pct"]
+    target_gain_pct = summary["AGG_PCT"]["overall_r2_on_pct"] - base_pct
+
+    out = {"split": "train<=2012, test 2013-2023",
+           "cells": summary,
+           "decomposition": {
+               "note": ("does the spectrum help on the CONSERVATIVE z-scale too? "
+                        "if yes, the feature gain is real skill, not metric choice"),
+               "AGG_Z_r2_on_z": base,
+               "SPEC_Z_r2_on_z": summary["SPEC_Z"]["overall_r2_on_z"],
+               "feature_gain_on_z_scale": feat_gain_z,
