@@ -28,3 +28,13 @@ import lightgbm as lgb
 from scipy import stats
 from scipy.optimize import nnls
 from sklearn.neural_network import MLPRegressor
+from sklearn.preprocessing import StandardScaler
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "src" / "revision"))
+from yield_audit_drought_huber import build_panel, design
+
+DATA_RAW = ROOT / "data" / "raw"
+OUT = ROOT / "results" / "revision"
+SEED = 42
+GROW = [f"{m:02d}" for m in range(4, 10)]
