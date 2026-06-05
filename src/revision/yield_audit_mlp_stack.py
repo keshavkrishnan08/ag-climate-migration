@@ -128,3 +128,13 @@ def main():
                        alpha=1e-3, batch_size=512, learning_rate_init=1e-3,
                        max_iter=300, early_stopping=True, n_iter_no_change=15,
                        validation_fraction=0.1, random_state=SEED)
+    mlp.fit(Xm_s[tr], y[tr].values)
+    mlp_te = mlp.predict(Xm_s[te]); mlp_bl = mlp.predict(Xm_s[bl])
+
+    # ---- individual + stacked metrics ----
+    out = {"split": "train<=2009, blend 2010-2012, test 2013-2023",
+           "baseline_v4_r2": 0.2269}
+    r2_t, sp_t = metrics(y[te].values, tree_te)
+    r2_m, sp_m = metrics(y[te].values, mlp_te)
+    out["tree_huber"] = {"r2": r2_t, "spearman": sp_t,
+                         "per_crop": per_crop(panel[te], tree_te)}
