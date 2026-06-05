@@ -53,3 +53,10 @@ res = {
         "Field-crop stranded value across +-1C threshold shifts stays within the "
         "reported $52-80B convergence band. Dollar conclusions are stable to the "
         "threshold location of the Schlenker-Roberts damage function."
+    ),
+}
+json.dump(res, open(OUT / "yield_threshold_sensitivity.json", "w"), indent=2)
+print("Schlenker-Roberts threshold sensitivity (central DCF, floored):")
+print(f"  -1C shift:  ${res['threshold_minus1C_B']:.1f}B")
+print(f"   0C check:  ${res['threshold_0C_B']:.1f}B (parquet: ${central_check:.1f}B)")
+print(f"  +1C shift:  ${res['threshold_plus1C_B']:.1f}B")
