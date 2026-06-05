@@ -118,3 +118,13 @@ def dcf_uncertainty(n_draws=500):
         return v[v > 0].sum() / 1e9
 
     def run(idio, spatial, gcm):
+        out = []
+        for _ in range(n_draws):
+            d = impact.copy()
+            if idio:
+                d = d + np.random.normal(0, resid_sd_z, len(d)) * sc
+            if spatial:
+                for s in uniq_states:
+                    shock = np.random.normal(0, resid_sd_z) * 0.7  # regional common z-shock
+                    d[sidx[s]] = d[sidx[s]] + shock * sc[sidx[s]]
+            if gcm:
