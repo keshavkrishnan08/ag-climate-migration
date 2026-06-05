@@ -18,3 +18,13 @@ paper currently reports -- and attack two distinct, defensible levers:
 
 2. HUBER LOSS instead of squared error. The z-scored anomaly target has +/-7 sigma
    tails (drought/flood outliers) that dominate the MSE gradient and bias the fit
+   toward un-modellable freak years. Huber down-weights those tails, so the model
+   learns the bulk climate-yield signal rather than chasing noise. This is a model
+   improvement, not a metric reframing: we still REPORT plain R^2 / Spearman on the
+   untransformed held-out anomaly.
+
+Same temporal split (train<=2012, test 2013-2023). Seed 42. Climate-only feature
+set (no spatial-yield lags) so it stays projectable from CMIP6 deltas.
+"""
+import json
+import sys
