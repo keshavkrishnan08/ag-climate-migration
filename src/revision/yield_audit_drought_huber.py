@@ -168,3 +168,13 @@ def main():
     for alpha in (0.9, 0.95, 0.99):
         m_h = lgb.LGBMRegressor(objective="huber", alpha=alpha, **common)
         m_h.fit(X[tr], y[tr])
+        r2, sp, per = evaluate(panel, m_h.predict(X[te]), te)
+        print(f"[Huber alpha={alpha} + drought] R2={r2:.4f} Spearman={sp:.4f}")
+        if best is None or r2 > best[0]:
+            best = (r2, sp, per, alpha, m_h)
+    results["huber_drought"] = {"r2": best[0], "spearman": best[1],
+                                "per_crop": best[2], "best_alpha": best[3]}
+
+    # importance of new drought features in the Huber model
+    imp = pd.Series(best[4].feature_importances_, index=X.columns)
+    drought_cols = [c for c in X.columns if any(
