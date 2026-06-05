@@ -168,3 +168,13 @@ def main():
         y = df["yield_anomaly"]
         Xtr, ytr = X[tr], y[tr]
         Xte, yte = X[te], y[te]
+        Xbl, ybl = X[bl], y[bl]
+
+        lgbm = lgb.LGBMRegressor(
+            objective="regression", n_estimators=1500, learning_rate=0.02,
+            max_depth=8, num_leaves=127, min_child_samples=20, subsample=0.8,
+            colsample_bytree=0.8, reg_alpha=0.05, reg_lambda=0.5,
+            random_state=SEED, verbose=-1)
+        lgbm.fit(Xtr, ytr)
+        sc = StandardScaler().fit(Xtr)
+        ridge = Ridge(alpha=10.0, random_state=SEED).fit(sc.transform(Xtr), ytr)
