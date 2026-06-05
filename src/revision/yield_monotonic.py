@@ -198,3 +198,13 @@ def main():
                 cm = sub[c].values
                 base[c + "_an"] = sub["b_" + c].values - cm
                 proj[c + "_an"] = sub["p_" + c].values - cm
+            di = model.predict(proj.values) - model.predict(base.values)  # z anomaly impact
+            tmp = pd.DataFrame({"fips": sub["fips"].values, "year": sub["year"].values,
+                                "crop": crop, "impact_z": di})
+            impacts.append(tmp)
+        IM = pd.concat(impacts, ignore_index=True).merge(sd, on=["fips", "crop"], how="inner")
+        IM["impact_bu"] = IM["impact_z"] * IM["sd"]
+        # acreage from projections
+        ypa = pd.read_parquet(PROJ / f"yield_projections_{scenario}.parquet",
+                              columns=["fips", "year", "crop", "acres_harvested"])
+        ypa["fips"] = ypa["fips"].astype(str).str.zfill(5)
