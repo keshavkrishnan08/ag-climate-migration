@@ -118,3 +118,13 @@ def main():
     # ---- MLP on monthly sequence (climate-only, projectable) ----
     soil = [c for c in ["nccpi", "lat_proxy"] if c in panel.columns]
     extra = [c for c in ["yield_trend_slope_15yr"] if c in panel.columns]
+    mlp_cols = seq_raw + seq_an + soil + extra
+    Xm = panel[mlp_cols].fillna(0).values
+    crop_dum = pd.get_dummies(panel["crop"], prefix="crop").values
+    Xm = np.hstack([Xm, crop_dum])
+    sc = StandardScaler().fit(Xm[tr])
+    Xm_s = sc.transform(Xm)
+    mlp = MLPRegressor(hidden_layer_sizes=(128, 64), activation="relu",
+                       alpha=1e-3, batch_size=512, learning_rate_init=1e-3,
+                       max_iter=300, early_stopping=True, n_iter_no_change=15,
+                       validation_fraction=0.1, random_state=SEED)
