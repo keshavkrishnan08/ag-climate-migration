@@ -108,3 +108,13 @@ def build_modern_features():
     new = ["vpd_growing", "vpd_july", "edd30_growing", "heat_days_proxy",
            "sm_stress", "sm_stress_july", "vpd_x_sm"]
     return m[["fips", "year"] + new].copy()
+
+
+def add_county_anomalies(panel, feats):
+    """Merge new features and add county-demeaned anomalies (no leakage:
+    county means use all years, matching existing pipeline convention)."""
+    n0 = len(panel)
+    panel = panel.merge(feats, on=["fips", "year"], how="left")
+    assert len(panel) == n0
+    for c in ["vpd_growing", "vpd_july", "edd30_growing", "heat_days_proxy",
+              "sm_stress", "sm_stress_july", "vpd_x_sm"]:
