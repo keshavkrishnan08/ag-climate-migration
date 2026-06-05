@@ -28,3 +28,13 @@ set (no spatial-yield lags) so it stays projectable from CMIP6 deltas.
 """
 import json
 import sys
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import lightgbm as lgb
+from scipy import stats
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "src" / "revision"))
+from yield_model_v3_features import build_modern_features, add_county_anomalies, GROW_MONTHS
