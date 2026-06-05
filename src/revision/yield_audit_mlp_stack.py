@@ -38,3 +38,13 @@ DATA_RAW = ROOT / "data" / "raw"
 OUT = ROOT / "results" / "revision"
 SEED = 42
 GROW = [f"{m:02d}" for m in range(4, 10)]
+
+
+def monthly_sequence_features():
+    """Standardizable monthly tmax/tmin/precip/PDSI for Apr-Sep, plus county means.
+
+    Returns:
+        DataFrame [fips, year, <monthly climate columns>].
+    """
+    m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet")
+    m["fips"] = m["fips"].astype(str).str.zfill(5)
