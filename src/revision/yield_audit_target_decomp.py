@@ -138,3 +138,12 @@ def main():
                "AGG_Z_r2_on_z": base,
                "SPEC_Z_r2_on_z": summary["SPEC_Z"]["overall_r2_on_z"],
                "feature_gain_on_z_scale": feat_gain_z,
+               "feature_gain_on_pct_scale": feat_gain_pct,
+               "target_gain_on_pct_scale": target_gain_pct}}
+    json.dump(out, open(OUT / "audit_yield_target_decomp.json", "w"), indent=2)
+    print(f"\nFeature (spectrum) gain on conservative z-scale: {feat_gain_z:+.3f}")
+    print(f"Feature gain on pct-scale: {feat_gain_pct:+.3f}; target gain on pct-scale: {target_gain_pct:+.3f}")
+
+
+if __name__ == "__main__":
+    main()
