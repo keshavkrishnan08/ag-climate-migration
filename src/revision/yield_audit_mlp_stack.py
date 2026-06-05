@@ -88,3 +88,13 @@ def add_soil_lat(panel):
     return panel
 
 
+def main():
+    panel = build_panel()
+    panel = add_soil_lat(panel)
+    panel = panel.merge(monthly_sequence_features(), on=["fips", "year"], how="left")
+
+    # county-anomaly versions of the monthly sequence (within-county climate signal)
+    seq_raw = [c for c in panel.columns if c.startswith("seq_")]
+    for c in seq_raw:
+        panel[f"{c}_an"] = panel[c] - panel.groupby("fips")[c].transform("mean")
+    seq_an = [f"{c}_an" for c in seq_raw]
