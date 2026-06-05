@@ -48,3 +48,13 @@ def main():
     precip_tot = m[[f"precip_m{mm}" for mm in GROW]].sum(axis=1).values
     water_idx = np.clip(precip_tot / 400.0, 0, 1.5)            # crude moisture sufficiency
     cf["mech_gdd_water"] = gdd * water_idx                      # mechanistic GDD x water
+    panel = fm.merge(cf, on=["fips", "year"], how="left").merge(latitude(), on="fips", how="left")
+    cmax = panel.groupby(["fips", "crop"])["yield_bu_acre"].transform("max")
+    natmax = panel.groupby("crop")["yield_bu_acre"].transform("max")
+    panel["nccpi"] = (cmax / natmax).clip(0, 1)
+    panel["tech_time"] = panel["year"] - 1980                   # technology trend term
+
+    feats = [c for c in panel.columns if c not in
+             ("fips", "year", "crop", "yield_bu_acre")]
+    res, ao, ap = {}, [], []
+    for crop in sorted(panel["crop"].unique()):
