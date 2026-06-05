@@ -178,3 +178,13 @@ def main():
     # importance of new drought features in the Huber model
     imp = pd.Series(best[4].feature_importances_, index=X.columns)
     drought_cols = [c for c in X.columns if any(
+        k in c for k in ["dry_run", "pdsi_slope", "deficit_integral",
+                         "dry_month", "pdsi_early_late", "precip_dry_run"])]
+    results["drought_feature_importance"] = {
+        c: int(imp.get(c, 0)) for c in drought_cols}
+    results["n_features"] = int(X.shape[1])
+    results["split"] = "train<=2012, test 2013-2023"
+    results["baseline_v4_r2"] = 0.2269
+    json.dump(results, open(OUT / "audit_yield_drought_huber.json", "w"), indent=2)
+    print(f"\nbest Huber R2={best[0]:.4f} (alpha={best[3]}) vs v4 0.227")
+    print("per-crop (Huber):", {k: round(v["r2"], 3) for k, v in best[2].items()})
