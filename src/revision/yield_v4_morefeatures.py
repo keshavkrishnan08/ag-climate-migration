@@ -18,3 +18,13 @@ from scipy import stats
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT / "src" / "revision"))
+from yield_model_v3_features import build_modern_features, add_county_anomalies, es_kpa, GROW_MONTHS
+
+DATA_PROCESSED = ROOT / "data" / "processed"
+DATA_RAW = ROOT / "data" / "raw"
+OUT = ROOT / "results" / "revision"
+SEED = 42
+
+
+def extra_features():
+    m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet")
