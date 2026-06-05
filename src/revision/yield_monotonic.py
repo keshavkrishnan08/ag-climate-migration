@@ -218,3 +218,13 @@ def main():
         d["disc"] = 1 / (1 + r) ** (d["year"] - y0 + 1)
         d["pv"] = d["impact_bu"] * d["price"] * d["acres_harvested"] * d["disc"]
         s = -d.groupby("fips")["pv"].sum()
+        return float(s[s > 0].sum() / 1e9), int((s > 0).sum())
+
+    res = {"r2": float(r2), "spearman": float(sp), "resid_sd": resid_sd,
+           "n_features": int(X.shape[1]), "monotone_by_construction": True}
+    for scen, clf in [("SSP245", "county_climate_projections.parquet"),
+                      ("SSP370", "county_climate_projections_ssp370.parquet")]:
+        IM = project(scen, clf)
+        tot, n = stranded(IM)
+        res[f"stranded_{scen}_B"] = tot; res[f"stranded_{scen}_counties"] = n
+        IM.to_parquet(OUT / f"yield_monotonic_impact_{scen}.parquet", index=False)
