@@ -98,3 +98,13 @@ def main():
     NONCLIM = [c for c in ["yield_trend_slope_15yr", "yield_trend_intercept",
                "log_population", "log_median_income", "poverty_rate",
                "switching_rate_proxy", "switching_rate_5yr"] if c in panel.columns]
+    dums = pd.get_dummies(panel["crop"], prefix="crop")
+    X = pd.concat([panel[feat], panel[NONCLIM], dums], axis=1).fillna(0)
+    y = panel["yield_anomaly"]; yr = panel["year"].values
+    mono = [CLIM[c] for c in CLIM] + [0] * len(NONCLIM) + [0] * dums.shape[1]
+    tr, te = yr <= 2012, (yr > 2012) & (yr <= 2023)
+
+    model = lgb.LGBMRegressor(objective="regression", n_estimators=2000, learning_rate=0.02,
+                              max_depth=7, num_leaves=63, min_child_samples=40,
+                              subsample=0.8, colsample_bytree=0.9, reg_alpha=0.1,
+                              reg_lambda=1.0, monotone_constraints=mono,
