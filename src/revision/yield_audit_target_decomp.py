@@ -18,3 +18,13 @@ each, so the four models are compared on identical yardsticks:
   - R^2 on the % deviation (the new yardstick the paper reports)
 Mapping: a %-deviation prediction is converted to a yield level (trend*(1+dev))
 and then z-scored with the same county-crop mean/sd used to build the anomaly,
+and vice-versa. This isolates how much of the gain is the FEATURES (real skill,
+shows up on both yardsticks) vs the TARGET CHOICE (shows up only on its own
+yardstick).
+
+Split: train<=2012, test 2013-2023. Seed 42. Per-crop, climate-only.
+"""
+import json
+import sys
+from pathlib import Path
+
