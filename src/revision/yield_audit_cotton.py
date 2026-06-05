@@ -68,3 +68,13 @@ def main():
     model.fit(X[tr], y[tr])
     pred = model.predict(X[te])
     r2_all, sp_all = r2_sp(y[te].values, pred)
+    print(f"[cotton-only, all counties] R2={r2_all:.4f} Spearman={sp_all:.4f} "
+          f"n_test={int(te.sum())} n_feat={X.shape[1]}")
+
+    # --- irrigation classifier: yield-PDSI coupling on TRAIN period only ---
+    # rainfed cotton => yield rises with wetter PDSI => positive corr(anomaly, pdsi)
+    train_cot = cot[tr]
+    coupling = {}
+    pdsi_col = "pdsi_growing" if "pdsi_growing" in cot.columns else None
+    for fips, g in train_cot.groupby("fips"):
+        if len(g) >= 8 and pdsi_col and g[pdsi_col].std() > 0:
