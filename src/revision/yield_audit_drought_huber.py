@@ -138,3 +138,13 @@ def evaluate(panel, pred, te):
             o = tp.loc[cm, "yield_anomaly"].values; p = tp.loc[cm, "pred"].values
             per[c] = {"r2": float(1 - np.sum((o - p)**2)/np.sum((o-o.mean())**2)),
                       "spearman": float(stats.spearmanr(o, p).correlation),
+                      "n_test": int(cm.sum())}
+    return float(r2), float(sp), per
+
+
+def main():
+    panel = build_panel()
+    X, fcols = design(panel)
+    y = panel["yield_anomaly"]
+    yr = panel["year"].values
+    tr = yr <= 2012
