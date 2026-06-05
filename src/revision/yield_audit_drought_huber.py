@@ -148,3 +148,13 @@ def main():
     y = panel["yield_anomaly"]
     yr = panel["year"].values
     tr = yr <= 2012
+    te = (yr > 2012) & (yr <= 2023)
+
+    common = dict(n_estimators=2000, learning_rate=0.02, max_depth=8,
+                  num_leaves=127, min_child_samples=20, subsample=0.8,
+                  colsample_bytree=0.8, reg_alpha=0.05, reg_lambda=0.5,
+                  random_state=SEED, verbose=-1)
+
+    results = {}
+    # (a) MSE baseline with the new drought features (isolates feature effect)
+    m_mse = lgb.LGBMRegressor(objective="regression", **common)
