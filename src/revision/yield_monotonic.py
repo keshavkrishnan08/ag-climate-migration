@@ -148,3 +148,13 @@ def main():
         m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet")
         m["fips"] = m["fips"].astype(str).str.zfill(5)
         mb = m[m["year"].between(2010, 2024)].groupby("fips").mean(numeric_only=True)
+        out_years = list(range(2025, 2051))
+        recs = []
+        # precompute baseline monthly arrays
+        tmaxb = {mm: (mb[f"tmax_m{mm}"] - 32) * 5 / 9 for mm in GROW}
+        tminb = {mm: (mb[f"tmin_m{mm}"] - 32) * 5 / 9 for mm in GROW}
+        for yrp in out_years:
+            d = cl[cl["year"] == yrp]
+            if d.empty: continue
+            d = d.set_index("fips")
+            idx = mb.index.intersection(d.index)
