@@ -168,3 +168,13 @@ def main():
             tmx_p[:, 3] += dtj                       # July
             for j in range(tmx_p.shape[1]):
                 if j != 3: tmx_p[:, j] += dtg
+            tmn_p += dtn[:, None]
+            hb = heat_features_from_monthly(tmx_b, tmn_b)
+            hp = heat_features_from_monthly(tmx_p, tmn_p)
+            df = pd.DataFrame({"fips": idx.values, "year": yrp})
+            for k in ["edd30", "kdd34", "heat_days", "vpd_grow", "vpd_jul", "dtr"]:
+                df["b_" + k] = hb[k]; df["p_" + k] = hp[k]
+            df["b_tmaxjul"] = tmx_b[:, 3]; df["p_tmaxjul"] = tmx_p[:, 3]
+            df["b_tmaxgrow"] = tmx_b.mean(1); df["p_tmaxgrow"] = tmx_p.mean(1)
+            pb = np.array([mb[f"precip_m{mm}"].loc[idx].values for mm in GROW]).sum(0)
+            df["b_precipgrow"] = pb; df["p_precipgrow"] = pb * (1 + dpr / np.maximum(pb, 1))
