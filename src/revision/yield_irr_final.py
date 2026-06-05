@@ -58,3 +58,13 @@ def trend_pct(panel):
     agg = g.agg(n=("year", "size"), sx=("year", "sum"), sy=("yield_bu_acre", "sum"),
                 sxx=("year", lambda s: (s.astype(float)**2).sum())).reset_index()
     sxy = (tr.assign(xy=tr["year"]*tr["yield_bu_acre"]).groupby(["fips", "crop"])["xy"]
+           .sum().reset_index(name="sxy"))
+    agg = agg.merge(sxy, on=["fips", "crop"])
+    den = agg["n"]*agg["sxx"] - agg["sx"]**2
+    agg["slope"] = np.where(den != 0, (agg["n"]*agg["sxy"] - agg["sx"]*agg["sy"])/den, np.nan)
+    agg["intercept"] = (agg["sy"] - agg["slope"]*agg["sx"])/agg["n"]
+    agg = agg[(agg["n"] >= 8) & agg["slope"].notna()]
+    p = panel.merge(agg[["fips", "crop", "slope", "intercept"]], on=["fips", "crop"], how="inner")
+    p["trend"] = p["intercept"] + p["slope"]*p["year"]
+    p = p[p["trend"] > 0].copy()
+    p["dev_pct"] = (p["yield_bu_acre"]/p["trend"] - 1).clip(-1, 1)
