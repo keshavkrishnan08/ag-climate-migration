@@ -58,3 +58,13 @@ def build_modern_features():
     """Engineer VPD, EDD>30C, heat-day, and soil-moisture stress features.
 
     Returns:
+        DataFrame [fips, year, <new feature columns>].
+    """
+    m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet")
+    m["fips"] = m["fips"].astype(str).str.zfill(5)
+
+    # Convert F -> C for grow-season months
+    for mm in GROW_MONTHS:
+        m[f"tmaxc_{mm}"] = (m[f"tmax_m{mm}"] - 32) * 5 / 9
+        m[f"tminc_{mm}"] = (m[f"tmin_m{mm}"] - 32) * 5 / 9
+
