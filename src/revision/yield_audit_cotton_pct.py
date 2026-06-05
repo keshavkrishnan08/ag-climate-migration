@@ -38,3 +38,13 @@ SEED = 42
 
 def r2_sp(y, p):
     y = np.asarray(y, float); p = np.asarray(p, float)
+    r2 = 1 - np.sum((y - p) ** 2) / np.sum((y - y.mean()) ** 2)
+    return float(r2), float(stats.spearmanr(y, p).correlation)
+
+
+def main():
+    panel, climcols = build_v7()
+    dr = drought_trajectory_features()
+    panel = panel.merge(dr, on=["fips", "year"], how="left")
+    dr_cols = ["dry_run", "pdsi_slope", "deficit_integral", "dry_month",
+               "pdsi_early_late", "precip_dry_run"]
