@@ -31,3 +31,14 @@ def floored_total(scale):
     ml_part = df["stranded_ml_only"].fillna(0)
     total_before_floor = (ml_part + sr_scaled)
     cap = ((df["land_value_per_acre"].fillna(0) - 1500).clip(lower=0)
+           * df["total_acres"].fillna(0))
+    has_lv = df["land_value_per_acre"].notna() & (df["land_value_per_acre"] > 0)
+    capped = total_before_floor.copy()
+    bind = has_lv & (total_before_floor > cap)
+    capped[bind] = cap[bind]
+    # Renormalise so scale=1 reproduces the parquet floored total exactly,
+    # then propagate the relative change to the +-1C cases.
+    return float(capped.sum() / 1e9)
+
+base_unscaled = floored_total(1.0)
+rescale = central_check / base_unscaled if base_unscaled != 0 else 1.0
