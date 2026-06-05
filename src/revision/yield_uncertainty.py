@@ -78,3 +78,13 @@ def levels_hindcast_r2():
             out[f"levels_rmse_{crop}"] = float(np.sqrt(np.mean((o[mm] - p[mm]) ** 2)))
     return out
 
+
+def dcf_uncertainty(n_draws=500):
+    """Propagate idiosyncratic + spatial + GCM uncertainty into conservative DCF."""
+    prices = pd.read_csv(OUT / "real_prices_2023usd.csv")
+    pmap = dict(zip(prices.iloc[:, 0], prices.iloc[:, 1])) if prices.shape[1] >= 2 else {}
+    # fall back to known real prices if columns differ
+    default = {"corn": 5.04, "soybeans": 12.29, "wheat_winter": 6.72, "wheat_spring": 7.38,
+               "cotton": 0.93, "sorghum": 4.80, "barley": 5.64, "oats": 3.35}
+    yp = pd.read_parquet(PROJ / "yield_projections_SSP245.parquet")
+    yp["fips"] = yp["fips"].astype(str).str.zfill(5)
