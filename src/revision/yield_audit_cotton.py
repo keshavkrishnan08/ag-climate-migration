@@ -78,3 +78,13 @@ def main():
     pdsi_col = "pdsi_growing" if "pdsi_growing" in cot.columns else None
     for fips, g in train_cot.groupby("fips"):
         if len(g) >= 8 and pdsi_col and g[pdsi_col].std() > 0:
+            coupling[fips] = np.corrcoef(g["yield_anomaly"], g[pdsi_col])[0, 1]
+    coup = pd.Series(coupling)
+    # rainfed = strong positive yield-PDSI coupling; irrigated = weak/none
+    thr = coup.median()
+    rainfed_fips = set(coup[coup >= thr].index)
+    irrig_fips = set(coup[coup < thr].index)
+
+    cot_te = cot[te].reset_index(drop=True).copy()
+    cot_te["pred"] = pred
+    rmask = cot_te["fips"].isin(rainfed_fips)
