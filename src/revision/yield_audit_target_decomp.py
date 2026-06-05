@@ -68,3 +68,13 @@ def main():
     spec_feats = [f for f in spec_feats if f in panel.columns]
     # aggregates: collapse the spectrum/precip/pdsi/vpd to season means (old-style)
     tbins = [c for c in climcols if c.startswith("tbin_")]
+    precip = [c for c in climcols if c.startswith("precip_")]
+    pdsi = [c for c in climcols if c.startswith("pdsi_")]
+    vpd = [c for c in climcols if c.startswith("vpd_")]
+    panel["agg_heat"] = panel[[c for c in tbins[-3:]]].sum(axis=1)   # hot-bin exposure
+    panel["agg_precip"] = panel[precip].sum(axis=1)
+    panel["agg_pdsi"] = panel[pdsi].mean(axis=1)
+    panel["agg_vpd"] = panel[vpd].mean(axis=1)
+    for c in ["agg_heat", "agg_precip", "agg_pdsi", "agg_vpd"]:
+        panel[f"{c}_an"] = panel[c] - panel.groupby("fips")[c].transform("mean")
+    agg_feats = (["agg_heat", "agg_precip", "agg_pdsi", "agg_vpd",
