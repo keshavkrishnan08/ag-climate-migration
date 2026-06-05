@@ -28,3 +28,13 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parent.parent.parent
 DATA_PROCESSED = ROOT / "data" / "processed"
 PROJ = ROOT / "data" / "projections"
+OUT = ROOT / "results" / "revision"
+np.random.seed(42)
+
+
+def levels_hindcast_r2():
+    """Out-of-sample LEVELS R^2 for 2013-2023.
+
+    predicted_level = linear technology trend (fit on years <= 2012) extrapolated
+    to the test year + predicted anomaly * detrended SD. Compared with observed
+    yields. This is the metric directly comparable to AgMIP/hybrid-ML county
