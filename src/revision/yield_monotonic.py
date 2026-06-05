@@ -138,3 +138,13 @@ def main():
     rep = panel.sort_values("year").groupby(["fips", "crop"]).tail(1).copy()
     # county climatology of each climate feature (historical mean)
     clim_mean = panel.groupby("fips")[list(CLIM)].mean().reset_index()
+
+    def project(scenario, climfile):
+        cl = pd.read_parquet(PROJ / climfile, columns=[
+            "fips", "year", "delta_tmax_july", "delta_tmax_growing",
+            "delta_tmin_growing", "delta_precip_growing"]).copy()
+        cl["fips"] = cl["fips"].astype(str).str.zfill(5)
+        # baseline monthly climatology (2010-2024) per county
+        m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet")
+        m["fips"] = m["fips"].astype(str).str.zfill(5)
+        mb = m[m["year"].between(2010, 2024)].groupby("fips").mean(numeric_only=True)
