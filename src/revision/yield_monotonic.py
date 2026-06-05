@@ -118,3 +118,13 @@ def main():
 
     # ---- monotonicity audit: sweep tmax_july anomaly, others at 0, corn ----
     base_row = pd.DataFrame(0.0, index=range(7), columns=X.columns)
+    if "crop_corn" in base_row: base_row["crop_corn"] = 1
+    sweep = np.linspace(0, 6, 7)
+    for col, sgn in [("tmaxjul_an", -1), ("edd30_an", -1)]:
+        r = base_row.copy(); r[col] = sweep
+        p = model.predict(r)
+        monotonic = np.all(np.diff(p) <= 1e-9)
+        print(f"  monotonic audit {col}: {'PASS' if monotonic else 'FAIL'} (pred {p[0]:.3f} -> {p[-1]:.3f})")
+
+    # ---- detrended SD per county-crop (z -> bu) ----
+    sd_rows = []
