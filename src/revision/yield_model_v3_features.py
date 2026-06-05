@@ -118,3 +118,13 @@ def add_county_anomalies(panel, feats):
     assert len(panel) == n0
     for c in ["vpd_growing", "vpd_july", "edd30_growing", "heat_days_proxy",
               "sm_stress", "sm_stress_july", "vpd_x_sm"]:
+        panel[f"{c}_anom"] = panel[c] - panel.groupby("fips")[c].transform("mean")
+    return panel
+
+
+def metrics(y, p, label=""):
+    y = np.asarray(y); p = np.asarray(p)
+    ss_res = np.sum((y - p) ** 2); ss_tot = np.sum((y - y.mean()) ** 2)
+    r2 = 1 - ss_res / ss_tot
+    sp = stats.spearmanr(y, p).correlation
+    return {"label": label, "r2": float(r2), "spearman": float(sp),
