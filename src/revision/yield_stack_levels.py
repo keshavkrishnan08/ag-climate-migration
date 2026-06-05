@@ -28,3 +28,10 @@ for crop in sorted(p["crop"].unique()):
     Pb=np.column_stack([gb.predict(X[bl]),mlp.predict(sc.transform(X[bl]))])
     w,_=nnls(Pb,y[bl].values); w=w/w.sum() if w.sum()>0 else np.array([1,0])
     pr=w[0]*gb.predict(X[te])+w[1]*mlp.predict(sc.transform(X[te])); yt=y[te].values
+    r2=1-np.sum((yt-pr)**2)/np.sum((yt-yt.mean())**2)
+    res[crop]={"r2":float(r2),"w_gb":float(w[0]),"w_mlp":float(w[1])}
+    ao.extend(yt); ap.extend(pr); print(f"  {crop:14s} levels R2={r2:.3f} (gb {w[0]:.2f}/mlp {w[1]:.2f})")
+o=np.array(ao); pr=np.array(ap)
+n=sum(1 for v in res.values() if v["r2"]>=0.5)
+print(f"crops>=0.5: {n}/{len(res)} median {np.median([v['r2'] for v in res.values()]):.3f}")
+json.dump({"per_crop":res,"n_above":n,"median":float(np.median([v['r2'] for v in res.values()]))},open(OUT/"yield_stack_levels.json","w"),indent=2)
