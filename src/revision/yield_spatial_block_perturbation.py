@@ -68,3 +68,13 @@ rescale = central_check / base if base != 0 else 1.0
 results = {}
 for region in list(FPR.keys()):
     up = floored_total_region_perturbed(region, 1.25) * rescale
+    down = floored_total_region_perturbed(region, 0.75) * rescale
+    n_cty = int((df["region"] == region).sum())
+    results[region] = {
+        "n_counties": n_cty,
+        "plus25pct_B": round(up, 1),
+        "minus25pct_B": round(down, 1),
+        "swing_B": round(up - down, 1),
+    }
+
+central = round(central_check, 1)
