@@ -38,3 +38,13 @@ def extra_features():
         tmn = m[f"tminc_{mm}"].values; tmx = m[f"tmaxc_{mm}"].values
         mid = (tmx + tmn) / 2; amp = (tmx - tmn) / 2
         dd = np.zeros_like(mid)
+        for p in phase:
+            dd += np.maximum(mid + amp * np.sin(p - np.pi / 2) - thr, 0)
+        kdd += (dd / len(phase)) * 30.0
+        dtr += (tmx - tmn)
+    m["kdd34_growing"] = kdd
+    m["dtr_growing"] = dtr / len(GROW_MONTHS)
+    m["precip_jul"] = m["precip_m07"]; m["precip_aug"] = m["precip_m08"]
+    m["vpd_aug"] = (es_kpa(m["tmaxc_08"]) - es_kpa(m["tminc_08"])).clip(lower=0)
+    return m[["fips", "year", "kdd34_growing", "dtr_growing", "precip_jul",
+              "precip_aug", "vpd_aug"]].copy()
