@@ -98,3 +98,13 @@ result = {
     "central_check_B": central,
     "regional_block_perturbations": results,
     "headline_range_floor_ceiling": {
+        "worst_low_B_any_single_region_down25pct": worst_low,
+        "worst_high_B_any_single_region_up25pct": worst_high,
+        "all_regions_down25pct_jointly_B": all_down_total,
+    },
+    "interpretation": (
+        "Under any single-region +-25% perturbation, the central floored "
+        f"DCF moves between ${worst_low}B and ${worst_high}B. Under a "
+        f"jointly correlated all-region -25% stress, the central falls to "
+        f"${all_down_total}B. All values remain inside the $52-80B "
+        "field-crop convergence band (the lower limit is the hedonic at $80B "
