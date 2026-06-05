@@ -158,3 +158,13 @@ def main():
             if d.empty: continue
             d = d.set_index("fips")
             idx = mb.index.intersection(d.index)
+            dtj = (d.loc[idx, "delta_tmax_july"] * 5 / 9).values
+            dtg = (d.loc[idx, "delta_tmax_growing"] * 5 / 9).values
+            dtn = (d.loc[idx, "delta_tmin_growing"].fillna(0) * 5 / 9).values
+            dpr = d.loc[idx, "delta_precip_growing"].fillna(0).values
+            tmx_b = np.column_stack([tmaxb[mm].loc[idx].values for mm in GROW])
+            tmn_b = np.column_stack([tminb[mm].loc[idx].values for mm in GROW])
+            tmx_p = tmx_b.copy(); tmn_p = tmn_b.copy()
+            tmx_p[:, 3] += dtj                       # July
+            for j in range(tmx_p.shape[1]):
+                if j != 3: tmx_p[:, j] += dtg
