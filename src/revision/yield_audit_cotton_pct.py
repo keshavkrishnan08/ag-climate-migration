@@ -98,3 +98,8 @@ def main():
                               "mean_coupling": float(coup[coup < thr].mean())},
            "n_rainfed_counties": len(rainfed), "n_irrigated_counties": len(irrig)}
     json.dump(out, open(OUT / "audit_yield_cotton_pct.json", "w"), indent=2)
+    print("saved audit_yield_cotton_pct.json")
+
+
+if __name__ == "__main__":
+    main()
