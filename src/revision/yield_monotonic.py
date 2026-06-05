@@ -78,3 +78,13 @@ def build_training():
     panel = fm.merge(cf, on=["fips", "year"], how="inner")
     return panel, cf
 
+
+# climate features and their monotone sign w.r.t. yield (heat/dry = -1, wet = +1)
+CLIM = {"tmaxjul": -1, "tmaxgrow": -1, "edd30": -1, "kdd34": -1, "heat_days": -1,
+        "vpd_grow": -1, "vpd_jul": -1, "dtr": -1, "sm_stress": -1,
+        "precipgrow": +1, "precipjul": +1}
+
+
+def main():
+    panel, cf = build_training()
+    # county anomalies for climate features
