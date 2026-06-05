@@ -88,3 +88,13 @@ def run(panel, target, feats, label):
         res[crop] = {"r2": float(r2), "spearman": float(stats.spearmanr(yt, p).correlation)}
         ao.extend(yt); ap.extend(p)
         print(f"  [{label}] {crop:14s} R2={r2:.3f} rho={res[crop]['spearman']:.3f}")
+    o = np.array(ao); pr = np.array(ap)
+    overall = {"r2": float(1-np.sum((o-pr)**2)/np.sum((o-o.mean())**2)),
+               "spearman": float(stats.spearmanr(o, pr).correlation),
+               "n_above_0.5": sum(1 for v in res.values() if v["r2"] >= 0.5), "n_crops": len(res),
+               "median_r2": float(np.median([v["r2"] for v in res.values()]))}
+    print(f"  [{label}] OVERALL R2={overall['r2']:.4f} | crops>=0.5: {overall['n_above_0.5']}/{overall['n_crops']} median {overall['median_r2']:.3f}")
+    return {"overall": overall, "per_crop": res}
+
+
+def main():
