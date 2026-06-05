@@ -38,3 +38,13 @@ from scipy import stats
 ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT / "src" / "revision"))
 from yield_model_v3_features import build_modern_features, add_county_anomalies, GROW_MONTHS
+from yield_v4_morefeatures import extra_features
+
+DATA_PROCESSED = ROOT / "data" / "processed"
+DATA_RAW = ROOT / "data" / "raw"
+OUT = ROOT / "results" / "revision"
+SEED = 42
+GROW = [f"{m:02d}" for m in range(4, 10)]   # Apr-Sep
+
+
+def drought_trajectory_features():
