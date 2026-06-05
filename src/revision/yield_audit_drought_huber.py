@@ -68,3 +68,13 @@ def drought_trajectory_features():
         for j in range(mask.shape[1]):
             cur = np.where(mask[:, j], cur + 1, 0)
             out = np.maximum(out, cur)
+        return out
+    dry_run = longest_run(pdsi < -1.0)
+
+    # 2. PDSI trajectory slope across Apr->Sep (drying if negative)
+    xm = months_idx - months_idx.mean()
+    denom = np.sum(xm ** 2)
+    pdsi_slope = ((pdsi - pdsi.mean(axis=1, keepdims=True)) * xm).sum(axis=1) / denom
+
+    # 3. cumulative water deficit: sum of (PDSI below -1), i.e. area under -1
+    deficit_integral = np.maximum(-1.0 - pdsi, 0).sum(axis=1)
