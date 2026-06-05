@@ -88,3 +88,13 @@ def main():
     print(f"[rainfed]   R2={r2_r:.4f} rho={sp_r:.4f} n={int(rm.sum())} coupling={coup[coup>=thr].mean():.3f}")
     print(f"[irrigated] R2={r2_i:.4f} rho={sp_i:.4f} n={int(im.sum())} coupling={coup[coup<thr].mean():.3f}")
 
+    out = {"split": "train<=2012, test 2013-2023", "target": "pct_deviation",
+           "paper_v7_cotton_r2": 0.1639, "paper_v7_cotton_spearman": 0.4832,
+           "cotton_dedicated": {"r2": r2_all, "spearman": sp_all,
+                                "n_test": int(te.sum()), "n_features": int(X.shape[1])},
+           "rainfed_eval": {"r2": r2_r, "spearman": sp_r, "n": int(rm.sum()),
+                            "mean_coupling": float(coup[coup >= thr].mean())},
+           "irrigated_eval": {"r2": r2_i, "spearman": sp_i, "n": int(im.sum()),
+                              "mean_coupling": float(coup[coup < thr].mean())},
+           "n_rainfed_counties": len(rainfed), "n_irrigated_counties": len(irrig)}
+    json.dump(out, open(OUT / "audit_yield_cotton_pct.json", "w"), indent=2)
