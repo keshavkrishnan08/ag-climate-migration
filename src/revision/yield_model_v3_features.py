@@ -148,3 +148,13 @@ def main():
 
     # Two feature sets: BASELINE (existing matrix) vs AUGMENTED (+ modern features)
     base_feats = get_features(panel, [])
+    panel_aug = add_county_anomalies(panel.copy(), feats)
+    aug_feats = get_features(panel_aug, new_cols + new_anom)
+
+    def design(df, fcols):
+        X = df[fcols].fillna(0).copy()
+        X = pd.concat([X, pd.get_dummies(df["crop"], prefix="crop")], axis=1)
+        return X
+
+    yr = panel["year"].values
+    tr = yr <= 2012
