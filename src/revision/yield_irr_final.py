@@ -78,3 +78,13 @@ def run(panel, target, feats, label):
         X = d[feats].fillna(0); y = d[target]
         tr = d["year"] <= 2012; te = (d["year"] > 2012) & (d["year"] <= 2023)
         if tr.sum() < 500 or te.sum() < 100:
+            continue
+        mdl = lgb.LGBMRegressor(objective="regression", n_estimators=2500, learning_rate=0.02,
+                                max_depth=8, num_leaves=127, min_child_samples=30, subsample=0.8,
+                                colsample_bytree=0.8, reg_alpha=0.05, reg_lambda=0.5,
+                                random_state=SEED, verbose=-1)
+        mdl.fit(X[tr], y[tr]); p = mdl.predict(X[te]); yt = y[te].values
+        r2 = 1 - np.sum((yt-p)**2)/np.sum((yt-yt.mean())**2)
+        res[crop] = {"r2": float(r2), "spearman": float(stats.spearmanr(yt, p).correlation)}
+        ao.extend(yt); ap.extend(p)
+        print(f"  [{label}] {crop:14s} R2={r2:.3f} rho={res[crop]['spearman']:.3f}")
