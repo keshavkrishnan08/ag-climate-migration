@@ -68,3 +68,13 @@ def trend_pct(panel):
     p["trend"] = p["intercept"] + p["slope"]*p["year"]
     p = p[p["trend"] > 0].copy()
     p["dev_pct"] = (p["yield_bu_acre"]/p["trend"] - 1).clip(-1, 1)
+    return p
+
+
+def run(panel, target, feats, label):
+    res, ao, ap = {}, [], []
+    for crop in sorted(panel["crop"].unique()):
+        d = panel[(panel["crop"] == crop) & panel[target].notna()]
+        X = d[feats].fillna(0); y = d[target]
+        tr = d["year"] <= 2012; te = (d["year"] > 2012) & (d["year"] <= 2023)
+        if tr.sum() < 500 or te.sum() < 100:
