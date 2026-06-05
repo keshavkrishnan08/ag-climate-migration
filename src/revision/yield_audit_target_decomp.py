@@ -28,3 +28,13 @@ import json
 import sys
 from pathlib import Path
 
+import numpy as np
+import pandas as pd
+import lightgbm as lgb
+from scipy import stats
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "src" / "revision"))
+from yield_v7_spectrum import build as build_v7   # spectrum features + pct target
+
+DATA_PROCESSED = ROOT / "data" / "processed"
