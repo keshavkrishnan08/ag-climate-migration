@@ -88,3 +88,13 @@ def build_modern_features():
         tmn = m[f"tminc_{mm}"].values
         tmx = m[f"tmaxc_{mm}"].values
         mid = (tmx + tmn) / 2.0
+        amp = (tmx - tmn) / 2.0
+        # daily temperature trace over half-day rise; degree-days above thr
+        dd = np.zeros_like(mid)
+        for p in phase:
+            temp = mid + amp * np.sin(p - np.pi / 2)  # ranges tmin..tmax
+            dd += np.maximum(temp - thr, 0)
+        edd += (dd / len(phase)) * 30.0               # ~30 days/month
+        hot += (tmx > thr).astype(float)
+    m["edd30_growing"] = edd
+    m["heat_days_proxy"] = hot
