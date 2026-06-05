@@ -38,3 +38,13 @@ def es(t): return 0.6108 * np.exp(17.27 * t / (t + 237.3))
 def heat_features_from_monthly(tmax_c, tmin_c):
     """Vectorized EDD>30, KDD>34, VPD, heat-days, DTR from monthly arrays.
 
+    Args: tmax_c, tmin_c are (n, 6) arrays of growing-season monthly means (C).
+    Returns dict of (n,) feature arrays.
+    """
+    n = tmax_c.shape[0]
+    edd = np.zeros(n); kdd = np.zeros(n); hot = np.zeros(n)
+    mid = (tmax_c + tmin_c) / 2; amp = (tmax_c - tmin_c) / 2
+    for j in range(tmax_c.shape[1]):
+        dd30 = np.zeros(n); dd34 = np.zeros(n)
+        for p in PHASE:
+            temp = mid[:, j] + amp[:, j] * np.sin(p - np.pi / 2)
