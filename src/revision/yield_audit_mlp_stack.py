@@ -158,3 +158,6 @@ def main():
 
     json.dump(out, open(OUT / "audit_yield_mlp_stack.json", "w"), indent=2)
 
+
+if __name__ == "__main__":
+    main()
