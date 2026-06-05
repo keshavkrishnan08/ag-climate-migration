@@ -68,3 +68,13 @@ def build_modern_features():
         m[f"tmaxc_{mm}"] = (m[f"tmax_m{mm}"] - 32) * 5 / 9
         m[f"tminc_{mm}"] = (m[f"tmin_m{mm}"] - 32) * 5 / 9
 
+    # VPD per month: es(tmax) - es(tmin); growing-season + July means
+    vpd_cols = []
+    for mm in GROW_MONTHS:
+        m[f"vpd_{mm}"] = (es_kpa(m[f"tmaxc_{mm}"]) - es_kpa(m[f"tminc_{mm}"])).clip(lower=0)
+        vpd_cols.append(f"vpd_{mm}")
+    m["vpd_growing"] = m[vpd_cols].mean(axis=1)
+    m["vpd_july"] = m["vpd_07"]
+
+    # EDD above 30 C, month-by-month sinusoid approx between tmin and tmax.
+    # For a within-month diurnal sinusoid with min=tmin,max=tmax, the mean daily
