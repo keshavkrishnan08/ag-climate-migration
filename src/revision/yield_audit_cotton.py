@@ -108,3 +108,13 @@ def main():
     print(f"[rainfed-only model] R2={r2_rf:.4f} rho={sp_rf:.4f} n_test={int(rf_te.sum())}")
 
     out = {
+        "split": "train<=2012, test 2013-2023", "target": "z-scored anomaly",
+        "cotton_all": {"r2": r2_all, "spearman": sp_all, "n_test": int(te.sum()),
+                       "n_features": int(X.shape[1])},
+        "cotton_rainfed_subset_eval": {"r2": r2_r, "spearman": sp_r, "n": int(rmask.sum())},
+        "cotton_irrigated_subset_eval": {"r2": r2_i, "spearman": sp_i, "n": int(imask.sum())},
+        "cotton_rainfed_only_model": {"r2": r2_rf, "spearman": sp_rf, "n_test": int(rf_te.sum())},
+        "train_yield_pdsi_coupling": {
+            "rainfed_mean": float(coup[coup >= thr].mean()),
+            "irrigated_mean": float(coup[coup < thr].mean()),
+            "n_rainfed_counties": len(rainfed_fips),
