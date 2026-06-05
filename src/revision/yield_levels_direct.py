@@ -58,3 +58,13 @@ def main():
              ("fips", "year", "crop", "yield_bu_acre")]
     res, ao, ap = {}, [], []
     for crop in sorted(panel["crop"].unique()):
+        d = panel[panel["crop"] == crop]
+        X = d[feats].fillna(0); y = d["yield_bu_acre"]
+        tr = d["year"] <= 2012; te = (d["year"] > 2012) & (d["year"] <= 2023)
+        if tr.sum() < 500 or te.sum() < 100:
+            continue
+        mdl = lgb.LGBMRegressor(objective="regression", n_estimators=2500, learning_rate=0.02,
+                                max_depth=8, num_leaves=127, min_child_samples=30,
+                                subsample=0.8, colsample_bytree=0.8, reg_alpha=0.05,
+                                reg_lambda=0.5, random_state=SEED, verbose=-1)
+        mdl.fit(X[tr], y[tr]); p = mdl.predict(X[te]); yt = y[te].values
