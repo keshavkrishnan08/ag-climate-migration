@@ -38,3 +38,13 @@ def build_features():
     for mm in GROW:
         cf[f"precip_{mm}"] = m[f"precip_m{mm}"].values
         cf[f"pdsi_{mm}"] = m[f"pdsi_m{mm}"].values
+        tc = (m[f"tmax_m{mm}"] - 32) * 5 / 9; tn = (m[f"tmin_m{mm}"] - 32) * 5 / 9
+        cf[f"vpd_{mm}"] = (es(tc) - es(tn)).clip(lower=0).values
+    panel = fm.merge(cf, on=["fips", "year"], how="left").merge(latitude(), on="fips", how="left")
+    cmax = panel.groupby(["fips", "crop"])["yield_bu_acre"].transform("max")
+    natmax = panel.groupby("crop")["yield_bu_acre"].transform("max")
+    panel["nccpi"] = (cmax / natmax).clip(0, 1)
+    # irrigation propensity (time-invariant, projectable); 0 = rainfed
+    irr = pd.read_parquet(OUT / "irrigation_share.parquet")[["fips", "crop", "irr_prop"]].drop_duplicates()
+    panel = panel.merge(irr, on=["fips", "crop"], how="left")
+    panel["irr_prop"] = panel["irr_prop"].fillna(0.0)
