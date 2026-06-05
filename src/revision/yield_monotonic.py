@@ -68,3 +68,13 @@ def build_training():
     tmin = np.column_stack([(m[f"tmin_m{mm}"] - 32) * 5 / 9 for mm in GROW])
     hf = heat_features_from_monthly(tmax, tmin)
     cf = pd.DataFrame({"fips": m["fips"].values, "year": m["year"].values})
+    for k, v in hf.items():
+        cf[k] = v
+    cf["tmaxjul"] = tmax[:, 3]
+    cf["tmaxgrow"] = tmax.mean(axis=1)
+    cf["precipgrow"] = m[[f"precip_m{mm}" for mm in GROW]].sum(axis=1).values
+    cf["precipjul"] = m["precip_m07"].values
+    cf["sm_stress"] = (-m[[f"pdsi_m{mm}" for mm in GROW]].min(axis=1)).values
+    panel = fm.merge(cf, on=["fips", "year"], how="inner")
+    return panel, cf
+
