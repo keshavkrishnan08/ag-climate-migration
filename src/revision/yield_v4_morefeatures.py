@@ -68,3 +68,13 @@ def main():
     y = panel["yield_anomaly"]; yr = panel["year"].values
     tr, te = yr <= 2012, (yr > 2012) & (yr <= 2023)
 
+    model = lgb.LGBMRegressor(objective="regression", n_estimators=2000, learning_rate=0.02,
+                              max_depth=8, num_leaves=127, min_child_samples=20,
+                              subsample=0.8, colsample_bytree=0.8, reg_alpha=0.05,
+                              reg_lambda=0.5, random_state=SEED, verbose=-1)
+    model.fit(X[tr], y[tr])
+    pred = model.predict(X[te])
+    yt = y[te].values
+    r2 = 1 - np.sum((yt - pred) ** 2) / np.sum((yt - yt.mean()) ** 2)
+    sp = stats.spearmanr(yt, pred).correlation
+    print(f"v4 LightGBM (n_features={X.shape[1]}): R2={r2:.4f} Spearman={sp:.4f}")
