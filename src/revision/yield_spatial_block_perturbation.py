@@ -88,3 +88,13 @@ ml = df["stranded_ml_only"].fillna(0)
 total = ml + sr_all
 cap = ((df["land_value_per_acre"].fillna(0) - 1500).clip(lower=0)
        * df["total_acres"].fillna(0))
+has_lv = df["land_value_per_acre"].notna() & (df["land_value_per_acre"] > 0)
+capped = total.copy()
+bind = has_lv & (total > cap)
+capped[bind] = cap[bind]
+all_down_total = round(float(capped.sum() / 1e9) * rescale, 1)
+
+result = {
+    "central_check_B": central,
+    "regional_block_perturbations": results,
+    "headline_range_floor_ceiling": {
