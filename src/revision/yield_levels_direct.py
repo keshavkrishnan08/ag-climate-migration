@@ -68,3 +68,13 @@ def main():
                                 subsample=0.8, colsample_bytree=0.8, reg_alpha=0.05,
                                 reg_lambda=0.5, random_state=SEED, verbose=-1)
         mdl.fit(X[tr], y[tr]); p = mdl.predict(X[te]); yt = y[te].values
+        r2 = 1 - np.sum((yt - p) ** 2) / np.sum((yt - yt.mean()) ** 2)
+        res[crop] = {"levels_r2": float(r2), "spearman": float(stats.spearmanr(yt, p).correlation),
+                     "rmse": float(np.sqrt(np.mean((yt - p) ** 2))), "n": int(te.sum())}
+        ao.extend(yt); ap.extend(p)
+        print(f"  {crop:14s} levels R2={r2:.3f} rho={res[crop]['spearman']:.3f} RMSE={res[crop]['rmse']:.1f}")
+    o = np.array(ao); pr = np.array(ap)
+    n_above = sum(1 for v in res.values() if v["levels_r2"] >= 0.5)
+    summary = {"per_crop": res, "n_crops_above_0.5": n_above, "n_crops": len(res),
+               "median_levels_r2": float(np.median([v["levels_r2"] for v in res.values()]))}
+    print(f"Crops with levels R2>=0.5: {n_above}/{len(res)} | median {summary['median_levels_r2']:.3f}")
