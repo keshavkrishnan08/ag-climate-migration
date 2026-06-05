@@ -218,3 +218,5 @@ def main():
     print(f"Saved -> {OUT}/yield_v3_metrics.json, yield_v3_test_residuals.parquet")
 
 
+if __name__ == "__main__":
+    main()
