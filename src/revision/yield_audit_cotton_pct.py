@@ -48,3 +48,13 @@ def main():
     panel = panel.merge(dr, on=["fips", "year"], how="left")
     dr_cols = ["dry_run", "pdsi_slope", "deficit_integral", "dry_month",
                "pdsi_early_late", "precip_dry_run"]
+    for c in dr_cols:
+        panel[f"{c}_an"] = panel[c] - panel.groupby("fips")[c].transform("mean")
+
+    cot = panel[(panel["crop"] == "cotton") & panel["dev_pct"].notna()].copy()
+    feats = ([c for c in climcols] + [f"{c}_an" for c in climcols]
+             + dr_cols + [f"{c}_an" for c in dr_cols]
+             + ["latitude", "nccpi", "yield_trend_slope_15yr", "switching_rate_5yr",
+                "log_population", "log_median_income"])
+    feats = [f for f in feats if f in cot.columns]
+    X = cot[feats].fillna(0); y = cot["dev_pct"]
