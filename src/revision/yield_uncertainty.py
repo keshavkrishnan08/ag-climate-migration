@@ -158,3 +158,5 @@ def main():
     print(f"Saved -> {OUT}/yield_uncertainty.json")
 
 
+if __name__ == "__main__":
+    main()
