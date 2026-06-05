@@ -208,3 +208,13 @@ def main():
         ypa = pd.read_parquet(PROJ / f"yield_projections_{scenario}.parquet",
                               columns=["fips", "year", "crop", "acres_harvested"])
         ypa["fips"] = ypa["fips"].astype(str).str.zfill(5)
+        IM = IM.merge(ypa, on=["fips", "year", "crop"], how="left")
+        IM["acres_harvested"] = IM["acres_harvested"].fillna(0)
+        IM["price"] = IM["crop"].map(PRICE).fillna(4.0)
+        return IM
+
+    def stranded(IM, r=0.04, H=30):
+        y0 = IM["year"].min(); d = IM[IM["year"] <= y0 + H - 1].copy()
+        d["disc"] = 1 / (1 + r) ** (d["year"] - y0 + 1)
+        d["pv"] = d["impact_bu"] * d["price"] * d["acres_harvested"] * d["disc"]
+        s = -d.groupby("fips")["pv"].sum()
