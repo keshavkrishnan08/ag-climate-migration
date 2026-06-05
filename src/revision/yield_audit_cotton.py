@@ -48,3 +48,13 @@ def r2_sp(y, p):
 def main():
     panel = build_panel()
     panel = add_soil_lat(panel)
+    cot = panel[panel["crop"] == "cotton"].copy()
+
+    exclude = {"fips", "year", "crop", "yield_bu_acre", "yield_anomaly",
+               "acres_harvested", "production"}
+    fcols = [c for c in cot.columns if c not in exclude
+             and cot[c].dtype.kind in "fi" and not cot[c].isna().all()]
+    X = cot[fcols].fillna(0)
+    y = cot["yield_anomaly"]
+    yr = cot["year"].values
+    tr = yr <= 2012
