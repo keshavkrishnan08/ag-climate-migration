@@ -198,3 +198,13 @@ def main():
                 per_crop[c] = metrics(tp.loc[cm, "yield_anomaly"].values,
                                       tp.loc[cm, "pred"].values, c)
         results[name] = {"n_features": X.shape[1], "blend_weights": w.tolist(),
+                         "overall": overall, "per_crop": per_crop}
+        print(f"[{name}] features={X.shape[1]} R2={overall['r2']:.4f} "
+              f"Spearman={overall['spearman']:.4f} weights={np.round(w,3).tolist()}")
+        # save test residuals from augmented model for predictive-uncertainty work
+        if name == "augmented":
+            res = tp[["fips", "crop", "year", "yield_anomaly", "pred"]].copy()
+            res["resid"] = res["yield_anomaly"] - res["pred"]
+            res.to_parquet(OUT / "yield_v3_test_residuals.parquet", index=False)
+
+    d_r2 = results["augmented"]["overall"]["r2"] - results["baseline"]["overall"]["r2"]
