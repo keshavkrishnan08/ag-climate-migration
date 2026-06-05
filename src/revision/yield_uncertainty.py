@@ -88,3 +88,13 @@ def dcf_uncertainty(n_draws=500):
                "cotton": 0.93, "sorghum": 4.80, "barley": 5.64, "oats": 3.35}
     yp = pd.read_parquet(PROJ / "yield_projections_SSP245.parquet")
     yp["fips"] = yp["fips"].astype(str).str.zfill(5)
+    yp["price"] = yp["crop"].map(lambda c: default.get(c, 4.0))
+    yp["state"] = yp["fips"].str[:2]
+
+    r, H, y0 = 0.04, 30, yp["year"].min()
+    yp = yp[yp["year"] <= y0 + H - 1].copy()
+    yp["disc"] = 1.0 / (1 + r) ** (yp["year"] - y0 + 1)
+    # model anomaly residual SD (z units) and per-row yield scale
+    res = pd.read_parquet(OUT / "yield_v3_test_residuals.parquet")
+    resid_sd_z = float(res["resid"].std())
+    # convert z residual to bu: use county-crop projected yield * a nominal anomaly CV (~0.12)
