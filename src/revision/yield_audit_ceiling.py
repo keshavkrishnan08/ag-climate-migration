@@ -128,3 +128,13 @@ def main():
     }
     blocks["+vpd_edd_heat"] = blocks["base_aggregates"] + [c for c in X.columns if any(
         k in c for k in ["vpd", "edd30", "heat_days", "kdd34", "dtr"])]
+    blocks["+drought_traj"] = blocks["+vpd_edd_heat"] + [c for c in X.columns if any(
+        k in c for k in ["dry_run", "pdsi_slope", "deficit_integral", "dry_month",
+                         "pdsi_early_late", "precip_dry_run", "sm_stress"])]
+    blocks["+soil_all"] = list(X.columns)
+    fc = {}
+    for name, cols in blocks.items():
+        cols = [c for c in dict.fromkeys(cols) if c in X.columns]
+        mm = lgb.LGBMRegressor(objective="regression", **COMMON)
+        mm.fit(X[tr][cols], y[tr])
+        rr, ss = r2_sp(y[te].values, mm.predict(X[te][cols]))
