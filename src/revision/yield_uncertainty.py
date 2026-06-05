@@ -98,3 +98,13 @@ def dcf_uncertainty(n_draws=500):
     res = pd.read_parquet(OUT / "yield_v3_test_residuals.parquet")
     resid_sd_z = float(res["resid"].std())
     # convert z residual to bu: use county-crop projected yield * a nominal anomaly CV (~0.12)
+    yp["impact_sd_gcm"] = ((yp["yield_p90"] - yp["yield_p10"]) / 2.563).abs()
+    yp["yield_scale"] = yp["yield_projected"].clip(lower=1) * 0.12   # detrended SD proxy
+
+    base = -(yp["climate_impact_bu"] * yp["price"] * yp["acres_harvested"] * yp["disc"])
+    point = base.clip(lower=None)  # keep sign; sum positive stranded below
+    pe = float(yp.assign(v=base).query("v>0")["v"].sum() / 1e9)
+
+    states = yp["state"].values
+    uniq_states = np.unique(states)
+    sidx = {s: np.where(states == s)[0] for s in uniq_states}
