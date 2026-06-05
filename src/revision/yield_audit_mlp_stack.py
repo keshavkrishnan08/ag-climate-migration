@@ -78,3 +78,13 @@ def add_soil_lat(panel):
     """Add an NCCPI soil-quality proxy (county-crop max yield / national-crop max,
     capped [0,1]) and a latitude proxy from the county centroid. NCCPI proxy uses
     the historical yield ceiling, a standard land-capability surrogate; latitude is
+    a fixed geographic attribute -- neither leaks the held-out outcome."""
+    cmax = panel.groupby(["fips", "crop"])["yield_bu_acre"].transform("max")
+    natmax = panel.groupby("crop")["yield_bu_acre"].transform("max")
+    panel["nccpi"] = (cmax / natmax).clip(0, 1)
+    # latitude from county-mean growing-season tmin as a smooth thermal-latitude proxy
+    if "tmin_growing_c" in panel.columns:
+        panel["lat_proxy"] = -panel.groupby("fips")["tmin_growing_c"].transform("mean")
+    return panel
+
+
