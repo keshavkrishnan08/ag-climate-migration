@@ -118,3 +118,13 @@ def main():
             "overall_r2_on_z": r2(np.array(zo), np.array(zp)),
             "overall_r2_on_pct": r2(np.array(po), np.array(pp)),
             "spearman_on_pct": float(stats.spearmanr(po, pp).correlation),
+            "per_crop": per}
+        print(f"[{name}] R2|z-scale={summary[name]['overall_r2_on_z']:.3f}  "
+              f"R2|pct-scale={summary[name]['overall_r2_on_pct']:.3f}")
+
+    # decomposition on the COMMON z-scale (conservative yardstick)
+    base = summary["AGG_Z"]["overall_r2_on_z"]
+    feat_gain_z = summary["SPEC_Z"]["overall_r2_on_z"] - base
+    # on the pct-scale (paper yardstick)
+    base_pct = summary["AGG_Z"]["overall_r2_on_pct"]
+    feat_gain_pct = summary["SPEC_PCT"]["overall_r2_on_pct"] - summary["AGG_PCT"]["overall_r2_on_pct"]
