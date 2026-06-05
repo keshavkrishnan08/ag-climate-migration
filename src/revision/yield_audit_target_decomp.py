@@ -108,3 +108,13 @@ def main():
             else:  # tgt == z_anom
                 pred_level = dte["cc_mu"].values + pred * dte["cc_sd"].values
                 pred_pct = pred_level / dte["trend"].values - 1
+                pred_z = pred
+            zo.extend(dte["z_anom"].values); zp.extend(pred_z)
+            po.extend(dte["dev_pct"].values); pp.extend(pred_pct)
+            per[crop] = {"r2_on_z": r2(dte["z_anom"].values, pred_z),
+                         "r2_on_pct": r2(dte["dev_pct"].values, pred_pct),
+                         "n": int(te.sum())}
+        summary[name] = {
+            "overall_r2_on_z": r2(np.array(zo), np.array(zp)),
+            "overall_r2_on_pct": r2(np.array(po), np.array(pp)),
+            "spearman_on_pct": float(stats.spearmanr(po, pp).correlation),
