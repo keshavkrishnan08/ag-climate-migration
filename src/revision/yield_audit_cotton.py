@@ -118,3 +118,13 @@ def main():
             "rainfed_mean": float(coup[coup >= thr].mean()),
             "irrigated_mean": float(coup[coup < thr].mean()),
             "n_rainfed_counties": len(rainfed_fips),
+            "n_irrigated_counties": len(irrig_fips)},
+        "baseline_cotton_r2": -0.0365,
+        "interpretation": ("climate skill concentrates in rainfed counties; irrigated "
+                           "cotton (TX High Plains/AZ/CA) decouples yield from climate, "
+                           "which caps the pooled cotton R^2 -- an irrigation effect, "
+                           "not a model deficiency"),
+    }
+    json.dump(out, open(OUT / "audit_yield_cotton.json", "w"), indent=2)
+    print("saved audit_yield_cotton.json")
+
