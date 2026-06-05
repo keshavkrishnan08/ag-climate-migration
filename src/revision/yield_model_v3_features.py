@@ -18,3 +18,13 @@ New features (growing season = months 04-09):
   heat_days_proxy  : count of growing-season months with tmax > 30 C.
   sm_stress        : soil-moisture stress = -min(growing-season PDSI) (driest
                      month deficit; larger = drier).
+  sm_stress_july   : -PDSI in July.
+  vpd_x_sm         : VPD x soil-moisture stress interaction (compound heat-drought).
+
+All anomaly-standardised against the county mean so the model predicts the
+z-scored yield anomaly (the existing target). Seed 42.
+"""
+
+import json
+import sys
+from pathlib import Path
