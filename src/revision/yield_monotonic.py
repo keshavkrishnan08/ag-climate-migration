@@ -228,3 +228,12 @@ def main():
         tot, n = stranded(IM)
         res[f"stranded_{scen}_B"] = tot; res[f"stranded_{scen}_counties"] = n
         IM.to_parquet(OUT / f"yield_monotonic_impact_{scen}.parquet", index=False)
+        print(f"  {scen}: conservative stranded (monotonic model) = ${tot:.1f}B / {n} counties")
+    res["scenario_monotonic"] = res["stranded_SSP370_B"] >= res["stranded_SSP245_B"]
+    print(f"  scenario-monotonic (SSP370 >= SSP245): {res['scenario_monotonic']}")
+    json.dump(res, open(OUT / "yield_monotonic.json", "w"), indent=2)
+    print("saved -> results/revision/yield_monotonic.json")
+
+
+if __name__ == "__main__":
+    main()
