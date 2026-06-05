@@ -98,3 +98,13 @@ def build_modern_features():
         hot += (tmx > thr).astype(float)
     m["edd30_growing"] = edd
     m["heat_days_proxy"] = hot
+
+    # Soil-moisture stress from PDSI (negative = drier)
+    pdsi_cols = [f"pdsi_m{mm}" for mm in GROW_MONTHS]
+    m["sm_stress"] = -m[pdsi_cols].min(axis=1)        # driest month deficit
+    m["sm_stress_july"] = -m["pdsi_m07"]
+    m["vpd_x_sm"] = m["vpd_growing"] * m["sm_stress"].clip(lower=0)
+
+    new = ["vpd_growing", "vpd_july", "edd30_growing", "heat_days_proxy",
+           "sm_stress", "sm_stress_july", "vpd_x_sm"]
+    return m[["fips", "year"] + new].copy()
