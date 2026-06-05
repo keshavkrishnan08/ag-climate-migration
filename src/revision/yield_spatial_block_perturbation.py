@@ -58,3 +58,13 @@ def floored_total_region_perturbed(region, scale_factor):
     has_lv = df["land_value_per_acre"].notna() & (df["land_value_per_acre"] > 0)
     capped = total.copy()
     bind = has_lv & (total > cap)
+    capped[bind] = cap[bind]
+    return float(capped.sum() / 1e9)
+
+
+base = floored_total_region_perturbed("__none__", 1.0)
+rescale = central_check / base if base != 0 else 1.0
+
+results = {}
+for region in list(FPR.keys()):
+    up = floored_total_region_perturbed(region, 1.25) * rescale
