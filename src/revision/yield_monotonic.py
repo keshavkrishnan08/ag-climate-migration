@@ -28,3 +28,13 @@ OUT = ROOT / "results" / "revision"
 SEED = 42
 GROW = [f"{m:02d}" for m in range(4, 10)]
 PHASE = np.linspace(0, np.pi, 24)
+PRICE = {"corn": 5.04, "soybeans": 12.29, "wheat_winter": 6.72, "wheat_spring": 7.38,
+         "cotton": 0.93, "sorghum": 4.80, "barley": 5.64, "oats": 3.35}
+
+
+def es(t): return 0.6108 * np.exp(17.27 * t / (t + 237.3))
+
+
+def heat_features_from_monthly(tmax_c, tmin_c):
+    """Vectorized EDD>30, KDD>34, VPD, heat-days, DTR from monthly arrays.
+
