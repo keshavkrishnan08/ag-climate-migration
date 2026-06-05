@@ -28,3 +28,13 @@ SEED = 42
 
 def extra_features():
     m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet")
+    m["fips"] = m["fips"].astype(str).str.zfill(5)
+    for mm in GROW_MONTHS:
+        m[f"tmaxc_{mm}"] = (m[f"tmax_m{mm}"] - 32) * 5 / 9
+        m[f"tminc_{mm}"] = (m[f"tmin_m{mm}"] - 32) * 5 / 9
+    # KDD>34C (sinusoid quadrature)
+    thr = 34.0; phase = np.linspace(0, np.pi, 24); kdd = np.zeros(len(m)); dtr = np.zeros(len(m))
+    for mm in GROW_MONTHS:
+        tmn = m[f"tminc_{mm}"].values; tmx = m[f"tmaxc_{mm}"].values
+        mid = (tmx + tmn) / 2; amp = (tmx - tmn) / 2
+        dd = np.zeros_like(mid)
