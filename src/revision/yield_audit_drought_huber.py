@@ -128,3 +128,13 @@ def design(panel):
 
 def evaluate(panel, pred, te):
     yt = panel.loc[te, "yield_anomaly"].values
+    r2 = 1 - np.sum((yt - pred) ** 2) / np.sum((yt - yt.mean()) ** 2)
+    sp = stats.spearmanr(yt, pred).correlation
+    tp = panel[te].reset_index(drop=True).copy(); tp["pred"] = pred
+    per = {}
+    for c in sorted(tp["crop"].unique()):
+        cm = tp["crop"] == c
+        if cm.sum() > 30:
+            o = tp.loc[cm, "yield_anomaly"].values; p = tp.loc[cm, "pred"].values
+            per[c] = {"r2": float(1 - np.sum((o - p)**2)/np.sum((o-o.mean())**2)),
+                      "spearman": float(stats.spearmanr(o, p).correlation),
