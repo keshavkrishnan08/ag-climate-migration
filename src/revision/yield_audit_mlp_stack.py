@@ -148,3 +148,13 @@ def main():
     w, _ = nnls(P_bl, y[bl].values)
     if w.sum() <= 0:
         w = np.array([1.0, 0.0])
+    w = w / w.sum()
+    stack_te = w[0] * tree_te + w[1] * mlp_te
+    r2_s, sp_s = metrics(y[te].values, stack_te)
+    out["stack"] = {"r2": r2_s, "spearman": sp_s, "weights": w.tolist(),
+                    "per_crop": per_crop(panel[te], stack_te)}
+    print(f"[stack tree+mlp w={np.round(w,3).tolist()}] R2={r2_s:.4f} rho={sp_s:.4f}")
+    print("stack per-crop:", {k: round(v["r2"], 3) for k, v in out["stack"]["per_crop"].items()})
+
+    json.dump(out, open(OUT / "audit_yield_mlp_stack.json", "w"), indent=2)
+
