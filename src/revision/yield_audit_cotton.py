@@ -38,3 +38,13 @@ from yield_audit_mlp_stack import add_soil_lat
 OUT = ROOT / "results" / "revision"
 SEED = 42
 
+
+def r2_sp(y, p):
+    y = np.asarray(y); p = np.asarray(p)
+    r2 = 1 - np.sum((y - p) ** 2) / np.sum((y - y.mean()) ** 2)
+    return float(r2), float(stats.spearmanr(y, p).correlation)
+
+
+def main():
+    panel = build_panel()
+    panel = add_soil_lat(panel)
