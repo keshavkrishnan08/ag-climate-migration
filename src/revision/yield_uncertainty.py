@@ -68,3 +68,13 @@ def levels_hindcast_r2():
     o = np.array(obs_level); p = np.array(pred_level); c = np.array(crops)
     def r2(o, p):
         return float(1 - np.sum((o - p) ** 2) / np.sum((o - o.mean()) ** 2))
+    out = {"levels_r2_overall": r2(o, p),
+           "levels_rmse_overall": float(np.sqrt(np.mean((o - p) ** 2))),
+           "n": int(len(o))}
+    for crop in ["corn", "soybeans", "wheat_winter"]:
+        mm = c == crop
+        if mm.sum() > 50:
+            out[f"levels_r2_{crop}"] = r2(o[mm], p[mm])
+            out[f"levels_rmse_{crop}"] = float(np.sqrt(np.mean((o[mm] - p[mm]) ** 2)))
+    return out
+
