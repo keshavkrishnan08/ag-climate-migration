@@ -188,3 +188,13 @@ def main():
         P = P.merge(clim_mean, on="fips", how="left")
         # predict per crop using representative non-climate row (crop dummy only)
         impacts = []
+        for crop in rep["crop"].unique():
+            sub = P.copy()
+            base = pd.DataFrame(0.0, index=range(len(sub)), columns=X.columns)
+            proj = base.copy()
+            cd = f"crop_{crop}"
+            if cd in base: base[cd] = 1; proj[cd] = 1
+            for c in CLIM:
+                cm = sub[c].values
+                base[c + "_an"] = sub["b_" + c].values - cm
+                proj[c + "_an"] = sub["p_" + c].values - cm
