@@ -108,3 +108,13 @@ def build_panel():
     panel = panel.merge(ex, on=["fips", "year"], how="left")
     for c in ["kdd34_growing", "dtr_growing", "precip_jul", "precip_aug", "vpd_aug"]:
         panel[f"{c}_anom"] = panel[c] - panel.groupby("fips")[c].transform("mean")
+    dr = drought_trajectory_features()
+    panel = panel.merge(dr, on=["fips", "year"], how="left")
+    for c in ["dry_run", "pdsi_slope", "deficit_integral", "dry_month",
+              "pdsi_early_late", "precip_dry_run"]:
+        panel[f"{c}_anom"] = panel[c] - panel.groupby("fips")[c].transform("mean")
+    return panel
+
+
+def design(panel):
+    exclude = {"fips", "year", "crop", "yield_bu_acre", "yield_anomaly",
