@@ -48,3 +48,13 @@ def monthly_sequence_features():
     """
     m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet")
     m["fips"] = m["fips"].astype(str).str.zfill(5)
+    cols = {"fips": m["fips"].values, "year": m["year"].values}
+    for mm in GROW:
+        cols[f"seq_tmax_{mm}"] = (m[f"tmax_m{mm}"].values - 32) * 5 / 9
+        cols[f"seq_tmin_{mm}"] = (m[f"tmin_m{mm}"].values - 32) * 5 / 9
+        cols[f"seq_precip_{mm}"] = m[f"precip_m{mm}"].values
+        cols[f"seq_pdsi_{mm}"] = m[f"pdsi_m{mm}"].values
+    return pd.DataFrame(cols)
+
+
+def metrics(y, p):
