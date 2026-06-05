@@ -20,3 +20,14 @@ df = pd.read_parquet(OUT / "stranded_central_floored.parquet")
 
 # Empirical EDD multipliers under +-1C threshold shift (Schlenker-Roberts 2009).
 # Negative shift -> higher EDD -> larger penalty multiplier.
+mult = {"-1C": 1.34, "0C": 1.00, "+1C": 0.74}
+
+central_check = float(df["stranded_value_floored"].sum() / 1e9)
+
+def floored_total(scale):
+    # Scale the SR-additive penalty by the EDD multiplier and re-apply the same
+    # alternate-use floor at $1,500/ac that produced the central estimate.
+    sr_scaled = df["stranded_sr_additive"] * scale
+    ml_part = df["stranded_ml_only"].fillna(0)
+    total_before_floor = (ml_part + sr_scaled)
+    cap = ((df["land_value_per_acre"].fillna(0) - 1500).clip(lower=0)
