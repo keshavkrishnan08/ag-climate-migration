@@ -158,3 +158,13 @@ def main():
 
     yr = panel["year"].values
     tr = yr <= 2012
+    te = (yr > 2012) & (yr <= 2023)
+    bl = (yr > 2009) & (yr <= 2012)   # blend-weight fitting window
+
+    results = {}
+    for name, df, fcols in [("baseline", panel, base_feats),
+                            ("augmented", panel_aug, aug_feats)]:
+        X = design(df, fcols)
+        y = df["yield_anomaly"]
+        Xtr, ytr = X[tr], y[tr]
+        Xte, yte = X[te], y[te]
