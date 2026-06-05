@@ -58,3 +58,13 @@ def main():
     y = cot["yield_anomaly"]
     yr = cot["year"].values
     tr = yr <= 2012
+    te = (yr > 2012) & (yr <= 2023)
+
+    model = lgb.LGBMRegressor(objective="regression", n_estimators=1500,
+                              learning_rate=0.02, max_depth=6, num_leaves=63,
+                              min_child_samples=30, subsample=0.8,
+                              colsample_bytree=0.8, reg_alpha=0.1, reg_lambda=1.0,
+                              random_state=SEED, verbose=-1)
+    model.fit(X[tr], y[tr])
+    pred = model.predict(X[te])
+    r2_all, sp_all = r2_sp(y[te].values, pred)
