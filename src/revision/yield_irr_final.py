@@ -48,3 +48,13 @@ def build_features():
     irr = pd.read_parquet(OUT / "irrigation_share.parquet")[["fips", "crop", "irr_prop"]].drop_duplicates()
     panel = panel.merge(irr, on=["fips", "crop"], how="left")
     panel["irr_prop"] = panel["irr_prop"].fillna(0.0)
+    panel.to_parquet(CACHE, index=False)
+    return panel
+
+
+def trend_pct(panel):
+    tr = panel[panel["year"] <= 2012]
+    g = tr.groupby(["fips", "crop"])
+    agg = g.agg(n=("year", "size"), sx=("year", "sum"), sy=("yield_bu_acre", "sum"),
+                sxx=("year", lambda s: (s.astype(float)**2).sum())).reset_index()
+    sxy = (tr.assign(xy=tr["year"]*tr["yield_bu_acre"]).groupby(["fips", "crop"])["xy"]
