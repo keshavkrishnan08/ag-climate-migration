@@ -88,3 +88,13 @@ def drought_trajectory_features():
 
     # 6. longest run of below-county-normal precip (within-year proxy:
     #    below the within-season median precip month)
+    precip_med = np.median(precip, axis=1, keepdims=True)
+    precip_run = longest_run(precip < precip_med)
+
+    out = pd.DataFrame({
+        "fips": m["fips"].values, "year": m["year"].values,
+        "dry_run": dry_run, "pdsi_slope": pdsi_slope,
+        "deficit_integral": deficit_integral, "dry_month": dry_month,
+        "pdsi_early_late": early_late, "precip_dry_run": precip_run,
+    })
+    return out
