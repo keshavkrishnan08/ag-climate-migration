@@ -98,3 +98,13 @@ def drought_trajectory_features():
         "pdsi_early_late": early_late, "precip_dry_run": precip_run,
     })
     return out
+
+
+def build_panel():
+    panel = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet")
+    panel["fips"] = panel["fips"].astype(str).str.zfill(5)
+    panel = add_county_anomalies(panel, build_modern_features())
+    ex = extra_features()
+    panel = panel.merge(ex, on=["fips", "year"], how="left")
+    for c in ["kdd34_growing", "dtr_growing", "precip_jul", "precip_aug", "vpd_aug"]:
+        panel[f"{c}_anom"] = panel[c] - panel.groupby("fips")[c].transform("mean")
