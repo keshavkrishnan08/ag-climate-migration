@@ -38,3 +38,13 @@ FPR = {
     "Southern_Plains": {"40", "48"},
     "Mountain": {"04", "08", "16", "30", "32", "35", "49", "56"},
     "Pacific": {"06", "41", "53"},
+}
+df["state"] = df["fips"].astype(str).str[:2]
+df["region"] = "Other"
+for region, states in FPR.items():
+    df.loc[df["state"].isin(states), "region"] = region
+
+central_check = float(df["stranded_value_floored"].sum() / 1e9)
+
+
+def floored_total_region_perturbed(region, scale_factor):
