@@ -78,3 +78,13 @@ for region in list(FPR.keys()):
     }
 
 central = round(central_check, 1)
+worst_low = round(min(r["minus25pct_B"] for r in results.values()), 1)
+worst_high = round(max(r["plus25pct_B"] for r in results.values()), 1)
+
+# All-regions correlated stress test: every region down 25% jointly.
+all_down = floored_total_region_perturbed("__all__", 1.0) * rescale
+sr_all = df["stranded_sr_additive"].fillna(0) * 0.75
+ml = df["stranded_ml_only"].fillna(0)
+total = ml + sr_all
+cap = ((df["land_value_per_acre"].fillna(0) - 1500).clip(lower=0)
+       * df["total_acres"].fillna(0))
