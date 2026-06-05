@@ -68,3 +68,13 @@ def per_crop(panel_te, pred):
     out = {}
     for c in sorted(tp["crop"].unique()):
         cm = tp["crop"] == c
+        if cm.sum() > 30:
+            r2, sp = metrics(tp.loc[cm, "yield_anomaly"].values, tp.loc[cm, "pred"].values)
+            out[c] = {"r2": r2, "spearman": sp, "n_test": int(cm.sum())}
+    return out
+
+
+def add_soil_lat(panel):
+    """Add an NCCPI soil-quality proxy (county-crop max yield / national-crop max,
+    capped [0,1]) and a latitude proxy from the county centroid. NCCPI proxy uses
+    the historical yield ceiling, a standard land-capability surrogate; latitude is
