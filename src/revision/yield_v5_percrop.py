@@ -38,3 +38,13 @@ NONCLIM = ["yield_trend_slope_15yr", "yield_trend_intercept", "log_population",
 
 
 def latitude():
+    g = pd.read_csv(DATA_RAW / "census" / "2023_Gaz_counties_national.txt",
+                    sep="\t", dtype=str)
+    g.columns = [c.strip() for c in g.columns]
+    g["fips"] = g["GEOID"].str.zfill(5)
+    g["latitude"] = pd.to_numeric(g["INTPTLAT"], errors="coerce")
+    return g[["fips", "latitude"]]
+
+
+def main():
+    panel = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet")
