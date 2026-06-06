@@ -78,3 +78,13 @@ def build():
     denom = agg["n"] * agg["sxx"] - agg["sx"] ** 2
     agg["slope"] = np.where(denom != 0, (agg["n"] * agg["sxy"] - agg["sx"] * agg["sy"]) / denom, np.nan)
     agg["intercept"] = (agg["sy"] - agg["slope"] * agg["sx"]) / agg["n"]
+    agg = agg[(agg["n"] >= 8) & agg["slope"].notna()]
+    fm = fm.merge(agg[["fips", "crop", "slope", "intercept"]], on=["fips", "crop"], how="inner")
+    fm["trend"] = fm["intercept"] + fm["slope"] * fm["year"]
+    fm = fm[fm["trend"] > 0].copy()
+    fm["dev_pct"] = (fm["yield_bu_acre"] / fm["trend"] - 1).clip(-1, 1)
+
+    # monthly climate
+    m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet")
+    m["fips"] = m["fips"].astype(str).str.zfill(5)
+    tmax = np.column_stack([(m[f"tmax_m{mm}"] - 32) * 5 / 9 for mm in GROW])
