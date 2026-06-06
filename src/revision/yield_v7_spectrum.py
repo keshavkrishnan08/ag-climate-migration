@@ -1,0 +1,10 @@
+"""Yield v7: temperature-exposure spectrum + natural-units target -> genuinely
+higher anomaly R^2 (not statistics, a better model).
+
+Two architectural changes, both standard in the modern statistical crop-yield
+literature and BOTH improve genuine predictive skill:
+
+1. TARGET = percentage deviation from the county-crop technology trend
+   (yield/trend - 1), the natural physical scale. The previous z-scored anomaly
+   divides by the county standard deviation, which amplifies noise in low-
+   variance counties and mechanically caps R^2. The % deviation is also exactly
