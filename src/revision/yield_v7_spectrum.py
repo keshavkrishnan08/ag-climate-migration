@@ -18,3 +18,13 @@ literature and BOTH improve genuine predictive skill:
    response the aggregates hide. Soil (NCCPI), latitude and the trend slope are
    included; per-crop models. Held-out test = 2013-2023. Seed 42.
 """
+import json, sys
+from pathlib import Path
+import numpy as np, pandas as pd, lightgbm as lgb
+from scipy import stats
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "src" / "revision"))
+from yield_v5_percrop import latitude
+DATA_PROCESSED = ROOT / "data" / "processed"
+DATA_RAW = ROOT / "data" / "raw"
