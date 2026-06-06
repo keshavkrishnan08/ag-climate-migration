@@ -28,3 +28,13 @@ sys.path.insert(0, str(ROOT / "src" / "revision"))
 from yield_v5_percrop import latitude
 DATA_PROCESSED = ROOT / "data" / "processed"
 DATA_RAW = ROOT / "data" / "raw"
+OUT = ROOT / "results" / "revision"
+SEED = 42
+GROW = [f"{m:02d}" for m in range(4, 10)]
+BINS = [-100, 5, 10, 15, 20, 25, 29, 32, 34, 100]   # temperature-exposure bins (C)
+PHASE = np.linspace(0, np.pi, 48)
+
+
+def temperature_spectrum(tmax_c, tmin_c):
+    """Degree-time in each temperature bin, summed over growing-season months.
+
