@@ -48,3 +48,13 @@ def temperature_spectrum(tmax_c, tmin_c):
     for j in range(tmax_c.shape[1]):
         for p in PHASE:
             temp = mid[:, j] + amp[:, j] * np.sin(p - np.pi / 2)
+            idx = np.clip(np.digitize(temp, BINS) - 1, 0, nb - 1)
+            for b in range(nb):
+                spec[:, b] += (idx == b)
+        spec += 0  # accumulate
+    return spec / len(PHASE) * 30.0
+
+
+def es(t): return 0.6108 * np.exp(17.27 * t / (t + 237.3))
+
+
