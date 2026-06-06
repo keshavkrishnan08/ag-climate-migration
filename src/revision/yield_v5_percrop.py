@@ -78,3 +78,13 @@ def main():
         d = panel[panel["crop"] == crop].copy()
         X = d[feats].fillna(0); y = d["yield_anomaly"]
         tr = d["year"] <= 2012; te = (d["year"] > 2012) & (d["year"] <= 2023)
+        if tr.sum() < 500 or te.sum() < 100:
+            continue
+        m = lgb.LGBMRegressor(objective="regression", n_estimators=1500, learning_rate=0.02,
+                              max_depth=7, num_leaves=63, min_child_samples=40,
+                              subsample=0.8, colsample_bytree=0.9, reg_alpha=0.1,
+                              reg_lambda=1.0, monotone_constraints=mono,
+                              random_state=SEED, verbose=-1)
+        m.fit(X[tr], y[tr])
+        p = m.predict(X[te]); yt = y[te].values
+        r2 = 1 - np.sum((yt - p) ** 2) / np.sum((yt - yt.mean()) ** 2)
