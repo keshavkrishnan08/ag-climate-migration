@@ -138,3 +138,7 @@ def main():
     print(f"OVERALL (%-deviation target, spectrum features) R2={overall['r2']:.4f} Spearman={overall['spearman']:.4f}")
     json.dump({"overall": overall, "per_crop": res, "target": "pct_deviation_from_trend",
                "n_features": len(feats)}, open(OUT / "yield_v7_metrics.json", "w"), indent=2)
+
+
+if __name__ == "__main__":
+    main()
