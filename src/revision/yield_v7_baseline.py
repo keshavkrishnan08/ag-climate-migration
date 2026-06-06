@@ -68,3 +68,7 @@ def main():
     print(f"BASELINE (aggregates, same %-dev target) R2={overall['r2']:.4f} Spearman={overall['spearman']:.4f}")
     json.dump({"overall": overall, "per_crop": res, "note": "aggregate features, same %-dev target as v7"},
               open(OUT / "yield_v7_baseline_metrics.json", "w"), indent=2)
+
+
+if __name__ == "__main__":
+    main()
