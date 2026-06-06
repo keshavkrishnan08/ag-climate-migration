@@ -28,3 +28,13 @@ def main():
            .sum().reset_index(name="sxy"))
     agg = agg.merge(sxy, on=["fips", "crop"])
     den = agg["n"]*agg["sxx"] - agg["sx"]**2
+    agg["slope"] = np.where(den != 0, (agg["n"]*agg["sxy"] - agg["sx"]*agg["sy"])/den, np.nan)
+    agg["intercept"] = (agg["sy"] - agg["slope"]*agg["sx"])/agg["n"]
+    agg = agg[(agg["n"] >= 8) & agg["slope"].notna()]
+    fm = fm.merge(agg[["fips", "crop", "slope", "intercept"]], on=["fips", "crop"], how="inner")
+    fm["trend"] = fm["intercept"] + fm["slope"]*fm["year"]
+    fm = fm[fm["trend"] > 0].copy()
+    fm["dev_pct"] = (fm["yield_bu_acre"]/fm["trend"] - 1).clip(-1, 1)
+    fm = fm.merge(latitude(), on="fips", how="left")
+    cmax = fm.groupby(["fips", "crop"])["yield_bu_acre"].transform("max")
+    natmax = fm.groupby("crop")["yield_bu_acre"].transform("max")
