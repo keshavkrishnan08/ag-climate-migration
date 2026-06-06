@@ -88,3 +88,12 @@ def main():
             per[c] = {"r2": float(1 - np.sum((o - p)**2)/np.sum((o-o.mean())**2)),
                       "spearman": float(stats.spearmanr(o, p).correlation)}
     out = {"r2": float(r2), "spearman": float(sp), "n_features": int(X.shape[1]),
+           "per_crop": per, "vs_v3_r2": float(r2 - 0.2184),
+           "added": ["kdd34_growing", "dtr_growing_anom", "precip_jul_anom",
+                     "precip_aug_anom", "vpd_aug"]}
+    json.dump(out, open(OUT / "yield_v4_metrics.json", "w"), indent=2)
+    print("per-crop:", {k: round(v["r2"], 3) for k, v in per.items()})
+
+
+if __name__ == "__main__":
+    main()
