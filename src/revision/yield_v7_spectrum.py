@@ -118,3 +118,13 @@ def main():
     res, ao, ap = {}, [], []
     for crop in sorted(panel["crop"].unique()):
         d = panel[(panel["crop"] == crop) & panel["dev_pct"].notna()].copy()
+        X = d[feats].fillna(0); y = d["dev_pct"]
+        tr = d["year"] <= 2012; te = (d["year"] > 2012) & (d["year"] <= 2023)
+        if tr.sum() < 500 or te.sum() < 100:
+            continue
+        m = lgb.LGBMRegressor(objective="regression", n_estimators=2000, learning_rate=0.02,
+                              max_depth=8, num_leaves=127, min_child_samples=30,
+                              subsample=0.8, colsample_bytree=0.8, reg_alpha=0.05,
+                              reg_lambda=0.5, random_state=SEED, verbose=-1)
+        m.fit(X[tr], y[tr]); p = m.predict(X[te]); yt = y[te].values
+        r2 = 1 - np.sum((yt - p)**2) / np.sum((yt - yt.mean())**2)
