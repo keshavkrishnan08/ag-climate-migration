@@ -88,3 +88,13 @@ def main():
         m.fit(X[tr], y[tr])
         p = m.predict(X[te]); yt = y[te].values
         r2 = 1 - np.sum((yt - p) ** 2) / np.sum((yt - yt.mean()) ** 2)
+        sp = stats.spearmanr(yt, p).correlation
+        results[crop] = {"r2": float(r2), "spearman": float(sp), "n_test": int(te.sum())}
+        all_obs.extend(yt); all_pred.extend(p)
+        print(f"  {crop:14s} R2={r2:.3f} Spearman={sp:.3f} (n={te.sum()})")
+    o = np.array(all_obs); pr = np.array(all_pred)
+    overall = {"r2": float(1 - np.sum((o - pr) ** 2) / np.sum((o - o.mean()) ** 2)),
+               "spearman": float(stats.spearmanr(o, pr).correlation), "n": int(len(o))}
+    print(f"OVERALL (pooled across per-crop models): R2={overall['r2']:.4f} Spearman={overall['spearman']:.4f}")
+    json.dump({"overall": overall, "per_crop": results, "features": feats,
+               "monotone": True, "vs_v4_pooled_r2": 0.2269},
