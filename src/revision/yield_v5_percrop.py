@@ -98,3 +98,8 @@ def main():
     print(f"OVERALL (pooled across per-crop models): R2={overall['r2']:.4f} Spearman={overall['spearman']:.4f}")
     json.dump({"overall": overall, "per_crop": results, "features": feats,
                "monotone": True, "vs_v4_pooled_r2": 0.2269},
+              open(OUT / "yield_v5_metrics.json", "w"), indent=2)
+
+
+if __name__ == "__main__":
+    main()
