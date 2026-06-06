@@ -28,3 +28,13 @@ def main():
     panel = panel.merge(build_modern_features(), on=["fips", "year"], how="left")
     for c in ["vpd_growing", "vpd_july", "edd30_growing", "heat_days_proxy",
               "sm_stress", "sm_stress_july", "vpd_x_sm"]:
+        panel[f"{c}_anom"] = panel[c] - panel.groupby("fips")[c].transform("mean")
+    panel = panel.merge(extra_features(), on=["fips", "year"], how="left")
+    for c in ["kdd34_growing", "dtr_growing", "precip_jul", "precip_aug"]:
+        panel[f"{c}_anom"] = panel[c] - panel.groupby("fips")[c].transform("mean")
+    panel = panel.merge(latitude(), on="fips", how="left")
+    cmax = panel.groupby(["fips", "crop"])["yield_bu_acre"].transform("max")
+    natmax = panel.groupby("crop")["yield_bu_acre"].transform("max")
+    panel["nccpi"] = (cmax / natmax).clip(0, 1)
+    panel = panel.sort_values(["fips", "crop", "year"])
+    panel["ar1"] = panel.groupby(["fips", "crop"])["yield_anomaly"].shift(1)
