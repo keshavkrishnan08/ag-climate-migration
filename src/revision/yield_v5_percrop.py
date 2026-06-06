@@ -18,3 +18,13 @@ from scipy import stats
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT / "src" / "revision"))
+from yield_model_v3_features import build_modern_features
+from yield_v4_morefeatures import extra_features
+DATA_PROCESSED = ROOT / "data" / "processed"
+DATA_RAW = ROOT / "data" / "raw"
+OUT = ROOT / "results" / "revision"
+SEED = 42
+
+CLIM_SIGN = {  # anomaly feature -> monotone sign
+    "tmax_july_c_anomaly": -1, "vpd_growing_anom": -1, "vpd_july_anom": -1,
+    "edd30_growing_anom": -1, "heat_days_proxy_anom": -1, "sm_stress_anom": -1,
