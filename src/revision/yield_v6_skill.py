@@ -48,3 +48,13 @@ def main():
                "acres_harvested", "production", "state"}
     feats = [c for c in panel.columns if c not in exclude
              and panel[c].dtype.kind in "fi" and not panel[c].isna().all()]
+    yr = panel["year"].values
+    res, ao, ap = {}, [], []
+    for crop in sorted(panel["crop"].unique()):
+        d = panel[panel["crop"] == crop]
+        X = d[feats].fillna(0); y = d["yield_anomaly"]
+        tr = d["year"] <= 2012; te = (d["year"] > 2012) & (d["year"] <= 2023)
+        if tr.sum() < 500 or te.sum() < 100:
+            continue
+        m = lgb.LGBMRegressor(objective="regression", n_estimators=2000, learning_rate=0.02,
+                              max_depth=8, num_leaves=127, min_child_samples=30,
