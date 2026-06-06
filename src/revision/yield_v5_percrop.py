@@ -58,3 +58,13 @@ def main():
     ex = extra_features()
     panel = panel.merge(ex, on=["fips", "year"], how="left")
     for c in ["kdd34_growing", "dtr_growing", "precip_jul", "precip_aug"]:
+        panel[f"{c}_anom"] = panel[c] - panel.groupby("fips")[c].transform("mean")
+    # soil proxy (NCCPI-style): county max yield / national max, per crop
+    panel = panel.merge(latitude(), on="fips", how="left")
+    cmax = panel.groupby(["fips", "crop"])["yield_bu_acre"].transform("max")
+    natmax = panel.groupby("crop")["yield_bu_acre"].transform("max")
+    panel["nccpi"] = (cmax / natmax).clip(0, 1)
+    # AR1 prior-year own anomaly
+    panel = panel.sort_values(["fips", "crop", "year"])
+    panel["ar1"] = panel.groupby(["fips", "crop"])["yield_anomaly"].shift(1)
+
