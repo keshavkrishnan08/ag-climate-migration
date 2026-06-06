@@ -108,3 +108,13 @@ def build():
         panel[f"{c}_an"] = panel[c] - panel.groupby("fips")[c].transform("mean")
     return panel, climcols
 
+
+def main():
+    panel, climcols = build()
+    feats = (climcols + [f"{c}_an" for c in climcols]
+             + ["latitude", "nccpi", "yield_trend_slope_15yr", "switching_rate_5yr",
+                "log_population", "log_median_income"])
+    feats = [f for f in feats if f in panel.columns]
+    res, ao, ap = {}, [], []
+    for crop in sorted(panel["crop"].unique()):
+        d = panel[(panel["crop"] == crop) & panel["dev_pct"].notna()].copy()
