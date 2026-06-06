@@ -8,3 +8,13 @@ reported model-skill metric. Projection monotonicity is handled separately by th
 process-based damage function, so this model is unconstrained. Seed 42.
 """
 import json, sys
+from pathlib import Path
+import numpy as np, pandas as pd, lightgbm as lgb
+from scipy import stats
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "src" / "revision"))
+from yield_model_v3_features import build_modern_features
+from yield_v4_morefeatures import extra_features
+from yield_v5_percrop import latitude
+DATA_PROCESSED = ROOT / "data" / "processed"
