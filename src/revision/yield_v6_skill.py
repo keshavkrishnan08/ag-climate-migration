@@ -18,3 +18,13 @@ from yield_model_v3_features import build_modern_features
 from yield_v4_morefeatures import extra_features
 from yield_v5_percrop import latitude
 DATA_PROCESSED = ROOT / "data" / "processed"
+OUT = ROOT / "results" / "revision"
+SEED = 42
+
+
+def main():
+    panel = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet")
+    panel["fips"] = panel["fips"].astype(str).str.zfill(5)
+    panel = panel.merge(build_modern_features(), on=["fips", "year"], how="left")
+    for c in ["vpd_growing", "vpd_july", "edd30_growing", "heat_days_proxy",
+              "sm_stress", "sm_stress_july", "vpd_x_sm"]:
