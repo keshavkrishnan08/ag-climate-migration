@@ -58,3 +58,13 @@ def main():
                               colsample_bytree=0.8, reg_alpha=0.05, reg_lambda=0.5,
                               random_state=SEED, verbose=-1)
         m.fit(X[trn], y[trn]); p = m.predict(X[te]); yt = y[te].values
+        r2 = 1 - np.sum((yt-p)**2)/np.sum((yt-yt.mean())**2)
+        res[crop] = {"r2": float(r2), "spearman": float(stats.spearmanr(yt, p).correlation)}
+        ao.extend(yt); ap.extend(p)
+        print(f"  {crop:14s} R2={r2:.3f}")
+    o = np.array(ao); pr = np.array(ap)
+    overall = {"r2": float(1-np.sum((o-pr)**2)/np.sum((o-o.mean())**2)),
+               "spearman": float(stats.spearmanr(o, pr).correlation)}
+    print(f"BASELINE (aggregates, same %-dev target) R2={overall['r2']:.4f} Spearman={overall['spearman']:.4f}")
+    json.dump({"overall": overall, "per_crop": res, "note": "aggregate features, same %-dev target as v7"},
+              open(OUT / "yield_v7_baseline_metrics.json", "w"), indent=2)
