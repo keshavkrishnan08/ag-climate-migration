@@ -38,3 +38,13 @@ def main():
     fm = fm.merge(latitude(), on="fips", how="left")
     cmax = fm.groupby(["fips", "crop"])["yield_bu_acre"].transform("max")
     natmax = fm.groupby("crop")["yield_bu_acre"].transform("max")
+    fm["nccpi"] = (cmax/natmax).clip(0, 1)
+
+    # OLD aggregate features only (growing-season means, no monthly spectrum)
+    agg_feats = [c for c in ["tmax_july_c", "tmax_growing_c", "tmin_growing_c",
+                 "precip_growing", "pdsi_growing", "cdd_annual", "gdd_corn", "gdd_soybeans",
+                 "gdd_wheat_winter", "gdd_cotton", "gdd_sorghum", "extreme_heat_months",
+                 "tmax_july_c_anomaly", "precip_growing_anomaly", "pdsi_growing_anomaly",
+                 "latitude", "nccpi", "yield_trend_slope_15yr"] if c in fm.columns]
+    res, ao, ap = {}, [], []
+    for crop in sorted(fm["crop"].unique()):
