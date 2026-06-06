@@ -28,3 +28,13 @@ SEED = 42
 CLIM_SIGN = {  # anomaly feature -> monotone sign
     "tmax_july_c_anomaly": -1, "vpd_growing_anom": -1, "vpd_july_anom": -1,
     "edd30_growing_anom": -1, "heat_days_proxy_anom": -1, "sm_stress_anom": -1,
+    "sm_stress_july_anom": -1, "vpd_x_sm_anom": -1, "kdd34_growing_anom": -1,
+    "dtr_growing_anom": -1, "precip_jul_anom": +1, "precip_aug_anom": +1,
+    "precip_growing_anomaly": +1,
+}
+NONCLIM = ["yield_trend_slope_15yr", "yield_trend_intercept", "log_population",
+           "log_median_income", "poverty_rate", "switching_rate_proxy",
+           "switching_rate_5yr", "latitude", "nccpi", "ar1"]
+
+
+def latitude():
