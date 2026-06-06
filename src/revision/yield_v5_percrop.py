@@ -8,3 +8,13 @@ Additions over v4:
   * Autoregressive prior-year own anomaly (AR1) -- persistence from soil moisture
     carryover and management; known at planting, set to 0 under projection.
   * Monotone climate constraints retained (heat/dry -1, precip +1) so the model
+    stays physically monotone for projection.
+Reports per-crop and overall held-out (2013-2023) R^2/Spearman. Seed 42.
+"""
+import json, sys
+from pathlib import Path
+import numpy as np, pandas as pd, lightgbm as lgb
+from scipy import stats
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "src" / "revision"))
