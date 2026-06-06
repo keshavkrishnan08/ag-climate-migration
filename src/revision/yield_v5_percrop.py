@@ -68,3 +68,13 @@ def main():
     panel = panel.sort_values(["fips", "crop", "year"])
     panel["ar1"] = panel.groupby(["fips", "crop"])["yield_anomaly"].shift(1)
 
+    clim_feats = [c for c in CLIM_SIGN if c in panel.columns]
+    feats = clim_feats + [c for c in NONCLIM if c in panel.columns]
+    mono = [CLIM_SIGN[c] for c in clim_feats] + [0] * len([c for c in NONCLIM if c in panel.columns])
+
+    yr = panel["year"].values
+    results, all_obs, all_pred = {}, [], []
+    for crop in sorted(panel["crop"].unique()):
+        d = panel[panel["crop"] == crop].copy()
+        X = d[feats].fillna(0); y = d["yield_anomaly"]
+        tr = d["year"] <= 2012; te = (d["year"] > 2012) & (d["year"] <= 2023)
