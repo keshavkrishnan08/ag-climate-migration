@@ -88,3 +88,13 @@ def build():
     m = pd.read_parquet(DATA_RAW / "prism" / "county_climate_monthly.parquet")
     m["fips"] = m["fips"].astype(str).str.zfill(5)
     tmax = np.column_stack([(m[f"tmax_m{mm}"] - 32) * 5 / 9 for mm in GROW])
+    tmin = np.column_stack([(m[f"tmin_m{mm}"] - 32) * 5 / 9 for mm in GROW])
+    spec = temperature_spectrum(tmax, tmin)
+    cf = pd.DataFrame({"fips": m["fips"].values, "year": m["year"].values})
+    for b in range(spec.shape[1]):
+        cf[f"tbin_{b}"] = spec[:, b]
+    for mm in GROW:
+        cf[f"precip_{mm}"] = m[f"precip_m{mm}"].values
+        cf[f"pdsi_{mm}"] = m[f"pdsi_m{mm}"].values
+        tmaxc = (m[f"tmax_m{mm}"] - 32) * 5 / 9; tminc = (m[f"tmin_m{mm}"] - 32) * 5 / 9
+        cf[f"vpd_{mm}"] = (es(tmaxc) - es(tminc)).clip(lower=0).values
