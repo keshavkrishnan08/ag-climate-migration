@@ -128,3 +128,13 @@ def main():
                               reg_lambda=0.5, random_state=SEED, verbose=-1)
         m.fit(X[tr], y[tr]); p = m.predict(X[te]); yt = y[te].values
         r2 = 1 - np.sum((yt - p)**2) / np.sum((yt - yt.mean())**2)
+        res[crop] = {"r2": float(r2), "spearman": float(stats.spearmanr(yt, p).correlation),
+                     "n": int(te.sum())}
+        ao.extend(yt); ap.extend(p)
+        print(f"  {crop:14s} R2={r2:.3f} rho={res[crop]['spearman']:.3f}")
+    o = np.array(ao); pr = np.array(ap)
+    overall = {"r2": float(1 - np.sum((o-pr)**2)/np.sum((o-o.mean())**2)),
+               "spearman": float(stats.spearmanr(o, pr).correlation), "n": int(len(o))}
+    print(f"OVERALL (%-deviation target, spectrum features) R2={overall['r2']:.4f} Spearman={overall['spearman']:.4f}")
+    json.dump({"overall": overall, "per_crop": res, "target": "pct_deviation_from_trend",
+               "n_features": len(feats)}, open(OUT / "yield_v7_metrics.json", "w"), indent=2)
