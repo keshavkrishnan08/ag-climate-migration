@@ -18,3 +18,13 @@ SEED = 42
 def main():
     fm = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet")
     fm["fips"] = fm["fips"].astype(str).str.zfill(5)
+    fm = fm[fm["yield_bu_acre"] > 0].copy()
+    # same %-deviation target as v7 (closed-form trend on <=2012)
+    tr = fm[fm["year"] <= 2012]
+    g = tr.groupby(["fips", "crop"])
+    agg = g.agg(n=("year", "size"), sx=("year", "sum"), sy=("yield_bu_acre", "sum"),
+                sxx=("year", lambda s: (s.astype(float)**2).sum())).reset_index()
+    sxy = (tr.assign(xy=tr["year"]*tr["yield_bu_acre"]).groupby(["fips", "crop"])["xy"]
+           .sum().reset_index(name="sxy"))
+    agg = agg.merge(sxy, on=["fips", "crop"])
+    den = agg["n"]*agg["sxx"] - agg["sx"]**2
