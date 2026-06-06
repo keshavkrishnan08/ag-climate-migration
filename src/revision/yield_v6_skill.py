@@ -68,3 +68,11 @@ def main():
         print(f"  {crop:14s} R2={r2:.3f} rho={res[crop]['spearman']:.3f}")
     o = np.array(ao); pr = np.array(ap)
     overall = {"r2": float(1 - np.sum((o-pr)**2)/np.sum((o-o.mean())**2)),
+               "spearman": float(stats.spearmanr(o, pr).correlation), "n": int(len(o))}
+    print(f"OVERALL skill model R2={overall['r2']:.4f} Spearman={overall['spearman']:.4f}")
+    json.dump({"overall": overall, "per_crop": res, "n_features": len(feats)},
+              open(OUT / "yield_v6_metrics.json", "w"), indent=2)
+
+
+if __name__ == "__main__":
+    main()
