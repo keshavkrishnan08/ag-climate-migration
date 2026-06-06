@@ -38,3 +38,13 @@ PHASE = np.linspace(0, np.pi, 48)
 def temperature_spectrum(tmax_c, tmin_c):
     """Degree-time in each temperature bin, summed over growing-season months.
 
+    For each month, a diurnal sinusoid between tmin and tmax is sampled; the
+    fraction of the day in each bin times ~30 days gives degree-days of exposure.
+    Returns (n, n_bins) array.
+    """
+    n = tmax_c.shape[0]; nb = len(BINS) - 1
+    spec = np.zeros((n, nb))
+    mid = (tmax_c + tmin_c) / 2; amp = (tmax_c - tmin_c) / 2
+    for j in range(tmax_c.shape[1]):
+        for p in PHASE:
+            temp = mid[:, j] + amp[:, j] * np.sin(p - np.pi / 2)
