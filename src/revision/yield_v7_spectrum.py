@@ -98,3 +98,13 @@ def build():
         cf[f"pdsi_{mm}"] = m[f"pdsi_m{mm}"].values
         tmaxc = (m[f"tmax_m{mm}"] - 32) * 5 / 9; tminc = (m[f"tmin_m{mm}"] - 32) * 5 / 9
         cf[f"vpd_{mm}"] = (es(tmaxc) - es(tminc)).clip(lower=0).values
+    panel = fm.merge(cf, on=["fips", "year"], how="left").merge(latitude(), on="fips", how="left")
+    cmax = panel.groupby(["fips", "crop"])["yield_bu_acre"].transform("max")
+    natmax = panel.groupby("crop")["yield_bu_acre"].transform("max")
+    panel["nccpi"] = (cmax / natmax).clip(0, 1)
+    # county anomalies of climate features
+    climcols = [c for c in cf.columns if c not in ("fips", "year")]
+    for c in climcols:
+        panel[f"{c}_an"] = panel[c] - panel.groupby("fips")[c].transform("mean")
+    return panel, climcols
+
