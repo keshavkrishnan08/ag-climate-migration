@@ -58,3 +58,13 @@ def temperature_spectrum(tmax_c, tmin_c):
 def es(t): return 0.6108 * np.exp(17.27 * t / (t + 237.3))
 
 
+def build():
+    fm = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet",
+                         columns=["fips", "year", "crop", "yield_bu_acre",
+                                  "yield_trend_slope_15yr", "switching_rate_5yr",
+                                  "log_population", "log_median_income"])
+    fm["fips"] = fm["fips"].astype(str).str.zfill(5)
+    fm = fm[fm["yield_bu_acre"] > 0].copy()
+    # natural-units target: % deviation from per-county-crop linear trend (fit on <=2012)
+    # vectorized closed-form OLS per (fips,crop) using only training years
+    tr = fm[fm["year"] <= 2012].copy()
