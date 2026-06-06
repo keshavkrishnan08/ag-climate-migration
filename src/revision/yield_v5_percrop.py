@@ -48,3 +48,13 @@ def latitude():
 
 def main():
     panel = pd.read_parquet(DATA_PROCESSED / "feature_matrix.parquet")
+    panel["fips"] = panel["fips"].astype(str).str.zfill(5)
+    # climate features + anomalies
+    mf = build_modern_features()
+    panel = panel.merge(mf, on=["fips", "year"], how="left")
+    for c in ["vpd_growing", "vpd_july", "edd30_growing", "heat_days_proxy",
+              "sm_stress", "sm_stress_july", "vpd_x_sm"]:
+        panel[f"{c}_anom"] = panel[c] - panel.groupby("fips")[c].transform("mean")
+    ex = extra_features()
+    panel = panel.merge(ex, on=["fips", "year"], how="left")
+    for c in ["kdd34_growing", "dtr_growing", "precip_jul", "precip_aug"]:
