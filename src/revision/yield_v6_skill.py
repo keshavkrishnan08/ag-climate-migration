@@ -38,3 +38,13 @@ def main():
     panel["nccpi"] = (cmax / natmax).clip(0, 1)
     panel = panel.sort_values(["fips", "crop", "year"])
     panel["ar1"] = panel.groupby(["fips", "crop"])["yield_anomaly"].shift(1)
+    # same-year regional (state) spatial-lag anomaly, excluding self
+    panel["state"] = panel["fips"].str[:2]
+    grp = panel.groupby(["state", "crop", "year"])["yield_anomaly"]
+    s_sum = grp.transform("sum"); s_cnt = grp.transform("count")
+    panel["spatial_lag"] = (s_sum - panel["yield_anomaly"]) / (s_cnt - 1).clip(lower=1)
+
+    exclude = {"fips", "year", "crop", "yield_bu_acre", "yield_anomaly",
+               "acres_harvested", "production", "state"}
+    feats = [c for c in panel.columns if c not in exclude
+             and panel[c].dtype.kind in "fi" and not panel[c].isna().all()]
