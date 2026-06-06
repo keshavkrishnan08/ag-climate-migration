@@ -68,3 +68,13 @@ def build():
     # natural-units target: % deviation from per-county-crop linear trend (fit on <=2012)
     # vectorized closed-form OLS per (fips,crop) using only training years
     tr = fm[fm["year"] <= 2012].copy()
+    g = tr.groupby(["fips", "crop"])
+    agg = g.agg(n=("year", "size"), sx=("year", "sum"),
+                sy=("yield_bu_acre", "sum"),
+                sxx=("year", lambda s: (s.astype(float) ** 2).sum())).reset_index()
+    sxy = (tr.assign(xy=tr["year"] * tr["yield_bu_acre"])
+           .groupby(["fips", "crop"])["xy"].sum().reset_index(name="sxy"))
+    agg = agg.merge(sxy, on=["fips", "crop"])
+    denom = agg["n"] * agg["sxx"] - agg["sx"] ** 2
+    agg["slope"] = np.where(denom != 0, (agg["n"] * agg["sxy"] - agg["sx"] * agg["sy"]) / denom, np.nan)
+    agg["intercept"] = (agg["sy"] - agg["slope"] * agg["sx"]) / agg["n"]
