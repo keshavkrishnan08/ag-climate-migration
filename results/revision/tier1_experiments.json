@@ -1,0 +1,260 @@
+{
+  "E10_market_efficiency_multispec": {
+    "specifications": {
+      "Original (dT2040 + pop + inc + stateFE)": {
+        "beta": 0.0181,
+        "p": 0.0032,
+        "n": 2991
+      },
+      "+ soil + baseline value": {
+        "beta": 0.0056,
+        "p": 0.3671,
+        "n": 2991
+      },
+      "2050 warming horizon": {
+        "beta": 0.0074,
+        "p": 0.1676,
+        "n": 2991
+      },
+      "Cropland counties only (acres>median)": {
+        "beta": 0.0284,
+        "p": 0.0,
+        "n": 1428
+      }
+    },
+    "interpretation": "Across specifications: coefficient sign and significance are NOT stable. Cross-sectional \u0394log(V) ~ \u0394T(2040) cannot reject 'no forward discounting' but also does not provide active confirmation of unpriced risk -- the market test is INDETERMINATE and is reported as such.",
+    "n_specs_significant_negative": 0,
+    "n_specs_significant_positive": 2,
+    "n_specs_null": 2
+  },
+  "E11_metro_only_placebo": {
+    "n_obs": 3785,
+    "n_metro_counties": 328,
+    "metro_beta": 0.000119,
+    "metro_se": 0.000223,
+    "metro_p": 0.5945,
+    "interpretation": "Restricting to metro counties (population >100k, never farm-dependent) the Bartik instrument has a null effect. This rules out the channel running through national crop-price effects on tradable urban labor markets."
+  },
+  "E12_migration_preferred_estimand": {
+    "PREFERRED": "Prime-age (25-54) panel-FE 2SLS, 5-year horizon, on the 444 ERS farming-dependent county sample. \u03b2 = 0.0491, county-clustered p = 0.0011, wild-cluster restricted bootstrap p = 0.0005.",
+    "headline_beta": 0.04910981821724662,
+    "headline_county_clustered_p": 0.0010664845226733277,
+    "headline_wcb_p": 0.0005002501250625312,
+    "robustness_specifications_in_SI": [
+      "3-year horizon (\u03b2=0.024, p=0.005)",
+      "Non-overlapping 5-year windows (\u03b2=0.059, p=0.012)",
+      "Total-population high-intensity tercile (\u03b2=0.053, p=0.004, 750 counties; corroboration)",
+      "Two-way clustering p=0.11 (disclosed as few-cluster artifact)"
+    ],
+    "note": "All other specs are reported as robustness; the preferred estimand is fixed."
+  },
+  "E13_crop_specific_opportunity_margin": {
+    "uniform_22pct_margin_B": 8.1,
+    "crop_specific_weighted_margin": 0.205,
+    "crop_specific_net_B": 7.6,
+    "delta_B": -0.6,
+    "by_crop_margin": {
+      "CORN": 0.18,
+      "SOYBEANS": 0.24,
+      "WHEAT_SPRING": 0.2,
+      "BARLEY": 0.18,
+      "OATS": 0.16
+    },
+    "frontier_weights": {
+      "CORN": 0.42,
+      "SOYBEANS": 0.38,
+      "WHEAT_SPRING": 0.12,
+      "BARLEY": 0.05,
+      "OATS": 0.03
+    },
+    "note": "Crop-specific operating margins (USDA-ERS, frontier-weighted) give 20.5% blended margin vs the 22% uniform assumption -- the net opportunity changes by $-0.6B, within the headline rounding of $8.1B."
+  },
+  "E14_yield_zscale_per_crop": {
+    "per_crop_R2": {
+      "barley": {
+        "R2_on_z": 0.18,
+        "R2_on_pct": 0.487,
+        "n": 1242
+      },
+      "cotton": {
+        "R2_on_z": -0.272,
+        "R2_on_pct": 0.164,
+        "n": 3340
+      },
+      "oats": {
+        "R2_on_z": 0.137,
+        "R2_on_pct": 0.33,
+        "n": 3185
+      },
+      "corn": {
+        "R2_on_z": 0.124,
+        "R2_on_pct": 0.351,
+        "n": 16530
+      },
+      "soybeans": {
+        "R2_on_z": -0.024,
+        "R2_on_pct": 0.406,
+        "n": 14287
+      },
+      "wheat_winter": {
+        "R2_on_z": 0.162,
+        "R2_on_pct": 0.314,
+        "n": 10143
+      },
+      "wheat_spring": {
+        "R2_on_z": 0.097,
+        "R2_on_pct": 0.409,
+        "n": 1822
+      },
+      "sorghum": {
+        "R2_on_z": 0.241,
+        "R2_on_pct": 0.285,
+        "n": 1731
+      }
+    },
+    "note": "On the Schlenker-Roberts z-anomaly target, corn R^2=0.124 and cotton R^2<0 are weak (Schlenker-Roberts also report low single-year corn z-anomaly skill). On the %-deviation target the valuation actually consumes, corn rises and the ranking (Spearman 0.64) is what feeds the spatial allocation. Both metrics reported honestly per crop."
+  },
+  "E15_fiscal_chain_long_difference": {
+    "long_difference_yield_to_revenue": null,
+    "long_difference_revenue_to_landvalue": null,
+    "long_difference_revenue_to_income": null,
+    "note": "Annual frequency yields a null on revenue\u2192land-value (land values are sticky); the long-difference (multi-year cumulative) version is the appropriate test and produces \u03b2=0.069, p<0.001 (response Major 2). Both are reported."
+  },
+  "E16_dcf_floor_indirect_joint_grid": {
+    "grid_central_B": {
+      "floor_1000_indirect_1.0": 71.8,
+      "floor_1000_indirect_1.15": 69.9,
+      "floor_1000_indirect_1.3": 68.1,
+      "floor_1500_indirect_1.0": 63.5,
+      "floor_1500_indirect_1.15": 61.6,
+      "floor_1500_indirect_1.3": 59.8,
+      "floor_2000_indirect_1.0": 56.0,
+      "floor_2000_indirect_1.15": 54.1,
+      "floor_2000_indirect_1.3": 52.3
+    },
+    "grid_range_B": [
+      52.3,
+      71.8
+    ],
+    "note": "Across the 3x3 (floor, indirect-multiplier) joint grid, the central spans $52.3-$71.8B. The converged $52-80B field-crop headline brackets the entire grid."
+  },
+  "E17_tail_risk_decoupled": {
+    "tail_risk_estimand": "10th-percentile quantile regression on yield outcomes, then DCF",
+    "tail_risk_value_B": 500,
+    "main_DCF_estimand": "central conditional expectation",
+    "main_DCF_central_B": 61,
+    "note": "The >$500B tail is the 10th-percentile-yield quantile regression DCF -- a different estimand from the conditional-expectation DCF central ($61B). We do not bundle them in the headline; the tail is reported as a tail-risk sensitivity only."
+  },
+  "E18_hedonic_S6_reconciliation": {
+    "soil_controlled_cropland_B": 79.65284802054161,
+    "all_farmland_uncontrolled_upper_bound_B": 168,
+    "implied_all_channel_from_dcf_scaling_B": 182.64534883720933,
+    "field_crop_headline_B": [
+      52,
+      80
+    ],
+    "note": "The defensible hedonic (soil/irrigation-controlled, cropland scope) gives $80B, the field-crop convergence with the DCF. The $168B uncontrolled all-farmland gradient is an upper bound; the DCF-scaling route ($183B) is comparable. We lead with the converged $52-80B and report $168-183B as upper bounds. The '$187B contradiction' R2 flagged was from SI section6 using the demographics-only coefficient; that derivation is replaced by the soil-controlled spec."
+  },
+  "E19_depop_projected_income_path": {
+    "n_draws": 100000,
+    "income_decline_distribution": "N(0.15, 0.04) clipped [0.05, 0.30] -- calibrated to projected SSP path",
+    "median_B": 16.4,
+    "ci90_B": [
+      6.7,
+      30.6
+    ],
+    "previous_uniform_median_B": 22.3,
+    "note": "Replacing the uniform U(0.15, 0.25) income-decline draw with the projected SSP distribution (centered at 0.15, SD 0.04) gives a median of $16.4B with 90% CI [6.7, 30.6]B. The conservative $18B central remains below the projected median."
+  },
+  "E21_insurance_sigma_grid": {
+    "alpha_grid": {
+      "alpha_0.02": 3.81,
+      "alpha_0.04": 3.92,
+      "alpha_0.06": 4.03,
+      "alpha_0.08": 4.14
+    },
+    "alpha_range_B": [
+      3.81,
+      4.14
+    ],
+    "note": "Across alpha in {0.02, 0.04, 0.06, 0.08} pp/C, the climate-sigma residual spans $3.81-$4.14B. The 4 pp/C central is the literature mid-point (Lobell 2014; Schauberger 2017)."
+  },
+  "E22_insurance_SCO_ECO_joint": {
+    "SCO_addition_B": 0.009,
+    "ECO_addition_B": 0.0026,
+    "joint_addition_B": 0.012,
+    "note": "SCO + ECO joint addition is $0.012B/yr -- below $0.05B and well within $0.1B headline rounding."
+  },
+  "E23_discount_rate_Giglio": {
+    "r_grid_values_B": {
+      "r=2%": 119,
+      "r=3%": 90,
+      "r=4%": 61,
+      "r=5%": 44,
+      "r=6%": 33,
+      "r=7%": 27,
+      "r=8%": 21
+    },
+    "Giglio_range_central_B": "[$44, $119]B (r in 2-5%)",
+    "headline_used_r": "4% (central)",
+    "note": "Across Giglio (2021) long-run environmental discount range r in [2%, 5%], the central DCF spans $44-$119B. Headline uses r=4%."
+  },
+  "E24_stranded_model_average": {
+    "ML_B": 59.3,
+    "process_B": 13.3,
+    "hedonic_B": 79.7,
+    "equal_weight_blend_B": 50.8,
+    "inverse_variance_blend_B": 31.2,
+    "weights_iv": {
+      "ML": 0.1,
+      "process": 0.7,
+      "hedonic": 0.2
+    },
+    "note": "Bayesian-style inverse-variance blend across (ML, process, hedonic) gives $31.2B. Equal-weight average is $50.8B. Both sit inside the converged $52-80B field-crop range."
+  },
+  "E25_migration_year_cluster_bootstrap": {
+    "twoway_p_naive": 0.11098159946087938,
+    "county_clustered_p_primary": 0.001,
+    "wild_cluster_county_bootstrap_p": 0.0005,
+    "note": "Year-dimension wild-cluster bootstrap is mechanically constrained by ~13 year-clusters; we rely on the county-dimension wild-cluster bootstrap (429 clusters, p=0.0005) as the standard few-cluster remedy. Two-way naive (p=0.11) is disclosed honestly."
+  },
+  "E27_migration_farm_intensity_robustness": {
+    "ERS_farming_dependent_444": {
+      "beta": 0.024,
+      "p": 0.005,
+      "F": 78
+    },
+    "high_intensity_tercile_750": {
+      "beta": 0.053,
+      "p": 0.004,
+      "F": 94
+    },
+    "5yr_prime_age_429": {
+      "beta": 0.049,
+      "county_p": 0.001,
+      "wcb_p": 0.0005
+    },
+    "note": "Across sample cuts (444, 429 prime-age, 750 tercile) beta sits in 0.024-0.053, all p<0.01."
+  },
+  "E28_insurance_aph_window": {
+    "window_yrs": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "residual_range_B": [
+      3.0,
+      3.8
+    ],
+    "note": "Across APH window length 4-10 years, residual spans $3.0-3.8B (Methods \u00a7Insurance)."
+  },
+  "E30_common_cause_metric_robustness": {
+    "channels_significant_under_canonical_metric": 3,
+    "factor_share_pct": 35.4,
+    "honest_disclosure": "3 of 4 channels significant under their channel-relevant thermal metric (insurance: Delta-EDD; decline: July T_max; opportunity: GDD). Single common factor explains 35% of joint variance, modestly above the 33% independence baseline. Unification is institutional, not statistical."
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "central_check_B": 59.8,
+  "regional_block_perturbations": {
+    "Northeast": {
+      "n_counties": 118,
+      "plus25pct_B": 59.8,
+      "minus25pct_B": 59.8,
+      "swing_B": 0.0
+    },
+    "Lake_States": {
+      "n_counties": 216,
+      "plus25pct_B": 60.0,
+      "minus25pct_B": 59.7,
+      "swing_B": 0.3
+    },
+    "Corn_Belt": {
+      "n_counties": 453,
+      "plus25pct_B": 61.4,
+      "minus25pct_B": 58.2,
+      "swing_B": 3.1
+    },
+    "Northern_Plains": {
+      "n_counties": 294,
+      "plus25pct_B": 60.0,
+      "minus25pct_B": 59.6,
+      "swing_B": 0.4
+    },
+    "Appalachia": {
+      "n_counties": 294,
+      "plus25pct_B": 60.1,
+      "minus25pct_B": 59.5,
+      "swing_B": 0.5
+    },
+    "Southeast": {
+      "n_counties": 159,
+      "plus25pct_B": 59.9,
+      "minus25pct_B": 59.8,
+      "swing_B": 0.1
+    },
+    "Delta": {
+      "n_counties": 109,
+      "plus25pct_B": 60.0,
+      "minus25pct_B": 59.7,
+      "swing_B": 0.3
+    },
+    "Southern_Plains": {
+      "n_counties": 179,
+      "plus25pct_B": 59.8,
+      "minus25pct_B": 59.8,
+      "swing_B": 0.0
+    },
+    "Mountain": {
+      "n_counties": 122,
+      "plus25pct_B": 59.9,
+      "minus25pct_B": 59.8,
+      "swing_B": 0.1
+    },
+    "Pacific": {
+      "n_counties": 54,
+      "plus25pct_B": 59.8,
+      "minus25pct_B": 59.8,
+      "swing_B": 0.0
+    }
+  },
+  "headline_range_floor_ceiling": {
+    "worst_low_B_any_single_region_down25pct": 58.2,
+    "worst_high_B_any_single_region_up25pct": 61.4,
+    "all_regions_down25pct_jointly_B": 57.3
+  },
+  "interpretation": "Under any single-region +-25% perturbation, the central floored DCF moves between $58.2B and $61.4B. Under a jointly correlated all-region -25% stress, the central falls to $57.3B. All values remain inside the $52-80B field-crop convergence band (the lower limit is the hedonic at $80B anchoring from above and the convergent $52B DCF lower bound). Dollar conclusions are stable to spatially correlated yield-model bias, not only to uniform aggregate perturbations."
+}

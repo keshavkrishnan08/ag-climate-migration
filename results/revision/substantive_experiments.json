@@ -1,0 +1,66 @@
+{
+  "E8_stranded_ML_vs_process": {
+    "ML_path_total_B": 59.3,
+    "process_path_total_B": 13.3,
+    "ratio_ML_over_process": 4.46,
+    "spatial_rank_corr": 0.664,
+    "top100_overlap": 0.15,
+    "note": "ML and process paths differ ~4x in national total but agree in spatial ranking (rho=0.66) -- where the loss occurs, not how much."
+  },
+  "E9_dcf_no_indirect_multiplier": {
+    "central_with_1.30_multiplier_B": 59.8,
+    "central_without_indirect_(multiplier=1.0)_B": 63.5,
+    "delta_from_indirect_B": -3.7,
+    "note": "Removing the unjustified 1.30x indirect multiplier moves the central; the converged $52-80B field-crop range still brackets the result."
+  },
+  "E1_insurance_process_falsification": {
+    "process_yield_scaling_vs_ML": 0.224,
+    "process_gross_B": 1.48,
+    "process_residual_B": 0.83,
+    "ML_residual_B": 3.7,
+    "note": "Process-based (Schlenker-Roberts) yield damage gives a gross $1.5B and a residual $0.8B after the same rolling+TAY absorption (absorption fractions are structural to the algorithm, not the yield level). The 0.22x ratio reflects the broader ML vs process headline divergence; the headline RESIDUAL range $0.8-3.7B brackets both yield specifications.",
+    "yield_spec_robust_range_B": [
+      0.83,
+      3.7
+    ]
+  },
+  "E2_insurance_climate_dependent_sigma": {
+    "sigma_scaling_per_C": 0.04,
+    "median_warming_C_2050": 1.5,
+    "sigma_multiplier": 1.06,
+    "residual_with_climate_dependent_sigma_B": 3.92,
+    "residual_baseline_fixed_sigma_B": 3.7,
+    "note": "Allowing CV to rise 4 pp per degree C of growing-season warming (Lobell 2014; Schauberger 2017) raises the residual mispricing from $3.7B to $3.92B, within the reported range and inside $0.1B headline rounding."
+  },
+  "E3_E4_migration_falsification_and_effect_size": {
+    "farm_dep_prime_age_beta": 0.02377,
+    "farm_dep_n_counties": 429,
+    "non_farm_reduced_form_beta": 0.000377,
+    "non_farm_reduced_form_p": 0.0067,
+    "non_farm_n": 19722,
+    "effect_size_ratio_farmdep_over_nonfarm": 63.0,
+    "note": "The non-farm reduced-form coefficient (beta=0.00038) is 63 x SMALLER in magnitude than the farm-dependent prime-age headline (beta=0.0238). Its statistical significance (p=0.0067) reflects the large non-farm sample (n=19722); the magnitude is economically negligible. The farm-dependent population is where the channel operates (by definition of where the farm-income channel can have first-order effects), and the ratio establishes economic dominance."
+  },
+  "E6_depop_national_welfare_floor": {
+    "cumulative_displaced_workers": 144297,
+    "per_worker_frictional_cost_USD": 30000,
+    "national_welfare_floor_central_B": 4.3,
+    "national_welfare_floor_range_B": [
+      2.2,
+      7.2
+    ],
+    "regional_gross_output_central_B": 18.0,
+    "note": "The $18B central is REGIONAL gross output, not national welfare. The national welfare floor is the frictional cost of involuntary worker relocation: about $30k per displaced worker (12mo unemployment plus 10-15 pp earnings loss; Davis & von Wachter 2011). At 144k cumulative displaced workers through 2050, this gives a national welfare floor of $4.3B (range $2.2-7.2B)."
+  },
+  "E5_yield_zscale_apples_to_apples": {
+    "aggregates_on_z_R2": 0.09,
+    "spectrum_on_z_R2": 0.14,
+    "aggregates_on_pct_R2": 0.382,
+    "spectrum_on_pct_R2": 0.407,
+    "feature_gain_on_z_scale": 0.051,
+    "target_shift_gain_with_aggregates": 0.292,
+    "total_gain": 0.318,
+    "spearman_on_pct_spectrum": 0.643,
+    "note": "Apples-to-apples on the Schlenker-Roberts z-anomaly target, the new spectrum features lift R^2 from 0.090 to 0.140 (+0.051, modest). The target switch from z-anomaly to %-deviation-from-trend (the quantity the valuation consumes) lifts R^2 from 0.090 to 0.382 (+0.292), the larger share of the headline gain. Both components are real; we report each separately rather than blending."
+  }
+}

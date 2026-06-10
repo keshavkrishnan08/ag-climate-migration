@@ -1,0 +1,32 @@
+{
+  "specs": {
+    "baseline (orig controls)": {
+      "r2": 0.7117332903610806,
+      "beta_tmax": -0.2557869740497565,
+      "beta_tmax_sq": 0.0013044085035133265,
+      "marginal_pct_per_F_at_mean": -0.026601896282776566,
+      "stranded_B": 74.53542041902597,
+      "n": 3004
+    },
+    "+ SSURGO water": {
+      "r2": 0.724378666172675,
+      "beta_tmax": -0.2817679841405113,
+      "beta_tmax_sq": 0.0014511548014195619,
+      "marginal_pct_per_F_at_mean": -0.026799525165059124,
+      "stranded_B": 76.74989855985861,
+      "n": 3004
+    },
+    "+ SSURGO + irrigation + soil-productivity": {
+      "r2": 0.7259563793592665,
+      "beta_tmax": -0.28433407026440266,
+      "beta_tmax_sq": 0.0014585037359764364,
+      "marginal_pct_per_F_at_mean": -0.02807440064950334,
+      "stranded_B": 79.65284802054161,
+      "n": 3004
+    }
+  },
+  "coef_stability_pct": 5.535336094367635,
+  "field_crop_share_of_ag_value": 0.3339805825242718,
+  "implied_all_channel_from_dcf_B": 182.64534883720933,
+  "note": "Stability of the warming coefficient to soil/irrigation controls defuses the Ricardian critique; reconciliation uses measured crop share, not 30% assumption."
+}

@@ -1,0 +1,51 @@
+{
+  "gross_incremental_revenue_B_per_yr": 37.0,
+  "headline_band": {
+    "lower_15pct_margin_B_per_yr": 5.5,
+    "central_22pct_margin_B_per_yr": 8.1,
+    "upper_30pct_margin_B_per_yr": 11.1
+  },
+  "per_state_net_band": {
+    "Minnesota": {
+      "net_margin_15pct_B_per_yr": 1.26,
+      "net_margin_22pct_B_per_yr": 1.85,
+      "net_margin_30pct_B_per_yr": 2.52
+    },
+    "North_Dakota": {
+      "net_margin_15pct_B_per_yr": 1.23,
+      "net_margin_22pct_B_per_yr": 1.8,
+      "net_margin_30pct_B_per_yr": 2.46
+    },
+    "South_Dakota": {
+      "net_margin_15pct_B_per_yr": 0.97,
+      "net_margin_22pct_B_per_yr": 1.43,
+      "net_margin_30pct_B_per_yr": 1.95
+    },
+    "Wisconsin": {
+      "net_margin_15pct_B_per_yr": 0.56,
+      "net_margin_22pct_B_per_yr": 0.81,
+      "net_margin_30pct_B_per_yr": 1.11
+    },
+    "Idaho": {
+      "net_margin_15pct_B_per_yr": 0.27,
+      "net_margin_22pct_B_per_yr": 0.4,
+      "net_margin_30pct_B_per_yr": 0.54
+    },
+    "Montana": {
+      "net_margin_15pct_B_per_yr": 0.21,
+      "net_margin_22pct_B_per_yr": 0.31,
+      "net_margin_30pct_B_per_yr": 0.42
+    },
+    "Wyoming": {
+      "net_margin_15pct_B_per_yr": 0.09,
+      "net_margin_22pct_B_per_yr": 0.13,
+      "net_margin_30pct_B_per_yr": 0.18
+    },
+    "Oregon": {
+      "net_margin_15pct_B_per_yr": 0.06,
+      "net_margin_22pct_B_per_yr": 0.09,
+      "net_margin_30pct_B_per_yr": 0.12
+    }
+  },
+  "interpretation": "We report the net opportunity as a band: $5.6B/yr (15% margin, lower bound reflecting reduced operating efficiency on high-latitude soils), $8.1B/yr (22% margin, USDA-ERS national average), $11.1B/yr (30% margin, upper bound). The band is the abstract headline rather than a single point."
+}

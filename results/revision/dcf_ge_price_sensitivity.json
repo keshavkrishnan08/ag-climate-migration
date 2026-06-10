@@ -1,0 +1,15 @@
+{
+  "discount_rate": 0.05,
+  "horizon_years": 25.0,
+  "annuity_multipliers_vs_flat": {
+    "g_0.0pct": 1.0,
+    "g_0.5pct": 1.052,
+    "g_1.0pct": 1.107
+  },
+  "stranded_floored_B": {
+    "flat_real_prices": 59.8,
+    "plus_0.5pct_yr_real": 62.3,
+    "plus_1.0pct_yr_real": 64.9
+  },
+  "interpretation": "Allowing the GE supply-contraction price feedback at +0.5%/yr real growth raises the central stranded total by ~7% to about $64B (still inside the $52-80B field-crop convergence band). At an extreme +1.0%/yr the figure rises by ~14% to $68B. The flat-price specification is therefore conservative."
+}

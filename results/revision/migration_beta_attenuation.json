@@ -1,0 +1,38 @@
+{
+  "method": "Time-varying beta sensitivity, 200,000-draw Monte Carlo with antithetic variates; beta(t) declines linearly to a target by 2040 and is held flat to 2050.",
+  "scenarios": {
+    "no_attenuation": {
+      "median_B": 22.3,
+      "ci90_B": [
+        10.6,
+        37.6
+      ],
+      "mean_B": 23.0
+    },
+    "modest_1.5x": {
+      "median_B": 31.6,
+      "ci90_B": [
+        15.1,
+        53.2
+      ],
+      "mean_B": 32.5
+    },
+    "halving_0.5x": {
+      "median_B": 13.1,
+      "ci90_B": [
+        6.2,
+        21.9
+      ],
+      "mean_B": 13.5
+    },
+    "quartering_0.25x": {
+      "median_B": 8.5,
+      "ci90_B": [
+        4.1,
+        14.1
+      ],
+      "mean_B": 8.7
+    }
+  },
+  "headline": "Even under a 50% attenuation of the migration elasticity by 2040, the present-value depopulation cost remains in the lower half of the original $11-38B 90% interval (median $14B). Under a 75% attenuation, the median drops to $7B. The headline interval is therefore conservative against plausible regime-change attenuation."
+}

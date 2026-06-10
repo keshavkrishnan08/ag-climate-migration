@@ -1,0 +1,112 @@
+{
+  "mse_drought": {
+    "r2": 0.2343466353612048,
+    "spearman": 0.4887333828028931,
+    "per_crop": {
+      "barley": {
+        "r2": 0.26919942896466365,
+        "spearman": 0.5031108603458224,
+        "n_test": 1242
+      },
+      "corn": {
+        "r2": 0.18290363547547517,
+        "spearman": 0.4471863322418326,
+        "n_test": 16535
+      },
+      "cotton": {
+        "r2": -0.04893275839675737,
+        "spearman": 0.375094121998418,
+        "n_test": 3352
+      },
+      "oats": {
+        "r2": 0.230084432840424,
+        "spearman": 0.4884531356935753,
+        "n_test": 3185
+      },
+      "sorghum": {
+        "r2": 0.23560087516220973,
+        "spearman": 0.5040698277167862,
+        "n_test": 1731
+      },
+      "soybeans": {
+        "r2": 0.27784562550392444,
+        "spearman": 0.5221943770735326,
+        "n_test": 14384
+      },
+      "wheat_spring": {
+        "r2": 0.3348379599142002,
+        "spearman": 0.5850249648223573,
+        "n_test": 1822
+      },
+      "wheat_winter": {
+        "r2": 0.232408975911785,
+        "spearman": 0.4660293325745944,
+        "n_test": 10143
+      }
+    }
+  },
+  "huber_drought": {
+    "r2": 0.23333545958053636,
+    "spearman": 0.4899139154114979,
+    "per_crop": {
+      "barley": {
+        "r2": 0.27059036668429837,
+        "spearman": 0.5052907320087501,
+        "n_test": 1242
+      },
+      "corn": {
+        "r2": 0.1667488844261784,
+        "spearman": 0.44056892787236746,
+        "n_test": 16535
+      },
+      "cotton": {
+        "r2": -0.0419288580469821,
+        "spearman": 0.38403729465886727,
+        "n_test": 3352
+      },
+      "oats": {
+        "r2": 0.23765610856382868,
+        "spearman": 0.49577811718661247,
+        "n_test": 3185
+      },
+      "sorghum": {
+        "r2": 0.2456566506193969,
+        "spearman": 0.5121401743300646,
+        "n_test": 1731
+      },
+      "soybeans": {
+        "r2": 0.2772592081538853,
+        "spearman": 0.5224401307943484,
+        "n_test": 14384
+      },
+      "wheat_spring": {
+        "r2": 0.34735411213742207,
+        "spearman": 0.594282876016332,
+        "n_test": 1822
+      },
+      "wheat_winter": {
+        "r2": 0.24362813691725993,
+        "spearman": 0.47709085132051565,
+        "n_test": 10143
+      }
+    },
+    "best_alpha": 0.9
+  },
+  "drought_feature_importance": {
+    "dry_run": 342,
+    "pdsi_slope": 2568,
+    "deficit_integral": 994,
+    "dry_month": 624,
+    "pdsi_early_late": 2411,
+    "precip_dry_run": 261,
+    "dry_run_anom": 2863,
+    "pdsi_slope_anom": 2421,
+    "deficit_integral_anom": 2722,
+    "dry_month_anom": 4279,
+    "pdsi_early_late_anom": 2415,
+    "precip_dry_run_anom": 4181
+  },
+  "n_features": 72,
+  "split": "train<=2012, test 2013-2023",
+  "baseline_v4_r2": 0.2269
+}

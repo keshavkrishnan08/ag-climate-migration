@@ -1,0 +1,16 @@
+{
+  "selection_test": {
+    "beta_stress": 0.014542819419555139,
+    "se": 3.545261195789077e-05,
+    "p_value": 0.0,
+    "n_county_crop": 4674,
+    "coverage_pp_per_10pp_decline": 0.1454281941955514,
+    "interpretation": "positive beta => climate-stressed counties elect higher coverage"
+  },
+  "national_acreage_weighted_coverage": 0.7424046455830217,
+  "transfer_actual_coverage_B": 1.7845073830210472,
+  "transfer_uniform_coverage_B": 1.8441020431231432,
+  "endogeneity_effect_on_transfer_B": -0.05959466010209602,
+  "residual_actual_B": 3.737551895518533,
+  "residual_uniform_B": 3.7719051482750534
+}

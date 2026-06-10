@@ -1,0 +1,15 @@
+{
+  "per_crop": {
+    "barley": 0.7819070604278291,
+    "corn": 0.4205392634350531,
+    "cotton": 0.5797109037825723,
+    "oats": 0.4505144986679459,
+    "sorghum": 0.5758345623577645,
+    "soybeans": 0.7061241338294744,
+    "wheat_spring": 0.7324013417842117,
+    "wheat_winter": 0.7596025754012997
+  },
+  "n_above": 6,
+  "median": 0.6429175188060233,
+  "note": "levels + lagged-yield (You2017/Khaki-style, projectable via trend)"
+}

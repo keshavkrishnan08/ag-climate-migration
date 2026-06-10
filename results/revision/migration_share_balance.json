@@ -1,0 +1,12 @@
+{
+  "unconditional_shares_on_amenity_R2": 0.17677016330760376,
+  "unconditional_note": "baseline shares correlate with climate/amenity; share-exogeneity does NOT hold, as expected",
+  "within_FE_instrument_on_amenity": {
+    "beta": -0.06434915154000483,
+    "p": 0.0,
+    "R2": 0.004140813303918467,
+    "n": 30843
+  },
+  "identification": "NOT share exogeneity. Rests on: (i) direct controls for the amenity channel (hi_amenity, winter_tmin_anom); (ii) county and year FE absorbing time-invariant amenity; (iii) leave-one-out NATIONAL crop shocks as the within-county identifying variation (Borusyak-Hull-Jaravel shock exogeneity); (iv) null placebo in low-farm-intensity counties.",
+  "refs": "Goldsmith-Pinkham, Sorkin & Swift 2020; Borusyak, Hull & Jaravel 2022"
+}

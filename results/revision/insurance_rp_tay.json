@@ -1,0 +1,38 @@
+{
+  "rp_vs_yp": {
+    "YP_yield_put": {
+      "total_B": 3.4547027219805613,
+      "xsub_B": 1.703161604039016
+    },
+    "RP_revenue_put": {
+      "total_B": 2.64496818515028,
+      "xsub_B": 1.128656789780243
+    }
+  },
+  "tay_participation_range": {
+    "participation_0pct": {
+      "residual_B": 4.587438711448031,
+      "transfer_B": 2.2195940571634747
+    },
+    "participation_25pct": {
+      "residual_B": 4.090249061894646,
+      "transfer_B": 1.938575072160755
+    },
+    "participation_50pct": {
+      "residual_B": 3.628978499010474,
+      "transfer_B": 1.803297842470971
+    },
+    "participation_75pct": {
+      "residual_B": 3.355086784569761,
+      "transfer_B": 1.3470548732416798
+    },
+    "participation_100pct": {
+      "residual_B": 3.7818381939508474,
+      "transfer_B": 0.7965711039462094
+    }
+  },
+  "rp_params": {
+    "price_vol": 0.2,
+    "yield_price_corr": -0.3
+  }
+}

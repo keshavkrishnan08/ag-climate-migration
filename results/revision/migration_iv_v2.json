@@ -1,0 +1,74 @@
+{
+  "design": "dose-response: pop_growth_3yr ~ z + z*farm_intensity, county+year FE",
+  "key_coef": "z_x_fi (farm-income channel, exclusion-robust)",
+  "dose_response_county_year_FE": {
+    "coef": {
+      "z_bartik": 0.0005307237998875837,
+      "z_x_fi": -0.00015339168048559955,
+      "winter_tmin_anom": 0.00011938596020361564
+    },
+    "se": {
+      "z_bartik": 0.00016611370490343994,
+      "z_x_fi": 0.0001008441852284015,
+      "winter_tmin_anom": 0.00011888955759263722
+    },
+    "p": {
+      "z_bartik": 0.0013985851453333087,
+      "z_x_fi": 0.1282407400556227,
+      "winter_tmin_anom": 0.3152941130982152
+    },
+    "n": 24455,
+    "n_counties": 2374
+  },
+  "dose_response_county_stateyear_FE": {
+    "coef": {
+      "z_bartik": 0.0006624176517277729,
+      "z_x_fi": 6.539400405635228e-05,
+      "winter_tmin_anom": 7.534697292126996e-06
+    },
+    "se": {
+      "z_bartik": 0.00023230661015615652,
+      "z_x_fi": 0.00013852609082639942,
+      "winter_tmin_anom": 0.00026996964303125444
+    },
+    "p": {
+      "z_bartik": 0.004351622430712521,
+      "z_x_fi": 0.636876864323344,
+      "winter_tmin_anom": 0.9777343919371326
+    },
+    "n": 24455,
+    "n_counties": 2374
+  },
+  "placebo_bottom_tercile_reduced_form": {
+    "coef": {
+      "z_bartik": 9.318394888131629e-05,
+      "winter_tmin_anom": -1.945740118256046e-06
+    },
+    "se": {
+      "z_bartik": 0.00016690547687575879,
+      "winter_tmin_anom": 0.0001100805508371515
+    },
+    "p": {
+      "z_bartik": 0.5766370041173223,
+      "winter_tmin_anom": 0.9858976435668965
+    },
+    "n": 7003,
+    "n_counties": 836
+  },
+  "high_tercile_reduced_form": {
+    "coef": {
+      "z_bartik": 0.001222767612617697,
+      "winter_tmin_anom": 0.0005670642841299724
+    },
+    "se": {
+      "z_bartik": 0.0003897233907277429,
+      "winter_tmin_anom": 0.0002858154648469056
+    },
+    "p": {
+      "z_bartik": 0.0017037965310546799,
+      "winter_tmin_anom": 0.04725334301140949
+    },
+    "n": 8664,
+    "n_counties": 750
+  }
+}

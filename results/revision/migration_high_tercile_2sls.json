@@ -1,0 +1,10 @@
+{
+  "beta": 0.05262797987502209,
+  "se": 0.018398454876351264,
+  "p": 0.004230315812945307,
+  "first_stage_F": 93.546757322698,
+  "partial_r2": 0.010684285049869699,
+  "n": 8664,
+  "n_counties": 750,
+  "interpretation": "High farm-intensity tercile (750 counties). beta>0: sustained farm-income decline causes 3-yr population decline. Shift-share leave-one-out instrument; winter-temp control; placebo null in low-intensity tercile (p=0.58)."
+}

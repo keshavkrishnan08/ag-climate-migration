@@ -1,0 +1,12 @@
+{
+  "central_floored_check_B": 59.8,
+  "threshold_minus1C_B": 63.1,
+  "threshold_0C_B": 59.8,
+  "threshold_plus1C_B": 57.2,
+  "edd_multipliers": {
+    "-1C": 1.34,
+    "0C": 1.0,
+    "+1C": 0.74
+  },
+  "interpretation": "Field-crop stranded value across +-1C threshold shifts stays within the reported $52-80B convergence band. Dollar conclusions are stable to the threshold location of the Schlenker-Roberts damage function."
+}

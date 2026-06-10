@@ -1,0 +1,22 @@
+{
+  "L1_insurance_to_frontier": {
+    "total_overpriced_outflow_B": 0.45419053879293475,
+    "from_frontier_counties_B": 0.10494886716605988,
+    "frontier_share_pct": 23.106792899071376,
+    "n_frontier_overpriced": 299
+  },
+  "L2_stranded_to_decline": {
+    "beta_per_1sd_stranded": -0.03261928991281706,
+    "se": 0.048103632178926645,
+    "p": 0.4977054315875231,
+    "n": 389
+  },
+  "L3_insurance_to_adaptation": {
+    "beta_underpriced_on_switching": 0.015542321825020852,
+    "se": 0.008391898882102523,
+    "p": 0.06401683831045601,
+    "controls": "climate stress (stranded per acre)",
+    "n": 381,
+    "interpretation": "negative beta => subsidized/underpriced counties switch crops less (insurance impedes adaptation)"
+  }
+}

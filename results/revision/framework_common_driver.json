@@ -1,0 +1,43 @@
+{
+  "driver": "forward physical climate exposure (Delta-EDD, July Tmax, projected GDD)",
+  "hypothesis": "one unpriced climate signal -> parallel consequences (common cause, not chain)",
+  "non_definitional_channels": [
+    {
+      "channel": "C2 insurance net underpricing (~ Delta-EDD)",
+      "beta_per_1sd": 86394.09536412296,
+      "se": 23630.593788679704,
+      "p": 0.0002561541147882984,
+      "n": 1822,
+      "sign_as_predicted": true
+    },
+    {
+      "channel": "C3 rural-decline count, farm-dep (~ July Tmax)",
+      "beta_per_1sd": 0.18079403586008166,
+      "se": 0.053199271749875605,
+      "p": 0.0006777364239631822,
+      "n": 389,
+      "sign_as_predicted": true
+    },
+    {
+      "channel": "C4 northern opportunity (~ projected GDD)",
+      "beta_per_1sd": 17744676.741057064,
+      "se": 6274796.6169718085,
+      "p": 0.004685025609392213,
+      "n": 514,
+      "sign_as_predicted": true
+    }
+  ],
+  "stranded_confounded": {
+    "channel": "C1 stranded value/acre (~ Delta-EDD; confounded by land value)",
+    "beta_per_1sd": 12.925760980354113,
+    "se": 22.251878808580003,
+    "p": 0.5613186180403953,
+    "n": 2023,
+    "sign_as_predicted": true,
+    "note": "confounded by land-value levels; mechanism evidence is the market-efficiency test"
+  },
+  "all_signs_as_predicted": true,
+  "n_nondef_channels_significant_p05": 3,
+  "common_factor_first_eigen_share": 0.3540387094628496,
+  "common_factor_n": 1615
+}

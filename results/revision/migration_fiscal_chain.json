@@ -1,0 +1,33 @@
+{
+  "link1_yield_to_farm_revenue": {
+    "beta": 0.0019111744597664138,
+    "se": 0.00043729144877516636,
+    "p": 1.2397250404916349e-05,
+    "n": 31231,
+    "n_cty": 443
+  },
+  "link2a_farm_revenue_to_farmland_value": {
+    "beta": 0.004012032066580825,
+    "se": 0.0045098574174238385,
+    "p": 0.3736732136186971,
+    "n": 2461,
+    "n_cty": 436
+  },
+  "link2b_farm_revenue_to_median_income": {
+    "beta": 0.0011491451211554098,
+    "se": 0.0007850267825574609,
+    "p": 0.14324062402481386,
+    "n": 5859,
+    "n_cty": 430
+  },
+  "revenue_to_landvalue_longdiff": {
+    "beta": -0.10333823519956975,
+    "se": 0.02553947887426944,
+    "p": 5.2052318323170255e-05,
+    "n": 372,
+    "n_cty": 372,
+    "t0": 2007,
+    "t1": 2022
+  },
+  "note": "Farming-dependent counties; two-way FE (annual links); cluster-robust SE. Long-difference is cumulative farm-revenue -> farmland-value (ag property-tax base)."
+}

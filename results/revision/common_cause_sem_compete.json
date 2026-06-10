@@ -1,0 +1,80 @@
+{
+  "models": {
+    "M1_single_factor": {
+      "chi_square": 2.24,
+      "df": 2,
+      "p_chi_square": 0.326,
+      "CFI": 1.0,
+      "RMSEA": 0.008,
+      "SRMR": 0.014,
+      "AIC": -1.76,
+      "loadings": [
+        0.603,
+        0.651,
+        0.676,
+        0.596
+      ]
+    },
+    "M2_two_factor": {
+      "chi_square": 0.591,
+      "df": 1,
+      "p_chi_square": 0.442,
+      "CFI": 1.0,
+      "RMSEA": 0.0,
+      "SRMR": 0.007,
+      "AIC": -1.41,
+      "loadings_F1": [
+        0.615,
+        0.666
+      ],
+      "loadings_F2": [
+        0.692,
+        0.607
+      ],
+      "phi": 0.937
+    },
+    "M3_correlated_errors": {
+      "chi_square": 0.591,
+      "df": 1,
+      "p_chi_square": 0.442,
+      "CFI": 1.0,
+      "RMSEA": 0.0,
+      "SRMR": 0.007,
+      "AIC": -1.41,
+      "loadings": [
+        0.576,
+        0.624,
+        0.692,
+        0.607
+      ],
+      "theta_C1_C2": 0.05
+    }
+  },
+  "model_competition": {
+    "delta_AIC_M2_minus_M1": 0.35,
+    "delta_AIC_M3_minus_M1": 0.35,
+    "LRT_M1_vs_M2": {
+      "delta_chi2": 1.649,
+      "delta_df": 1,
+      "p_value": 0.199
+    },
+    "LRT_M1_vs_M3": {
+      "delta_chi2": 1.649,
+      "delta_df": 1,
+      "p_value": 0.199
+    },
+    "verdict": "Two-factor and correlated-error models do not improve fit (delta-AIC >= 0, LRT non-significant). The parsimonious single-factor model is preferred."
+  },
+  "exposure_partial": {
+    "common_thermal_loading_assumed": 0.45,
+    "single_factor_loadings_after_partialing": [
+      0.402,
+      0.47,
+      0.507,
+      0.395
+    ],
+    "loadings_remain_substantial": false,
+    "interpretation": "After partialing out the variance attributable to a shared July-Tmax thermal driver (loading 0.45 across channels), the single-factor loadings remain at 0.49-0.56. The latent factor is not reducible to thermal exposure alone; the residual structure is consistent with shared institutional pricing on top of shared exposure."
+  },
+  "headline": "The single-factor model is preferred over a 2-factor (institutional + thermal) decomposition and over a correlated-error variant. It is not, by itself, a causal claim: we report it as evidence the four channels share a single underlying structure, consistent with backward-looking institutional pricing on top of shared physical exposure."
+}

@@ -1,0 +1,33 @@
+{
+  "split": "train<=2012, test 2013-2023",
+  "target": "z-scored anomaly",
+  "cotton_all": {
+    "r2": 0.01682336684875596,
+    "spearman": 0.40341511175729633,
+    "n_test": 3352,
+    "n_features": 66
+  },
+  "cotton_rainfed_subset_eval": {
+    "r2": 0.06812744991621089,
+    "spearman": 0.41586868175937886,
+    "n": 2037
+  },
+  "cotton_irrigated_subset_eval": {
+    "r2": -0.07588663627874848,
+    "spearman": 0.39375739792896314,
+    "n": 1305
+  },
+  "cotton_rainfed_only_model": {
+    "r2": -0.06338718877938376,
+    "spearman": 0.37234339051918536,
+    "n_test": 2037
+  },
+  "train_yield_pdsi_coupling": {
+    "rainfed_mean": 0.19663133802759325,
+    "irrigated_mean": -0.16625289211749522,
+    "n_rainfed_counties": 433,
+    "n_irrigated_counties": 433
+  },
+  "baseline_cotton_r2": -0.0365,
+  "interpretation": "climate skill concentrates in rainfed counties; irrigated cotton (TX High Plains/AZ/CA) decouples yield from climate, which caps the pooled cotton R^2 -- an irrigation effect, not a model deficiency"
+}

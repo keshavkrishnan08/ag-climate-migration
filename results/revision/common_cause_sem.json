@@ -1,0 +1,25 @@
+{
+  "model": "single-factor congeneric SEM, 4 channels, n = 1820",
+  "loadings_standardised": {
+    "C1_stranded": 0.603,
+    "C2_insurance": 0.651,
+    "C3_decline": 0.676,
+    "C4_opportunity": 0.596
+  },
+  "fit": {
+    "chi_square": 2.24,
+    "df": 2,
+    "p_chi_square": 0.326,
+    "CFI": 1.0,
+    "RMSEA": 0.008,
+    "SRMR": 0.014,
+    "n": 1820,
+    "Hu_Bentler_cutoffs": {
+      "CFI": ">=0.95",
+      "RMSEA": "<=0.06",
+      "SRMR": "<=0.08"
+    }
+  },
+  "common_factor_variance_share": 0.4,
+  "interpretation": "A single latent factor (backward-looking institutional pricing of forward physical climate exposure) accounts for the cross-channel covariance with CFI > 0.95 and RMSEA < 0.06, the conventional Hu and Bentler (1999) cutoffs for adequate fit. The framework is structurally identifiable. The common-factor share (~40%) is consistent with the channel-specific shocks each adding their own variance."
+}

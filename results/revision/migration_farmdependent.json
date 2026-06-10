@@ -1,0 +1,47 @@
+{
+  "n_farming_dependent_counties": 444,
+  "decline_4plus_farm_dependent": 133,
+  "decline_4plus_share_farm_dependent": 0.29954954954954954,
+  "decline_4plus_other": 340,
+  "decline_4plus_share_other": 0.2463768115942029,
+  "enrichment_ratio": 1.215818759936407,
+  "marginal_effects_farm_dependent": {
+    "pop_growth": {
+      "beta_per_unit": -0.00012337686054231063,
+      "se": 0.00037947027431182014,
+      "p": 0.7450833023643484,
+      "marginal_per_1sd_yield_drop_pct": 0.011422688589517805,
+      "n": 5429,
+      "n_counties": 427
+    },
+    "inc_growth": {
+      "beta_per_unit": -0.00046738030290903806,
+      "se": 0.0008974352679987508,
+      "p": 0.6025091964646745,
+      "marginal_per_1sd_yield_drop_pct": 0.043271806638114176,
+      "n": 5429,
+      "n_counties": 427
+    },
+    "label": "farming_dependent"
+  },
+  "marginal_effects_all": {
+    "pop_growth": {
+      "beta_per_unit": -8.941538176367271e-05,
+      "se": 9.142672011236442e-05,
+      "p": 0.32807405634024334,
+      "marginal_per_1sd_yield_drop_pct": 0.008615204694052395,
+      "n": 27928,
+      "n_counties": 2352
+    },
+    "inc_growth": {
+      "beta_per_unit": -0.0006628354017580038,
+      "se": 0.0002524089710111753,
+      "p": 0.008638532131467924,
+      "marginal_per_1sd_yield_drop_pct": 0.06386443307598426,
+      "n": 27928,
+      "n_counties": 2352
+    },
+    "label": "all_counties"
+  },
+  "note": "Restricting to ERS farming-dependent counties addresses Reviewer 1's external-validity concern. Marginal effects replace coincident counts (Fig 7B). The weather IV is not used for a causal migration claim here because of the exclusion-restriction concern (amenity/winter-mildness channels, Rappaport 2007); the defensible object is yield -> farm income -> local fiscal capacity."
+}

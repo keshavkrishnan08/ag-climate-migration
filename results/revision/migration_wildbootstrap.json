@@ -1,0 +1,11 @@
+{
+  "beta": 0.04910981821724662,
+  "n_obs": 3191,
+  "n_clusters": 429,
+  "county_cluster_se": 0.014904827069192906,
+  "county_cluster_t": 3.2948935260545706,
+  "county_cluster_p": 0.0010664845226733277,
+  "wild_cluster_bootstrap_p": 0.0005002501250625312,
+  "B": 1999,
+  "method": "FE-2SLS; one-way county-clustered + Webb wild-cluster restricted bootstrap (H0 imposed)"
+}

@@ -1,0 +1,253 @@
+{
+  "schema": "Each entry maps a number CITED in the paper to its source script, input JSON, and computed value. Reviewers verify reproducibility by running the named script and checking the value against the JSON path.",
+  "stranded_conservative_DCF_B": {
+    "value": 52,
+    "source_script": "src/revision/stranded_revision.py",
+    "source_json": "results/revision/stranded_central_floored.parquet (groupby fips, sum)",
+    "computed_in": "substantive_experiments.json (cross-check)",
+    "cited": "main.tex abstract, Results Table 1, SI S0"
+  },
+  "stranded_central_floored_DCF_B": {
+    "value": 61,
+    "source_script": "src/revision/stranded_revision.py",
+    "source_json": "results/revision/stranded_central_floored.parquet (1500/ac floor)",
+    "value_recomputed": 59.8,
+    "cited": "main.tex Results \u00a7Stranded, SI S0"
+  },
+  "stranded_floor_sensitivity_B": {
+    "values": {
+      "pasture_1000": 68.1,
+      "pasture_1500": 59.8,
+      "pasture_2000": 52.3
+    },
+    "source_script": "src/revision/stranded_floor_sensitivity.py",
+    "source_json": "results/revision/stranded_floor_sensitivity.json",
+    "cited": "main.tex Results, response Major 1 table"
+  },
+  "hedonic_soil_irrigation_controlled_B": {
+    "value": 80,
+    "value_recomputed": 79.65284802054161,
+    "marginal_pct_per_F": -0.02807440064950334,
+    "coefficient_stability_pct": 5.535336094367635,
+    "source_script": "src/revision/hedonic_strengthened.py",
+    "source_json": "results/revision/hedonic_strengthened.json",
+    "cited": "main.tex Results \u00a7Stranded, SI S12, S14"
+  },
+  "all_channel_upper_bound_B": {
+    "value": 168,
+    "DCF_scaled_route": 182.64534883720933,
+    "source_script": "src/revision/hedonic_strengthened.py",
+    "source_json": "results/revision/hedonic_strengthened.json",
+    "cited": "main.tex abstract, Results \u00a7Stranded, SI S12"
+  },
+  "stranded_propagated_CI_B": {
+    "value": [
+      37,
+      77
+    ],
+    "value_recomputed": null,
+    "source_script": "src/revision/dcf_ci_fixed.py",
+    "source_json": "results/revision/dcf_ci_fixed.json",
+    "cited": "main.tex Methods, Results, SI S10"
+  },
+  "stranded_ML_vs_process_B": {
+    "ML_path": 59.29506709416869,
+    "process_path": 13.28900510181631,
+    "spatial_rank_rho": 0.6636460344265593,
+    "source_script": "src/revision/dollar_robustness.py",
+    "source_json": "results/revision/dollar_robustness.json",
+    "cited": "SI \u00a7Substantive E8"
+  },
+  "insurance_gross_frozen_B": {
+    "value": 6.6,
+    "value_recomputed": 6.5583893045746295,
+    "source_script": "src/revision/insurance_rolling_aph.py",
+    "source_json": "results/revision/insurance_decomposition.json"
+  },
+  "insurance_rolling_total_B": {
+    "value": 4.6,
+    "value_recomputed": 4.582582912475818,
+    "source_script": "src/revision/insurance_rolling_aph.py",
+    "source_json": "results/revision/insurance_decomposition.json"
+  },
+  "insurance_residual_TAY_total_B": {
+    "value": 3.7,
+    "value_recomputed": 3.734067638254567,
+    "source_script": "src/revision/insurance_rolling_aph.py",
+    "source_json": "results/revision/insurance_decomposition.json",
+    "cited": "main.tex abstract, Results \u00a74.3, Table insurance_flows"
+  },
+  "insurance_transfer_B": {
+    "value": 1.6,
+    "value_recomputed": 1.6301717430592222,
+    "source_script": "src/revision/insurance_rolling_aph.py",
+    "source_json": "results/revision/insurance_decomposition.json"
+  },
+  "insurance_RP_residual_B": {
+    "value": 2.6,
+    "value_recomputed": 2.64496818515028,
+    "source_script": "src/revision/insurance_rp_and_tay.py",
+    "source_json": "results/revision/insurance_rp_tay.json"
+  },
+  "insurance_coverage_acreage_weighted": {
+    "value": 0.74,
+    "value_recomputed": 0.7424046455830217,
+    "source_script": "src/revision/insurance_coverage_endogeneity.py"
+  },
+  "insurance_SCO_addition_B": {
+    "value": 0.01,
+    "value_3sigfig": 0.009,
+    "value_recomputed": 0.009,
+    "range": [
+      0.004,
+      0.019
+    ],
+    "absolute_tolerance_B": 0.01,
+    "tie_check": "PASS at headline (2 sig fig); recomputed 0.009 differs by $0.001B (sub-cent precision, $0.1B headline rounding)",
+    "source_script": "src/revision/insurance_sco.py",
+    "source_json": "results/revision/insurance_sco.json",
+    "cited": "main.tex Methods Insurance, Table insurance_flows, SI Part V \u00a7Insurance SCO"
+  },
+  "insurance_process_falsification_B": {
+    "value": 0.83,
+    "yield_spec_robust_range_B": [
+      0.83,
+      3.7
+    ],
+    "source_script": "src/revision/substantive_experiments.py",
+    "source_json": "results/revision/substantive_experiments.json",
+    "cited": "SI \u00a7Substantive E1"
+  },
+  "insurance_climate_sigma_B": {
+    "value": 3.92,
+    "source_script": "src/revision/substantive_experiments.py",
+    "cited": "SI \u00a7Substantive E2"
+  },
+  "migration_prime_age_3yr_beta": {
+    "value": 0.024,
+    "value_recomputed": 0.023767208207383997,
+    "p": 0.005413285556874481,
+    "first_stage_F": 77.96774314161505,
+    "n_counties": 429,
+    "source_script": "src/revision/migration_primeage_panel.py",
+    "source_json": "results/revision/migration_primeage_panel.json"
+  },
+  "migration_prime_age_5yr_beta": {
+    "value": 0.049,
+    "value_recomputed": 0.04910981821724662,
+    "county_clustered_p": 0.0010664845226733277,
+    "wild_cluster_bootstrap_p_B1999": 0.0005002501250625312,
+    "wild_cluster_bootstrap_p_B9999": 0.0001,
+    "source_script": "src/revision/migration_wildbootstrap.py + tier3_tighten.py",
+    "source_json": "results/revision/tier3_tighten.json",
+    "cited": "main.tex Methods \u00a7Migration IV, Results \u00a74.2, SI Migration"
+  },
+  "migration_total_pop_tercile_750": {
+    "value": 0.053,
+    "value_recomputed": 0.05262797987502209,
+    "p": 0.004230315812945307,
+    "F": 93.546757322698,
+    "n_counties": 750,
+    "source_script": "src/revision/migration_iv_bartik.py + migration_farmdependent.py",
+    "source_json": "results/revision/migration_high_tercile_2sls.json"
+  },
+  "migration_two_way_clustering_p": {
+    "value": 0.11,
+    "value_recomputed": 0.11098159946087938,
+    "source_script": "src/revision/migration_iv_bartik.py"
+  },
+  "migration_share_balance_R2_withinFE": {
+    "value": 0.004,
+    "value_recomputed": 0.004140813303918467,
+    "source_script": "src/revision/migration_share_balance.py",
+    "source_json": "results/revision/migration_share_balance.json",
+    "cited": "SI Migration \u00a7Shift-share identification"
+  },
+  "migration_nonfarm_effect_ratio": {
+    "value": 63,
+    "value_recomputed": 63.0,
+    "source_script": "src/revision/substantive_experiments.py",
+    "cited": "SI \u00a7Substantive E3-E4"
+  },
+  "depop_NPV_central_B": {
+    "value": 18,
+    "note": "$18B is a CHOSEN conservative central below the propagated MC median; MC median = $22B is the auto-verified statistic.",
+    "value_recomputed": 22.3,
+    "MC_median_B": 22.3,
+    "MC_90CI_B": [
+      10.6,
+      37.5
+    ],
+    "workers_only_floor_B": 5.5,
+    "source_script": "src/revision/migration_depop_montecarlo.py",
+    "source_json": "results/revision/migration_depop_montecarlo.json",
+    "cited": "main.tex Methods \u00a7Migration economic cost, Results \u00a74.2, SI"
+  },
+  "depop_national_welfare_floor_B": {
+    "value": 4.3,
+    "range_B": [
+      2.2,
+      7.2
+    ],
+    "source_script": "src/revision/substantive_experiments.py",
+    "cited": "SI \u00a7Substantive E6"
+  },
+  "frontier_net_farm_income_Byr": {
+    "value": 8.1,
+    "source_script": "src/revision/recompute_opportunity.py",
+    "cited": "main.tex abstract, Results \u00a74.4"
+  },
+  "frontier_gross_revenue_Byr": {
+    "value": 37,
+    "source_script": "src/revision/recompute_opportunity.py"
+  },
+  "frontier_n_counties": {
+    "value": 514
+  },
+  "yield_R2_pct_deviation": {
+    "value": 0.41,
+    "value_recomputed": 0.4073645290977085,
+    "source_script": "src/revision/yield_v7_spectrum.py + yield_audit_target_decomp.py",
+    "source_json": "results/revision/audit_yield_target_decomp.json"
+  },
+  "yield_Spearman_pct": {
+    "value": 0.64,
+    "value_recomputed": 0.6433482104269893
+  },
+  "yield_z_scale_apples_to_apples": {
+    "aggregates_z_R2": 0.09,
+    "spectrum_z_R2": 0.14,
+    "feature_gain_on_z": 0.051,
+    "target_shift_gain": 0.292,
+    "source_script": "src/revision/yield_audit_target_decomp.py",
+    "cited": "SI \u00a7Substantive E5"
+  },
+  "common_cause_factor_share": {
+    "value": 0.35,
+    "value_recomputed": 0.3540387094628496,
+    "source_script": "src/revision/framework_common_driver.py",
+    "source_json": "results/revision/framework_common_driver.json"
+  },
+  "common_cause_insurance_p": {
+    "value": "<0.001",
+    "source_script": "src/revision/framework_common_driver.py"
+  },
+  "common_cause_decline_p_July_Tmax": {
+    "value": "<0.001",
+    "source_script": "src/revision/framework_common_driver.py"
+  },
+  "common_cause_opportunity_HC1_p": {
+    "value": 0.005,
+    "source_script": "src/revision/framework_common_driver.py"
+  },
+  "stranded_no_indirect_multiplier_B": {
+    "values_range": {
+      "central_with_1.30_multiplier_B": 59.8,
+      "central_without_indirect_(multiplier=1.0)_B": 63.5,
+      "delta_from_indirect_B": -3.7,
+      "note": "Removing the unjustified 1.30x indirect multiplier moves the central; the converged $52-80B field-crop range still brackets the result."
+    },
+    "source_script": "src/revision/substantive_experiments.py",
+    "cited": "SI \u00a7Substantive E9"
+  }
+}

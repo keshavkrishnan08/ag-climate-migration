@@ -1,0 +1,103 @@
+{
+  "split": "train<=2012, test 2013-2023",
+  "target": "z-scored anomaly",
+  "baseline_v4_r2": 0.2269,
+  "baseline_v4_spearman": 0.4856,
+  "best_pooled": {
+    "r2": 0.23848847095290426,
+    "spearman": 0.4932724258623093,
+    "n_features": 74,
+    "per_crop": {
+      "barley": {
+        "r2": 0.27777698333521206,
+        "spearman": 0.5173135984884384,
+        "n_test": 1242
+      },
+      "corn": {
+        "r2": 0.1897489545925899,
+        "spearman": 0.4526741246650798,
+        "n_test": 16535
+      },
+      "cotton": {
+        "r2": -0.05030482200910402,
+        "spearman": 0.38316406424564897,
+        "n_test": 3352
+      },
+      "oats": {
+        "r2": 0.23194961148129778,
+        "spearman": 0.49133968779289827,
+        "n_test": 3185
+      },
+      "sorghum": {
+        "r2": 0.2414740901327861,
+        "spearman": 0.506685683308457,
+        "n_test": 1731
+      },
+      "soybeans": {
+        "r2": 0.2785704041935222,
+        "spearman": 0.52734201916989,
+        "n_test": 14384
+      },
+      "wheat_spring": {
+        "r2": 0.33943398675604997,
+        "spearman": 0.5955039651923598,
+        "n_test": 1822
+      },
+      "wheat_winter": {
+        "r2": 0.2381155379312071,
+        "spearman": 0.47362084141238386,
+        "n_test": 10143
+      }
+    }
+  },
+  "learning_curve_years": {
+    "train_from_1980": {
+      "n_train": 300923,
+      "r2": 0.23274458714588364,
+      "spearman": 0.49481277920322786
+    },
+    "train_from_1990": {
+      "n_train": 185838,
+      "r2": 0.22697022900207187,
+      "spearman": 0.48957754799008124
+    },
+    "train_from_1995": {
+      "n_train": 135296,
+      "r2": 0.22654791905226224,
+      "spearman": 0.48554620779935465
+    },
+    "train_from_2000": {
+      "n_train": 91493,
+      "r2": 0.22109242069275947,
+      "spearman": 0.4803906286634052
+    },
+    "train_from_2005": {
+      "n_train": 51064,
+      "r2": 0.19901357454243263,
+      "spearman": 0.45844532217771
+    }
+  },
+  "feature_richness_curve": {
+    "base_aggregates": {
+      "n_features": 29,
+      "r2": 0.07862237088298285,
+      "spearman": 0.29949616634344134
+    },
+    "+vpd_edd_heat": {
+      "n_features": 45,
+      "r2": 0.12939631101506976,
+      "spearman": 0.35429040766493974
+    },
+    "+drought_traj": {
+      "n_features": 61,
+      "r2": 0.15468390013648936,
+      "spearman": 0.38860235721973657
+    },
+    "+soil_all": {
+      "n_features": 74,
+      "r2": 0.23848847095290426,
+      "spearman": 0.4932724258623093
+    }
+  },
+  "levels_r2_note": "within-crop LEVELS R2 is computed by the existing pipeline (results/revision/yield_levels_r2.json): per-crop 0.36-0.78, median 0.56. The reconstruction attempted here was numerically unstable and is omitted; it does not affect the anomaly-R2 audit or the levels number the paper reports."
+}

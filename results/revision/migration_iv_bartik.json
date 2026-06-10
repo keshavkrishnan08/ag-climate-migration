@@ -1,0 +1,39 @@
+{
+  "sample": "ERS farming-dependent counties, 2000-2023",
+  "instrument": "leave-one-out shift-share national crop yield shock x baseline crop mix",
+  "treatment": "3-yr MA farm-income deviation (revenue proxy, 2023 USD)",
+  "controls": [
+    "winter_tmin_anom",
+    "hi_amenity"
+  ],
+  "iv_pop_growth_3yr_farmdep": {
+    "beta": 0.024100289806868614,
+    "se": 0.014592823787489207,
+    "p": 0.09863314685032742,
+    "first_stage_F": 65.69662708197382,
+    "partial_r2": 0.013696223086332593,
+    "n": 4733,
+    "n_counties": 430
+  },
+  "iv_in_mig_rate_farmdep": {
+    "beta": -0.0014370355589962472,
+    "se": 0.008634211737836456,
+    "p": 0.8678145838725311,
+    "first_stage_F": 76.88227425376239,
+    "partial_r2": 0.013920679535786507,
+    "n": 5448,
+    "n_counties": 429
+  },
+  "placebo_nonfarm_reduced_form": {
+    "beta": 0.00037745032671939214,
+    "se": 0.00013919351999849911,
+    "p": 0.0066940220964237795,
+    "n": 19722
+  },
+  "reduced_form_farmdep": {
+    "beta": 0.0008228475011766192,
+    "se": 0.0004928144437095756,
+    "p": 0.0949806519557368,
+    "n": 4733
+  }
+}

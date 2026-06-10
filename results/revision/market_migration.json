@@ -1,0 +1,28 @@
+{
+  "market_test": {
+    "A: + fundamentals (nccpi,inc,pop)": {
+      "beta": -0.13077503002050272,
+      "p": 5.706947907707337e-13,
+      "n": 2019
+    },
+    "B: + soil": {
+      "beta": -0.1291165364367783,
+      "p": 9.940016856371698e-14,
+      "n": 2019
+    },
+    "C: no state FE": {
+      "beta": -0.1757040555862604,
+      "p": 1.965970188579772e-21,
+      "n": 2019
+    }
+  },
+  "migration_cost": {
+    "prime_age_base": 1130330,
+    "pa_loss_2050": 50017,
+    "annual_cost_B": 0.1740595167,
+    "npv_cost_B": 2.781953078404461,
+    "percap_income": 58000.0,
+    "multiplier": 1.5,
+    "income_decline": 0.15
+  }
+}

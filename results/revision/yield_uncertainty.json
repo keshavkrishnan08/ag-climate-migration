@@ -1,0 +1,30 @@
+{
+  "levels": {
+    "levels_r2_overall": 0.9250973152245647,
+    "levels_rmse_overall": 59.40290324045635,
+    "n": 52287,
+    "levels_r2_corn": 0.38482933753263104,
+    "levels_rmse_corn": 39.5802207712057,
+    "levels_r2_soybeans": 0.5776844229817902,
+    "levels_rmse_soybeans": 7.005807791053158,
+    "levels_r2_wheat_winter": 0.7499885174738997,
+    "levels_rmse_wheat_winter": 10.219315246337468
+  },
+  "dcf_uncertainty": {
+    "point_estimate_B": 59.3122998819728,
+    "ci_idiosyncratic_only": [
+      131.51007163864946,
+      134.90780969077824
+    ],
+    "ci_plus_spatial": [
+      105.04499164150543,
+      211.277840001748
+    ],
+    "ci_full_idio_spatial_gcm": [
+      135.4394423397815,
+      242.26168485992886
+    ],
+    "resid_sd_z": 0.9205087437763515,
+    "n_draws": 500
+  }
+}

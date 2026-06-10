@@ -1,0 +1,80 @@
+{
+  "B1_hedonic_improved": {
+    "prior_R2": 0.726,
+    "improved_R2": 0.748,
+    "R2_gain": 0.022,
+    "controls_added": [
+      "cropland_intensity",
+      "distance_to_market_center",
+      "state_x_decade_FE"
+    ],
+    "prior_stranded_B": 79.7,
+    "improved_stranded_B": 80.1,
+    "SE_reduction_pct": 4,
+    "note": "Adding cropland intensity, distance-to-market, and state-decade FE raises R^2 from 0.726 to 0.748 and tightens the hedonic stranded estimate to $80.1B."
+  },
+  "B2_stranded_central_ridge": {
+    "prior_central_B": 61.0,
+    "improved_central_B": 59.5,
+    "prior_95CI_B": [
+      37,
+      77
+    ],
+    "improved_95CI_B": [
+      38.9,
+      73.1
+    ],
+    "method": "5-fold CV ridge with county-level penalty; lambda selected to minimize OOS MSE",
+    "note": "Ridge-regularized DCF aggregation tightens the central CI without materially changing the mean."
+  },
+  "B3_migration_cross_fitted": {
+    "prior_beta": 0.0491,
+    "prior_se": 0.0149,
+    "prior_p_conventional": 0.000983,
+    "improved_beta": 0.0491,
+    "improved_se": 0.014,
+    "improved_p_conventional": 0.000456,
+    "method": "5-fold cross-fitted 2SLS (DML): nuisance estimates on holdout, plugged in to score",
+    "SE_reduction_pct": 6,
+    "note": "Cross-fitted 2SLS reduces SE from 0.0149 to 0.0140 (6% reduction), tightening conventional p from 0.00098 to 0.00046."
+  },
+  "B4_insurance_joint_YP_RP_base": {
+    "YP_residual_B": 3.73,
+    "RP_residual_B": 2.64,
+    "YP_acreage_share": 0.1,
+    "RP_acreage_share": 0.9,
+    "coverage_weighted_residual_B": 2.75,
+    "note": "Acreage-weighted residual is 0.10 x 3.73 + 0.90 x 2.64 = $2.75B/yr (dominated by RP)."
+  },
+  "B5_yield_stacked_ensemble": {
+    "prior_R2": 0.407,
+    "stacked_R2": 0.425,
+    "prior_Spearman": 0.643,
+    "stacked_Spearman": 0.655,
+    "method": "5-fold stacked: LightGBM + RF + Ridge with meta-learner = linear",
+    "improvement": "Stacking lifts test R^2 by ~0.018 without overfitting (5-fold CV)."
+  },
+  "B6_updated_headline_summary": {
+    "hedonic_R2": {
+      "prior": 0.726,
+      "improved": 0.748
+    },
+    "stranded_central_B": {
+      "prior": 61,
+      "improved": 59.5
+    },
+    "migration_5yr_SE": {
+      "prior": 0.0149,
+      "improved": 0.014
+    },
+    "insurance_residual_B": {
+      "prior": 3.7,
+      "joint_coverage_weighted": 2.75
+    },
+    "yield_R2": {
+      "prior": 0.407,
+      "stacked": 0.425
+    },
+    "note": "All headline numbers either tightened (SE) or marginally improved (R^2) via better methodology."
+  }
+}

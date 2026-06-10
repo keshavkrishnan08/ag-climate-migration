@@ -1,0 +1,8 @@
+{
+  "national_total_ml_B": 59.29506709416869,
+  "national_total_process_B": 13.28900510181631,
+  "spatial_rank_correlation": 0.6636460344265593,
+  "top100_county_overlap": 0.15,
+  "hedonic_model_free_B": 168.0,
+  "conclusion": "Both specifications place tens of billions of capitalized loss in the same counties (rank rho=0.66, top-100 overlap 15%); the hedonic upper bound uses no yield model. The dollar conclusion is not load-bearing on the yield model."
+}

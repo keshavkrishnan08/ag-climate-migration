@@ -1,0 +1,76 @@
+{
+  "overall": {
+    "r2": 0.11089887956421973,
+    "spearman": 0.41881712410406163,
+    "n": 52394
+  },
+  "per_crop": {
+    "barley": {
+      "r2": 0.23707469583603757,
+      "spearman": 0.5069732445819883,
+      "n_test": 1242
+    },
+    "corn": {
+      "r2": 0.11879073690312514,
+      "spearman": 0.40512691761710934,
+      "n_test": 16535
+    },
+    "cotton": {
+      "r2": -0.17791946357075217,
+      "spearman": 0.3634620904401514,
+      "n_test": 3352
+    },
+    "oats": {
+      "r2": 0.13293298446703983,
+      "spearman": 0.398512115815339,
+      "n_test": 3185
+    },
+    "sorghum": {
+      "r2": 0.14914533204928293,
+      "spearman": 0.42201428779223815,
+      "n_test": 1731
+    },
+    "soybeans": {
+      "r2": 0.12485660486659256,
+      "spearman": 0.4464175866250543,
+      "n_test": 14384
+    },
+    "wheat_spring": {
+      "r2": 0.16043416104589403,
+      "spearman": 0.4253751655859257,
+      "n_test": 1822
+    },
+    "wheat_winter": {
+      "r2": 0.03950969807593219,
+      "spearman": 0.3387606535311661,
+      "n_test": 10143
+    }
+  },
+  "features": [
+    "tmax_july_c_anomaly",
+    "vpd_growing_anom",
+    "vpd_july_anom",
+    "edd30_growing_anom",
+    "heat_days_proxy_anom",
+    "sm_stress_anom",
+    "sm_stress_july_anom",
+    "vpd_x_sm_anom",
+    "kdd34_growing_anom",
+    "dtr_growing_anom",
+    "precip_jul_anom",
+    "precip_aug_anom",
+    "precip_growing_anomaly",
+    "yield_trend_slope_15yr",
+    "yield_trend_intercept",
+    "log_population",
+    "log_median_income",
+    "poverty_rate",
+    "switching_rate_proxy",
+    "switching_rate_5yr",
+    "latitude",
+    "nccpi",
+    "ar1"
+  ],
+  "monotone": true,
+  "vs_v4_pooled_r2": 0.2269
+}

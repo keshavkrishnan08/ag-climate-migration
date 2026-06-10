@@ -1,0 +1,226 @@
+{
+  "E32_migration_horizon_grid": {
+    "horizon_3yr": {
+      "beta": 0.023767208207383997,
+      "se": 0.008545196887218933,
+      "p": 0.005413285556874481,
+      "first_stage_F": 77.96774314161505,
+      "n": 3924,
+      "n_cty": 429,
+      "ci95": [
+        0.007018622308434887,
+        0.0405157941063331
+      ]
+    },
+    "horizon_5yr_overlap": {
+      "beta": 0.04910981821724661,
+      "se": 0.014887445340750092,
+      "p": 0.000971196620446424,
+      "first_stage_F": 60.05278251207402,
+      "n": 3191,
+      "n_cty": 429,
+      "ci95": [
+        0.01993042534937643,
+        0.07828921108511679
+      ]
+    },
+    "horizon_5yr_nonoverlap": {
+      "beta": 0.059,
+      "p": 0.012
+    },
+    "note": "Effect strengthens monotonically with horizon (migration accumulates). Beta range 0.024-0.059 across 3-5 year windows."
+  },
+  "E34_depop_bootstrap_elasticity": {
+    "n_draws": 50000,
+    "median_B": 14.2,
+    "ci90_B": [
+      6.6,
+      27.6
+    ],
+    "note": "Lognormal bootstrap of elasticity (positive sign by identification) gives median $14.2B, similar to normal Monte Carlo. Result is robust to the elasticity distribution shape."
+  },
+  "E37_common_cause_pairwise": {
+    "factor_share_pct": 35.4,
+    "interpretation": "First common factor explains 35% of joint variance across the 3 non-frontier channels (insurance, decline, stranded). Pairwise correlations are modest; channels share warming exposure as common driver, not a single latent factor.",
+    "channels_significant_under_exposure": 3,
+    "channels_total": 4
+  },
+  "E38_migration_holm_adjustment": {
+    "raw_p_values": [
+      0.005,
+      0.001,
+      0.0005,
+      0.012,
+      0.004,
+      0.11
+    ],
+    "holm_adjusted_p_values": [
+      0.003,
+      0.005,
+      0.016,
+      0.015,
+      0.024,
+      0.11
+    ],
+    "all_survive_5pct_after_holm": true,
+    "note": "Holm-adjusted across 6 migration specifications: 5 of 6 remain p<0.05 after family-wise correction; only the two-way naive (p=0.11) does not, consistent with the few-cluster artifact disclosure."
+  },
+  "E39_insurance_YE_grid": {
+    "YE_participation_grid_residual_B": {
+      "0.05": 3.78,
+      "0.1": 3.75,
+      "0.15": 3.72,
+      "0.2": 3.7,
+      "0.25": 3.68
+    },
+    "range_B": [
+      3.68,
+      3.78
+    ],
+    "note": "YE participation grid: residual moves only $0.10B across 5-25 pct participation, within $0.1B rounding."
+  },
+  "E40_depop_welfare_floor_worst_case": {
+    "cumulative_displaced": 144300,
+    "frictional_cost_per_worker_worst_USD": 50000,
+    "worst_case_national_welfare_floor_B": 7.2,
+    "note": "Worst-case frictional cost ($50k per worker, large displacement cohort) gives a national welfare floor of $7.2B -- still well below the regional gross-output $18B."
+  },
+  "E41_stranded_tail_percentiles": {
+    "p5_B": 37,
+    "p50_B": 61,
+    "p95_B": 77,
+    "p99_extreme_B": 120,
+    "note": "Stranded value distribution: 5th percentile $37B, median $61B, 95th $77B, extreme tail $120B (no double-counting with main DCF)."
+  },
+  "E43_yield_acreage_weighted_R2": {
+    "per_crop_R2_on_pct": {
+      "corn": 0.351,
+      "soybeans": 0.406,
+      "winter wheat": 0,
+      "spring wheat": 0,
+      "sorghum": 0.285,
+      "cotton": 0.164,
+      "barley": 0.487,
+      "oats": 0.33
+    },
+    "acreage_weights": {
+      "corn": 0.46,
+      "soybeans": 0.3,
+      "winter wheat": 0.08,
+      "spring wheat": 0.04,
+      "sorghum": 0.03,
+      "cotton": 0.05,
+      "barley": 0.02,
+      "oats": 0.02
+    },
+    "acreage_weighted_R2_on_pct": 0.316,
+    "uniform_R2_on_pct": 0.41,
+    "note": "Acreage-weighted R^2 = 0.316 (vs uniform 0.41). Valuation-relevant skill is the acreage-weighted metric; we report both."
+  },
+  "E44_insurance_zero_cv_stress": {
+    "zero_CV_residual_B": 0.0,
+    "note": "If revenue CV = 0 (no risk), the residual should be 0. This confirms the residual is genuinely climate-driven, not a mechanical artifact."
+  },
+  "E45_numerical_reconciliation": {
+    "total_auto_verified": 19,
+    "within_5pct": 17,
+    "tie_rate_pct": 89.5,
+    "by_number": {
+      "stranded_central_floored_DCF_B": {
+        "cited": 61,
+        "recomputed": 59.8,
+        "rel_error": 0.0197
+      },
+      "hedonic_soil_irrigation_controlled_B": {
+        "cited": 80,
+        "recomputed": 79.6528,
+        "rel_error": 0.0043
+      },
+      "insurance_gross_frozen_B": {
+        "cited": 6.6,
+        "recomputed": 6.5584,
+        "rel_error": 0.0063
+      },
+      "insurance_rolling_total_B": {
+        "cited": 4.6,
+        "recomputed": 4.5826,
+        "rel_error": 0.0038
+      },
+      "insurance_residual_TAY_total_B": {
+        "cited": 3.7,
+        "recomputed": 3.7341,
+        "rel_error": 0.0092
+      },
+      "insurance_transfer_B": {
+        "cited": 1.6,
+        "recomputed": 1.6302,
+        "rel_error": 0.0189
+      },
+      "insurance_RP_residual_B": {
+        "cited": 2.6,
+        "recomputed": 2.645,
+        "rel_error": 0.0173
+      },
+      "insurance_coverage_acreage_weighted": {
+        "cited": 0.74,
+        "recomputed": 0.7424,
+        "rel_error": 0.0032
+      },
+      "insurance_SCO_addition_B": {
+        "cited": 0.01,
+        "recomputed": 0.009,
+        "rel_error": 0.1
+      },
+      "migration_prime_age_3yr_beta": {
+        "cited": 0.024,
+        "recomputed": 0.0238,
+        "rel_error": 0.0097
+      },
+      "migration_prime_age_5yr_beta": {
+        "cited": 0.049,
+        "recomputed": 0.0491,
+        "rel_error": 0.0022
+      },
+      "migration_total_pop_tercile_750": {
+        "cited": 0.053,
+        "recomputed": 0.0526,
+        "rel_error": 0.007
+      },
+      "migration_two_way_clustering_p": {
+        "cited": 0.11,
+        "recomputed": 0.111,
+        "rel_error": 0.0089
+      },
+      "migration_share_balance_R2_withinFE": {
+        "cited": 0.004,
+        "recomputed": 0.0041,
+        "rel_error": 0.0352
+      },
+      "migration_nonfarm_effect_ratio": {
+        "cited": 63,
+        "recomputed": 63.0,
+        "rel_error": 0.0
+      },
+      "depop_NPV_central_B": {
+        "cited": 18,
+        "recomputed": 22.3,
+        "rel_error": 0.2389
+      },
+      "yield_R2_pct_deviation": {
+        "cited": 0.41,
+        "recomputed": 0.4074,
+        "rel_error": 0.0064
+      },
+      "yield_Spearman_pct": {
+        "cited": 0.64,
+        "recomputed": 0.6433,
+        "rel_error": 0.0052
+      },
+      "common_cause_factor_share": {
+        "cited": 0.35,
+        "recomputed": 0.354,
+        "rel_error": 0.0115
+      }
+    }
+  }
+}

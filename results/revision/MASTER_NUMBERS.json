@@ -1,0 +1,447 @@
+{
+ "insurance_decomposition": {
+  "acreage_weighted_coverage": 0.7424046455830217,
+  "revenue_protection_acre_share": 0.9000642142869135,
+  "window": [
+   2040,
+   2050
+  ],
+  "gross_frozen_total_B": 6.5583893045746295,
+  "gross_frozen_xsub_B": 2.5595905143361324,
+  "rolling_total_B": 4.582582912475818,
+  "rolling_xsub_B": 2.1021646111554,
+  "residual_tay_total_B": 3.734067638254567,
+  "residual_tay_xsub_B": 1.6301717430592222,
+  "mechanical_absorption_B": 1.9758063920988116,
+  "tay_absorption_B": 0.848515274221251,
+  "coverage_sensitivity_residual_B": {
+   "0.55": 2.559086461290848,
+   "0.65": 3.26843566731404,
+   "0.75": 3.78309391989035,
+   "0.85": 3.4459837095524652
+  }
+ },
+ "insurance_robustness": {
+  "SSP245_window10": {
+   "frozen": {
+    "total_B": 6.565271315856741,
+    "xsub_B": 2.5645260792472437
+   },
+   "roll": {
+    "total_B": 4.587438711448031,
+    "xsub_B": 2.2195940571634747
+   },
+   "tay": {
+    "total_B": 3.737551895518533,
+    "xsub_B": 1.7845073830210472
+   }
+  },
+  "window_sensitivity": {
+   "4": {
+    "residual_tay_B": 3.253657983457832,
+    "rolling_B": 3.46313497999792,
+    "xsub_B": 0.6025328744457931
+   },
+   "7": {
+    "residual_tay_B": 3.039505264412127,
+    "rolling_B": 4.148762374836413,
+    "xsub_B": 1.197789230277977
+   },
+   "10": {
+    "residual_tay_B": 3.737551895518533,
+    "rolling_B": 4.587438711448031,
+    "xsub_B": 1.7845073830210472
+   }
+  },
+  "yield_exclusion": {
+   "residual_with_YE_B": 3.8084912390886907,
+   "residual_no_YE_B": 3.737551895518533
+  },
+  "SSP370_window10": {
+   "frozen": {
+    "total_B": 6.415299023769362,
+    "xsub_B": 2.376495918784917
+   },
+   "roll": {
+    "total_B": 3.7428413346623506,
+    "xsub_B": 1.0419190994477086
+   },
+   "tay": {
+    "total_B": 2.7490823657534635,
+    "xsub_B": 0.6504379262199108
+   }
+  }
+ },
+ "yield_v3_metrics": {
+  "seed": 42,
+  "split": "train<=2012, test 2013-2023",
+  "new_features": [
+   "vpd_growing",
+   "vpd_july",
+   "edd30_growing",
+   "heat_days_proxy",
+   "sm_stress",
+   "sm_stress_july",
+   "vpd_x_sm"
+  ],
+  "delta_r2": 0.04265180136026703,
+  "delta_spearman": 0.03987728200775165,
+  "results": {
+   "baseline": {
+    "n_features": 36,
+    "blend_weights": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "overall": {
+     "label": "baseline",
+     "r2": 0.17578580291644574,
+     "spearman": 0.42600702015352354,
+     "rmse": 0.9474870104482974,
+     "n": 52394
+    },
+    "per_crop": {
+     "barley": {
+      "label": "barley",
+      "r2": 0.23823853188967825,
+      "spearman": 0.4993587386769045,
+      "rmse": 0.9208676661812606,
+      "n": 1242
+     },
+     "corn": {
+      "label": "corn",
+      "r2": 0.1276547650141835,
+      "spearman": 0.39718098847655087,
+      "rmse": 0.9579678008762027,
+      "n": 16535
+     },
+     "cotton": {
+      "label": "cotton",
+      "r2": 0.002433214860202537,
+      "spearman": 0.36970324308094854,
+      "rmse": 0.8451671430986852,
+      "n": 3352
+     },
+     "oats": {
+      "label": "oats",
+      "r2": 0.20131506476039396,
+      "spearman": 0.4513997977422851,
+      "rmse": 0.9988696185849082,
+      "n": 3185
+     },
+     "sorghum": {
+      "label": "sorghum",
+      "r2": 0.17565350933509738,
+      "spearman": 0.4508133693260127,
+      "rmse": 0.8443900024094155,
+      "n": 1731
+     },
+     "soybeans": {
+      "label": "soybeans",
+      "r2": 0.1709229000431176,
+      "spearman": 0.38470141325403134,
+      "rmse": 0.9215962561807245,
+      "n": 14384
+     },
+     "wheat_spring": {
+      "label": "wheat_spring",
+      "r2": 0.2744133445298732,
+      "spearman": 0.5512075584149458,
+      "rmse": 0.9043921280044046,
+      "n": 1822
+     },
+     "wheat_winter": {
+      "label": "wheat_winter",
+      "r2": 0.1884639434717129,
+      "spearman": 0.4243157132958286,
+      "rmse": 1.0074558922691528,
+      "n": 10143
+     }
+    }
+   },
+   "augmented": {
+    "n_features": 50,
+    "blend_weights": [
+     1.0,
+     0.0,
+     0.0
+    ],
+    "overall": {
+     "label": "augmented",
+     "r2": 0.21843760427671277,
+     "spearman": 0.4658843021612752,
+     "rmse": 0.9226458804261958,
+     "n": 52394
+    },
+    "per_crop": {
+     "barley": {
+      "label": "barley",
+      "r2": 0.26646224774162486,
+      "spearman": 0.517925429214064,
+      "rmse": 0.9036473069697872,
+      "n": 1242
+     },
+     "corn": {
+      "label": "corn",
+      "r2": 0.16909852398398661,
+      "spearman": 0.4255784023976071,
+      "rmse": 0.934935134063202,
+      "n": 16535
+     },
+     "cotton": {
+      "label": "cotton",
+      "r2": 0.023041727890371955,
+      "spearman": 0.39689783905441856,
+      "rmse": 0.8363915220053673,
+      "n": 3352
+     },
+     "oats": {
+      "label": "oats",
+      "r2": 0.22824932496080064,
+      "spearman": 0.4798115198680374,
+      "rmse": 0.9818826057862982,
+      "n": 3185
+     },
+     "sorghum": {
+      "label": "sorghum",
+      "r2": 0.22838269021860524,
+      "spearman": 0.4879644077911008,
+      "rmse": 0.8169381296392803,
+      "n": 1731
+     },
+     "soybeans": {
+      "label": "soybeans",
+      "r2": 0.23992041768178585,
+      "spearman": 0.46460994602222266,
+      "rmse": 0.8824147831376802,
+      "n": 14384
+     },
+     "wheat_spring": {
+      "label": "wheat_spring",
+      "r2": 0.31065369294523804,
+      "spearman": 0.5682018542806436,
+      "rmse": 0.8815173342938996,
+      "n": 1822
+     },
+     "wheat_winter": {
+      "label": "wheat_winter",
+      "r2": 0.21584758122514047,
+      "spearman": 0.44520774199124286,
+      "rmse": 0.9903127586807916,
+      "n": 10143
+     }
+    }
+   }
+  }
+ },
+ "yield_uncertainty": {
+  "levels": {
+   "levels_r2_overall": 0.9250973152245647,
+   "levels_rmse_overall": 59.40290324045635,
+   "n": 52287,
+   "levels_r2_corn": 0.38482933753263104,
+   "levels_rmse_corn": 39.5802207712057,
+   "levels_r2_soybeans": 0.5776844229817902,
+   "levels_rmse_soybeans": 7.005807791053158,
+   "levels_r2_wheat_winter": 0.7499885174738997,
+   "levels_rmse_wheat_winter": 10.219315246337468
+  },
+  "dcf_uncertainty": {
+   "point_estimate_B": 59.3122998819728,
+   "ci_idiosyncratic_only": [
+    131.51007163864946,
+    134.90780969077824
+   ],
+   "ci_plus_spatial": [
+    105.04499164150543,
+    211.277840001748
+   ],
+   "ci_full_idio_spatial_gcm": [
+    135.4394423397815,
+    242.26168485992886
+   ],
+   "resid_sd_z": 0.9205087437763515,
+   "n_draws": 500
+  }
+ },
+ "dcf_ci_fixed": {
+  "point_estimate_B": 52.373070784594795,
+  "ci_idiosyncratic_only": [
+   48.6133049380939,
+   56.320454711183395
+  ],
+  "ci_plus_spatial": [
+   43.14891477907006,
+   63.636768091503846
+  ],
+  "ci_full": [
+   37.432517366626826,
+   77.24427067322648
+  ],
+  "sig_idio": 0.7,
+  "sig_spatial": 0.3,
+  "n_draws": 2000,
+  "n_stranded_counties": 1674
+ },
+ "migration_iv_bartik": {
+  "sample": "ERS farming-dependent counties, 2000-2023",
+  "instrument": "leave-one-out shift-share national crop yield shock x baseline crop mix",
+  "treatment": "3-yr MA farm-income deviation (revenue proxy, 2023 USD)",
+  "controls": [
+   "winter_tmin_anom",
+   "hi_amenity"
+  ],
+  "iv_pop_growth_3yr_farmdep": {
+   "beta": 0.024100289806868614,
+   "se": 0.014592823787489207,
+   "p": 0.09863314685032742,
+   "first_stage_F": 65.69662708197382,
+   "partial_r2": 0.013696223086332593,
+   "n": 4733,
+   "n_counties": 430
+  },
+  "iv_in_mig_rate_farmdep": {
+   "beta": -0.0014370355589962472,
+   "se": 0.008634211737836456,
+   "p": 0.8678145838725311,
+   "first_stage_F": 76.88227425376239,
+   "partial_r2": 0.013920679535786507,
+   "n": 5448,
+   "n_counties": 429
+  },
+  "placebo_nonfarm_reduced_form": {
+   "beta": 0.00037745032671939214,
+   "se": 0.00013919351999849911,
+   "p": 0.0066940220964237795,
+   "n": 19722
+  },
+  "reduced_form_farmdep": {
+   "beta": 0.0008228475011766192,
+   "se": 0.0004928144437095756,
+   "p": 0.0949806519557368,
+   "n": 4733
+  }
+ },
+ "migration_iv_v2": {
+  "design": "dose-response: pop_growth_3yr ~ z + z*farm_intensity, county+year FE",
+  "key_coef": "z_x_fi (farm-income channel, exclusion-robust)",
+  "dose_response_county_year_FE": {
+   "coef": {
+    "z_bartik": 0.0005307237998875837,
+    "z_x_fi": -0.00015339168048559955,
+    "winter_tmin_anom": 0.00011938596020361564
+   },
+   "se": {
+    "z_bartik": 0.00016611370490343994,
+    "z_x_fi": 0.0001008441852284015,
+    "winter_tmin_anom": 0.00011888955759263722
+   },
+   "p": {
+    "z_bartik": 0.0013985851453333087,
+    "z_x_fi": 0.1282407400556227,
+    "winter_tmin_anom": 0.3152941130982152
+   },
+   "n": 24455,
+   "n_counties": 2374
+  },
+  "dose_response_county_stateyear_FE": {
+   "coef": {
+    "z_bartik": 0.0006624176517277729,
+    "z_x_fi": 6.539400405635228e-05,
+    "winter_tmin_anom": 7.534697292126996e-06
+   },
+   "se": {
+    "z_bartik": 0.00023230661015615652,
+    "z_x_fi": 0.00013852609082639942,
+    "winter_tmin_anom": 0.00026996964303125444
+   },
+   "p": {
+    "z_bartik": 0.004351622430712521,
+    "z_x_fi": 0.636876864323344,
+    "winter_tmin_anom": 0.9777343919371326
+   },
+   "n": 24455,
+   "n_counties": 2374
+  },
+  "placebo_bottom_tercile_reduced_form": {
+   "coef": {
+    "z_bartik": 9.318394888131629e-05,
+    "winter_tmin_anom": -1.945740118256046e-06
+   },
+   "se": {
+    "z_bartik": 0.00016690547687575879,
+    "winter_tmin_anom": 0.0001100805508371515
+   },
+   "p": {
+    "z_bartik": 0.5766370041173223,
+    "winter_tmin_anom": 0.9858976435668965
+   },
+   "n": 7003,
+   "n_counties": 836
+  },
+  "high_tercile_reduced_form": {
+   "coef": {
+    "z_bartik": 0.001222767612617697,
+    "winter_tmin_anom": 0.0005670642841299724
+   },
+   "se": {
+    "z_bartik": 0.0003897233907277429,
+    "winter_tmin_anom": 0.0002858154648469056
+   },
+   "p": {
+    "z_bartik": 0.0017037965310546799,
+    "winter_tmin_anom": 0.04725334301140949
+   },
+   "n": 8664,
+   "n_counties": 750
+  }
+ },
+ "migration_farmdependent": {
+  "n_farming_dependent_counties": 444,
+  "decline_4plus_farm_dependent": 133,
+  "decline_4plus_share_farm_dependent": 0.29954954954954954,
+  "decline_4plus_other": 340,
+  "decline_4plus_share_other": 0.2463768115942029,
+  "enrichment_ratio": 1.215818759936407,
+  "marginal_effects_farm_dependent": {
+   "pop_growth": {
+    "beta_per_unit": -0.00012337686054231063,
+    "se": 0.00037947027431182014,
+    "p": 0.7450833023643484,
+    "marginal_per_1sd_yield_drop_pct": 0.011422688589517805,
+    "n": 5429,
+    "n_counties": 427
+   },
+   "inc_growth": {
+    "beta_per_unit": -0.00046738030290903806,
+    "se": 0.0008974352679987508,
+    "p": 0.6025091964646745,
+    "marginal_per_1sd_yield_drop_pct": 0.043271806638114176,
+    "n": 5429,
+    "n_counties": 427
+   },
+   "label": "farming_dependent"
+  },
+  "marginal_effects_all": {
+   "pop_growth": {
+    "beta_per_unit": -8.941538176367271e-05,
+    "se": 9.142672011236442e-05,
+    "p": 0.32807405634024334,
+    "marginal_per_1sd_yield_drop_pct": 0.008615204694052395,
+    "n": 27928,
+    "n_counties": 2352
+   },
+   "inc_growth": {
+    "beta_per_unit": -0.0006628354017580038,
+    "se": 0.0002524089710111753,
+    "p": 0.008638532131467924,
+    "marginal_per_1sd_yield_drop_pct": 0.06386443307598426,
+    "n": 27928,
+    "n_counties": 2352
+   },
+   "label": "all_counties"
+  },
+  "note": "Restricting to ERS farming-dependent counties addresses Reviewer 1's external-validity concern. Marginal effects replace coincident counts (Fig 7B). The weather IV is not used for a causal migration claim here because of the exclusion-restriction concern (amenity/winter-mildness channels, Rappaport 2007); the defensible object is yield -> farm income -> local fiscal capacity."
+ }
+}

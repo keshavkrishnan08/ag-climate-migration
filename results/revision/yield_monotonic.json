@@ -1,0 +1,12 @@
+{
+  "r2": 0.08305784551881179,
+  "spearman": 0.3606576637413744,
+  "resid_sd": 0.9863671208319353,
+  "n_features": 26,
+  "monotone_by_construction": true,
+  "stranded_SSP245_B": 20.875409735848166,
+  "stranded_SSP245_counties": 1861,
+  "stranded_SSP370_B": 17.744309991609043,
+  "stranded_SSP370_counties": 1890,
+  "scenario_monotonic": false
+}

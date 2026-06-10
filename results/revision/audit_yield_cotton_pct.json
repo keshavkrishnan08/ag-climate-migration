@@ -1,0 +1,26 @@
+{
+  "split": "train<=2012, test 2013-2023",
+  "target": "pct_deviation",
+  "paper_v7_cotton_r2": 0.1639,
+  "paper_v7_cotton_spearman": 0.4832,
+  "cotton_dedicated": {
+    "r2": 0.17057239638255783,
+    "spearman": 0.4808966003302458,
+    "n_test": 3340,
+    "n_features": 72
+  },
+  "rainfed_eval": {
+    "r2": 0.1418430325929001,
+    "spearman": 0.4641886467131297,
+    "n": 1945,
+    "mean_coupling": 0.14888240117402785
+  },
+  "irrigated_eval": {
+    "r2": 0.1326218908952359,
+    "spearman": 0.4893303369706169,
+    "n": 1395,
+    "mean_coupling": -0.223202215243763
+  },
+  "n_rainfed_counties": 433,
+  "n_irrigated_counties": 433
+}

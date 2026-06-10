@@ -1,0 +1,22 @@
+{
+  "acreage_weighted_coverage": 0.7424046455830217,
+  "revenue_protection_acre_share": 0.9000642142869135,
+  "window": [
+    2040,
+    2050
+  ],
+  "gross_frozen_total_B": 6.5583893045746295,
+  "gross_frozen_xsub_B": 2.5595905143361324,
+  "rolling_total_B": 4.582582912475818,
+  "rolling_xsub_B": 2.1021646111554,
+  "residual_tay_total_B": 3.734067638254567,
+  "residual_tay_xsub_B": 1.6301717430592222,
+  "mechanical_absorption_B": 1.9758063920988116,
+  "tay_absorption_B": 0.848515274221251,
+  "coverage_sensitivity_residual_B": {
+    "0.55": 2.559086461290848,
+    "0.65": 3.26843566731404,
+    "0.75": 3.78309391989035,
+    "0.85": 3.4459837095524652
+  }
+}
