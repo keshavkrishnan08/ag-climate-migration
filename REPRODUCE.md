@@ -1,114 +1,114 @@
-# Reproducibility Guide — Every Headline Number
+# Reproducibility reference
 
-This document maps every number cited in the revised manuscript to its source script and result JSON. Reviewers can verify any cited value by running the named script and checking the JSON path.
+Maps primary experiment outputs to source scripts and JSON paths.
 
 ## Quick start
 
 ```bash
-# 1. Set up environment (Python 3.11 + numpy 1.26.4, lightgbm, scipy, pandas)
-pip install --break-system-packages numpy==1.26.4 pandas scipy lightgbm scikit-learn
+conda activate agmigration   # or pip install deps from README.md
 
-# 2. Reproduce every headline number used in the paper
 make reproduce
-
-# 3. Consolidate into a single auditable file
-make headline   # writes results/revision/HEADLINE_NUMBERS.json
+make headline    # writes results/revision/HEADLINE_NUMBERS.json
+make verify
 ```
 
-The `HEADLINE_NUMBERS.json` is the single source-of-truth file: 35 cited values, 20 auto-verified against per-script JSONs (the rest are computed-then-rounded for the manuscript).
+Precomputed JSONs are in the repo under `results/revision/`. Parquet/CSV side outputs are local only.
 
-## Headline numbers → source scripts
+## Stranded farmland value
 
-### Stranded farmland value ($52–80B field-crop; $168B all-channel upper bound)
+| Output | Script | JSON |
+|--------|--------|------|
+| Conservative DCF $52B | `stranded_revision.py` | parquet (local) |
+| Central floored $61B | `stranded_revision.py` | parquet (local) |
+| Soil-controlled hedonic $80B | `hedonic_strengthened.py` | `hedonic_strengthened.json` |
+| Propagated CI [$37, $77]B | `dcf_ci_fixed.py` | `dcf_ci_fixed.json` |
+| Floor sensitivity | `stranded_floor_sensitivity.py` | `stranded_floor_sensitivity.json` |
+| ML vs process | `dollar_robustness.py` | `dollar_robustness.json` |
+| All-channel upper bound | `hedonic_strengthened.py` | `hedonic_strengthened.json` |
 
-| Number | Script | Output |
-|---|---|---|
-| Conservative DCF $52B | `src/revision/stranded_revision.py` | `results/revision/stranded_central_floored.parquet` |
-| Central floored $61B | `src/revision/stranded_revision.py` | (same; $1,500/ac floor) |
-| Soil-controlled hedonic $80B | `src/revision/hedonic_strengthened.py` | `hedonic_strengthened.json` |
-| Propagated CI [$37, $77]B | `src/revision/dcf_ci_fixed.py` | `dcf_ci_fixed.json` |
-| Floor sensitivity ($1k/$2k) → $68B/$52B | `src/revision/stranded_floor_sensitivity.py` | `stranded_floor_sensitivity.json` |
-| ML vs process ($59B vs $13B, ρ=0.66) | `src/revision/dollar_robustness.py` | `dollar_robustness.json` |
-| All-channel upper bound $168/$183B (DCF-scaling) | `src/revision/hedonic_strengthened.py` | `hedonic_strengthened.json` |
+## Insurance
 
-### Insurance ($6.6B gross → $3.7B residual; $1.6B transfer)
+| Output | Script | JSON |
+|--------|--------|------|
+| Decomposition chain | `insurance_rolling_aph.py` | `insurance_decomposition.json` |
+| RP residual | `insurance_rp_and_tay.py` | `insurance_rp_tay.json` |
+| Coverage 0.74 | `insurance_coverage_endogeneity.py` | `insurance_coverage_endogeneity.json` |
+| TAY sensitivity | `insurance_rp_and_tay.py` | `insurance_rp_tay.json` |
+| SCO | `insurance_sco.py` | `insurance_sco.json` |
+| Process falsification (E1) | `substantive_experiments.py` | `substantive_experiments.json` |
+| Climate-σ sensitivity (E2) | `substantive_experiments.py` | `substantive_experiments.json` |
 
-| Number | Script | Output |
-|---|---|---|
-| Decomposition $6.6 → −2.0 → −0.9 → $3.7B | `src/revision/insurance_rolling_aph.py` | `insurance_decomposition.json` |
-| RP residual $2.6B (dominant product) | `src/revision/insurance_rp_and_tay.py` | `insurance_rp_tay.json` |
-| Acreage-weighted coverage 0.74 | `src/revision/insurance_coverage_endogeneity.py` | `insurance_coverage_endogeneity.json` |
-| TAY participation sensitivity | `src/revision/insurance_rp_and_tay.py` | `insurance_rp_tay.json` |
-| SCO contribution +$0.01B | `src/revision/insurance_sco.py` | `insurance_sco.json` |
-| Process-based falsification $0.83B | `src/revision/substantive_experiments.py` (E1) | `substantive_experiments.json` |
-| Climate-σ sensitivity $3.92B | `src/revision/substantive_experiments.py` (E2) | `substantive_experiments.json` |
+## Migration
 
-### Migration / rural decline (β=0.024 3-yr; 0.049 5-yr; depopulation $18B)
+| Output | Script | JSON |
+|--------|--------|------|
+| Shift-share IV | `migration_iv_bartik.py` | `migration_iv_bartik.json` |
+| Prime-age panel FE | `migration_primeage_panel.py` | `migration_primeage_panel.json` |
+| Wild-cluster bootstrap | `migration_wildbootstrap.py` | `migration_wildbootstrap.json` |
+| Inference robustness | `migration_iv_bartik.py` | `migration_inference_robust.json` |
+| High-tercile 2SLS | `migration_iv_bartik.py` | `migration_high_tercile_2sls.json` |
+| Share balance | `migration_share_balance.py` | `migration_share_balance.json` |
+| Non-farm dominance (E3–E4) | `substantive_experiments.py` | `substantive_experiments.json` |
+| Depopulation MC | `migration_depop_montecarlo.py` | `migration_depop_montecarlo.json` |
+| Welfare floor (E6) | `substantive_experiments.py` | `substantive_experiments.json` |
+| Fiscal chain | `migration_fiscal_chain.py` | `migration_fiscal_chain.json` |
 
-| Number | Script | Output |
-|---|---|---|
-| Leave-one-out shift-share panel | `src/revision/migration_iv_bartik.py` | `migration_iv_bartik.json` |
-| Prime-age FE (3-yr, β=0.024, p=0.005, F=78, 429 cty) | `src/revision/migration_primeage_panel.py` | `migration_primeage_panel.json` |
-| 5-yr horizon + county-clustered p=0.001; wild-cluster bootstrap p=0.0005 | `src/revision/migration_wildbootstrap.py` | `migration_wildbootstrap.json` |
-| Two-way p=0.11; non-overlap β=0.059, p=0.012 | `src/revision/migration_iv_bartik.py` | `migration_inference_robust.json` |
-| Total-pop tercile (β=0.053, p=0.004, F=94, 750 cty) | `src/revision/migration_iv_bartik.py` | `migration_high_tercile_2sls.json` |
-| Goldsmith-Pinkham / Borusyak-Hull-Jaravel balance | `src/revision/migration_share_balance.py` | `migration_share_balance.json` |
-| Non-farm effect-size dominance (63×) | `src/revision/substantive_experiments.py` (E3–E4) | `substantive_experiments.json` |
-| Depopulation Monte Carlo ($18B central, $22B median, [$11, $38]B) | `src/revision/migration_depop_montecarlo.py` | `migration_depop_montecarlo.json` |
-| National welfare floor (frictional, $4.3B) | `src/revision/substantive_experiments.py` (E6) | `substantive_experiments.json` |
-| Fiscal chain (long-difference revenue→land value) | `src/revision/migration_fiscal_chain.py` | `migration_fiscal_chain.json` → `revenue_to_landvalue_longdiff` |
+## Northern opportunity
 
-### Northern opportunity ($8.1B net; $37B gross; 514 counties)
+| Output | Script | JSON / file |
+|--------|--------|-------------|
+| Net / gross farm income | `recompute_opportunity.py` | CSV (local) |
+| Per-state breakdown | `recompute_opportunity.py` | CSV (local) |
 
-| Number | Script | Output |
-|---|---|---|
-| Net farm income $8.1B / gross $37B | `src/revision/recompute_opportunity.py` | (per-county CSV) |
-| Per-state breakdown | `src/revision/recompute_opportunity.py` | |
+## Yield model
 
-### Yield model (R²=0.41 anomaly; 0.68 levels; 0.75 spatial)
+| Output | Script | JSON |
+|--------|--------|------|
+| Spectrum R²=0.41 | `yield_v7_spectrum.py` | `yield_v7_metrics.json` |
+| Target decomposition | `yield_audit_target_decomp.py` | `audit_yield_target_decomp.json` |
+| SSURGO pull | `pull_ssurgo.py` | parquet (local) |
 
-| Number | Script | Output |
-|---|---|---|
-| Spectrum on %-deviation R²=0.41 | `src/revision/yield_v7_spectrum.py` | `yield_v7_metrics.json` |
-| z-anomaly apples-to-apples (features +0.05; target shift +0.29) | `src/revision/yield_audit_target_decomp.py` | `audit_yield_target_decomp.json` |
-| SSURGO pull | `src/revision/pull_ssurgo.py` | (SSURGO parquet) |
+## Framework
 
-### Common-cause / framework
+| Output | Script | JSON |
+|--------|--------|------|
+| Common-cause test | `framework_common_driver.py` | `framework_common_driver.json` |
+| Chain test | `framework_cohesion.py` | `framework_cohesion.json` |
 
-| Number | Script | Output |
-|---|---|---|
-| Forward warming predicts 3/4 channels | `src/revision/framework_common_driver.py` | `framework_common_driver.json` |
-| 35% common-factor share | `src/revision/framework_common_driver.py` | `framework_common_driver.json` |
-| Old chain-test (stranded ↛ decline, p=0.50) | `src/revision/framework_cohesion.py` | `framework_cohesion.json` |
+## Experiment batteries
 
-### Substantive robustness experiments (SI §Substantive)
+| Script | JSON |
+|--------|------|
+| `substantive_experiments.py` | `substantive_experiments.json` |
+| `tier1_experiments.py` | `tier1_experiments.json` |
+| `tier2_experiments.py` | `tier2_experiments.json` |
+| `tier3_tighten.py` | `tier3_tighten.json` |
+| `tier4_refit.py` | `tier4_refit.json` |
+| `tier5_residuals.py` | `tier5_residuals.json` |
 
-All seven experiments in one script: `src/revision/substantive_experiments.py` → `substantive_experiments.json`.
+All scripts live under `src/revision/`.
 
-## Dependencies (raw data)
+## Raw data
 
-Raw inputs (publicly available, **not tracked in git**, see `.gitignore`):
+Not in git. See `data/raw/README.md`.
 
-| Source | Path | Provider |
-|---|---|---|
-| USDA NASS county yields | `data/raw/nass/nass_county_yields.parquet` | USDA NASS QuickStats |
-| PRISM climate | `data/raw/prism/county_climate_*.parquet` | Oregon State PRISM |
-| RMA Summary of Business | `data/raw/rma/rma_sob_all_years.parquet` | USDA RMA SOB |
-| ACS demographics + migration | `data/raw/census/acs_*.parquet` | Census ACS |
-| CMIP6 SSP2-4.5 / SSP3-7.0 projections | `data/projections/*.parquet` | Pangeo Cloud |
-| ERS Atlas county typologies | `data/raw/other/ers_atlas/*.csv` | USDA ERS |
-| Census PEP prime-age population | `data/raw/census/cc-est*.csv` | Census PEP |
-| SSURGO available water | pulled live | USDA Soil Data Access API |
-
-For full data download instructions, see `data/raw/README.md` (one-time setup ~3 hours; raw data ~12 GB). After Zenodo deposit at acceptance, a single tarball will package all inputs with a DOI.
+| Source | Path |
+|--------|------|
+| NASS yields | `data/raw/nass/nass_county_yields.parquet` |
+| PRISM climate | `data/raw/prism/county_climate_*.parquet` |
+| RMA SOB | `data/raw/rma/rma_sob_all_years.parquet` |
+| Census ACS | `data/raw/census/acs_*.parquet` |
+| CMIP6 | `data/projections/*.parquet` |
+| ERS Atlas | `data/raw/other/ers_atlas/*.csv` |
+| Census PEP | `data/raw/census/cc-est*.csv` |
+| CPI | `data/raw/other/cpi_annual.csv` |
+| SSURGO | pulled via `pull_ssurgo.py` |
 
 ## Conventions
 
-- **2023 USD** throughout (CPI-deflated via `data/raw/other/cpi_annual.csv`, CPI_2023 = 304.7)
-- **Seed = 42** for every script that draws randomness
-- **FIPS** are 5-digit zero-padded strings; aggregates 998/999 filtered
-- **Temporal split** for ML: train ≤ 2009, validate 2010–2016, test 2017–2023 (2-yr gap, never shuffled)
+- 2023 USD (CPI_2023 = 304.7)
+- Seed 42 for stochastic steps
+- FIPS zero-padded; 998/999 filtered
+- ML split: train ≤ 2009, validate 2010–2016, test 2017–2023
 
-## Active vs superseded scripts
-
-`src/revision/README.md` labels each script as **headline** (cited in the paper), **robustness** (cited as a check), or **superseded** (kept for transparency; not used). The Makefile only runs the active set.
+Active vs superseded scripts: `src/revision/README.md`.
