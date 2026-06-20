@@ -1,17 +1,27 @@
-.PHONY: all env ingest features model switching project stranded cascade insurance frontier figures test clean \
-        reproduce headline verify revision-clean rev-help \
-        rev-stranded rev-insurance rev-migration rev-yield rev-framework rev-substantive rev-adversarial rev-figures
+.PHONY: all pipeline env ingest features model switching project stranded cascade insurance frontier figures test clean \
+        pipeline-help pipeline-clean \
+        stranded-dcf insurance-decomp migration-analysis yield-skill framework-tests robustness adversarial summary figures-extra verify
 
 PYTHON = python
 SRC = src
-REV_PYTHON = $(PYTHON)
-REV_SRC = src/revision
-REV_RES = results/revision
+STAGE_SRC = src/revision
+RESULTS = results/revision
 
-all: ingest features model switching project stranded cascade insurance frontier figures test
+all: pipeline test
 
 env:
 	conda env create -f environment.yml
+
+pipeline: ingest features model switching project stranded cascade insurance frontier figures \
+          stranded-dcf insurance-decomp migration-analysis yield-skill framework-tests robustness adversarial summary
+
+pipeline-help:
+	@echo "Pipeline stages (run individually or use make pipeline):"
+	@echo "  ingest features model switching project  - data and yield projections"
+	@echo "  stranded cascade insurance frontier figures - core economic modules"
+	@echo "  stranded-dcf insurance-decomp migration-analysis yield-skill"
+	@echo "  framework-tests robustness adversarial summary"
+	@echo "  make verify  - rebuild HEADLINE_NUMBERS.json and check values"
 
 ingest:
 	$(PYTHON) $(SRC)/01_ingest.py
@@ -49,66 +59,56 @@ test:
 clean:
 	rm -rf data/processed/* projections/*
 
-rev-help:
-	@echo "  make reproduce       - all revision experiment scripts"
-	@echo "  make rev-adversarial - adversarial robustness battery (E55-E64)"
-	@echo "  make rev-figures     - PDF figures from experiment JSONs"
-	@echo "  make headline        - write $(REV_RES)/HEADLINE_NUMBERS.json"
-	@echo "  make verify          - headline + print stored vs recomputed"
-	@echo "  make revision-clean  - remove local revision JSON outputs"
+stranded-dcf:
+	$(PYTHON) $(STAGE_SRC)/stranded_revision.py
+	$(PYTHON) $(STAGE_SRC)/stranded_floor_sensitivity.py
+	$(PYTHON) $(STAGE_SRC)/hedonic_strengthened.py
+	$(PYTHON) $(STAGE_SRC)/dcf_ci_fixed.py
+	$(PYTHON) $(STAGE_SRC)/dollar_robustness.py
 
-reproduce: rev-stranded rev-insurance rev-migration rev-yield rev-framework rev-substantive rev-adversarial
+insurance-decomp:
+	$(PYTHON) $(STAGE_SRC)/insurance_rolling_aph.py
+	$(PYTHON) $(STAGE_SRC)/insurance_rp_and_tay.py
+	$(PYTHON) $(STAGE_SRC)/insurance_coverage_endogeneity.py
+	$(PYTHON) $(STAGE_SRC)/insurance_sco.py
 
-rev-stranded:
-	$(REV_PYTHON) $(REV_SRC)/stranded_revision.py
-	$(REV_PYTHON) $(REV_SRC)/stranded_floor_sensitivity.py
-	$(REV_PYTHON) $(REV_SRC)/hedonic_strengthened.py
-	$(REV_PYTHON) $(REV_SRC)/dcf_ci_fixed.py
-	$(REV_PYTHON) $(REV_SRC)/dollar_robustness.py
+migration-analysis:
+	$(PYTHON) $(STAGE_SRC)/migration_farmdependent.py
+	$(PYTHON) $(STAGE_SRC)/migration_iv_bartik.py
+	$(PYTHON) $(STAGE_SRC)/migration_primeage_panel.py
+	$(PYTHON) $(STAGE_SRC)/migration_wildbootstrap.py
+	$(PYTHON) $(STAGE_SRC)/migration_share_balance.py
+	$(PYTHON) $(STAGE_SRC)/migration_fiscal_chain.py
+	$(PYTHON) $(STAGE_SRC)/migration_depop_montecarlo.py
 
-rev-insurance:
-	$(REV_PYTHON) $(REV_SRC)/insurance_rolling_aph.py
-	$(REV_PYTHON) $(REV_SRC)/insurance_rp_and_tay.py
-	$(REV_PYTHON) $(REV_SRC)/insurance_coverage_endogeneity.py
-	$(REV_PYTHON) $(REV_SRC)/insurance_sco.py
+yield-skill:
+	$(PYTHON) $(STAGE_SRC)/yield_v7_spectrum.py
+	$(PYTHON) $(STAGE_SRC)/yield_audit_target_decomp.py
 
-rev-migration:
-	$(REV_PYTHON) $(REV_SRC)/migration_farmdependent.py
-	$(REV_PYTHON) $(REV_SRC)/migration_iv_bartik.py
-	$(REV_PYTHON) $(REV_SRC)/migration_primeage_panel.py
-	$(REV_PYTHON) $(REV_SRC)/migration_wildbootstrap.py
-	$(REV_PYTHON) $(REV_SRC)/migration_share_balance.py
-	$(REV_PYTHON) $(REV_SRC)/migration_fiscal_chain.py
-	$(REV_PYTHON) $(REV_SRC)/migration_depop_montecarlo.py
+framework-tests:
+	$(PYTHON) $(STAGE_SRC)/framework_cohesion.py
+	$(PYTHON) $(STAGE_SRC)/framework_common_driver.py
 
-rev-yield:
-	$(REV_PYTHON) $(REV_SRC)/yield_v7_spectrum.py
-	$(REV_PYTHON) $(REV_SRC)/yield_audit_target_decomp.py
+robustness:
+	$(PYTHON) $(STAGE_SRC)/substantive_experiments.py
+	$(PYTHON) $(STAGE_SRC)/tier1_experiments.py
+	$(PYTHON) $(STAGE_SRC)/tier2_experiments.py
+	$(PYTHON) $(STAGE_SRC)/tier3_tighten.py
+	$(PYTHON) $(STAGE_SRC)/tier4_refit.py
+	$(PYTHON) $(STAGE_SRC)/tier5_residuals.py
 
-rev-framework:
-	$(REV_PYTHON) $(REV_SRC)/framework_cohesion.py
-	$(REV_PYTHON) $(REV_SRC)/framework_common_driver.py
+adversarial:
+	$(PYTHON) $(STAGE_SRC)/robustness_battery.py
 
-rev-substantive:
-	$(REV_PYTHON) $(REV_SRC)/substantive_experiments.py
-	$(REV_PYTHON) $(REV_SRC)/tier1_experiments.py
-	$(REV_PYTHON) $(REV_SRC)/tier2_experiments.py
-	$(REV_PYTHON) $(REV_SRC)/tier3_tighten.py
-	$(REV_PYTHON) $(REV_SRC)/tier4_refit.py
-	$(REV_PYTHON) $(REV_SRC)/tier5_residuals.py
+figures-extra:
+	$(PYTHON) $(STAGE_SRC)/adversarial_figures.py
+	$(PYTHON) $(STAGE_SRC)/si_graphics.py
 
-rev-adversarial:
-	$(REV_PYTHON) $(REV_SRC)/robustness_battery.py
+summary:
+	$(PYTHON) $(STAGE_SRC)/headline_numbers.py
 
-rev-figures:
-	$(REV_PYTHON) $(REV_SRC)/adversarial_figures.py
-	$(REV_PYTHON) $(REV_SRC)/si_graphics.py
+verify: summary
+	@$(PYTHON) -c "import json; d=json.load(open('$(RESULTS)/HEADLINE_NUMBERS.json')); [print(f'  {k:<42} stored={v.get(\"value\"):<10}  recomputed={v.get(\"value_recomputed\")}') for k,v in d.items() if isinstance(v,dict) and 'value_recomputed' in v]"
 
-headline:
-	$(REV_PYTHON) $(REV_SRC)/headline_numbers.py
-
-verify: headline
-	@$(REV_PYTHON) -c "import json; d=json.load(open('$(REV_RES)/HEADLINE_NUMBERS.json')); [print(f'  {k:<42} stored={v.get(\"value\"):<10}  recomputed={v.get(\"value_recomputed\")}') for k,v in d.items() if isinstance(v,dict) and 'value_recomputed' in v]"
-
-revision-clean:
-	rm -f $(REV_RES)/*.json $(REV_RES)/adversarial/*.json
+pipeline-clean:
+	rm -f $(RESULTS)/*.json $(RESULTS)/adversarial/*.json

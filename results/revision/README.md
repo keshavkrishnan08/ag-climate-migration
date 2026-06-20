@@ -1,37 +1,26 @@
-# Revision experiment outputs
+# Pipeline JSON outputs
 
-JSON summaries from `src/revision/` scripts. Parquet and CSV artifacts are gitignored (regenerate locally).
+Machine-readable results from stages 11–18. Parquet and CSV side files are local only.
 
 ## Key files
 
-| File | Role |
-|------|------|
-| `HEADLINE_NUMBERS.json` | Index of primary outputs → source script |
+| File | Stage |
+|------|-------|
+| `HEADLINE_NUMBERS.json` | Summary (stage 18) |
 | `MASTER_NUMBERS.json` | Extended cross-check table |
-| `substantive_experiments.json` | E1–E9 battery |
-| `tier1_experiments.json` … `tier5_residuals.json` | Tier batteries |
-| `adversarial/e55_*.json` … `e64_*.json` | Adversarial robustness battery |
+| `hedonic_strengthened.json`, `dcf_ci_fixed.json`, … | DCF / hedonic (stage 11) |
+| `insurance_decomposition.json`, … | Insurance decomposition (stage 12) |
+| `migration_iv_bartik.json`, … | Migration IV (stage 13) |
+| `yield_v7_metrics.json`, … | Yield skill (stage 14) |
+| `framework_common_driver.json`, … | Framework tests (stage 15) |
+| `substantive_experiments.json`, `tier*.json` | Robustness (stage 16) |
+| `adversarial/e55_*.json`, … | Adversarial (stage 17) |
 
 ## Regenerate
 
 ```bash
-make reproduce
-make headline
+make pipeline
 make verify
 ```
 
-Requires raw data (~12 GB). See `data/raw/README.md`.
-
-## Groups
-
-**Stranded:** `hedonic_strengthened.json`, `dcf_ci_fixed.json`, `dollar_robustness.json`, `stranded_floor_sensitivity.json`
-
-**Insurance:** `insurance_decomposition.json`, `insurance_rp_tay.json`, `insurance_coverage_endogeneity.json`, `insurance_sco.json`
-
-**Migration:** `migration_iv_bartik.json`, `migration_primeage_panel.json`, `migration_wildbootstrap.json`, `migration_depop_montecarlo.json`, …
-
-**Yield:** `yield_v7_metrics.json`, `audit_yield_target_decomp.json`, …
-
-**Framework:** `framework_common_driver.json`, `framework_cohesion.json`
-
-Other JSON files are robustness or superseded runs retained for transparency.
+Requires raw data. See [`../../data/raw/README.md`](../../data/raw/README.md).

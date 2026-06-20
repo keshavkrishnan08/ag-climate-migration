@@ -1,18 +1,17 @@
-# Reproducibility reference
+# Output reference
 
-Maps primary experiment outputs to source scripts and JSON paths.
+Maps pipeline outputs to source scripts and JSON paths.
 
 ## Quick start
 
 ```bash
-conda activate agmigration   # or pip install deps from README.md
+conda activate agmigration
 
-make reproduce
-make headline    # writes results/revision/HEADLINE_NUMBERS.json
-make verify
+make pipeline
+make verify    # writes and checks results/revision/HEADLINE_NUMBERS.json
 ```
 
-Precomputed JSONs are in the repo under `results/revision/`. Parquet/CSV side outputs are local only.
+JSON summaries are committed under `results/revision/`. Parquet and CSV files are local only.
 
 ## Stranded farmland value
 

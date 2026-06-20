@@ -6,19 +6,17 @@ Author: Keshav Krishnan ([kkrishnan@parktudor.org](mailto:kkrishnan@parktudor.or
 
 ## What is in this repo
 
-| Area | Files | Role |
-|------|-------|------|
-| `src/` | 49 Python modules | Ingest, features, yield model, switching, projections, stranded assets, cascade, insurance, frontier, figures |
-| `src/revision/` | 63 scripts | Secondary experiments and sensitivity checks |
-| `results/revision/` | 85 JSON files | Stored outputs (5 more under `adversarial/`) |
-| `tests/` | unit + integration | `pytest`, 85% coverage gate |
-| `data/raw/` | README only in git | Download instructions for ~12 GB of inputs |
-
-Paper and submission PDFs stay outside this repository.
+| Area | Role |
+|------|------|
+| `src/` | Pipeline stages 1–10 (ingest through figures) |
+| `src/revision/` | Extended stages 11–18 (DCF detail, IV migration, decomposition, robustness) |
+| `results/revision/` | JSON outputs from the extended stages |
+| `tests/` | `pytest`, 85% coverage gate |
+| `data/raw/` | Download instructions (~12 GB inputs, not in git) |
 
 ## Requirements
 
-Python 3.11, about 16 GB RAM for the full county panel, and 12 GB free disk once raw data are downloaded. Conda is the easiest path (`environment.yml`).
+Python 3.11, about 16 GB RAM, and 12 GB disk after downloading raw data. Conda is the easiest install path (`environment.yml`).
 
 ## Install
 
@@ -29,7 +27,7 @@ conda env create -f environment.yml
 conda activate agmigration
 ```
 
-Pip-only install if you prefer it:
+Pip alternative:
 
 ```bash
 pip install numpy==1.26.4 pandas scipy lightgbm scikit-learn statsmodels linearmodels xarray netcdf4 geopandas
@@ -37,87 +35,100 @@ pip install numpy==1.26.4 pandas scipy lightgbm scikit-learn statsmodels linearm
 
 ## Data
 
-Nothing under `data/raw/` ships with the clone. Fetch inputs once using [`data/raw/README.md`](data/raw/README.md). Expect roughly three hours on a decent connection.
+Fetch inputs once using [`data/raw/README.md`](data/raw/README.md). You need NASS yields and land values, PRISM climate, RMA insurance premiums, Census ACS and PEP files, CPI, ERS county typology, and CMIP6 projections. `make ingest` and `make features` write parquets under `data/processed/` (gitignored). Published county CSVs are described in [`data/published_dataset/README.md`](data/published_dataset/README.md).
 
-You need NASS county yields and land values, PRISM monthly climate, RMA Summary of Business premiums, Census ACS and PEP population files, a CPI series, ERS county typology codes, and CMIP6 SSP projections. `make ingest` and `make features` then write parquets under `data/processed/`, which are also gitignored.
+## Pipeline
 
-Published county CSVs and the full dataset tarball are documented in [`data/published_dataset/README.md`](data/published_dataset/README.md).
-
-## Main pipeline
-
-Runs in order from the repo root:
+One analysis chain. Run everything with `make pipeline`, or run stages individually. `make pipeline-help` lists targets.
 
 ```bash
-make ingest      # raw → processed parquets
-make features    # county feature matrix
-make model       # LightGBM yield ensemble
-make switching   # crop switching rates
-make project     # CMIP6 yield projections
-make stranded    # DCF stranded farmland value
-make cascade     # rural decline feedback
-make insurance   # RMA mispricing
-make frontier    # northern opportunity counties
-make figures     # 12 publication figures
+make pipeline    # all stages (~1 hr with cached data)
+make verify      # rebuild HEADLINE_NUMBERS.json and spot-check values
 make test        # pytest
 ```
 
-Or `make all` for the full chain. Stage scripts live in `src/` (`01_ingest.py` through `10_figures.py`). Supporting modules handle CMIP6 downloads, hedonic decompositions, uncertainty propagation, and SSP3-7.0 reruns (`run_projections_ssp370.py`, `run_stranded_ssp370.py`).
+### Stage 1 — Ingest (`make ingest`)
 
-## Revision experiments
+Loads raw NASS, PRISM, RMA, Census, and CPI files into normalized parquets under `data/processed/`. Script: `src/01_ingest.py`.
 
-The `src/revision/` folder holds follow-on work: IV migration specs, insurance decomposition, hedonic cross-checks, yield model audits, tier batteries, and adversarial falsification tests. Most write JSON under `results/revision/`.
+### Stage 2 — Features (`make features`)
 
-```bash
-make reproduce        # full active set (~45 min with cached data)
-make rev-adversarial  # E55, E56, E58, E60, E64 battery
-make rev-figures      # PDFs from JSONs → results/figures_revision/ (local)
-make headline         # merge key numbers → HEADLINE_NUMBERS.json
-make verify           # print stored vs recomputed values
-```
+Builds the county-year feature matrix: climate anomalies, soil proxies, lagged yields, crop shares. Script: `src/02_features.py`.
 
-Run one block at a time with `make rev-stranded`, `rev-insurance`, `rev-migration`, `rev-yield`, `rev-framework`, or `rev-substantive`. `make rev-help` lists targets.
+### Stage 3 — Yield model (`make model`)
 
-### Script groups (63 files)
+Trains a per-crop LightGBM ensemble on historical yields with a strict temporal split (train ≤ 2009, validate 2010–2016, test 2017–2023). Script: `src/03_yield_model.py`.
 
-**Stranded and hedonic** — `stranded_revision.py`, `stranded_floor_sensitivity.py`, `hedonic_strengthened.py`, `dcf_ci_fixed.py`, `dollar_robustness.py`, `dcf_ge_price_sensitivity.py`
+### Stage 4 — Crop switching (`make switching`)
 
-**Insurance** — `insurance_rolling_aph.py`, `insurance_rp_and_tay.py`, `insurance_coverage_endogeneity.py`, `insurance_sco.py`, `insurance_fast.py`
+Estimates historical crop-switching rates from CDL land-cover transitions. Script: `src/04_switching.py`.
 
-**Migration** — `migration_iv_bartik.py`, `migration_primeage_panel.py`, `migration_wildbootstrap.py`, `migration_share_balance.py`, `migration_fiscal_chain.py`, `migration_depop_montecarlo.py`, `migration_farmdependent.py`, plus earlier IV variants kept for audit (`migration_iv_v2.py`, `migration_multiiv.py`, `migration_robustness.py`, …)
+### Stage 5 — Projections (`make project`)
 
-**Yield** — `yield_v7_spectrum.py`, `yield_audit_target_decomp.py`, and a dozen audit or ablation scripts (`yield_v4_morefeatures.py`, `yield_monotonic.py`, `yield_spatial_block_perturbation.py`, …)
+Applies CMIP6 SSP2-4.5 climate anomalies to the yield model through 2050. Script: `src/05_project.py`.
 
-**Opportunity** — `recompute_opportunity.py`, `opportunity_clean.py`, `opportunity_soil_adjusted.py`, `pull_ssurgo.py`
+### Stage 6 — Stranded assets (`make stranded`)
 
-**Framework** — `framework_common_driver.py`, `framework_cohesion.py`, `common_cause_sem.py`
+First-pass discounted cash flow (DCF) valuation of farmland at risk from projected yield loss. Uses a 4% real discount rate and 30-year horizon. Script: `src/06_stranded.py`.
 
-**Experiment batteries** — `substantive_experiments.py`, `tier1_experiments.py` through `tier5_residuals.py`, `base_improvements.py`
+### Stage 7 — Cascade (`make cascade`)
 
-**Adversarial** — `robustness_battery.py`, `adversarial_figures.py`, `si_graphics.py`
+Links farm-income shocks to prime-age out-migration and county population decline with a feedback loop. Script: `src/07_cascade.py`.
 
-**Utilities** — `headline_numbers.py`, `fig07_marginal.py`
+### Stage 8 — Insurance (`make insurance`)
 
-Superseded scripts remain in the tree so you can see what was tried. They are listed in [`src/revision/README.md`](src/revision/README.md). [`REPRODUCE.md`](REPRODUCE.md) maps each headline output to its script and JSON path.
+Compares RMA premium rates based on frozen Actual Production History against rates that would apply under rolling APH. Script: `src/08_insurance.py`.
+
+### Stage 9 — Northern frontier (`make frontier`)
+
+Identifies counties where warming expands viable crop acreage and estimates net farm-income opportunity. Script: `src/09_frontier.py`.
+
+### Stage 10 — Figures (`make figures`)
+
+Generates 12 county-level maps and charts. Script: `src/10_figures.py`.
+
+### Stage 11 — DCF and hedonic valuation (`make stranded-dcf`)
+
+Refines stranded-farmland estimates with alternate-use floors ($1,500/ac pasture cap), soil- and irrigation-controlled hedonic regressions, propagated confidence intervals, and an ML-vs-process cross-check. Scripts in `src/revision/`: `stranded_revision.py`, `stranded_floor_sensitivity.py`, `hedonic_strengthened.py`, `dcf_ci_fixed.py`, `dollar_robustness.py`.
+
+### Stage 12 — Insurance decomposition (`make insurance-decomp`)
+
+Breaks gross mispricing into rolling-APH absorption, Trend-Adjusted Yield effects, Revenue Protection puts, Supplemental Coverage Option, and a reform-eliminable residual. Scripts: `insurance_rolling_aph.py`, `insurance_rp_and_tay.py`, `insurance_coverage_endogeneity.py`, `insurance_sco.py`.
+
+### Stage 13 — Migration analysis (`make migration-analysis`)
+
+Shift-share IV linking farm-income shocks to prime-age migration, wild-cluster bootstrap inference, instrument-balance checks, fiscal long-differences, and a depopulation cost Monte Carlo. Scripts: `migration_iv_bartik.py`, `migration_primeage_panel.py`, `migration_wildbootstrap.py`, `migration_share_balance.py`, `migration_fiscal_chain.py`, `migration_depop_montecarlo.py`, `migration_farmdependent.py`.
+
+### Stage 14 — Yield model skill (`make yield-skill`)
+
+Spectrum-based feature set with SSURGO water capacity and irrigation flags; decomposition of R² gains from target scaling vs feature engineering. Scripts: `yield_v7_spectrum.py`, `yield_audit_target_decomp.py`.
+
+### Stage 15 — Framework tests (`make framework-tests`)
+
+Tests whether forward warming predicts multiple economic channels jointly and runs a Granger-style cohesion check across stranded value, insurance, migration, and opportunity. Scripts: `framework_common_driver.py`, `framework_cohesion.py`.
+
+### Stage 16 — Robustness batteries (`make robustness`)
+
+Substantive falsification checks and tiered sensitivity grids (E1–E45). Scripts: `substantive_experiments.py`, `tier1_experiments.py` through `tier5_residuals.py`.
+
+### Stage 17 — Adversarial checks (`make adversarial`)
+
+Targeted falsification experiments (SEM partial-outs, DCF–hedonic CI overlap, IV leave-one-year-out, US-specific alternate-use floor, northern acreage expansion). Script: `robustness_battery.py`. Optional figure rebuild: `make figures-extra`.
+
+### Stage 18 — Summary (`make summary`)
+
+Merges key outputs into `results/revision/HEADLINE_NUMBERS.json`. Script: `headline_numbers.py`.
 
 ## Outputs
 
-JSON summaries in `results/revision/` are committed. Open `results/revision/HEADLINE_NUMBERS.json` without rerunning anything.
+JSON files under `results/revision/` are committed. Parquet, CSV, and PDF files regenerate locally and stay gitignored. `make pipeline-clean` removes local JSON if you want a fresh run.
 
-Parquet, CSV, and PDF artifacts are regenerated locally and gitignored. Adversarial JSONs live in `results/revision/adversarial/`. Figure PDFs from `make rev-figures` go to `results/figures_revision/`.
-
-`make revision-clean` deletes local JSON outputs if you want a fresh run.
-
-## Tests
-
-```bash
-make test
-# or: pytest tests/ --cov=src --cov-fail-under=85
-```
+Output-to-script mapping: [`REPRODUCE.md`](REPRODUCE.md). Script index: [`src/revision/README.md`](src/revision/README.md).
 
 ## Conventions
 
-All dollar figures are 2023 USD (CPI from `data/raw/other/cpi_annual.csv`, base index 304.7). Stochastic steps use seed 42. County FIPS codes are five-digit strings; state aggregates 998 and 999 are dropped. The yield model trains on years through 2009, validates 2010–2016, and tests 2017–2023 with a two-year gap.
+2023 USD throughout (CPI base 304.7 from `data/raw/other/cpi_annual.csv`). Seed 42 for stochastic steps. FIPS codes are five-digit strings; aggregates 998 and 999 excluded.
 
 ## Citation and license
 
-[`CITATION.cff`](CITATION.cff) for software metadata. Code is MIT ([`LICENSE`](LICENSE)).
+[`CITATION.cff`](CITATION.cff). MIT ([`LICENSE`](LICENSE)).
