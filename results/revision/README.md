@@ -1,20 +1,20 @@
 # Pipeline JSON outputs
 
-Machine-readable results from stages 11–18. Parquet and CSV side files are local only.
+Machine-readable results from the extended analysis modules (Steps 11–17). Parquet and CSV side files are local only.
 
 ## Key files
 
-| File | Stage |
-|------|-------|
-| `HEADLINE_NUMBERS.json` | Summary (stage 18) |
+| File | Step |
+|------|------|
+| `HEADLINE_NUMBERS.json` | Summary (Step 17) |
 | `MASTER_NUMBERS.json` | Extended cross-check table |
-| `hedonic_strengthened.json`, `dcf_ci_fixed.json`, … | DCF / hedonic (stage 11) |
-| `insurance_decomposition.json`, … | Insurance decomposition (stage 12) |
-| `migration_iv_bartik.json`, … | Migration IV (stage 13) |
-| `yield_v7_metrics.json`, … | Yield skill (stage 14) |
-| `framework_common_driver.json`, … | Framework tests (stage 15) |
-| `substantive_experiments.json`, `tier*.json` | Robustness (stage 16) |
-| `adversarial/e55_*.json`, … | Adversarial (stage 17) |
+| `hedonic_strengthened.json`, `dcf_ci_fixed.json`, … | DCF / hedonic (Step 11) |
+| `insurance_decomposition.json`, … | Insurance decomposition (Step 12) |
+| `migration_iv_bartik.json`, … | Migration IV (Step 13) |
+| `yield_v7_metrics.json`, … | Yield model skill (Step 14) |
+| `framework_common_driver.json`, … | Framework tests (Step 15) |
+| `substantive_experiments.json`, `tier*.json` | Robustness grids (Step 16) |
+| `supplementary/e55_*.json`, … | Supplementary robustness E55–E64 (Step 16) |
 
 ## Regenerate
 

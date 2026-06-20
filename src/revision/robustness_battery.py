@@ -1,6 +1,6 @@
-"""Adversarial robustness experiments (E55, E56, E58, E60, E64).
+"""Supplementary robustness checks (E55, E56, E58, E60, E64).
 
-Each test targets a specific falsification channel. Writes results/revision/adversarial/*.json.
+Writes results/revision/supplementary/*.json.
 """
 import json
 from pathlib import Path
@@ -9,7 +9,7 @@ import pandas as pd
 from scipy.optimize import minimize
 from scipy.stats import chi2 as chi2_dist, norm
 
-OUT = Path("results/revision/adversarial")
+OUT = Path("results/revision/supplementary")
 OUT.mkdir(parents=True, exist_ok=True)
 rng = np.random.default_rng(42)
 
@@ -452,5 +452,5 @@ except Exception as e:
     json.dump(e64, open(OUT / "e64_northern_acreage.json", "w"), indent=2)
 
 print("=" * 70)
-print("All adversarial experiments complete. Outputs in results/revision/adversarial/")
+print("Supplementary robustness checks complete. Outputs in results/revision/supplementary/")
 print("=" * 70)

@@ -1,6 +1,6 @@
-"""Robustness gallery figures from adversarial experiment JSONs.
+"""Extended figures from supplementary robustness JSON outputs.
 
-Reads results/revision/adversarial/*.json; writes PDFs to results/figures_revision/.
+Reads results/revision/supplementary/*.json; writes PDFs to results/figures_revision/.
 """
 import json
 from pathlib import Path
@@ -24,7 +24,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 # ============================================================
 # Figure E55: SEM loadings across 4 nested partial-out depths
 # ============================================================
-e55 = json.load(open("results/revision/adversarial/e55_sem_partialouts.json"))
+e55 = json.load(open("results/revision/supplementary/e55_sem_partialouts.json"))
 depths = ["P0\nbaseline", "P1\n−July-Tmax", "P2\n+IV shock\n+FPR FE", "P3\n−literal\nyield input"]
 loadings = np.array([
     e55["baseline_no_partial"]["loadings"],
@@ -45,7 +45,6 @@ ax.axhline(0.25, color="black", linestyle="--", linewidth=0.7,
 ax.set_xticks(x)
 ax.set_xticklabels(depths, fontsize=8)
 ax.set_ylabel("Single-factor standardised loading")
-ax.set_title("E55. SEM single-factor loadings survive three nested partial-outs", fontsize=10)
 ax.set_ylim(0, 0.8)
 ax.legend(ncol=5, loc="upper center", bbox_to_anchor=(0.5, -0.18), fontsize=7, frameon=False)
 plt.tight_layout()
@@ -56,7 +55,7 @@ print("E55 fig saved.")
 # ============================================================
 # Figure E56: DCF and hedonic bootstrap CI overlap
 # ============================================================
-e56 = json.load(open("results/revision/adversarial/e56_dcf_hedonic_overlap.json"))
+e56 = json.load(open("results/revision/supplementary/e56_dcf_hedonic_overlap.json"))
 specs = [
     ("DCF conservative\n($r=4\\%$, no floor)", e56["DCF_conservative"]["central"],
      e56["DCF_conservative"]["ci_full_95"]),
@@ -80,7 +79,6 @@ ax.axvspan(overlap[0], overlap[1], alpha=0.15, color="green",
 ax.set_yticks(y_pos)
 ax.set_yticklabels([s[0] for s in specs], fontsize=8)
 ax.set_xlabel("Stranded farmland value, billion 2023 USD")
-ax.set_title("E56. DCF and hedonic 95\\% bootstrap intervals overlap", fontsize=10)
 ax.set_xlim(30, 115)
 ax.legend(loc="lower right", fontsize=7, frameon=False)
 plt.tight_layout()
@@ -91,7 +89,7 @@ print("E56 fig saved.")
 # ============================================================
 # Figure E58: First-stage F by year
 # ============================================================
-e58 = json.load(open("results/revision/adversarial/e58_iv_loo_year.json"))
+e58 = json.load(open("results/revision/supplementary/e58_iv_loo_year.json"))
 F_by_year = e58["first_stage_F_by_year"]
 years = sorted([int(y) for y in F_by_year.keys()])
 F_vals = [F_by_year[str(y)] for y in years]
@@ -107,8 +105,6 @@ ax.axhline(stock_yogo, color="black", linestyle="--", linewidth=0.8,
            label=f"Stock-Yogo $F = {stock_yogo}$ cutoff")
 ax.set_xlabel("Year")
 ax.set_ylabel("First-stage $F$")
-ax.set_title("E58. Migration IV first-stage $F$ above Stock-Yogo cutoff in 15/15 years",
-             fontsize=10)
 ax.set_xticks(years)
 ax.set_xticklabels([str(y) for y in years], rotation=45, fontsize=8)
 ax.legend(loc="upper right", fontsize=8, frameon=False)
@@ -139,7 +135,6 @@ ax.bar(x, vals, color=colors, edgecolor="black", linewidth=0.5)
 ax.set_xticks(x)
 ax.set_xticklabels(names, fontsize=7.5)
 ax.set_ylabel("Held-out $R^2$ (climate-response or levels)")
-ax.set_title("E61. Yield-model $R^2$ vs literature", fontsize=10)
 ax.axhline(0.5, color="green", linestyle=":", linewidth=0.7,
            label="0.5 AgMIP county-scale benchmark")
 ax.set_ylim(0, 0.85)
@@ -149,4 +144,4 @@ plt.savefig(OUT / "fig_e61_yield_R2_literature.pdf", bbox_inches="tight")
 plt.close()
 print("E61 fig saved.")
 
-print("\nAll adversarial gallery figures saved to results/figures_revision/")
+print("\nSupplementary robustness figures saved to results/figures_revision/")

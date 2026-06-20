@@ -1,6 +1,6 @@
 .PHONY: all pipeline env ingest features model switching project stranded cascade insurance frontier figures test clean \
         pipeline-help pipeline-clean \
-        stranded-dcf insurance-decomp migration-analysis yield-skill framework-tests robustness adversarial summary figures-extra verify
+        stranded-dcf insurance-decomp migration-analysis yield-skill framework-tests robustness summary figures-extra verify
 
 PYTHON = python
 SRC = src
@@ -13,14 +13,14 @@ env:
 	conda env create -f environment.yml
 
 pipeline: ingest features model switching project stranded cascade insurance frontier figures \
-          stranded-dcf insurance-decomp migration-analysis yield-skill framework-tests robustness adversarial summary
+          stranded-dcf insurance-decomp migration-analysis yield-skill framework-tests robustness summary
 
 pipeline-help:
 	@echo "Pipeline stages (run individually or use make pipeline):"
 	@echo "  ingest features model switching project  - data and yield projections"
 	@echo "  stranded cascade insurance frontier figures - core economic modules"
 	@echo "  stranded-dcf insurance-decomp migration-analysis yield-skill"
-	@echo "  framework-tests robustness adversarial summary"
+	@echo "  framework-tests robustness summary"
 	@echo "  make verify  - rebuild HEADLINE_NUMBERS.json and check values"
 
 ingest:
@@ -96,12 +96,10 @@ robustness:
 	$(PYTHON) $(STAGE_SRC)/tier3_tighten.py
 	$(PYTHON) $(STAGE_SRC)/tier4_refit.py
 	$(PYTHON) $(STAGE_SRC)/tier5_residuals.py
-
-adversarial:
 	$(PYTHON) $(STAGE_SRC)/robustness_battery.py
 
 figures-extra:
-	$(PYTHON) $(STAGE_SRC)/adversarial_figures.py
+	$(PYTHON) $(STAGE_SRC)/supplementary_figures.py
 	$(PYTHON) $(STAGE_SRC)/si_graphics.py
 
 summary:
@@ -111,4 +109,4 @@ verify: summary
 	@$(PYTHON) -c "import json; d=json.load(open('$(RESULTS)/HEADLINE_NUMBERS.json')); [print(f'  {k:<42} stored={v.get(\"value\"):<10}  recomputed={v.get(\"value_recomputed\")}') for k,v in d.items() if isinstance(v,dict) and 'value_recomputed' in v]"
 
 pipeline-clean:
-	rm -f $(RESULTS)/*.json $(RESULTS)/adversarial/*.json
+	rm -f $(RESULTS)/*.json $(RESULTS)/supplementary/*.json

@@ -1,24 +1,40 @@
-# Agricultural Climate Migration
+# Agricultural Climate Migration — replication code
 
-County-level estimates of climate-driven yield loss, stranded farmland value, rural out-migration, crop insurance mispricing, and northern production opportunity. The analysis covers 2,902 US counties and eight field crops.
+Code to reproduce county-level estimates of climate-driven yield loss, stranded farmland value, rural out-migration, crop insurance mispricing, and northern production opportunity for 2,902 US counties and eight field crops.
 
-Author: Keshav Krishnan ([kkrishnan@parktudor.org](mailto:kkrishnan@parktudor.org))
+**Author:** Keshav Krishnan ([kkrishnan@parktudor.org](mailto:kkrishnan@parktudor.org))
 
-## What is in this repo
+---
 
-| Area | Role |
-|------|------|
-| `src/` | Pipeline stages 1–10 (ingest through figures) |
-| `src/revision/` | Extended stages 11–18 (DCF detail, IV migration, decomposition, robustness) |
-| `results/revision/` | JSON outputs from the extended stages |
-| `tests/` | `pytest`, 85% coverage gate |
-| `data/raw/` | Download instructions (~12 GB inputs, not in git) |
+## Code availability
 
-## Requirements
+| Item | Detail |
+|------|--------|
+| **What** | Python pipeline for data ingest, yield projection, DCF valuation, migration IV, insurance decomposition, and robustness checks |
+| **Where** | https://github.com/keshavkrishnan08/ag-climate-migration |
+| **Version** | v1.0.0 (see [`CITATION.cff`](CITATION.cff) and Git tags) |
+| **License** | MIT ([`LICENSE`](LICENSE)) |
+| **Archive** | Mint a Zenodo DOI from the release tag used in the manuscript; cite that DOI in the paper reference list |
+| **Restrictions** | Raw third-party data are not redistributed; download instructions are in [`data/raw/README.md`](data/raw/README.md) |
 
-Python 3.11, about 16 GB RAM, and 12 GB disk after downloading raw data. Conda is the easiest install path (`environment.yml`).
+---
 
-## Install
+## Computational requirements
+
+| Component | Specification |
+|-----------|---------------|
+| **OS** | macOS or Linux (tested); Windows via WSL should work |
+| **Python** | 3.11 |
+| **Memory** | ~16 GB RAM |
+| **Disk** | ~12 GB after raw data download |
+| **Environment** | [`environment.yml`](environment.yml) (Conda recommended) |
+| **Random seed** | 42 for all stochastic steps |
+
+Typical runtime: about one hour for `make pipeline` with processed parquets already on disk; first run is longer after downloading raw inputs.
+
+---
+
+## Quick start
 
 ```bash
 git clone https://github.com/keshavkrishnan08/ag-climate-migration.git
@@ -27,108 +43,97 @@ conda env create -f environment.yml
 conda activate agmigration
 ```
 
-Pip alternative:
+1. Download raw inputs following [`data/raw/README.md`](data/raw/README.md).
+2. Run the full analysis: `make pipeline`
+3. Check headline numbers: `make verify`
+4. Run unit tests: `make test`
 
-```bash
-pip install numpy==1.26.4 pandas scipy lightgbm scikit-learn statsmodels linearmodels xarray netcdf4 geopandas
-```
+Individual stages: `make pipeline-help`
 
-## Data
+---
 
-Fetch inputs once using [`data/raw/README.md`](data/raw/README.md). You need NASS yields and land values, PRISM climate, RMA insurance premiums, Census ACS and PEP files, CPI, ERS county typology, and CMIP6 projections. `make ingest` and `make features` write parquets under `data/processed/` (gitignored). Published county CSVs are described in [`data/published_dataset/README.md`](data/published_dataset/README.md).
+## Repository layout
 
-## Pipeline
+| Path | Contents |
+|------|----------|
+| `src/` | Primary pipeline scripts (`01_ingest.py` … `10_figures.py`) |
+| `src/revision/` | Extended econometric modules (valuation, IV, decomposition, robustness) |
+| `results/revision/` | Committed JSON summaries (git-tracked) |
+| `results/revision/supplementary/` | Supplementary robustness outputs (E55–E64) |
+| `data/raw/` | Data acquisition guide (files not in git) |
+| `data/processed/` | Intermediate parquets (local, gitignored) |
+| `tests/` | Pytest suite (85% coverage gate) |
+| [`REPRODUCE.md`](REPRODUCE.md) | Table-level map from scripts to outputs |
 
-One analysis chain. Run everything with `make pipeline`, or run stages individually. `make pipeline-help` lists targets.
+Parquet, CSV, and figure PDFs regenerate locally and are not committed.
 
-```bash
-make pipeline    # all stages (~1 hr with cached data)
-make verify      # rebuild HEADLINE_NUMBERS.json and spot-check values
-make test        # pytest
-```
+---
 
-### Stage 1 — Ingest (`make ingest`)
+## Reproduction workflow
 
-Loads raw NASS, PRISM, RMA, Census, and CPI files into normalized parquets under `data/processed/`. Script: `src/01_ingest.py`.
+Run `make pipeline` to execute all steps in order, or invoke Makefile targets individually.
 
-### Stage 2 — Features (`make features`)
+### Data and projections (Steps 1–5)
 
-Builds the county-year feature matrix: climate anomalies, soil proxies, lagged yields, crop shares. Script: `src/02_features.py`.
+| Step | Target | Script | Description |
+|------|--------|--------|-------------|
+| 1 | `ingest` | `01_ingest.py` | Load NASS, PRISM, RMA, Census, CPI into `data/processed/` |
+| 2 | `features` | `02_features.py` | County-year feature matrix (climate, soil, lags, crop shares) |
+| 3 | `model` | `03_yield_model.py` | Per-crop LightGBM; train ≤2009, validate 2010–2016, test 2017–2023 |
+| 4 | `switching` | `04_switching.py` | Historical crop-switching rates from CDL |
+| 5 | `project` | `05_project.py` | CMIP6 SSP2-4.5 yield projections through 2050 |
 
-### Stage 3 — Yield model (`make model`)
+### Core economic modules (Steps 6–10)
 
-Trains a per-crop LightGBM ensemble on historical yields with a strict temporal split (train ≤ 2009, validate 2010–2016, test 2017–2023). Script: `src/03_yield_model.py`.
+| Step | Target | Script | Description |
+|------|--------|--------|-------------|
+| 6 | `stranded` | `06_stranded.py` | DCF valuation of farmland at risk (4% real rate, 30-year horizon) |
+| 7 | `cascade` | `07_cascade.py` | Farm-income shocks → prime-age migration → population feedback |
+| 8 | `insurance` | `08_insurance.py` | Frozen vs rolling Actual Production History premium comparison |
+| 9 | `frontier` | `09_frontier.py` | Northern counties with warming-driven production opportunity |
+| 10 | `figures` | `10_figures.py` | Main county maps and charts |
 
-### Stage 4 — Crop switching (`make switching`)
+### Extended analysis (Steps 11–16)
 
-Estimates historical crop-switching rates from CDL land-cover transitions. Script: `src/04_switching.py`.
+| Step | Target | Key outputs |
+|------|--------|-------------|
+| 11 | `stranded-dcf` | Hedonic regressions, alternate-use floors, propagated DCF confidence intervals |
+| 12 | `insurance-decomp` | Rolling-APH, TAY, Revenue Protection, SCO, reform-eliminable residual |
+| 13 | `migration-analysis` | Shift-share IV, wild-cluster bootstrap, fiscal long-differences, depopulation MC |
+| 14 | `yield-skill` | SSURGO-augmented yield model and R² decomposition |
+| 15 | `framework-tests` | Common-driver and cross-channel cohesion tests |
+| 16 | `robustness` | Sensitivity grids (E1–E45) and supplementary checks (E55–E64) via `robustness_battery.py` |
 
-### Stage 5 — Projections (`make project`)
+Optional: `make figures-extra` rebuilds extended PDFs from JSON (`supplementary_figures.py`, `si_graphics.py`).
 
-Applies CMIP6 SSP2-4.5 climate anomalies to the yield model through 2050. Script: `src/05_project.py`.
+### Summary (Step 17)
 
-### Stage 6 — Stranded assets (`make stranded`)
+| Step | Target | Output |
+|------|--------|--------|
+| 17 | `summary` | `results/revision/HEADLINE_NUMBERS.json` |
 
-First-pass discounted cash flow (DCF) valuation of farmland at risk from projected yield loss. Uses a 4% real discount rate and 30-year horizon. Script: `src/06_stranded.py`.
+`make verify` rebuilds the summary file and prints stored vs recomputed headline values.
 
-### Stage 7 — Cascade (`make cascade`)
+---
 
-Links farm-income shocks to prime-age out-migration and county population decline with a feedback loop. Script: `src/07_cascade.py`.
+## Data availability
 
-### Stage 8 — Insurance (`make insurance`)
+Raw data are **not** included in this repository. Sources: USDA NASS, PRISM, RMA, Census ACS/PEP, BLS CPI, ERS county typology, CMIP6 projections. Step-by-step download paths and file names: [`data/raw/README.md`](data/raw/README.md).
 
-Compares RMA premium rates based on frozen Actual Production History against rates that would apply under rolling APH. Script: `src/08_insurance.py`.
+Published county-level CSVs (where applicable): [`data/published_dataset/README.md`](data/published_dataset/README.md).
 
-### Stage 9 — Northern frontier (`make frontier`)
-
-Identifies counties where warming expands viable crop acreage and estimates net farm-income opportunity. Script: `src/09_frontier.py`.
-
-### Stage 10 — Figures (`make figures`)
-
-Generates 12 county-level maps and charts. Script: `src/10_figures.py`.
-
-### Stage 11 — DCF and hedonic valuation (`make stranded-dcf`)
-
-Refines stranded-farmland estimates with alternate-use floors ($1,500/ac pasture cap), soil- and irrigation-controlled hedonic regressions, propagated confidence intervals, and an ML-vs-process cross-check. Scripts in `src/revision/`: `stranded_revision.py`, `stranded_floor_sensitivity.py`, `hedonic_strengthened.py`, `dcf_ci_fixed.py`, `dollar_robustness.py`.
-
-### Stage 12 — Insurance decomposition (`make insurance-decomp`)
-
-Breaks gross mispricing into rolling-APH absorption, Trend-Adjusted Yield effects, Revenue Protection puts, Supplemental Coverage Option, and a reform-eliminable residual. Scripts: `insurance_rolling_aph.py`, `insurance_rp_and_tay.py`, `insurance_coverage_endogeneity.py`, `insurance_sco.py`.
-
-### Stage 13 — Migration analysis (`make migration-analysis`)
-
-Shift-share IV linking farm-income shocks to prime-age migration, wild-cluster bootstrap inference, instrument-balance checks, fiscal long-differences, and a depopulation cost Monte Carlo. Scripts: `migration_iv_bartik.py`, `migration_primeage_panel.py`, `migration_wildbootstrap.py`, `migration_share_balance.py`, `migration_fiscal_chain.py`, `migration_depop_montecarlo.py`, `migration_farmdependent.py`.
-
-### Stage 14 — Yield model skill (`make yield-skill`)
-
-Spectrum-based feature set with SSURGO water capacity and irrigation flags; decomposition of R² gains from target scaling vs feature engineering. Scripts: `yield_v7_spectrum.py`, `yield_audit_target_decomp.py`.
-
-### Stage 15 — Framework tests (`make framework-tests`)
-
-Tests whether forward warming predicts multiple economic channels jointly and runs a Granger-style cohesion check across stranded value, insurance, migration, and opportunity. Scripts: `framework_common_driver.py`, `framework_cohesion.py`.
-
-### Stage 16 — Robustness batteries (`make robustness`)
-
-Substantive falsification checks and tiered sensitivity grids (E1–E45). Scripts: `substantive_experiments.py`, `tier1_experiments.py` through `tier5_residuals.py`.
-
-### Stage 17 — Adversarial checks (`make adversarial`)
-
-Targeted falsification experiments (SEM partial-outs, DCF–hedonic CI overlap, IV leave-one-year-out, US-specific alternate-use floor, northern acreage expansion). Script: `robustness_battery.py`. Optional figure rebuild: `make figures-extra`.
-
-### Stage 18 — Summary (`make summary`)
-
-Merges key outputs into `results/revision/HEADLINE_NUMBERS.json`. Script: `headline_numbers.py`.
-
-## Outputs
-
-JSON files under `results/revision/` are committed. Parquet, CSV, and PDF files regenerate locally and stay gitignored. `make pipeline-clean` removes local JSON if you want a fresh run.
-
-Output-to-script mapping: [`REPRODUCE.md`](REPRODUCE.md). Script index: [`src/revision/README.md`](src/revision/README.md).
+---
 
 ## Conventions
 
-2023 USD throughout (CPI base 304.7 from `data/raw/other/cpi_annual.csv`). Seed 42 for stochastic steps. FIPS codes are five-digit strings; aggregates 998 and 999 excluded.
+- Dollar values in **2023 USD** (CPI base 304.7 from `data/raw/other/cpi_annual.csv`)
+- FIPS codes as five-digit strings; state aggregates 998 and 999 excluded
+- Random seed **42** for bootstrap and Monte Carlo draws
 
-## Citation and license
+---
 
-[`CITATION.cff`](CITATION.cff). MIT ([`LICENSE`](LICENSE)).
+## Citation
+
+If you use this code, cite the software metadata in [`CITATION.cff`](CITATION.cff). After archiving on Zenodo, cite the DOI in your reference list as recommended by [Springer Nature code-sharing guidance](https://www.springernature.com/gp/open-science/code-policy).
+
+Questions: kkrishnan@parktudor.org

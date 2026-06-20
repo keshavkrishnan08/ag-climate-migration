@@ -8,9 +8,9 @@ results/*
 results/revision/*
 !results/revision/*.json
 !results/revision/README.md
-!results/revision/adversarial/
-results/revision/adversarial/*
-!results/revision/adversarial/*.json
+!results/revision/supplementary/
+results/revision/supplementary/*
+!results/revision/supplementary/*.json
 
 models/
 data/published_dataset/*.csv

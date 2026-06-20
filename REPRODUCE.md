@@ -1,14 +1,13 @@
-# Output reference
+# Replication package — output reference
 
-Maps pipeline outputs to source scripts and JSON paths.
+Maps pipeline outputs to source scripts and JSON paths. For setup and workflow, start with [`README.md`](README.md).
 
 ## Quick start
 
 ```bash
 conda activate agmigration
-
 make pipeline
-make verify    # writes and checks results/revision/HEADLINE_NUMBERS.json
+make verify    # rebuilds and checks results/revision/HEADLINE_NUMBERS.json
 ```
 
 JSON summaries are committed under `results/revision/`. Parquet and CSV files are local only.
@@ -84,7 +83,7 @@ JSON summaries are committed under `results/revision/`. Parquet and CSV files ar
 | `tier3_tighten.py` | `tier3_tighten.json` |
 | `tier4_refit.py` | `tier4_refit.json` |
 | `tier5_residuals.py` | `tier5_residuals.json` |
-| `robustness_battery.py` | `adversarial/e55_sem_partialouts.json` … `e64_northern_acreage.json` |
+| `robustness_battery.py` | `supplementary/e55_sem_partialouts.json` … `e64_northern_acreage.json` |
 
 All scripts live under `src/revision/`.
 
