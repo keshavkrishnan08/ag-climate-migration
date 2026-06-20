@@ -1,104 +1,123 @@
-# Agricultural Climate Migration — US County Economic Costs
+# Agricultural Climate Migration
 
-County-level analysis linking climate-driven yield loss to stranded farmland value, rural migration, crop insurance mispricing, and northern production opportunity.
+County-level estimates of climate-driven yield loss, stranded farmland value, rural out-migration, crop insurance mispricing, and northern production opportunity. The analysis covers 2,902 US counties and eight field crops.
 
-**Author:** Keshav Krishnan ([kkrishnan@parktudor.org](mailto:kkrishnan@parktudor.org))
+Author: Keshav Krishnan ([kkrishnan@parktudor.org](mailto:kkrishnan@parktudor.org))
+
+## What is in this repo
+
+| Area | Files | Role |
+|------|-------|------|
+| `src/` | 49 Python modules | Ingest, features, yield model, switching, projections, stranded assets, cascade, insurance, frontier, figures |
+| `src/revision/` | 63 scripts | Secondary experiments and sensitivity checks |
+| `results/revision/` | 85 JSON files | Stored outputs (5 more under `adversarial/`) |
+| `tests/` | unit + integration | `pytest`, 85% coverage gate |
+| `data/raw/` | README only in git | Download instructions for ~12 GB of inputs |
+
+Paper and submission PDFs stay outside this repository.
 
 ## Requirements
 
-- Python 3.11
-- ~16 GB RAM for full county panel
-- ~12 GB disk for raw inputs (not in git)
-- Conda recommended (`environment.yml`)
+Python 3.11, about 16 GB RAM for the full county panel, and 12 GB free disk once raw data are downloaded. Conda is the easiest path (`environment.yml`).
 
-## Setup
+## Install
 
 ```bash
 git clone https://github.com/keshavkrishnan08/ag-climate-migration.git
 cd ag-climate-migration
-
 conda env create -f environment.yml
 conda activate agmigration
 ```
 
-Or with pip:
+Pip-only install if you prefer it:
 
 ```bash
-pip install numpy==1.26.4 pandas scipy lightgbm scikit-learn statsmodels linearmodels xarray netcdf4
+pip install numpy==1.26.4 pandas scipy lightgbm scikit-learn statsmodels linearmodels xarray netcdf4 geopandas
 ```
 
 ## Data
 
-Raw inputs are **not** tracked in git. Download once before running pipelines.
+Nothing under `data/raw/` ships with the clone. Fetch inputs once using [`data/raw/README.md`](data/raw/README.md). Expect roughly three hours on a decent connection.
 
-| Step | Command / doc |
-|------|----------------|
-| Download list | [`data/raw/README.md`](data/raw/README.md) |
-| Published county CSVs | [`data/published_dataset/README.md`](data/published_dataset/README.md) |
-| After ingest | `data/processed/*.parquet` (local, gitignored) |
+You need NASS county yields and land values, PRISM monthly climate, RMA Summary of Business premiums, Census ACS and PEP population files, a CPI series, ERS county typology codes, and CMIP6 SSP projections. `make ingest` and `make features` then write parquets under `data/processed/`, which are also gitignored.
 
-Minimum inputs: NASS yields, PRISM climate, RMA insurance, Census ACS/PEP, CPI deflator, CMIP6 projections (~3 hours to fetch).
+Published county CSVs and the full dataset tarball are documented in [`data/published_dataset/README.md`](data/published_dataset/README.md).
 
-## Pipelines
+## Main pipeline
 
-### Original analysis (`src/`)
-
-End-to-end pipeline from ingest through figures:
+Runs in order from the repo root:
 
 ```bash
-make all          # ingest → features → model → switching → project →
-                  # stranded → cascade → insurance → frontier → figures → test
-
-make test         # pytest, ≥85% coverage target
-make rev-help     # list revision targets
+make ingest      # raw → processed parquets
+make features    # county feature matrix
+make model       # LightGBM yield ensemble
+make switching   # crop switching rates
+make project     # CMIP6 yield projections
+make stranded    # DCF stranded farmland value
+make cascade     # rural decline feedback
+make insurance   # RMA mispricing
+make frontier    # northern opportunity counties
+make figures     # 12 publication figures
+make test        # pytest
 ```
 
-Individual stages: `make ingest`, `make features`, `make model`, etc.
+Or `make all` for the full chain. Stage scripts live in `src/` (`01_ingest.py` through `10_figures.py`). Supporting modules handle CMIP6 downloads, hedonic decompositions, uncertainty propagation, and SSP3-7.0 reruns (`run_projections_ssp370.py`, `run_stranded_ssp370.py`).
 
-### Revision experiments (`src/revision/`)
+## Revision experiments
 
-Secondary analyses with tracked JSON outputs under `results/revision/`:
+The `src/revision/` folder holds follow-on work: IV migration specs, insurance decomposition, hedonic cross-checks, yield model audits, tier batteries, and adversarial falsification tests. Most write JSON under `results/revision/`.
 
 ```bash
-make reproduce    # all headline experiment scripts (~45 min with cached data)
-make rev-adversarial   # E55-E64 adversarial battery
-make rev-figures       # PDF figures from JSONs (local only)
-make headline     # → results/revision/HEADLINE_NUMBERS.json
-make verify       # compare stored vs recomputed values
+make reproduce        # full active set (~45 min with cached data)
+make rev-adversarial  # E55, E56, E58, E60, E64 battery
+make rev-figures      # PDFs from JSONs → results/figures_revision/ (local)
+make headline         # merge key numbers → HEADLINE_NUMBERS.json
+make verify           # print stored vs recomputed values
 ```
 
-Subsystem targets: `make rev-stranded`, `rev-insurance`, `rev-migration`, `rev-yield`, `rev-framework`, `rev-substantive`, `rev-adversarial`, `rev-figures`.
+Run one block at a time with `make rev-stranded`, `rev-insurance`, `rev-migration`, `rev-yield`, `rev-framework`, or `rev-substantive`. `make rev-help` lists targets.
 
-See [`REPRODUCE.md`](REPRODUCE.md) for script → output mapping and [`src/revision/README.md`](src/revision/README.md) for script catalog.
+### Script groups (63 files)
 
-Precomputed JSONs are committed so you can inspect results without rerunning:
+**Stranded and hedonic** — `stranded_revision.py`, `stranded_floor_sensitivity.py`, `hedonic_strengthened.py`, `dcf_ci_fixed.py`, `dollar_robustness.py`, `dcf_ge_price_sensitivity.py`
+
+**Insurance** — `insurance_rolling_aph.py`, `insurance_rp_and_tay.py`, `insurance_coverage_endogeneity.py`, `insurance_sco.py`, `insurance_fast.py`
+
+**Migration** — `migration_iv_bartik.py`, `migration_primeage_panel.py`, `migration_wildbootstrap.py`, `migration_share_balance.py`, `migration_fiscal_chain.py`, `migration_depop_montecarlo.py`, `migration_farmdependent.py`, plus earlier IV variants kept for audit (`migration_iv_v2.py`, `migration_multiiv.py`, `migration_robustness.py`, …)
+
+**Yield** — `yield_v7_spectrum.py`, `yield_audit_target_decomp.py`, and a dozen audit or ablation scripts (`yield_v4_morefeatures.py`, `yield_monotonic.py`, `yield_spatial_block_perturbation.py`, …)
+
+**Opportunity** — `recompute_opportunity.py`, `opportunity_clean.py`, `opportunity_soil_adjusted.py`, `pull_ssurgo.py`
+
+**Framework** — `framework_common_driver.py`, `framework_cohesion.py`, `common_cause_sem.py`
+
+**Experiment batteries** — `substantive_experiments.py`, `tier1_experiments.py` through `tier5_residuals.py`, `base_improvements.py`
+
+**Adversarial** — `robustness_battery.py`, `adversarial_figures.py`, `si_graphics.py`
+
+**Utilities** — `headline_numbers.py`, `fig07_marginal.py`
+
+Superseded scripts remain in the tree so you can see what was tried. They are listed in [`src/revision/README.md`](src/revision/README.md). [`REPRODUCE.md`](REPRODUCE.md) maps each headline output to its script and JSON path.
+
+## Outputs
+
+JSON summaries in `results/revision/` are committed. Open `results/revision/HEADLINE_NUMBERS.json` without rerunning anything.
+
+Parquet, CSV, and PDF artifacts are regenerated locally and gitignored. Adversarial JSONs live in `results/revision/adversarial/`. Figure PDFs from `make rev-figures` go to `results/figures_revision/`.
+
+`make revision-clean` deletes local JSON outputs if you want a fresh run.
+
+## Tests
 
 ```bash
-cat results/revision/HEADLINE_NUMBERS.json
+make test
+# or: pytest tests/ --cov=src --cov-fail-under=85
 ```
-
-Large parquet/CSV artifacts stay local (regenerated by scripts, gitignored).
-
-## Repository layout
-
-| Path | Contents |
-|------|----------|
-| `src/` | Main pipeline (`01_ingest.py` … `10_figures.py`) |
-| `src/revision/` | Experiment scripts |
-| `results/revision/` | JSON outputs + index |
-| `data/raw/` | Download target for inputs (gitignored) |
-| `data/published_dataset/` | Dataset README and datasheet |
-| `tests/` | Unit and integration tests |
-| `config.yaml` | Scenario and model parameters |
-| `REPRODUCE.md` | Output reproduction reference |
 
 ## Conventions
 
-- Currency: 2023 USD (CPI from `data/raw/other/cpi_annual.csv`, base 304.7)
-- Random seed: 42 where applicable
-- FIPS: 5-digit strings; state aggregates 998/999 excluded
-- ML split: train ≤ 2009, validate 2010–2016, test 2017–2023
+All dollar figures are 2023 USD (CPI from `data/raw/other/cpi_annual.csv`, base index 304.7). Stochastic steps use seed 42. County FIPS codes are five-digit strings; state aggregates 998 and 999 are dropped. The yield model trains on years through 2009, validates 2010–2016, and tests 2017–2023 with a two-year gap.
 
-## Citation
+## Citation and license
 
-See [`CITATION.cff`](CITATION.cff). MIT License — see [`LICENSE`](LICENSE).
+[`CITATION.cff`](CITATION.cff) for software metadata. Code is MIT ([`LICENSE`](LICENSE)).
