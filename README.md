@@ -61,11 +61,13 @@ Secondary analyses with tracked JSON outputs under `results/revision/`:
 
 ```bash
 make reproduce    # all headline experiment scripts (~45 min with cached data)
+make rev-adversarial   # E55-E64 adversarial battery
+make rev-figures       # PDF figures from JSONs (local only)
 make headline     # → results/revision/HEADLINE_NUMBERS.json
 make verify       # compare stored vs recomputed values
 ```
 
-Subsystem targets: `make rev-stranded`, `rev-insurance`, `rev-migration`, `rev-yield`, `rev-framework`, `rev-substantive`.
+Subsystem targets: `make rev-stranded`, `rev-insurance`, `rev-migration`, `rev-yield`, `rev-framework`, `rev-substantive`, `rev-adversarial`, `rev-figures`.
 
 See [`REPRODUCE.md`](REPRODUCE.md) for script → output mapping and [`src/revision/README.md`](src/revision/README.md) for script catalog.
 

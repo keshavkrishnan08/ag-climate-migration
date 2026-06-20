@@ -30,6 +30,15 @@ Experiment scripts for secondary analyses. The root `Makefile` runs the **active
 | `substantive_experiments.py` | `substantive_experiments.json` |
 | `tier1_experiments.py` … `tier5_residuals.py` | matching `tier*.json` |
 | `headline_numbers.py` | `HEADLINE_NUMBERS.json` |
+| `robustness_battery.py` | `adversarial/e55_*.json` … `e64_*.json` |
+| `adversarial_figures.py` | PDFs in `results/figures_revision/` (local) |
+| `si_graphics.py` | PDFs in `results/figures_revision/` (local) |
+
+## Adversarial battery (`make rev-adversarial`)
+
+| Script | Output |
+|--------|--------|
+| `robustness_battery.py` | `results/revision/adversarial/*.json` |
 
 ## Utilities
 

@@ -85,6 +85,7 @@ Precomputed JSONs are in the repo under `results/revision/`. Parquet/CSV side ou
 | `tier3_tighten.py` | `tier3_tighten.json` |
 | `tier4_refit.py` | `tier4_refit.json` |
 | `tier5_residuals.py` | `tier5_residuals.json` |
+| `robustness_battery.py` | `adversarial/e55_sem_partialouts.json` … `e64_northern_acreage.json` |
 
 All scripts live under `src/revision/`.
 

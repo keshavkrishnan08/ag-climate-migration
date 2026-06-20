@@ -1,6 +1,6 @@
 .PHONY: all env ingest features model switching project stranded cascade insurance frontier figures test clean \
         reproduce headline verify revision-clean rev-help \
-        rev-stranded rev-insurance rev-migration rev-yield rev-framework rev-substantive
+        rev-stranded rev-insurance rev-migration rev-yield rev-framework rev-substantive rev-adversarial rev-figures
 
 PYTHON = python
 SRC = src
@@ -50,12 +50,14 @@ clean:
 	rm -rf data/processed/* projections/*
 
 rev-help:
-	@echo "  make reproduce    - run all revision experiment scripts"
-	@echo "  make headline     - write $(REV_RES)/HEADLINE_NUMBERS.json"
-	@echo "  make verify       - headline + print stored vs recomputed"
-	@echo "  make revision-clean - remove local revision JSON outputs"
+	@echo "  make reproduce       - all revision experiment scripts"
+	@echo "  make rev-adversarial - adversarial robustness battery (E55-E64)"
+	@echo "  make rev-figures     - PDF figures from experiment JSONs"
+	@echo "  make headline        - write $(REV_RES)/HEADLINE_NUMBERS.json"
+	@echo "  make verify          - headline + print stored vs recomputed"
+	@echo "  make revision-clean  - remove local revision JSON outputs"
 
-reproduce: rev-stranded rev-insurance rev-migration rev-yield rev-framework rev-substantive
+reproduce: rev-stranded rev-insurance rev-migration rev-yield rev-framework rev-substantive rev-adversarial
 
 rev-stranded:
 	$(REV_PYTHON) $(REV_SRC)/stranded_revision.py
@@ -95,6 +97,13 @@ rev-substantive:
 	$(REV_PYTHON) $(REV_SRC)/tier4_refit.py
 	$(REV_PYTHON) $(REV_SRC)/tier5_residuals.py
 
+rev-adversarial:
+	$(REV_PYTHON) $(REV_SRC)/robustness_battery.py
+
+rev-figures:
+	$(REV_PYTHON) $(REV_SRC)/adversarial_figures.py
+	$(REV_PYTHON) $(REV_SRC)/si_graphics.py
+
 headline:
 	$(REV_PYTHON) $(REV_SRC)/headline_numbers.py
 
@@ -102,4 +111,4 @@ verify: headline
 	@$(REV_PYTHON) -c "import json; d=json.load(open('$(REV_RES)/HEADLINE_NUMBERS.json')); [print(f'  {k:<42} stored={v.get(\"value\"):<10}  recomputed={v.get(\"value_recomputed\")}') for k,v in d.items() if isinstance(v,dict) and 'value_recomputed' in v]"
 
 revision-clean:
-	rm -f $(REV_RES)/*.json
+	rm -f $(REV_RES)/*.json $(REV_RES)/adversarial/*.json

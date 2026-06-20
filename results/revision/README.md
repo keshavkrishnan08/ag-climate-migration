@@ -10,6 +10,7 @@ JSON summaries from `src/revision/` scripts. Parquet and CSV artifacts are gitig
 | `MASTER_NUMBERS.json` | Extended cross-check table |
 | `substantive_experiments.json` | E1–E9 battery |
 | `tier1_experiments.json` … `tier5_residuals.json` | Tier batteries |
+| `adversarial/e55_*.json` … `e64_*.json` | Adversarial robustness battery |
 
 ## Regenerate
 
