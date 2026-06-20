@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "The Economic Cost of Agricultural Climate Migration in the United States"
+title: "Agricultural Climate Migration — US County Economic Costs"
 message: "If you use this software, please cite it using the metadata from this file."
 type: software
 authors:
@@ -8,6 +8,8 @@ authors:
     email: kkrishnan@parktudor.org
 repository-code: "https://github.com/keshavkrishnan08/ag-climate-migration"
 license: MIT
+version: 1.0.0
+date-released: 2026-06-12
 keywords:
   - agriculture
   - climate change
@@ -15,11 +17,3 @@ keywords:
   - crop insurance
   - farmland valuation
   - United States
-preferred-citation:
-  type: article
-  authors:
-    - family-names: Krishnan
-      given-names: Keshav
-  title: "The Economic Cost of Agricultural Climate Migration in the United States"
-  journal: Communications Sustainability
-  year: 2026
