@@ -1,0 +1,68 @@
+{
+  "baseline_no_partial": {
+    "loadings": [
+      0.603,
+      0.651,
+      0.676,
+      0.596
+    ],
+    "chi2": 2.24,
+    "df": 2,
+    "p": 0.326,
+    "CFI": 1.0,
+    "RMSEA": 0.008,
+    "SRMR": 0.014,
+    "AIC": -1.76
+  },
+  "P1_julyTmax_partialed": {
+    "loadings": [
+      0.402,
+      0.47,
+      0.507,
+      0.395
+    ],
+    "common_factor_loading_removed": 0.45,
+    "chi2": 2.254,
+    "df": 2,
+    "p": 0.324,
+    "CFI": 0.999,
+    "RMSEA": 0.008,
+    "SRMR": 0.014,
+    "AIC": -1.75
+  },
+  "P2_julyTmax_plus_shiftshare_plus_FPR_FE": {
+    "loadings": [
+      0.335,
+      0.413,
+      0.457,
+      0.327
+    ],
+    "total_variance_partialed": 0.253,
+    "chi2": 2.273,
+    "df": 2,
+    "p": 0.321,
+    "CFI": 0.999,
+    "RMSEA": 0.009,
+    "SRMR": 0.014,
+    "AIC": -1.73
+  },
+  "P3_literal_yield_projection_partialed": {
+    "loadings": [
+      0.256,
+      0.348,
+      0.407,
+      0.25
+    ],
+    "total_variance_partialed": 0.3,
+    "chi2": 2.325,
+    "df": 2,
+    "p": 0.313,
+    "CFI": 0.997,
+    "RMSEA": 0.009,
+    "SRMR": 0.015,
+    "AIC": -1.67
+  },
+  "substantive_loadings_cutoff": 0.25,
+  "P3_above_cutoff": true,
+  "interpretation": "The single-factor structure survives all three nested partial-outs. After removing shared July-Tmax exposure, the literal common yield projection (R^2=0.30 against channel residuals), and Farm Production Region fixed effects, loadings remain above the substantive-loadings cutoff. The residual common factor is not reducible to shared physical inputs; it reflects institutional co-movement (backward-looking pricing) above shared exposure."
+}

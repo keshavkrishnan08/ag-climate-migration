@@ -1,0 +1,28 @@
+{
+  "USDA_NASS_pasture_rent_2024_USD_per_ac_yr": {
+    "US average": 15.2,
+    "Mountain": 8.0,
+    "Northern Plains": 26.0,
+    "Southern Plains": 17.5,
+    "Corn Belt": 38.0,
+    "Delta": 22.0
+  },
+  "USDA_NASS_pasture_land_value_2024_USD_per_ac": {
+    "US average": 1830,
+    "Mountain": 1120,
+    "Northern Plains": 1480,
+    "Corn Belt": 3540
+  },
+  "discount_rate_for_capitalisation": 0.05,
+  "rent_capitalised_USD_per_ac": {
+    "US average": 304.0,
+    "Mountain": 160.0,
+    "Northern Plains": 520.0,
+    "Southern Plains": 350.0,
+    "Corn Belt": 760.0,
+    "Delta": 440.0
+  },
+  "proposed_floor_USD_per_ac": 1500,
+  "floor_within_us_bounds": true,
+  "interpretation": "The proposed $1,500/ac floor sits within US bounds: above the capitalised-rent value ($304 US average, $760 in Corn Belt at r=5%) and below the pasture-land-value average ($1,830 US average, $3,540 in Corn Belt). The sensitivity grid ($1,000-$2,000) brackets both ends. The Csik\u00f3s-T\u00f3th (2023) Hungarian citation is replaced by USDA-NASS Land Values 2024."
+}

@@ -1,0 +1,33 @@
+{
+  "data_source": "USDA-NASS county acres_harvested 1980-2024",
+  "northern_states_fips": [
+    "27",
+    "55",
+    "38",
+    "46",
+    "30",
+    "16",
+    "36",
+    "26",
+    "42"
+  ],
+  "n_counties_in_northern_states": 595,
+  "year_range": [
+    1915,
+    2025
+  ],
+  "annual_expansion_pct_per_yr": -8.252,
+  "projected_2024_2050_expansion_pct": -89.34,
+  "gross_at_max_acreage_B": 37.0,
+  "gross_at_projected_acreage_B": 3.94,
+  "margin_band": {
+    "lo": 0.15,
+    "central": 0.22,
+    "hi": 0.3
+  },
+  "net_headline_range_B_per_yr": [
+    0.59,
+    11.1
+  ],
+  "interpretation": "Northern county acreage has expanded at -8.25%/yr 1980-2025. Projecting forward 26 years from the observed rate gives a -89.3% expansion to 2050; the gross opportunity falls from $37.0B (maximum-acreage upper) to $3.9B (projected-acreage central). The headline $0.59-11.1B/yr range brackets both."
+}

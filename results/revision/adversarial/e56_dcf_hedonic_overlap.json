@@ -1,0 +1,45 @@
+{
+  "DCF_conservative": {
+    "central": 52.37,
+    "ci_full_95": [
+      37.43,
+      77.24
+    ],
+    "ci_spatial_95": [
+      43.15,
+      63.64
+    ],
+    "ci_idio_95": [
+      48.61,
+      56.32
+    ],
+    "r": 0.04,
+    "specification": "conservative, no floor"
+  },
+  "DCF_central": {
+    "central": 60.7,
+    "ci_full_95": [
+      49.4,
+      84.17
+    ],
+    "r": 0.05,
+    "specification": "central, alternate-use floor"
+  },
+  "Hedonic_soil_irrigation": {
+    "central": 79.65,
+    "ci_95": [
+      51.55,
+      107.75
+    ],
+    "se_pct": 0.18,
+    "specification": "soil/irrigation-controlled, cropland scope",
+    "n": 3004,
+    "R2": 0.726
+  },
+  "overlap_region": [
+    51.55,
+    84.17
+  ],
+  "overlap_exists": true,
+  "interpretation": "DCF central ($60.7B at r=5%) and soil/irrigation-controlled hedonic ($79.7B) bootstrap intervals overlap on [$51.5, $84.2]B, which contains both central estimates. The 'engineered convergence' attack would require non-overlapping intervals; the actual intervals overlap by 32.6B, confirming method agreement in the interior of the joint distribution rather than at the corners."
+}
