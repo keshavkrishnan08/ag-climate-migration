@@ -15,7 +15,7 @@ Approaches tested:
   2. Extended training set (train ≤ 2012, adds 2010-2012 vs prior ≤ 2009 split)
 : already the default in v2; carried forward here.
 
-Temporal splits (match CLAUDE.md Critical Rules):
+Temporal splits (project rules):
   Train:  years ≤ 2012 (val_end in config.yaml)
   Test:   2013-2023
 

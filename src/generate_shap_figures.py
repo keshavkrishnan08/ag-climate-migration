@@ -40,7 +40,7 @@ import shap
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
-BASE_DIR = "/Users/keshavkrishnan/Claude/Current/AgProject/ag_migration"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_PATH       = os.path.join(BASE_DIR, "results/20260317_192605/yield_model.pkl")
 FEATURE_MATRIX   = os.path.join(BASE_DIR, "data/processed/feature_matrix.parquet")
 PROJECTIONS_PATH = os.path.join(BASE_DIR, "data/projections/yield_projections_SSP245.parquet")
@@ -169,7 +169,7 @@ def load_test_sample(n_per_crop: int = 500, seed: int = 42) -> tuple:
     print("Loading feature matrix …")
     fm = pd.read_parquet(FEATURE_MATRIX)
 
-    # Test split: 2017–2023 per CLAUDE.md temporal rules
+    # Test split: 2017–2023 per the project's temporal rules
     test = fm[fm["year"].between(2017, 2023)].copy()
 
     # Keep only the three focal crops

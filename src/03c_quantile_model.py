@@ -13,7 +13,7 @@ This script:
   3. Computes a tail risk premium per county (mean - Q10 gap) and adds it as
      an additional stranded asset component.
 
-Temporal split (per CLAUDE.md):
+Temporal split (project rule):
     train  : year <= 2009
     val    : 2010-2016  (used as final training cutoff for test evaluation)
     test   : 2017-2023
@@ -64,7 +64,7 @@ COMMODITY_PRICES = {
     'oats': 3.80,
 }
 
-# Temporal split: per CLAUDE.md (train<=2009, val 2010-2016, test 2017-2023)
+# Temporal split, per the project rules (train<=2009, val 2010-2016, test 2017-2023)
 TRAIN_END = 2009
 VAL_END = 2016
 TEST_END = 2023

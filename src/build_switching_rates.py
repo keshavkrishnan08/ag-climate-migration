@@ -69,7 +69,7 @@ def load_nass(path: Path) -> pd.DataFrame:
     # Ensure 5-digit zero-padded FIPS
     df["fips"] = df["fips"].str.zfill(5)
 
-    # Dedup per CLAUDE.md spec: groupby(['fips','year','crop']).first()
+    # Dedup per the project rules: groupby(['fips','year','crop']).first()
     df = (
         df.groupby(["fips", "year", "crop"], sort=False)
         .first()
