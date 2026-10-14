@@ -13,7 +13,7 @@ New features added:
     precip_deficit     = max(0, county_baseline_precip - actual_precip)
     tmax_peak_c        = max(tmax Jun/Jul/Aug) in Celsius (from monthly data)
     precip_jja         = total Jun+Jul+Aug precipitation
-    pdsi_peak_drought  = min(PDSI Jun/Jul/Aug) — worst summer drought month
+    pdsi_peak_drought  = min(PDSI Jun/Jul/Aug), worst summer drought month
     edd_months_c       = months where tmax > 33.5°C (Schlenker & Roberts threshold)
     edd_x_pdsi         = edd_months_c * (-pdsi_peak_drought) compound signal
     + anomaly versions of the monthly features (county mean subtracted)
@@ -23,7 +23,7 @@ Temporal split (matches config.yaml val_end=2012):
     Test:   2013-2023
 
 Saves:
-    results/yield_model_v2.pkl   — new primary model
+    results/yield_model_v2.pkl: new primary model
     results/yield_model_v2_metrics.json
     results/feature_importance_v2.csv
 """
@@ -76,7 +76,7 @@ def load_monthly_features() -> pd.DataFrame:
     Converts nClimDiv temperatures from Fahrenheit to Celsius, then computes:
     - tmax_peak_c:      max(Jun, Jul, Aug) Tmax in Celsius
     - precip_jja:       total Jun+Jul+Aug precipitation
-    - pdsi_peak_drought: min(Jun,Jul,Aug PDSI) — most severe monthly drought
+    - pdsi_peak_drought: min(Jun,Jul,Aug PDSI), most severe monthly drought
     - edd_months_c:     count of months with Tmax > 33.5°C (EDD threshold)
 
     Returns:
@@ -116,11 +116,11 @@ def add_interaction_features(panel: pd.DataFrame) -> pd.DataFrame:
     yield anomaly; their interaction does.
 
     New features:
-        heat_x_drought   — positive when hot AND dry (anomaly space)
-        heat_x_precip    — positive when hot AND low precipitation
-        extreme_compound — binary: both heat > +1σ and PDSI < -1σ
-        tmax_july_sq     — quadratic heat term for yield-cliff threshold
-        precip_deficit   — county-specific moisture shortfall vs historical mean
+        heat_x_drought: positive when hot AND dry (anomaly space)
+        heat_x_precip: positive when hot AND low precipitation
+        extreme_compound: binary: both heat > +1σ and PDSI < -1σ
+        tmax_july_sq: quadratic heat term for yield-cliff threshold
+        precip_deficit: county-specific moisture shortfall vs historical mean
 
     Args:
         panel: Feature matrix with anomaly columns already present.
@@ -323,7 +323,7 @@ def train_and_evaluate(
     """Train v2 model with full temporal CV and holdout test evaluation.
 
     Temporal split:
-        Train:  years ≤ 2012 (config val_end — same as v1 final model)
+        Train:  years ≤ 2012 (config val_end: same as v1 final model)
         Test:   2013–2023 (config test_end)
 
     CV folds use the same rolling structure as v1 (five 5-year windows

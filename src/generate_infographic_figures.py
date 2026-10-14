@@ -7,12 +7,12 @@ Nature Food style: Arial 7pt min, 300 DPI.
   - Single column = 88 mm = 3.46 in
 
 Figures generated:
-  A. fig_methods_pipeline.pdf  — full analytical pipeline flowchart
-  B. fig_northward_summary.pdf — centroid shift summary (map + bar chart)
-  C. fig_temp_response.pdf     — temperature-yield response curves
-  D. fig_cascade_mechanism.pdf — 7-step cascade flow diagram
-  E. fig_insurance_flow.pdf    — insurance cross-subsidy flow visual
-  F. fig_valuation_methods.pdf — three-method valuation comparison
+  A. fig_methods_pipeline.pdf: full analytical pipeline flowchart
+  B. fig_northward_summary.pdf: centroid shift summary (map + bar chart)
+  C. fig_temp_response.pdf: temperature-yield response curves
+  D. fig_cascade_mechanism.pdf: 7-step cascade flow diagram
+  E. fig_insurance_flow.pdf: insurance cross-subsidy flow visual
+  F. fig_valuation_methods.pdf: three-method valuation comparison
 """
 
 import warnings
@@ -71,7 +71,7 @@ C_DARK   = "#252525"
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  FIGURE A — Methods Pipeline
+#  FIGURE A: Methods Pipeline
 # ══════════════════════════════════════════════════════════════════════════════
 def fig_methods_pipeline():
     fig = plt.figure(figsize=(DOUBLE_COL, 4.5))
@@ -172,7 +172,7 @@ def fig_methods_pipeline():
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  FIGURE B — Northward Shift Summary
+#  FIGURE B: Northward Shift Summary
 # ══════════════════════════════════════════════════════════════════════════════
 def fig_northward_summary():
     # Load data
@@ -345,7 +345,7 @@ def fig_northward_summary():
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  FIGURE C — Temperature-Yield Response Curves
+#  FIGURE C: Temperature-Yield Response Curves
 # ══════════════════════════════════════════════════════════════════════════════
 def fig_temp_response():
     fm = pd.read_parquet(f"{DATA_DIR}/processed/feature_matrix.parquet")
@@ -426,7 +426,7 @@ def fig_temp_response():
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  FIGURE D — Cascade Mechanism Diagram
+#  FIGURE D: Cascade Mechanism Diagram
 # ══════════════════════════════════════════════════════════════════════════════
 def fig_cascade_mechanism():
     fig = plt.figure(figsize=(SINGLE_COL + 0.3, 6.5))
@@ -517,7 +517,7 @@ def fig_cascade_mechanism():
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  FIGURE E — Insurance Cross-Subsidy Flow
+#  FIGURE E: Insurance Cross-Subsidy Flow
 # ══════════════════════════════════════════════════════════════════════════════
 def fig_insurance_flow():
     fig = plt.figure(figsize=(DOUBLE_COL, 4.2))
@@ -669,7 +669,7 @@ def fig_insurance_flow():
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  FIGURE F — Three-Method Valuation Comparison
+#  FIGURE F: Three-Method Valuation Comparison
 # ══════════════════════════════════════════════════════════════════════════════
 def fig_valuation_methods():
     fig = plt.figure(figsize=(DOUBLE_COL, 4.0))

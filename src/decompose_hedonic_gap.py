@@ -149,7 +149,7 @@ def build_livestock_proxy(h: pd.DataFrame) -> pd.DataFrame:
     """Build a livestock/dairy heat-stress proxy from the hedonic warming signal.
 
     Northern counties (state FIPS in dairy belt) benefit from reduced heat stress
-    under warming — the hedonic captures this as positive value change. We proxy
+    under warming: the hedonic captures this as positive value change. We proxy
     livestock revenue using the warming signal in northern dairy states weighted
     by farm acres.
 

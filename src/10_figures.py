@@ -409,7 +409,7 @@ def figure_02_model_validation(
     Uses the trained LightGBM yield model from results/20260317_192605/yield_model.pkl
     applied to the feature matrix test split (years 2017-2023, temporal holdout).
     Yields are z-score anomalies, so axes are in standard-deviation units.
-    Panels for Corn, Soybeans, Winter Wheat — the three largest acreage crops.
+    Panels for Corn, Soybeans, Winter Wheat: the three largest acreage crops.
 
     Args:
         observed: Ignored; loaded from feature_matrix.parquet.
@@ -499,7 +499,7 @@ def figure_02_model_validation(
 
 
 # ---------------------------------------------------------------------------
-# Figure 3: The Yield Cliff — Non-linear Temperature Thresholds
+# Figure 3: The Yield Cliff: Non-linear Temperature Thresholds
 # ---------------------------------------------------------------------------
 def figure_03_yield_cliff(
     shap_values: np.ndarray = None,
@@ -573,7 +573,7 @@ def figure_04_crop_switching(output_dir: Path = None) -> plt.Figure:
         matplotlib Figure.
     """
     # ------------------------------------------------------------------
-    # 1. Load NASS switching rates — per county, per year
+    # 1. Load NASS switching rates: per county, per year
     #    Columns: fips, year, switch_corn_to_soybeans, switch_corn_to_sorghum,
     #             switch_cotton_to_soybeans, switch_wheat_winter_to_wheat_spring
     # ------------------------------------------------------------------
@@ -896,7 +896,7 @@ def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
     if HAS_GEOPANDAS and _COUNTY_SHP.exists():
         counties = _load_conus_counties()
         merged = counties.merge(tp, on='fips', how='left')
-        # Numeric tipping year — NaN for no tipping
+        # Numeric tipping year: NaN for no tipping
         _choropleth(
             ax=ax_map, counties_geo=merged, col='tipping_year',
             cmap='plasma_r',

@@ -1,4 +1,4 @@
-"""Phase 3A: Core yield trend model — LightGBM.
+"""Phase 3A: Core yield trend model: LightGBM.
 
 Predicts county-crop yield as a function of climate and technology features.
 This is the engine of all projections.
@@ -10,7 +10,7 @@ Architecture (PRD Section 5.1):
     - Final projected yield = tech_component + climate_component
 
 Cross-Validation:
-    STRICT TEMPORAL ROLLING CV — never shuffle
+    STRICT TEMPORAL ROLLING CV: never shuffle
     Fold 1: train 1950-1985, val 1986-1990
     Fold 2: train 1950-1990, val 1991-1995
     Fold 3: train 1950-1995, val 1996-2000
@@ -18,11 +18,11 @@ Cross-Validation:
     Fold 5: train 1950-2005, val 2006-2010
     Final test: train 1950-2012, test 2013-2023
 
-Performance thresholds (anomaly model — z-scored target):
+Performance thresholds (anomaly model: z-scored target):
     Spearman ≥ 0.35 overall (Schlenker & Roberts 2009 benchmark)
-    Spearman ≥ 0.30 per crop (cotton excluded — driven by non-climate factors)
+    Spearman ≥ 0.30 per crop (cotton excluded, driven by non-climate factors)
     R² ≥ 0.10 on z-scored anomalies (expected range ~0.15-0.25)
-    Note: raw-yield R² thresholds (corn≥0.72 etc.) do NOT apply here —
+    Note: raw-yield R² thresholds (corn≥0.72 etc.) do NOT apply here, 
     z-scored anomaly R² ~0.18 is literature-appropriate and not a model deficiency.
 """
 
@@ -214,7 +214,7 @@ def train_yield_model(
     # IMPORTANT: This model predicts z-scored yield anomalies, NOT raw yields.
     # R² ~0.18 on z-scored anomalies is literature-appropriate (Schlenker & Roberts
     # 2009 report ~0.4-0.6 Spearman on similar formulations). Raw-yield thresholds
-    # (corn R²≥0.72 etc.) are irrelevant here — use Spearman rank correlation instead.
+    # (corn R²≥0.72 etc.) are irrelevant here: use Spearman rank correlation instead.
     # Thresholds come from config['yield_model_gates'].
     gate_cfg = CONFIG['yield_model_gates']
     min_spearman_overall = gate_cfg['min_spearman_overall']

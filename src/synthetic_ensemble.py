@@ -37,7 +37,7 @@ For each county-year:
 Why analytical (not Monte Carlo)?
   A Monte Carlo bootstrap with n=10 draws has high sampling variance per county.
   The analytical formula gives the expected value of the widened bands for a county
-  with infinite bootstrap realizations — it is the stable estimate the task intends.
+  with infinite bootstrap realizations: it is the stable estimate the task intends.
   We also generate a Monte Carlo realisation (K=1000 samples) for verification and
   store the seed-42 version as a secondary check.
 
@@ -60,7 +60,7 @@ Outputs
 
   Same schema as county_climate_projections.parquet but with:
     - n_gcms = 10  (updated from 5)
-    - n_gcms_real = 5  (new — number of actual GCMs used)
+    - n_gcms_real = 5  (new: number of actual GCMs used)
     - tmax_july_p10 / tmax_july_p90  (widened by ~10.5%)
     - tmax_july_p10_orig / tmax_july_p90_orig  (original 5-GCM bands, preserved)
     - sigma_gcm  (estimated inter-GCM std per county-year, °F)

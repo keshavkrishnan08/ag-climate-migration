@@ -1,4 +1,4 @@
-"""Integration tests — PRD Section 10.2.
+"""Integration tests: PRD Section 10.2.
 
 Required integration tests:
     1. test_full_pipeline_corn_iowa: Run complete pipeline for Iowa corn 1950-2050

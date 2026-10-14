@@ -140,7 +140,7 @@ def compute_stranded_vectorized(
 
 
 
-# Schlenker & Roberts (2009, PNAS) Table 1 — OLS coefficients for US field crops.
+# Schlenker & Roberts (2009, PNAS) Table 1: OLS coefficients for US field crops.
 # Units: yield loss in bushels/acre per extreme degree-day (EDD) above 29°C.
 # EDD = sum of daily max temps above threshold, in degree-day units.
 # We approximate annual EDD from July Tmax using 31 days * excess degrees.
@@ -301,7 +301,7 @@ def compute_stranded_with_damage_function(
     # SR additive yield penalty (bu/ac/yr) using growing-season EDD:
     #   delta_edd * SR_coef (already annual scale from July + shoulder months)
     # SR_coef is negative, so this is additional yield loss on top of ML estimate.
-    # No season fraction needed — delta_edd already represents the full growing-season
+    # No season fraction needed: delta_edd already represents the full growing-season
     # EDD increment above historical baseline.
     yield_proj['sr_yield_penalty'] = (
         yield_proj['delta_edd'] * yield_proj['sr_coef']
@@ -543,7 +543,7 @@ def run_stranded_assets() -> dict:
     h = CONFIG['stranded_assets']['projection_horizon']
 
     # -----------------------------------------------------------------------
-    # Method 1: Conservative — ML model linear impact only (existing)
+    # Method 1: Conservative: ML model linear impact only (existing)
     # -----------------------------------------------------------------------
     national = compute_stranded_vectorized(yield_proj, land_values, r, h, scenario)
 
@@ -561,7 +561,7 @@ def run_stranded_assets() -> dict:
     national.to_parquet(output_dir / f'stranded_national_{scenario}.parquet', index=False)
 
     # -----------------------------------------------------------------------
-    # Method 2: Central — ML + SR + indirect multiplier (r=3%, h=35yr, SSP2-4.5)
+    # Method 2: Central: ML + SR + indirect multiplier (r=3%, h=35yr, SSP2-4.5)
     # r=3% and h=35yr are both within farmland valuation literature norms
     # (Nickerson et al. 2012 USDA ERS; Xu et al. 2020 AJAE). The previous
     # r=4%/h=30yr was conservative for a long-duration asset like farmland.
@@ -602,7 +602,7 @@ def run_stranded_assets() -> dict:
     national_sr.to_parquet(output_dir / 'stranded_national_SR_SSP245.parquet', index=False)
 
     # -----------------------------------------------------------------------
-    # Method 3: High — ML + SR + indirect + SSP5-8.5 (1.8x warming)
+    # Method 3: High: ML + SR + indirect + SSP5-8.5 (1.8x warming)
     # Also uses farmland valuation parameters: r=2.5%, h=40yr (Nickerson et al.
     # 2012, USDA ERS). The long-duration asset PV multiplier roughly doubles.
     # -----------------------------------------------------------------------
@@ -663,7 +663,7 @@ def run_stranded_assets() -> dict:
     )
     logger.info(f"  Nature Food target: $200-400B")
 
-    # Sensitivity grid (Fix 3A) — run on conservative ML-only method
+    # Sensitivity grid (Fix 3A): run on conservative ML-only method
     grid = sensitivity_grid(yield_proj, land_values, scenario)
     grid.to_csv(output_dir / 'sensitivity_grid.csv', index=False)
 

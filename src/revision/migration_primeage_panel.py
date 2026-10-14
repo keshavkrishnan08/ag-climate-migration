@@ -1,4 +1,4 @@
-"""Prime-age (25-54) population in the WITHIN-COUNTY panel-FE shift-share IV — the
+"""Prime-age (25-54) population in the WITHIN-COUNTY panel-FE shift-share IV, the
 design that holds for total population (the long-difference fails only because it is
 a cross-section with no fixed effects). Outcome: 3-yr-forward prime-age growth.
 County+year FE; instrument = leave-one-out shift-share. High-farm-intensity tercile

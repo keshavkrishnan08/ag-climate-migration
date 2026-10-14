@@ -23,14 +23,14 @@ PROJECTIONS_DIR = PROJECT_ROOT / 'data' / 'projections'
 # Yield model test R² from v2 model (results/yield_model_v2_metrics.json)
 R2_YIELD = 0.2059691810308517
 
-# Commodity prices (2023 USD) — must match 06_stranded.py
+# Commodity prices (2023 USD): must match 06_stranded.py
 COMMODITY_PRICES = {
     'corn': 5.50, 'soybeans': 12.80, 'wheat_winter': 7.20,
     'wheat_spring': 8.10, 'cotton': 0.78, 'sorghum': 5.30,
     'barley': 6.10, 'oats': 3.80,
 }
 
-# DCF parameters: baseline (4%, 30yr) — conservative scenario
+# DCF parameters: baseline (4%, 30yr): conservative scenario
 DISCOUNT_RATE = 0.04
 HORIZON = 30
 N_ITER = 1000
@@ -84,7 +84,7 @@ def run_monte_carlo() -> dict:
     yp['fips'] = yp['fips'].astype(str).str.zfill(5)
 
     # Residual std: sqrt(1 - R²) * std(target)
-    # climate_impact_bu is already the yield anomaly in bu/acre — that's our target
+    # climate_impact_bu is already the yield anomaly in bu/acre, that's our target
     impact_std = yp['climate_impact_bu'].std()
     residual_std = np.sqrt(1.0 - R2_YIELD) * impact_std
 

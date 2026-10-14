@@ -51,7 +51,7 @@ REQUIRED = {
     "514 counties": r"514",
 }
 
-# (label, regex pattern that must NOT appear — stale values)
+# (label, regex pattern that must NOT appear, stale values)
 STALE = {
     "$76B (ML only)": r"\\\$76B \(ML only\)\.",
     "$172B": r"\\\$172B",
@@ -100,7 +100,7 @@ def check_file(tex_path: Path) -> list:
         if re.search(pattern, content):
             warnings.append(f"STALE    [{fname}] {label} (pattern: {pattern})")
 
-    # Stale checks (main.tex only — forward cascade numbers must not appear there)
+    # Stale checks (main.tex only: forward cascade numbers must not appear there)
     if fname == "main.tex":
         for label, pattern in STALE_MAIN_ONLY.items():
             if re.search(pattern, content):

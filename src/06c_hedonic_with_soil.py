@@ -50,7 +50,7 @@ RESULTS_DIR = PROJECT_ROOT / 'results'
 # Growing season months (April–September)
 GROWING_MONTHS = [4, 5, 6, 7, 8, 9]
 
-# CPI deflator — 2023 USD
+# CPI deflator: 2023 USD
 CPI_2022 = 296.8
 CPI_2023 = 304.7
 DEFLATOR_2022 = CPI_2023 / CPI_2022
@@ -378,7 +378,7 @@ def compute_stranded_with_soil(
     b_T2 = result.params.get('tmax_july_sq', 0)
     b_P = result.params.get('precip_growing', 0)
 
-    # Climate contribution: only T, T², P change — soil/amenity/FE held fixed
+    # Climate contribution: only T, T², P change, soil/amenity/FE held fixed
     df_proj['climate_hat_current'] = (
         b_T * df_proj['tmax_july'] +
         b_T2 * df_proj['tmax_july_sq'] +

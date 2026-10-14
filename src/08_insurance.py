@@ -1,6 +1,6 @@
 """Phase 5C: Crop insurance mispricing quantification.
 
-Federal crop insurance premiums are based on Actual Production History (APH) —
+Federal crop insurance premiums are based on Actual Production History (APH), 
 a county's average yield over the prior 10 years. This backward-looking calculation
 was designed for a stationary climate. In a non-stationary climate, it systematically:
     - Underestimates future risk in WARMING counties (premiums too cheap)
@@ -272,7 +272,7 @@ def compute_insurance_mispricing(
     # Step 3: Compute mispricing
     mispricing = fair_premium - current_premium
 
-    # Step 4: Annual aggregate dollar flow — use 'acres' column (RMA has no 'liability_acres')
+    # Step 4: Annual aggregate dollar flow: use 'acres' column (RMA has no 'liability_acres')
     if not county_rma.empty and 'acres' in county_rma.columns:
         insured_acres = county_rma['acres'].dropna().mean()
         if np.isnan(insured_acres):
@@ -328,7 +328,7 @@ def _compute_yield_cv_from_nass(nass_path: Path) -> pd.DataFrame:
     """Compute county-crop yield coefficient of variation from NASS historical data.
 
     Uses the last 15 years of observed yields (2008-2023) to estimate interannual
-    yield variability — the true actuarial risk parameter. The P10/P90 spread in
+    yield variability: the true actuarial risk parameter. The P10/P90 spread in
     the climate projections represents model-ensemble uncertainty, not interannual
     variability, so we anchor to observed historical data instead.
 
@@ -577,7 +577,7 @@ def compute_national_mispricing(
 
     # EI ratio: how much more (or less) expected indemnity under future climate?
     # When ei_aph is effectively zero (counties where yields never hit the trigger),
-    # both ei_future and ei_aph approach zero and the ratio is unconstrained — cap at MAX_EI_RATIO.
+    # both ei_future and ei_aph approach zero and the ratio is unconstrained, cap at MAX_EI_RATIO.
     proj['ei_ratio'] = (
         proj['ei_future'] / proj['ei_aph'].replace(0, np.nan)
     ).clip(0.0, MAX_EI_RATIO).fillna(1.0)
@@ -669,7 +669,7 @@ def run_insurance_analysis() -> dict:
     output_dir = RESULTS_DIR / 'insurance'
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Load RMA data — crop_name has trailing whitespace and is uppercase
+    # Load RMA data: crop_name has trailing whitespace and is uppercase
     rma_path = DATA_RAW / 'rma' / 'rma_sob_all_years.parquet'
     if rma_path.exists():
         rma_data = pd.read_parquet(
@@ -682,7 +682,7 @@ def run_insurance_analysis() -> dict:
         rma_data = pd.DataFrame()
         logger.warning("RMA data not found — mispricing will be zero everywhere")
 
-    # Load yield projections — SSP245 is the available scenario
+    # Load yield projections: SSP245 is the available scenario
     scenario = 'SSP245'
     proj_path = PROJECTIONS_DIR / f'yield_projections_{scenario}.parquet'
     yield_proj = pd.read_parquet(proj_path) if proj_path.exists() else pd.DataFrame()

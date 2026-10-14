@@ -85,24 +85,24 @@ DEFAULT_UTILIZATION_RATE = 0.60
 # converts total farm acres to cropland acres (the actual expansion target).
 # Source: USDA 2022 Census of Ag, State Summary Highlights.
 STATE_CROPLAND_FRACTION: Dict[str, float] = {
-    '27': 0.85,  # Minnesota  — corn belt, highly cultivated
+    '27': 0.85,  # Minnesota: corn belt, highly cultivated
     '55': 0.65,  # Wisconsin
     '38': 0.85,  # North Dakota
-    '46': 0.55,  # South Dakota — significant rangeland
-    '30': 0.30,  # Montana    — predominantly rangeland/pasture
+    '46': 0.55,  # South Dakota: significant rangeland
+    '30': 0.30,  # Montana: predominantly rangeland/pasture
     '23': 0.25,  # Maine
     '50': 0.20,  # Vermont
     '33': 0.15,  # New Hampshire
     '26': 0.70,  # Michigan
     '36': 0.45,  # New York
     '42': 0.55,  # Pennsylvania
-    '53': 0.55,  # Washington — eastern WA dryland wheat belt, ~55% cropland
-    '41': 0.40,  # Oregon     — eastern OR mixed dryland/range, ~40% cropland
-    '16': 0.50,  # Idaho      — Snake River Plain intensive ag, ~50% cropland
+    '53': 0.55,  # Washington: eastern WA dryland wheat belt, ~55% cropland
+    '41': 0.40,  # Oregon: eastern OR mixed dryland/range, ~40% cropland
+    '16': 0.50,  # Idaho: Snake River Plain intensive ag, ~50% cropland
 }
 
 # Dairy/livestock climate opportunity (flat addition to summary, not per-county).
-# Basis: USDA NASS 2022 — northern states (WI, MN, NY, VT, MI, ID, WA, OR) account
+# Basis: USDA NASS 2022: northern states (WI, MN, NY, VT, MI, ID, WA, OR) account
 # for ~$30B/yr in dairy cash receipts. Climate warming is migrating heat-stressed
 # southern dairy operations north at an estimated 2%/yr climate-driven advantage
 # (USDA ERS 2023 heat-stress livestock report; Mauger et al. 2015 for PNW).
@@ -197,11 +197,11 @@ def compute_acreage_expansion(
     Approach:
         total_farmland = Census of Ag 'FARM OPERATIONS - ACRES OPERATED' (most recent year)
         cropland_acres = total_farmland × state_cropland_fraction
-            — corrects for the fact that 'ACRES OPERATED' includes rangeland/pasture
+: corrects for the fact that 'ACRES OPERATED' includes rangeland/pasture
         current_utilization = harvested_acres / cropland_acres  (capped at 1)
         expandable_acres = cropland_acres × (1 - utilization)
         expansion_income = expandable_acres × projected_yield × price
-            — for the best (highest-value) crop with positive climate signal
+: for the best (highest-value) crop with positive climate signal
 
     Args:
         county_fips: 5-digit FIPS code.
@@ -270,7 +270,7 @@ def compute_acreage_expansion(
     # Instead, we require projected_yield > a minimum viability threshold to exclude
     # counties where the model projects near-zero yields (effectively "won't grow there").
     #
-    # Minimum viable yield thresholds (bu/acre) — roughly 50% of current northern state
+    # Minimum viable yield thresholds (bu/acre), roughly 50% of current northern state
     # averages, meaning the new land would produce at least half as well as existing fields:
     MIN_VIABLE_YIELD = {
         'corn': 60.0, 'soybeans': 20.0, 'wheat_winter': 30.0,
@@ -295,7 +295,7 @@ def compute_acreage_expansion(
         cp = proj[proj['crop'] == crop]
         projected_yield = float(cp['yield_projected'].mean())
 
-        # Require minimum viable yield — excludes areas where the crop physically won't grow
+        # Require minimum viable yield: excludes areas where the crop physically won't grow
         min_viable = MIN_VIABLE_YIELD.get(crop, 20.0)
         if projected_yield < min_viable:
             continue
@@ -581,7 +581,7 @@ def compute_northern_opportunity(
     # 5. Infrastructure investment for expansion (USDA $500/acre standard)
     expansion_infra_investment = expansion['expandable_acres'] * INFRA_COST_PER_ACRE
 
-    # Totals — guard against NaN from missing NASS data
+    # Totals: guard against NaN from missing NASS data
     total_opportunity = (
         float(income.get('annual_income_gain') or 0.0)
         + float(expansion.get('expansion_income') or 0.0)

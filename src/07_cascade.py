@@ -1,7 +1,7 @@
 """Phase 5B: Community collapse cascade.
 
 Uses econometric literature's estimated elasticities to propagate yield decline
-into community-level outcomes. Not a standalone ML model — it uses ML yield
+into community-level outcomes. Not a standalone ML model, it uses ML yield
 projections as input to a structured cascade.
 
 Cascade structure (PRD Section 5.3 & 7B):
@@ -29,9 +29,9 @@ Tipping point: county crosses when ALL FOUR conditions met simultaneously:
 Target finding: 300 counties cross tipping point before 2040 under RCP 4.5.
 
 Reviewer Fix 4: Re-estimate migration elasticity via IV on 2000-2020 data.
-Dual calibration (Reviewer Fix — Issue 2):
-    Calibration A: Own IV estimate β=-0.003 (p=0.019, F=1184) — PRIMARY
-    Calibration B: Feng et al. (2010) β=-0.17 — SENSITIVITY
+Dual calibration (Reviewer Fix: Issue 2):
+    Calibration A: Own IV estimate β=-0.003 (p=0.019, F=1184), PRIMARY
+    Calibration B: Feng et al. (2010) β=-0.17, SENSITIVITY
     Both are reported so reviewers can evaluate the 57x difference in magnitude.
 """
 
@@ -404,7 +404,7 @@ def find_cascade_tipping_point(
                 feedback_row['yield_feedback_loss'].sum() > 0.02 if not feedback_row.empty else False
             ),
             'net_outmigration': bool(
-                # 0.5%/yr annual outflow — realistic for declining rural counties
+                # 0.5%/yr annual outflow: realistic for declining rural counties
                 # (original -0.02 = 2%/yr was too strict for the income effect magnitudes)
                 pop_row['delta_pop_pct'].min() < -0.005 if not pop_row.empty else False
             ),
@@ -412,7 +412,7 @@ def find_cascade_tipping_point(
 
         state_by_year[year] = conditions
 
-        # Fix C: require ANY THREE of four conditions — more realistic since
+        # Fix C: require ANY THREE of four conditions, more realistic since
         # infrastructure feedback is the hardest signal to trigger and
         # requiring all four simultaneously makes tipping effectively impossible.
         if sum(conditions.values()) >= 3 and tipping_year is None:
@@ -489,7 +489,7 @@ def reestimate_migration_elasticity(
 
 
 # ---------------------------------------------------------------------------
-# Inner loop helper — runs cascade for a single elasticity calibration
+# Inner loop helper: runs cascade for a single elasticity calibration
 # ---------------------------------------------------------------------------
 def _run_single_calibration(
     calibration_label: str,

@@ -1,4 +1,4 @@
-"""Phase 3B: Crop switching model — the adaptation model.
+"""Phase 3B: Crop switching model: the adaptation model.
 
 Predicts the probability of a county switching from crop A to crop B
 given climate and economic conditions.
@@ -301,7 +301,7 @@ def validate_switching_historical() -> dict:
     """Validate switching model against pre-CDL historical events.
 
     Four validation events using NASS county acreage records from 1950:
-    1. Soybean adoption in Corn Belt (1960-1980) — NEGATIVE TEST
+    1. Soybean adoption in Corn Belt (1960-1980), NEGATIVE TEST
     2. Sorghum expansion in southern Plains (1950-1975)
     3. Cotton retreat from Missouri/Tennessee (1980-2010)
     4. Winter wheat boundary southward shift in Kansas (1990-2010)
@@ -315,7 +315,7 @@ def validate_switching_historical() -> dict:
 
     results = {}
 
-    # Test 1: Soybean adoption 1960-1980 — NEGATIVE TEST
+    # Test 1: Soybean adoption 1960-1980: NEGATIVE TEST
     # Model trained on 1950-1960 should NOT predict soybean expansion
     # from climate signals alone (it was technology-driven)
     results['soybean_negative'] = {

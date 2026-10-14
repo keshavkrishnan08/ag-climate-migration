@@ -34,7 +34,7 @@ MODELS = [
 ]
 
 # Model-specific variant labels and grid labels for NASA NEX-GDDP-CMIP6.
-# Discovered by querying the S3 bucket — not all models use r1i1p1f1 / gn.
+# Discovered by querying the S3 bucket: not all models use r1i1p1f1 / gn.
 MODEL_VARIANTS = {
     'ACCESS-CM2':       {'variant': 'r1i1p1f1', 'grid': 'gn'},
     'CNRM-CM6-1':       {'variant': 'r1i1p1f2', 'grid': 'gr'},

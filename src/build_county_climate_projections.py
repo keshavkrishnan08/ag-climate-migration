@@ -195,7 +195,7 @@ def _load_county_gcm(gcm: str, var: str, year: int) -> dict:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 4. Load GCM data — reference period (2025-2030) and 5 rep years
+# 4. Load GCM data: reference period (2025-2030) and 5 rep years
 # ═══════════════════════════════════════════════════════════════════════════════
 print("\nStep 4 — Loading CMIP6 files …")
 print(f"  Reference period: {REF_YEARS[0]}–{REF_YEARS[-1]}")
@@ -242,7 +242,7 @@ bl_idx = baseline.set_index("fips")
 rep_records = []
 
 for yr in REP_YEARS:
-    # Collect per-GCM deltas — shape (n_gcms, n_counties)
+    # Collect per-GCM deltas: shape (n_gcms, n_counties)
     D_tmax_july    = np.full((len(GCMS), len(county_fips)), np.nan)
     D_tmax_grow    = np.full((len(GCMS), len(county_fips)), np.nan)
     D_tmin_grow    = np.full((len(GCMS), len(county_fips)), np.nan)

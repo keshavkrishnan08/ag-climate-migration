@@ -2,9 +2,9 @@
 Generate SHAP analysis figures for the yield model.
 
 Produces:
-  - fig03_yield_cliff.pdf/.png  — SHAP dependence plots (tmax_july_c vs corn,
+  - fig03_yield_cliff.pdf/.png: SHAP dependence plots (tmax_july_c vs corn,
                                    precip_growing vs soybeans)
-  - fig11_uncertainty.pdf/.png  — Regional yield projection trajectories with
+  - fig11_uncertainty.pdf/.png: Regional yield projection trajectories with
                                    10th-90th percentile uncertainty bands
 
 Nature Food formatting: Arial 7pt, 300 DPI, double-column 180mm = 7.09 in.
@@ -224,7 +224,7 @@ def compute_shap(model, X: np.ndarray) -> np.ndarray:
 
 
 # ---------------------------------------------------------------------------
-# Figure 3 — Yield cliff
+# Figure 3: Yield cliff
 # ---------------------------------------------------------------------------
 def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.ndarray):
     """
@@ -240,7 +240,7 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
         X_sample: (n, 36) raw feature values.
 
     Returns:
-        None — saves PDF and PNG to OUT_DIR.
+        None: saves PDF and PNG to OUT_DIR.
     """
     feat_idx    = {f: i for i, f in enumerate(MODEL_FEATURES)}
     tmax_idx    = feat_idx["tmax_july_c"]
@@ -253,7 +253,7 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
     is_corn = (df_sample["crop"] == "corn").values
     is_soy  = (df_sample["crop"] == "soybeans").values
 
-    # Panel A uses tmax_july_c_anomaly — the feature that most cleanly captures
+    # Panel A uses tmax_july_c_anomaly: the feature that most cleanly captures
     # the yield cliff. The model splits heat-stress signal across absolute tmax
     # and tmax anomaly; the anomaly feature shows the strongest negative-SHAP
     # response to above-normal heat (>+1 °C anomaly → large SHAP loss).
@@ -283,7 +283,7 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
         m = (corn_tanom >= lo) & (corn_tanom < hi)
         if m.sum() > 2:
             print(f"  Anomaly {label}°C: mean SHAP = {corn_shap_an[m].mean():+.4f}  (n={m.sum()})")
-    cliff_visible = True  # confirmed from bin analysis — see report
+    cliff_visible = True  # confirmed from bin analysis: see report
     print(f"  Cliff visible in anomaly feature: True (strongly negative SHAP at >+1°C above normal)")
 
     # --- Figure layout ---
@@ -368,7 +368,7 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
 
 
 # ---------------------------------------------------------------------------
-# Figure 11 — Regional uncertainty
+# Figure 11: Regional uncertainty
 # ---------------------------------------------------------------------------
 def plot_fig11():
     """
@@ -382,7 +382,7 @@ def plot_fig11():
         None
 
     Returns:
-        None — saves PDF and PNG to OUT_DIR.
+        None: saves PDF and PNG to OUT_DIR.
 
     Raises:
         FileNotFoundError: if projections path is missing.

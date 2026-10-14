@@ -2,8 +2,8 @@
 
 Cross-sectional hedonic regression of observed farmland values on climate
 variables (Mendelsohn, Nordhaus & Shaw 1994; Schlenker, Hanemann & Fisher
-2005, 2006). No discount rate required. Captures ALL value channels —
-crop yields, amenity value, water, livestock, specialty crops — via
+2005, 2006). No discount rate required. Captures ALL value channels, 
+crop yields, amenity value, water, livestock, specialty crops, via
 market-revealed land prices.
 
 Model:
@@ -40,7 +40,7 @@ RESULTS_DIR = PROJECT_ROOT / 'results'
 # Growing season months (April–September) for precipitation sum
 GROWING_MONTHS = [4, 5, 6, 7, 8, 9]
 
-# CPI deflator — 2023 USD (from config; CPI_2022=296.8, CPI_2023=304.7)
+# CPI deflator: 2023 USD (from config; CPI_2022=296.8, CPI_2023=304.7)
 CPI_2022 = 296.8
 CPI_2023 = 304.7
 DEFLATOR_2022 = CPI_2023 / CPI_2022  # inflate 2022 values to 2023 USD
@@ -310,7 +310,7 @@ def compute_hedonic_stranded(
         df: Cross-section DataFrame with fitted values.
         result: Fitted OLS result from estimate_hedonic_regression.
         climate_proj: CMIP6 projections (fips, year, delta_tmax_july,
-                      delta_precip_growing — optional).
+                      delta_precip_growing: optional).
         target_year: Projection year for warming delta (2040 or 2050).
         scenario: Scenario label for output tagging.
 
@@ -343,7 +343,7 @@ def compute_hedonic_stranded(
     if 'delta_precip_growing' in df_proj.columns:
         # delta_precip_growing is in mm in projections; convert to inches (1mm = 0.0394in)
         # Actually check: PRISM precip is in inches, CMIP6 deltas in mm. Let's check units.
-        # The projections file has delta_precip_growing — check sign and magnitude
+        # The projections file has delta_precip_growing, check sign and magnitude
         df_proj['precip_growing_proj'] = df_proj['precip_growing']  # hold constant for now
         # We only propagate temperature effect as that's the primary driver
         # Precip delta is small and more uncertain; holding constant is conservative

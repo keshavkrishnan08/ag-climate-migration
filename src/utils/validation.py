@@ -14,7 +14,7 @@ def temporal_rolling_cv(
 ) -> Generator[Tuple[np.ndarray, np.ndarray], None, None]:
     """Generate temporal rolling cross-validation splits.
 
-    NEVER shuffles — strict temporal ordering always.
+    NEVER shuffles: strict temporal ordering always.
 
     Fold structure (from PRD Section 5.1):
         Fold 1: train 1950-1985, val 1986-1990

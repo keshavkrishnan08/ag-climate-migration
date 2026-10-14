@@ -1,6 +1,6 @@
 """Phase 3C: Quantile Regression Forest for Extreme Event Tail Risk.
 
-The mean yield model underpredicts extreme events — the 2012 drought anomaly
+The mean yield model underpredicts extreme events, the 2012 drought anomaly
 prediction of -0.11 is far too mild vs. the observed mean of -0.94 across
 corn counties. Tail risk matters for stranded asset estimates, which depend
 on correctly capturing downside scenarios.
@@ -51,7 +51,7 @@ with open(PROJECT_ROOT / 'config.yaml') as f:
     CONFIG = yaml.safe_load(f)
 
 RANDOM_SEED = CONFIG['yield_model']['random_seed']
-ALPHA = 0.10  # Q10 — captures the lower tail where droughts concentrate
+ALPHA = 0.10  # Q10: captures the lower tail where droughts concentrate
 
 COMMODITY_PRICES = {
     'corn': 5.50,
@@ -64,7 +64,7 @@ COMMODITY_PRICES = {
     'oats': 3.80,
 }
 
-# Temporal split — per CLAUDE.md (train<=2009, val 2010-2016, test 2017-2023)
+# Temporal split: per CLAUDE.md (train<=2009, val 2010-2016, test 2017-2023)
 TRAIN_END = 2009
 VAL_END = 2016
 TEST_END = 2023
@@ -125,7 +125,7 @@ def prepare_features(
     y = panel['yield_anomaly'].copy()
     years = panel['year'].copy()
 
-    # One-hot encode crop — use pd.Categorical so every crop level appears
+    # One-hot encode crop: use pd.Categorical so every crop level appears
     # even if only a subset of crops is present in panel.
     if all_crops is not None:
         crop_cat = pd.Categorical(panel['crop'], categories=all_crops)
@@ -222,7 +222,7 @@ def train_q10_model(panel: pd.DataFrame) -> Tuple[lgb.LGBMRegressor, dict, list,
         callbacks=[lgb.log_evaluation(period=200)],
     )
 
-    # Test evaluation — pinball loss at alpha=0.10 and rank correlation
+    # Test evaluation: pinball loss at alpha=0.10 and rank correlation
     y_pred_test = model.predict(X_test)
 
     # Pinball (quantile) loss: mean over samples of max(alpha*(y-q), (alpha-1)*(y-q))
@@ -282,7 +282,7 @@ def diagnose_2012_drought(
     """Predict Q10 yield anomaly for 2012 corn counties.
 
     The 2012 drought was the worst US drought since the 1950s Dust Bowl.
-    The mean model predicted an anomaly of -0.11 — far too optimistic.
+    The mean model predicted an anomaly of -0.11, far too optimistic.
     Q10 should capture the true tail risk and predict much more negative values.
 
     Args:
@@ -343,7 +343,7 @@ def compute_tail_risk_stranded(
 
     The mean model tells you expected yield under given climate conditions.
     The Q10 model tells you what yield looks like in a bad year (bottom decile).
-    The gap — mean prediction minus Q10 prediction — is the "tail risk premium":
+    The gap: mean prediction minus Q10 prediction, is the "tail risk premium":
     how much worse things get at the 10th percentile relative to the average.
 
     Stranded asset tail risk:

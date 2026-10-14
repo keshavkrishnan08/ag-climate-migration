@@ -1,5 +1,5 @@
 """
-Fix 4 (v2): IV estimation — farm income -> outmigration elasticity.
+Fix 4 (v2): IV estimation: farm income -> outmigration elasticity.
 Three new specifications targeting cleaner out-migration measurement.
 
 Approach 1: Net migration from population components

@@ -114,7 +114,7 @@ def build_panel():
                            columns=["fips", "year", "total_population"])
     demo["fips"] = demo["fips"].astype(str).str.zfill(5)
     demo = demo.sort_values(["fips", "year"])
-    # 3-year forward population growth (cumulative) — less noisy than 1-yr
+    # 3-year forward population growth (cumulative), less noisy than 1-yr
     demo["pop_lead3"] = demo.groupby("fips")["total_population"].shift(-3)
     demo["pop_growth_3yr"] = (demo["pop_lead3"] - demo["total_population"]) / demo["total_population"]
 

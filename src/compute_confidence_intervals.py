@@ -58,7 +58,7 @@ def to_billions(x: float) -> float:
 
 
 # ---------------------------------------------------------------------------
-# 1. Stranded assets — DCF
+# 1. Stranded assets: DCF
 # ---------------------------------------------------------------------------
 
 def ci_stranded_dcf() -> dict:
@@ -90,7 +90,7 @@ def ci_stranded_dcf() -> dict:
 
 
 # ---------------------------------------------------------------------------
-# 2. Stranded assets — Hedonic (2050)
+# 2. Stranded assets: Hedonic (2050)
 # ---------------------------------------------------------------------------
 
 def ci_stranded_hedonic() -> dict:
@@ -126,7 +126,7 @@ def ci_stranded_hedonic() -> dict:
 
 
 # ---------------------------------------------------------------------------
-# 3. Cascade counties — tipping before 2040
+# 3. Cascade counties: tipping before 2040
 # ---------------------------------------------------------------------------
 
 def ci_cascade() -> dict:
@@ -197,7 +197,7 @@ def ci_insurance() -> dict:
     log.info("Overpriced counties: mean=$%.2fB/yr  95CI=[$%.2fB, $%.2fB]",
              to_billions(mean_o), to_billions(lo_o), to_billions(hi_o))
 
-    # Net cross-subsidy flow (min of under/over — money that actually transfers)
+    # Net cross-subsidy flow (min of under/over, money that actually transfers)
     mean_xsub = min(mean_u, mean_o)
     lo_xsub = min(lo_u, lo_o)
     hi_xsub = min(hi_u, hi_o)

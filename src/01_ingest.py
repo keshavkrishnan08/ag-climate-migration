@@ -1,4 +1,4 @@
-"""Phase 1: Data acquisition — all 12 datasets.
+"""Phase 1: Data acquisition: all 12 datasets.
 
 Downloads, validates, and caches all raw data needed for the pipeline.
 Data sources per PRD Section 3.1:

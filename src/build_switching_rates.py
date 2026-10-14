@@ -138,7 +138,7 @@ def compute_pair_switching(
     to_share   = shares_wide[to_crop]   if to_crop   in shares_wide.columns else None
 
     if from_share is None or to_share is None:
-        # One of the crops has no data at all — return zeros
+        # One of the crops has no data at all: return zeros
         result = pd.Series(0.0, index=shares_wide.index, name=col_name)
         return result
 

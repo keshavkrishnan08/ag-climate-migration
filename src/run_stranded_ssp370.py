@@ -296,7 +296,7 @@ def main():
     r = CONFIG['stranded_assets']['discount_rate']       # 0.04
     h = CONFIG['stranded_assets']['projection_horizon']  # 30
 
-    # ── Method 1: Conservative — ML only, r=4%, h=30yr ──────────────────────
+    # ── Method 1: Conservative: ML only, r=4%, h=30yr ──────────────────────
     national = compute_stranded_vectorized(yield_proj, land_values, r, h, SCENARIO)
     pos_cons = national[national['stranded_value_total'] > 0]
     neg_cons = national[national['stranded_value_total'] <= 0]
@@ -311,7 +311,7 @@ def main():
 
     national.to_parquet(OUTPUT_DIR / f'stranded_national_{SCENARIO}.parquet', index=False)
 
-    # ── Method 2: Central — ML + SR + indirect, r=3%, h=35yr ────────────────
+    # ── Method 2: Central: ML + SR + indirect, r=3%, h=35yr ────────────────
     INDIRECT_MULTIPLIER   = 1.30
     CENTRAL_DISCOUNT_RATE = 0.03
     CENTRAL_HORIZON       = 35

@@ -1,4 +1,4 @@
-"""Unit tests — PRD Section 10.1.
+"""Unit tests: PRD Section 10.1.
 
 Required unit tests:
     1. GDD computation: within 5% of NASS reported GDD for Iowa corn 2012
@@ -29,7 +29,7 @@ class TestGDDComputation:
 
     def test_gdd_corn_basic(self):
         """GDD for corn: base=10°C, upper=30°C."""
-        from src.utils import deflator  # noqa — just checking import path structure
+        from src.utils import deflator  # noqa: just checking import path structure
 
         # We import from features module
         sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'src'))

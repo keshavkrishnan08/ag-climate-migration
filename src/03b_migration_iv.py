@@ -278,7 +278,7 @@ def build_iv_panel(yields, cpi):
 def load_migration_outcome():
     """Load ACS demographics and compute migration outcome variables.
 
-    ACS B07001 column mislabeling — confirmed by inspection (2026-03-18):
+    ACS B07001 column mislabeling: confirmed by inspection (2026-03-18):
         'moved_diff_county_same_state' = B07001_002E (Same house 1yr ago, ~87% of total)
         'moved_diff_state'             = B07001_049E (Moved diff county, same state, ~6%)
         'moved_from_abroad'            = B07001_065E (Moved diff state, ~2%)
@@ -641,7 +641,7 @@ def main():
     # ── Step 5: Run IV/2SLS specifications ──
     print("\n[5/5] Running IV/2SLS estimations...")
 
-    # Spec A: Net outmigration (from pop change) — legacy, noisy
+    # Spec A: Net outmigration (from pop change), legacy, noisy
     print("\n" + "=" * 50)
     print("SPEC A: Net outmigration rate (pop change) [legacy, noisy]")
     print("=" * 50)
@@ -655,7 +655,7 @@ def main():
         label="outmigration",
     )
 
-    # Spec B: All-movers in-migration rate (legacy — confounds same-county moves)
+    # Spec B: All-movers in-migration rate (legacy, confounds same-county moves)
     panel_b = panel[panel["intercounty_inmigration_rate"].notna()].copy()
 
     print("\n" + "=" * 50)
@@ -671,7 +671,7 @@ def main():
         label="all_movers",
     )
 
-    # Spec C: TRUE inter-county in-migration (CORRECTED — B07001_049E)
+    # Spec C: TRUE inter-county in-migration (CORRECTED, B07001_049E)
     # This is the primary fix: uses actual different-county same-state in-movers.
     # Expected sign: POSITIVE beta (higher income -> more people move in from other counties).
     panel_c = panel[panel["true_diff_county_in_rate"].notna()

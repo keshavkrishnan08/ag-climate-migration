@@ -13,7 +13,7 @@ unweighted average (equal weights).
 Approaches tested:
   1. Ensemble (LightGBM + Ridge + RF), train ≤ 2012, test 2013-2023
   2. Extended training set (train ≤ 2012, adds 2010-2012 vs prior ≤ 2009 split)
-     — already the default in v2; carried forward here.
+: already the default in v2; carried forward here.
 
 Temporal splits (match CLAUDE.md Critical Rules):
   Train:  years ≤ 2012 (val_end in config.yaml)
@@ -83,7 +83,7 @@ def load_monthly_features() -> pd.DataFrame:
     Converts nClimDiv temperatures (°F) to Celsius, then derives:
       - tmax_peak_c:       max(Jun,Jul,Aug) Tmax
       - precip_jja:        sum of Jun+Jul+Aug precipitation
-      - pdsi_peak_drought: min(Jun,Jul,Aug PDSI) — worst drought month
+      - pdsi_peak_drought: min(Jun,Jul,Aug PDSI), worst drought month
       - edd_months_c:      count of months above 33.5°C EDD threshold
 
     Returns:
@@ -115,11 +115,11 @@ def add_interaction_features(panel: pd.DataFrame) -> pd.DataFrame:
     """Add compound drought interaction and quadratic features.
 
     Features added:
-      heat_x_drought   — hot AND dry anomaly product
-      heat_x_precip    — hot AND low precip anomaly product
-      extreme_compound — binary: heat > +1σ AND PDSI < -1σ
-      tmax_july_sq     — quadratic heat for yield-cliff threshold
-      precip_deficit   — county-crop shortfall vs historical mean
+      heat_x_drought: hot AND dry anomaly product
+      heat_x_precip: hot AND low precip anomaly product
+      extreme_compound: binary: heat > +1σ AND PDSI < -1σ
+      tmax_july_sq: quadratic heat for yield-cliff threshold
+      precip_deficit: county-crop shortfall vs historical mean
 
     Args:
         panel: Feature matrix with anomaly columns.
@@ -308,7 +308,7 @@ def train_rf(
         max_depth=10,
         min_samples_leaf=30,
         max_features=0.4,
-        max_samples=0.3,      # subsample 30% per tree — huge speedup, minimal quality loss
+        max_samples=0.3,      # subsample 30% per tree: huge speedup, minimal quality loss
         n_jobs=-1,
         random_state=RANDOM_SEED,
     )
@@ -529,8 +529,8 @@ def run_ensemble() -> dict:
 
     # --- Three-way temporal split ---
     # blend_train: base model training data (≤2009)
-    # blend_val:   2010-2012 — fit blend weights here (no leakage: after train, before test)
-    # test:        2013-2023 — held-out, never touched until final eval
+    # blend_val:   2010-2012: fit blend weights here (no leakage: after train, before test)
+    # test:        2013-2023: held-out, never touched until final eval
     BLEND_TRAIN_END = 2009
     blend_train_mask = years_arr <= BLEND_TRAIN_END
     blend_val_mask = (years_arr > BLEND_TRAIN_END) & (years_arr <= VAL_END)

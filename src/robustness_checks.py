@@ -9,8 +9,8 @@ Six checks addressing the top reviewer concerns:
   6. Insurance mispricing under alternative coverage levels (65% and 85%)
 
 Each check saves results to results/robustness/ and prints a one-line verdict:
-  ROBUST   — result is insensitive to the specification change
-  SENSITIVE — result changes materially; report both
+  ROBUST: result is insensitive to the specification change
+  SENSITIVE: result changes materially; report both
 """
 
 import json
@@ -49,7 +49,7 @@ COMMODITY_PRICES = {
     "barley": 6.10, "oats": 3.80,
 }
 
-# From the main hedonic run — reference coefficients for stability comparison
+# From the main hedonic run: reference coefficients for stability comparison
 BASELINE_BETA_TMAX     = None   # filled in at runtime from check 1 baseline run
 BASELINE_STRANDED_B    = 168.0  # hedonic $168B from headline_numbers_preliminary.json
 DCF_CONSERVATIVE_B     = 76.0   # DCF conservative from same file
@@ -129,7 +129,7 @@ def load_shared_data() -> dict:
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Hedonic helper — reused across checks 1 and 5
+# Hedonic helper: reused across checks 1 and 5
 # ──────────────────────────────────────────────────────────────────────────────
 
 def _build_cross_section(
@@ -278,7 +278,7 @@ def _hedonic_stranded(
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# Insurance helper — reused for check 6
+# Insurance helper: reused for check 6
 # ──────────────────────────────────────────────────────────────────────────────
 
 RMA_CROP_MAP = {
@@ -785,7 +785,7 @@ def check3_leave_one_gcm_out(data: dict) -> dict:
 
 
 # ──────────────────────────────────────────────────────────────────────────────
-# CHECK 4: Placebo test — cascade on LEAST climate-affected counties
+# CHECK 4: Placebo test: cascade on LEAST climate-affected counties
 # ──────────────────────────────────────────────────────────────────────────────
 
 def check4_cascade_placebo(data: dict) -> dict:

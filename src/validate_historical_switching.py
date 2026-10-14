@@ -1,13 +1,13 @@
-"""Fix 5 — Validate crop switching model against 4 historical events.
+"""Fix 5: Validate crop switching model against 4 historical events.
 
 Uses NASS county acreage data (1950+) and nClimDiv climate data to test
 whether a simple climate-feature LightGBM model can reproduce observed
 crop switching patterns. Four validation events from SWARM spec §A3:
 
-1. Sorghum expansion in southern Plains (1950-1975) — POSITIVE
-2. Cotton retreat from Missouri/Tennessee (1980-2010) — POSITIVE
-3. Winter wheat boundary shift in Kansas (1990-2010) — POSITIVE
-4. Soybean adoption in Corn Belt (1960-1980) — NEGATIVE test
+1. Sorghum expansion in southern Plains (1950-1975), POSITIVE
+2. Cotton retreat from Missouri/Tennessee (1980-2010), POSITIVE
+3. Winter wheat boundary shift in Kansas (1990-2010), POSITIVE
+4. Soybean adoption in Corn Belt (1960-1980), NEGATIVE test
 
 All four must pass before the switching model can be trusted for projections.
 """
@@ -492,7 +492,7 @@ def validate_cotton_retreat() -> dict:
 
     Root-cause fix (v2): the prior implementation used cotton-only acreage as
     the share denominator, producing share=1.0 for all county-years and
-    making the target effectively binary (present/absent) — eliminating the
+    making the target effectively binary (present/absent), eliminating the
     continuous climate signal.
 
     Fixed approach:
@@ -906,7 +906,7 @@ def validate_wheat_boundary() -> dict:
 
 
 # -----------------------------------------------------------------------
-# Event 4: Soybean adoption in Corn Belt (1960-1980) — NEGATIVE TEST
+# Event 4: Soybean adoption in Corn Belt (1960-1980), NEGATIVE TEST
 # -----------------------------------------------------------------------
 
 def validate_soybean_negative() -> dict:

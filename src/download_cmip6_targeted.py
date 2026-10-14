@@ -1,4 +1,4 @@
-"""Targeted CMIP6 download — only what the paper needs.
+"""Targeted CMIP6 download: only what the paper needs.
 
 Downloads 5 diverse GCMs x ssp245 x 3 vars x milestone years.
 Then linearly interpolates annual values for the projection pipeline.
@@ -23,14 +23,14 @@ import os
 # All verified to have tasmax/tasmin/pr on the NASA NEX-GDDP-CMIP6 S3 bucket.
 # CESM2 excluded: only has tas (mean temp), not tasmax/tasmin.
 PRIORITY_MODELS = [
-    'ACCESS-CM2',       # warm/wet (Australia)       — r1i1p1f1, gn
-    'GFDL-ESM4',        # moderate (NOAA)            — r1i1p1f1, gr1
-    'MIROC6',           # warm (Japan)               — r1i1p1f1, gn
-    'MPI-ESM1-2-HR',    # moderate/cool (Germany)    — r1i1p1f1, gn
-    'NorESM2-MM',       # moderate (Norway)          — r1i1p1f1, gn
+    'ACCESS-CM2',       # warm/wet (Australia): r1i1p1f1, gn
+    'GFDL-ESM4',        # moderate (NOAA): r1i1p1f1, gr1
+    'MIROC6',           # warm (Japan): r1i1p1f1, gn
+    'MPI-ESM1-2-HR',    # moderate/cool (Germany): r1i1p1f1, gn
+    'NorESM2-MM',       # moderate (Norway): r1i1p1f1, gn
 ]
 
-# Milestone years — enough for interpolation + key decadal snapshots
+# Milestone years: enough for interpolation + key decadal snapshots
 MILESTONE_YEARS = [2025, 2030, 2035, 2040, 2045, 2050]
 
 

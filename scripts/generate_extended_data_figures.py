@@ -27,7 +27,7 @@ CASCADE_PATH = os.path.join(BASE, 'results', 'economic', 'historical_cascade_sum
 OUT_DIR = os.path.join(BASE, 'results', 'figures')
 os.makedirs(OUT_DIR, exist_ok=True)
 
-# Nature Food palette — colorblind-safe
+# Nature Food palette: colorblind-safe
 COLORS = {
     'Corn Belt':      '#2166ac',
     'Southern Plains':'#d6604d',

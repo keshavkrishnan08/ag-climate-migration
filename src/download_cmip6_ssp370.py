@@ -2,7 +2,7 @@
 Download CMIP6 SSP3-7.0 data from Pangeo Cloud for 9 GCMs.
 
 SSP3-7.0 eliminates the single-scenario limitation in the AgMigration pipeline.
-Uses anonymous GCS access to the Pangeo CMIP6 zarr archive — no ESGF account needed.
+Uses anonymous GCS access to the Pangeo CMIP6 zarr archive, no ESGF account needed.
 
 Availability notes vs. SSP2-4.5:
   - MPI-ESM1-2-HR: not in Pangeo ssp370; substituted with MPI-ESM1-2-LR (same institution)
@@ -304,7 +304,7 @@ def load_zarr_cftime(zarr_path: str, var: str) -> xr.DataArray:
     ds    = xr.open_zarr(store, consolidated=True)
     da    = ds[var]
 
-    # String-based slicing — works for all cftime calendar types
+    # String-based slicing: works for all cftime calendar types
     da = da.sel(time=slice("2025", "2050"))
 
     # Standardize lon to 0-360
@@ -389,7 +389,7 @@ def da_to_annual_parquets_cftime(
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# Main download loop — standard-calendar models
+# Main download loop: standard-calendar models
 # ══════════════════════════════════════════════════════════════════════════════
 results_log = {}
 

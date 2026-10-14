@@ -1,4 +1,4 @@
-"""Phase 2: Feature engineering — yields + climate + switching.
+"""Phase 2: Feature engineering: yields + climate + switching.
 
 Builds the complete feature matrix for all county-crop-year observations.
 Works with actual downloaded data:
@@ -273,7 +273,7 @@ def build_climate_features(climate_annual: pd.DataFrame, climate_monthly: pd.Dat
         cf[anom_col] = (cf[var] - cf[f'{var}_bl_mean']) / cf[f'{var}_bl_std'].replace(0, np.nan)
         cf = cf.drop(columns=[f'{var}_bl_mean', f'{var}_bl_std'])
 
-    # Count extreme heat months (tmax > 95°F = 35°C) — vectorized
+    # Count extreme heat months (tmax > 95°F = 35°C), vectorized
     heat_count = np.zeros(len(climate_monthly))
     for m in growing_months:
         tmax_col = f'tmax_m{m:02d}'

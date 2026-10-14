@@ -1,6 +1,6 @@
 """Revision recomputation: northern agricultural opportunity, gross vs net income.
 
-Reviewer 1, Major #3 — exact concerns addressed:
+Reviewer 1, Major #3: exact concerns addressed:
     (a) Define whether the $51B/yr figure is gross revenue, net income, or something else.
     (b) Clarify whether the expansion component conflates total production with incremental
         opportunity (i.e. double-counts existing land use).
@@ -10,7 +10,7 @@ Reviewer 1, Major #3 — exact concerns addressed:
 
 Methodology:
     - Loads results/frontier/opportunity_counties_SSP245.csv (already computed in 09_frontier.py).
-    - Does NOT rerun the underlying spatial model — we work from the saved output.
+    - Does NOT rerun the underlying spatial model, we work from the saved output.
     - Applies a documented net-to-gross income ratio from USDA ERS Farm Income Accounts.
     - Produces corrected per-state and aggregate summaries.
 
@@ -19,7 +19,7 @@ Net-to-gross ratio (USDA ERS):
         U.S. gross cash farm income:       $561.0 B
         U.S. net farm income (NFI):        $136.6 B
         NFI / Gross cash farm income:       0.243
-    For CROP FARMS specifically (corn, soybeans, wheat, barley — the crops in our model):
+    For CROP FARMS specifically (corn, soybeans, wheat, barley, the crops in our model):
         Per USDA ERS "Farm Financial Ratios" for grain/oilseed farms (2019-2022 avg):
         Operating profit margin (NFI / gross revenue): ~0.20-0.25
         We use the midpoint 0.22 for crop-farm net income ratio.
@@ -36,7 +36,7 @@ USDA state-level benchmarks (2024, for plausibility check):
     Adding WA, OR, MI, PA, NY (the other 5 states in our 514-county set):          ~$56.8 B
     All 11-state gross cash farm income, 2024:                                     ~$147 B
     All 11-state crop cash receipts, 2024:                                         ~$82 B
-    (These are CURRENT annual totals — the reviewer's comparison baseline.)
+    (These are CURRENT annual totals: the reviewer's comparison baseline.)
 
     Note: USDA state farm income figures are NOT stored as project data files;
     they are cited directly from the ERS published tables and hardcoded below.
@@ -182,9 +182,9 @@ def add_net_income_columns(df: pd.DataFrame) -> pd.DataFrame:
 
     Returns:
         DataFrame with three new columns:
-            net_income_central_usd   — central estimate (ratio 0.22)
-            net_income_low_usd       — conservative lower bound (ratio 0.18)
-            net_income_high_usd      — upper bound (ratio 0.27)
+            net_income_central_usd: central estimate (ratio 0.22)
+            net_income_low_usd: conservative lower bound (ratio 0.18)
+            net_income_high_usd: upper bound (ratio 0.27)
     """
     df = df.copy()
     df['net_income_central_usd'] = df['annual_opportunity_2023USD'] * NET_TO_GROSS_CENTRAL
