@@ -1,4 +1,4 @@
-# Replication package — output reference
+# Replication package: output reference
 
 Maps pipeline outputs to source scripts and JSON paths. For setup and workflow, start with [`README.md`](README.md).
 
@@ -108,6 +108,6 @@ Not in git. See `data/raw/README.md`.
 - 2023 USD (CPI_2023 = 304.7)
 - Seed 42 for stochastic steps
 - FIPS zero-padded; 998/999 filtered
-- ML split: train ≤ 2009, validate 2010–2016, test 2017–2023
+- ML split: train ≤ 2009, validate 2010-2016, test 2017-2023
 
 Active vs superseded scripts: `src/revision/README.md`.

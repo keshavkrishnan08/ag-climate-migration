@@ -1,6 +1,6 @@
 # Extended analysis modules
 
-Scripts for Steps 11–17. Invoked via Makefile targets listed below. See the root [`README.md`](../../README.md) for descriptions.
+Scripts for Steps 11-17. Invoked via Makefile targets listed below. See the root [`README.md`](../../README.md) for descriptions.
 
 ## Active scripts
 

@@ -1,6 +1,6 @@
 # Pipeline JSON outputs
 
-Machine-readable results from the extended analysis modules (Steps 11–17). Parquet and CSV side files are local only.
+Machine-readable results from the extended analysis modules (Steps 11-17). Parquet and CSV side files are local only.
 
 ## Key files
 

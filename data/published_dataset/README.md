@@ -2,7 +2,7 @@
 
 ## Description
 
-County-level projections of climate-driven agricultural reorganization in the United States, 2025–2050. Accompanies:
+County-level projections of climate-driven agricultural reorganization in the United States, 2025-2050. Accompanies:
 
 > Krishnan, K. (2026). The economic cost of agricultural climate migration in the United States. *Nature Climate Change*.
 
@@ -20,7 +20,7 @@ Projected yields for 8 crops × 2,902 counties × 26 years × 2 scenarios (SSP2-
 | `fips` | 5-digit county FIPS code |
 | `county_name` | County name (Census Gazetteer 2023) |
 | `state` | State postal abbreviation |
-| `year` | Projection year (2025–2050) |
+| `year` | Projection year (2025-2050) |
 | `crop` | Crop type (corn, soybeans, wheat, cotton, sorghum, barley, oats, hay) |
 | `scenario` | Climate scenario (SSP245 or SSP370) |
 | `yield_projected_bu_acre` | Projected yield including climate and technology trend (bu/acre) |
@@ -28,7 +28,7 @@ Projected yields for 8 crops × 2,902 counties × 26 years × 2 scenarios (SSP2-
 | `climate_impact_bu_acre` | Climate-only impact = projected − baseline (bu/acre) |
 | `yield_p10` | 10th percentile across GCM ensemble (bu/acre) |
 | `yield_p90` | 90th percentile across GCM ensemble (bu/acre) |
-| `acres_harvested` | Harvested acreage (acres, NASS 2018–2022 average) |
+| `acres_harvested` | Harvested acreage (acres, NASS 2018-2022 average) |
 
 ---
 
@@ -43,7 +43,7 @@ Downscaled climate projections at county resolution. Delta-method from 10 CMIP6 
 | `year` | Projection year |
 | `scenario` | Climate scenario (SSP245 or SSP370) |
 | `tmax_july_projected_F` | Projected July maximum temperature (°F) |
-| `delta_tmax_july_F` | Change in July Tmax vs 1990–2020 baseline (°F) |
+| `delta_tmax_july_F` | Change in July Tmax vs 1990-2020 baseline (°F) |
 | `precip_growing_projected_mm` | Projected growing-season precipitation (mm/month) |
 | `delta_precip_mm` | Change in growing-season precipitation vs baseline (mm/month) |
 | `tmax_july_p10` | 10th percentile July Tmax across GCM ensemble (°F) |
@@ -71,20 +71,20 @@ Stranded farmland value per county under three independent valuation methods. On
 ---
 
 ### 4. `county_decline_indicators.csv`
-Six rural decline indicators tracked for 1,824 agricultural counties, 2005–2023. Plus tipping-year estimates from two independent migration elasticity methods.
+Six rural decline indicators tracked for 1,824 agricultural counties, 2005-2023. Plus tipping-year estimates from two independent migration elasticity methods.
 
 | Column | Description |
 |--------|-------------|
 | `fips` | 5-digit county FIPS code |
 | `county_name` | County name |
 | `state` | State postal abbreviation |
-| `n_decline_indicators` | Count of active decline signals (0–6) |
+| `n_decline_indicators` | Count of active decline signals (0-6) |
 | `yield_decline` | Statistically significant negative yield trend (0/1) |
 | `pop_decline` | Statistically significant population decline (0/1) |
 | `income_decline` | Statistically significant income decline (0/1) |
 | `outmigration` | Above-median outmigration rate (0/1) |
 | `school_decline` | Statistically significant school enrollment decline (0/1) |
-| `hospital_closure` | County experienced rural hospital closure 2010–2023 (0/1) |
+| `hospital_closure` | County experienced rural hospital closure 2010-2023 (0/1) |
 | `tipping_year_own_iv` | Projected year of economic tipping point, own IV method (SSP2-4.5) |
 | `tipping_year_feng` | Projected year of economic tipping point, Feng et al. (2010) method (SSP2-4.5) |
 
@@ -162,4 +162,4 @@ in the United States. Nature Climate Change.
 
 ## Methods Summary
 
-Yield projections combine a LightGBM ensemble model (10 GCMs × 8 crops) with historical technology trends detrended by z-score normalization. The climate delta-method applies county-level GCM anomalies to the 1990–2020 PRISM baseline. Stranded asset values use discounted cash flow (DCF) at a 4% real discount rate over a 30-year horizon, cross-validated against hedonic farmland pricing and cap-rate methods. Migration tipping points use a 2SLS instrumental-variables specification (weather-driven income shocks, F-statistic > 10) following Feng et al. (2010). Full methods in the accompanying paper and supplementary information.
+Yield projections combine a LightGBM ensemble model (10 GCMs × 8 crops) with historical technology trends detrended by z-score normalization. The climate delta-method applies county-level GCM anomalies to the 1990-2020 PRISM baseline. Stranded asset values use discounted cash flow (DCF) at a 4% real discount rate over a 30-year horizon, cross-validated against hedonic farmland pricing and cap-rate methods. Migration tipping points use a 2SLS instrumental-variables specification (weather-driven income shocks, F-statistic > 10) following Feng et al. (2010). Full methods in the accompanying paper and supplementary information.

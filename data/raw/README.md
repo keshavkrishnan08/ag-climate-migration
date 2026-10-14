@@ -16,7 +16,7 @@ Raw inputs are not tracked in git (~12 GB). Download once before running pipelin
 | `other/cpi_annual.csv` | BLS CPI-U (2023 base = 304.7) |
 | `../projections/*.parquet` | CMIP6 SSP2-4.5 / SSP3-7.0 (Pangeo) |
 
-County yields: 1950–2023. Climate: monthly Tmax and precip.
+County yields: 1950-2023. Climate: monthly Tmax and precip.
 
 ## Processed outputs
 
