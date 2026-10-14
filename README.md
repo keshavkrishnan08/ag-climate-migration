@@ -1,4 +1,4 @@
-# Agricultural Climate Migration — replication code
+# Agricultural Climate Migration - replication code
 
 Code to reproduce county-level estimates of climate-driven yield loss, stranded farmland value, rural out-migration, crop insurance mispricing, and northern production opportunity for 2,902 US counties and eight field crops.
 
