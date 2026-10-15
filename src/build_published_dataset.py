@@ -403,7 +403,7 @@ def main():
             df.to_csv(out_path, index=False)
             size_kb = os.path.getsize(out_path) / 1024
             results.append((fname, len(df), len(df.columns), size_kb))
-            print(f"  {len(df):>8,} rows  x  {len(df.columns):>2} cols  —  {size_kb:>8,.1f} KB")
+            print(f"  {len(df):>8,} rows  x  {len(df.columns):>2} cols, {size_kb:>8,.1f} KB")
         except Exception as exc:
             print(f"  ERROR: {exc}", file=sys.stderr)
             raise

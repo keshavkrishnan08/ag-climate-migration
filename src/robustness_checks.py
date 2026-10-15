@@ -632,7 +632,7 @@ def check2_leave_one_crop_out(data: dict) -> dict:
         f"largest single-crop share={max_share:.1f}% ({max_crop}); "
         f"range without any one crop: "
         f"${min(v['stranded_without_B'] for v in loo_results.values()):.1f}B"
-        f"–${max(v['stranded_without_B'] for v in loo_results.values()):.1f}B"
+        f"${max(v['stranded_without_B'] for v in loo_results.values()):.1f}B"
     )
     logger.info(f"  VERDICT: {summary}")
     for crop, r in sorted(loo_results.items(), key=lambda x: -x[1]["crop_share_pct"]):
@@ -763,10 +763,10 @@ def check3_leave_one_gcm_out(data: dict) -> dict:
 
     summary = (
         f"{verdict} | Leave-one-GCM-out: baseline=${stranded_base:.1f}B; "
-        f"jackknife range ${lo:.1f}B–${hi:.1f}B "
+        f"jackknife range ${lo:.1f}B-${hi:.1f}B "
         f"(spread={spread_pct:.1f}% of baseline); "
         f"all 10 GCM-dropped estimates within "
-        f"${stranded_base - lo:.1f}B–${hi - stranded_base:.1f}B of baseline"
+        f"${stranded_base - lo:.1f}B-${hi - stranded_base:.1f}B of baseline"
     )
     logger.info(f"  VERDICT: {summary}")
     for gcm, val in sorted(stranded_per_gcm_dropped.items()):
@@ -938,7 +938,7 @@ def check5_hedonic_temporal_stability(data: dict) -> dict:
     logger.info(f"  Window B (2017-22/2015-23): {len(df_B)} counties")
 
     if len(df_A) < 100 or len(df_B) < 100:
-        logger.warning("  Insufficient counties for one or both windows — skipping")
+        logger.warning("  Insufficient counties for one or both windows, skipping")
         return {
             "check": "hedonic_temporal_stability",
             "verdict": "SKIP",
@@ -1033,7 +1033,7 @@ def check6_insurance_coverage_sensitivity(data: dict) -> dict:
     ny   = data["nass_yields"]
 
     if rma.empty:
-        logger.error("  RMA data empty — skipping check 6")
+        logger.error("  RMA data empty, skipping check 6")
         return {
             "check": "insurance_coverage_sensitivity",
             "verdict": "SKIP",
@@ -1098,7 +1098,7 @@ def main() -> None:
         None. Saves JSON results to results/robustness/ and prints summary table.
     """
     logger.info("=" * 70)
-    logger.info("NATURE FOOD ROBUSTNESS CHECKS — 6 checks")
+    logger.info("NATURE FOOD ROBUSTNESS CHECKS, 6 checks")
     logger.info("=" * 70)
 
     data = load_shared_data()
@@ -1142,7 +1142,7 @@ def main() -> None:
 
     # Print summary table
     print("\n" + "=" * 78)
-    print("ROBUSTNESS CHECK SUMMARY — Nature Food Submission")
+    print("ROBUSTNESS CHECK SUMMARY, Nature Food Submission")
     print("=" * 78)
     header = f"{'#':<3} {'Check':<35} {'Verdict':<12} Key Numbers"
     print(header)

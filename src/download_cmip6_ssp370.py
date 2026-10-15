@@ -40,7 +40,7 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # ── Config ─────────────────────────────────────────────────────────────────────
 LAT_MIN, LAT_MAX = 24.0, 50.0
-LON_MIN, LON_MAX = 235.0, 295.0   # 115W–65W in 0-360 convention
+LON_MIN, LON_MAX = 235.0, 295.0   # 115W-65W in 0-360 convention
 
 YEARS    = list(range(2025, 2051))
 SCENARIO = "ssp370"

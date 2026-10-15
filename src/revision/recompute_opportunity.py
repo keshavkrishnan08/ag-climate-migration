@@ -147,12 +147,12 @@ def characterise_metric(df: pd.DataFrame) -> dict:
         'definition': (
             "GROSS INCREMENTAL CROP REVENUE (2023 USD/yr). "
             "Component 1 (yield gain, {:.1f}%): (projected_yield - current_yield) × price × "
-            "existing_harvested_acres — INCREMENTAL gross revenue on existing farmland. "
-            "Component 2 (acreage expansion, {:.1f}%): projected_yield × price × expandable_acres — "
+            "existing_harvested_acres, INCREMENTAL gross revenue on existing farmland. "
+            "Component 2 (acreage expansion, {:.1f}%): projected_yield × price × expandable_acres, "
             "TOTAL gross revenue on currently idle/marginal farmland, using zero-baseline "
             "(land is assumed unfarmed prior to climate warming). "
             "Component 3 (crop upgrade, {:.1f}%): premium per acre from switching oats/barley "
-            "to corn/soybeans × low-value-crop acres — INCREMENTAL gross revenue. "
+            "to corn/soybeans × low-value-crop acres, INCREMENTAL gross revenue. "
             "NO production expenses are deducted; this is NOT net farm income."
         ).format(
             yield_gain_B / total_gross_B * 100,
@@ -301,14 +301,14 @@ def plausibility_check(state_table: pd.DataFrame, char: dict) -> list:
         f"${named_gross:.1f}B/yr = {pct_crop_gross:.0f}% of current crop cash receipts "
         f"(${named_crop_receipts:.1f}B) or {pct_total_gross:.0f}% of total farm income "
         f"(${named_total_income:.1f}B). "
-        f"The reviewer's concern ('50–130% of current income') is CORRECT for the gross figure."
+        f"The reviewer's concern ('50-130% of current income') is CORRECT for the gross figure."
     )
     findings.append(
         f"NET income opportunity in same 6 states: ${named_net:.1f}B/yr "
         f"= {pct_crop_net:.0f}% of crop cash receipts or {pct_total_net:.0f}% of total farm income. "
         f"This is more defensible: a {pct_total_net:.0f}% addition to farm income over "
         f"~15 years (to 2040) implies ~{pct_total_net/15:.1f}% annual income growth from "
-        f"climate opportunity alone — plausible given USDA's projected northward range expansion."
+        f"climate opportunity alone, plausible given USDA's projected northward range expansion."
     )
 
     # The reviewer notes real US farm income rose only 20-30% over 20 years
@@ -319,7 +319,7 @@ def plausibility_check(state_table: pd.DataFrame, char: dict) -> list:
         f"Annualized: net opportunity ${total_net_B:.1f}B/yr reached by 2040 equates to "
         f"~{total_net_B/all_states_total_income*100:.0f}% of all-11-state farm income "
         f"(${all_states_total_income:.0f}B). Over 15 years, this is "
-        f"{annualized_net_pct:.1f}%/yr incremental income growth — "
+        f"{annualized_net_pct:.1f}%/yr incremental income growth, "
         f"consistent with 20-30% total real growth over 20 years that the reviewer cites."
     )
 
@@ -329,12 +329,12 @@ def plausibility_check(state_table: pd.DataFrame, char: dict) -> list:
         f"Of this, {char['pct_expansion']:.0f}% comes from the acreage expansion component, "
         f"which assumes currently idle/marginal farmland is converted to corn/wheat at "
         f"full projected yields with zero existing-use baseline. "
-        f"This is an INCREMENTAL revenue ceiling — it does not double-count existing production "
+        f"This is an INCREMENTAL revenue ceiling, it does not double-count existing production "
         f"because the baseline for expansion acres is zero (unfarmed). "
         f"However, it does not deduct production costs, so it overstates farm profit. "
         f"The corrected NET income headline is ${total_net_B:.1f}B/yr (central) or "
-        f"${total_gross_B * NET_TO_GROSS_LOW:.1f}–{total_gross_B * NET_TO_GROSS_HIGH:.1f}B/yr "
-        f"(range using 18–27% net margins from USDA ERS Table 6)."
+        f"${total_gross_B * NET_TO_GROSS_LOW:.1f}-{total_gross_B * NET_TO_GROSS_HIGH:.1f}B/yr "
+        f"(range using 18-27% net margins from USDA ERS Table 6)."
     )
 
     return findings
@@ -401,15 +401,15 @@ def write_summary(
 
     paper_text = (
         f"We quantify the projected agricultural opportunity in {514} northern counties "
-        f"as gross incremental crop revenue — the value of additional output from yield gains "
+        f"as gross incremental crop revenue, the value of additional output from yield gains "
         f"on existing farmland and full production from currently idle/marginal cropland "
         f"converted to major crops under SSP2-4.5 warming by 2040. "
         f"Gross incremental revenue totals ${total_gross_B:.0f} billion per year "
         f"(2023 USD) across all counties. "
         f"To convert to net farm income, we apply the USDA ERS grain and oilseed farm "
-        f"operating margin of 22% (range: 18–27%; USDA ERS Farm Income and Wealth Statistics, "
-        f"Table 6, 2019–2022 average), yielding a net income opportunity of "
-        f"${total_net_B:.0f} billion per year (${net_lo:.0f}–${net_hi:.0f} B/yr across the margin range). "
+        f"operating margin of 22% (range: 18-27%; USDA ERS Farm Income and Wealth Statistics, "
+        f"Table 6, 2019-2022 average), yielding a net income opportunity of "
+        f"${total_net_B:.0f} billion per year (${net_lo:.0f}-${net_hi:.0f} B/yr across the margin range). "
         f"The ${INFRA_GAP_ORIGINAL_B:.0f} billion infrastructure investment required to realise "
         f"this opportunity represents {infra['multiple_vs_annual_net']:.1f} times the annual net "
         f"income opportunity, or a {infra['payback_vs_net_central_yrs']:.0f}-year payback at "
@@ -417,7 +417,7 @@ def write_summary(
     )
 
     lines = [
-        "# Opportunity Recomputation — Revision Response to Reviewer 1, Major #3",
+        "# Opportunity Recomputation, Revision Response to Reviewer 1, Major #3",
         "",
         "## 1. What annual_opportunity_usd actually represents",
         "",
@@ -438,14 +438,14 @@ def write_summary(
         f"| Infrastructure capex (one-time) | ${char['infra_capex_B']:.1f} B |",
         "",
         "**Net-to-gross ratio source:** USDA ERS Farm Income and Wealth Statistics, Table 6",
-        "(grain/oilseed farm operating profit margin, 2019–2022 average = 22%, range 18–27%).",
+        "(grain/oilseed farm operating profit margin, 2019-2022 average = 22%, range 18-27%).",
         "URL: https://www.ers.usda.gov/data-products/farm-income-and-wealth-statistics/",
         "",
-        "## 3. Per-state breakdown — all 11 states",
+        "## 3. Per-state breakdown, all 11 states",
         "",
         fmt_tbl(all_tbl),
         "",
-        "## 4. Per-state breakdown — 6 reviewer-named states (MN, WI, SD, ND, MT, ID)",
+        "## 4. Per-state breakdown, 6 reviewer-named states (MN, WI, SD, ND, MT, ID)",
         "",
         fmt_tbl(named_tbl),
         "",
@@ -470,11 +470,11 @@ def write_summary(
         f"| Payback period (low net income, 18%) | {infra['payback_vs_net_low_yrs']:.0f} years |",
         f"| Payback period (high net income, 27%) | {infra['payback_vs_net_high_yrs']:.0f} years |",
         "",
-        "**Interpretation:** A 7–8 year payback on infrastructure investment is comparable to",
-        "standard USDA Rural Development infrastructure loan terms (20–40 year bonds) and is",
+        "**Interpretation:** A 7-8 year payback on infrastructure investment is comparable to",
+        "standard USDA Rural Development infrastructure loan terms (20-40 year bonds) and is",
         "well within the range that historically attracts private agri-infrastructure capital.",
         "Framing the $36 B capex against gross revenue ($56 B) makes it appear smaller (64%);",
-        "against annual net income ($12 B) it is a 3× multiple — still achievable but more",
+        "against annual net income ($12 B) it is a 3× multiple, still achievable but more",
         "demanding, which is the more honest comparison to give reviewers and readers.",
         "",
         "## 7. Paper-ready methods/results text (active voice, Nature style)",
@@ -549,7 +549,7 @@ def main() -> None:
     assert summary_path.stat().st_size > 0, "Summary markdown is empty"
     print(f"\nAll outputs verified non-empty.")
     print("=" * 65)
-    print("DONE — Reviewer 1 Major #3 revision data ready")
+    print("DONE, Reviewer 1 Major #3 revision data ready")
     print("=" * 65)
 
 

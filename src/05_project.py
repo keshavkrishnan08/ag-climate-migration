@@ -44,7 +44,7 @@ def load_trained_models() -> dict:
     """
     results_dirs = sorted(RESULTS_DIR.glob('20*'))
     if not results_dirs:
-        raise FileNotFoundError("No results directory found — run Phase 3 first")
+        raise FileNotFoundError("No results directory found, run Phase 3 first")
 
     models = {}
 
@@ -482,7 +482,7 @@ def run_projections() -> dict:
         return {}
 
     if 'yield_model' not in models:
-        logger.error("No yield model found — run Phase 3 first")
+        logger.error("No yield model found, run Phase 3 first")
         return {}
 
     # Load feature matrix
@@ -495,7 +495,7 @@ def run_projections() -> dict:
     yield_model = models['yield_model']
     model_features = set(yield_model.feature_name_) if hasattr(yield_model, 'feature_name_') else set()
     if 'heat_x_drought' in model_features:
-        logger.info("v2 model detected — enriching panel with compound drought features")
+        logger.info("v2 model detected, enriching panel with compound drought features")
         panel['fips'] = panel['fips'].astype(str)
 
         # Monthly climate features for compound drought interactions
@@ -534,7 +534,7 @@ def run_projections() -> dict:
     # Load pre-computed CMIP6 county climate projections
     climate_path = PROJECTIONS_DIR / 'county_climate_projections.parquet'
     if not climate_path.exists():
-        logger.error("County climate projections not found — run build_county_climate_projections.py first")
+        logger.error("County climate projections not found, run build_county_climate_projections.py first")
         return {}
 
     climate_proj = pd.read_parquet(climate_path)
@@ -558,7 +558,7 @@ def run_projections() -> dict:
             scenario_climate = climate_proj[climate_proj['scenario'] == alt]
 
         if scenario_climate.empty:
-            logger.warning(f"No climate data for {scenario} — skipping")
+            logger.warning(f"No climate data for {scenario}, skipping")
             continue
 
         # Project yields

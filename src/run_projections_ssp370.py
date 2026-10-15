@@ -43,7 +43,7 @@ def load_yield_model():
                 model = pickle.load(f)
             logger.info(f"Loaded yield model from {yield_path}")
             return model
-    raise FileNotFoundError("No yield model found — run Phase 3 first")
+    raise FileNotFoundError("No yield model found, run Phase 3 first")
 
 
 def project_yields_ssp370(yield_model, climate_proj, panel):
@@ -234,7 +234,7 @@ def main():
     # Enrich panel with v2 interaction features if needed
     model_features = set(yield_model.feature_name_) if hasattr(yield_model, 'feature_name_') else set()
     if 'heat_x_drought' in model_features:
-        logger.info("v2 model detected — enriching panel with compound drought features")
+        logger.info("v2 model detected, enriching panel with compound drought features")
         crops = CONFIG['crops']['primary']
         monthly_path = DATA_RAW / 'prism' / 'county_climate_monthly.parquet'
         if monthly_path.exists():
@@ -276,7 +276,7 @@ def main():
     yield_proj = project_yields_ssp370(yield_model, climate_proj, panel)
 
     if yield_proj.empty:
-        logger.error("No projections produced — check input data")
+        logger.error("No projections produced, check input data")
         return
 
     # Save
@@ -291,7 +291,7 @@ def main():
     logger.info(f"Total rows:        {len(yield_proj):,}")
     logger.info(f"Counties:          {yield_proj['fips'].nunique():,}")
     logger.info(f"Crops:             {sorted(yield_proj['crop'].unique())}")
-    logger.info(f"Year range:        {yield_proj['year'].min()}–{yield_proj['year'].max()}")
+    logger.info(f"Year range:        {yield_proj['year'].min()}-{yield_proj['year'].max()}")
 
     mean_impact = yield_proj['climate_impact_bu'].mean()
     decline_pct = (yield_proj['climate_impact_bu'] < 0).mean() * 100

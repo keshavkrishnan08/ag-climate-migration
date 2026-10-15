@@ -266,7 +266,7 @@ def ci_northern_opportunity() -> dict:
 
 def main():
     """Run all four headline CI computations and save to state/confidence_intervals.json."""
-    log.info("Starting bootstrap CI computation — %d iterations, seed=42", N_BOOT)
+    log.info("Starting bootstrap CI computation, %d iterations, seed=42", N_BOOT)
 
     results = {
         "meta": {
@@ -292,7 +292,7 @@ def main():
 
     # Print summary table
     print("\n" + "=" * 60)
-    print("HEADLINE FINDINGS — Bootstrap 95% CIs")
+    print("HEADLINE FINDINGS, Bootstrap 95% CIs")
     print("=" * 60)
 
     d = results["stranded_assets_dcf"]

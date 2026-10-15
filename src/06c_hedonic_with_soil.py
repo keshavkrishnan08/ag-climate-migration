@@ -7,7 +7,7 @@ values (e.g., rich soils in the Corn Belt → high values AND moderate temps).
 
 This script:
 1. Constructs a county-level NCCPI proxy (soil productivity index) from
-   maximum observed corn yield 1950–2023, normalized to [0,1]. Max yield
+   maximum observed corn yield 1950-2023, normalized to [0,1]. Max yield
    captures soil potential under optimal weather rather than average climate
    response (Schlenker & Roberts 2009 precedent).
 2. Adds an ERS HiAmenity binary control from the USDA ERS Rural Atlas 2024,
@@ -47,7 +47,7 @@ DATA_RAW = PROJECT_ROOT / 'data' / 'raw'
 PROJECTIONS_DIR = PROJECT_ROOT / 'data' / 'projections'
 RESULTS_DIR = PROJECT_ROOT / 'results'
 
-# Growing season months (April–September)
+# Growing season months (April-September)
 GROWING_MONTHS = [4, 5, 6, 7, 8, 9]
 
 # CPI deflator: 2023 USD
@@ -80,7 +80,7 @@ def build_nccpi_proxy(nass_yields: pd.DataFrame) -> pd.DataFrame:
     """Build county-level soil productivity index from peak corn yields.
 
     NCCPI proxy logic: the all-time maximum corn yield observed in a county
-    (1950–2023) reflects soil potential under optimal weather conditions. Rich
+    (1950-2023) reflects soil potential under optimal weather conditions. Rich
     soils reach higher ceilings under good weather. Thin soils plateau lower.
     Normalizing to [0,1] gives a scale-free productivity index comparable to
     the USDA NCCPI (0=worst, 1=best).
@@ -94,7 +94,7 @@ def build_nccpi_proxy(nass_yields: pd.DataFrame) -> pd.DataFrame:
     Returns:
         DataFrame with columns [fips, max_corn_yield, nccpi_proxy].
     """
-    logger.info("Building NCCPI proxy from peak corn yields (1950–2023)...")
+    logger.info("Building NCCPI proxy from peak corn yields (1950-2023)...")
 
     corn = nass_yields[nass_yields['crop'] == 'corn'].copy()
     corn = corn[(corn['yield_bu_acre'] > 0) & corn['yield_bu_acre'].notna()]
@@ -159,7 +159,7 @@ def build_cross_section_with_soil(
     """Build county cross-section with soil and amenity controls.
 
     Extends the baseline 06b cross-section by merging in:
-    - nccpi_proxy (soil productivity index, 0–1)
+    - nccpi_proxy (soil productivity index, 0-1)
     - hi_amenity (ERS binary amenity indicator)
 
     Counties lacking corn history get nccpi_proxy = median (imputed).
@@ -568,7 +568,7 @@ def run_hedonic_with_soil() -> dict:
     logger.info(f"  Coefficient stable (<20% change): {coef_stable}")
     if coef_stable:
         logger.info("  VERDICT: Soil controls do NOT substantially alter the climate coefficient.")
-        logger.info("  This is strong robustness evidence — omitted soil bias is small.")
+        logger.info("  This is strong robustness evidence, omitted soil bias is small.")
     else:
         logger.info("  VERDICT: Soil controls change the estimate >20%. Report soil-controlled estimate.")
 

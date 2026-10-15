@@ -64,9 +64,9 @@ RANDOM_SEED = CONFIG['yield_model']['random_seed']
 # Schlenker & Roberts (2009) EDD threshold for corn (°C)
 EDD_THRESHOLD_C = 33.5
 
-# Growing-season months: May–September
+# Growing-season months: May-September
 GROWING_MONTHS = ['05', '06', '07', '08', '09']
-# Critical pollination months: June–August
+# Critical pollination months: June-August
 PEAK_MONTHS = ['06', '07', '08']
 
 
@@ -324,7 +324,7 @@ def train_and_evaluate(
 
     Temporal split:
         Train:  years ≤ 2012 (config val_end: same as v1 final model)
-        Test:   2013–2023 (config test_end)
+        Test:   2013-2023 (config test_end)
 
     CV folds use the same rolling structure as v1 (five 5-year windows
     ending at 2010), so the CV Spearman comparison is apples-to-apples.
@@ -336,7 +336,7 @@ def train_and_evaluate(
         Tuple of (trained_model, metrics_dict).
     """
     logger.info("=" * 60)
-    logger.info("RETRAINING YIELD MODEL v2 — COMPOUND DROUGHT FIX")
+    logger.info("RETRAINING YIELD MODEL v2, COMPOUND DROUGHT FIX")
     logger.info("=" * 60)
 
     X, y, years = prepare_features(panel)
@@ -364,7 +364,7 @@ def train_and_evaluate(
 
     avg_spearman = np.mean([r['spearman_rank'] for r in cv_results])
     avg_r2 = np.mean([r['r2'] for r in cv_results])
-    logger.info(f"CV Average — Spearman: {avg_spearman:.3f}, R²: {avg_r2:.3f}")
+    logger.info(f"CV Average, Spearman: {avg_spearman:.3f}, R²: {avg_r2:.3f}")
 
     # ---- Final model ----
     train_mask = years <= CONFIG['temporal']['val_end']
@@ -373,7 +373,7 @@ def train_and_evaluate(
     check_no_future_leakage(years[train_mask].values, years[test_mask].values)
 
     logger.info(f"Final split: train n={train_mask.sum()} (≤{CONFIG['temporal']['val_end']}), "
-                f"test n={test_mask.sum()} ({CONFIG['temporal']['val_end'] + 1}–{CONFIG['temporal']['test_end']})")
+                f"test n={test_mask.sum()} ({CONFIG['temporal']['val_end'] + 1}-{CONFIG['temporal']['test_end']})")
 
     final_model = lgb.LGBMRegressor(**params)
     final_model.fit(
@@ -410,7 +410,7 @@ def train_and_evaluate(
     exclude_from_gate = set(gate_cfg.get('exclude_from_gate', []))
 
     logger.info("=" * 40)
-    logger.info("GATE CHECKS (v2 model — z-scored anomaly target)")
+    logger.info("GATE CHECKS (v2 model, z-scored anomaly target)")
     thresholds_passed = True
 
     overall_spearman = test_metrics.get('spearman_rank', float('nan'))
@@ -548,7 +548,7 @@ def run_retrain() -> Tuple[lgb.LGBMRegressor, dict]:
 
     panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
     if not panel_path.exists():
-        logger.error(f"Feature matrix not found: {panel_path} — run Phase 2 first")
+        logger.error(f"Feature matrix not found: {panel_path}, run Phase 2 first")
         return None, {}
 
     panel = pd.read_parquet(panel_path)
@@ -570,7 +570,7 @@ def run_retrain() -> Tuple[lgb.LGBMRegressor, dict]:
     save_v2_artifacts(model, metrics, X)
 
     logger.info("=" * 60)
-    logger.info(f"PHASE 3D COMPLETE — gates passed: {metrics.get('thresholds_passed')}")
+    logger.info(f"PHASE 3D COMPLETE, gates passed: {metrics.get('thresholds_passed')}")
     logger.info(f"  Test Spearman: {metrics['test_metrics'].get('spearman_rank', 'N/A'):.3f}")
     logger.info(f"  2012 drought predicted: {metrics['drought_2012'].get('mean_pred', 'N/A'):.3f}σ "
                 f"(acreage-weighted: {metrics['drought_2012'].get('weighted_pred', 'N/A'):.3f}σ)")

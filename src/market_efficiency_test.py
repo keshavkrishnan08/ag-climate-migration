@@ -306,7 +306,7 @@ def run_market_efficiency_test() -> dict:
 
     print()
     print("=" * 60)
-    print("MARKET EFFICIENCY TEST — RESULTS")
+    print("MARKET EFFICIENCY TEST, RESULTS")
     print("=" * 60)
     print(f"N counties:            {N:,}")
     print(f"States:                {n_states}")

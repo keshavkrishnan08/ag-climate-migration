@@ -514,7 +514,7 @@ def run_stranded_assets() -> dict:
     scenario = 'SSP245'
     proj_path = PROJECTIONS_DIR / f'yield_projections_{scenario}.parquet'
     if not proj_path.exists():
-        logger.error("No yield projections found — run Phase 4 first")
+        logger.error("No yield projections found, run Phase 4 first")
         return {}
 
     yield_proj = pd.read_parquet(proj_path)
@@ -523,7 +523,7 @@ def run_stranded_assets() -> dict:
     # Load climate projections for damage function
     clim_path = PROJECTIONS_DIR / 'county_climate_projections.parquet'
     if not clim_path.exists():
-        logger.error("No climate projections found — run build_county_climate_projections.py first")
+        logger.error("No climate projections found, run build_county_climate_projections.py first")
         return {}
     climate_proj = pd.read_parquet(
         clim_path,
@@ -552,7 +552,7 @@ def run_stranded_assets() -> dict:
     total_conservative_B = pos_conservative['stranded_value_total'].sum() / 1e9
     total_gained_B = abs(neg_conservative['stranded_value_total'].sum()) / 1e9
 
-    logger.info(f"\nMethod 1 — Conservative (ML model only), {scenario}, r={r}, h={h}:")
+    logger.info(f"\nMethod 1, Conservative (ML model only), {scenario}, r={r}, h={h}:")
     logger.info(f"  Counties stranded: {len(pos_conservative)}")
     logger.info(f"  Total stranded:    ${total_conservative_B:.1f}B")
     logger.info(f"  Total gained:      ${total_gained_B:.1f}B")
@@ -572,7 +572,7 @@ def run_stranded_assets() -> dict:
     CENTRAL_DISCOUNT_RATE = 0.03   # Nickerson et al. 2012; Xu et al. 2020 AJAE
     CENTRAL_HORIZON = 35           # Mid-range farmland valuation horizon
     logger.info(
-        f"\nMethod 2 — Central (ML + SR + indirect multiplier {INDIRECT_MULTIPLIER}x), "
+        f"\nMethod 2, Central (ML + SR + indirect multiplier {INDIRECT_MULTIPLIER}x), "
         f"SSP2-4.5, r={CENTRAL_DISCOUNT_RATE}, h={CENTRAL_HORIZON}:"
     )
     national_sr = compute_stranded_with_damage_function(
@@ -610,7 +610,7 @@ def run_stranded_assets() -> dict:
     FARMLAND_HORIZON = 40            # 40-50yr horizon standard in farmland valuation
 
     logger.info(
-        f"\nMethod 3 — High (ML + SR + indirect {INDIRECT_MULTIPLIER}x + SSP5-8.5, "
+        f"\nMethod 3, High (ML + SR + indirect {INDIRECT_MULTIPLIER}x + SSP5-8.5, "
         f"r={FARMLAND_DISCOUNT_RATE}, h={FARMLAND_HORIZON}):"
     )
     national_ssp585 = compute_stranded_with_damage_function(

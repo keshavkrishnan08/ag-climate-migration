@@ -169,7 +169,7 @@ def load_test_sample(n_per_crop: int = 500, seed: int = 42) -> tuple:
     print("Loading feature matrix …")
     fm = pd.read_parquet(FEATURE_MATRIX)
 
-    # Test split: 2017–2023 per the project's temporal rules
+    # Test split: 2017-2023 per the project's temporal rules
     test = fm[fm["year"].between(2017, 2023)].copy()
 
     # Keep only the three focal crops
@@ -231,7 +231,7 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
     Plot SHAP dependence plots for tmax_july_c (corn) and precip_growing (soybeans).
 
     Panel A: tmax_july_c vs corn yield anomaly SHAP. Should reveal a non-linear
-             cliff around 30–32°C where heat stress sharply cuts yield.
+             cliff around 30-32°C where heat stress sharply cuts yield.
     Panel B: precip_growing vs soybeans yield anomaly SHAP.
 
     Args:
@@ -269,8 +269,8 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
 
     # Print full cliff analysis
     print(f"\n--- Temperature cliff analysis (corn) ---")
-    print(f"  Absolute tmax range: {corn_tmax_abs.min():.1f}–{corn_tmax_abs.max():.1f}°C")
-    print(f"  Anomaly range: {corn_tanom.min():.2f}–{corn_tanom.max():.2f}°C")
+    print(f"  Absolute tmax range: {corn_tmax_abs.min():.1f}-{corn_tmax_abs.max():.1f}°C")
+    print(f"  Anomaly range: {corn_tanom.min():.2f}-{corn_tanom.max():.2f}°C")
     # Absolute tmax SHAP by bin
     for lo, hi, label in [(23,29,"<29"), (29,31,"29-31"), (31,33,"31-33"), (33,50,">33")]:
         m = (corn_tmax_abs >= lo) & (corn_tmax_abs < hi)
@@ -326,7 +326,7 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
 
     ax.set_xlabel("July Tmax anomaly from 10-yr mean (°C)", fontsize=FONTSIZE_LABEL)
     ax.set_ylabel("SHAP value\n(contribution to yield anomaly)", fontsize=FONTSIZE_LABEL)
-    ax.set_title("A  Heat stress — corn yield", fontsize=FONTSIZE_LABEL, fontweight="bold", loc="left")
+    ax.set_title("A  Heat stress, corn yield", fontsize=FONTSIZE_LABEL, fontweight="bold", loc="left")
     ax.legend(fontsize=FONTSIZE_TICK - 0.5, handlelength=1.2, frameon=False)
 
     # ── Panel B: precip_growing vs soybeans ──────────────────────────────
@@ -351,7 +351,7 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
     ax.axhline(0, color="black", lw=0.5, ls="--", alpha=0.5)
     ax.set_xlabel("Growing-season precipitation (mm)", fontsize=FONTSIZE_LABEL)
     ax.set_ylabel("SHAP value\n(contribution to yield anomaly)", fontsize=FONTSIZE_LABEL)
-    ax.set_title("B  Drought stress — soybean yield", fontsize=FONTSIZE_LABEL, fontweight="bold", loc="left")
+    ax.set_title("B  Drought stress, soybean yield", fontsize=FONTSIZE_LABEL, fontweight="bold", loc="left")
     ax.legend(fontsize=FONTSIZE_TICK - 0.5, handlelength=1.2, frameon=False)
 
     for ax_ in axes:
@@ -372,8 +372,8 @@ def plot_fig03(df_sample: pd.DataFrame, shap_values: np.ndarray, X_sample: np.nd
 # ---------------------------------------------------------------------------
 def plot_fig11():
     """
-    Plot yield projection trajectories 2025–2050 for four regions with
-    10th–90th percentile uncertainty bands.
+    Plot yield projection trajectories 2025-2050 for four regions with
+    10th-90th percentile uncertainty bands.
 
     Reads yield_projections_SSP245.parquet, aggregates by region using
     area-weighted means, and expresses change as percent from 2025 baseline.
@@ -448,7 +448,7 @@ def plot_fig11():
 
         ax.fill_between(
             ts["year"], ts["pct_p10"], ts["pct_p90"],
-            color=color, alpha=0.20, label="10th–90th pct.",
+            color=color, alpha=0.20, label="10th-90th pct.",
         )
         ax.plot(ts["year"], ts["pct_med"], color=color, lw=1.2,
                 label="Median (SSP2-4.5)")
@@ -473,9 +473,9 @@ def plot_fig11():
         if panel_i == 0:
             handles = [
                 plt.Line2D([0], [0], color=color, lw=1.2),
-                Patch(facecolor=color, alpha=0.25, label="10–90th pct."),
+                Patch(facecolor=color, alpha=0.25, label="10-90th pct."),
             ]
-            ax.legend(handles, ["Median (SSP2-4.5)", "10–90th pct."],
+            ax.legend(handles, ["Median (SSP2-4.5)", "10-90th pct."],
                       fontsize=FONTSIZE_TICK - 0.5, frameon=False)
 
         for spine in ax.spines.values():

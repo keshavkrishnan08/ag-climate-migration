@@ -91,7 +91,7 @@ def compute_county_shares(df: pd.DataFrame) -> pd.DataFrame:
         df: Filtered NASS DataFrame with [fips, year, crop, acres_harvested].
 
     Returns:
-        DataFrame with added column `share` (0–1).
+        DataFrame with added column `share` (0-1).
     """
     total = (
         df.groupby(["fips", "year"])["acres_harvested"]
@@ -176,7 +176,7 @@ def main() -> None:
     print("Loading NASS data …")
     df = load_nass(RAW_NASS)
     print(f"  Loaded {len(df):,} rows | {df['fips'].nunique():,} counties | "
-          f"years {df['year'].min()}–{df['year'].max()}")
+          f"years {df['year'].min()}-{df['year'].max()}")
 
     print("Computing county-year acreage shares …")
     df = compute_county_shares(df)

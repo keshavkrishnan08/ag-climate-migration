@@ -49,7 +49,7 @@ REGION_STATES = {
 def make_ed_fig1():
     """
     Build 2×2 fan chart showing mean yield-change trajectory ± p10/p90 band
-    for four US agricultural regions, 2025–2050.
+    for four US agricultural regions, 2025-2050.
 
     Returns:
         str: output PDF path
@@ -84,7 +84,7 @@ def make_ed_fig1():
 
         # Fan (shaded band)
         ax.fill_between(years, sub['p10'], sub['p90'],
-                        color=color, alpha=0.20, linewidth=0, label='p10–p90 band')
+                        color=color, alpha=0.20, linewidth=0, label='p10-p90 band')
         # Mean line
         ax.plot(years, sub['mean'], color=color, linewidth=2.0, label='GCM ensemble mean')
         # Zero reference
@@ -106,14 +106,14 @@ def make_ed_fig1():
 
     # Shared legend
     handles = [
-        mpatches.Patch(color='#888888', alpha=0.3, label='p10–p90 GCM spread'),
+        mpatches.Patch(color='#888888', alpha=0.3, label='p10-p90 GCM spread'),
         plt.Line2D([0], [0], color='#888888', linewidth=2, label='Ensemble mean'),
     ]
     fig.legend(handles=handles, loc='lower center', ncol=2, fontsize=8,
                frameon=False, bbox_to_anchor=(0.5, -0.01))
 
     fig.suptitle(
-        'Extended Data Fig. 1 — GCM Ensemble Spread by Region (SSP2-4.5, 2025–2050)',
+        'Extended Data Fig. 1, GCM Ensemble Spread by Region (SSP2-4.5, 2025-2050)',
         fontsize=9, fontweight='bold', y=1.01
     )
     plt.tight_layout(rect=[0, 0.04, 1, 1])
@@ -130,7 +130,7 @@ def make_ed_fig1():
 # ─────────────────────────────────────────────────────────────────────────────
 def make_ed_fig2():
     """
-    Build bar chart of cascade score distribution (1–6 signals) from
+    Build bar chart of cascade score distribution (1-6 signals) from
     historical_cascade_summary.json.
 
     Returns:
@@ -171,10 +171,10 @@ def make_ed_fig2():
     ax.text(3.55, max(counts) * 0.92, 'Tipping\nthreshold\n(≥4 signals)',
             fontsize=7.5, color='#2c3e50', va='top')
 
-    ax.set_xlabel('Number of cascade signals observed (2009–2023)', fontsize=9)
+    ax.set_xlabel('Number of cascade signals observed (2009-2023)', fontsize=9)
     ax.set_ylabel('County count', fontsize=9)
     ax.set_title(
-        'Extended Data Fig. 2 — Historical Cascade Score Distribution\n'
+        'Extended Data Fig. 2, Historical Cascade Score Distribution\n'
         '(1,824 agricultural counties, observed data)',
         fontsize=9, fontweight='bold'
     )
@@ -189,8 +189,8 @@ def make_ed_fig2():
 
     # Legend patches
     legend_patches = [
-        mpatches.Patch(color='#aab4c4', label='1–3 signals (below threshold)'),
-        mpatches.Patch(color='#e67e22', label='4–5 signals (at risk)'),
+        mpatches.Patch(color='#aab4c4', label='1-3 signals (below threshold)'),
+        mpatches.Patch(color='#e67e22', label='4-5 signals (at risk)'),
         mpatches.Patch(color='#c0392b', label='6 signals (full cascade)'),
     ]
     ax.legend(handles=legend_patches, fontsize=7.5, loc='upper right',

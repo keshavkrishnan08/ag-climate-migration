@@ -107,7 +107,7 @@ def run_monte_carlo() -> dict:
         total_b = compute_total_stranded(yp_noisy)
         totals.append(total_b)
         if (i + 1) % 100 == 0:
-            logger.info(f"  Iteration {i+1}/{N_ITER} — running mean: ${np.mean(totals):.2f}B")
+            logger.info(f"  Iteration {i+1}/{N_ITER}, running mean: ${np.mean(totals):.2f}B")
 
     totals = np.array(totals)
     result = {

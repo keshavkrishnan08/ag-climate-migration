@@ -113,12 +113,12 @@ def fig_methods_pipeline():
 
     # ── Data input boxes (left column) ──
     data_inputs = [
-        ("NASS", "638K obs\n1950–2023", 7.9),
+        ("NASS", "638K obs\n1950-2023", 7.9),
         ("PRISM", "4 km daily\nclimate grid", 6.7),
         ("CMIP6", "10 GCMs\n4 scenarios", 5.5),
         ("RMA/FCIC", "Insurance\npremiums & losses", 4.3),
         ("ACS/Census", "Demographics\n2902 counties", 3.1),
-        ("USDA CDL", "Land cover\n2008–2023", 1.9),
+        ("USDA CDL", "Land cover\n2008-2023", 1.9),
     ]
     for label, sub, y in data_inputs:
         box(ax, 1.4, y, 2.4, 0.7, label, sub, color="#E8F4FD", edgecolor=C_BLUE)
@@ -128,7 +128,7 @@ def fig_methods_pipeline():
         (5.0, 7.9, "Feature Engineering",  "638,808 obs × 34 features",   "#E8F5E9", C_GREEN),
         (5.0, 6.5, "County Yield Model",   "Fixed-FX + climate quadratics","#E8F5E9", C_GREEN),
         (5.0, 5.1, "Crop Switching Model", "Multinomial logit, 2902 FIPS", "#E8F5E9", C_GREEN),
-        (5.0, 3.7, "GCM Projections",      "10 GCMs × 4 SSPs, 2025–2100",  "#E8F5E9", C_GREEN),
+        (5.0, 3.7, "GCM Projections",      "10 GCMs × 4 SSPs, 2025-2100",  "#E8F5E9", C_GREEN),
         (5.0, 2.3, "Impact Quantification","Monte Carlo, n=1000",           "#E8F5E9", C_GREEN),
     ]
     for x, y, label, sub, col, edge in pipe_steps:
@@ -146,7 +146,7 @@ def fig_methods_pipeline():
 
     # ── Findings output boxes (right column) ──
     findings = [
-        ("Stranded Assets",   "$56–168B\nland value at risk",   7.4, C_RED),
+        ("Stranded Assets",   "$56-168B\nland value at risk",   7.4, C_RED),
         ("Cascade Effects",   "337 counties\ntipping by 2040",  5.9, C_RED),
         ("Insurance Mispricing", "$5.9B/yr\ncross-subsidy",     4.4, C_RED),
         ("Opportunity Zones", "$51B\nnorthern gains",           2.9, "#7B2D8B"),
@@ -163,13 +163,13 @@ def fig_methods_pipeline():
             ha="center", va="center", fontsize=5.5, color=C_GRAY,
             bbox=dict(boxstyle="round,pad=0.2", facecolor="#F7F7F7", edgecolor="#CCCCCC", lw=0.5))
 
-    ax.text(5.0, 0.6, "Figure A — Full Analytical Pipeline",
+    ax.text(5.0, 0.6, "Figure A, Full Analytical Pipeline",
             ha="center", va="center", fontsize=6, color=C_GRAY, style="italic")
 
     for ext in ["pdf", "png"]:
         fig.savefig(f"{OUT_DIR}/fig_methods_pipeline.{ext}", dpi=DPI)
     plt.close(fig)
-    print("  [A] fig_methods_pipeline — done")
+    print("  [A] fig_methods_pipeline, done")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -286,7 +286,7 @@ def fig_northward_summary():
     ax_map.set_xlabel("Longitude", fontsize=6)
     ax_map.set_ylabel("Latitude", fontsize=6)
     ax_map.tick_params(labelsize=5)
-    ax_map.set_title("Production Centroid Shift\n1960s → 2013–2023", fontsize=7, fontweight="bold")
+    ax_map.set_title("Production Centroid Shift\n1960s → 2013-2023", fontsize=7, fontweight="bold")
 
     # Legend for map
     handles = []
@@ -297,7 +297,7 @@ def fig_northward_summary():
                   framealpha=0.85, edgecolor="#CCCCCC", handlelength=1)
 
     # Annotation
-    ax_map.annotate("▲ = 2013–2023\n● = 1960s", xy=(-68, 24.5),
+    ax_map.annotate("▲ = 2013-2023\n● = 1960s", xy=(-68, 24.5),
                     fontsize=4.5, ha="right", color=C_GRAY)
 
     # ── Bar chart of shift rates ──
@@ -336,13 +336,13 @@ def fig_northward_summary():
                  ha="center", fontsize=6.5, color=C_DARK, style="italic",
                  fontweight="bold")
 
-    fig.suptitle("Figure B — Northward Migration of U.S. Crop Production Centroids",
+    fig.suptitle("Figure B, Northward Migration of U.S. Crop Production Centroids",
                  fontsize=7.5, fontweight="bold", y=0.98)
 
     for ext in ["pdf", "png"]:
         fig.savefig(f"{OUT_DIR}/fig_northward_summary.{ext}", dpi=DPI)
     plt.close(fig)
-    print("  [B] fig_northward_summary — done")
+    print("  [B] fig_northward_summary, done")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -417,13 +417,13 @@ def fig_temp_response():
             ax.legend(fontsize=4.5, loc="upper left", framealpha=0.85,
                       edgecolor="#CCCCCC", handlelength=1.5)
 
-    fig.suptitle("Figure C — Empirical Temperature–Yield Response (binned means ± 1 SE)",
+    fig.suptitle("Figure C, Empirical Temperature-Yield Response (binned means ± 1 SE)",
                  fontsize=7.5, fontweight="bold")
 
     for ext in ["pdf", "png"]:
         fig.savefig(f"{OUT_DIR}/fig_temp_response.{ext}", dpi=DPI)
     plt.close(fig)
-    print("  [C] fig_temp_response — done")
+    print("  [C] fig_temp_response, done")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -508,13 +508,13 @@ def fig_cascade_mechanism():
             bbox=dict(boxstyle="round,pad=0.25", facecolor="#FFF5EB",
                       edgecolor="#A63603", lw=0.8))
 
-    ax.text(cx, 9.7, "Figure D — Seven-Step Rural Cascade Mechanism",
+    ax.text(cx, 9.7, "Figure D, Seven-Step Rural Cascade Mechanism",
             ha="center", va="center", fontsize=7, fontweight="bold", color=C_DARK)
 
     for ext in ["pdf", "png"]:
         fig.savefig(f"{OUT_DIR}/fig_cascade_mechanism.{ext}", dpi=DPI)
     plt.close(fig)
-    print("  [D] fig_cascade_mechanism — done")
+    print("  [D] fig_cascade_mechanism, done")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -660,13 +660,13 @@ def fig_insurance_flow():
                  bbox=dict(boxstyle="round,pad=0.2", facecolor="#F2E8F7",
                            edgecolor="#7B2D8B", lw=0.5))
 
-    fig.suptitle("Figure E — Federal Crop Insurance Cross-Subsidy and Mispricing",
+    fig.suptitle("Figure E, Federal Crop Insurance Cross-Subsidy and Mispricing",
                  fontsize=7.5, fontweight="bold")
 
     for ext in ["pdf", "png"]:
         fig.savefig(f"{OUT_DIR}/fig_insurance_flow.{ext}", dpi=DPI)
     plt.close(fig)
-    print("  [E] fig_insurance_flow — done")
+    print("  [E] fig_insurance_flow, done")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -712,10 +712,10 @@ def fig_valuation_methods():
             ax_main.text(hi + 2, yp, f"89 counties overvalued\n(~${pt}B implied)",
                          va="center", fontsize=5.5, color=C_DARK)
         elif i == 1:  # hedonic
-            ax_main.text(hi + 2, yp, f"${pt}B  [${lo}–${hi}B]",
+            ax_main.text(hi + 2, yp, f"${pt}B  [${lo}-${hi}B]",
                          va="center", fontsize=5.5, color=C_DARK)
         else:  # DCF
-            ax_main.text(hi + 2, yp, f"${lo}–${hi}B",
+            ax_main.text(hi + 2, yp, f"${lo}-${hi}B",
                          va="center", fontsize=5.5, color=C_DARK)
 
     # Overlap / agreement region
@@ -742,7 +742,7 @@ def fig_valuation_methods():
     descriptions = [
         "Cap Rate method:\nlocal cap rate vs\nforward yield",
         "Hedonic regression:\nprice gradient\nshift (2SLS)",
-        "DCF method:\ndiscounted income\nstream (r=5–8%)",
+        "DCF method:\ndiscounted income\nstream (r=5-8%)",
     ]
     for yp, desc in zip(y_pos, descriptions):
         ax_main.text(-2, yp, desc, ha="right", va="center",
@@ -768,7 +768,7 @@ def fig_valuation_methods():
     # Arrow indicating tail extension
     ax_tail.annotate("", xy=(215, 0.6), xytext=(200, 0.6),
                      arrowprops=dict(arrowstyle="-|>", color=C_RED, lw=0.8))
-    ax_tail.text(86, 0.6, "Central estimate: $56–168B",
+    ax_tail.text(86, 0.6, "Central estimate: $56-168B",
                  ha="center", va="center", fontsize=6, fontweight="bold",
                  color="white", zorder=5)
     ax_tail.text(190, 1.2, "Tail risk: >$500B\n(4°C scenario)",
@@ -778,13 +778,13 @@ def fig_valuation_methods():
                  ha="center", va="center", fontsize=6, color=C_GRAY)
     ax_tail.axvline(168, color=C_RED, lw=0.8, ls="--", zorder=3)
 
-    fig.suptitle("Figure F — Stranded Asset Valuation: Three Independent Methods",
+    fig.suptitle("Figure F, Stranded Asset Valuation: Three Independent Methods",
                  fontsize=7.5, fontweight="bold")
 
     for ext in ["pdf", "png"]:
         fig.savefig(f"{OUT_DIR}/fig_valuation_methods.{ext}", dpi=DPI)
     plt.close(fig)
-    print("  [F] fig_valuation_methods — done")
+    print("  [F] fig_valuation_methods, done")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -797,12 +797,12 @@ if __name__ == "__main__":
     errors = []
 
     for name, fn in [
-        ("A — Methods Pipeline",        fig_methods_pipeline),
-        ("B — Northward Shift Summary",  fig_northward_summary),
-        ("C — Temperature Response",     fig_temp_response),
-        ("D — Cascade Mechanism",        fig_cascade_mechanism),
-        ("E — Insurance Flow",           fig_insurance_flow),
-        ("F — Valuation Methods",        fig_valuation_methods),
+        ("A, Methods Pipeline",        fig_methods_pipeline),
+        ("B, Northward Shift Summary",  fig_northward_summary),
+        ("C, Temperature Response",     fig_temp_response),
+        ("D, Cascade Mechanism",        fig_cascade_mechanism),
+        ("E, Insurance Flow",           fig_insurance_flow),
+        ("F, Valuation Methods",        fig_valuation_methods),
     ]:
         try:
             fn()

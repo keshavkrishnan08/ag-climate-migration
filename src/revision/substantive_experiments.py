@@ -215,7 +215,7 @@ print("  target shift R^2 (z -> pct, aggregates): %.3f -> %.3f (target gain +%.3
 print("  headline R^2 (spectrum on pct): %.3f" % spec_pct)
 
 json.dump(out, open(OUT / "substantive_experiments.json", "w"), indent=2)
-print("=== SUBSTANTIVE EXPERIMENTS — summary ===")
+print("=== SUBSTANTIVE EXPERIMENTS, summary ===")
 for k, v in out.items():
     print(f"\n[{k}]")
     for kk, vv in v.items():

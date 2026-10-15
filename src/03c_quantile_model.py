@@ -295,7 +295,7 @@ def diagnose_2012_drought(
         DataFrame with fips, observed anomaly, Q10 prediction, and residual.
     """
     logger.info("\n" + "=" * 60)
-    logger.info("2012 DROUGHT DIAGNOSIS — Q10 MODEL")
+    logger.info("2012 DROUGHT DIAGNOSIS, Q10 MODEL")
     logger.info("=" * 60)
 
     drought = panel[(panel['year'] == 2012) & (panel['crop'] == 'corn')].copy().reset_index(drop=True)
@@ -542,13 +542,13 @@ def run_quantile_model() -> dict:
         Dict with model, metrics, drought summary, and tail risk totals.
     """
     logger.info("=" * 60)
-    logger.info("PHASE 3C: QUANTILE REGRESSION FOREST (Q10) — TAIL RISK")
+    logger.info("PHASE 3C: QUANTILE REGRESSION FOREST (Q10), TAIL RISK")
     logger.info("=" * 60)
 
     # Load feature matrix
     panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
     if not panel_path.exists():
-        logger.error(f"Feature matrix not found at {panel_path} — run Phase 2 first")
+        logger.error(f"Feature matrix not found at {panel_path}, run Phase 2 first")
         return {}
 
     panel = pd.read_parquet(panel_path)
@@ -608,7 +608,7 @@ def run_quantile_model() -> dict:
     # 4. Tail risk stranded assets
     proj_path = PROJECTIONS_DIR / 'yield_projections_SSP245.parquet'
     if not proj_path.exists():
-        logger.warning("Yield projections not found — skipping tail risk computation")
+        logger.warning("Yield projections not found, skipping tail risk computation")
         tail_risk_df = pd.DataFrame()
     else:
         yield_proj = pd.read_parquet(proj_path)

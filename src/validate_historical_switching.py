@@ -748,7 +748,7 @@ def validate_cotton_retreat() -> dict:
         "n_features": len(feature_cols),
         "mean_actual_log_change": round(float(y.mean()), 4),
         "mean_pred_log_change": round(float(all_pred.mean()), 4),
-        "target": "log_acres_change (not share — avoids denominator artifact)",
+        "target": "log_acres_change (not share, avoids denominator artifact)",
         "key_features": "log_acres_pre, pdsi_summer_mean, precip_mean, pdsi_trend",
         "passed": bool(passed),
     }
@@ -1075,7 +1075,7 @@ def run_all_validations() -> dict:
         Full validation results dict.
     """
     logger.info("=" * 60)
-    logger.info("FIX 5: HISTORICAL SWITCHING VALIDATION — 4 EVENTS")
+    logger.info("FIX 5: HISTORICAL SWITCHING VALIDATION, 4 EVENTS")
     logger.info("=" * 60)
 
     results = {}
@@ -1114,7 +1114,7 @@ def run_all_validations() -> dict:
     # Print detailed summary
     for name, res in results.items():
         status = "PASS" if res.get("passed") else "FAIL"
-        logger.info(f"  {name}: {status} — {res.get('criterion', '')}")
+        logger.info(f"  {name}: {status}, {res.get('criterion', '')}")
 
     return summary
 

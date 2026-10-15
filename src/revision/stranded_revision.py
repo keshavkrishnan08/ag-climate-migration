@@ -826,12 +826,12 @@ def main():
 
     methods_text = (
         "We replace the original near-peak nominal commodity prices with 30-year "
-        "(1994–2023) marketing-year average prices deflated to 2023 USD using the "
+        "(1994-2023) marketing-year average prices deflated to 2023 USD using the "
         "CPI-U (Table R1). Prices are held flat in real terms across all projection "
         "years, consistent with USDA long-run price projections (USDA 2024a), which "
         "show no statistically significant trend in real agricultural commodity prices "
         "over multi-decadal horizons. For counties where projected late-period "
-        "(2040–2050) per-acre gross revenue falls below variable production costs "
+        "(2040-2050) per-acre gross revenue falls below variable production costs "
         "($350/acre), we cap the per-acre asset loss at the difference between "
         "current cropland value and the national average pasture/recreation land "
         "value ($1,500/acre; USDA NASS 2023; Csikos & Toth 2023), reflecting the "
@@ -846,7 +846,7 @@ def main():
 
 ---
 
-## 1. Real Price Table (1994–2023, 2023 USD)
+## 1. Real Price Table (1994-2023, 2023 USD)
 
 Source: USDA NASS QuickStats (qs.crops.txt.gz), STATISTICCAT_DESC = 'PRICE RECEIVED',
 FREQ_DESC = 'MARKETING YEAR', AGG_LEVEL_DESC = 'NATIONAL'. Nominal prices deflated
@@ -857,9 +857,9 @@ Sorghum converted from $/CWT to $/bu using USDA standard (56 lb/bu = 0.56 CWT/bu
 |-----------------|------------|----------------|---------|-------------|
 {price_table_str}
 
-**Key finding:** Real average prices are 8–30% below the near-peak nominal prices
+**Key finding:** Real average prices are 8-30% below the near-peak nominal prices
 used in the original submission, driven mainly by deflating high-price years
-(2012–2013 corn/soybean spike) against a 30-year baseline.
+(2012-2013 corn/soybean spike) against a 30-year baseline.
 
 Saved to: `results/revision/real_prices_2023usd.csv`
 
@@ -879,10 +879,10 @@ Saved to: `results/revision/real_prices_2023usd.csv`
 - Upper: ML + SR + 1.30× indirect, SSP5-8.5 (×1.8 warming), r=2.5%, h=40yr
 
 Sensitivity grid (7 discount rates × 5 horizons = 35 combinations):
-  Range: ${grid['total_stranded_B'].min():.1f}B – ${grid['total_stranded_B'].max():.1f}B
+  Range: ${grid['total_stranded_B'].min():.1f}B, ${grid['total_stranded_B'].max():.1f}B
   Saved to: `results/revision/sensitivity_grid_real_prices.csv`
 
-**Prices held flat in real terms** — no real price growth assumed across 2025–2050.
+**Prices held flat in real terms** no real price growth assumed across 2025-2050.
 This directly addresses Reviewer 1 (a): the flat-real-price assumption is consistent
 with USDA (2024a) long-run agricultural baseline, which projects stable real commodity
 prices over the 10- to 30-year horizon.
@@ -891,17 +891,17 @@ prices over the 10- to 30-year horizon.
 
 ## 3. Alternate-Use Floor Effect
 
-Where projected late-period (2040–2050) per-acre gross revenue < $350/acre variable
+Where projected late-period (2040-2050) per-acre gross revenue < $350/acre variable
 production cost, per-acre asset loss is capped at (cropland value − $1,500 pasture value).
 
 Source for pasture floor: USDA NASS Land Values 2023 Summary (August 2023),
 national average pasture land = $1,480/acre (rounded to $1,500).
 Conceptual basis: Csikos & Toth (2023), who show alternate-use (grazing/recreation)
-values typically represent 30–50% of cropland values in transitioning counties.
+values typically represent 30-50% of cropland values in transitioning counties.
 
 | Metric                                        | Value         |
 |-----------------------------------------------|---------------|
-| Counties with ≥1 non-viable crop (2040–2050)  | {n_non_viable:,}          |
+| Counties with ≥1 non-viable crop (2040-2050)  | {n_non_viable:,}          |
 | Counties where floor was binding              | {n_floor_applied:,}          |
 | Gross central stranded (before floor)         | ${gross_B:.1f}B         |
 | Net central stranded (after floor)            | ${floored_B:.1f}B         |
@@ -935,7 +935,7 @@ Full table: `results/revision/stranded_by_state.csv`
 > in real terms over 30 years (USDA 2024a). Using current near-peak nominal prices
 > biases stranded value upward."
 
-**Response:** We agree. We replace the original nominal prices with 30-year (1994–2023)
+**Response:** We agree. We replace the original nominal prices with 30-year (1994-2023)
 inflation-adjusted marketing-year average prices from USDA NASS QuickStats, deflated
 to 2023 USD. Prices are held flat in real terms, consistent with USDA (2024a). This
 reduces the conservative/central/upper estimates by approximately
@@ -946,7 +946,7 @@ Southern Plains, and Mississippi Delta.
 > "Where yields fall so far that cropping is no longer economically viable, account
 > for the alternate-use value..."
 
-**Response:** We add an explicit alternate-use floor. Where late-period (2040–2050)
+**Response:** We add an explicit alternate-use floor. Where late-period (2040-2050)
 projected revenue per acre falls below variable production costs ($350/acre), the
 per-acre loss is capped at cropland value minus pasture/recreation land value
 ($1,500/acre, USDA NASS 2023). This floor is binding for {n_floor_applied} counties

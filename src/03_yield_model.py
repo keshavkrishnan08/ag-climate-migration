@@ -164,7 +164,7 @@ def train_yield_model(
     # Aggregate CV results
     avg_rmse = np.mean([r['rmse'] for r in cv_results])
     avg_r2 = np.mean([r['r2'] for r in cv_results])
-    logger.info(f"CV Average — RMSE: {avg_rmse:.3f}, R²: {avg_r2:.3f}")
+    logger.info(f"CV Average, RMSE: {avg_rmse:.3f}, R²: {avg_r2:.3f}")
 
     # ---- Final model: train on all data through 2012, test on 2013-2023 ----
     train_mask = years <= CONFIG['temporal']['val_end']
@@ -223,7 +223,7 @@ def train_yield_model(
     exclude_from_gate = set(gate_cfg.get('exclude_from_gate', []))
 
     logger.info("=" * 40)
-    logger.info("PERFORMANCE THRESHOLD CHECKS (anomaly model — z-scored target)")
+    logger.info("PERFORMANCE THRESHOLD CHECKS (anomaly model, z-scored target)")
     logger.info(f"  Thresholds: Spearman≥{min_spearman_overall} overall, "
                 f"≥{min_spearman_per_crop} per crop, R²≥{min_r2_anomaly} on anomalies")
     logger.info(f"  Excluded from gate: {exclude_from_gate} (non-climate drivers dominate)")
@@ -245,7 +245,7 @@ def train_yield_model(
     # Per-crop Spearman checks (excluding cotton)
     for crop, cm in crop_metrics.items():
         if crop in exclude_from_gate:
-            logger.info(f"  [{crop}] SKIPPED (excluded from gate — non-climate drivers dominate)")
+            logger.info(f"  [{crop}] SKIPPED (excluded from gate, non-climate drivers dominate)")
             continue
         crop_spearman = cm.get('spearman', float('nan'))
         crop_ok = crop_spearman >= min_spearman_per_crop
@@ -418,7 +418,7 @@ def run_yield_model() -> Tuple[lgb.LGBMRegressor, dict]:
     # Load feature matrix
     panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
     if not panel_path.exists():
-        logger.error(f"Feature matrix not found at {panel_path} — run Phase 2 first")
+        logger.error(f"Feature matrix not found at {panel_path}, run Phase 2 first")
         return None, {}
 
     panel = pd.read_parquet(panel_path)

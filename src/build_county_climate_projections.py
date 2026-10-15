@@ -46,8 +46,8 @@ GCMS            = [
     "CESM2", "CNRM-CM6-1", "HadGEM3-GC31-LL", "IPSL-CM6A-LR", "MRI-ESM2-0",
 ]
 REP_YEARS       = [2030, 2035, 2040, 2045, 2050]
-REF_YEARS       = list(range(2025, 2031))   # 2025–2030 GCM reference
-GROW_MONTHS     = [5, 6, 7, 8, 9]           # May–Sep
+REF_YEARS       = list(range(2025, 2031))   # 2025-2030 GCM reference
+GROW_MONTHS     = [5, 6, 7, 8, 9]           # May-Sep
 JULY            = 7
 BASELINE_Y1, BASELINE_Y2 = 1981, 2010
 SCENARIO        = "SSP245"
@@ -68,7 +68,7 @@ def pr_flux_to_mm_month(flux: np.ndarray) -> np.ndarray:
 # ═══════════════════════════════════════════════════════════════════════════════
 # 1. County centroids
 # ═══════════════════════════════════════════════════════════════════════════════
-print("Step 1 — Loading county centroids …")
+print("Step 1, Loading county centroids …")
 gaz = pd.read_csv(GAZETTE_PATH, sep="\t", dtype=str)
 gaz.columns = gaz.columns.str.strip()          # trailing whitespace in headers
 
@@ -88,7 +88,7 @@ county_lons  = gaz["lon"].values       # negative for Western Hemisphere
 # ═══════════════════════════════════════════════════════════════════════════════
 # 2. PRISM 1981-2010 baseline
 # ═══════════════════════════════════════════════════════════════════════════════
-print("Step 2 — Computing PRISM 1981–2010 baseline …")
+print("Step 2, Computing PRISM 1981-2010 baseline …")
 prism = pd.read_parquet(PRISM_PATH)
 
 bl = prism[(prism["year"] >= BASELINE_Y1) & (prism["year"] <= BASELINE_Y2)].copy()
@@ -116,7 +116,7 @@ print(f"  Baseline for {len(baseline):,} counties  (PRISM = °F / mm/month)")
 # ═══════════════════════════════════════════════════════════════════════════════
 # 3. CMIP6 grid → county nearest-neighbour lookup
 # ═══════════════════════════════════════════════════════════════════════════════
-print("Step 3 — Building per-model CMIP6 grid → county lookups …")
+print("Step 3, Building per-model CMIP6 grid → county lookups …")
 
 # Convert county lons to 0-360 for matching
 county_lons_360 = county_lons % 360         # wraps -180..0 → 180..360
@@ -197,8 +197,8 @@ def _load_county_gcm(gcm: str, var: str, year: int) -> dict:
 # ═══════════════════════════════════════════════════════════════════════════════
 # 4. Load GCM data: reference period (2025-2030) and 5 rep years
 # ═══════════════════════════════════════════════════════════════════════════════
-print("\nStep 4 — Loading CMIP6 files …")
-print(f"  Reference period: {REF_YEARS[0]}–{REF_YEARS[-1]}")
+print("\nStep 4, Loading CMIP6 files …")
+print(f"  Reference period: {REF_YEARS[0]}-{REF_YEARS[-1]}")
 
 # ref_data[gcm][var] = {"growing": array(n_counties), "july": array or None}
 ref_data = {}
@@ -234,7 +234,7 @@ for gcm in GCMS:
 # ═══════════════════════════════════════════════════════════════════════════════
 # 5. Delta method at each representative year
 # ═══════════════════════════════════════════════════════════════════════════════
-print("\nStep 5 — Delta method …")
+print("\nStep 5, Delta method …")
 
 bl_idx = baseline.set_index("fips")
 
@@ -312,7 +312,7 @@ print(f"  Rep-year table: {proj_rep.shape}")
 # ═══════════════════════════════════════════════════════════════════════════════
 # 6. Linear interpolation to annual 2025-2050
 # ═══════════════════════════════════════════════════════════════════════════════
-print("\nStep 6 — Interpolating to annual resolution …")
+print("\nStep 6, Interpolating to annual resolution …")
 
 ALL_YEARS = list(range(2025, 2051))
 
@@ -408,7 +408,7 @@ print("SUMMARY")
 print("=" * 60)
 print(f"Shape:      {result.shape}")
 print(f"Counties:   {result['fips'].nunique():,}")
-print(f"Year range: {result['year'].min()}–{result['year'].max()}")
+print(f"Year range: {result['year'].min()}-{result['year'].max()}")
 
 for chk_yr in [2040, 2050]:
     sub = result[result["year"] == chk_yr]

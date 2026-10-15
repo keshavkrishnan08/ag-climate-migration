@@ -345,7 +345,7 @@ def _compute_yield_cv_from_nass(nass_path: Path) -> pd.DataFrame:
             columns=['fips', 'year', 'crop', 'yield_bu_acre']
         )
     except Exception:
-        logger.warning("Could not load NASS yields for CV estimation — using crop defaults")
+        logger.warning("Could not load NASS yields for CV estimation, using crop defaults")
         return pd.DataFrame(columns=['fips', 'crop', 'yield_cv'])
 
     nass_recent = nass[
@@ -482,7 +482,7 @@ def compute_national_mispricing(
         rma_agg = pd.DataFrame(
             columns=['fips', 'crop', 'premium_per_acre', 'insured_acres', 'avg_indemnity']
         )
-        logger.warning("RMA data empty — mispricing magnitudes will be zero")
+        logger.warning("RMA data empty, mispricing magnitudes will be zero")
 
     # ------------------------------------------------------------------ #
     # 2. Historical yield CV from NASS (interannual variability)           #
@@ -498,7 +498,7 @@ def compute_national_mispricing(
     # 3. Projections: APH yield from baseline; future from 2040-2050 mean #
     # ------------------------------------------------------------------ #
     if yield_projections.empty:
-        logger.error("No yield projections — cannot compute mispricing")
+        logger.error("No yield projections, cannot compute mispricing")
         return pd.DataFrame()
 
     # APH: yield_baseline is the backward-looking mean the model was anchored to.
@@ -680,14 +680,14 @@ def run_insurance_analysis() -> dict:
         logger.info(f"Loaded RMA data: {len(rma_data)} rows")
     else:
         rma_data = pd.DataFrame()
-        logger.warning("RMA data not found — mispricing will be zero everywhere")
+        logger.warning("RMA data not found, mispricing will be zero everywhere")
 
     # Load yield projections: SSP245 is the available scenario
     scenario = 'SSP245'
     proj_path = PROJECTIONS_DIR / f'yield_projections_{scenario}.parquet'
     yield_proj = pd.read_parquet(proj_path) if proj_path.exists() else pd.DataFrame()
     if yield_proj.empty:
-        logger.error("No yield projections found — aborting insurance analysis")
+        logger.error("No yield projections found, aborting insurance analysis")
         return {'national_mispricing': pd.DataFrame()}
 
     # Compute national mispricing

@@ -459,7 +459,7 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
     print(f"  Years: {df[time_col].min()}-{df[time_col].max()}")
 
     if n_obs < 100:
-        print(f"  WARNING: only {n_obs} observations — skipping.")
+        print(f"  WARNING: only {n_obs} observations, skipping.")
         return None
 
     entity_ids = df[entity_col].values
@@ -582,7 +582,7 @@ def manual_2sls(panel, dep_var, endog_var, instrument_var,
 def main():
     """Run all IV specifications and report comparison table."""
     print("=" * 70)
-    print("Fix 4 (v2): IV Estimation — Three-Approach Out-Migration Fix")
+    print("Fix 4 (v2): IV Estimation, Three-Approach Out-Migration Fix")
     print("=" * 70)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -771,7 +771,7 @@ def main():
 
     # ── Comparison table ──
     print("\n" + "=" * 80)
-    print("FULL COMPARISON TABLE — All IV Specifications")
+    print("FULL COMPARISON TABLE, All IV Specifications")
     print("=" * 80)
     print(f"\n{'Spec':<8} {'Outcome':<40} {'beta_IV':>10} {'p-val':>8} {'F-stat':>8} {'N':>6} {'Sig':>5}")
     print("-" * 80)

@@ -33,7 +33,7 @@ try:
     HAS_GEOPANDAS = True
 except ImportError:
     HAS_GEOPANDAS = False
-    logger.warning("geopandas not available — choropleth figures will use scatter fallback")
+    logger.warning("geopandas not available, choropleth figures will use scatter fallback")
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / 'src'))
@@ -374,7 +374,7 @@ def figure_01_northward_migration(
         ax.set_ylabel('Latitude (°N)')
         ax.legend(loc='lower right', framealpha=0.85, fontsize=6)
 
-    fig.suptitle('Fig. 1: Production Centroid & Northern Frontier, 1950–2023',
+    fig.suptitle('Fig. 1: Production Centroid & Northern Frontier, 1950-2023',
                  fontsize=10, fontweight='bold', y=1.01)
     plt.tight_layout()
 
@@ -490,7 +490,7 @@ def figure_02_model_validation(
         ax.set_ylabel('Predicted yield anomaly (σ)', fontsize=7)
         ax.set_title(crop_label, fontweight='bold')
 
-    fig.suptitle('Fig. 2: Model Validation — Test Set 2017–2023',
+    fig.suptitle('Fig. 2: Model Validation, Test Set 2017-2023',
                  fontsize=10, fontweight='bold')
     plt.tight_layout()
 
@@ -639,7 +639,7 @@ def figure_04_crop_switching(output_dir: Path = None) -> plt.Figure:
         ax.text(0.02, 0.02, f'n={n_counties} counties',
                 transform=ax.transAxes, fontsize=5, color='#555555')
 
-    fig.suptitle('Fig. 4: Crop Switching Is Already Happening (2008–2022)',
+    fig.suptitle('Fig. 4: Crop Switching Is Already Happening (2008-2022)',
                  fontsize=10, fontweight='bold')
     plt.tight_layout()
 
@@ -693,11 +693,11 @@ def figure_05_projections(output_dir: Path = None) -> plt.Figure:
         # Fallback: scatter placeholder
         fig, axes = plt.subplots(1, 3, figsize=(DOUBLE_COL, DOUBLE_COL * 0.4))
         for ax, yr in zip(axes, time_slices):
-            ax.set_title(f'SSP2-4.5 — {yr}', fontweight='bold')
+            ax.set_title(f'SSP2-4.5, {yr}', fontweight='bold')
             ax.text(0.5, 0.5, '[Shapefile unavailable]',
                     transform=ax.transAxes, ha='center', va='center',
                     fontsize=8, color='gray')
-        fig.suptitle('Fig. 5: Projected Climate Yield Impact — SSP2-4.5',
+        fig.suptitle('Fig. 5: Projected Climate Yield Impact, SSP2-4.5',
                      fontsize=10, fontweight='bold')
         plt.tight_layout()
         save_figure(fig, 'fig05_projections', output_dir)
@@ -715,7 +715,7 @@ def figure_05_projections(output_dir: Path = None) -> plt.Figure:
         _choropleth(
             ax=ax, counties_geo=merged, col='pct_change',
             cmap='RdYlGn', vmin=-vabs, vmax=vabs,
-            title=f'SSP2-4.5 — {yr}',
+            title=f'SSP2-4.5, {yr}',
             unit='Climate yield impact (%)',
         )
         n_counties = merged['pct_change'].notna().sum()
@@ -724,7 +724,7 @@ def figure_05_projections(output_dir: Path = None) -> plt.Figure:
 
     # NOTE: RCP2.6 and RCP8.5 panels require SSP1-2.6 and SSP5-8.5 CMIP6
     # downloads which are not yet available. See data/projections/ for status.
-    fig.suptitle('Fig. 5: Climate Yield Impact — SSP2-4.5 (2030 / 2040 / 2050)',
+    fig.suptitle('Fig. 5: Climate Yield Impact, SSP2-4.5 (2030 / 2040 / 2050)',
                  fontsize=9, fontweight='bold')
     plt.tight_layout()
 
@@ -824,7 +824,7 @@ def figure_06_stranded(output_dir: Path = None) -> plt.Figure:
                  bbox=dict(boxstyle='round,pad=0.25', facecolor='white',
                            edgecolor='gray', alpha=0.85))
 
-    fig.suptitle('Fig. 6: Stranded Agricultural Assets — SSP2-4.5',
+    fig.suptitle('Fig. 6: Stranded Agricultural Assets, SSP2-4.5',
                  fontsize=10, fontweight='bold')
     plt.tight_layout()
 
@@ -926,7 +926,7 @@ def figure_07_cascade(output_dir: Path = None) -> plt.Figure:
                        edgecolor='white', linewidth=0.3)
     ax_bar.set_yticks(y_pos)
     ax_bar.set_yticklabels(signal_labels, fontsize=6)
-    ax_bar.set_xlabel('Counties already affected\n(2005–2023)', fontsize=6)
+    ax_bar.set_xlabel('Counties already affected\n(2005-2023)', fontsize=6)
     ax_bar.set_title('B. Cascade Signals\n(Historical, n=1,824)', fontweight='bold', fontsize=7)
     ax_bar.invert_yaxis()
     # Label bars
@@ -1066,7 +1066,7 @@ def figure_08_insurance(output_dir: Path = None) -> plt.Figure:
                         ha='center', fontsize=5.5,
                         va='bottom' if v >= 0 else 'top')
 
-    fig.suptitle('Fig. 8: Insurance Mispricing — Subsidizing Retreat (SSP2-4.5)',
+    fig.suptitle('Fig. 8: Insurance Mispricing, Subsidizing Retreat (SSP2-4.5)',
                  fontsize=9, fontweight='bold')
     plt.tight_layout()
 
@@ -1264,8 +1264,8 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
     current_annual = np.diff(np.concatenate([[0], current_cumulative]))
     cf_annual = np.diff(np.concatenate([[0], counterfactual_cumulative]))
 
-    logger.info(f"Fig10: Current — {current_cumulative[-1]} counties tip by 2050; "
-                f"Counterfactual — {counterfactual_cumulative[-1]}")
+    logger.info(f"Fig10: Current, {current_cumulative[-1]} counties tip by 2050; "
+                f"Counterfactual, {counterfactual_cumulative[-1]}")
 
     # ------------------------------------------------------------------
     # 4. Plot
@@ -1310,7 +1310,7 @@ def figure_10_policy(output_dir: Path = None) -> plt.Figure:
     ax2.set_title('B. Annual New Cascade Events', fontweight='bold')
     ax2.legend(fontsize=5.5)
 
-    fig.suptitle('Fig. 10: Policy Scenarios — Redirecting the $2.8B/yr Cross-Subsidy',
+    fig.suptitle('Fig. 10: Policy Scenarios, Redirecting the $2.8B/yr Cross-Subsidy',
                  fontsize=9, fontweight='bold')
     plt.tight_layout()
 
@@ -1337,7 +1337,7 @@ def figure_11_uncertainty(output_dir: Path = None) -> plt.Figure:
         p10 = median - np.abs(np.random.normal(2, 0.5, len(years)))
         p90 = median + np.abs(np.random.normal(2, 0.5, len(years)))
 
-        ax.fill_between(years, p10, p90, alpha=0.3, color='steelblue', label='10–90th pctl')
+        ax.fill_between(years, p10, p90, alpha=0.3, color='steelblue', label='10-90th pctl')
         ax.plot(years, median, 'b-', linewidth=1, label='Median')
         ax.axhline(0, color='black', linewidth=0.3)
         ax.set_title(region, fontweight='bold')

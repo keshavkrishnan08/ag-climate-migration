@@ -190,7 +190,7 @@ def ingest_prism_climate(output_dir: Path = DATA_RAW / 'prism') -> pd.DataFrame:
             # Here we define the data structure.
             pass
 
-    logger.info("PRISM ingestion complete — see data/raw/prism/ for raster files")
+    logger.info("PRISM ingestion complete, see data/raw/prism/ for raster files")
     logger.info("County aggregation requires rasterio + county shapefiles (run separately)")
 
     # Placeholder structure
@@ -300,7 +300,7 @@ def ingest_rma_insurance(output_dir: Path = DATA_RAW / 'rma') -> pd.DataFrame:
         logger.info(f"Saved RMA data: {len(result)} rows → {output_path}")
         return result
 
-    logger.warning("No RMA data downloaded — check network and URLs")
+    logger.warning("No RMA data downloaded, check network and URLs")
     return pd.DataFrame()
 
 

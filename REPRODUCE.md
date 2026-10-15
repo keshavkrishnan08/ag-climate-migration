@@ -46,7 +46,7 @@ JSON summaries are committed under `results/revision/`. Parquet and CSV files ar
 | Inference robustness | `migration_iv_bartik.py` | `migration_inference_robust.json` |
 | High-tercile 2SLS | `migration_iv_bartik.py` | `migration_high_tercile_2sls.json` |
 | Share balance | `migration_share_balance.py` | `migration_share_balance.json` |
-| Non-farm dominance (E3–E4) | `substantive_experiments.py` | `substantive_experiments.json` |
+| Non-farm dominance (E3-E4) | `substantive_experiments.py` | `substantive_experiments.json` |
 | Depopulation MC | `migration_depop_montecarlo.py` | `migration_depop_montecarlo.json` |
 | Welfare floor (E6) | `substantive_experiments.py` | `substantive_experiments.json` |
 | Fiscal chain | `migration_fiscal_chain.py` | `migration_fiscal_chain.json` |

@@ -43,7 +43,7 @@ Why analytical (not Monte Carlo)?
 
 Limitation statement for paper
 -------------------------------
-"Uncertainty bands in Figures 3–5 are derived from a bootstrap approximation to a
+"Uncertainty bands in Figures 3-5 are derived from a bootstrap approximation to a
 10-GCM ensemble.  Five GCMs (CESM2, CNRM-CM6-1, HadGEM3-GC31-LL, IPSL-CM6A-LR,
 MRI-ESM2-0) were unavailable at analysis time due to ESGF access constraints.
 Their spread was approximated by widening the existing five-model distribution by
@@ -268,7 +268,7 @@ def compute_band_stats(df: pd.DataFrame, p10_col: str, p90_col: str) -> dict:
 def main():
     """Run synthetic ensemble generation and report band widening vs original."""
     print("=" * 65)
-    print("Synthetic 10-GCM ensemble spread — bootstrap approximation")
+    print("Synthetic 10-GCM ensemble spread, bootstrap approximation")
     print("=" * 65)
 
     # ── Load ─────────────────────────────────────────────────────────────────
@@ -276,7 +276,7 @@ def main():
     df = pd.read_parquet(IN_PATH)
     print(f"  Shape:    {df.shape}")
     print(f"  Counties: {df['fips'].nunique():,}")
-    print(f"  Years:    {df['year'].min()}–{df['year'].max()}")
+    print(f"  Years:    {df['year'].min()}-{df['year'].max()}")
     print(f"  n_gcms in source: {sorted(df['n_gcms'].unique().tolist())}")
 
     # ── Compute ──────────────────────────────────────────────────────────────

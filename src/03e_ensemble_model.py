@@ -365,7 +365,7 @@ def fit_blend_weights(
     else:
         weights = weights / total
 
-    logger.info(f"Blend weights — LightGBM: {weights[0]:.3f}, Ridge: {weights[1]:.3f}, RF: {weights[2]:.3f}")
+    logger.info(f"Blend weights, LightGBM: {weights[0]:.3f}, Ridge: {weights[1]:.3f}, RF: {weights[2]:.3f}")
     return weights
 
 

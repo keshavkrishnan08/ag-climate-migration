@@ -38,7 +38,7 @@ CMIP6_DIR.mkdir(parents=True, exist_ok=True)
 LAT_MIN, LAT_MAX = 24.0, 50.0
 LON_MIN, LON_MAX = 235.0, 295.0   # 115W-65W in 0-360
 
-YEARS = list(range(2025, 2051))    # 2025–2050 inclusive
+YEARS = list(range(2025, 2051))    # 2025-2050 inclusive
 SCENARIO = "ssp245"
 
 # Model → (member_id, zarr_base_path)

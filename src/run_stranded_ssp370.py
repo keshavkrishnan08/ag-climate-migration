@@ -271,7 +271,7 @@ def compute_stranded_with_damage_function(
 def main():
     """Execute stranded asset computation for SSP3-7.0 and compare with SSP245."""
     logger.info("=" * 60)
-    logger.info("STRANDED ASSETS — SSP3-7.0")
+    logger.info("STRANDED ASSETS, SSP3-7.0")
     logger.info("=" * 60)
 
     # Load SSP370 yield projections
@@ -303,7 +303,7 @@ def main():
     total_cons_B   = pos_cons['stranded_value_total'].sum() / 1e9
     total_gained_B = abs(neg_cons['stranded_value_total'].sum()) / 1e9
 
-    logger.info(f"\nMethod 1 — Conservative (ML only), {SCENARIO}, r={r}, h={h}:")
+    logger.info(f"\nMethod 1, Conservative (ML only), {SCENARIO}, r={r}, h={h}:")
     logger.info(f"  Counties stranded: {len(pos_cons)}")
     logger.info(f"  Total stranded:    ${total_cons_B:.1f}B")
     logger.info(f"  Total gained:      ${total_gained_B:.1f}B")
@@ -317,7 +317,7 @@ def main():
     CENTRAL_HORIZON       = 35
 
     logger.info(
-        f"\nMethod 2 — Central (ML + SR + indirect {INDIRECT_MULTIPLIER}x), "
+        f"\nMethod 2, Central (ML + SR + indirect {INDIRECT_MULTIPLIER}x), "
         f"{SCENARIO}, r={CENTRAL_DISCOUNT_RATE}, h={CENTRAL_HORIZON}:"
     )
     national_sr = compute_stranded_with_damage_function(

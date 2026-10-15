@@ -741,7 +741,7 @@ def run_frontier_analysis() -> dict:
         logger.info(f"Northern yield projections: {len(yield_proj)} rows, "
                     f"{yield_proj['fips'].nunique()} counties")
     else:
-        logger.error("No yield projections found — aborting frontier analysis")
+        logger.error("No yield projections found, aborting frontier analysis")
         return {'opportunity_counties': pd.DataFrame()}
 
     # ----- Load NASS yields (current baseline) -----
@@ -764,7 +764,7 @@ def run_frontier_analysis() -> dict:
                     f"{yield_current['fips'].nunique()} counties")
     else:
         yield_current = pd.DataFrame()
-        logger.warning("NASS county yields not found — yield gain component will be zero")
+        logger.warning("NASS county yields not found, yield gain component will be zero")
 
     # ----- Load farm operations (Census of Ag total acres) -----
     farm_ops_path = DATA_RAW / 'nass' / 'nass_farm_operations.parquet'
@@ -773,7 +773,7 @@ def run_frontier_analysis() -> dict:
         logger.info(f"Farm operations: {len(farm_ops)} rows")
     else:
         farm_ops = pd.DataFrame()
-        logger.info("Farm operations data not found — using default utilization rate "
+        logger.info("Farm operations data not found, using default utilization rate "
                     f"({DEFAULT_UTILIZATION_RATE:.0%}) for acreage expansion")
 
     # ----- Load monthly climate (for GDD calculation) -----
@@ -788,7 +788,7 @@ def run_frontier_analysis() -> dict:
         logger.info(f"Monthly climate (northern): {len(climate_monthly)} rows")
     else:
         climate_monthly = pd.DataFrame()
-        logger.warning("Monthly climate data not found — GDD-based crop upgrade component unavailable")
+        logger.warning("Monthly climate data not found, GDD-based crop upgrade component unavailable")
 
     # ----- Load climate projections (for GDD delta) -----
     clim_proj_path = PROJECTIONS_DIR / 'county_climate_projections.parquet'
@@ -801,7 +801,7 @@ def run_frontier_analysis() -> dict:
         logger.info(f"Climate projections (northern): {len(climate_proj)} rows")
     else:
         climate_proj = pd.DataFrame()
-        logger.warning("Climate projections not found — GDD delta will be zero")
+        logger.warning("Climate projections not found, GDD delta will be zero")
 
     # ----- Grain elevator data -----
     elevator_path = DATA_RAW / 'other' / 'gipsa_grain_elevators.parquet'
@@ -810,7 +810,7 @@ def run_frontier_analysis() -> dict:
         logger.info(f"Elevator data: {len(elevators)} facilities")
     else:
         elevators = pd.DataFrame()
-        logger.info("Elevator data not found — infrastructure capacity defaults to 0 "
+        logger.info("Elevator data not found, infrastructure capacity defaults to 0 "
                     "(conservative: all opportunity counties show full gap)")
 
     # ----- Run analysis -----
@@ -841,10 +841,10 @@ def run_frontier_analysis() -> dict:
 
         logger.info(f"\nFINAL SUMMARY (4-Component Northern Opportunity):")
         logger.info(f"  Opportunity counties:              {n_counties}")
-        logger.info(f"  Component 1 — Yield gains:         ${yield_gain_B:.1f}B/yr")
-        logger.info(f"  Component 2 — Acreage expansion:   ${expansion_B:.1f}B/yr")
-        logger.info(f"  Component 3 — Crop upgrading:      ${upgrade_B:.1f}B/yr")
-        logger.info(f"  Component 4 — Dairy/livestock:     ${DAIRY_LIVESTOCK_OPPORTUNITY_B:.1f}B")
+        logger.info(f"  Component 1, Yield gains:         ${yield_gain_B:.1f}B/yr")
+        logger.info(f"  Component 2, Acreage expansion:   ${expansion_B:.1f}B/yr")
+        logger.info(f"  Component 3, Crop upgrading:      ${upgrade_B:.1f}B/yr")
+        logger.info(f"  Component 4, Dairy/livestock:     ${DAIRY_LIVESTOCK_OPPORTUNITY_B:.1f}B")
         logger.info(f"  TOTAL annual opportunity:          ${total_with_dairy_B:.1f}B/yr")
         logger.info(f"  Expansion infrastructure needed:   ${total_exp_inv_B:.1f}B (one-time)")
         logger.info(f"  Elevator investment needed:        ${total_elev_inv_B:.1f}B (one-time)")
@@ -891,7 +891,7 @@ def run_frontier_analysis() -> dict:
         logger.info(f"Updated {hn_path}")
 
     else:
-        logger.warning("No opportunity counties identified — check thresholds")
+        logger.warning("No opportunity counties identified, check thresholds")
 
     logger.info("=" * 60)
     logger.info("PHASE 5D COMPLETE")

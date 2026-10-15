@@ -232,7 +232,7 @@ def verify_temp_monotonicity(
     from_crop, to_crop = pair
 
     if 'gdd_trend_slope' not in X.columns:
-        logger.warning("Cannot verify monotonicity — gdd_trend_slope not in features")
+        logger.warning("Cannot verify monotonicity, gdd_trend_slope not in features")
         return True
 
     # Create synthetic data varying only temperature trend
@@ -256,7 +256,7 @@ def verify_temp_monotonicity(
         # Switching AWAY from heat-sensitive crop: should increase with temp
         monotone = correlation > 0
         logger.info(f"  Monotonicity ({from_crop}→{to_crop}): corr={correlation:.3f} "
-                    f"{'PASS' if monotone else 'WARN — not monotone'}")
+                    f"{'PASS' if monotone else 'WARN \u2014 not monotone'}")
     else:
         monotone = True  # No constraint for non-heat-sensitive crops
 
@@ -354,7 +354,7 @@ def validate_switching_historical() -> dict:
     if all_tested:
         all_passed = all(r['passed'] for r in results.values())
         if not all_passed:
-            logger.error("Switching model fails historical validation — do not project")
+            logger.error("Switching model fails historical validation, do not project")
         else:
             logger.info("All 4 historical validation tests PASSED")
 
@@ -377,7 +377,7 @@ def run_switching_models() -> Dict[str, Tuple]:
     # Load data
     panel_path = DATA_PROCESSED / 'feature_matrix.parquet'
     if not panel_path.exists():
-        logger.error(f"Feature matrix not found — run Phase 2 first")
+        logger.error(f"Feature matrix not found, run Phase 2 first")
         return {}
 
     panel = pd.read_parquet(panel_path)
@@ -387,7 +387,7 @@ def run_switching_models() -> Dict[str, Tuple]:
     if switching_path.exists():
         switching_rates = pd.read_parquet(switching_path)
     else:
-        logger.warning("Switching rates not found — using empty DataFrame")
+        logger.warning("Switching rates not found, using empty DataFrame")
         switching_rates = pd.DataFrame()
 
     # Train models for each pair

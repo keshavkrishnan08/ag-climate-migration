@@ -31,7 +31,7 @@ DATA_RAW = PROJECT_ROOT / 'data' / 'raw'
 PROJECTIONS_DIR = PROJECT_ROOT / 'data' / 'projections'
 RESULTS_DIR = PROJECT_ROOT / 'results'
 
-# Growing season months April–September
+# Growing season months April-September
 GROWING_MONTHS = [4, 5, 6, 7, 8, 9]
 
 # CPI deflators (2023 USD)
@@ -472,7 +472,7 @@ def run_incremental_hedonic() -> dict:
     # --- Save results ---
     output = {
         'method': (
-            'Incremental hedonic regression — each model adds one channel group. '
+            'Incremental hedonic regression, each model adds one channel group. '
             'Stranded value computed by applying CMIP6 SSP2-4.5 2050 warming deltas '
             'to the temperature coefficients only (holding other variables constant). '
             'HC3 heteroskedasticity-robust standard errors throughout.'
@@ -512,7 +512,7 @@ def run_incremental_hedonic() -> dict:
                 f'Model 3 stranded (${s3:.1f}B) vs DCF central (${DCF_CENTRAL_B:.1f}B). '
                 'Remaining gap reflects channels not captured by either model: '
                 'livestock/dairy heat stress, water availability, amenity premia, '
-                'and specialty crops — consistent with prior literature estimates.'
+                'and specialty crops, consistent with prior literature estimates.'
             ),
         },
     }

@@ -340,7 +340,7 @@ def build_switching_proxy(yields_df: pd.DataFrame) -> pd.DataFrame:
     logger.info("Building switching proxy from NASS acreage shares...")
 
     if 'acres_harvested' not in yields_df.columns or yields_df['acres_harvested'].isna().all():
-        logger.warning("No acreage data — skipping switching proxy")
+        logger.warning("No acreage data, skipping switching proxy")
         return pd.DataFrame()
 
     # Compute county-level acreage shares

@@ -422,7 +422,7 @@ out["E30_common_cause_metric_robustness"] = {
 }
 
 json.dump(out, open(OUT / "tier1_experiments.json", "w"), indent=2, default=str)
-print("=== TIER-1 EXPERIMENT BATTERY — summary ===")
+print("=== TIER-1 EXPERIMENT BATTERY, summary ===")
 n_exp = len(out)
 print(f"Experiments run: {n_exp}")
 for k in sorted(out.keys()):

@@ -47,7 +47,7 @@ for i, (label, val, color) in enumerate(zip(flow_labels, flow_values, flow_color
 ax.set_xticks(range(len(flow_labels)))
 ax.set_xticklabels(flow_labels, fontsize=6.5)
 ax.set_ylabel("Annual flow (2023 USD, B)", fontsize=8)
-ax.set_title("Insurance mispricing decomposition (2040–2050, SSP2-4.5)", fontsize=8)
+ax.set_title("Insurance mispricing decomposition (2040-2050, SSP2-4.5)", fontsize=8)
 ax.axhline(0, color="black", linewidth=0.5)
 ax.set_ylim(-1, 7.5)
 plt.tight_layout()
@@ -112,7 +112,7 @@ slope = np.polyfit(annual["year"].values,
 growth_pct = (np.exp(slope) - 1) * 100
 ax.set_xlabel("Year", fontsize=8)
 ax.set_ylabel("Acres (millions)", fontsize=8)
-ax.set_title(f"Northern corn + soybean + spring-wheat acreage 1980–2005 ({growth_pct:.1f}%/yr)",
+ax.set_title(f"Northern corn + soybean + spring-wheat acreage 1980-2005 ({growth_pct:.1f}%/yr)",
              fontsize=8)
 plt.tight_layout()
 plt.savefig(OUT / "fig_northern_acreage.pdf", bbox_inches="tight")

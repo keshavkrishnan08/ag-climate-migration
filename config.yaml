@@ -1,4 +1,4 @@
-# config.yaml — Single source of truth
+# config.yaml: Single source of truth
 crops:
   primary: [corn, soybeans, wheat_winter, wheat_spring, cotton, sorghum, barley, oats]
   switching_pairs:  # Which switches to model explicitly
@@ -20,7 +20,7 @@ temporal:
 
 climate_scenarios:
   - SSP245    # moderate (primary scenario for paper, mapped from RCP 4.5)
-  # SSP126 and SSP585 not yet downloaded — run with SSP245 only
+  # SSP126 and SSP585 not yet downloaded: run with SSP245 only
 
 yield_model:
   algorithm: lightgbm

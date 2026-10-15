@@ -37,7 +37,7 @@ DATA_RAW = PROJECT_ROOT / 'data' / 'raw'
 PROJECTIONS_DIR = PROJECT_ROOT / 'data' / 'projections'
 RESULTS_DIR = PROJECT_ROOT / 'results'
 
-# Growing season months (April–September) for precipitation sum
+# Growing season months (April-September) for precipitation sum
 GROWING_MONTHS = [4, 5, 6, 7, 8, 9]
 
 # CPI deflator: 2023 USD (from config; CPI_2022=296.8, CPI_2023=304.7)
@@ -258,7 +258,7 @@ def estimate_hedonic_regression(df: pd.DataFrame) -> tuple:
     if b2 != 0 and not np.isnan(b2):
         turning_point = -b1 / (2 * b2)
         logger.info(f"  Turning point (T*): {turning_point:.1f} °F "
-                    f"({'non-linear cliff confirmed' if b2 < 0 else 'U-shaped — check data'})")
+                    f"({'non-linear cliff confirmed' if b2 < 0 else 'U-shaped \u2014 check data'})")
         if b2 > 0:
             # Note: positive β_T² is consistent with literature in some cross-sectional specs.
             # Schlenker & Mendelsohn (2006) find positive quadratic for eastern US (inverted

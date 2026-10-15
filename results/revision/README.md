@@ -14,7 +14,7 @@ Machine-readable results from the extended analysis modules (Steps 11-17). Parqu
 | `yield_v7_metrics.json`, … | Yield model skill (Step 14) |
 | `framework_common_driver.json`, … | Framework tests (Step 15) |
 | `substantive_experiments.json`, `tier*.json` | Robustness grids (Step 16) |
-| `supplementary/e55_*.json`, … | Supplementary robustness E55–E64 (Step 16) |
+| `supplementary/e55_*.json`, … | Supplementary robustness E55-E64 (Step 16) |
 
 ## Regenerate
 
